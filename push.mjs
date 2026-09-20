@@ -59,15 +59,19 @@ async function resolveChannels() {
   if (DRY) return { main: 'DRY_MAIN_CHANNEL_ID', infra: 'DRY_INFRA_CHANNEL_ID' };
   const orgs = (await gql('query { account { organizations { id } } }')).account.organizations;
   const found = {};
+  const seen = [];   // every channel this API key can see (names only) - printed when a channel is missing, so the log tells which Buffer account the key belongs to
   for (const o of orgs) {
     const chans = (await gql('query($id: OrganizationId!) { channels(input: { organizationId: $id }) { id name service } }', { id: o.id })).channels;
+    for (const c of chans) seen.push(`${c.service}:${c.name}`);
     for (const acct of ['main', 'infra']) {
       const want = String((B.channels || {})[acct] || '').toLowerCase();
       const hit = chans.find((c) => /linkedin/i.test(c.service) && String(c.name).toLowerCase() === want) || chans.find((c) => /linkedin/i.test(c.service) && String(c.name).toLowerCase().includes(want));
       if (hit && !found[acct]) found[acct] = hit.id;
     }
   }
-  for (const acct of ['main', 'infra']) if (!found[acct]) fail(`Buffer channel for "${acct}" ("${(B.channels || {})[acct]}") not found. Check config.json -> buffer.channels.`);
+  if (args.includes('--channels')) log(`Channels this API key can see (${orgs.length} organization(s)): ${seen.length ? seen.join(' | ') : '(none)'}\nMatched: main=${found.main ? 'yes' : 'NO'} · infra=${found.infra ? 'yes' : 'NO'}`);
+  if (args.includes('--channels')) process.exit(found.main && found.infra ? 0 : 1);
+  for (const acct of ['main', 'infra']) if (!found[acct]) fail(`Buffer channel for "${acct}" ("${(B.channels || {})[acct]}") not found. Organizations: ${orgs.length}. Channels this API key can see: ${seen.length ? seen.join(' | ') : '(none)'}. Check config.json -> buffer.channels, and that BUFFER_API_KEY was created in the Buffer account that owns these channels.`);
   return found;
 }
 

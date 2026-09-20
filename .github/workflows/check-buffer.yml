@@ -1,0 +1,24 @@
+name: check-buffer
+
+# Quick check (seconds): which Buffer channels can BUFFER_API_KEY see, and are the two LinkedIn pages among them?
+# Nothing is posted. Run it from Actions -> check-buffer -> Run workflow.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: List channels visible to the key
+        run: |
+          test -n "$BUFFER_API_KEY" || { echo "::error::Secret BUFFER_API_KEY is missing"; exit 1; }
+          mkdir -p queue/check && echo '{"id":"x","account":"main","text":"x","imagePath":"x","scheduledAtUtc":"2099-01-01T00:00:00Z"}' > queue/check/x.json
+          node push.mjs --channels --date check
