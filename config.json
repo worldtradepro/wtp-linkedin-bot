@@ -1,0 +1,51 @@
+{
+  "site": "https://worldtradepro.com",
+  "accounts": {
+    "main": {
+      "name": "World Trade Pro",
+      "newsPerDay": 3,
+      "minScore": 10,
+      "slotsUtc": [
+        "07:30",
+        "11:00",
+        "15:30"
+      ]
+    },
+    "infra": {
+      "name": "World Trade Pro · Infrastructure",
+      "projectsPerDay": 2,
+      "maxProjectsShownPerDay": 3,
+      "slotsUtc": [
+        "09:00",
+        "14:00"
+      ],
+      "dailyCardSlotUtc": "11:30",
+      "weeklyCardSlotUtc": "08:00"
+    }
+  },
+  "blockedWords": [
+    "weed control",
+    "tillage",
+    "fake fedex",
+    "horoscope",
+    "celebrity"
+  ],
+  "maxSummaryChars": 210,
+  "mapLinkInFirstComment": false,
+  "sourceLink": "body",
+  "imageMode": "photo",
+  "buffer": {
+    "pushMode": "draft",
+    "channels": {
+      "main": "worldtradepro.com",
+      "infra": "WorldTradePro Infrastructure"
+    },
+    "maxPostsPerDay": {
+      "main": 4,
+      "infra": 5
+    }
+  },
+  "automation": {
+    "paused": false
+  }
+}

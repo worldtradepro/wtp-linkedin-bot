@@ -1,0 +1,89 @@
+name: linkedin-daily
+
+# Every day: pick the day's news + projects -> build images -> push to Buffer.
+# A failed run turns red and GitHub e-mails the repository owner (that is the failure notification).
+# Pause switch: Settings -> Secrets and variables -> Actions -> Variables -> BOT_PAUSED = true
+
+on:
+  schedule:
+    - cron: '0 4 * * *'      # 04:00 UTC daily (before the first post slot, 07:30 UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: linkedin-daily
+  cancel-in-progress: false
+
+jobs:
+  run:
+    if: ${{ vars.BOT_PAUSED != 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+      IMAGE_BASE_URL: https://raw.githubusercontent.com/${{ github.repository }}/images
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check secrets are present
+        run: |
+          test -n "$WTP_BOT_SECRET" || { echo "::error::Secret WTP_BOT_SECRET is missing (without it Infrastructure would post week-old data)"; exit 1; }
+          test -n "$BUFFER_API_KEY" || { echo "::error::Secret BUFFER_API_KEY is missing"; exit 1; }
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+
+      - name: Generate the day's queue
+        run: node generate.mjs
+
+      - name: Render images
+        run: node render.mjs
+
+      - name: Publish our own card images (branch "images")
+        run: |
+          set -e
+          DATE=$(date -u +%F)
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin images >/dev/null 2>&1; then
+            git fetch origin images
+            git worktree add -B images ../_images origin/images
+          else
+            git worktree add --orphan -b images ../_images
+          fi
+          mkdir -p "../_images/$DATE"
+          cp queue/$DATE/images/*.png "../_images/$DATE/" 2>/dev/null || true
+          # photos whose original format Buffer may reject (e.g. webp): host our normalised JPEG for those only
+          node -e "const fs=require('fs');const d='queue/'+process.argv[1]+'/';for(const f of fs.readdirSync(d).filter(x=>x.endsWith('.json'))){const p=JSON.parse(fs.readFileSync(d+f,'utf8'));if(p.imageRehost)fs.copyFileSync(d+'images/'+p.id+'.jpg','../_images/'+process.argv[1]+'/'+p.id+'.jpg');}" "$DATE"
+          cd ../_images
+          git add -A
+          git diff --cached --quiet || git commit -m "images $DATE"
+          git push origin HEAD:images
+
+      - name: Push to Buffer
+        run: node push.mjs
+
+      - name: Save state (de-duplication memory)
+        if: always()
+        run: |
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          git add state/*.json || true
+          git diff --cached --quiet || (git commit -m "state $(date -u +%F)" && git pull --rebase origin ${{ github.ref_name }} && git push origin HEAD:${{ github.ref_name }})
+
+      - name: Keep the readable preview (no images)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: queue-preview
+          path: |
+            queue/*/preview.md
+            queue/*/*.json
+          retention-days: 7

@@ -1,0 +1,15 @@
+{
+  "name": "wtp-linkedin-bot",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "generate": "node generate.mjs",
+    "render": "node render.mjs",
+    "push": "node push.mjs",
+    "daily": "node generate.mjs && node render.mjs && node push.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.49.0"
+  }
+}
