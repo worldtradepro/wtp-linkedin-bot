@@ -340,12 +340,16 @@ const epcTo = SECRET ? TODAY : dayShift(TODAY, -7);
 const epc = await fetchJson(`${API}?report_type=epc&from=${epcFrom}&to=${epcTo}&limit=1000${SECRET ? '&secret=' + encodeURIComponent(SECRET) : ''}`);
 
 const A = cfg.accounts;
-const news = pickNews(flow.items || [], A.main.newsPerDay, A.main.minScore, used, cfg.blockedWords);
+const isWeekend = [0, 6].includes(new Date(TODAY + 'T00:00:00Z').getUTCDay());   // Sat / Sun (UTC)
+const newsN = isWeekend ? (A.main.weekendNewsPerDay ?? 1) : A.main.newsPerDay;
+const newsSlots = isWeekend ? [A.main.weekendSlotUtc || '08:30'] : A.main.slotsUtc;
+const infraOn = !(isWeekend && A.infra.weekend === false);
+const news = pickNews(flow.items || [], newsN, A.main.minScore, used, cfg.blockedWords);
 // Never expose more than maxProjectsShownPerDay distinct projects a day (the rest stays on the map for subscribers).
 // Pool = the last two days of the window (so "today's" projects are actually recent); widen to the whole window if that is too thin.
 const epcItems = epc.items || [];
 const recentPool = epcItems.filter((it) => it.report_date >= dayShift(latestDay(epcItems) || TODAY, -1));
-const shown = pickProjects(recentPool.length >= A.infra.maxProjectsShownPerDay ? recentPool : epcItems, A.infra.maxProjectsShownPerDay, used);
+const shown = infraOn ? pickProjects(recentPool.length >= A.infra.maxProjectsShownPerDay ? recentPool : epcItems, A.infra.maxProjectsShownPerDay, used) : [];
 const projs = shown.slice(0, A.infra.projectsPerDay);
 const isWeekly = args.includes('--weekly') || new Date(TODAY + 'T00:00:00Z').getUTCDay() === 1;   // Mondays (UTC)
 // The cards say "new / this week": without the secret the data is a week old, so do not publish them (use --allow-stale to test only).
@@ -353,10 +357,10 @@ const cardsOk = !!SECRET || args.includes('--allow-stale');
 if (!cardsOk) console.error('WARNING: WTP_BOT_SECRET is not set -> Infrastructure cards skipped (data would be a week old).');
 
 const posts = [
-  ...news.map((it, k) => newsPost(it, k + 1, TODAY, A.main.slotsUtc[k % A.main.slotsUtc.length])),
+  ...news.map((it, k) => newsPost(it, k + 1, TODAY, newsSlots[k % newsSlots.length])),
   ...projs.map((it, k) => projectPost(it, k + 1, TODAY, A.infra.slotsUtc[k % A.infra.slotsUtc.length])),
   ...(cardsOk && shown.length ? [dailyCardPost(epcItems, shown, TODAY, A.infra.dailyCardSlotUtc)] : []),
-  ...(cardsOk && isWeekly && epcItems.length ? [weeklyCardPost(epcItems, TODAY, A.infra.weeklyCardSlotUtc)] : []),
+  ...(cardsOk && infraOn && isWeekly && epcItems.length ? [weeklyCardPost(epcItems, TODAY, A.infra.weeklyCardSlotUtc)] : []),
 ];
 
 const preview = [`# LinkedIn queue — ${TODAY}`, '',

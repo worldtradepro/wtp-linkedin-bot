@@ -6,21 +6,24 @@
       "newsPerDay": 3,
       "minScore": 10,
       "slotsUtc": [
-        "06:30",
+        "07:00",
         "10:30",
-        "15:30"
-      ]
+        "14:30"
+      ],
+      "weekendNewsPerDay": 1,
+      "weekendSlotUtc": "08:30"
     },
     "infra": {
       "name": "World Trade Pro · Infrastructure",
       "projectsPerDay": 2,
       "maxProjectsShownPerDay": 3,
       "slotsUtc": [
-        "07:30",
-        "12:30"
+        "12:00",
+        "15:30"
       ],
       "dailyCardSlotUtc": "09:30",
-      "weeklyCardSlotUtc": "08:00"
+      "weeklyCardSlotUtc": "08:00",
+      "weekend": false
     }
   },
   "blockedWords": [
