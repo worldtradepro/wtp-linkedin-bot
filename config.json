@@ -6,8 +6,8 @@
       "newsPerDay": 3,
       "minScore": 10,
       "slotsUtc": [
-        "07:30",
-        "11:00",
+        "06:30",
+        "10:30",
         "15:30"
       ]
     },
@@ -16,10 +16,10 @@
       "projectsPerDay": 2,
       "maxProjectsShownPerDay": 3,
       "slotsUtc": [
-        "09:00",
-        "14:00"
+        "07:30",
+        "12:30"
       ],
-      "dailyCardSlotUtc": "11:30",
+      "dailyCardSlotUtc": "09:30",
       "weeklyCardSlotUtc": "08:00"
     }
   },
@@ -35,7 +35,7 @@
   "sourceLink": "body",
   "imageMode": "photo",
   "buffer": {
-    "pushMode": "draft",
+    "pushMode": "schedule",
     "channels": {
       "main": "worldtradepro.com",
       "infra": "WorldTradePro Infrastructure"
