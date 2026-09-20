@@ -64,8 +64,11 @@ async function resolveChannels() {
     const chans = (await gql('query($id: OrganizationId!) { channels(input: { organizationId: $id }) { id name service } }', { id: o.id })).channels;
     for (const c of chans) seen.push(`${c.service}:${c.name}`);
     for (const acct of ['main', 'infra']) {
-      const want = String((B.channels || {})[acct] || '').toLowerCase();
-      const hit = chans.find((c) => /linkedin/i.test(c.service) && String(c.name).toLowerCase() === want) || chans.find((c) => /linkedin/i.test(c.service) && String(c.name).toLowerCase().includes(want));
+      // the API names channels like URL slugs ("worldtradepro-com"), the web app shows "worldtradepro.com": compare with dots/dashes/spaces/case ignored
+      const norm = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+      const want = norm((B.channels || {})[acct]);
+      const li = chans.filter((c) => /linkedin/i.test(c.service));
+      const hit = li.find((c) => norm(c.name) === want) || li.find((c) => want && norm(c.name).includes(want));
       if (hit && !found[acct]) found[acct] = hit.id;
     }
   }
