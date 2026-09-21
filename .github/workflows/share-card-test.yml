@@ -12,6 +12,7 @@ on:
   push:
     paths:
       - share_card.mjs
+      - sharecards.mjs
       - map/**
       - .github/workflows/share-card-test.yml
 
@@ -34,11 +35,13 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: sudo apt-get install -y --no-install-recommends fonts-roboto
 
-      - name: Make the share card
+      - name: Make the share cards (flash, weekly, projects)
         run: |
-          START=$(date +%s)
-          node share_card.mjs "$FORMAT"
-          echo "took $(( $(date +%s) - START ))s"
+          for F in flash weekly projects; do
+            START=$(date +%s)
+            node share_card.mjs "$F" || echo "::warning::$F failed"
+            echo "$F took $(( $(date +%s) - START ))s"
+          done
           ls -la share_test
 
       - name: Publish the result to branch images (share-test/)

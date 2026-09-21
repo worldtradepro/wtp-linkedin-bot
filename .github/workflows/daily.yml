@@ -39,12 +39,16 @@ jobs:
 
       - run: npm install --no-audit --no-fund
       - run: npx playwright install --with-deps chromium
+      - run: sudo apt-get install -y --no-install-recommends fonts-roboto   # card font (Linux has no Segoe UI)
 
       - name: Generate the day's queue
         run: node generate.mjs
 
       - name: Render images
         run: node render.mjs
+
+      - name: Map cards (Trade Flow flash / weekly, Infrastructure projects) from the map's own Share card
+        run: node sharecards.mjs
 
       - name: Publish our own card images (branch "images")
         run: |

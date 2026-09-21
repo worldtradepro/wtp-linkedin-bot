@@ -295,6 +295,7 @@ function dailyCardPost(items, shown, date, slot) {
     headline: `${total} new infrastructure projects`, blocks: [lines.join('\n')], descIndex: 0, text: lines.join('\n'),
     firstComment: BODY_LINKS ? '' : `🗂️ Full pipeline with filters: ${utm('infrastructure', 'daily', date, 1)}`,
     image: 'card', sourceUrl: null, sourceName: '',
+    shareFormat: 'projects', pickUrls: shown.map((it) => it.source_url),   // sharecards.mjs redraws the image with the map's own Share card (this hand-drawn card stays as the fallback)
     card: { kind: 'daily', title: 'New Infrastructure Projects', sub: `${niceDate(day)}  ·  ${total} new projects tracked`, heading: `TOP ${shown.length} BY SCALE AND STAGE`, rows, restText: rest > 0 ? `+${rest} more projects today` : '', restSub: 'Company names, stages, sources and filters are on the map' },
     meta: { total, shown: shown.length, day },
   };

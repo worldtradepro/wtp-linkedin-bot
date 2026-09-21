@@ -11,7 +11,9 @@
         "14:30"
       ],
       "weekendNewsPerDay": 1,
-      "weekendSlotUtc": "08:30"
+      "weekendSlotUtc": "08:30",
+      "flashCardSlotUtc": "09:30",
+      "weeklyCardSlotUtc": "12:30"
     },
     "infra": {
       "name": "World Trade Pro · Infrastructure",
@@ -44,7 +46,7 @@
       "infra": "WorldTradePro Infrastructure"
     },
     "maxPostsPerDay": {
-      "main": 4,
+      "main": 5,
       "infra": 5
     }
   },

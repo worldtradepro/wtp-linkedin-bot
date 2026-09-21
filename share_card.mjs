@@ -29,6 +29,22 @@ function centroidsJson(src) {
   while ((m = re.exec(body))) out[m[1]] = [parseFloat(m[2]), parseFloat(m[3])];
   return out;
 }
+// Infrastructure card, bot-side tweaks (the live map stays untouched): show exactly the projects the daily post names
+// (window.__WTP_PICK = their source URLs, set below) instead of the map's own 5 picks, and close up the layout.
+// Each tweak asserts that its anchor exists, so a map change that breaks it fails loudly instead of posting a broken card.
+function patchProjects(body) {
+  const swap = (from, to, times = 1) => {
+    const n = body.split(from).length - 1;
+    if (n !== times) throw new Error(`map code changed: expected ${times}x "${from}", found ${n} - update patchProjects()`);
+    body = body.split(from).join(to);
+  };
+  swap('picks.length < 5', 'picks.length < 5', 2);   // anchor check only; the pick list is overridden right after
+  swap('var sectors = Object.keys(bySector)', 'if (window.__WTP_PICK && window.__WTP_PICK.length) { var only = ranked.filter(function(it) { return window.__WTP_PICK.indexOf(it.source_url) >= 0; }); if (only.length) picks = only; }\n            var sectors = Object.keys(bySector)');
+  swap('y + 22 + 5 * 74 + 14', 'y + 22 + pd.picks.length * 74 + 14');
+  swap("title: 'New Infrastructure Projects', globe: 540", "title: 'New Infrastructure Projects', globe: 680");
+  return body;
+}
+
 function buildPage() {
   const src = fs.readFileSync(SNIPPET, 'utf8');
   const start = src.indexOf('<script src="https://unpkg.com/globe.gl');
@@ -37,6 +53,7 @@ function buildPage() {
   body = body.replace(/<\?php echo wp_json_encode\(\$api_base\); \?>/, JSON.stringify(SITE + '/wp-json/wtp/v1/opportunities'));
   body = body.replace(/<\?php echo \$centroids_json; \?>/, JSON.stringify(centroidsJson(src)));
   if (/<\?php|\?>/.test(body)) throw new Error('unreplaced PHP left in snippet body');
+  if (!isFlow) body = patchProjects(body);
   return '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Intelligence Map</title>' +
     '<style>html,body{margin:0;background:#eef2f7;font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif}#wtp-imap-root{height:100vh}</style></head><body>' +
     '<div id="wtp-imap-root" data-report-type="both"></div>' + body + '</body></html>';
@@ -73,6 +90,8 @@ page.on('requestfailed', (r) => logs.push('[requestfailed] ' + r.url() + ' ' + (
 // (so the browser never hits Cloudflare's human check).
 const siteHost = new URL(SITE).hostname;
 const html = buildPage();
+const PICKS = process.env.PICK_FILE ? JSON.parse(fs.readFileSync(process.env.PICK_FILE, 'utf8')) : [];
+await page.addInitScript((p) => { window.__WTP_PICK = p; }, PICKS);
 await page.route((u) => u.hostname === siteHost, (route) => {
   const u = new URL(route.request().url());
   if (u.pathname === '/') return route.fulfill({ status: 200, contentType: 'text/html; charset=utf-8', body: html });
@@ -89,6 +108,10 @@ try {
   await shareBtn.waitFor({ state: 'visible', timeout: 60000 });
   // let the data load and the globe render before capturing it
   await page.waitForTimeout(12000);
+  if (!isFlow && (process.env.INFRA_RANGE || '7') === '7') {   // Infrastructure opens on the free 7-15 day window; the fresh week is the "Last 7d" button (data comes with the pipeline secret)
+    await page.locator('[data-role="range"] button[data-v="7"]').click();
+    await page.waitForTimeout(9000);
+  }
 
   await shareBtn.click();
   if (format !== 'flash' && format !== 'projects') {
@@ -107,10 +130,18 @@ try {
   if (res.errors.some((e) => /globe could not be captured/i.test(e))) { console.error('globe missing from card:', res.errors); process.exit(3); }
   const file = path.join(outDir, res.filename || `${format}.png`);
   fs.writeFileSync(file, Buffer.from(res.src.split(',')[1], 'base64'));
-  fs.writeFileSync(file.replace(/\.png$/, '.txt'), res.caption);
+  // Buffer Free has no first comment: the map's "link in the first comment" lines become a link in the post body.
+  const today = new Date().toISOString().slice(0, 10);
+  const mapLink = `${SITE}/?view=${isFlow ? 'flows' : 'infrastructure'}&utm_source=linkedin&utm_medium=social&utm_campaign=${format}-${today.replace(/-/g, '')}`;
+  let caption = res.caption
+    .replace(/Live map in the first comment\./, `Live map ➡️ ${mapLink}`)
+    .replace(/Live map link in the first comment\./, `Live map ➡️ ${mapLink}`);
+  if (isFlow && !caption.includes(mapLink)) caption = caption.replace(/\n\n(#\S+(?: #\S+)*)\s*$/, `\n\nLive map ➡️ ${mapLink}\n\n$1`);
+  fs.writeFileSync(file.replace(/\.png$/, '.txt'), caption);
+  fs.writeFileSync(file.replace(/\.png$/, '.json'), JSON.stringify({ format, file: path.basename(file), caption, link: mapLink, errors: res.errors }, null, 2));
   console.log('saved', file);
   console.log('warnings:', res.errors);
-  console.log('--- caption ---' + NL + res.caption);
+  console.log('--- caption ---' + NL + caption);
 } catch (e) {
   console.error('FAILED:', e.message);
   fs.writeFileSync(path.join(outDir, 'error.txt'), [e.stack, '', logs.join(NL)].join(NL));
