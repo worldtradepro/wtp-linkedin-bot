@@ -74,7 +74,20 @@ jobs:
           git diff --cached --quiet || git commit -m "images $DATE"
           git push origin HEAD:images
       - name: Push to Buffer
-        run: node push.mjs
+        run: |
+          set -o pipefail
+          node push.mjs 2>&1 | tee push.log
+
+      - name: Publish the push log (branch images, buffer-status/repost-push.log)
+        if: always()
+        run: |
+          cd ../_images 2>/dev/null || exit 0
+          mkdir -p buffer-status
+          cp "$GITHUB_WORKSPACE/push.log" buffer-status/repost-push.log 2>/dev/null || echo "no push.log" > buffer-status/repost-push.log
+          git add -A
+          git diff --cached --quiet || git commit -m "repost push log"
+          git pull -q --rebase origin images || true
+          git push origin HEAD:images
 
       - name: Save state (so the daily run does not repeat these)
         if: always()
