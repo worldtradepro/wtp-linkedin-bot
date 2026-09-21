@@ -38,7 +38,7 @@ function patchProjects(body) {
     if (n !== times) throw new Error(`map code changed: expected ${times}x "${from}", found ${n} - update patchProjects()`);
     body = body.split(from).join(to);
   };
-  swap('picks.length < 5', 'picks.length < 5', 2);   // anchor check only; the pick list is overridden right after
+  swap('picks.length < 5', 'picks.length < 3', 2);   // never more than 3 projects on the card (paywall rule); the list is then overridden by the daily post's own 3
   swap('var sectors = Object.keys(bySector)', 'if (window.__WTP_PICK && window.__WTP_PICK.length) { var only = ranked.filter(function(it) { return window.__WTP_PICK.indexOf(it.source_url) >= 0; }); if (only.length) picks = only; }\n            var sectors = Object.keys(bySector)');
   swap('y + 22 + 5 * 74 + 14', 'y + 22 + pd.picks.length * 74 + 14');
   swap("title: 'New Infrastructure Projects', globe: 540", "title: 'New Infrastructure Projects', globe: 680");
