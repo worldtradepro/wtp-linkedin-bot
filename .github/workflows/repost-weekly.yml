@@ -1,0 +1,85 @@
+name: repost-weekly
+
+# Manual: re-create the WEEKLY card post(s) with today's data and put them into Buffer (e.g. after deleting the originals).
+# Trade Flow weekly (main page) and/or Infrastructure weekly. Nothing else from the daily run is touched or re-posted.
+# Run it from Actions -> repost-weekly -> Run workflow.
+
+on:
+  workflow_dispatch:
+    inputs:
+      which:
+        description: "Which card: both | main (Trade Flow) | infra (Infrastructure)"
+        default: both
+      at:
+        description: "Publish time, UTC HH:MM today (a time that has passed = in ~20 minutes), or: now"
+        default: now
+
+permissions:
+  contents: write
+
+concurrency:
+  group: linkedin-daily
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+      IMAGE_BASE_URL: https://raw.githubusercontent.com/${{ github.repository }}/images
+      REPOST_WHICH: ${{ github.event.inputs.which }}
+      REPOST_AT: ${{ github.event.inputs.at }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check secrets are present
+        run: |
+          test -n "$WTP_BOT_SECRET" || { echo "::error::Secret WTP_BOT_SECRET is missing"; exit 1; }
+          test -n "$BUFFER_API_KEY" || { echo "::error::Secret BUFFER_API_KEY is missing"; exit 1; }
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - run: sudo apt-get install -y --no-install-recommends fonts-roboto
+
+      - name: Build the weekly posts only
+        run: |
+          node generate.mjs --weekly
+          node repost.mjs prune
+          node render.mjs
+          node sharecards.mjs --weekly
+          node repost.mjs finalize
+
+      - name: Publish our own card images (branch "images")
+        run: |
+          set -e
+          DATE=$(date -u +%F)
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin images >/dev/null 2>&1; then
+            git fetch origin images
+            git worktree add -B images ../_images origin/images
+          else
+            git worktree add --orphan -b images ../_images
+          fi
+          mkdir -p "../_images/$DATE"
+          cp queue/$DATE/images/*.png "../_images/$DATE/" 2>/dev/null || true
+          # photos whose original format Buffer may reject (e.g. webp): host our normalised JPEG for those only
+          node -e "const fs=require('fs');const d='queue/'+process.argv[1]+'/';for(const f of fs.readdirSync(d).filter(x=>x.endsWith('.json'))){const p=JSON.parse(fs.readFileSync(d+f,'utf8'));if(p.imageRehost)fs.copyFileSync(d+'images/'+p.id+'.jpg','../_images/'+process.argv[1]+'/'+p.id+'.jpg');}" "$DATE"
+          cd ../_images
+          git add -A
+          git diff --cached --quiet || git commit -m "images $DATE"
+          git push origin HEAD:images
+      - name: Push to Buffer
+        run: node push.mjs
+
+      - name: Save state (so the daily run does not repeat these)
+        if: always()
+        run: |
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          git checkout -- state/used.json 2>/dev/null || true
+          git add state/pushed.json || true
+          git diff --cached --quiet || (git commit -m "state repost $(date -u +%F)" && git pull --rebase origin ${{ github.ref_name }} && git push origin HEAD:${{ github.ref_name }})

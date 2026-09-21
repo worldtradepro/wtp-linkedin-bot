@@ -371,7 +371,7 @@ if (!cardsOk) console.error('WARNING: WTP_BOT_SECRET is not set -> Infrastructur
 const posts = [
   ...news.map((it, k) => newsPost(it, k + 1, TODAY, newsSlots[k % newsSlots.length])),
   ...projs.map((it, k) => projectPost(it, k + 1, TODAY, A.infra.slotsUtc[k % A.infra.slotsUtc.length])),
-  ...(cardsOk && shown.length ? [dailyCardPost(epcItems, shown, TODAY, A.infra.dailyCardSlotUtc)] : []),
+  ...(cardsOk && shown.length && !isWeekly ? [dailyCardPost(epcItems, shown, TODAY, A.infra.dailyCardSlotUtc)] : []),
   ...(cardsOk && infraOn && isWeekly && epcItems.length ? [weeklyCardPost(epcItems, TODAY, A.infra.weeklyCardSlotUtc)] : []),
 ];
 
@@ -394,7 +394,7 @@ if (!DRY) {
   writeFileSync(join(dir, 'preview.md'), preview.join('\n'));
   for (const p of posts) if (p.sourceUrl) used.add(p.sourceUrl);
   for (const u of flashUrls) used.add(u);   // covered by the flash card: do not bring them back as news tomorrow
-  for (const it of shown) used.add(it.source_url);   // projects that only appear on the daily card must not come back tomorrow
+  for (const it of (isWeekly ? projs : shown)) used.add(it.source_url);   // projects that only appear on the daily card must not come back tomorrow
   mkdirSync(join(HERE, 'state'), { recursive: true });
   writeFileSync(STATE_FILE, JSON.stringify({ urls: [...used].slice(-600) }, null, 2));
   console.error(`\nWrote ${posts.length} posts to ${dir}`);

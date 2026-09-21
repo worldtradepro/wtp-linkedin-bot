@@ -146,7 +146,7 @@ try {
   // let the data load and the globe render before capturing it
   await page.waitForTimeout(12000);
   if (!isFlow && (process.env.INFRA_RANGE || '7') === '7') {   // Infrastructure opens on the free 7-15 day window; the fresh week is the "Last 7d" button (data comes with the pipeline secret)
-    await page.locator('[data-role="range"] button[data-v="7"]').click();
+    await page.locator('[data-role="range"] button[data-v="7"]').evaluate((el) => el.click());
     await page.waitForTimeout(9000);
   }
 
@@ -168,7 +168,7 @@ try {
   }
   await shareBtn.evaluate((el) => el.click());   // JS click: Playwright's own click waits for a stable, unobstructed target and timed out once while the WebGL page was busy
   if (format === 'weekly') {
-    await page.locator(`.wim-share-pills button[data-fmt="${format}"]`).click();
+    await page.locator(`.wim-share-pills button[data-fmt="${format}"]`).evaluate((el) => el.click());
   }
   await page.locator('.wim-share-img img, .wim-share-err').first().waitFor({ timeout: 30000 });
 

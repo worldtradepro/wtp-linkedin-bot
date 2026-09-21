@@ -22,6 +22,7 @@ const dow = new Date(DATE + 'T00:00:00Z').getUTCDay();
 const isWeekend = dow === 0 || dow === 6;
 const isMonday = dow === 1 || args.includes('--weekly');
 const A = cfg.accounts;
+const WHICH = process.env.REPOST_WHICH || 'both';   // repost-weekly workflow: both | main | infra
 
 const warn = (m) => console.log(`::warning::sharecards: ${m}`);
 
@@ -63,23 +64,24 @@ function mainPost(id, format, slot, headline, card) {
 
 // ---- --flash-only: run first in the workflow, so generate.mjs can keep the flash stories out of the news posts ----
 if (args.includes('--flash-only')) {
-  if (A.main.flashCardSlotUtc && !isWeekend) { if (!makeCard('flash', 'main-card-flash', null)) warn('Trade Flow daily flash could not be made (news posts will not avoid it)'); }
+  if (A.main.flashCardSlotUtc && !isWeekend && !isMonday) { if (!makeCard('flash', 'main-card-flash', null)) warn('Trade Flow daily flash could not be made (news posts will not avoid it)'); }
   process.exit(0);
 }
 
 // ---- main account: Trade Flow flash (weekdays) / weekly (Mondays) ----
 const flashSlot = A.main.flashCardSlotUtc, weeklySlot = A.main.weeklyCardSlotUtc;
-if (flashSlot && !isWeekend) {
+if (flashSlot && !isWeekend && !isMonday) {   // a weekly-card day (Monday) has no daily card
   const c = makeCard('flash', 'main-card-flash', null);
   if (c) mainPost('main-card-flash', 'flash', flashSlot, 'Trade Flow daily flash', c); else warn('Trade Flow daily flash could not be made - not posted today');
 }
-if (weeklySlot && isMonday) {
+if (weeklySlot && isMonday && WHICH !== 'infra') {
   const c = makeCard('weekly', 'main-card-weekly', null);
   if (c) mainPost('main-card-weekly', 'weekly', weeklySlot, 'Trade Flow weekly update', c); else warn('Trade Flow weekly update could not be made - not posted today');
 }
 
 // ---- infra: replace the hand-drawn cards' images with the map's projects card (same projects as the post text) ----
 for (const id of ['infra-card-daily', 'infra-card-weekly']) {
+  if (WHICH === 'main') continue;
   const infraFile = join(DIR, id + '.json');
   if (!existsSync(infraFile)) continue;
   const p = JSON.parse(readFileSync(infraFile, 'utf8'));
