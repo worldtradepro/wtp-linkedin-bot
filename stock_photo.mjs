@@ -85,7 +85,9 @@ export async function stockPhoto(post, log = () => {}) {
     if (pick.links?.download_location) fetch(pick.links.download_location, { headers: headers() }).catch(() => {});
     used.add(pick.id); saveUsed([...used]);
     const name = pick.user?.name || 'Unsplash photographer';
-    return { jpeg, url, query, photoId: pick.id, w: pick.width, h: pick.height, credit: `📷 Photo: ${name} / Unsplash` };
+    // Unsplash API terms (section 9): credit Unsplash + the photographer AND link to the photographer's profile (with our utm tags)
+    const profile = pick.user?.links?.html ? pick.user.links.html.split('?')[0] + '?' + UTM : `https://unsplash.com/?${UTM}`;
+    return { jpeg, url, query, photoId: pick.id, w: pick.width, h: pick.height, credit: `📷 Photo: ${name} / Unsplash ➡️ ${profile}` };
   }
   return null;
 }
