@@ -23,6 +23,7 @@ jobs:
     timeout-minutes: 15
     env:
       WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
+      WTP_CF_BYPASS: ${{ secrets.WTP_CF_BYPASS }}
       FORMAT: ${{ github.event.inputs.format || 'flash' }}
     steps:
       - uses: actions/checkout@v4

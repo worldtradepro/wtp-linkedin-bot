@@ -25,10 +25,21 @@ page.on('pageerror', (e) => { console.log('[pageerror]', e.message); logs.push('
 page.on('console', (m) => logs.push('[' + m.type() + '] ' + m.text()));
 page.on('requestfailed', (r) => logs.push('[requestfailed] ' + r.url() + ' ' + (r.failure() || {}).errorText));
 
-// Infrastructure's newest 7 days are paid: give the map's own data request the pipeline secret.
-if (!isFlow && process.env.WTP_BOT_SECRET) {
-  await page.route('**/wtp/v1/**', (route) => route.continue({ headers: { ...route.request().headers(), 'X-WTP-Secret': process.env.WTP_BOT_SECRET } }));
-}
+// Cloudflare would show the runner a human check: requests to OUR site carry the owner's skip-rule header
+// (rule "Allow LinkedIn bot"). Only our own host gets it, never third-party CDNs.
+// Infrastructure's newest 7 days are paid: the map's own data requests also get the pipeline secret (?secret=).
+const BYPASS = process.env.WTP_CF_BYPASS || '';
+const SECRET = process.env.WTP_BOT_SECRET || '';
+const siteHost = new URL(SITE).hostname;
+await page.route((u) => u.hostname === siteHost || u.hostname.endsWith('.' + siteHost), (route) => {
+  const req = route.request();
+  const headers = { ...req.headers() };
+  if (BYPASS) headers['x-wtp-bot'] = BYPASS;
+  let url = req.url();
+  if (!isFlow && SECRET && url.includes('/wtp/v1/') && !url.includes('secret=')) url += (url.includes('?') ? '&' : '?') + 'secret=' + encodeURIComponent(SECRET);
+  route.continue({ url, headers });
+});
+if (!BYPASS) console.log('note: WTP_CF_BYPASS not set - Cloudflare may block this IP');
 
 try {
 const url = `${SITE}/?view=${isFlow ? 'flows' : 'infrastructure'}`;
