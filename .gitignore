@@ -3,3 +3,4 @@ queue/
 gen.err
 *.bak*
 .env
+share_test/

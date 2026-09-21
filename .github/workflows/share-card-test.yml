@@ -1,0 +1,55 @@
+name: share-card-test
+
+# Test only: open the live Intelligence Map, click Share, keep the image + caption it builds.
+# Result image is published to branch "images" under share-test/ so it can be viewed by URL.
+
+on:
+  workflow_dispatch:
+    inputs:
+      format:
+        description: flash | weekly | projects
+        default: flash
+  push:
+    paths:
+      - share_card.mjs
+      - .github/workflows/share-card-test.yml
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
+      FORMAT: ${{ github.event.inputs.format || 'flash' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+
+      - name: Make the share card
+        run: |
+          START=$(date +%s)
+          node share_card.mjs "$FORMAT"
+          echo "took $(( $(date +%s) - START ))s"
+          ls -la share_test
+
+      - name: Publish the result to branch images (share-test/)
+        if: always()
+        run: |
+          set -e
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          git fetch origin images
+          git worktree add -B images ../_images origin/images
+          mkdir -p ../_images/share-test
+          cp share_test/* ../_images/share-test/ 2>/dev/null || true
+          cd ../_images
+          git add -A
+          git diff --cached --quiet || git commit -m "share-test $(date -u +%FT%TZ)"
+          git push origin HEAD:images
