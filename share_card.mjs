@@ -51,11 +51,25 @@ function patchProjects(body) {
 }
 
 // Daily flash: remember which stories the card names (window.__WTP_FLASH), so generate.mjs keeps them out of the day's news posts.
+// It also adds the affected trade lanes (Critical / Elevated signals on the map's own lanes) to the card and the caption:
+// the globe is drawn a little smaller to make room for up to 3 lane rows, exactly like the weekly card's lane list.
 function patchFlash(body) {
-  const from = 'tiers: tierCounts(pool), picks: picks };';
-  const n = body.split(from).length - 1;
-  if (n !== 1) throw new Error(`map code changed: expected 1x "${from}", found ${n} - update patchFlash()`);
-  return body.replace(from, 'tiers: tierCounts(pool), picks: (window.__WTP_FLASH = picks.map(function(it) { return { url: it.source_url, title: it.project_name }; }), picks) };');
+  const swap = (from, to) => {
+    const n = body.split(from).length - 1;
+    if (n !== 1) throw new Error(`map code changed: expected 1x "${from}", found ${n} - update patchFlash()`);
+    body = body.replace(from, () => to);
+  };
+  swap('function flashData() {',
+    'function flashLanes(pool) { var st = computeLaneStates(pool); var ls = TRADE_LANES.map(function(l) { return st[l.id]; }).filter(function(s) { return s && (s.counts.crit + s.counts.elev) > 0; }); ls.sort(function(a, b) { return (b.counts.crit * 100 + b.counts.elev * 10 + b.counts.watch) - (a.counts.crit * 100 + a.counts.elev * 10 + a.counts.watch); }); return ls.slice(0, 3); }\n        function flashData() {');
+  swap('tiers: tierCounts(pool), picks: picks };',
+    'tiers: tierCounts(pool), lanes: flashLanes(pool), picks: (window.__WTP_FLASH = picks.map(function(it) { return { url: it.source_url, title: it.project_name }; }), picks) };');
+  swap("title: 'Trade Flow · Daily Flash', globe: 600,", "title: 'Trade Flow · Daily Flash', globe: (fd.lanes && fd.lanes.length ? 600 - (32 + fd.lanes.length * 42) : 600),");
+  swap('fd.picks.forEach(function(it, i) {',
+    "var LO = 0; if (fd.lanes && fd.lanes.length) { LO = 32 + fd.lanes.length * 42; bodyHeading(ctx, 'AFFECTED TRADE LANES', y - 8); fd.lanes.forEach(function(s, i) { var ly = y + 34 + i * 42; ctx.beginPath(); ctx.arc(72, ly - 9, 9, 0, Math.PI * 2); ctx.fillStyle = LANE_COLORS[s.tier] || '#a9bdd8'; ctx.fill(); ctx.fillStyle = '#ffffff'; ctx.font = cardFont(700, 29); ctx.textAlign = 'left'; ctx.fillText(fitText(ctx, s.lane.name, 560), 96, ly); ctx.fillStyle = '#cfd9ea'; ctx.font = cardFont(600, 24); ctx.textAlign = 'right'; ctx.fillText(laneCountsText(s.counts), 1020, ly); ctx.textAlign = 'left'; }); }\n                        fd.picks.forEach(function(it, i) {");
+  swap('var by = y + i * 132, tier = flowTier(it);', 'var by = y + LO + i * 132, tier = flowTier(it);');
+  swap("L.push(fd.count + ' signals tracked '",
+    "if (fd.lanes && fd.lanes.length) { L.push('Trade lanes under pressure: ' + fd.lanes.map(function(s) { return s.lane.name + ' (' + laneCountsText(s.counts) + ')'; }).join(' · ')); L.push(''); }\n            L.push(fd.count + ' signals tracked '");
+  return body;
 }
 
 function buildPage() {
