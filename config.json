@@ -39,6 +39,7 @@
   "mapLinkInFirstComment": false,
   "sourceLink": "body",
   "imageMode": "photo",
+  "stockPhoto": { "enabled": true, "types": ["news"], "credit": true },
   "buffer": {
     "pushMode": "schedule",
     "channels": {

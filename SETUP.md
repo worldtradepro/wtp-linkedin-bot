@@ -42,6 +42,16 @@ git push -u origin main
 ## 6. 改成全自动
 确认草稿没问题后，把 `config.json` 里的 `"pushMode": "draft"` 改成 `"schedule"`，提交推送。之后每天自动排进 Buffer，Buffer 按 `07:30 / 11:00 / 15:30`（主页面）、`09:00 / 14:00`、每日卡 `11:30`、周一每周卡 `08:00`（Infrastructure）这些 UTC 时间发出。
 
+## 配图兜底：Unsplash 主题图（可选，推荐）
+新闻原文没有可用封面图时，机器人会按标题/行业关键词（油轮、集装箱船、矿山、粮食……）去 Unsplash 找一张免费的主题照片，而不是画蓝色卡片。没配密钥或搜不到图时，会自动退回蓝色卡片，不影响发帖。
+1. 打开 https://unsplash.com/oauth/applications ，登录后 **New Application**，勾选同意条款，名称随意（如 “WTP bot”）。
+2. 进入这个应用，复制 **Access Key**（不是 Secret Key）。
+3. 仓库 **Settings → Secrets and variables → Actions → New repository secret**：名称 `UNSPLASH_ACCESS_KEY`，内容粘贴 Access Key。
+- 免费的 Demo 应用每小时 50 次请求，每天几条帖子远远够用。
+- 帖子会带一行 `📷 Photo: 摄影师 / Unsplash`（Unsplash API 要求署名）；不想要就把 `config.json` 里 `stockPhoto.credit` 改成 `false`。
+- 默认只用于主账号新闻（`stockPhoto.types: ["news"]`）；想让 Infrastructure 项目帖也用，加上 `"project"`。
+- 最近用过的照片记录在 `state/stock_used.json`，避免重复。
+
 ## 暂停 / 恢复
 仓库 **Settings → Secrets and variables → Actions → Variables** 新建变量 `BOT_PAUSED`，值为 `true` → 立即暂停整个流程；删掉或改成别的值 → 恢复。
 

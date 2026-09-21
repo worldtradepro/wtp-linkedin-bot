@@ -10,6 +10,7 @@ import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync, rmSync
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
+import { stockPhoto } from './stock_photo.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -371,7 +372,7 @@ for (const f of files) {
     continue;
   }
   const page = await ctx.newPage();
-  let kind = 'card', why = '', excerpt = '', articleHeadline = '', realSource = '', photoUrl = '', photoMime = '';
+  let kind = 'card', why = '', excerpt = '', articleHeadline = '', realSource = '', photoUrl = '', photoMime = '', stockCredit = '';
   try {
     await page.goto(p.sourceUrl, { waitUntil: 'domcontentloaded', timeout: 35000 });
     // Some pipeline rows carry a Google News redirect link: wait until it lands on the real publisher page, then use THAT as the source.
@@ -446,6 +447,14 @@ for (const f of files) {
   } catch (e) {
     why = 'load failed: ' + String(e.message || e).slice(0, 80);
   }
+  // No usable lead photo in the article (or the page would not load): a themed Unsplash stock photo instead of our own blue card (config stockPhoto).
+  const sp = cfg.stockPhoto || {};
+  if (kind === 'card' && (cfg.imageMode || 'photo') === 'photo' && sp.enabled !== false && (sp.types || ['news']).includes(p.type)) {
+    try {
+      const s = await stockPhoto({ id: p.id, headline: articleHeadline || p.headline, sector: p.meta?.sector, subsector: p.meta?.subsector }, (m) => console.log('  ' + p.id + ': ' + m));
+      if (s) { writeFileSync(outPhoto, s.jpeg); kind = 'photo'; photoUrl = s.url; photoMime = 'image/jpeg'; stockCredit = sp.credit === false ? '' : s.credit; why = 'Unsplash stock photo (query "' + s.query + '", ' + s.photoId + ')'; }
+    } catch (e) { console.log('  ' + p.id + ': stock photo failed: ' + String(e.message || e).slice(0, 80)); }
+  }
   // A redirect link resolved to the real publisher: show the publisher's name and put its URL in the first comment.
   if (realSource) {
     const host = new URL(realSource).hostname.replace(/^www\./, '');
@@ -479,9 +488,10 @@ for (const f of files) {
   const blocks = [...p.blocks];
   if (excerpt) blocks[p.descIndex] = excerpt;
   if (articleHeadline) blocks[0] = `${p.headPrefix || ''} ${clean(articleHeadline)}`.trim();
+  if (stockCredit) blocks.splice(/^#/.test(blocks[blocks.length - 1] || '') ? blocks.length - 1 : blocks.length, 0, stockCredit);   // photographer credit sits just above the hashtags
   Object.assign(p, {
     blocks, text: blocks.filter(Boolean).join('\n\n'),
-    imagePath: 'images/' + p.id + (kind === 'photo' ? '.jpg' : '.png'), imageKind: kind, imageUrl: photoUrl || null, imageRehost: kind === 'photo' && !/jpeg|png|gif/i.test(photoMime), excerptFromArticle: !!excerpt, renderNote: why,
+    imagePath: 'images/' + p.id + (kind === 'photo' ? '.jpg' : '.png'), imageKind: kind, imageUrl: photoUrl || null, imageRehost: kind === 'photo' && !/jpeg|png|gif/i.test(photoMime), stockPhoto: !!stockCredit || /^Unsplash/.test(why), excerptFromArticle: !!excerpt, renderNote: why,
   });
   writeFileSync(path, JSON.stringify(p, null, 2));
   report.push({ id: p.id, image: kind, note: why, excerptChars: excerpt.length });

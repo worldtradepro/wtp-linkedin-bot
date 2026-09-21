@@ -26,6 +26,7 @@ jobs:
     env:
       WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
       BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+      UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}   # optional: stock photo when an article has no lead picture
       IMAGE_BASE_URL: https://raw.githubusercontent.com/${{ github.repository }}/images
     steps:
       - uses: actions/checkout@v4
@@ -43,6 +44,7 @@ jobs:
         run: |
           test -n "$WTP_BOT_SECRET" || { echo "::error::Secret WTP_BOT_SECRET is missing (without it Infrastructure would post week-old data)"; exit 1; }
           test -n "$BUFFER_API_KEY" || { echo "::error::Secret BUFFER_API_KEY is missing"; exit 1; }
+          test -n "$UNSPLASH_ACCESS_KEY" || echo "::warning::Secret UNSPLASH_ACCESS_KEY is missing - posts without an article photo will get the blue card"
       - uses: actions/setup-node@v4
         if: ${{ steps.guard.outputs.skip != 'true' }}
         with:
