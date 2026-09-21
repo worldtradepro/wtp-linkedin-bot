@@ -1,0 +1,2531 @@
+
+// ── Country name -> approximate lat/lng centroid lookup ──────────────────────
+function wtp_map_country_centroids() {
+    return array(
+        'Afghanistan'=>[33.9,67.7],'Albania'=>[41.2,20.2],'Algeria'=>[28.0,1.7],'Angola'=>[-11.2,17.9],
+        'Argentina'=>[-38.4,-63.6],'Armenia'=>[40.1,45.0],'Australia'=>[-25.3,133.8],'Austria'=>[47.5,14.6],
+        'Azerbaijan'=>[40.1,47.6],'Bahamas'=>[25.0,-77.4],'Bahrain'=>[26.0,50.6],'Bangladesh'=>[23.7,90.4],
+        'Belarus'=>[53.7,27.9],'Belgium'=>[50.5,4.5],'Bermuda'=>[32.3,-64.8],'Bhutan'=>[27.5,90.4],
+        'Bolivia'=>[-16.3,-63.6],'Bosnia'=>[43.9,17.7],'Bosnia and Herzegovina'=>[43.9,17.7],'Botswana'=>[-22.3,24.7],'Brazil'=>[-14.2,-51.9],
+        'Brunei'=>[4.5,114.7],'Bulgaria'=>[42.7,25.5],'Burkina Faso'=>[12.2,-1.6],'Burundi'=>[-3.4,29.9],
+        'Cambodia'=>[12.6,105.0],'Cameroon'=>[7.4,12.4],'Canada'=>[56.1,-106.3],'Chad'=>[15.5,18.7],
+        'Chile'=>[-35.7,-71.5],'China'=>[35.9,104.2],'Colombia'=>[4.6,-74.3],'Congo'=>[-0.2,15.8],
+        'Republic of the Congo'=>[-0.2,15.8],'DR Congo'=>[-4.0,21.8],'Democratic Republic of Congo'=>[-4.0,21.8],
+        'Democratic Republic of the Congo'=>[-4.0,21.8],'DRC'=>[-4.0,21.8],
+        'Costa Rica'=>[9.7,-83.8],"Côte d'Ivoire"=>[7.5,-5.5],"Côte d’Ivoire"=>[7.5,-5.5],'Ivory Coast'=>[7.5,-5.5],
+        'Croatia'=>[45.1,15.2],'Cuba'=>[21.5,-77.8],'Cyprus'=>[35.1,33.4],'Czech Republic'=>[49.8,15.5],
+        'Czechia'=>[49.8,15.5],'Denmark'=>[56.3,9.5],'Djibouti'=>[11.8,42.6],'Dominican Republic'=>[18.7,-70.2],
+        'Ecuador'=>[-1.8,-78.2],'Egypt'=>[26.8,30.8],'El Salvador'=>[13.8,-88.9],'Equatorial Guinea'=>[1.6,10.3],
+        'Estonia'=>[58.6,25.0],'Eswatini'=>[-26.5,31.5],'Ethiopia'=>[9.1,40.5],'Fiji'=>[-17.7,178.1],
+        'Finland'=>[61.9,25.7],'France'=>[46.2,2.2],'Gabon'=>[-0.8,11.6],'Gambia'=>[13.4,-15.3],
+        'Georgia'=>[42.3,43.4],'Germany'=>[51.2,10.5],'Ghana'=>[7.9,-1.0],'Greece'=>[39.1,21.8],
+        'Greenland'=>[71.7,-42.6],'Guatemala'=>[15.8,-90.2],'Guinea'=>[9.9,-9.7],'Guyana'=>[4.9,-58.9],
+        'Haiti'=>[18.9,-72.3],'Honduras'=>[15.2,-86.2],'Hong Kong'=>[22.3,114.2],'Hungary'=>[47.2,19.5],
+        'Iceland'=>[64.9,-19.0],'India'=>[20.6,78.9],'Indonesia'=>[-0.8,113.9],'Iran'=>[32.4,53.7],
+        'Iraq'=>[33.2,43.7],'Ireland'=>[53.4,-8.2],'Israel'=>[31.0,34.9],'Italy'=>[41.9,12.6],
+        'Jamaica'=>[18.1,-77.3],'Japan'=>[36.2,138.3],'Jordan'=>[30.6,36.2],'Kazakhstan'=>[48.0,66.9],
+        'Kenya'=>[-0.0,37.9],'Kosovo'=>[42.6,20.9],'Kuwait'=>[29.3,47.5],'Kyrgyzstan'=>[41.2,74.8],
+        'Laos'=>[19.9,102.5],'Latvia'=>[56.9,24.6],'Lebanon'=>[33.9,35.9],'Liberia'=>[6.4,-9.4],
+        'Libya'=>[26.3,17.2],'Lithuania'=>[55.2,23.9],'Luxembourg'=>[49.8,6.1],'Madagascar'=>[-18.8,46.9],
+        'Malawi'=>[-13.3,34.3],'Malaysia'=>[4.2,101.9],'Mali'=>[17.6,-4.0],'Malta'=>[35.9,14.4],
+        'Mauritania'=>[21.0,-10.9],'Mauritius'=>[-20.3,57.6],'Mexico'=>[23.6,-102.6],'Moldova'=>[47.4,28.4],
+        'Mongolia'=>[46.9,103.8],'Montenegro'=>[42.7,19.4],'Morocco'=>[31.8,-7.1],'Mozambique'=>[-18.7,35.5],
+        'Myanmar'=>[21.9,95.9],'Namibia'=>[-22.9,18.5],'Nepal'=>[28.4,84.1],'Netherlands'=>[52.1,5.3],
+        'New Zealand'=>[-40.9,174.9],'Nicaragua'=>[12.9,-85.2],'Niger'=>[17.6,8.1],'Nigeria'=>[9.1,8.7],
+        'North Korea'=>[40.3,127.5],'North Macedonia'=>[41.6,21.7],'Norway'=>[60.5,8.5],'Oman'=>[21.5,55.9],
+        'Pakistan'=>[30.4,69.3],'Palestine'=>[31.9,35.2],'Panama'=>[8.5,-80.8],'Papua New Guinea'=>[-6.3,143.9],'Paraguay'=>[-23.4,-58.4],
+        'Peru'=>[-9.2,-75.0],'Philippines'=>[12.9,121.8],'Poland'=>[51.9,19.1],'Portugal'=>[39.4,-8.2],
+        'Puerto Rico'=>[18.2,-66.6],'Qatar'=>[25.4,51.2],'Romania'=>[45.9,25.0],'Russia'=>[61.5,105.3],'Rwanda'=>[-1.9,29.9],
+        'Saudi Arabia'=>[23.9,45.1],'Senegal'=>[14.5,-14.5],'Serbia'=>[44.0,21.0],'Sierra Leone'=>[8.5,-11.8],
+        'Singapore'=>[1.35,103.8],'Slovakia'=>[48.7,19.7],'Slovenia'=>[46.1,14.8],'Somalia'=>[5.2,46.2],
+        'South Africa'=>[-30.6,22.9],'South Korea'=>[35.9,127.8],'South Sudan'=>[6.9,31.3],'Spain'=>[40.5,-3.7],
+        'Sri Lanka'=>[7.9,80.8],'Sudan'=>[12.9,30.2],'Suriname'=>[3.9,-56.0],'Sweden'=>[60.1,18.6],
+        'Switzerland'=>[46.8,8.2],'Syria'=>[34.8,38.9],'Taiwan'=>[23.7,121.0],'Tajikistan'=>[38.9,71.3],
+        'Tanzania'=>[-6.4,34.9],'Thailand'=>[15.9,101.0],'Togo'=>[8.6,0.8],'Trinidad'=>[10.7,-61.2],
+        'Trinidad and Tobago'=>[10.7,-61.2],'Tunisia'=>[33.9,9.5],'Turkey'=>[38.9,35.2],'Turkmenistan'=>[38.97,59.6],
+        'Uganda'=>[1.4,32.3],'Ukraine'=>[48.4,31.2],'United Arab Emirates'=>[23.4,53.8],'UAE'=>[23.4,53.8],
+        'United Kingdom'=>[55.4,-3.4],'UK'=>[55.4,-3.4],'United States'=>[37.1,-95.7],'USA'=>[37.1,-95.7],'U.S.'=>[37.1,-95.7],
+        'Uruguay'=>[-32.5,-55.8],'Uzbekistan'=>[41.4,64.6],'Venezuela'=>[6.4,-66.6],'Vietnam'=>[14.1,108.3],
+        'Yemen'=>[15.6,48.5],'Zambia'=>[-13.1,27.8],'Zimbabwe'=>[-19.0,29.2],
+    );
+}
+
+add_shortcode('wtp_intelligence_map', function() {
+    return '<div id="wtp-imap-root" data-report-type="both"></div>';
+});
+
+add_action('wp_footer', function() {
+    if (!is_page() || !has_shortcode(get_post()->post_content ?? '', 'wtp_intelligence_map')) return;
+    $centroids = wtp_map_country_centroids();
+    $centroids_json = wp_json_encode($centroids);
+    $api_base = home_url('/wp-json/wtp/v1/opportunities');
+    ?>
+    <script src="https://unpkg.com/globe.gl@2.34.5/dist/globe.gl.min.js"></script>
+    <style>
+    #wtp-imap-root {
+        --bg: #eef2f7; --bg-elev: #ffffff; --bg-elev-2: #f2f5f9;
+        --line: rgba(15,45,94,0.10); --line-strong: rgba(15,45,94,0.20);
+        --text: #16233d; --text-dim: #4c5b76; --text-faint: #7c8aa3;
+        --accent: #c8862e; --accent-dim: rgba(200,134,46,0.14);
+        --good: #2f9e6a; --info: #2f6fc9;
+        --pin-project: #c8862e; --pin-company: #3a67ad;
+        /* 90vh/min-height is just the pre-JS fallback (no-JS or before fitMapHeight()
+           runs) - once the header is compacted (see body.home rules below) leaving
+           this at 90vh would strand a big unused gap at the bottom of the viewport,
+           so JS resizes this to reach the actual viewport bottom on load/resize.
+           Needs to stay a definite height (not just min-height) - .wim-globe-wrap's
+           flex-grow only knows how much space is left to fill when its flex
+           container (this element) has a definite resolved height; tried min-height
+           only on 2026-09-14 to stop short-viewport overflow clipping, but that let
+           the globe and its canvas settle into a self-referential runaway size
+           instead (canvas height feeds back into globewrap's own auto height with
+           nothing to correct it). fitMapHeight() below fixes the real short-viewport
+           problem a different way: it keeps this a definite height, but never makes
+           it smaller than what the filter bar + zoom controls + sector bar + the
+           globe's own 220px floor actually need, so nothing overflows to be clipped
+           by this element's overflow:hidden. */
+        position: relative; width: 100%; height: 90vh; min-height:480px;
+        /* Small top/bottom breathing room 2026-09-13: the globe used to sit flush
+           against the filter bar above and whatever follows it below, which read as
+           cramped rather than intentionally full-bleed. fitMapHeight() above already
+           subtracts this same 16px from its computed height so this margin doesn't
+           push the box past the viewport bottom and reintroduce a scrollbar. */
+        margin: 10px 0 16px;
+        color: var(--text); background: var(--bg); overflow: hidden;
+        font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+    #wtp-imap-root * { box-sizing: border-box; }
+    .wim-float { background: rgba(255,255,255,.86); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--line-strong); box-shadow: 0 10px 30px rgba(15,45,94,.14); }
+    .wim-title { font-size:18px; font-weight:700; }
+    .wim-title .a { color: var(--accent); }
+    .wim-subtitle { font-size:12.5px; color:var(--text-dim); margin-top:4px; max-width:520px; }
+    .wim-filterbar { position:absolute; top:16px; left:50%; transform:translateX(-50%); z-index:20; display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; border-radius:100px; padding:8px 16px; max-width:calc(100vw - 32px); }
+/* Opacity fix 2026-09-05: pin/cluster icon badges are HTML overlay elements positioned by lat/lng, not clipped to stay clear of the filter bar - when a badge lands in that screen region it used to bleed through the glass blur. Making the filter bar's own background near-opaque (just for this element, not .wim-float generally) hides that bleed-through without touching the pin-positioning logic itself. */
+.wim-filterbar { background: rgba(255,255,255,.98); }
+    /* The 100px pill radius only reads as a pill on the single row it fits in on desktop —
+       once title/toggle/segments/count wrap to 3-4 stacked rows on a narrow phone, the same
+       radius on a much taller box balloons into an oversized blob instead of a rounded
+       rectangle (see the near-circle in a 375px screenshot). */
+    @media (max-width:760px) { .wim-filterbar { border-radius:18px; } }
+    .wim-gated-notice { position:absolute; top:66px; left:50%; transform:translateX(-50%); z-index:19; border-radius:10px; padding:8px 16px; font-size:12px; color:var(--text-dim); max-width:calc(100vw - 32px); text-align:center; }
+    .wim-gated-notice a { color:var(--accent); font-weight:700; text-decoration:underline; }
+    .wim-seg { display:inline-flex; background:var(--bg-elev-2); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+    .wim-seg button { appearance:none; border:none; background:transparent; color:var(--text-dim); font-size:12.5px; font-weight:600; padding:7px 12px; cursor:pointer; font-family:inherit; border-right:1px solid var(--line); }
+    .wim-seg button.wim-locked { color:var(--text-faint); }
+    .wim-seg button:last-child { border-right:none; }
+    .wim-seg button.active { background:var(--accent-dim); color:var(--accent); }
+    .wim-select { appearance:none; background:var(--bg-elev-2); border:1px solid var(--line); color:var(--text); font-size:12.5px; font-weight:600; padding:7px 26px 7px 12px; border-radius:8px; font-family:inherit; cursor:pointer; }
+    .wim-spacer { flex:1; }
+    .wim-count { font-size:12px; color:var(--text-faint); white-space:nowrap; }
+    .wim-count b { color:var(--text-dim); }
+    .wim-panel { background:var(--bg-elev); border:1px solid var(--line); border-radius:14px; }
+    .wim-map-panel { position:absolute; inset:0; }
+    .wim-panel-title { font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--text-dim); }
+    .wim-legend { display:flex; gap:14px; font-size:11.5px; color:var(--text-faint); }
+    .wim-legend span { display:inline-flex; align-items:center; gap:5px; }
+    .wim-legend i { width:8px; height:8px; border-radius:50%; display:inline-block; }
+    .wim-globe-wrap { position:absolute; inset:0; }
+    /* Hardcoded colors, not var(--...): this element is appended to document.body
+       (outside #wtp-imap-root, to escape overflow clipping), so the CSS custom
+       properties defined on #wtp-imap-root don't reach it — using them here silently
+       resolves to nothing and leaves the tooltip transparent. */
+    .wim-pin-tip { position:fixed; display:none; background:#16294a; color:#eaf1fb; border:1px solid rgba(148,177,214,0.26); border-radius:10px; padding:8px 11px; font-size:11.5px; z-index:9998; pointer-events:none; box-shadow:0 10px 30px rgba(0,0,0,.4); white-space:normal; max-width:240px; }
+    /* Once clicked/pinned (see tipEl.dataset.pinned in the JS below) the tip stops
+       chasing the mouse and needs to accept clicks itself, otherwise its "View source
+       article" link is unreachable — pointer-events:none above only exists so the
+       hover-preview tip never steals clicks from the pin/globe underneath it. */
+    .wim-pin-tip[data-pinned="1"] { pointer-events:auto; }
+    .wim-legend-sector { padding:0 18px; margin-top:6px; }
+    .wim-dot { width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:6px; vertical-align:middle; }
+    /* Replaces a wim-dot color swatch in the subsector legend rows specifically — now
+       that subColor() is just the flat sector color, a dot there would be identical for
+       every row in a sector and teach the visitor nothing; the actual pin icon does. */
+    .wim-legend-icon { display:inline-block; margin-right:6px; font-size:11px; vertical-align:middle; }
+    .wim-hint { font-size:10px; color:var(--text-faint); font-weight:400; text-transform:none; cursor:help; margin-left:6px; letter-spacing:0; }
+    /* Positioning/audience blurb, tucked into the filter bar as a click-to-expand
+       disclosure rather than a permanent block of copy — the filter bar is a floating
+       pill directly over the globe, and three persona paragraphs would either not fit or
+       permanently eat map space every visitor has to look past. */
+    .wim-whofor-wrap { position:relative; display:inline-flex; align-items:center; margin-right:6px; }
+    .wim-whofor-toggle { cursor:pointer; user-select:none; margin-left:0; color:var(--accent); font-weight:700; }
+    .wim-whofor-toggle:hover { text-decoration:underline; }
+    /* Always-visible value proposition for the active mode (full-width second row of the filter bar). */
+    .wim-modeseg button { font-size:13px; padding:7px 16px; }
+    /* Week-by-week timeline (Trade Flows mode): oldest week left, this week right. Bar height = Critical+Elevated signals that week, colour = worst tier, lock = subscriber-only week. */
+    .wim-timeline { flex:1 1 100%; order:9; display:flex; align-items:center; justify-content:center; gap:10px; padding-top:8px; border-top:1px solid var(--line); flex-wrap:wrap; }
+    .wim-tl-play { appearance:none; border:1px solid var(--line-strong); background:var(--bg-elev-2); color:var(--accent); width:30px; height:30px; border-radius:50%; font-size:12px; cursor:pointer; padding:0 0 0 2px; font-family:inherit; }
+    .wim-tl-play:hover { background:var(--accent-dim); }
+    .wim-tl-cells { display:flex; align-items:flex-end; gap:5px; }
+    .wim-tl-cell { appearance:none; border:1px solid var(--line); background:var(--bg-elev-2); width:26px; height:34px; border-radius:6px; padding:3px; cursor:pointer; display:flex; align-items:flex-end; justify-content:center; position:relative; font-family:inherit; }
+    .wim-tl-cell i { display:block; width:100%; border-radius:3px; min-height:4px; background:var(--tlc,#7f93b0); }
+    .wim-tl-cell.tl-crit { --tlc:#d63b34; } .wim-tl-cell.tl-elev { --tlc:#e08a2c; } .wim-tl-cell.tl-watch { --tlc:#6d7f99; } .wim-tl-cell.tl-locked { --tlc:#b6c0d1; }
+    .wim-tl-cell.sel { border-color:var(--accent); box-shadow:0 0 0 2px var(--accent-dim); }
+    .wim-tl-cell.tl-locked::after { content:'\1F512'; position:absolute; top:-7px; right:-4px; font-size:9px; }
+    .wim-tl-cell:hover { border-color:var(--accent); }
+    .wim-tl-cell[data-k="0"] { margin-right:9px; } /* gap after the free (latest) week, before the paid ones */
+    .wim-tl-label { font-size:12px; color:var(--text-dim); font-weight:600; min-width:150px; text-align:left; }
+    .wim-tl-share { appearance:none; border:1px solid var(--accent); background:var(--accent); color:#fff; font-size:12px; font-weight:700; padding:6px 12px; border-radius:8px; cursor:pointer; font-family:inherit; }
+    .wim-tl-share:hover { opacity:.88; }
+    /* Share dialog (image preview + caption + actions) */
+    .wim-share { display:flex; gap:18px; flex-wrap:wrap; }
+    .wim-share-img { flex:1 1 300px; min-width:0; }
+    .wim-share-img img { width:100%; height:auto; border-radius:10px; border:1px solid var(--line-strong); display:block; }
+    .wim-share-side { flex:1 1 300px; min-width:0; }
+    .wim-share-side textarea { width:100%; height:230px; font:12.5px/1.45 inherit; font-family:inherit; padding:10px; border:1px solid var(--line-strong); border-radius:8px; resize:vertical; color:var(--text); background:#fff; }
+    .wim-share-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+    .wim-share-actions a, .wim-share-actions button { appearance:none; text-decoration:none; border:1px solid var(--line-strong); background:var(--bg-elev-2); color:var(--text); font-size:12.5px; font-weight:700; padding:8px 12px; border-radius:8px; cursor:pointer; font-family:inherit; }
+    .wim-share-actions .primary { background:var(--accent); border-color:var(--accent); color:#fff; }
+    .wim-share-tip { font-size:11.5px; color:var(--text-faint); margin-top:10px; line-height:1.45; }
+    .wim-share-err { font-size:12.5px; color:#a33; margin-bottom:8px; }
+    .wim-share-warn { font-size:12px; color:#8a5a12; background:rgba(224,168,74,.16); border:1px solid rgba(224,168,74,.5); border-radius:8px; padding:8px 10px; margin-bottom:8px; line-height:1.4; }
+    .wim-share-pills { display:flex; gap:6px; margin-bottom:12px; }
+    .wim-share-pills button { appearance:none; border:1px solid var(--line-strong); background:var(--bg-elev-2); color:var(--text-dim); font-size:12.5px; font-weight:700; padding:6px 14px; border-radius:100px; cursor:pointer; font-family:inherit; }
+    .wim-share-pills button.active { background:var(--accent-dim); color:var(--accent); border-color:var(--accent); }
+    @media (max-width:760px) { .wim-tl-label { min-width:0; flex:1 1 100%; text-align:center; } .wim-tl-cell { width:22px; } }
+    .wim-lane-toggle { display:block; font-size:11.5px; font-weight:600; color:var(--text-dim); margin:8px 0 2px; cursor:pointer; line-height:1.35; }
+    .wim-lane-toggle input { margin-right:5px; vertical-align:-1px; }
+    .wim-modeintro { flex:1 1 100%; order:10; text-align:center; padding-top:8px; border-top:1px solid var(--line); }
+    .wim-modeintro-lead { font-size:13.5px; font-weight:600; color:var(--text); line-height:1.35; }
+    .wim-modeintro-who { font-size:12px; color:var(--text-dim); margin-top:3px; line-height:1.4; }
+    .wim-modeintro { position:relative; }
+    .wim-modeintro .wim-whofor-panel { background:#fff; }
+    .wim-modeintro .wim-whofor-wrap { position:static; }
+    .wim-modeintro .wim-whofor-panel { left:50%; transform:translateX(-50%); top:calc(100% + 6px); }
+    .wim-whofor-panel { position:absolute; top:calc(100% + 10px); left:0; width:300px; padding:14px 16px; border-radius:12px; z-index:25; text-align:left; }
+    .wim-whofor-lead { font-size:11.5px; color:var(--text-dim); margin-bottom:10px; padding-bottom:10px; border-bottom:1px solid var(--line); }
+    .wim-whofor-row { font-size:11.5px; margin-bottom:9px; }
+    .wim-whofor-row:last-child { margin-bottom:0; }
+    .wim-whofor-row b { display:block; color:var(--text); font-size:12px; margin-bottom:2px; }
+    .wim-whofor-row span { color:var(--text-dim); }
+    @media (max-width:760px) { .wim-whofor-panel { width:calc(100vw - 48px); left:50%; transform:translateX(-50%); } }
+    .wim-sector-block.active .wim-bar-row { background:rgba(255,255,255,0.05); border-radius:6px; }
+    .wim-sector-block .wim-bar-row:hover { background:rgba(255,255,255,0.035); border-radius:6px; }
+    .wim-subbar-row { cursor:pointer; padding:2px 4px; border-radius:5px; margin:0 -4px 5px; }
+    .wim-subbar-row:hover { background:rgba(255,255,255,0.05); }
+    .wim-subbar-row.active { background:var(--accent-dim); }
+    .wim-subbar-row.active .n { color:var(--text); }
+    .wim-pill:hover { border-color:var(--line-strong); background:rgba(255,255,255,0.05); }
+    .wim-sector-block, .wim-pill, .wim-subbar-row { user-select:none; }
+    .wim-pill.active { background:var(--accent-dim); color:var(--accent); border:1px solid var(--accent); }
+    .wim-globe-fab { position:absolute; right:16px; bottom:16px; width:50px; height:50px; border-radius:50%; background:var(--bg-elev-2); border:1px solid var(--line-strong); display:flex; align-items:center; justify-content:center; font-size:20px; cursor:pointer; box-shadow:0 10px 30px rgba(0,0,0,.4); z-index:15; }
+    .wim-zoom-ctrl { position:absolute; left:50%; bottom:18px; transform:translateX(-50%); display:flex; flex-direction:row; z-index:15; border-radius:12px; overflow:hidden; border:2px solid var(--accent); box-shadow:0 10px 30px rgba(0,0,0,.5); }
+    /* Glass look 2026-09-15: this floats directly over the globe (by design, like
+       Google Maps/Earth's own zoom controls) rather than sitting in empty space
+       below it - now that the globe is bigger and fills more of the frame, an
+       opaque button background read as an accidental collision rather than an
+       intentional floating control. Backdrop-filter goes on the group, not each
+       button individually, so the blur is continuous across the divider lines
+       instead of each button blurring its own little rectangle.
+       Fix 2026-09-15 (2): this element's markup also carries the shared .wim-float
+       class, which sets its OWN 86%-opaque white background on this same
+       container. That sat underneath the buttons and stacked with their alpha
+       (same color on same color don't make each other more transparent), so the
+       buttons still read as solid no matter how transparent they were made on
+       their own. Overriding the container back to fully transparent here means
+       the buttons' own alpha is the only thing left determining how see-through
+       this actually looks. */
+    .wim-zoom-ctrl { background: transparent; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    .wim-zoom-ctrl button { width:54px; height:50px; background:rgba(255,255,255,.32); border:none; color:var(--text); font-size:26px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; line-height:1; }
+    .wim-zoom-ctrl button:not(:last-child) { border-right:1px solid var(--accent); }
+    .wim-zoom-ctrl button:hover { background:var(--accent); color:#1a1206; }
+    /* Reset-view sits in the same pill as +/− (right where the user's hand already is
+       after zooming) rather than off in its own bottom-right corner — a separate corner
+       button tested fine in isolation but read as "too far" once zoom and reset were
+       actually used together. Smaller font than the +/− glyphs since the globe emoji
+       renders visually heavier at the same size. */
+    .wim-zoom-ctrl button[data-role="resetview"] { font-size:18px; }
+    .wim-globe-fab .badge { position:absolute; top:-4px; right:-4px; background:var(--accent); color:#1a1206; font-size:10.5px; font-weight:800; min-width:18px; height:18px; border-radius:100px; display:flex; align-items:center; justify-content:center; padding:0 4px; }
+    /* Cluster badges: an outer padded "hit" wrapper (transparent, just enlarges the tap
+       target) around the visible circle, so the touch target stays close to the ~44px
+       accessibility guideline on phones even though the visible badge itself is smaller —
+       shrinking the circle to match the hit box would make the whole cluster layer feel
+       oversized next to individual pins. Both layers must be positioned by globe.gl's
+       html-elements layer as a single element, hence the nesting instead of two siblings. */
+    .wim-cluster-hit { display:flex; align-items:center; justify-content:center; padding:8px; cursor:pointer; pointer-events:auto; }
+    /* background is set inline per-badge (dominant sector color) via makeClusterBadge, so
+       text uses white + a dark shadow rather than a color tuned for one fixed background —
+       that reads across the full range of sector/signal hues, unlike the dark text that
+       worked only for the old flat gold accent fill. */
+    .wim-cluster { border-radius:50%; display:flex; align-items:center; justify-content:center; background:var(--accent); color:#fff; text-shadow:0 1px 3px rgba(0,0,0,.55); font-weight:800; box-shadow:0 4px 14px rgba(0,0,0,.45); border:2px solid rgba(255,255,255,.85); transition:transform .12s ease; }
+    .wim-cluster-hit:hover .wim-cluster, .wim-cluster-hit:active .wim-cluster { transform:scale(1.1); }
+    .wim-cluster-sm { width:24px; height:24px; font-size:10.5px; }
+    .wim-cluster-md { width:32px; height:32px; font-size:12px; }
+    .wim-cluster-lg { width:42px; height:42px; font-size:13px; }
+    .wim-cluster-n { pointer-events:none; }
+    /* Individual (unclustered) pins — same hit-area-wrapper pattern as clusters above,
+       just one fixed size and an icon instead of a count. Replaces the old raw WebGL
+       point layer entirely so every pin, clustered or not, is a real DOM element with a
+       proper touch target instead of a few-pixel raycast hit. */
+    .wim-pin-hit { display:flex; align-items:center; justify-content:center; padding:6px; cursor:pointer; pointer-events:auto; }
+    /* Pin redesign 2026-09-05: icon-on-saturated-fill had inconsistent contrast (some emoji nearly disappear against certain sector colors). White fill + a thick sector-colored ring keeps the icon legible regardless of sector color, and the ring alone still reads as the sector color at a glance. */
+    .wim-pin-badge { width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; line-height:1; box-shadow:0 3px 10px rgba(0,0,0,.35); background:#fff; border-width:3px; border-style:solid; transition:transform .12s ease; }
+    .wim-pin-hit:hover .wim-pin-badge, .wim-pin-hit:active .wim-pin-badge { transform:scale(1.25); }
+    /* Trade Flow vs Infrastructure redesign 2026-09-19: the two report types must read as
+       different things at a glance, so they differ in SHAPE and FILL (not only ring hue,
+       which was easy to confuse and useless for colour-blind visitors):
+         Infrastructure = white ROUND badge, coloured ring  (a place / a project)
+         Trade Flow     = dark ROUNDED-SQUARE badge, coloured glow + white icon (a live signal)
+       Trade Flow pins additionally carry an importance tier from flow_impact:
+         crit  (>=8) big + pulsing   elev (4-7) normal   watch (<4) small dim dot, no icon */
+    /* Trade Flow pin = SOLID sector-colour rounded-square + white line icon + white border
+       (Infrastructure = white fill + coloured ring), so the two are opposites in fill too. */
+    .wim-pin-badge.wim-tf { border-radius:8px; color:#fff; border-color:#fff; border-width:2px; box-shadow:0 0 0 1px rgba(8,18,38,.7), 0 3px 10px rgba(0,0,0,.45); }
+    .wim-pin-badge.wim-tf svg { display:block; }
+    /* v3: all Trade Flow pins are the SAME size; fill colour = severity (red/orange/grey,
+       the traffic-light convention), icon = sector. Size is deliberately not used. */
+    .wim-pin-badge.wim-tf-crit { animation:wim-tf-pulse 2.6s ease-out infinite; }
+    .wim-pin-badge.wim-tf-watch { opacity:.9; }
+    /* Soft pulse (v4): starts at 35% opacity and only grows 6px, then fades. The first version started fully opaque and grew 14px, so neighbouring Critical pins smeared into one red blob. */
+    @keyframes wim-tf-pulse { 0% { box-shadow:0 0 0 1px rgba(8,18,38,.7), 0 0 0 0 color-mix(in srgb, var(--pulse,#d63b34) 35%, transparent); } 70%, 100% { box-shadow:0 0 0 1px rgba(8,18,38,.7), 0 0 0 6px color-mix(in srgb, var(--pulse,#d63b34) 0%, transparent); } }
+    .wim-cluster.wim-cluster-tf { border-radius:10px; }
+    .wim-cluster.wim-cluster-crit { animation:wim-tf-pulse 2.6s ease-out infinite; }
+    /* Critical halo (2026-09-19): a HOLLOW ring that expands and fades from the badge. Hollow (2px outline, no fill) so neighbouring Critical pins do not smear into a red blob like the old solid box-shadow pulse did; score >= 20 ("severe") gets a bigger ring plus a second, delayed one. */
+    .wim-pin-badge.wim-tf-crit, .wim-cluster.wim-cluster-crit { position:relative; }
+    .wim-pin-badge.wim-tf-crit::after, .wim-cluster.wim-cluster-crit::after { content:''; position:absolute; inset:-3px; border-radius:inherit; border:2px solid var(--pulse,#ff483c); opacity:0; pointer-events:none; animation:wim-halo 2.4s ease-out infinite; }
+    .wim-pin-badge.wim-tf-severe::before { content:''; position:absolute; inset:-3px; border-radius:inherit; border:2px solid var(--pulse,#ff483c); opacity:0; pointer-events:none; animation:wim-halo-big 2.4s ease-out 1.2s infinite; }
+    .wim-pin-badge.wim-tf-severe::after { animation-name:wim-halo-big; }
+    @keyframes wim-halo { 0% { transform:scale(1); opacity:.9; } 100% { transform:scale(2.3); opacity:0; } }
+    @keyframes wim-halo-big { 0% { transform:scale(1); opacity:.9; } 100% { transform:scale(3.2); opacity:0; } }
+    .wim-tf-chip { display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; border-radius:5px; color:#fff; margin-right:7px; vertical-align:middle; border:1px solid rgba(255,255,255,.7); }
+    .wim-tier-tag { display:inline-block; font-size:9.5px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; padding:1px 6px; border-radius:4px; color:#fff; margin-left:6px; vertical-align:middle; }
+    .wim-tier-tag.crit { background:#d63b34; } .wim-tier-tag.elev { background:#e08a2c; } .wim-tier-tag.watch { background:#6d7f99; }
+    .wim-kind-shape { display:inline-block; width:10px; height:10px; margin-right:6px; vertical-align:middle; border:2px solid var(--text-dim); }
+    .wim-kind-shape.epc { border-radius:50%; background:#fff; }
+    .wim-kind-shape.tf { border-radius:3px; background:#12203a; }
+    .wim-tier-row .wim-pill::before { content:''; display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:6px; vertical-align:baseline; background:currentColor; }
+    .wim-tier-row .wim-pill.crit::before { background:#d63b34; } .wim-tier-row .wim-pill.elev::before { background:#e08a2c; } .wim-tier-row .wim-pill.watch::before { background:#6d7f99; }
+    .wim-tier-row { display:flex; gap:6px; flex-wrap:wrap; margin:2px 0 8px; }
+    .wim-tier-row .wim-pill.crit.active { background:#d63b34; color:#fff; } .wim-tier-row .wim-pill.elev.active { background:#e08a2c; color:#fff; } .wim-tier-row .wim-pill.watch.active { background:#6d7f99; color:#fff; }
+    @media (max-width:760px) {
+        /* Phones only get taps, no hover — a bit more slop around the same visible
+           circle compensates for touch imprecision without the badges looking bigger. */
+        .wim-cluster-hit { padding:11px; }
+        .wim-cluster-sm { width:26px; height:26px; }
+        .wim-cluster-md { width:34px; height:34px; }
+        .wim-cluster-lg { width:44px; height:44px; }
+        .wim-pin-hit { padding:9px; }
+        .wim-pin-badge { width:28px; height:28px; font-size:14px; }
+    }
+    /* globe.gl stamps an inline z-index (depth-based, e.g. 24) on every pin/cluster element. Those wrappers had no stacking context of their own, so the values competed with the side panel (14) and filter bar (20) and pins rotating behind the panel painted on top of it. isolation:isolate confines all of that to the globe. */
+    .wim-globe-wrap { isolation:isolate; }
+    .wim-stats { position:absolute; top:16px; right:16px; width:290px; max-height:calc(100% - 32px); overflow-y:auto; z-index:14; border-radius:14px; padding:14px 16px 16px; display:flex; flex-direction:column; gap:16px; }
+    /* statsbody wraps the actual stat blocks; on desktop it participates in the parent's
+       flex layout as if it were not there (display:contents), so nothing here changes
+       desktop rendering at all. */
+    .wim-stats-body { display:contents; }
+    .wim-stats-peek { display:none; }
+    /* Phones only: a full bottom-anchored card (like the old fix) still ate a chunk of the
+       one thing this whole widget exists to show — the globe — even though most visits
+       never look at it. Collapsed to a slim "peek" bar by default (just a one-line count +
+       chevron, like a map app's bottom-sheet peek state) and expands upward on tap, so the
+       globe is unobstructed until the user actually asks for the breakdown. Anchored above
+       the zoom control pill rather than top:16px so it can never collide with the filter
+       bar above it, whose own height varies with wrapped content/state. */
+    .wim-sectorbar { display:none; }
+    @media (max-width:760px) {
+        /* Bottom app-tab-bar 2026-09-06: replaces the peek/expand stats panel on
+           mobile entirely (it still ate a chunk of the globe when expanded, and
+           "tap to see the breakdown" wasn't discoverable as a category filter).
+           Always visible, in normal flow at the bottom (see #wtp-imap-root's
+           flex-column layout + order below) so it never overlaps the globe. */
+        .wim-stats { display:none; }
+        .wim-sectorbar { display:flex; order:1; width:100%; background:var(--bg-elev); border-top:1px solid var(--line); }
+        .wim-sectorbar-btn { flex:1; display:flex; flex-direction:column; align-items:center; gap:2px; padding:9px 4px 11px; background:none; border:none; font-family:inherit; cursor:pointer; color:var(--text-dim); }
+        .wim-sectorbar-btn .ic { font-size:17px; }
+        .wim-sectorbar-btn .lbl { font-size:9.5px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+        .wim-sectorbar-btn .cnt { font-size:9px; color:var(--text-faint); }
+        .wim-sectorbar-btn.active { color:var(--accent); }
+        .wim-sectorbar-btn.active .cnt { color:var(--accent); }
+        /* Taller globe box 2026-09-15: the sphere's diameter is set by the camera's
+           vertical FOV against .wim-globe-wrap's HEIGHT, not its width - so at the
+           220px floor this box used everywhere else, a phone's much wider screen
+           left a lot of empty background on both sides of the sphere instead of it
+           reaching full width. Raising the floor to match the viewport's own width
+           gives the box a roughly square area to work with (on any phone size,
+           since this is vw-based rather than one guessed px number), which is
+           enough room for the sphere to reach edge-to-edge - at the cost of the
+           whole widget needing more scroll to see end-to-end, which is the
+           explicit trade being made here. globeMinHeight() in the JS below mirrors
+           this same breakpoint and value so the short-viewport overflow-prevention
+           math (see fitMapHeight) accounts for the taller floor too. */
+        .wim-globe-wrap { min-height: 100vw; }
+        /* Zoom control 2026-09-06: bottom:78px only kept it clear of the sector
+           bar below - it was still floating IN the globe's own area, same as the
+           filter bar used to, so pins could still render behind/around it. Made
+           it a real in-flow row (between the globe and the sector bar) instead,
+           same treatment as everything else in this layout. */
+        /* flex-shrink:0 2026-09-14: .wim-zoom-ctrl's base rule (non-mobile) sets
+           overflow:hidden (to clip the button corners to its rounded border) - inside
+           a flex column, overflow:hidden also removes an item's normal "never shrink
+           below content size" protection, so on a short viewport where the globe's
+           own min-height:220px left this bar and the sector bar together needing
+           more room than was left in the fixed-height root, flexbox crushed this bar
+           down to a few px instead of shrinking the globe (which can't go below
+           220px) or the sector bar (which has no overflow:hidden, so keeps its own
+           protection) - the +/-/reset buttons were still 50px tall underneath, just
+           clipped to a sliver. Marking it non-shrinkable keeps it at its real size
+           and lets the globe (already floored at 220px) or, in the worst case, a
+           little clipped space at the very bottom absorb any remaining squeeze. */
+        .wim-zoom-ctrl { position:static; left:auto; bottom:auto; transform:none; order:0; align-self:center; margin:10px 0; box-shadow:none; flex-shrink:0; }
+    }
+    .wim-stat-label { font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-faint); margin-bottom:6px; }
+    .wim-stat-big { font-size:28px; font-weight:800; }
+    .wim-stat-sub { font-size:12px; color:var(--text-dim); margin-top:2px; }
+    .wim-bar-row { display:grid; grid-template-columns:100px 1fr 26px; align-items:center; gap:8px; font-size:12px; margin-bottom:7px; }
+    .wim-bar-row .n { color:var(--text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .wim-bar-track { height:7px; background:var(--bg-elev-2); border-radius:100px; overflow:hidden; }
+    .wim-bar-fill { height:100%; background:var(--info); border-radius:100px; }
+    .wim-bar-row .c { text-align:right; color:var(--text-faint); }
+    .wim-sector-block { cursor:pointer; }
+    .wim-sector-block .wim-bar-row .n::before { content:'▸ '; color:var(--text-faint); display:inline-block; width:10px; }
+    .wim-sector-block.expanded .wim-bar-row .n::before { content:'▾ '; }
+    .wim-subbars { max-height:0; overflow:hidden; margin:0 0 0 18px; }
+    .wim-sector-block.expanded .wim-subbars { max-height:400px; margin:2px 0 10px 18px; }
+    .wim-subbar-row { display:grid; grid-template-columns:100px 1fr 22px; align-items:center; gap:8px; font-size:11px; margin-bottom:5px; }
+    .wim-subbar-row .n { color:var(--text-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .wim-subbar-track { height:5px; background:var(--bg-elev-2); border-radius:100px; overflow:hidden; }
+    .wim-subbar-fill { height:100%; background:var(--accent); border-radius:100px; opacity:.7; }
+    .wim-subbar-row .c { text-align:right; color:var(--text-faint); }
+    .wim-pills { display:flex; gap:6px; flex-wrap:wrap; }
+    .wim-pill { font-size:11px; padding:4px 9px; border-radius:100px; background:var(--bg-elev-2); border:1px solid var(--line); color:var(--text-dim); }
+    .wim-empty { padding:40px; text-align:center; color:var(--text-faint); font-size:13px; }
+    .wim-modal-overlay { position:fixed; inset:0; background:rgba(5,10,20,.6); display:none; align-items:center; justify-content:center; z-index:9999; }
+    .wim-modal { background:var(--bg-elev); border:1px solid var(--line-strong); border-radius:14px; width:min(560px,92vw); max-height:80vh; overflow:auto; padding:16px 18px; }
+    .wim-modal h3 { margin:0 0 10px; font-size:15px; }
+    .wim-modal-row { padding:8px 0; border-bottom:1px solid var(--line); font-size:12.5px; }
+    .wim-modal-row b { color:var(--text); }
+    .wim-modal-close { float:right; cursor:pointer; color:var(--text-faint); font-size:13px; }
+
+/* Mobile fix 2026-09-05: filter bar used to float absolutely over the globe and,
+   once it wrapped to 3-4 rows on a narrow phone, covered a big chunk of it.
+   This puts it in normal flow above the globe instead - globe fills whatever
+   space is left below it. */
+/* Layout fix 2026-09-05 (2): the mobile-only version of this fix above still
+   let desktop pins float over/into the filter bar's own screen band (pins
+   near the top of the visible globe land in the same rows as "Last 7d /
+   7-15 days / 15 days+"). Made unconditional (not just <=760px) so the
+   filter bar reserves real space on every screen size and the globe (and
+   every pin on it) always renders strictly below it, never behind it. */
+#wtp-imap-root { display:flex; flex-direction:column; }
+/* margin-bottom 2026-09-14: the filter card used to sit flush against the globe -
+   read as cramped rather than intentional. This still keeps the "reserves real
+   space, pins never render behind it" guarantee from the fix above (the globe
+   still starts strictly after the filter bar's full box, margin included) and is
+   picked up by fitMapHeight()'s othersHeight sum (it measures every non-globe
+   child's margins), so short-viewport pages account for it the same as any other
+   row instead of it silently eating into the globe's space. */
+.wim-filterbar { position:static; order:-3; left:auto; top:auto; transform:none; width:100%; max-width:100%; border-radius:0 0 16px 16px; margin-bottom:10px; }
+/* Overlay, NOT an in-flow row (2026-09-19): as a normal flex row it took ~40px when it appeared and the globe shrank every time a locked week/range was clicked. JS (placeGatedNotice) sets its top just under the filter bar. */
+.wim-gated-notice { position:absolute; left:50%; top:130px; transform:translateX(-50%); width:max-content; max-width:calc(100% - 24px); margin:0; z-index:24; }
+.wim-globe-wrap { position:relative; inset:auto; order:-1; flex:1 1 auto; min-height:220px; }
+
+/* Immersive front-page globe 2026-09-13: this page is the site's front page
+   (body.home), and the stock branded header above it - full-height logo,
+   tagline, and a row of social icons - was ~260px of dead space that pushed
+   most of the globe below the fold before a visitor ever saw it. Scoped to
+   body.home only (not the global #site-logo/.social-widget rules used by
+   basic-child everywhere else) so Forum/Course/Verified Trader and every
+   other page reached via the switcher keep the normal full header. */
+body.home #header { padding-top:10px; padding-bottom:10px; }
+body.home #site-logo { padding:0; }
+body.home #site-logo img.site-logo-image { max-height:34px !important; }
+body.home #site-description,
+body.home .social-widget { display:none; }
+    </style>
+
+    <script>
+    (function() {
+        var API = <?php echo wp_json_encode($api_base); ?>;
+        var CENTROIDS = <?php echo $centroids_json; ?>;
+        var CENTROIDS_CI = {};
+        Object.keys(CENTROIDS).forEach(function(k){ CENTROIDS_CI[k.toLowerCase()] = CENTROIDS[k]; });
+        var root = document.getElementById('wtp-imap-root');
+        if (!root) return;
+
+        var SECTOR_COLORS = {
+            'Energy': '#e0a84a',
+            'Logistics & Infrastructure': '#4fb286',
+            'Mining & Metals': '#9b8cd6',
+            'Agriculture': '#e0785a'
+        };
+        var DEFAULT_SECTOR_COLOR = '#93a8c4';
+        // Deliberately a different hue family from SECTOR_COLORS (reds/blues vs EPC's
+        // gold/teal/purple/orange) so EPC opportunity pins and commodity signal pins are
+        // visually distinguishable at a glance even when the category name happens to
+        // match (both schemas use "Energy" and "Agriculture", for example).
+        var SIGNAL_COLORS = {
+            'Energy': '#e0524a',
+            'Shipping': '#4a90e0',
+            'Metals': '#c94ae0',
+            'Agriculture': '#e0a34a',
+            'Policy': '#6b7fd6'
+        };
+        var DEFAULT_SIGNAL_COLOR = '#e0524a';
+        function signalColor(s) { return SIGNAL_COLORS[s] || DEFAULT_SIGNAL_COLOR; }
+        function pinColor(it) {
+            // Trade Flow colour on the map = severity (see TIER_DEFS), never sector; this
+            // neutral grey-blue is only for legend dots / sidebar bars that must not imply severity.
+            return it.report_type === 'flow_distortion' ? '#7f93b0' : subColor(it.sector, it.subsector);
+        }
+        function groupKey(reportType, sector) { return reportType + '::' + sector; }
+
+        // ── Trade Flow importance + icon (2026-09-19) ────────────────────────────
+        // Trade Flow items have no subsector, so subsectorIcon() used to return the
+        // "unknown" question mark for every one of them. They get their own icon + tier.
+        // it.confidence carries the pipeline's flow_impact score (integer; the monitor's
+        // scale on the live site is ~4-18). Cutoffs 12 / 8 chosen 2026-09-19 from the real
+        // distribution of 79 items: ~16 Critical, ~21 Elevated, ~42 Watch (hidden by default).
+        function isFlow(it) { return it && it.report_type === 'flow_distortion'; }
+        function flowImpact(it) { return parseInt(it && it.confidence, 10) || 0; }
+        var TIER_DEFS = {
+            crit:  { label: 'Critical', min: 12, color: '#d63b34', hint: 'Likely to move prices / disrupt flows now' },
+            elev:  { label: 'Elevated', min: 8, color: '#e08a2c', hint: 'Material development worth tracking' },
+            watch: { label: 'Watch',    min: 0, color: '#6d7f99', hint: 'Routine / background signal' }
+        };
+        var TIER_ORDER = ['crit', 'elev', 'watch'];
+        function flowTier(it) { var n = flowImpact(it); return n >= 12 ? 'crit' : (n >= 8 ? 'elev' : 'watch'); }
+        function maxTier(items) {
+            var best = 'watch';
+            (items || []).forEach(function(it) { if (isFlow(it) && TIER_ORDER.indexOf(flowTier(it)) < TIER_ORDER.indexOf(best)) best = flowTier(it); });
+            return best;
+        }
+        // Only 5 icons, one per Trade Flow sector, as plain white line-art (currentColor)
+        // SVG. Earlier version picked emoji by headline keyword (anchor / no-entry /
+        // warning / barrel...) - too many symbols to learn, and colour emoji on a dark
+        // badge turned to mush at pin size. Sector = icon, so the sidebar rows can show
+        // the very same icon as a legend.
+        var FLOW_ICON_PATHS = {
+            'Shipping':    '<path d="M3 15h18l-2 5H5z"/><path d="M7 15v-5h10v5"/><path d="M12 10V4"/>',
+            'Energy':      '<path d="M12 3c3.5 4.5 6 7.5 6 11a6 6 0 0 1-12 0c0-3.5 2.5-6.5 6-11z"/>',
+            'Agriculture': '<path d="M12 22V9"/><path d="M12 9c-3.5 0-4.5-2.5-4.5-5 3.5 0 4.5 2.5 4.5 5z"/><path d="M12 9c3.5 0 4.5-2.5 4.5-5-3.5 0-4.5 2.5-4.5 5z"/><path d="M12 16c-3.5 0-4.5-2.5-4.5-5"/><path d="M12 16c3.5 0 4.5-2.5 4.5-5"/>',
+            'Metals':      '<path d="M3 18l3.5-9h11L21 18z"/><path d="M8 13.5h8"/>',
+            'Policy':      '<path d="M6 3h8l5 5v13H6z"/><path d="M14 3v5h5"/><path d="M9 13h7M9 17h7"/>'
+        };
+        function flowIconSvg(sector, size) {
+            var p = FLOW_ICON_PATHS[sector] || '<circle cx="12" cy="12" r="6"/>';
+            return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' + p + '</svg>';
+        }
+        function flowIcon(it) { return flowIconSvg(it.sector, 18); }
+
+        var STAGE_DEFS = {
+            'S1-Feasibility': 'Feasibility study, EIA, concept study, MOU, exploration',
+            'S2-Development': 'FEED / pre-FEED, financing, PPA, permitting',
+            'S3-Pre-FID': 'FID imminent — FEED complete, board approval pending',
+            'S4-Tender': 'EPC tender, ITT/RFQ, bidding, shortlist, LOI',
+            'S5-Awarded': 'Contract awarded — NTP, groundbreaking, construction start'
+        };
+        var STAGE_ORDER = ['S1-Feasibility','S2-Development','S3-Pre-FID','S4-Tender','S5-Awarded'];
+
+        function escapeHtml(s) {
+            return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
+                return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+            });
+        }
+        function sectorColor(s) { return SECTOR_COLORS[s] || DEFAULT_SECTOR_COLOR; }
+        var SUBSECTOR_FOLD = {
+            'upstream': 'Oil & Gas', 'downstream': 'Oil & Gas', 'midstream': 'Oil & Gas',
+            'wind': 'Renewables', 'solar': 'Renewables', 'hydropower': 'Renewables', 'geothermal': 'Renewables',
+            'airports & terminals': 'Airports',
+            // Taxonomy cleanup 2026-09-05: fold near-duplicate / overly-generic AI
+            // classification labels into their canonical counterpart so the sector
+            // breakdown doesn't show 3 rows for what is really one category.
+            'unknown': '(unspecified)', 'energy generation': '(unspecified)',
+            'infrastructure development': '(unspecified)', 'epc': '(unspecified)',
+            'refinery development': 'Refining & Petrochemicals', 'refining': 'Refining & Petrochemicals',
+            'lng infrastructure': 'LNG', 'regasification': 'LNG',
+            'coal power development': 'Power & Transmission'
+        };
+        function foldSubsector(sector, subsector) {
+            var sub = (subsector || '').trim();
+            if (!sub) return '(unspecified)';
+            if (sub.toLowerCase() === (sector||'').trim().toLowerCase()) return '(unspecified)';
+            var folded = SUBSECTOR_FOLD[sub.toLowerCase()];
+            if (folded) return folded;
+            var CROSS_SECTOR_SUBS = ['logistics & infrastructure','ports & terminals','pipelines & storage','rail & inland transport','shipyard & fleet','mine development','processing & smelting','critical minerals','fertilizer plants','grain & food infrastructure','irrigation & water'];
+            var ownSubs = { 'Logistics & Infrastructure':1, 'Mining & Metals':1, 'Agriculture':1 };
+            if (CROSS_SECTOR_SUBS.indexOf(sub.toLowerCase()) !== -1 && !ownSubs[sector]) return '(unspecified)';
+            return sub;
+        }
+        // Used to be a per-subsector hash-rotated rainbow hue, so the sidebar's 4-color
+        // sector legend never matched what was actually on the globe (any item with a
+        // subsector — most of them — got one of dozens of near-random colors instead of
+        // its sector's color). Color now stays strictly tied to the 4-color sector legend;
+        // subsectorIcon() below carries the finer facility-type distinction instead, via
+        // an actual icon rather than an unlearnable palette of one-off hues.
+        function subColor(sector, subsector) {
+            return sectorColor(sector);
+        }
+
+        // Real facility-type icon per item, independent of color (color = sector only).
+        // Keyword/substring matching against the raw subsector string rather than an
+        // exact-match dictionary, because the ingestion pipeline produces a long messy
+        // tail of near-duplicate spellings for the same real-world facility type (e.g.
+        // "Refinery", "Refinery Development", "Refining", "Refining & Petrochemicals" are
+        // all the same thing) — substring matching absorbs that variance, and any future
+        // label the pipeline invents still falls through to a sensible sector-level icon
+        // instead of the map's default pin.
+        function subsectorIcon(sector, subsector) {
+            var s = (subsector || '').toLowerCase();
+            var sec = (sector || '').toLowerCase();
+
+            // Unspecified/unknown gets its own icon rather than silently falling through
+            // to the sector-level default further down, which made "no real subsector
+            // data" visually indistinguishable from a specific real category (e.g.
+            // Energy's fallback is the same lightning bolt as Power & Transmission).
+            if (s === '(unspecified)' || s === 'unknown' || !s) return '❓';
+
+            if (/wind/.test(s)) return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="12" y1="12" x2="12" y2="3" stroke="#16233d" stroke-width="1.8" stroke-linecap="round"/><line x1="12" y1="12" x2="19.8" y2="16.5" stroke="#16233d" stroke-width="1.8" stroke-linecap="round"/><line x1="12" y1="12" x2="4.2" y2="16.5" stroke="#16233d" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="1.6" fill="#16233d"/></svg>';
+            if (/solar/.test(s)) return '☀️';
+            if (/geothermal/.test(s)) return '🌋';
+            // Checked before the /hydro/ test below: "hydrogen" contains "hydro" as a
+            // substring, so without this ordering every Hydrogen & Ammonia item was
+            // silently misread as hydropower and rendered the water-drop icon instead.
+            if (/hydrogen|ammonia/.test(s)) return '🧪';
+            if (/hydro/.test(s) && sec === 'energy') return '💧';
+            if (/renewable/.test(s)) return '🌱';
+            if (/lng|liquefaction|regasification|import terminal|export terminal/.test(s)) return '🧊';
+            if (/nuclear/.test(s)) return '☢️';
+            if (/refin|petrochemical/.test(s)) return '🏭';
+            if (/oil|gas|upstream|midstream|downstream|drilling/.test(s)) return '🛢️';
+            if (/power|transmission|thermal|coal/.test(s)) return '⚡';
+            if (/subsea|offshore/.test(s)) return '🌊';
+            if (/desalination|water/.test(s)) return '🚰';
+            if (/pipeline|storage/.test(s)) return '🔧';
+            if (/shipyard|fleet|shipping/.test(s)) return '🚢';
+            if (/rail|road|highway|transport/.test(s)) return '🚆';
+            if (/port|terminal/.test(s)) return '⚓';
+            if (/data cent/.test(s)) return '🖥️';
+            if (/airport/.test(s)) return '✈️';
+            if (/mine development|mining/.test(s)) return '⛏️';
+            if (/critical mineral/.test(s)) return '💎';
+            if (/smelt|processing/.test(s)) return '🏭';
+            if (/fertilizer/.test(s)) return '🧪';
+            if (/grain|feed/.test(s)) return '🌾';
+            if (/irrigation/.test(s)) return '🚰';
+
+            // Sector-level fallback — keeps unmapped/rare/future labels from a pipeline
+            // update from ever rendering as a blank or wrong-looking pin.
+            if (sec === 'energy') return '⚡';
+            if (sec === 'logistics & infrastructure') return '🏗️';
+            if (sec === 'mining & metals') return '⛏️';
+            if (sec === 'agriculture') return '🌾';
+            return '📍';
+        }
+
+        // Default to the free window, not 7d: the most recent 7 days is paywalled for
+        // non-subscribers (see wtp_opps_query's server-side gate), so a 7d default would
+        // show an empty globe to the vast majority of first-time visitors. "7-15" is
+        // exactly the free window (7-15 days back) so anonymous visitors see real data
+        // immediately.
+        // Two separate products (2026-09-19): Infrastructure = project pipeline, Trade Flows =
+        // live signals. They have different taxonomies, sorting and audiences, so the page shows
+        // ONE at a time (no "both" mix). ?view=flows deep-links to Trade Flows.
+        function initialMode() {
+            var v = '';
+            try { v = new URLSearchParams(window.location.search).get('view') || ''; } catch (e) {}
+            if (v === 'flows' || v === 'trade-flows') return 'flow_distortion';
+            if (v === 'infrastructure') return 'epc';
+            return root.dataset.reportType === 'flow_distortion' ? 'flow_distortion' : 'epc';
+        }
+        // Trade Flows are free at every date range (server: report_type=flow_distortion skips the
+        // gate) and perishable, so that mode opens on the freshest 7 days; Infrastructure keeps the
+        // free 7-15 day window as the paywall teaser.
+        var startMode = initialMode();
+        var state = { range: startMode === 'flow_distortion' ? '7' : '7-15', sector: '', subsector: '', stage: '', tier: '', showMinor: false, reportType: startMode, topSector: '', lane: '', showLanes: true, weekK: 0 };
+        // weekK: which rolling 7-day window Trade Flows shows (0 = last 7 days, free; 1+ = older, subscriber-only).
+        var weeksData = [];
+        function defaultRange(mode) { return mode === 'flow_distortion' ? '7' : '7-15'; }
+        var MODES = {
+            epc: {
+                name: 'Infrastructure Projects',
+                lead: 'Spot infrastructure projects while they are still at feasibility / pre-FID stage — before they reach public tender.',
+                who: 'For BD &amp; market-entry teams at EPC contractors, developers, and equipment &amp; materials suppliers.',
+                rows: [
+                    ['EPC Contractors &amp; Developers', 'See which projects are moving toward tender and award, and position with the owner before competitors know the project exists.'],
+                    ['Equipment &amp; Materials Suppliers', 'Know which projects are coming, in which country and sector, so you start selling in early — not after the RFQ is out.'],
+                    ['Investors, Lenders &amp; Advisors', 'Track the project pipeline by sector and stage (S1–S5) to find deals and mandates early.']
+                ],
+                sectors: [
+                    { name: 'Energy', icon: '⚡' },
+                    { name: 'Mining & Metals', icon: '⛏️' },
+                    { name: 'Agriculture', icon: '🌾' },
+                    { name: 'Logistics & Infrastructure', icon: '🏗️' }
+                ]
+            },
+            flow_distortion: {
+                name: 'Trade Flow Signals',
+                lead: 'Live signals on disruptions hitting global trade — ports, shipping lanes, energy, metals, agriculture and policy — ranked by impact.',
+                who: 'For supply-chain, logistics and sourcing teams that need to know what is disrupting flows right now.',
+                rows: [
+                    ['Supply Chain &amp; Logistics Teams', 'See port congestion, chokepoint risk and route disruptions as they are detected, ranked Critical / Elevated / Watch.'],
+                    ['Procurement &amp; Sourcing', 'Spot policy shifts and supply shocks that could affect what you buy and where it ships from.'],
+                    ['Commodity Traders &amp; Analysts', 'One map of what is moving energy, metals and agricultural flows, with the source behind each signal.']
+                ],
+                sectors: [
+                    { name: 'Energy', icon: '⚡' },
+                    { name: 'Shipping', icon: '🚢' },
+                    { name: 'Metals', icon: '⛏️' },
+                    { name: 'Agriculture', icon: '🌾' },
+                    { name: 'Policy', icon: '📜' }
+                ]
+            }
+        };
+        // ── Trade lanes (Trade Flows mode) ────────────────────────────────────────
+        // Major shipping corridors drawn on the globe. Waypoints are coarse (the map is a
+        // globe-scale overview, not a chart) and ordered in the MAIN direction of trade so
+        // the animated dashes read as flow. A lane lights up when signals mention it:
+        // keyword match on the headline, or 2+ mentions in the description (one passing
+        // mention, e.g. an LNG deal that says "Mediterranean", must not light a lane).
+        var TRADE_LANES = [
+            { id:'hormuz', name:'Strait of Hormuz', flow:'Gulf crude, LNG & products → Asia',
+              re:'\\b(strait of hormuz|hormuz|persian gulf|arabian gulf|gulf of oman)\\b',
+              pts:[[27.0,51.0],[26.3,54.5],[26.55,56.5],[25.2,57.3],[23.0,59.8],[21.5,60.9],[15.0,66.0],[9.0,72.0],[5.6,79.5],[5.4,81.5]] },
+            { id:'malacca', name:'Strait of Malacca', flow:'Indian Ocean → East Asia',
+              re:'\\b(malacca|strait of singapore|singapore strait)\\b',
+              pts:[[5.4,81.5],[5.8,86.0],[6.3,92.0],[6.2,95.5],[5.5,98.0],[4.6,99.3],[3.0,100.6],[2.2,101.6],[1.4,102.7],[1.15,103.4],[1.2,103.9]] },
+            { id:'scs', name:'South China Sea / Taiwan Strait', flow:'Singapore → China, Japan & Korea',
+              re:'\\b(south china sea|taiwan strait|spratly|paracel)\\b',
+              pts:[[1.2,103.9],[1.6,105.0],[5.0,106.8],[8.5,108.6],[12.5,110.5],[17.0,112.5],[21.0,115.8],[23.7,118.7],[25.4,120.3],[28.0,122.6],[31.0,122.5]] },
+            { id:'adenbab', name:'Gulf of Aden / Bab el-Mandeb', flow:'Arabian Sea → Red Sea (Asia → Europe)',
+              re:'\\b(bab[ -]el[ -]mandeb|bab al[ -]mandab|gulf of aden|perim|houthis?)\\b',
+              pts:[[21.5,60.9],[16.0,56.0],[13.5,50.0],[12.2,46.0],[12.3,44.0],[12.6,43.4]] },
+            { id:'redsuez', name:'Red Sea & Suez Canal', flow:'Asia → Mediterranean & Europe',
+              re:'\\b(red sea|suez( canal)?)\\b',
+              pts:[[12.6,43.4],[14.0,42.0],[16.5,40.5],[20.0,38.5],[24.0,36.6],[26.5,35.1],[27.7,33.9],[28.4,33.3],[29.5,32.6],[29.95,32.55],[30.6,32.3],[31.3,32.35]] },
+            { id:'med', name:'Mediterranean, Gibraltar & N. Europe', flow:'Suez → Rotterdam',
+              re:'\\b(mediterranean|gibraltar|strait of sicily|english channel|dover strait)\\b',
+              pts:[[31.3,32.35],[32.0,32.0],[33.5,28.0],[35.0,22.0],[36.0,17.0],[36.6,12.5],[37.6,7.0],[37.4,3.0],[36.5,-1.5],[36.0,-4.0],[35.95,-5.6],[36.2,-7.0],[36.5,-9.8],[39.0,-10.2],[42.5,-10.3],[44.5,-8.5],[48.4,-6.0],[49.4,-4.5],[50.0,-1.0],[50.5,0.5],[51.0,1.5],[51.9,3.4],[52.0,4.0]] },
+            { id:'blacksea', name:'Black Sea & Turkish Straits', flow:'Black Sea grain, oil & metals → Mediterranean',
+              re:'\\b(black sea|bosphorus|bosporus|dardanelles|turkish straits|odesa|odessa|novorossiysk)\\b',
+              pts:[[46.0,31.2],[43.5,31.0],[41.4,29.2],[41.0,29.0],[40.7,28.0],[40.2,26.4],[40.0,25.8],[36.9,23.6],[35.0,22.0]] },
+            { id:'panama', name:'Panama Canal', flow:'Atlantic → Pacific (US Gulf LNG & grain → Asia)',
+              re:'\\b(panama canal|panama)\\b',
+              pts:[[17.0,-72.0],[12.0,-76.5],[9.6,-79.8],[9.35,-79.9],[9.1,-79.7],[8.95,-79.55],[7.0,-79.6],[2.0,-83.0]] },
+            { id:'cape', name:'Cape of Good Hope route', flow:'Indian Ocean → Atlantic (Suez / Red Sea diversion)',
+              re:'\\b(cape of good hope|cape route|around the cape)\\b',
+              pts:[[-18.0,40.5],[-26.0,35.5],[-32.0,32.5],[-35.6,24.0],[-35.5,19.5],[-34.6,17.5],[-30.0,14.5],[-24.0,10.5],[-12.0,10.0],[-3.0,7.0],[3.0,3.0],[4.2,-4.0],[3.6,-9.0],[8.0,-15.5],[13.5,-18.0],[20.0,-18.5],[26.0,-16.5],[32.0,-13.5],[36.4,-10.0]] }
+        ];
+        var LANE_BY_ID = {};
+        TRADE_LANES.forEach(function(l) {
+            l.rxAll = new RegExp(l.re, 'gi');
+            l.rxOne = new RegExp(l.re, 'i');
+            LANE_BY_ID[l.id] = l;
+        });
+        function laneMatches(l, it) {
+            var title = it.project_name || '', desc = it.description || '';
+            if (l.rxOne.test(title)) return true;
+            var n = (title.match(l.rxAll) || []).length + (desc.match(l.rxAll) || []).length;
+            return n >= 2;
+        }
+        var LANE_COLORS = { crit: '#ff5a4f', elev: '#ff9f43', watch: '#a9bdd8', idle: 'rgba(255,255,255,0.34)' };
+        var laneStates = {};
+        var allItems = [];
+        var currentItems = [];
+        var lastGated = false;
+        var lastTruncated = false, lastTotal = 0;
+        var lastFreeWindow = null;
+        var lastLockedCounts = null;
+        // 2026-09-15: 1.3 clipped the sphere's top/bottom on desktop's wide canvas.
+        // Assumed mobile's narrower canvas was exempt (an earlier mobile screenshot
+        // at what was believed to be 1.3 looked uncropped) and set mobile to 1.3,
+        // desktop to 1.5 - but a real device test at 1.3 showed the exact same
+        // flat top/bottom clipping on mobile too, so that assumption was wrong: it
+        // clips on both, this canvas's aspect ratio doesn't exempt it. 1.5 is the
+        // only value actually confirmed on real devices (not just this browser's
+        // own simulated viewports) not to clip, on both phone and desktop - so
+        // both use it for now rather than risk another guessed-safe number that
+        // isn't. Making mobile's globe noticeably bigger than this without
+        // clipping needs a different lever than the zoom number (more vertical
+        // room for .wim-globe-wrap itself), not a smaller altitude.
+        var DEFAULT_ALTITUDE = 1.5;
+        var currentAltitude = DEFAULT_ALTITUDE; // kept in sync with world.pointOfView().altitude via onZoom
+        var currentMappedItems = []; // last mappable set, so altitude changes can re-spiral/re-cluster without refetching
+        // Below this altitude band, same-country duplicates are shown as scattered spiral
+        // points (see spiralOffset). Above it, they collapse into one numbered badge —
+        // at the default whole-globe view even an altitude-scaled spiral still puts many
+        // countries' pins close enough to blur together, especially on small phone
+        // screens. Enter/exit use different thresholds (hysteresis) so hovering near the
+        // boundary doesn't flicker between badge and scatter every animation frame.
+        var CLUSTER_ALT_ENTER = 1.05, CLUSTER_ALT_EXIT = 0.95;
+        var CLUSTER_TAP_ZOOM_ALT = 0.6; // zoom target on badge tap — safely under CLUSTER_ALT_EXIT
+        var clusterMode = currentAltitude >= CLUSTER_ALT_ENTER;
+
+        var stageHintText = STAGE_ORDER.map(function(k){ return k + ': ' + STAGE_DEFS[k]; }).join(' \n');
+
+        root.innerHTML =
+            '<div class="wim-globe-wrap" data-role="globewrap"></div>' +
+            '<div class="wim-filterbar wim-float">' +
+            '  <div class="wim-title" style="font-size:14px;margin-right:4px;">Intelligence <span class="a">Map</span></div>' +
+            '  <div class="wim-seg wim-modeseg" data-role="reporttype">' +
+            '    <button data-v="epc"' + (state.reportType==='epc'?' class="active"':'') + '>Infrastructure</button>' +
+            '    <button data-v="flow_distortion"' + (state.reportType==='flow_distortion'?' class="active"':'') + '>Trade Flows</button>' +
+            '  </div>' +
+            '  <div class="wim-seg" data-role="range">' +
+            '    <button data-v="7" class="wim-locked">Last 7d 🔒</button>' +
+            '    <button data-v="7-15" class="active">7-15 days</button>' +
+            '    <button data-v="15plus" class="wim-locked">15 days+ 🔒</button>' +
+            '  </div>' +
+            '  <div class="wim-count" data-role="count"></div>' +
+            '  <button type="button" class="wim-tl-share" data-role="tlshare" title="Make a LinkedIn-ready image and caption from what is on the map" aria-label="Share on LinkedIn">Share ↗</button>' +
+            '  <div class="wim-timeline" data-role="timeline" style="display:none;">' +
+            '    <button type="button" class="wim-tl-play" data-role="tlplay" title="Replay from the oldest week to now" aria-label="Replay from the oldest week to now">▶</button>' +
+            '    <div class="wim-tl-cells" data-role="tlcells"></div>' +
+            '    <span class="wim-tl-label" data-role="tllabel"></span>' +
+            '  </div>' +
+            '  <div class="wim-modeintro">' +
+            '    <div class="wim-modeintro-lead" data-role="introlead"></div>' +
+            '    <div class="wim-modeintro-who">' +
+            '      <span data-role="introwho"></span> ' +
+            '      <span class="wim-whofor-wrap">' +
+            '        <span class="wim-whofor-toggle" data-role="whofortoggle">More ▾</span>' +
+            '        <div class="wim-whofor-panel wim-float" data-role="whoforpanel" style="display:none;"></div>' +
+            '      </span>' +
+            '    </div>' +
+            '  </div>' +
+            '</div>' +
+            '<div class="wim-float wim-gated-notice" data-role="gatednotice" style="display:none;"></div>' +
+            '<div class="wim-float wim-stats" data-role="statspanel">' +
+            '  <div class="wim-stats-peek" data-role="statspeek"><span data-role="peektext">Signals</span><span data-role="peekchevron">▾</span></div>' +
+            '  <div class="wim-stats-body" data-role="statsbody">' +
+            '    <div><div class="wim-stat-label">Signals in range</div><div class="wim-stat-big" data-role="total">0</div><div class="wim-stat-sub" data-role="subtotal"></div></div>' +
+            '    <div><div class="wim-stat-label">By sector <span class="wim-hint">click to filter · expand for pin colors</span></div><div data-role="sectorbars"></div></div>' +
+            '    <div data-role="stageblock"><div class="wim-stat-label">By stage <span class="wim-hint" data-role="stagehint" title="' + escapeHtml(stageHintText) + '">ⓘ what do these mean? / click to filter</span></div><div class="wim-pills" data-role="stagepills"></div></div>' +
+            '  </div>' +
+            '</div>' +
+            '<div class="wim-sectorbar" data-role="sectorbar"></div>' +
+            '<div class="wim-zoom-ctrl wim-float">' +
+            '  <button data-role="zoomin" title="Zoom in" aria-label="Zoom in">+</button>' +
+            '  <button data-role="zoomout" title="Zoom out" aria-label="Zoom out">−</button>' +
+            '  <button data-role="resetview" title="Back to global view" aria-label="Back to global view">🌐</button>' +
+            '</div>' +
+            '<div class="wim-modal-overlay" data-role="modaloverlay"><div class="wim-modal"><span class="wim-modal-close" data-role="modalclose">✕ Close</span><h3 data-role="modaltitle">Global &amp; Unmapped Signals</h3><div data-role="modalbody"></div></div></div>';
+
+        var tipEl = document.createElement('div');
+        tipEl.className = 'wim-pin-tip';
+        tipEl.dataset.role = 'tip';
+        document.body.appendChild(tipEl);
+
+        var globeWrapEl = root.querySelector('[data-role="globewrap"]');
+        var countEl = root.querySelector('[data-role="count"]');
+        var gatedNoticeEl = root.querySelector('[data-role="gatednotice"]');
+        var statsPanelEl = root.querySelector('[data-role="statspanel"]');
+        var sectorBarEl = root.querySelector('[data-role="sectorbar"]');
+        var peekTextEl = root.querySelector('[data-role="peektext"]');
+        var peekChevronEl = root.querySelector('[data-role="peekchevron"]');
+        var totalEl = root.querySelector('[data-role="total"]');
+        var subtotalEl = root.querySelector('[data-role="subtotal"]');
+        var sectorBarsEl = root.querySelector('[data-role="sectorbars"]');
+        var stagePillsEl = root.querySelector('[data-role="stagepills"]');
+        var stageBlockEl = root.querySelector('[data-role="stageblock"]');
+        var modalOverlay = root.querySelector('[data-role="modaloverlay"]');
+        var modalBody = root.querySelector('[data-role="modalbody"]');
+        var modalClose = root.querySelector('[data-role="modalclose"]');
+var modalTitleEl = root.querySelector('[data-role="modaltitle"]');
+
+        // Click-to-expand "who is this for" disclosure — toggled independently of the
+        // rest of the UI (no state.* field) since it is pure static copy, not something
+        // that should survive a re-render or affect filtering.
+        var whoForToggle = root.querySelector('[data-role="whofortoggle"]');
+        var whoForPanel = root.querySelector('[data-role="whoforpanel"]');
+        var introLeadEl = root.querySelector('[data-role="introlead"]');
+        var introWhoEl = root.querySelector('[data-role="introwho"]');
+        function setWhoForOpen(open) {
+            whoForPanel.style.display = open ? 'block' : 'none';
+            whoForToggle.textContent = open ? 'Less ▴' : 'More ▾';
+        }
+        // Fills the always-visible intro row + the "More" detail panel for the active mode.
+        function renderModeIntro() {
+            var m = MODES[state.reportType];
+            introLeadEl.innerHTML = m.lead;
+            introWhoEl.innerHTML = m.who;
+            whoForPanel.innerHTML = m.rows.map(function(r) {
+                return '<div class="wim-whofor-row"><b>' + r[0] + '</b><span>' + r[1] + '</span></div>';
+            }).join('');
+            setWhoForOpen(false);
+        }
+        renderModeIntro();
+        whoForToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            setWhoForOpen(whoForPanel.style.display !== 'block');
+        });
+        document.addEventListener('click', function(e) {
+            if (whoForPanel.style.display === 'block' && !whoForPanel.contains(e.target) && !whoForToggle.contains(e.target)) {
+                setWhoForOpen(false);
+            }
+        });
+
+        // Mobile-only bottom-sheet peek/expand for the stats panel (see the .wim-stats
+        // media query) — collapsed to a one-line summary by default so it does not sit on
+        // top of the globe until the visitor actually taps for the breakdown. The click
+        // handler and class toggle are harmless no-ops on desktop, where CSS keeps the
+        // body always visible regardless of the "expanded" class.
+        root.querySelector('[data-role="statspeek"]').addEventListener('click', function() {
+            var nowExpanded = statsPanelEl.classList.toggle('expanded');
+            peekChevronEl.textContent = nowExpanded ? '▴' : '▾';
+        });
+
+        function fmtDate(d) { return d.toISOString().slice(0,10); }
+        // Range buttons are aligned to the paywall's own boundaries (see wtp_opps_query's
+        // 7/15-day gate) instead of arbitrary day-counts, so each button is either fully
+        // free or fully paid — no more "this button is only partly usable" ambiguity.
+        function rangeDates() {
+            // Trade Flows: one rolling 7-day window picked on the timeline (matches the server's lane-weeks windows).
+            if (state.reportType === 'flow_distortion') {
+                var wb = new Date(), wa = new Date();
+                wb.setDate(wb.getDate() - 7 * state.weekK);
+                wa.setDate(wa.getDate() - 6 - 7 * state.weekK);
+                return { from: fmtDate(wa), to: fmtDate(wb) };
+            }
+            var to = new Date();
+            // "Last 7d" stops at day -6, not -7: day -7 belongs to the free "7-15 days"
+            // window (wtp_opps_query's free_to), so starting the locked range there would
+            // share a day with the free one and leak one real day of paid data through a
+            // locked button. Same reasoning on the far end: "15 days+" starts at -16, not
+            // -15, since -15 is free_from and belongs to the free window.
+            var d6 = new Date(); d6.setDate(d6.getDate() - 6);
+            var d7 = new Date(); d7.setDate(d7.getDate() - 7);
+            var d15 = new Date(); d15.setDate(d15.getDate() - 15);
+            var d16 = new Date(); d16.setDate(d16.getDate() - 16);
+            if (state.range === '7') return { from: fmtDate(d6), to: fmtDate(to) };
+            if (state.range === '7-15') return { from: fmtDate(d15), to: fmtDate(d7) };
+            if (state.range === '15plus') return { from: '2020-01-01', to: fmtDate(d16) };
+            var from = new Date();
+            from.setDate(from.getDate() - parseInt(state.range, 10));
+            return { from: fmtDate(from), to: fmtDate(to) };
+        }
+        function resolveCentroid(country) {
+            if (!country) return null;
+            var c = country.trim();
+            if (CENTROIDS[c]) return CENTROIDS[c];
+            if (CENTROIDS_CI[c.toLowerCase()]) return CENTROIDS_CI[c.toLowerCase()];
+            var parts = c.split(/,|\/|\band\b|&/i).map(function(p){return p.trim();}).filter(Boolean);
+            for (var i = 0; i < parts.length; i++) {
+                var p = parts[i];
+                if (CENTROIDS[p]) return CENTROIDS[p];
+                if (CENTROIDS_CI[p.toLowerCase()]) return CENTROIDS_CI[p.toLowerCase()];
+            }
+            return null;
+        }
+        function hasCoords(it) {
+            return it.lat !== null && it.lat !== undefined && it.lat !== '' &&
+                   it.lng !== null && it.lng !== undefined && it.lng !== '';
+        }
+        function isMappable(it) {
+            // Generalized across report types: EPC uses project|company_hq|global|unknown,
+            // Signals use explicit|chokepoint|unknown — either way "unknown" is the only
+            // value that means "don't plot this".
+            if (!it.location_source || it.location_source === 'unknown') return false;
+            // City-level items carry their own real coordinates and don't need a country
+            // centroid match at all (covers cases where the model names a city correctly
+            // but the country string doesn't match our fixed centroid table's spelling).
+            if (hasCoords(it)) return true;
+            return !!resolveCentroid(it.country);
+        }
+        // Sunflower/phyllotaxis spiral: the j-th duplicate pin in the same country is
+        // placed at radius ∝ sqrt(j) and angle = j * golden angle around the centroid.
+        // Point density this way stays roughly even as count grows (unlike fixed-amplitude
+        // random jitter, which just makes a denser and denser blob for busy countries like
+        // the US), and neighboring points never coincide since the golden angle is
+        // irrational relative to any small integer step.
+        var GOLDEN_ANGLE_DEG = 137.50776;
+        function spiralOffset(index, baseRadiusDeg) {
+            if (index === 0) return { dLat: 0, dLng: 0 };
+            var r = baseRadiusDeg * Math.sqrt(index);
+            var theta = index * GOLDEN_ANGLE_DEG * Math.PI / 180;
+            return { dLat: r * Math.cos(theta), dLng: r * Math.sin(theta) };
+        }
+        // The radii passed to spiralOffset() below were tuned by eye at "zoomed into a
+        // country" altitude (~0.5). At the default whole-globe view (altitude 1.3-1.5
+        // depending on device - see DEFAULT_ALTITUDE) the same degree offsets cover
+        // only a few screen pixels, so duplicate pins still
+        // look stacked until the user manually zooms in. Scale the radius with altitude
+        // (apparent pixel size of a fixed degree offset shrinks roughly ∝ 1/altitude for
+        // globe.gl's perspective camera) so separation stays visible at whatever zoom
+        // level is current; clamped so extreme zoom-out doesn't spiral points into
+        // neighboring countries and extreme zoom-in doesn't collapse them back down.
+        var ALT_REF = 0.5;
+        function altScale() {
+            return Math.max(0.5, Math.min(currentAltitude / ALT_REF, 6));
+        }
+
+        function tipContent(it, withLink) {
+            var loc = it.city ? (it.city + ', ' + (it.country || '')) : (it.country || 'Unknown');
+            if (it.location_source === 'company_hq') loc += ' (Company HQ)';
+            if (it.location_source === 'chokepoint') loc += ' (chokepoint)';
+            var isSignal = it.report_type === 'flow_distortion';
+            var stars = '★'.repeat(it.credibility||0) + '☆'.repeat(5-(it.credibility||0));
+            var kindBadge = '<span style="color:var(--accent);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em">' +
+                (isSignal ? 'Trade Flow' : 'Infrastructure') + '</span><br>';
+            var html = kindBadge + '<b>' + escapeHtml(it.project_name) + '</b><br>' +
+                '<span style="color:var(--text-faint)">' + escapeHtml(loc) + ' · ' + escapeHtml(it.sector) + (it.subsector ? ' / ' + escapeHtml(it.subsector) : '') + '</span><br>';
+            if (isSignal) {
+                var tdef = TIER_DEFS[flowTier(it)];
+                html += '<span class="wim-tier-tag ' + flowTier(it) + '" style="margin-left:0">' + tdef.label + '</span> <span style="color:var(--text-faint)">' + escapeHtml(tdef.hint) + '</span><br>';
+            } else {
+                var stageDef = STAGE_DEFS[it.stage] || '';
+                html += '<span style="color:' + subColor(it.sector, it.subsector) + '">' + escapeHtml(it.stage) + '</span><br><span style="color:var(--text-faint);font-size:10.5px">' + escapeHtml(stageDef) + '</span><br>' +
+                    '<span style="color:var(--text-faint)">Scale: ' + escapeHtml(it.scale) + ' · ' + escapeHtml(it.report_date) + '</span><br>';
+            }
+            html += '<span style="color:var(--text-faint)">' + escapeHtml(it.source_name) + ' <span style="color:var(--accent)">' + stars + '</span></span>';
+            if (withLink && it.source_url) {
+                html += '<br><a href="' + escapeHtml(it.source_url) + '" target="_blank" rel="nofollow noopener" style="display:inline-block;margin-top:6px;color:var(--accent);text-decoration:underline;">View source article →</a>';
+            }
+            return html;
+        }
+
+        // Cluster badges are plain DOM nodes (globe.gl's HTML-elements layer), with real
+        // click/hover handlers rather than canvas raycasting. Tap and click both just zoom
+        // in — on touch devices "hover" never fires, so the expand action has to work from
+        // the tap alone rather than depending on a hover-then-tap two-step.
+        function makeClusterBadge(d) {
+            var hit = document.createElement('div');
+            hit.className = 'wim-cluster-hit';
+            var tier = d.count >= 20 ? 'lg' : (d.count >= 6 ? 'md' : 'sm');
+            // Tinted by the cluster's most common sector/report-type (d.color, from
+            // buildMapLayers) instead of a flat accent color — otherwise every cluster
+            // reads as the same gold dot and the map loses the sector-color signal that
+            // individual pins have everywhere else.
+            // Trade Flow clusters: rounded-square + dark fill (same visual language as
+            // their single pins), tinted ring, pulsing if any member is Critical.
+            // Infrastructure clusters stay round + solid sector colour.
+            var kindFlow = d.report_type === 'flow_distortion';
+            var topTier = kindFlow ? maxTier(d.items) : null;
+            if (kindFlow) {
+                hit.innerHTML = '<div class="wim-cluster wim-cluster-tf wim-cluster-' + tier + (topTier === 'crit' ? ' wim-cluster-crit' : '') + '" style="background:' + TIER_DEFS[topTier].color + ';--pulse:' + TIER_DEFS[topTier].color + '"><span class="wim-cluster-n">' + (d.count > 99 ? '99+' : d.count) + '</span></div>';
+            } else {
+                hit.innerHTML = '<div class="wim-cluster wim-cluster-' + tier + '" style="background:' + d.color + '"><span class="wim-cluster-n">' + (d.count > 99 ? '99+' : d.count) + '</span></div>';
+            }
+            // aria-label, not title: a native title tooltip stacked a second black tooltip on top of the custom hover card (tipEl).
+            hit.setAttribute('aria-label', (kindFlow ? 'Trade Flow · ' : 'Infrastructure · ') + d.country + ' — ' + d.count + ' items (tap to expand)');
+            hit.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var curAlt = world.pointOfView().altitude;
+var CLUSTER_RESOLVE_MIN_ALT = 0.04; // deliberately far below ZOOM_MIN_ALT (0.35, the manual +/- floor) so repeated taps can keep closing in until the cluster actually separates
+var targetAlt = Math.max(CLUSTER_RESOLVE_MIN_ALT, curAlt * 0.4);
+world.pointOfView({ lat: d.lat, lng: d.lng, altitude: targetAlt }, 600);
+            });
+            hit.addEventListener('mouseenter', function() {
+                if (tipEl.dataset.pinned === '1') return;
+                var rows = d.breakdown.map(function(g) {
+                    return '<span style="display:block;margin-top:3px"><i class="wim-dot" style="background:' + g.color + '"></i>' + escapeHtml(g.label) + ' · ' + g.count + '</span>';
+                }).join('');
+                var kindLine = kindFlow
+                    ? '<span style="color:var(--accent);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em">Trade Flow</span><span class="wim-tier-tag ' + topTier + '">top: ' + TIER_DEFS[topTier].label + '</span><br>'
+                    : '<span style="color:var(--accent);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em">Infrastructure</span><br>';
+                tipEl.innerHTML = kindLine + '<b>' + escapeHtml(d.country) + '</b> · ' + d.count + ' items<br>' + rows +
+                    '<span style="color:var(--text-faint);display:block;margin-top:5px">tap to expand</span>';
+                tipEl.style.display = 'block';
+                positionTip(lastMouseX, lastMouseY);
+            });
+            hit.addEventListener('mouseleave', function() {
+                if (tipEl.dataset.pinned === '1') return;
+                tipEl.style.display = 'none';
+            });
+            return hit;
+        }
+
+        // Individual (unclustered) signals used to be a raw WebGL point layer, colored
+        // per-subsector via the hash-rotated subColor() rainbow. Now that color is fixed
+        // to the 4-color sector legend, the finer per-facility distinction lives in an
+        // actual icon (subsectorIcon()) — which a flat-colored WebGL sphere can't render,
+        // so every pin, clustered or not, is now a real DOM badge like makeClusterBadge()
+        // above. This also fixes raycasted points being near-impossible to hit precisely
+        // on a phone; a DOM element gets a proper padded touch target for free.
+        function makePinBadge(d) {
+            var hit = document.createElement('div');
+            hit.className = 'wim-pin-hit';
+            // Icon uses the same folded/simplified subsector as the sidebar breakdown
+            // (not the raw AI-classified value) so the map doesn't show more distinct
+            // icon glyphs per sector than the sidebar's own category list does.
+            if (isFlow(d)) {
+                var tier = flowTier(d);
+                hit.className += ' wim-tier-' + tier;
+                hit.innerHTML = '<div class="wim-pin-badge wim-tf wim-tf-' + tier + (flowImpact(d) >= 20 ? ' wim-tf-severe' : '') + '" style="background:' + TIER_DEFS[tier].color + ';--pulse:' + TIER_DEFS[tier].color + '">' + flowIcon(d) + '</div>';
+                hit.setAttribute('aria-label', 'Trade Flow · ' + TIER_DEFS[tier].label + ' · ' + d.project_name);
+            } else {
+                hit.innerHTML = '<div class="wim-pin-badge" style="border-color:' + pinColor(d) + '">' + subsectorIcon(d.sector, d.subsector) + '</div>';
+                hit.setAttribute('aria-label', 'Infrastructure · ' + d.project_name);
+            }
+            hit.addEventListener('mouseenter', function() {
+                globeWrapEl.style.cursor = 'pointer';
+                if (tipEl.dataset.pinned === '1') return;
+                tipEl.innerHTML = tipContent(d, false);
+                tipEl.style.display = 'block';
+                positionTip(lastMouseX, lastMouseY);
+            });
+            hit.addEventListener('mouseleave', function() {
+                if (tipEl.dataset.pinned === '1') return;
+                tipEl.style.display = 'none';
+            });
+            hit.addEventListener('click', function(e) {
+                e.stopPropagation();
+                tipEl.dataset.pinned = '1';
+                tipEl.innerHTML = tipContent(d, true);
+                tipEl.style.display = 'block';
+                positionTip(lastMouseX, lastMouseY);
+            });
+            return hit;
+        }
+
+        // ── Globe setup (once) ────────────────────────────────────────────
+        var world = Globe()(globeWrapEl)
+            .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+            .backgroundColor('rgba(0,0,0,0)');
+        // Base drag-to-rotate affordance for the empty globe/ocean areas — pin and
+        // cluster badges override this to a pointer cursor via their own CSS on hover.
+        globeWrapEl.style.cursor = 'grab';
+        // Clusters and individual pins share one html-elements layer (globe.gl only
+        // supports one), told apart by the __isCluster flag set in buildMapLayers /
+        // buildPointsData — clusters carry plain lat/lng, individual pins carry the
+        // spiral/city-offset-adjusted __lat/__lng instead.
+        world.htmlElementsData([])
+            .htmlLat(function(d){ return d.__isCluster ? d.lat : d.__lat; })
+            .htmlLng(function(d){ return d.__isCluster ? d.lng : d.__lng; })
+            .htmlAltitude(0.02)
+            .htmlElement(function(d){ return d.__isCluster ? makeClusterBadge(d) : makePinBadge(d); });
+
+        // Trade lanes: animated dashed corridors (Trade Flows mode only). Idle lanes are a
+        // faint static dotted line; a lane with signals on it takes the colour of its worst
+        // tier and its dashes travel in the direction of trade. Hover = summary card,
+        // click = filter the map/list to that lane's signals.
+        world.pathsData([])
+            .pathPoints('pts')
+            .pathPointLat(function(p) { return p[0]; })
+            .pathPointLng(function(p) { return p[1]; })
+            // Altitude must clear the globe surface: at 0.004 the lines sank under the sphere and were invisible.
+            .pathPointAlt(0.012)
+            .pathResolution(2)
+            .pathTransitionDuration(0)
+            .pathColor(function(d) { return d.tier ? LANE_COLORS[d.tier] : LANE_COLORS.idle; })
+            .pathStroke(function(d) { return d.tier === 'crit' ? 1.5 : (d.tier === 'elev' ? 1.2 : (d.tier === 'watch' ? 1.0 : 0.6)); })
+            // globe.gl measures dash length/gap as a FRACTION of the whole path and the animate time
+            // as one trip along the whole path, so fixed fractions made long lanes (Hormuz) get long
+            // dashes that ran fast and short lanes the opposite. Convert fixed angular sizes and a
+            // fixed speed (degrees of arc per second) using each lane's own length instead.
+            .pathDashLength(function(d) { return (d.tier ? 3.0 : 0.8) / d.len; })
+            .pathDashGap(function(d) { return (d.tier ? 1.6 : 0.8) / d.len; })
+            .pathDashAnimateTime(function(d) { return d.tier ? Math.round(d.len / (d.tier === 'crit' ? 12 : 8) * 1000) : 0; });
+        // Hover/click on lanes is hit-tested in SCREEN space (see the "Lane hit-testing"
+        // block below), not with globe.gl's onPathHover/onPathClick: those raycast against
+        // the few-pixel-wide line itself, so the cursor had to sit exactly on it and the
+        // card vanished the moment it drifted off.
+
+        var DEFAULT_POV = { lat: 15, lng: 10, altitude: DEFAULT_ALTITUDE };
+        world.pointOfView(DEFAULT_POV, 0);
+        // Mouse-wheel normally scrolls the page; don't hijack it for zoom.
+        // Drag-to-rotate stays on. Pinch-to-zoom (touch) is unaffected.
+        world.controls().enableZoom = false;
+
+        var ZOOM_MIN_ALT = 0.35, ZOOM_MAX_ALT = 4;
+        function zoomBy(factor) {
+            var cur = world.pointOfView();
+            var alt = Math.max(ZOOM_MIN_ALT, Math.min(ZOOM_MAX_ALT, cur.altitude * factor));
+            world.pointOfView({ lat: cur.lat, lng: cur.lng, altitude: alt }, 300);
+        }
+        root.querySelector('[data-role="zoomin"]').addEventListener('click', function(){ zoomBy(0.65); });
+        root.querySelector('[data-role="zoomout"]').addEventListener('click', function(){ zoomBy(1 / 0.65); });
+        // One-click way back out after drilling into a cluster badge — without it, undoing
+        // a badge tap means mashing the − button ~4 times to climb back past the cluster
+        // altitude. Reuses the same fixed duration/target as the badge-tap zoom-in so the
+        // two feel like a matched pair.
+        root.querySelector('[data-role="resetview"]').addEventListener('click', function(){
+            world.pointOfView(DEFAULT_POV, 600);
+        });
+
+        // Re-run screen clustering on every camera change - rotation included, not
+        // just zoom - since screen positions (and therefore which badges should be
+        // merged) shift continuously as the globe turns. onZoom fires on every render
+        // frame during an animated zoom/rotate/drag, so the recompute is coalesced to
+        // once per frame via requestAnimationFrame rather than running once per event.
+        var screenClusterScheduled = false;
+        world.onZoom(function(pov) {
+            currentAltitude = pov.altitude;
+            // A pinned tooltip describes one pin's fixed screen position at click time;
+            // rotating/zooming moves that pin without moving the tooltip, so it goes
+            // stale (or ends up pointing at nothing) unless dismissed here.
+            if (tipEl.style.display === 'block') {
+                tipEl.style.display = 'none';
+                tipEl.dataset.pinned = '0';
+            }
+            if (screenClusterScheduled) return;
+            screenClusterScheduled = true;
+            requestAnimationFrame(function() {
+                screenClusterScheduled = false;
+                if (!currentMappedItems.length) return;
+                var newClusterMode = clusterMode ? (currentAltitude >= CLUSTER_ALT_EXIT) : (currentAltitude >= CLUSTER_ALT_ENTER);
+                if (newClusterMode !== clusterMode) {
+                    // Crossed the country-cluster threshold - country grouping itself
+                    // changed, needs a full rebuild (buildMapLayers), not just a re-merge.
+                    clusterMode = newClusterMode;
+                    updateMapLayers();
+                } else {
+                    // Same country-grouping as before; only screen positions moved
+                    // (rotation, or a zoom that didn't cross the threshold) - re-merge
+                    // by current pixel distance without rebuilding country groups.
+                    refreshScreenClusters();
+                }
+            });
+        });
+
+        // Tracked unconditionally (not gated on tooltip visibility) so that the instant
+        // a hover/click shows the tooltip, it can position itself from the last known
+        // mouse coordinates immediately — waiting for the *next* mousemove event to fix
+        // the position left a one-event gap where the tooltip briefly showed at whatever
+        // stale position it last had (or its unset default) instead of near the cursor.
+        var lastMouseX = window.innerWidth / 2, lastMouseY = window.innerHeight / 2;
+        function positionTip(clientX, clientY) {
+            var x = clientX + 16, y = clientY + 14;
+            if (x + 250 > window.innerWidth) x = clientX - 250 - 16;
+            if (x < 8) x = 8;
+            tipEl.style.left = x + 'px';
+            tipEl.style.top = y + 'px';
+            // Horizontal bound above is a fixed estimate (tooltip width is capped by
+            // max-width:240px in CSS, so 250 is a safe constant); height varies a lot
+            // with description length/rating/source link, so re-check after the browser
+            // has actually laid it out rather than guessing a height up front.
+            requestAnimationFrame(function() {
+                var rect = tipEl.getBoundingClientRect();
+                if (rect.bottom > window.innerHeight - 8) {
+                    var newY = window.innerHeight - rect.height - 8;
+                    if (newY < 8) newY = 8;
+                    tipEl.style.top = newY + 'px';
+                }
+            });
+        }
+        document.addEventListener('mousemove', function(e) {
+            lastMouseX = e.clientX; lastMouseY = e.clientY;
+            if (tipEl.style.display !== 'block') return;
+            // Pinned (clicked) tips hold their position instead of tracking the cursor —
+            // otherwise moving toward the "View source article" link just pushes the tip
+            // away again, so the link can never actually be reached.
+            if (tipEl.dataset.pinned === '1') return;
+            positionTip(e.clientX, e.clientY);
+        });
+        document.addEventListener('click', function(e) {
+            if (tipEl.dataset.pinned === '1' && !globeWrapEl.contains(e.target) && !tipEl.contains(e.target)) {
+                tipEl.dataset.pinned = '0';
+                tipEl.style.display = 'none';
+            }
+        });
+
+        // ── Lane hit-testing (Trade Flows mode) ───────────────────────────────────
+        // Each lane is densified along great circles once, then on every mouse move the
+        // visible points are projected to the screen and the cursor's distance to the
+        // polyline decides the hit. A lane is picked within LANE_HIT_PX, and once picked it
+        // is KEPT until the cursor is more than LANE_KEEP_PX away, so the card does not
+        // flicker shut while the cursor drifts along or near the line.
+        var LANE_HIT_PX = 16, LANE_KEEP_PX = 36, LANE_TAP_PX = 24;
+        function llVec(lat, lng) {
+            var a = lat * Math.PI / 180, b = lng * Math.PI / 180;
+            return [Math.cos(a) * Math.cos(b), Math.cos(a) * Math.sin(b), Math.sin(a)];
+        }
+        function densifyLane(pts) {
+            var out = [];
+            for (var i = 0; i < pts.length - 1; i++) {
+                var v0 = llVec(pts[i][0], pts[i][1]), v1 = llVec(pts[i + 1][0], pts[i + 1][1]);
+                var dot = Math.max(-1, Math.min(1, v0[0] * v1[0] + v0[1] * v1[1] + v0[2] * v1[2]));
+                var ang = Math.acos(dot), steps = Math.max(1, Math.ceil(ang * 180 / Math.PI / 2));
+                for (var s = 0; s < steps; s++) {
+                    var t = s / steps, sa = Math.sin(ang);
+                    var k0 = sa < 1e-6 ? 1 - t : Math.sin((1 - t) * ang) / sa, k1 = sa < 1e-6 ? t : Math.sin(t * ang) / sa;
+                    var x = k0 * v0[0] + k1 * v1[0], y = k0 * v0[1] + k1 * v1[1], z = k0 * v0[2] + k1 * v1[2];
+                    out.push({ lat: Math.asin(Math.max(-1, Math.min(1, z))) * 180 / Math.PI, lng: Math.atan2(y, x) * 180 / Math.PI, v: [x, y, z] });
+                }
+            }
+            var last = pts[pts.length - 1];
+            out.push({ lat: last[0], lng: last[1], v: llVec(last[0], last[1]) });
+            return out;
+        }
+        TRADE_LANES.forEach(function(l) {
+            l.dense = densifyLane(l.pts);
+            // Lane length in degrees of arc (great-circle sum), used to give every lane the same dash size and speed.
+            var len = 0;
+            for (var i = 0; i < l.pts.length - 1; i++) {
+                var a = llVec(l.pts[i][0], l.pts[i][1]), b = llVec(l.pts[i + 1][0], l.pts[i + 1][1]);
+                len += Math.acos(Math.max(-1, Math.min(1, a[0] * b[0] + a[1] * b[1] + a[2] * b[2]))) * 180 / Math.PI;
+            }
+            l.lenDeg = Math.max(len, 1);
+        });
+        function segDist(px, py, ax, ay, bx, by) {
+            var dx = bx - ax, dy = by - ay, len2 = dx * dx + dy * dy;
+            var t = len2 ? Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / len2)) : 0;
+            var cx = ax + t * dx, cy = ay + t * dy;
+            return Math.sqrt((px - cx) * (px - cx) + (py - cy) * (py - cy));
+        }
+        // Distance in CSS px from a client point to every lane (Infinity when none of it is visible).
+        function laneDistances(clientX, clientY) {
+            var canvas = globeWrapEl.querySelector('canvas');
+            if (!canvas) return {};
+            var rect = canvas.getBoundingClientRect(), mx = clientX - rect.left, my = clientY - rect.top;
+            var pov = world.pointOfView(), cv = llVec(pov.lat, pov.lng), minDot = 1 / (1 + pov.altitude) + 0.02;
+            var out = {};
+            TRADE_LANES.forEach(function(l) {
+                var best = Infinity, prev = null;
+                l.dense.forEach(function(p) {
+                    var vis = p.v[0] * cv[0] + p.v[1] * cv[1] + p.v[2] * cv[2] > minDot;
+                    if (!vis) { prev = null; return; }
+                    var sc = world.getScreenCoords(p.lat, p.lng, 0.012);
+                    if (prev) best = Math.min(best, segDist(mx, my, prev.x, prev.y, sc.x, sc.y));
+                    else best = Math.min(best, Math.sqrt((mx - sc.x) * (mx - sc.x) + (my - sc.y) * (my - sc.y)));
+                    prev = sc;
+                });
+                out[l.id] = best;
+            });
+            return out;
+        }
+        function lanesActive() { return state.reportType === 'flow_distortion' && state.showLanes; }
+        function pickLane(clientX, clientY, keepId, hitPx) {
+            var d = laneDistances(clientX, clientY);
+            if (keepId && d[keepId] <= LANE_KEEP_PX) return keepId;
+            var best = '', bd = hitPx;
+            Object.keys(d).forEach(function(id) { if (d[id] <= bd) { bd = d[id]; best = id; } });
+            return best;
+        }
+        var hoverLane = '', laneMoveScheduled = false, laneDownX = 0, laneDownY = 0;
+        function clearLaneHover() {
+            if (!hoverLane) return;
+            hoverLane = '';
+            globeWrapEl.style.cursor = 'grab';
+            if (tipEl.dataset.pinned !== '1') tipEl.style.display = 'none';
+        }
+        globeWrapEl.addEventListener('mousemove', function(e) {
+            if (e.target.tagName !== 'CANVAS' || e.buttons) { if (e.target.tagName !== 'CANVAS') clearLaneHover(); return; }
+            if (!lanesActive()) { clearLaneHover(); return; }
+            if (laneMoveScheduled) return;
+            laneMoveScheduled = true;
+            var cx = e.clientX, cy = e.clientY;
+            requestAnimationFrame(function() {
+                laneMoveScheduled = false;
+                var id = pickLane(cx, cy, hoverLane, LANE_HIT_PX);
+                if (id === hoverLane) return;
+                if (!id) { clearLaneHover(); return; }
+                hoverLane = id;
+                globeWrapEl.style.cursor = 'pointer';
+                if (tipEl.dataset.pinned === '1') return;
+                tipEl.innerHTML = laneTipContent(id);
+                tipEl.style.display = 'block';
+                positionTip(lastMouseX, lastMouseY);
+            });
+        });
+        globeWrapEl.addEventListener('mouseleave', clearLaneHover);
+        globeWrapEl.addEventListener('mousedown', function(e) { laneDownX = e.clientX; laneDownY = e.clientY; });
+        // Click/tap (not a drag) on or near a lane toggles the lane filter. Hit-tested again at
+        // click time with a slightly larger radius so a finger tap works too (no hover on touch).
+        globeWrapEl.addEventListener('click', function(e) {
+            if (e.target.tagName !== 'CANVAS' || !lanesActive()) return;
+            if (Math.abs(e.clientX - laneDownX) > 6 || Math.abs(e.clientY - laneDownY) > 6) return;
+            var id = pickLane(e.clientX, e.clientY, hoverLane, LANE_TAP_PX);
+            if (!id) return;
+            state.lane = (state.lane === id) ? '' : id;
+            hoverLane = '';
+            tipEl.style.display = 'none';
+            applyFilters();
+        });
+
+        // Stretches the whole widget down to the bottom of the viewport instead of
+        // relying on the fixed 90vh in CSS, so however tall the (now-compacted, see
+        // body.home header rules) chrome above it turns out to be, the globe always
+        // fills the rest of the screen edge-to-edge on first load - no dead gap below
+        // it, no scrolling needed to see the full sphere.
+        //
+        // Bug fix 2026-09-13: this used to measure root.getBoundingClientRect().top,
+        // which is relative to the current scroll position, not the page. On mobile,
+        // scrolling the page fires a 'resize' event too (the browser's address bar
+        // collapses/expands as you scroll, changing window.innerHeight) - so mid-
+        // scroll, this ran with an already-negative "top" plus a shifted innerHeight
+        // and computed a wildly-too-tall height, which then blew up the globe's
+        // rendered size (more canvas pixels for the same camera altitude). Adding
+        // back the current scroll offset converts "top" into a fixed, scroll-
+        // independent position in the document, so the computed height stays stable
+        // no matter where the page happens to be scrolled when this runs.
+        //
+        // -16 leaves a small gap at the bottom (see the matching margin-bottom on
+        // #wtp-imap-root) so the globe doesn't sit flush against whatever follows it.
+        // .wim-globe-wrap's min-height floor - mirrors the CSS (220px normally, or
+        // 100vw on mobile - see the "Taller globe box" comment in the mobile media
+        // query). A function, not a one-time constant, since it depends on the
+        // current window width and needs to stay correct across resize/rotation.
+        function globeMinHeight() {
+            return window.innerWidth <= 760 ? window.innerWidth : 220;
+        }
+        function fitMapHeight() {
+            var docTop = root.getBoundingClientRect().top + window.pageYOffset;
+            var vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+            var fillTarget = vh - docTop - 16;
+            // Short-viewport fix 2026-09-14: on a short mobile viewport, the filter
+            // bar + zoom controls + sector bar can together need more room than
+            // fillTarget leaves for them - and since this element clips overflow
+            // (see overflow:hidden above), giving it a height smaller than what its
+            // rows actually need silently cuts the bottom off whichever row runs out
+            // of room (the sector bar, in practice). None of those rows can shrink
+            // below their own content size in a flex column (that's normal flexbox
+            // behavior once .wim-zoom-ctrl - see its own comment - stopped losing
+            // that protection to its overflow:hidden), so summing their real
+            // rendered heights here tells us the true minimum this element needs.
+            // Keeping this a definite height (not min-height) matters too: it's what
+            // lets .wim-globe-wrap's flex-grow correctly fill "whatever's left" -
+            // tried min-height instead first, but with no definite container size to
+            // divide up, the globe's own canvas height fed back into its wrapper's
+            // auto height with nothing to correct it, and it stuck at a wrong size.
+            // Margins count too (e.g. .wim-zoom-ctrl's margin:10px 0 on mobile,
+            // .wim-gated-notice's margin-top) - they're gaps the flex column still
+            // has to reserve, even though they're not part of any child's own
+            // getBoundingClientRect().height.
+            var othersHeight = 0;
+            Array.prototype.forEach.call(root.children, function(child) {
+                if (child === globeWrapEl || child === gatedNoticeEl) return; // the notice is an overlay, it reserves no space
+                var cs = getComputedStyle(child);
+                othersHeight += child.getBoundingClientRect().height + parseFloat(cs.marginTop || 0) + parseFloat(cs.marginBottom || 0);
+            });
+            root.style.height = Math.max(fillTarget, othersHeight + globeMinHeight(), 480) + 'px';
+            // Bug fix 2026-09-15: .wim-stats (the sector/stage breakdown card, desktop
+            // only - it's display:none on mobile) is absolutely positioned with a
+            // hardcoded top:16px in CSS, measured from #wtp-imap-root's own top edge.
+            // That assumed the filter bar above it always stayed about the same
+            // short height, but the filter bar is a normal in-flow row now (see the
+            // "Made unconditional" comment above) whose real height varies with its
+            // content (wrapping text, the gated-notice banner appearing) - whenever
+            // it's taller than whatever the 16px guess assumed, this card's top
+            // overlaps into it instead of clearing it. Re-anchoring it to wherever
+            // the globe itself actually starts (which is already correctly
+            // positioned below the filter bar via normal flow) keeps it aligned no
+            // matter how tall the filter bar ends up being.
+            if (statsPanelEl) {
+                statsPanelEl.style.top = (globeWrapEl.offsetTop) + 'px';
+            }
+        }
+        function resizeGlobe() {
+            fitMapHeight();
+            world.width(globeWrapEl.clientWidth).height(globeWrapEl.clientHeight);
+        }
+        // Bug fix 2026-09-13 (2): the scroll-position fix above stopped the runaway
+        // growth, but on mobile the globe still visibly grew/shrank while scrolling,
+        // because a real, non-buggy 'resize' event fires every time the browser's
+        // address bar collapses or expands as you scroll - and each one legitimately
+        // recomputes a slightly different viewport height. The only things that
+        // should change the globe's on-screen size are pinch-zoom, the +/- buttons,
+        // and the reset-view icon - not the address bar. Gate on window width
+        // actually changing (a real rotation or window resize) rather than reacting
+        // to every 'resize' event, since the address bar only ever changes height.
+        var lastViewportWidth = window.innerWidth;
+        function handleViewportResize() {
+            if (window.innerWidth === lastViewportWidth) return;
+            lastViewportWidth = window.innerWidth;
+            resizeGlobe();
+        }
+        window.addEventListener('resize', handleViewportResize);
+        if (window.visualViewport) window.visualViewport.addEventListener('resize', handleViewportResize);
+        setTimeout(resizeGlobe, 50);
+
+        // Mobile-only bottom app-tab-bar: always-visible top-level-sector buttons for the
+        // ACTIVE mode (MODES[...].sectors - Infrastructure and Trade Flows have different
+        // sector lists), replacing the desktop "By sector" breakdown (which lives inside the
+        // collapsed .wim-stats peek panel, hidden on mobile - see CSS). Filters by
+        // sector alone (not report_type + sector like the desktop sidebar's
+        // state.sector); state.topSector is reset whenever the mode switches.
+        function renderSectorBar() {
+            if (!sectorBarEl) return;
+            sectorBarEl.innerHTML = MODES[state.reportType].sectors.map(function(s) {
+                var count = allItems.filter(function(it){ return it.sector === s.name; }).length;
+                var isActive = state.topSector === s.name ? ' active' : '';
+                return '<button class="wim-sectorbar-btn' + isActive + '" data-sector="' + escapeHtml(s.name) + '">' +
+                    '<span class="ic">' + s.icon + '</span>' +
+                    '<span class="lbl">' + escapeHtml(s.name.split(' & ')[0]) + '</span>' +
+                    '<span class="cnt">' + count + '</span>' +
+                '</button>';
+            }).join('');
+            sectorBarEl.querySelectorAll('.wim-sectorbar-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var s = btn.dataset.sector;
+                    state.topSector = (state.topSector === s) ? '' : s;
+                    applyFilters();
+                });
+            });
+        }
+
+        function applyFilters() {
+            var items = allItems;
+            if (state.sector) items = items.filter(function(it){ return groupKey(it.report_type, it.sector) === state.sector; });
+            if (state.subsector) items = items.filter(function(it){ return foldSubsector(it.sector, it.subsector) === state.subsector; });
+            if (state.stage) items = items.filter(function(it){ return it.stage === state.stage; });
+            // Tier only applies to Trade Flow items; Infrastructure items pass through.
+            if (state.tier) items = items.filter(function(it){ return !isFlow(it) || flowTier(it) === state.tier; });
+            if (state.topSector) items = items.filter(function(it){ return it.sector === state.topSector; });
+            // Trade lanes light up from every other filter's result; the lane filter itself
+            // is applied afterwards so choosing one lane leaves the others visible.
+            updateLanes(items);
+            if (state.lane && LANE_BY_ID[state.lane]) {
+                var laneDef = LANE_BY_ID[state.lane];
+                items = items.filter(function(it){ return isFlow(it) && laneMatches(laneDef, it); });
+            }
+            render(items);
+            renderSectorBar();
+            // Bug fix 2026-09-14: on mobile, the sector bar (order:1 in the flex
+            // column, see #wtp-imap-root CSS) starts out empty on first paint - its
+            // buttons only exist after this function's first run, once allItems has
+            // loaded. The very first resizeGlobe() (the setTimeout(resizeGlobe, 50)
+            // near Globe setup) fires before that, so it measures the globe wrap as
+            // if the sector bar takes zero height and sizes the canvas too tall by
+            // that amount. The flex layout itself reflows correctly once the sector
+            // bar's buttons appear, but nothing told the canvas to resize to match -
+            // so it kept rendering at its earlier, too-tall size and visually
+            // overlapped the sector bar buttons (and the zoom controls, which sit at
+            // a fixed distance from the root's bottom edge). Resizing here, every
+            // time the sector bar's content can change, keeps the canvas in sync.
+            resizeGlobe();
+        }
+
+        function buildPointsData(mapped) {
+            var scale = altScale();
+            var countryCounts = {};
+            var cityCounts = {};
+            return mapped.map(function(it) {
+                if (hasCoords(it)) {
+                    // Real per-item coordinates — no country-centroid fallback needed.
+                    // Still spiral-offset exact city dupes, but with a much tighter radius
+                    // than the country-level case since these duplicates are already close.
+                    var cityKey = it.city || (it.lat + ',' + it.lng);
+                    var cj = cityCounts[cityKey] || 0;
+                    cityCounts[cityKey] = cj + 1;
+                    var cityOff = spiralOffset(cj, 0.09 * scale);
+                    return Object.assign({}, it, { __lat: parseFloat(it.lat) + cityOff.dLat, __lng: parseFloat(it.lng) + cityOff.dLng, __isCluster: false });
+                }
+                var c = resolveCentroid(it.country);
+var __centroidKey = c ? (c[0].toFixed(3) + ',' + c[1].toFixed(3)) : null;
+                var ck = __centroidKey || (it.country || '?');
+                var j = countryCounts[ck] || 0;
+                countryCounts[ck] = j + 1;
+                var off = spiralOffset(j, 1.2 * scale);
+                return Object.assign({}, it, { __lat: c[0] + off.dLat, __lng: c[1] + off.dLng, __isCluster: false });
+            });
+        }
+
+        // In cluster mode, any country with >1 dupe becomes one badge instead of a spiral
+        // of pins — the country-level clumping problem the spiral only partially solves at
+        // whole-globe zoom, and the thing that reads worst on a small phone screen where
+        // even the altitude-scaled spiral still needs several closely-spaced taps to
+        // resolve individual pins. Countries with just one item, and any item that already
+        // carries its own precise city coordinates (never grouped by country to begin
+        // with), still go through the normal scatter path via buildPointsData — reusing it
+        // rather than duplicating the offset math.
+        function buildMapLayers(mapped) {
+            if (!clusterMode) return { points: buildPointsData(mapped), clusters: [] };
+            var countryGroups = {};
+            mapped.forEach(function(it) {
+                if (hasCoords(it)) return;
+                // Keyed by country AND report type: an Infrastructure item and a Trade Flow
+                // item in the same country must never collapse into one mixed badge.
+                var ck = (it.country || '?') + '||' + it.report_type;
+                (countryGroups[ck] = countryGroups[ck] || []).push(it);
+            });
+            var countryHasBoth = {};
+            Object.keys(countryGroups).forEach(function(k) {
+                var c = k.split('||')[0];
+                countryHasBoth[c] = (countryHasBoth[c] || 0) + 1;
+            });
+            var clusters = [];
+            var clusteredCountries = {};
+            Object.keys(countryGroups).forEach(function(gk) {
+                var items = countryGroups[gk];
+                if (items.length <= 1) return;
+                var ck = gk.split('||')[0];
+                var kind = items[0].report_type;
+                var c = resolveCentroid(ck);
+                // Same country, both report types: nudge the Trade Flow badge aside so the
+                // two never sit on the exact same pixel (they are separate clusters now).
+                if (countryHasBoth[ck] > 1 && kind === 'flow_distortion') c = [c[0] - 1.5, c[1] + 2.2];
+                // Badge tint + hover breakdown come from the same per-(report_type,sector)
+                // tally as the sidebar bars, sorted so the most common group leads — a flat
+                // accent-colored badge would erase the sector-color signal every individual
+                // pin on the map otherwise carries.
+                var groups = {};
+                items.forEach(function(it) {
+                    var key = groupKey(it.report_type, it.sector);
+                    var label = (it.report_type === 'flow_distortion' ? 'Trade Flow · ' : '') + (it.sector || 'Other');
+                    if (!groups[key]) groups[key] = { label: label, color: pinColor(it), count: 0 };
+                    groups[key].count++;
+                });
+                var breakdown = Object.keys(groups).map(function(k){ return groups[k]; }).sort(function(a,b){ return b.count - a.count; });
+                clusters.push({ country: ck, report_type: kind, count: items.length, lat: c[0], lng: c[1], color: breakdown[0].color, breakdown: breakdown, items: items, __isCluster: true });
+                clusteredCountries[gk] = true;
+            });
+            var remaining = mapped.filter(function(it) {
+                return hasCoords(it) || !clusteredCountries[(it.country || '?') + '||' + it.report_type];
+            });
+            return { points: buildPointsData(remaining), clusters: clusters };
+        }
+
+        // Screen-space clustering (2026-09-06): buildMapLayers above only merges
+        // same-country duplicates - it says nothing about *different* countries whose
+        // pins happen to land close together on screen at the current zoom/rotation
+        // (small nearby countries at whole-globe zoom, or just a country with enough
+        // items that the spiral's own points overlap). This second pass runs after
+        // buildMapLayers, projects every point/cluster to actual screen pixels via
+        // getScreenCoords(), and greedily merges anything within SCREEN_CLUSTER_PX of
+        // each other into one bigger badge - regardless of country. Re-run on every
+        // animation frame while the camera moves (see the onZoom handler below) so a
+        // merged badge splits back apart correctly once the user zooms/rotates far
+        // enough that its members are no longer visually on top of each other.
+        var SCREEN_CLUSTER_PX = 34;
+
+        function isFrontFacing(lat, lng) {
+            var pov = world.pointOfView();
+            var toRad = function(d) { return d * Math.PI / 180; };
+            var lat1 = toRad(pov.lat), lng1 = toRad(pov.lng), lat2 = toRad(lat), lng2 = toRad(lng);
+            var cosAngle = Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lng2 - lng1);
+            return cosAngle > 0.15;
+        }
+
+        function screenClusterMerge(entries) {
+            var withScreen = [];
+            entries.forEach(function(d) {
+                var lat = d.__isCluster ? d.lat : d.__lat;
+                var lng = d.__isCluster ? d.lng : d.__lng;
+                if (!isFrontFacing(lat, lng)) return;
+                var pt = world.getScreenCoords(lat, lng, 0.02);
+                if (!pt) return;
+                withScreen.push({ d: d, lat: lat, lng: lng, x: pt.x, y: pt.y });
+            });
+
+            var used = new Array(withScreen.length).fill(false);
+            var groups = [];
+            for (var i = 0; i < withScreen.length; i++) {
+                if (used[i]) continue;
+                used[i] = true;
+                var group = [withScreen[i]];
+                for (var j = i + 1; j < withScreen.length; j++) {
+                    if (used[j]) continue;
+                    var dx = withScreen[i].x - withScreen[j].x, dy = withScreen[i].y - withScreen[j].y;
+                    if (withScreen[i].d.report_type === withScreen[j].d.report_type && Math.sqrt(dx * dx + dy * dy) < SCREEN_CLUSTER_PX) { group.push(withScreen[j]); used[j] = true; }
+                }
+                groups.push(group);
+            }
+
+            return groups.map(function(group) {
+                if (group.length === 1) return group[0].d;
+
+                var totalCount = 0;
+                var breakdownMap = {};
+                var countryNames = {};
+                var sumLat = 0, sumLng = 0;
+                var mergedItems = [];
+                group.forEach(function(g) {
+                    var d = g.d;
+                    countryNames[d.country || 'Unknown'] = true;
+                    sumLat += g.lat; sumLng += g.lng;
+                    if (d.__isCluster) {
+                        totalCount += d.count;
+                        (d.items || []).forEach(function(it) { mergedItems.push(it); });
+                        d.breakdown.forEach(function(b) {
+                            if (!breakdownMap[b.label]) breakdownMap[b.label] = { label: b.label, color: b.color, count: 0 };
+                            breakdownMap[b.label].count += b.count;
+                        });
+                    } else {
+                        totalCount += 1;
+                        mergedItems.push(d);
+                        var key = (d.report_type === 'flow_distortion' ? 'Trade Flow \u00b7 ' : '') + (d.sector || 'Other');
+                        if (!breakdownMap[key]) breakdownMap[key] = { label: key, color: pinColor(d), count: 0 };
+                        breakdownMap[key].count += 1;
+                    }
+                });
+                var breakdown = Object.keys(breakdownMap).map(function(k) { return breakdownMap[k]; }).sort(function(a, b) { return b.count - a.count; });
+                var names = Object.keys(countryNames);
+                var label = names.length === 1 ? names[0] : (names.length + ' locations');
+                return {
+                    __isCluster: true,
+                    report_type: group[0].d.report_type,
+                    country: label,
+                    count: totalCount,
+                    lat: sumLat / group.length,
+                    lng: sumLng / group.length,
+                    color: breakdown[0].color,
+                    breakdown: breakdown,
+                    items: mergedItems
+                };
+            });
+        }
+
+        var currentCountryLayers = { points: [], clusters: [] };
+
+        function refreshScreenClusters() {
+            var combined = currentCountryLayers.points.concat(currentCountryLayers.clusters);
+            var merged = screenClusterMerge(combined);
+            // Paint order by DOM order (no z-index: a positioned z-index here leaks above the side panel).
+            var rank = function(d) { var t = d.__isCluster ? (d.report_type === 'flow_distortion' ? maxTier(d.items) : null) : (isFlow(d) ? flowTier(d) : null); return t === 'crit' ? 2 : (t === 'elev' ? 1 : 0); };
+            merged.sort(function(a, b) { return rank(a) - rank(b); });
+            world.htmlElementsData(merged);
+        }
+
+        // Which signals sit on which lane, from the items the current filters leave (lane
+        // filter excluded, so picking one lane does not blank every other lane).
+        function computeLaneStates(items) {
+            var states = {};
+            TRADE_LANES.forEach(function(l) { states[l.id] = { lane: l, items: [], counts: { crit: 0, elev: 0, watch: 0 }, tier: null }; });
+            items.forEach(function(it) {
+                if (!isFlow(it)) return;
+                TRADE_LANES.forEach(function(l) {
+                    if (!laneMatches(l, it)) return;
+                    var s = states[l.id];
+                    s.items.push(it);
+                    s.counts[flowTier(it)]++;
+                });
+            });
+            TRADE_LANES.forEach(function(l) {
+                var s = states[l.id];
+                s.tier = s.counts.crit ? 'crit' : (s.counts.elev ? 'elev' : (s.counts.watch ? 'watch' : null));
+                s.items.sort(function(a, b) { return flowImpact(b) - flowImpact(a); });
+            });
+            return states;
+        }
+        function updateLanes(items) {
+            if (state.reportType !== 'flow_distortion' || !state.showLanes) {
+                laneStates = {};
+                world.pathsData([]);
+                return;
+            }
+            laneStates = computeLaneStates(items);
+            world.pathsData(TRADE_LANES.map(function(l) {
+                var s = laneStates[l.id];
+                return { id: l.id, name: l.name, pts: l.pts, tier: s.tier, n: s.items.length, len: l.lenDeg };
+            }));
+        }
+        function laneTipContent(id) {
+            var s = laneStates[id];
+            if (!s) return '';
+            var l = s.lane;
+            var html = '<span style="color:var(--accent);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em">Trade lane</span><br><b>' + escapeHtml(l.name) + '</b><br>' +
+                '<span style="color:var(--text-faint)">' + escapeHtml(l.flow) + '</span><br>';
+            if (!s.items.length) {
+                return html + '<span style="color:var(--text-faint)">No signals on this lane in the current range.</span>';
+            }
+            html += TIER_ORDER.filter(function(t) { return s.counts[t]; }).map(function(t) {
+                return '<span class="wim-tier-tag ' + t + '" style="margin-left:0">' + TIER_DEFS[t].label + ' · ' + s.counts[t] + '</span>';
+            }).join(' ');
+            // Weekly trend for this lane (Critical + Elevated per week, oldest -> newest). Free
+            // users only have the current week unlocked, so they get a lock hint instead.
+            var wk = timelineList();
+            var unlocked = wk.filter(function(w) { return !w.locked; });
+            if (unlocked.length >= 2) {
+                var vals = unlocked.map(function(w) { var c = w.lanes && w.lanes[id]; return c ? c.crit + c.elev : 0; });
+                var mx = Math.max.apply(null, vals.concat([1])), blocks = '▁▂▃▄▅▆▇█';
+                html += '<span style="display:block;margin-top:6px;color:var(--text-faint)">Weekly trend <span style="letter-spacing:1px;color:var(--accent);font-size:13px">' +
+                    vals.map(function(v) { return v ? blocks.charAt(Math.min(7, Math.round(v / mx * 7))) : '▁'; }).join('') + '</span></span>';
+            } else if (wk.some(function(w) { return w.locked; })) {
+                html += '<span style="display:block;margin-top:6px;color:var(--text-faint)">🔒 Weekly trend &amp; history: subscribers</span>';
+            }
+            html += s.items.slice(0, 3).map(function(it) {
+                return '<span style="display:block;margin-top:5px">• ' + escapeHtml((it.project_name || '').slice(0, 80)) + '</span>';
+            }).join('');
+            html += '<span style="color:var(--text-faint);display:block;margin-top:5px">' + (state.lane === id ? 'click to clear filter' : 'click to show these ' + s.items.length + ' signals') + '</span>';
+            return html;
+        }
+
+        function updateMapLayers() {
+            currentCountryLayers = buildMapLayers(currentMappedItems);
+            refreshScreenClusters();
+        }
+
+        function render(items) {
+            currentItems = items;
+            var mapped = items.filter(isMappable);
+            var unmapped = items.filter(function(it) { return !isMappable(it); });
+
+            // Low-severity ("Watch") Trade Flow signals are kept off the globe by default so
+            // the important ones stand out; still counted everywhere else, one click to show.
+            var minorTotal = mapped.filter(function(it) { return isFlow(it) && flowTier(it) === 'watch'; }).length;
+            var hideMinor = !state.showMinor && state.tier !== 'watch';
+            var onMap = hideMinor ? mapped.filter(function(it) { return !(isFlow(it) && flowTier(it) === 'watch'); }) : mapped;
+            var minorHtml = minorTotal
+                ? ' · <a href="#" data-role="toggleminor" style="color:var(--accent);text-decoration:underline;">' + (hideMinor ? 'show ' + minorTotal + ' minor signals' : 'hide minor signals') + '</a>'
+                : '';
+            var laneNote = (state.lane && LANE_BY_ID[state.lane]) ? ' · lane: <b>' + escapeHtml(LANE_BY_ID[state.lane].name) + '</b>' : '';
+            var filterNote = laneNote + ((state.sector || state.subsector || state.stage || state.tier || state.lane) ? ' · <a href="#" data-role="clearfilters" style="color:var(--accent)">clear filter</a>' : '');
+            // Public Trade Flow responses are capped server-side (highest-impact first), so a very
+            // wide range says so instead of silently looking complete.
+            var truncNote = (lastTruncated && state.reportType === 'flow_distortion') ? ' · top <b>' + allItems.length + '</b> of ' + lastTotal + ' by impact — narrow the range for the rest' : '';
+            // "off-map" is the trigger for the unmapped-items modal — made clickable and
+            // underlined here (inside text every visitor already reads in the always-visible
+            // filter bar) instead of a separate unlabeled floating icon nobody noticed.
+            var offMapHtml = unmapped.length
+                ? ' · <a href="#" data-role="openglobemodal" style="color:var(--accent);text-decoration:underline;font-weight:700;">' + unmapped.length + ' off-map →</a>'
+                : ' · <b>0</b> off-map';
+            countEl.innerHTML = 'Showing <b>' + mapped.length + '</b> of <b>' + items.length + '</b>' + offMapHtml + minorHtml + truncNote + filterNote;
+
+            // Server-side paywall rejected the requested range — say so explicitly, and
+            // name how many signals are actually hidden there (locked_counts), rather
+            // than silently substituting the free window's own data under a locked
+            // button (that used to happen and reads as "the paywall doesn't do anything").
+            if (lastGated && lastFreeWindow) {
+                var fmtShort = function(iso){ var d = new Date(iso + 'T00:00:00Z'); return d.toLocaleDateString('en-US', {month:'short', day:'numeric', timeZone:'UTC'}); };
+                // Trade Flows lock everything OLDER than the free last-7-days window; Infrastructure locks the newest 7 days ("recent") or the oldest ("15plus").
+                var lockedCount = lastLockedCounts ? ((state.reportType === 'flow_distortion' || state.range === '15plus') ? lastLockedCounts.older : lastLockedCounts.recent) : null;
+                var countPhrase = lockedCount !== null ? ('<b>' + lockedCount + '</b> signal' + (lockedCount === 1 ? '' : 's') + ' hidden here. ') : '';
+                gatedNoticeEl.innerHTML = countPhrase + 'This range needs a subscription — free access covers ' +
+                    fmtShort(lastFreeWindow.from) + '–' + fmtShort(lastFreeWindow.to) + ' only. <a href="/unlock-intelligence-map/" data-role="subscribecta">' + (state.reportType === 'flow_distortion' ? 'Unlock Trade Flow history →' : 'Unlock the newest projects + full archive →') + '</a>';
+                gatedNoticeEl.style.display = 'block';
+                placeGatedNotice();
+            } else {
+                gatedNoticeEl.style.display = 'none';
+            }
+
+            var minorLink = countEl.querySelector('[data-role="toggleminor"]');
+            if (minorLink) minorLink.addEventListener('click', function(e){ e.preventDefault(); state.showMinor = !state.showMinor; applyFilters(); });
+            var clearLink = countEl.querySelector('[data-role="clearfilters"]');
+            if (clearLink) clearLink.addEventListener('click', function(e){ e.preventDefault(); state.sector=''; state.subsector=''; state.stage=''; state.tier=''; state.lane=''; applyFilters(); });
+            var offMapLink = countEl.querySelector('[data-role="openglobemodal"]');
+            if (offMapLink) offMapLink.addEventListener('click', function(e){ e.preventDefault(); openGlobeModal(); });
+
+            totalEl.textContent = items.length;
+            subtotalEl.textContent = mapped.length + ' mapped · ' + unmapped.length + ' Global/unclassified';
+            peekTextEl.textContent = items.length + ' signal' + (items.length === 1 ? '' : 's') + ' in range';
+
+            currentMappedItems = onMap;
+            updateMapLayers();
+
+            // Two independent groups — EPC opportunities and commodity signals never
+            // share a breakdown block, even when a category name (e.g. "Energy") exists
+            // in both taxonomies, so filtering one never silently matches the other.
+            var GROUPS = [
+                { type: 'epc', label: 'Infrastructure', colorFn: sectorColor, hasSubsectors: true },
+                { type: 'flow_distortion', label: 'Trade Flows', colorFn: function() { return '#7f93b0'; }, hasSubsectors: false }
+            ];
+            var expandedSectors = {};
+            sectorBarsEl.querySelectorAll('.wim-sector-block.expanded').forEach(function(el){ expandedSectors[el.dataset.sector] = true; });
+
+            // Stage (S1-S5) only applies to Infrastructure: detach it before the rebuild wipes sectorBarsEl, re-park it in the Infrastructure group's slot below.
+            stageBlockEl.remove();
+            sectorBarsEl.innerHTML = GROUPS.map(function(group) {
+                var groupItems = items.filter(function(it){ return it.report_type === group.type; });
+                if (!groupItems.length) return '';
+                var bySector = {};
+                var bySubsector = {};
+                groupItems.forEach(function(it) {
+                    var s = it.sector || 'Other';
+                    bySector[s] = (bySector[s]||0) + 1;
+                    if (group.hasSubsectors) {
+                        var sub = foldSubsector(s, it.subsector);
+                        bySubsector[s] = bySubsector[s] || {};
+                        bySubsector[s][sub] = (bySubsector[s][sub]||0) + 1;
+                    }
+                });
+                var maxSector = Math.max.apply(null, Object.values(bySector).concat([1]));
+                var sortedSectors = Object.keys(bySector).sort(function(a,b){ return bySector[b]-bySector[a]; });
+                var blocksHtml = sortedSectors.map(function(s) {
+                    var key = groupKey(group.type, s);
+                    var pct = Math.round(bySector[s] / maxSector * 100);
+                    var subHtml = '';
+                    if (group.hasSubsectors) {
+                        var subs = bySubsector[s] || {};
+                        var maxSub = Math.max.apply(null, Object.values(subs).concat([1]));
+                        var sortedSubs = Object.keys(subs).sort(function(a,b){ return subs[b]-subs[a]; });
+                        subHtml = sortedSubs.map(function(sub) {
+                            var subPct = Math.round(subs[sub] / maxSub * 100);
+                            var subActive = state.subsector === sub ? ' active' : '';
+                            return '<div class="wim-subbar-row' + subActive + '" data-sub="' + escapeHtml(sub) + '"><span class="n"><span class="wim-legend-icon">' + subsectorIcon(s, sub) + '</span>' + escapeHtml(sub) + '</span><div class="wim-subbar-track"><div class="wim-subbar-fill" style="width:' + subPct + '%;background:' + subColor(s, sub) + '"></div></div><span class="c">' + subs[sub] + '</span></div>';
+                        }).join('');
+                    }
+                    var isOpen = expandedSectors[key] ? ' expanded' : '';
+                    var isActive = state.sector === key ? ' active' : '';
+                    return '<div class="wim-sector-block' + isOpen + isActive + '" data-sector="' + escapeHtml(key) + '">' +
+                        '<div class="wim-bar-row"><span class="n">' + (group.type === 'flow_distortion' ? '<span class="wim-tf-chip" style="background:' + group.colorFn(s) + '">' + flowIconSvg(s, 12) + '</span>' : '') + escapeHtml(s) + '</span><div class="wim-bar-track"><div class="wim-bar-fill" style="width:' + pct + '%;background:' + group.colorFn(s) + '"></div></div><span class="c">' + bySector[s] + '</span></div>' +
+                        (subHtml ? '<div class="wim-subbars">' + subHtml + '</div>' : '') +
+                    '</div>';
+                }).join('');
+                // Group header carries the same shape as the pins on the globe (round =
+                // Infrastructure, dark rounded-square = Trade Flow) so the sidebar doubles
+                // as the map legend. Trade Flow also gets clickable importance tiers.
+                var isTf = group.type === 'flow_distortion';
+                var tierHtml = '';
+                if (isTf) {
+                    var tierCounts = { crit: 0, elev: 0, watch: 0 };
+                    allItems.forEach(function(it) { if (isFlow(it)) tierCounts[flowTier(it)]++; });
+                    tierHtml = '<div class="wim-tier-row">' + TIER_ORDER.map(function(t) {
+                        return '<span class="wim-pill ' + t + (state.tier === t ? ' active' : '') + '" data-tier="' + t + '" title="' + escapeHtml(TIER_DEFS[t].hint) + '">' + TIER_DEFS[t].label + ' · ' + tierCounts[t] + '</span>';
+                    }).join('') + '</div>' +
+                        '<label class="wim-lane-toggle"><input type="checkbox" data-role="lanetoggle"' + (state.showLanes ? ' checked' : '') + '> Trade lanes <span class="wim-hint" style="margin-left:2px">dashes flow in the main direction of trade · lit = signals on the lane · click a lane to filter</span></label>';
+                }
+                return '<div class="wim-group-label" style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-faint);margin:14px 0 4px;"><span class="wim-kind-shape ' + (isTf ? 'tf' : 'epc') + '"></span>' + escapeHtml(group.label) + (isTf ? ' <span style="text-transform:none;letter-spacing:0;font-weight:500">· live market signals</span>' : ' <span style="text-transform:none;letter-spacing:0;font-weight:500">· projects &amp; tenders</span>') + '</div>' + tierHtml + blocksHtml + (isTf ? '' : '<div data-role="stageslot" style="margin:10px 0 4px"></div>');
+            }).join('');
+            var stageSlot = sectorBarsEl.querySelector('[data-role="stageslot"]');
+            if (stageSlot) stageSlot.appendChild(stageBlockEl);
+            var laneToggle = sectorBarsEl.querySelector('[data-role="lanetoggle"]');
+            if (laneToggle) laneToggle.addEventListener('change', function() {
+                state.showLanes = laneToggle.checked;
+                if (!state.showLanes) state.lane = '';
+                applyFilters();
+            });
+            sectorBarsEl.querySelectorAll('.wim-tier-row .wim-pill').forEach(function(pill) {
+                pill.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    var t = pill.dataset.tier;
+                    state.tier = (state.tier === t) ? '' : t;
+                    applyFilters();
+                });
+            });
+            sectorBarsEl.querySelectorAll('.wim-sector-block').forEach(function(block) {
+                block.addEventListener('click', function(e) {
+                    if (e.target.closest('.wim-subbar-row')) return;
+                    var s = block.dataset.sector;
+                    block.classList.toggle('expanded');
+                    var changingSector = state.sector !== s;
+                    state.sector = (state.sector === s) ? '' : s;
+                    if (changingSector) state.subsector = '';
+                    applyFilters();
+                });
+                block.querySelectorAll('.wim-subbar-row').forEach(function(row) {
+                    row.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        var s = block.dataset.sector;
+                        var sub = row.dataset.sub;
+                        state.sector = s;
+                        state.subsector = (state.subsector === sub) ? '' : sub;
+                        applyFilters();
+                    });
+                });
+            });
+
+            var byStage = {};
+            items.forEach(function(it) { var s = it.stage || '?'; byStage[s] = (byStage[s]||0) + 1; });
+            stagePillsEl.innerHTML = STAGE_ORDER.filter(function(s){return byStage[s];}).map(function(s) {
+                var isActive = state.stage === s ? ' active' : '';
+                return '<span class="wim-pill' + isActive + '" data-stage="' + s + '" title="' + escapeHtml(STAGE_DEFS[s]) + '">' + s.split('-')[0] + ' · ' + byStage[s] + '</span>';
+            }).join('');
+            stagePillsEl.querySelectorAll('.wim-pill').forEach(function(pill) {
+                pill.addEventListener('click', function() {
+                    var s = pill.dataset.stage;
+                    state.stage = (state.stage === s) ? '' : s;
+                    applyFilters();
+                });
+            });
+        }
+
+        function modalRowHtml(it) {
+            return '<div class="wim-modal-row"><b>' + escapeHtml(it.project_name) + '</b><br>' +
+                escapeHtml(it.country || 'Unclassified') + ' · ' + escapeHtml(it.sector) + ' · ' + escapeHtml(it.report_date) + '</div>';
+        }
+        function openItemsModal(items, title) {
+            modalTitleEl.textContent = title;
+            modalBody.innerHTML = items.length ? items.map(modalRowHtml).join('') : '<div class="wim-empty">Nothing here for this range.</div>';
+            modalOverlay.style.display = 'flex';
+        }
+
+        function openGlobeModal() {
+            var unmapped = currentItems.filter(function(it) { return !isMappable(it); });
+            openItemsModal(unmapped, 'Global & Unmapped Signals');
+        }
+
+        // Stamps the hidden-signal count straight onto the two locked range
+        // buttons (e.g. "Last 7d 🔒 (23)") so a non-subscriber can see how much
+        // is actually behind the paywall instead of guessing from an empty click.
+        // Falls back to the plain label when no count is available yet (first
+        // paint, or a subscriber for whom the server sends no locked_counts).
+        // ── Trade Flows timeline (week by week) ───────────────────────────────────
+        // Data: GET lane-weeks (server-side roll-up, so any amount of history stays cheap).
+        // k=0 (last 7 days) is free; older weeks come back as {locked:true,total} for
+        // non-subscribers, which is what draws the lock icons and the upsell.
+        var LANE_WEEKS_API = /opportunities\/?$/.test(API) ? API.replace(/opportunities\/?$/, 'lane-weeks') : API.replace(/\/$/, '') + '/lane-weeks';
+        // The subscription notice floats over the top of the globe, just under the filter bar,
+        // instead of pushing the globe down (which used to shrink it on every locked click).
+        function placeGatedNotice() {
+            var fb = root.querySelector('.wim-filterbar');
+            if (fb) gatedNoticeEl.style.top = (fb.offsetTop + fb.offsetHeight + 8) + 'px';
+        }
+        var tlTimer = null;
+        function stopPlay() {
+            if (tlTimer) { clearInterval(tlTimer); tlTimer = null; }
+            var pb = root.querySelector('[data-role="tlplay"]');
+            if (pb) pb.textContent = '▶';
+        }
+        function tlShort(iso) { var d = new Date(iso + 'T00:00:00Z'); return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' }); }
+        function timelineList() {
+            // oldest -> newest; weeks before the data began (no signals) are left out, this week is always kept
+            return weeksData.filter(function(w) { return w.total > 0 || w.k === 0; }).slice().reverse();
+        }
+        function renderTimeline() {
+            var tl = root.querySelector('[data-role="timeline"]');
+            if (!tl) return;
+            var show = state.reportType === 'flow_distortion' && weeksData.length > 0;
+            tl.style.display = show ? '' : 'none';
+            if (!show) return;
+            // Displayed newest FIRST: the free week on the left, then the paid weeks going back in time.
+            var list = timelineList().slice().reverse();
+            var heat = function(w) { return w.locked ? 0 : (w.tiers.crit + w.tiers.elev); };
+            var maxHeat = Math.max.apply(null, list.map(heat).concat([1]));
+            root.querySelector('[data-role="tlcells"]').innerHTML = list.map(function(w) {
+                var tier = w.locked ? 'locked' : (w.tiers.crit ? 'crit' : (w.tiers.elev ? 'elev' : 'watch'));
+                var h = w.locked ? 30 : Math.max(14, Math.round(heat(w) / maxHeat * 100));
+                var rangeTxt = tlShort(w.from) + ' – ' + tlShort(w.to);
+                var tip = rangeTxt + ' · ' + w.total + ' signals' + (w.locked ? ' · subscribers only' : ' · ' + w.tiers.crit + ' Critical, ' + w.tiers.elev + ' Elevated');
+                return '<button type="button" class="wim-tl-cell tl-' + tier + (w.k === state.weekK ? ' sel' : '') + '" data-k="' + w.k + '" title="' + escapeHtml(tip) + '" aria-label="' + escapeHtml(tip) + '"><i style="height:' + h + '%"></i></button>';
+            }).join('');
+            var cur = weeksData.filter(function(w) { return w.k === state.weekK; })[0];
+            root.querySelector('[data-role="tllabel"]').textContent = cur ? (tlShort(cur.from) + ' – ' + tlShort(cur.to) + (cur.k === 0 ? ' · last 7 days' : ' · ' + cur.k + ' week' + (cur.k === 1 ? '' : 's') + ' ago') + (cur.locked ? ' · 🔒' : '')) : '';
+            root.querySelectorAll('.wim-tl-cell').forEach(function(btn) {
+                btn.addEventListener('click', function() { stopPlay(); selectWeek(parseInt(btn.dataset.k, 10)); });
+            });
+        }
+        function selectWeek(k) {
+            state.weekK = k;
+            state.lane = '';
+            renderTimeline();
+            load();
+        }
+        function loadWeeks() {
+            fetchJson(LANE_WEEKS_API + '?weeks=13', 2).then(function(json) {
+                weeksData = (json && json.weeks) || [];
+                renderTimeline();
+            }).catch(function() { weeksData = []; renderTimeline(); });
+        }
+        root.querySelector('[data-role="tlplay"]').addEventListener('click', function() {
+            if (tlTimer) { stopPlay(); return; }
+            var steps = timelineList().filter(function(w) { return !w.locked; });
+            if (steps.length < 2) {
+                gatedNoticeEl.innerHTML = 'Week-by-week replay needs history — free access covers the last 7 days only. <a href="/unlock-intelligence-map/" data-role="subscribecta">Unlock Trade Flow history →</a>';
+                gatedNoticeEl.style.display = 'block';
+                placeGatedNotice();
+                return;
+            }
+            var i = 0;
+            root.querySelector('[data-role="tlplay"]').textContent = '❚❚';
+            var step = function() {
+                if (i >= steps.length) { stopPlay(); return; }
+                selectWeek(steps[i].k);
+                i++;
+            };
+            step();
+            tlTimer = setInterval(step, 2200);
+        });
+
+        // ── Share: LinkedIn-ready image + caption ─────────────────────────────────
+        // LinkedIn cannot be pre-filled from a URL (only a link is accepted, no image/text), and
+        // posting for the user needs an approved LinkedIn API app + their authorisation, so this
+        // builds the assets to post by hand: a 1080x1350 card, a caption to edit, and a tagged
+        // link for the FIRST COMMENT (links in the post body get less reach on LinkedIn).
+        // Formats: Trade Flows -> "Daily flash" (top signals of the latest day, all sectors) and
+        // "Weekly update" (week on screen + most affected lanes); Infrastructure -> "New projects".
+        // Only headlines + source names of other publishers are used, never their article text.
+        var COUNTRY_ISO = { 'United States':'US','USA':'US','US':'US','China':'CN','India':'IN','Iran':'IR','Yemen':'YE','Saudi Arabia':'SA','Qatar':'QA','United Arab Emirates':'AE','UAE':'AE','Oman':'OM','Kuwait':'KW','Iraq':'IQ','Egypt':'EG','Israel':'IL','Turkey':'TR','Russia':'RU','Ukraine':'UA','Japan':'JP','South Korea':'KR','Korea':'KR','Taiwan':'TW','Singapore':'SG','Malaysia':'MY','Indonesia':'ID','Vietnam':'VN','Thailand':'TH','Philippines':'PH','Australia':'AU','New Zealand':'NZ','United Kingdom':'GB','UK':'GB','Germany':'DE','France':'FR','Italy':'IT','Spain':'ES','Netherlands':'NL','Norway':'NO','Denmark':'DK','Poland':'PL','Greece':'GR','Brazil':'BR','Argentina':'AR','Chile':'CL','Mexico':'MX','Canada':'CA','Panama':'PA','Colombia':'CO','Peru':'PE','South Africa':'ZA','Nigeria':'NG','Kenya':'KE','Ethiopia':'ET','Morocco':'MA','Algeria':'DZ','Mozambique':'MZ','Tanzania':'TZ','Ghana':'GH','Angola':'AO','Senegal':'SN','Pakistan':'PK','Bangladesh':'BD','Sri Lanka':'LK','Kazakhstan':'KZ','Uzbekistan':'UZ' };
+        // Flags are used in captions only: the card is drawn on a canvas and Windows browsers draw flag emoji as letters.
+        function isoOf(country) {
+            var s = (country || '').trim();
+            return /^[A-Za-z]{2}$/.test(s) ? s.toUpperCase() : (COUNTRY_ISO[s] || '');   // Infrastructure items carry ISO codes (RO, SA), Trade Flow items carry names
+        }
+        function flagFor(country) {
+            var c = isoOf(country);
+            return c ? String.fromCodePoint(0x1F1E6 + c.charCodeAt(0) - 65, 0x1F1E6 + c.charCodeAt(1) - 65) : '';
+        }
+        function countryName(country) {
+            var s = (country || '').trim();
+            if (/^[A-Za-z]{2}$/.test(s)) {
+                try { return new Intl.DisplayNames(['en'], { type: 'region' }).of(s.toUpperCase()) || s; } catch (e) { return s; }
+            }
+            return s;
+        }
+        var SECTOR_EMOJI = { 'Shipping': '🚢', 'Energy': '⚡', 'Metals': '⛏️', 'Mining & Metals': '⛏️', 'Agriculture': '🌾', 'Policy': '📜', 'Logistics & Infrastructure': '🏗️' };
+        function sectorEmoji(s) { return SECTOR_EMOJI[s] || '📌'; }
+        function cleanTitle(s, n) { return (s || '').replace(/\s+/g, ' ').trim().slice(0, n || 160); }
+        function laneCountsText(c) {
+            var parts = [];
+            if (c.crit) parts.push(c.crit + ' Critical');
+            if (c.elev) parts.push(c.elev + ' Elevated');
+            if (!parts.length && c.watch) parts.push(c.watch + ' Watch');
+            return parts.join(' · ');
+        }
+        // One auto-written "so what" line per signal: the trade lane it sits on when there is one, else the tier meaning.
+        function whyItMatters(it) {
+            var lane = null;
+            TRADE_LANES.forEach(function(l) { if (!lane && laneMatches(l, it)) lane = l; });
+            if (lane) return 'Hits the ' + lane.name + ' lane (' + lane.flow + ').';
+            return TIER_DEFS[flowTier(it)].hint + ' — ' + (it.sector || 'trade') + (it.country ? ', ' + it.country : '') + '.';
+        }
+        function shareLink(kind, date, view) {
+            return window.location.origin + '/?view=' + view + '&utm_source=linkedin&utm_medium=social&utm_campaign=' + kind + '-' + date;
+        }
+        function tierCounts(items) {
+            var t = { crit: 0, elev: 0, watch: 0 };
+            items.forEach(function(it) { t[flowTier(it)]++; });
+            return t;
+        }
+        function byImpactDesc(a, b) { return flowImpact(b) - flowImpact(a); }
+
+        // ---- data for each format ----
+        function weeklyData() {
+            var items = allItems.filter(isFlow);
+            if (!items.length) return null;
+            var states = computeLaneStates(items);
+            var lanes = TRADE_LANES.map(function(l) { return states[l.id]; }).filter(function(s) { return s.items.length; });
+            lanes.sort(function(a, b) { return (b.counts.crit * 100 + b.counts.elev * 10 + b.counts.watch) - (a.counts.crit * 100 + a.counts.elev * 10 + a.counts.watch); });
+            var r = rangeDates();
+            return { from: r.from, to: r.to, total: items.length, tiers: tierCounts(items), lanes: lanes.slice(0, 3), top: items.slice().sort(byImpactDesc)[0] || null };
+        }
+        function flashData() {
+            var items = allItems.filter(isFlow);
+            if (!items.length) return null;
+            // Start with the latest day and widen day by day until there are at least 3 real
+            // (Elevated+) signals to choose from: on a quiet day the top of a tiny pool is noise.
+            var dates = [];
+            items.forEach(function(it) { if (dates.indexOf(it.report_date) < 0) dates.push(it.report_date); });
+            dates.sort().reverse();
+            var pool = items, n = 1;
+            for (; n <= dates.length; n++) {
+                var win = dates.slice(0, n);
+                pool = items.filter(function(it) { return win.indexOf(it.report_date) >= 0; });
+                if (pool.filter(function(it) { return flowImpact(it) >= 8; }).length >= 3) break;
+            }
+            n = Math.min(n, dates.length);
+            var latest = dates[0], oldest = dates[n - 1];
+            var strong = pool.filter(function(it) { return flowImpact(it) >= 8; });
+            var ranked = (strong.length >= 3 ? strong : pool).slice().sort(byImpactDesc);
+            var picks = [], seen = {};
+            ranked.forEach(function(it) { if (picks.length < 3 && !seen[it.sector]) { picks.push(it); seen[it.sector] = 1; } }); // spread across sectors first
+            ranked.forEach(function(it) { if (picks.length < 3 && picks.indexOf(it) < 0) picks.push(it); });
+            picks.sort(byImpactDesc);
+            return { date: latest, days: n, label: n > 1 ? tlShort(oldest) + ' – ' + tlShort(latest) : tlShort(latest), count: pool.length, tiers: tierCounts(pool), picks: picks };
+        }
+        function parseScaleM(s) {
+            // Real data mostly says Large / Medium / Small rather than an amount; amounts ("USD 500m") are honoured when present.
+            var word = { mega: 10000, large: 3000, medium: 300, small: 30 }[(s || '').trim().toLowerCase()];
+            if (word) return word;
+            var m = /(\d[\d,.]*)\s*(billion|bn|b|million|mn|m|k)?/i.exec(s || '');
+            if (!m) return 0;
+            var n = parseFloat(m[1].replace(/,/g, '')), u = (m[2] || '').toLowerCase();
+            if (u === 'billion' || u === 'bn' || u === 'b') n *= 1000; else if (u === 'k') n /= 1000;
+            return isNaN(n) ? 0 : n;
+        }
+        function projectsData() {
+            var items = allItems.filter(function(it) { return !isFlow(it); });
+            if (!items.length) return null;
+            var bySector = {}, byCountry = {}, minDate = '9999', maxDate = '';
+            items.forEach(function(it) {
+                bySector[it.sector] = (bySector[it.sector] || 0) + 1;
+                if (it.country) byCountry[it.country] = (byCountry[it.country] || 0) + 1;
+                if (it.report_date < minDate) minDate = it.report_date;
+                if (it.report_date > maxDate) maxDate = it.report_date;
+            });
+            // Early leads first (S1-S3: not yet at tender - what BD teams can still act on), then by size.
+            var early = function(it) { return /^S[123]/.test(it.stage || '') ? 1 : 0; };
+            var preTender = items.filter(early).length;
+            var ranked = items.slice().sort(function(a, b) { return (early(b) - early(a)) || (parseScaleM(b.scale) - parseScaleM(a.scale)); });
+            var picks = [], per = {};
+            ranked.forEach(function(it) { if (picks.length < 5 && (per[it.sector] || 0) < 2) { picks.push(it); per[it.sector] = (per[it.sector] || 0) + 1; } }); // max 2 per sector
+            ranked.forEach(function(it) { if (picks.length < 5 && picks.indexOf(it) < 0) picks.push(it); });
+            var sectors = Object.keys(bySector).sort(function(a, b) { return bySector[b] - bySector[a]; });
+            return { from: minDate, to: maxDate, total: items.length, preTender: preTender, bySector: bySector, sectors: sectors, picks: picks };
+        }
+
+        // ---- captions ----
+        function flashCaption(fd) {
+            var top = fd.picks[0], L = [];
+            L.push(sectorEmoji(top.sector) + ' ' + (flagFor(top.country) ? flagFor(top.country) + ' ' : '') + cleanTitle(top.project_name, 150));
+            L.push('');
+            L.push('Why it matters: ' + whyItMatters(top));
+            if (top.source_name) L.push('Source: ' + top.source_name);
+            if (fd.picks.length > 1) {
+                L.push('');
+                L.push(fd.days > 1 ? 'Also flagged in the last few days:' : 'Also flagged today:');
+                fd.picks.slice(1).forEach(function(it) {
+                    L.push(sectorEmoji(it.sector) + ' ' + (flagFor(it.country) ? flagFor(it.country) + ' ' : '') + cleanTitle(it.project_name, 110) + (it.source_name ? ' (' + it.source_name + ')' : ''));
+                });
+            }
+            L.push('');
+            L.push(fd.count + ' signals tracked ' + fd.label + ' — ' + fd.tiers.crit + ' Critical, ' + fd.tiers.elev + ' Elevated. Live map in the first comment.');
+            L.push('');
+            L.push('#TradeFlows #SupplyChain #Commodities #' + (top.sector || 'Trade').replace(/[^A-Za-z]/g, '') + ' #Logistics');
+            return L.join('\n');
+        }
+        function weeklyCaption(sd) {
+            var L = [];
+            L.push('Trade Flow update · ' + tlShort(sd.from) + ' – ' + tlShort(sd.to));
+            L.push('');
+            L.push(sd.total + ' signals tracked across global shipping, energy, metals and agriculture — ' + sd.tiers.crit + ' Critical, ' + sd.tiers.elev + ' Elevated.');
+            if (sd.lanes.length) {
+                L.push('');
+                L.push('Most affected trade lanes:');
+                sd.lanes.forEach(function(s) { L.push('• ' + s.lane.name + ' — ' + laneCountsText(s.counts)); });
+            }
+            if (sd.top) {
+                L.push('');
+                L.push('Biggest signal: ' + cleanTitle(sd.top.project_name, 140) + (sd.top.source_name ? ' (' + sd.top.source_name + ')' : ''));
+            }
+            L.push('');
+            L.push('Source: WorldTradePro Intelligence Map. Live map link in the first comment.');
+            L.push('');
+            L.push('#SupplyChain #Shipping #Logistics #Energy #Commodities #TradeFlows');
+            return L.join('\n');
+        }
+        function projectsCaption(pd) {
+            var L = [];
+            L.push('🏗️ New infrastructure projects spotted · ' + tlShort(pd.from) + ' – ' + tlShort(pd.to));
+            L.push('');
+            L.push(pd.total + ' projects tracked, ' + pd.preTender + ' of them still before tender (feasibility / development / pre-FID): ' + pd.sectors.slice(0, 4).map(function(s) { return pd.bySector[s] + ' ' + s; }).join(', ') + '.');
+            L.push('');
+            L.push('Top picks:');
+            pd.picks.forEach(function(it) {
+                L.push('• ' + (flagFor(it.country) ? flagFor(it.country) + ' ' : '') + cleanTitle(it.project_name, 90) + ' — ' + [countryName(it.country), it.subsector && it.subsector !== '(unspecified)' ? it.subsector : it.sector, it.stage, it.scale].filter(Boolean).join(' · '));
+            });
+            L.push('');
+            L.push('Full pipeline with sector, stage and country filters on the Intelligence Map (link in the first comment). Subscribers see new projects 7 days earlier.');
+            L.push('');
+            L.push('#Infrastructure #EPC #ProjectFinance #Tenders #BusinessDevelopment');
+            return L.join('\n');
+        }
+
+        // ---- card drawing ----
+        function roundRectPath(ctx, x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.arcTo(x + w, y, x + w, y + h, r);
+            ctx.arcTo(x + w, y + h, x, y + h, r);
+            ctx.arcTo(x, y + h, x, y, r);
+            ctx.arcTo(x, y, x + w, y, r);
+            ctx.closePath();
+        }
+        function cardFont(w, s) { return w + ' ' + s + 'px -apple-system, "Segoe UI", Roboto, Arial, sans-serif'; }
+        function fitText(ctx, text, maxW) {
+            if (ctx.measureText(text).width <= maxW) return text;
+            while (text.length > 1 && ctx.measureText(text + '…').width > maxW) text = text.slice(0, -1);
+            return text + '…';
+        }
+        function wrapLines(ctx, text, maxW, maxLines) {
+            var words = text.split(/\s+/), lines = [], line = '';
+            for (var i = 0; i < words.length; i++) {
+                var test = line ? line + ' ' + words[i] : words[i];
+                if (ctx.measureText(test).width > maxW && line) {
+                    lines.push(line); line = words[i];
+                    if (lines.length === maxLines) { line = ''; lines[maxLines - 1] = fitText(ctx, lines[maxLines - 1] + ' ' + words.slice(i).join(' '), maxW); break; }
+                } else line = test;
+            }
+            if (line && lines.length < maxLines) lines.push(fitText(ctx, line, maxW));
+            return lines;
+        }
+        // Globe capture into a rounded square + redraw of the DOM pins. Returns false if the browser will not let us read the WebGL canvas.
+        function drawGlobeInto(ctx, GX, GY, GS) {
+            try {
+                var gc = globeWrapEl.querySelector('canvas');
+                world.renderer().render(world.scene(), world.camera()); // a WebGL canvas is only readable right after a render
+                var dpr = gc.width / gc.getBoundingClientRect().width;
+                var side = Math.min(gc.width, gc.height);
+                var sx = (gc.width - side) / 2, sy = (gc.height - side) / 2;
+                ctx.save();
+                roundRectPath(ctx, GX, GY, GS, GS, 28); ctx.clip();
+                ctx.fillStyle = '#0a1730'; ctx.fillRect(GX, GY, GS, GS);
+                ctx.drawImage(gc, sx, sy, side, side, GX, GY, GS, GS);
+                var k = GS / (side / dpr), offX = sx / dpr, offY = sy / dpr;
+                var pov = world.pointOfView(), cvv = llVec(pov.lat, pov.lng), minDot = 1 / (1 + pov.altitude) + 0.02;
+                (world.htmlElementsData() || []).forEach(function(d) {
+                    var lat = d.__isCluster ? d.lat : d.__lat, lng = d.__isCluster ? d.lng : d.__lng;
+                    var v = llVec(lat, lng);
+                    if (v[0] * cvv[0] + v[1] * cvv[1] + v[2] * cvv[2] <= minDot) return;
+                    var sc = world.getScreenCoords(lat, lng, 0.02);
+                    var px = GX + (sc.x - offX) * k, py = GY + (sc.y - offY) * k;
+                    if (px < GX + 6 || px > GX + GS - 6 || py < GY + 6 || py > GY + GS - 6) return;
+                    var flow = d.__isCluster ? d.report_type === 'flow_distortion' : isFlow(d);
+                    var color = flow ? TIER_DEFS[d.__isCluster ? maxTier(d.items) : flowTier(d)].color : (d.__isCluster ? d.color : pinColor(d));
+                    var rad = d.__isCluster ? 17 : 11;
+                    ctx.beginPath(); ctx.arc(px, py, rad + 3, 0, Math.PI * 2); ctx.fillStyle = 'rgba(255,255,255,0.92)'; ctx.fill();
+                    ctx.beginPath(); ctx.arc(px, py, rad, 0, Math.PI * 2); ctx.fillStyle = color; ctx.fill();
+                    if (d.__isCluster) {
+                        ctx.fillStyle = '#fff'; ctx.font = cardFont(800, 17); ctx.textAlign = 'center';
+                        ctx.fillText(String(d.count > 99 ? '99+' : d.count), px, py + 6); ctx.textAlign = 'left';
+                    }
+                });
+                ctx.restore();
+                gc.toDataURL(); // throws here (not later, on export) if the WebGL canvas is cross-origin tainted
+                return true;
+            } catch (e) {
+                try { ctx.restore(); } catch (e2) {}
+                roundRectPath(ctx, GX, GY, GS, GS, 28);
+                ctx.fillStyle = '#0a1730'; ctx.fill();
+                ctx.fillStyle = '#9fb4d0'; ctx.font = cardFont(600, 26); ctx.textAlign = 'center';
+                ctx.fillText('Globe preview unavailable in this browser', GX + GS / 2, GY + GS / 2); ctx.textAlign = 'left';
+                return false;
+            }
+        }
+        // spec: { title, sub, globe (size), body(ctx, y), footer }
+        function drawCard(spec) {
+            var W = 1080, H = 1350, cv = document.createElement('canvas');
+            cv.width = W; cv.height = H;
+            var ctx = cv.getContext('2d');
+            var bg = ctx.createLinearGradient(0, 0, 0, H);
+            bg.addColorStop(0, '#0b1a33'); bg.addColorStop(1, '#13294d');
+            ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+            ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
+            ctx.fillStyle = '#e0a84a'; ctx.font = cardFont(700, 22);
+            ctx.fillText('WORLD TRADE PRO  ·  INTELLIGENCE MAP', 60, 66);
+            ctx.fillStyle = '#ffffff'; ctx.font = cardFont(800, 58);
+            ctx.fillText(spec.title, 60, 132);
+            ctx.fillStyle = '#9fb4d0'; ctx.font = cardFont(600, 26);
+            ctx.fillText(fitText(ctx, spec.sub, W - 120), 60, 178);
+            var GS = spec.globe, GX = (W - GS) / 2, GY = 205;
+            var globeOk = drawGlobeInto(ctx, GX, GY, GS);
+            spec.body(ctx, GY + GS + 40);
+            ctx.fillStyle = 'rgba(255,255,255,0.12)'; ctx.fillRect(60, 1268, W - 120, 2);
+            ctx.fillStyle = '#9fb4d0'; ctx.font = cardFont(600, 24); ctx.textAlign = 'left';
+            ctx.fillText(spec.footer, 60, 1316);
+            ctx.fillStyle = '#e0a84a'; ctx.font = cardFont(800, 30); ctx.textAlign = 'right';
+            ctx.fillText('worldtradepro.com', W - 60, 1316); ctx.textAlign = 'left';
+            return { canvas: cv, globeOk: globeOk };
+        }
+        function bodyHeading(ctx, text, y) {
+            ctx.fillStyle = '#9fb4d0'; ctx.font = cardFont(700, 22); ctx.textAlign = 'left';
+            ctx.fillText(text, 60, y);
+        }
+
+        // ---- per-format assembly: { spec, caption, link, filename, tip } ----
+        function buildWeekly() {
+            var sd = weeklyData(); if (!sd) return null;
+            return {
+                caption: weeklyCaption(sd), link: shareLink('weekly', sd.to, 'flows'), filename: 'tradeflow-weekly-' + sd.to + '.png',
+                spec: {
+                    title: 'Trade Flow Update', globe: 760, footer: 'Live map · last 7 days free',
+                    sub: tlShort(sd.from) + ' – ' + tlShort(sd.to) + '  ·  ' + sd.total + ' signals  ·  ' + sd.tiers.crit + ' Critical  ·  ' + sd.tiers.elev + ' Elevated',
+                    body: function(ctx, y) {
+                        bodyHeading(ctx, sd.lanes.length ? 'MOST AFFECTED TRADE LANES' : 'BIGGEST SIGNAL', y - 10);
+                        if (sd.lanes.length) {
+                            y += 10;
+                            sd.lanes.forEach(function(s) {
+                                y += 58;
+                                ctx.beginPath(); ctx.arc(72, y - 10, 11, 0, Math.PI * 2); ctx.fillStyle = LANE_COLORS[s.tier] || '#a9bdd8'; ctx.fill();
+                                ctx.fillStyle = '#ffffff'; ctx.font = cardFont(700, 32); ctx.textAlign = 'left';
+                                ctx.fillText(s.lane.name, 96, y);
+                                ctx.fillStyle = '#cfd9ea'; ctx.font = cardFont(600, 26); ctx.textAlign = 'right';
+                                ctx.fillText(laneCountsText(s.counts), 1020, y); ctx.textAlign = 'left';
+                            });
+                        } else if (sd.top) {
+                            ctx.fillStyle = '#ffffff'; ctx.font = cardFont(700, 30);
+                            wrapLines(ctx, cleanTitle(sd.top.project_name, 200), 960, 3).forEach(function(ln, i) { ctx.fillText(ln, 60, y + 40 + i * 44); });
+                        }
+                    }
+                }
+            };
+        }
+        function buildFlash() {
+            var fd = flashData(); if (!fd) return null;
+            return {
+                caption: flashCaption(fd), link: shareLink('flash', fd.date, 'flows'), filename: 'tradeflow-flash-' + fd.date + '.png',
+                spec: {
+                    title: 'Trade Flow · Daily Flash', globe: 600, footer: 'Live map · last 7 days free',
+                    sub: fd.label + '  ·  ' + fd.count + ' signals  ·  ' + fd.tiers.crit + ' Critical  ·  ' + fd.tiers.elev + ' Elevated',
+                    body: function(ctx, y) {
+                        fd.picks.forEach(function(it, i) {
+                            var by = y + i * 132, tier = flowTier(it);
+                            ctx.beginPath(); ctx.arc(70, by + 8, 9, 0, Math.PI * 2); ctx.fillStyle = TIER_DEFS[tier].color; ctx.fill();
+                            ctx.fillStyle = '#9fb4d0'; ctx.font = cardFont(700, 20); ctx.textAlign = 'left';
+                            ctx.fillText((TIER_DEFS[tier].label + '  ·  ' + (it.sector || '') + (it.country ? '  ·  ' + it.country : '')).toUpperCase(), 92, by + 15);
+                            ctx.fillStyle = '#ffffff'; ctx.font = cardFont(700, 28);
+                            var tl = wrapLines(ctx, cleanTitle(it.project_name, 170), 950, 2);
+                            tl.forEach(function(ln, j) { ctx.fillText(ln, 60, by + 52 + j * 33); });
+                            ctx.fillStyle = '#e0a84a'; ctx.font = cardFont(600, 22);
+                            ctx.fillText(fitText(ctx, '→ ' + whyItMatters(it), 950), 60, by + 52 + (tl.length - 1) * 33 + 32);
+                        });
+                    }
+                }
+            };
+        }
+        function buildProjects() {
+            var pd = projectsData(); if (!pd) return null;
+            var fromTxt = pd.from < '2021-01-01' ? 'Archive' : tlShort(pd.from) + ' – ' + tlShort(pd.to);
+            return {
+                caption: projectsCaption(pd), link: shareLink('projects', pd.to, 'infrastructure'), filename: 'projects-' + pd.to + '.png',
+                tip: state.range === '7' ? 'The last-7-days window is the paid part of the map — posting it gives away what subscribers pay for. The 7–15 day window keeps the paywall meaningful.' : '',
+                spec: {
+                    title: 'New Infrastructure Projects', globe: 540, footer: 'Early project leads for BD teams',
+                    sub: fromTxt + '  ·  ' + pd.total + ' projects  ·  ' + pd.preTender + ' before tender',
+                    body: function(ctx, y) {
+                        bodyHeading(ctx, 'TOP PICKS', y - 8);
+                        pd.picks.forEach(function(it, i) {
+                            var by = y + 22 + i * 74;
+                            ctx.beginPath(); ctx.arc(70, by + 2, 8, 0, Math.PI * 2); ctx.fillStyle = pinColor(it); ctx.fill();
+                            ctx.fillStyle = '#ffffff'; ctx.font = cardFont(700, 27); ctx.textAlign = 'left';
+                            ctx.fillText(fitText(ctx, cleanTitle(it.project_name, 120), 930), 92, by + 10);
+                            ctx.fillStyle = '#9fb4d0'; ctx.font = cardFont(600, 21);
+                            ctx.fillText(fitText(ctx, [countryName(it.country), it.subsector && it.subsector !== '(unspecified)' ? it.subsector : it.sector, it.stage, it.scale].filter(Boolean).join('  ·  '), 930), 92, by + 38);
+                        });
+                        ctx.fillStyle = '#cfd9ea'; ctx.font = cardFont(600, 21);
+                        ctx.fillText(fitText(ctx, pd.sectors.slice(0, 4).map(function(s) { return s + ' ' + pd.bySector[s]; }).join('  ·  '), 960), 60, y + 22 + 5 * 74 + 14);
+                    }
+                }
+            };
+        }
+        var SHARE_FORMATS = {
+            flash: { label: 'Daily flash', build: buildFlash, flow: true },
+            weekly: { label: 'Weekly update', build: buildWeekly, flow: true },
+            projects: { label: 'New projects', build: buildProjects, flow: false }
+        };
+        function copyText(text, btn) {
+            var done = function() { var old = btn.textContent; btn.textContent = 'Copied ✓'; setTimeout(function() { btn.textContent = old; }, 1600); };
+            if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(done, function() { fallbackCopy(text); done(); }); }
+            else { fallbackCopy(text); done(); }
+        }
+        function fallbackCopy(text) {
+            var ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+            document.body.appendChild(ta); ta.select();
+            try { document.execCommand('copy'); } catch (e) {}
+            document.body.removeChild(ta);
+        }
+        function openShare(format) {
+            var isFlowMode = state.reportType === 'flow_distortion';
+            if (!format || !SHARE_FORMATS[format] || SHARE_FORMATS[format].flow !== isFlowMode) format = isFlowMode ? 'flash' : 'projects';
+            var built = SHARE_FORMATS[format].build();
+            if (!built) {
+                gatedNoticeEl.innerHTML = 'Nothing to share here — pick a range with signals (locked ranges can’t be shared).';
+                gatedNoticeEl.style.display = 'block'; placeGatedNotice();
+                setTimeout(function() { gatedNoticeEl.style.display = 'none'; }, 3500);
+                return;
+            }
+            var card = drawCard(built.spec), dataUrl = '';
+            try { dataUrl = card.canvas.toDataURL('image/png'); } catch (e) { card.globeOk = false; }
+            var pills = Object.keys(SHARE_FORMATS).filter(function(k) { return SHARE_FORMATS[k].flow === isFlowMode; });
+            modalTitleEl.textContent = 'Share on LinkedIn';
+            modalBody.innerHTML =
+                (pills.length > 1 ? '<div class="wim-share-pills">' + pills.map(function(k) { return '<button type="button" data-fmt="' + k + '" class="' + (k === format ? 'active' : '') + '">' + SHARE_FORMATS[k].label + '</button>'; }).join('') + '</div>' : '') +
+                '<div class="wim-share">' +
+                '  <div class="wim-share-img">' + (dataUrl ? '<img alt="Share card preview" src="' + dataUrl + '">' : '<div class="wim-share-err">Could not render the image in this browser.</div>') + '</div>' +
+                '  <div class="wim-share-side">' +
+                (card.globeOk ? '' : '<div class="wim-share-err">The globe could not be captured here — the card is missing the map.</div>') +
+                (built.tip ? '<div class="wim-share-warn">' + escapeHtml(built.tip) + '</div>' : '') +
+                '    <textarea data-role="sharecaption" spellcheck="false">' + escapeHtml(built.caption) + '</textarea>' +
+                '    <div class="wim-share-actions">' +
+                (dataUrl ? '      <a class="primary" data-role="sharedl" download="' + built.filename + '" href="' + dataUrl + '">Download image</a>' : '') +
+                '      <button type="button" data-role="sharecopy">Copy caption</button>' +
+                '      <button type="button" data-role="sharecopylink">Copy link (for 1st comment)</button>' +
+                '      <a data-role="sharelinkedin" href="https://www.linkedin.com/feed/?shareActive=true" target="_blank" rel="noopener">Open LinkedIn ↗</a>' +
+                '    </div>' +
+                '    <div class="wim-share-tip">Post the image with the caption, then put the link in the <b>first comment</b> — LinkedIn shows posts with links in the body to fewer people. The link is tagged so you can see LinkedIn visits. Check the wording before posting.</div>' +
+                '  </div>' +
+                '</div>';
+            var ta = modalBody.querySelector('[data-role="sharecaption"]');
+            modalBody.querySelector('[data-role="sharecopy"]').addEventListener('click', function() { copyText(ta.value, this); });
+            modalBody.querySelector('[data-role="sharecopylink"]').addEventListener('click', function() { copyText(built.link, this); });
+            modalBody.querySelectorAll('.wim-share-pills button').forEach(function(b) {
+                b.addEventListener('click', function() { openShare(b.dataset.fmt); });
+            });
+            modalOverlay.style.display = 'flex';
+        }
+        root.querySelector('[data-role="tlshare"]').addEventListener('click', function() { openShare(); });
+
+        // Date-range buttons for the active mode. Infrastructure shows 7-15 days as the free window and
+        // the other two locked. Trade Flows do not use them at all any more (the week timeline above
+        // replaces them), so the button group is hidden in that mode.
+        var RANGE_LABELS = { '7': 'Last 7d', '7-15': '7-15 days', '15plus': '15 days+' };
+        function applyRangeUi() {
+            var free = state.reportType === 'flow_distortion';
+            var rangeSeg = root.querySelector('[data-role="range"]');
+            if (rangeSeg) rangeSeg.style.display = free ? 'none' : '';
+            root.querySelectorAll('[data-role="range"] button').forEach(function(b) {
+                var v = b.dataset.v;
+                var locked = !free && v !== '7-15';
+                b.classList.toggle('active', v === state.range);
+                b.classList.toggle('wim-locked', locked);
+                b.textContent = RANGE_LABELS[v] + (locked ? ' 🔒' : '');
+            });
+        }
+        function updateLockedCountBadges() {
+            if (state.reportType === 'flow_distortion') { applyRangeUi(); return; }
+            var recentBtn = root.querySelector('[data-role="range"] button[data-v="7"]');
+            var olderBtn = root.querySelector('[data-role="range"] button[data-v="15plus"]');
+            if (!recentBtn || !olderBtn) return;
+            recentBtn.textContent = lastLockedCounts ? ('Last 7d 🔒 (' + lastLockedCounts.recent + ')') : 'Last 7d 🔒';
+            olderBtn.textContent = lastLockedCounts ? ('15 days+ 🔒 (' + lastLockedCounts.older + ')') : '15 days+ 🔒';
+        }
+
+        // The shared host occasionally answers a burst of parallel requests with a transient 503
+        // (seen right after a deploy); retrying twice after a short pause turns that into a slower
+        // load instead of an empty map.
+        function fetchJson(url, retries) {
+            return fetch(url).then(function(res) {
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                return res.json();
+            }).catch(function(err) {
+                if (retries > 0) return new Promise(function(done) { setTimeout(done, 900); }).then(function() { return fetchJson(url, retries - 1); });
+                throw err;
+            });
+        }
+        function fetchOne(reportType, r) {
+            var url = API + '?report_type=' + encodeURIComponent(reportType) + '&from=' + r.from + '&to=' + r.to + '&limit=10000';
+            return fetchJson(url, 2);
+        }
+
+        // Guards against out-of-order responses: rapid filter clicks fire a new load()
+        // before the previous one's fetches resolve, and network timing doesn't guarantee
+        // they resolve in the order they were sent — without this, a slow-but-stale
+        // response arriving after a newer one can silently overwrite the correct data.
+        var loadToken = 0;
+        function load() {
+            var myToken = ++loadToken;
+            var r = rangeDates();
+            var types = [state.reportType];
+            Promise.all(types.map(function(t){ return fetchOne(t, r); })).then(function(results) {
+                if (myToken !== loadToken) return; // a newer load() has since started — discard
+                var merged = [];
+                var gated = false, freeWindow = null, lockedCounts = null;
+                var truncated = false, total = 0;
+                results.forEach(function(json) {
+                    merged = merged.concat(json.items || []);
+                    if (json.truncated) { truncated = true; total += json.total || 0; }
+                    if (json.gated) gated = true;
+                    if (json.free_window) freeWindow = json.free_window;
+                    if (json.locked_counts) {
+                        lockedCounts = lockedCounts || { recent: 0, older: 0 };
+                        lockedCounts.recent += json.locked_counts.recent || 0;
+                        lockedCounts.older += json.locked_counts.older || 0;
+                    }
+                });
+                allItems = merged;
+                lastTruncated = truncated;
+                lastTotal = total;
+                lastGated = gated;
+                lastFreeWindow = freeWindow;
+                lastLockedCounts = lockedCounts;
+                updateLockedCountBadges();
+                applyFilters();
+            }).catch(function() {
+                if (myToken !== loadToken) return;
+                countEl.textContent = 'Failed to load data.';
+            });
+        }
+
+        root.querySelectorAll('[data-role="range"] button').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                root.querySelectorAll('[data-role="range"] button').forEach(function(b){ b.classList.remove('active'); });
+                btn.classList.add('active');
+                state.range = btn.dataset.v;
+                load();
+            });
+        });
+
+        root.querySelectorAll('[data-role="reporttype"] button').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                root.querySelectorAll('[data-role="reporttype"] button').forEach(function(b){ b.classList.remove('active'); });
+                btn.classList.add('active');
+                state.reportType = btn.dataset.v;
+                // The two modes share no taxonomy, so a leftover sector/stage/tier filter
+                // from the other mode would silently hide everything.
+                state.sector = ''; state.subsector = ''; state.stage = ''; state.tier = ''; state.topSector = ''; state.showMinor = false; state.lane = '';
+                renderModeIntro();
+                state.range = defaultRange(state.reportType);
+                applyRangeUi();
+                stopPlay();
+                state.weekK = 0;
+                if (state.reportType === 'flow_distortion' && !weeksData.length) loadWeeks(); else renderTimeline();
+                try {
+                    var u = new URL(window.location.href);
+                    u.searchParams.set('view', state.reportType === 'flow_distortion' ? 'flows' : 'infrastructure');
+                    window.history.replaceState(null, '', u.toString());
+                } catch (e) {}
+                load();
+            });
+        });
+        // (openGlobeModal is now triggered from the "off-map" link in countEl, wired
+        // inside render() where it's rebuilt on every re-render)
+        modalClose.addEventListener('click', function() { modalOverlay.style.display = 'none'; });
+        modalOverlay.addEventListener('click', function(e) { if (e.target === modalOverlay) modalOverlay.style.display = 'none'; });
+
+        applyRangeUi();
+        if (state.reportType === 'flow_distortion') loadWeeks();
+        load();
+    })();
+    </script>
+    <?php
+}, 20);
+

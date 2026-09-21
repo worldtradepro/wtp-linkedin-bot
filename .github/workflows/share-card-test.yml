@@ -12,6 +12,7 @@ on:
   push:
     paths:
       - share_card.mjs
+      - map/**
       - .github/workflows/share-card-test.yml
 
 permissions:
@@ -23,7 +24,6 @@ jobs:
     timeout-minutes: 15
     env:
       WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
-      WTP_CF_BYPASS: ${{ secrets.WTP_CF_BYPASS }}
       FORMAT: ${{ github.event.inputs.format || 'flash' }}
     steps:
       - uses: actions/checkout@v4
@@ -32,6 +32,7 @@ jobs:
           node-version: 20
       - run: npm install --no-audit --no-fund
       - run: npx playwright install --with-deps chromium
+      - run: sudo apt-get install -y --no-install-recommends fonts-roboto
 
       - name: Make the share card
         run: |
