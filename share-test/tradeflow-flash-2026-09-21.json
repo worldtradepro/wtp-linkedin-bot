@@ -1,7 +1,21 @@
 {
   "format": "flash",
   "file": "tradeflow-flash-2026-09-21.png",
-  "caption": "🚢 🇸🇦 Yanbu pipeline attack ripples across crude, freight and gas markets\n\nWhy it matters: Likely to move prices / disrupt flows now — Shipping, Saudi Arabia.\nSource: hellenicshippingnews.com\n\nAlso flagged today:\n🚢 🇸🇦 Oil price pullback masks lingering physical crude scarcity (hellenicshippingnews.com)\n⚡ 🇷🇺 Three dead in Moscow region, drones hit oil refinery in Russian capital - Reuters (news.google.com)\n\n20 signals tracked Sep 21 — 3 Critical, 5 Elevated. Live map ➡️ https://worldtradepro.com/?view=flows&utm_source=linkedin&utm_medium=social&utm_campaign=flash-20260921\n\n#TradeFlows #SupplyChain #Commodities #Shipping #Logistics",
+  "caption": "🚢 🇸🇦 Yanbu pipeline attack ripples across crude, freight and gas markets\n\nWhy it matters: Likely to move prices / disrupt flows now — Shipping, Saudi Arabia.\nSource: hellenicshippingnews.com\n\nAlso flagged today:\n🚢 🇸🇦 Oil price pullback masks lingering physical crude scarcity (hellenicshippingnews.com)\n⚡ 🇷🇺 Three dead in Moscow region, drones hit oil refinery in Russian capital - Reuters (news.google.com)\n\nTrade lanes under pressure (last 7 days): Strait of Hormuz (7 Critical · 8 Elevated) · Gulf of Aden / Bab el-Mandeb (5 Critical · 2 Elevated) · Red Sea & Suez Canal (3 Critical · 3 Elevated)\n\n20 signals tracked Sep 21 — 3 Critical, 5 Elevated. Live map ➡️ https://worldtradepro.com/?view=flows&utm_source=linkedin&utm_medium=social&utm_campaign=flash-20260921\n\n#TradeFlows #SupplyChain #Commodities #Shipping #Logistics",
   "link": "https://worldtradepro.com/?view=flows&utm_source=linkedin&utm_medium=social&utm_campaign=flash-20260921",
-  "errors": []
+  "errors": [],
+  "flashPicks": [
+    {
+      "url": "https://www.hellenicshippingnews.com/yanbu-pipeline-attack-ripples-across-crude-freight-and-gas-markets/",
+      "title": "Yanbu pipeline attack ripples across crude, freight and gas markets"
+    },
+    {
+      "url": "https://www.hellenicshippingnews.com/oil-price-pullback-masks-lingering-physical-crude-scarcity/",
+      "title": "Oil price pullback masks lingering physical crude scarcity"
+    },
+    {
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNVVNJbGZEQXkzaEQ0UGs4U192Sks0X1UtRWtrYXhIbG0tdDhKLU4xYU1kZTFTY2g3VG4xSUE1b3MxVUNzLXlNUjZrSnRiQy1jeWo2bmJhNElYME1DUWxKdHBtbktxSUpNUkNJcjRkc1NMUmtkT2hKOWpZRGdfdDRiV0JaZVNnTWd5Sk1qbnA3N0oyWEFULTVBcllkZGsyOHZLenl4ZHNLbHRIX1B0RDRJdA?oc=5",
+      "title": "Three dead in Moscow region, drones hit oil refinery in Russian capital - Reuters"
+    }
+  ]
 }
