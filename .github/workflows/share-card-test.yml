@@ -35,9 +35,9 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: sudo apt-get install -y --no-install-recommends fonts-roboto
 
-      - name: Make the share cards (projects, projects-weekly)
+      - name: Make the share cards (flash, weekly)
         run: |
-          for F in projects projects-weekly; do
+          for F in flash weekly; do
             START=$(date +%s)
             node share_card.mjs "$F" || echo "::warning::$F failed"
             echo "$F took $(( $(date +%s) - START ))s"

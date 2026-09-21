@@ -60,16 +60,24 @@ function patchFlash(body) {
     body = body.replace(from, () => to);
   };
   swap('function flashData() {',
-    'function flashLanes(pool) { var st = computeLaneStates(pool); var ls = TRADE_LANES.map(function(l) { return st[l.id]; }).filter(function(s) { return s && (s.counts.crit + s.counts.elev) > 0; }); ls.sort(function(a, b) { return (b.counts.crit * 100 + b.counts.elev * 10 + b.counts.watch) - (a.counts.crit * 100 + a.counts.elev * 10 + a.counts.watch); }); return ls.slice(0, 3); }\n        function flashData() {');
+    'function flashLanes() { var st = computeLaneStates(allItems.filter(isFlow)); var ls = TRADE_LANES.map(function(l) { return st[l.id]; }).filter(function(s) { return s && (s.counts.crit + s.counts.elev) > 0; }); ls.sort(function(a, b) { return (b.counts.crit * 100 + b.counts.elev * 10 + b.counts.watch) - (a.counts.crit * 100 + a.counts.elev * 10 + a.counts.watch); }); return ls.slice(0, 3); }\n        function flashData() {');
   swap('tiers: tierCounts(pool), picks: picks };',
-    'tiers: tierCounts(pool), lanes: flashLanes(pool), picks: (window.__WTP_FLASH = picks.map(function(it) { return { url: it.source_url, title: it.project_name }; }), picks) };');
+    'tiers: tierCounts(pool), lanes: flashLanes(), picks: (window.__WTP_FLASH = picks.map(function(it) { return { url: it.source_url, title: it.project_name }; }), picks) };');
   swap("title: 'Trade Flow · Daily Flash', globe: 600,", "title: 'Trade Flow · Daily Flash', globe: (fd.lanes && fd.lanes.length ? 600 - (32 + fd.lanes.length * 42) : 600),");
   swap('fd.picks.forEach(function(it, i) {',
-    "var LO = 0; if (fd.lanes && fd.lanes.length) { LO = 32 + fd.lanes.length * 42; bodyHeading(ctx, 'AFFECTED TRADE LANES', y - 8); fd.lanes.forEach(function(s, i) { var ly = y + 34 + i * 42; ctx.beginPath(); ctx.arc(72, ly - 9, 9, 0, Math.PI * 2); ctx.fillStyle = LANE_COLORS[s.tier] || '#a9bdd8'; ctx.fill(); ctx.fillStyle = '#ffffff'; ctx.font = cardFont(700, 29); ctx.textAlign = 'left'; ctx.fillText(fitText(ctx, s.lane.name, 560), 96, ly); ctx.fillStyle = '#cfd9ea'; ctx.font = cardFont(600, 24); ctx.textAlign = 'right'; ctx.fillText(laneCountsText(s.counts), 1020, ly); ctx.textAlign = 'left'; }); }\n                        fd.picks.forEach(function(it, i) {");
+    "var LO = 0; if (fd.lanes && fd.lanes.length) { LO = 32 + fd.lanes.length * 42; bodyHeading(ctx, 'AFFECTED TRADE LANES  ·  LAST 7 DAYS', y - 8); fd.lanes.forEach(function(s, i) { var ly = y + 34 + i * 42; ctx.beginPath(); ctx.arc(72, ly - 9, 9, 0, Math.PI * 2); ctx.fillStyle = LANE_COLORS[s.tier] || '#a9bdd8'; ctx.fill(); ctx.fillStyle = '#ffffff'; ctx.font = cardFont(700, 29); ctx.textAlign = 'left'; ctx.fillText(fitText(ctx, s.lane.name, 560), 96, ly); ctx.fillStyle = '#cfd9ea'; ctx.font = cardFont(600, 24); ctx.textAlign = 'right'; ctx.fillText(laneCountsText(s.counts), 1020, ly); ctx.textAlign = 'left'; }); }\n                        fd.picks.forEach(function(it, i) {");
   swap('var by = y + i * 132, tier = flowTier(it);', 'var by = y + LO + i * 132, tier = flowTier(it);');
   swap("L.push(fd.count + ' signals tracked '",
-    "if (fd.lanes && fd.lanes.length) { L.push('Trade lanes under pressure: ' + fd.lanes.map(function(s) { return s.lane.name + ' (' + laneCountsText(s.counts) + ')'; }).join(' · ')); L.push(''); }\n            L.push(fd.count + ' signals tracked '");
+    "if (fd.lanes && fd.lanes.length) { L.push('Trade lanes under pressure (last 7 days): ' + fd.lanes.map(function(s) { return s.lane.name + ' (' + laneCountsText(s.counts) + ')'; }).join(' · ')); L.push(''); }\n            L.push(fd.count + ' signals tracked '");
   return body;
+}
+
+// Trade Flow cards: expose the map's globe (window.__WTP_WORLD) so the lit trade lanes can be drawn bold before the capture.
+function exposeWorld(body) {
+  const from = 'var world = Globe()(globeWrapEl)';
+  const n = body.split(from).length - 1;
+  if (n !== 1) throw new Error(`map code changed: expected 1x "${from}", found ${n} - update exposeWorld()`);
+  return body.replace(from, () => 'var world = window.__WTP_WORLD = Globe()(globeWrapEl)');
 }
 
 function buildPage() {
@@ -81,6 +89,7 @@ function buildPage() {
   body = body.replace(/<\?php echo \$centroids_json; \?>/, JSON.stringify(centroidsJson(src)));
   if (/<\?php|\?>/.test(body)) throw new Error('unreplaced PHP left in snippet body');
   if (!isFlow) body = patchProjects(body);
+  if (isFlow) body = exposeWorld(body);
   if (format === 'flash') body = patchFlash(body);
   return '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Intelligence Map</title>' +
     '<style>html,body{margin:0;background:#eef2f7;font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif}#wtp-imap-root{height:100vh}</style></head><body>' +
@@ -141,7 +150,23 @@ try {
     await page.waitForTimeout(9000);
   }
 
-  await shareBtn.click();
+  if (isFlow) {   // affected lanes: thick, solid, only the lit ones, camera turned onto them (the site's thin animated dashes vanish once the globe is shrunk onto a card)
+    await page.evaluate(() => {
+      const w = window.__WTP_WORLD; if (!w) return;
+      const lit = (w.pathsData() || []).filter((d) => d.tier);
+      w.pathsData(lit);
+      w.pathStroke((d) => (d.tier === 'crit' ? 6 : d.tier === 'elev' ? 5 : 4)).pathDashLength(1).pathDashGap(0).pathDashAnimateTime(0);
+      try { w.controls().autoRotate = false; } catch (e) {}   // the globe drifts while idle: freeze it so the camera stays on the lanes
+      const worst = lit.filter((d) => d.tier === 'crit');   // centre on the most affected lanes when there are any
+      const pts = (worst.length ? worst : lit).flatMap((d) => d.pts);
+      if (pts.length) {   // frame the most affected lanes: their mean position, moderately close
+        const lat = pts.reduce((s, p) => s + p[0], 0) / pts.length, lng = pts.reduce((s, p) => s + p[1], 0) / pts.length;
+        w.pointOfView({ lat, lng: lng + 8, altitude: 1.4 }, 0);
+      }
+    });
+    await page.waitForTimeout(2500);
+  }
+  await shareBtn.evaluate((el) => el.click());   // JS click: Playwright's own click waits for a stable, unobstructed target and timed out once while the WebGL page was busy
   if (format === 'weekly') {
     await page.locator(`.wim-share-pills button[data-fmt="${format}"]`).click();
   }
