@@ -23,6 +23,8 @@ const IMAGE_BASE = (process.env.IMAGE_BASE_URL || '').replace(/\/$/, '');
 const B = cfg.buffer || {};
 const MODE = B.pushMode || 'draft';                         // "draft" = safe first runs · "schedule" = fully automatic
 const CAP = B.maxPostsPerDay || { main: 4, infra: 5 };
+const GAP = (B.minGapMinutes ?? 180) * 60000;               // minimum distance between two posts on the SAME LinkedIn page
+const LATEST = B.latestSlotUtc || '19:30';                  // nothing is scheduled later than this (UTC) on its day - better skipped than crammed
 const STATE_FILE = join(HERE, 'state', 'pushed.json');
 const DIR = join(HERE, 'queue', DATE);
 
@@ -102,6 +104,34 @@ async function imageUrlFor(p) {
   return null;
 }
 
+// What is already scheduled in Buffer for our channels (so a late / repeated run never lands next to an existing post). Best effort:
+// when Buffer's schedule cannot be read, spacing is still enforced against the posts of this run.
+async function existingDues() {
+  const map = {};
+  if (DRY || !KEY) return map;
+  try {
+    const orgs = (await gql('query { account { organizations { id } } }')).account.organizations;
+    for (const o of orgs) {
+      const d = await gql('query($id: OrganizationId!) { posts(input: { organizationId: $id }, first: 60) { edges { node { status dueAt channelId } } } }', { id: o.id });
+      for (const { node: n } of d.posts?.edges || []) {
+        const t = Date.parse(n.dueAt || '');
+        if (/^(scheduled|sending|queued)/i.test(String(n.status || '')) && t) (map[n.channelId] ||= []).push(t);
+      }
+    }
+  } catch (e) { log('  (could not read the Buffer schedule - spacing only checked within this run: ' + String(e.message).slice(0, 120) + ')'); }
+  return map;
+}
+// First free time >= wanted that is at least GAP away from every post already on that channel.
+function placeAt(dues, wantedMs) {
+  let t = Math.max(wantedMs, Date.now() + 15 * 60000);
+  for (let i = 0; i < 60; i++) {
+    const clash = dues.find((d) => Math.abs(d - t) < GAP);
+    if (!clash) return t;
+    t = clash + GAP;
+  }
+  return t;
+}
+
 const MUTATION = `mutation($input: CreatePostInput!) {
   createPost(input: $input) {
     __typename
@@ -112,6 +142,7 @@ const MUTATION = `mutation($input: CreatePostInput!) {
 
 // ---------------------------------------------------------------- run
 const channels = await resolveChannels();
+const duesByChannel = await existingDues();
 const perAccount = {};
 const results = { pushed: 0, skipped: 0, failed: 0 };
 const now = Date.now();
@@ -126,12 +157,19 @@ for (const p of posts) {
 
   const image = await imageUrlFor(p);
   if (!image) console.error(`  ! ${p.id}: no usable image URL - posting text only`);
-  const due = new Date(p.scheduledAtUtc);
+  const ch = channels[p.account];
+  const wanted = Date.parse(p.scheduledAtUtc);
+  const dues = (duesByChannel[ch] ||= []);
+  const placed = placeAt(dues, wanted);
+  const cutoff = Date.parse(p.scheduledAtUtc.slice(0, 10) + 'T' + LATEST + ':00Z');
+  if (MODE !== 'draft' && placed > cutoff) { log(`- ${p.id}: no room before ${LATEST} UTC with a ${GAP / 60000} min gap (wanted ${p.scheduledAtUtc.slice(11, 16)}) - skipped`); results.skipped++; continue; }
+  const due = new Date(placed);
+  if (Math.abs(placed - wanted) > 60000) log(`  ${p.id}: slot ${p.scheduledAtUtc.slice(11, 16)} -> ${due.toISOString().slice(11, 16)} UTC (keeping >= ${GAP / 60000} min from the other posts on this page)`);
   const input = { text: p.text, channelId: channels[p.account], schedulingType: 'automatic', assets: image ? [{ image: { url: image } }] : [] };
   if (MODE === 'draft') { input.mode = 'addToQueue'; input.saveToDraft = true; }
-  else if (due.getTime() > now + 10 * 60 * 1000) { input.mode = 'customScheduled'; input.dueAt = due.toISOString(); }
-  else { input.mode = 'addToQueue'; }   // the slot has already passed (late run): let Buffer take the next free slot
+  else { input.mode = 'customScheduled'; input.dueAt = due.toISOString(); }   // always an explicit time: a late run is spaced by placeAt() instead of Buffer's next free slot
 
+  dues.push(placed);
   if (DRY) { log(`- ${p.id} -> ${p.account}: ${JSON.stringify({ ...input, text: p.text.slice(0, 60).replace(/\n/g, ' ') + '…' })}`); results.pushed++; continue; }
   try {
     const res = (await gql(MUTATION, { input })).createPost;

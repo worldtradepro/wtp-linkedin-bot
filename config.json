@@ -6,25 +6,25 @@
       "newsPerDay": 3,
       "minScore": 10,
       "slotsUtc": [
-        "07:00",
-        "10:30",
-        "14:30"
+        "06:30",
+        "13:00",
+        "17:30"
       ],
       "weekendNewsPerDay": 1,
       "weekendSlotUtc": "08:30",
       "flashCardSlotUtc": "09:30",
-      "weeklyCardSlotUtc": "12:30"
+      "weeklyCardSlotUtc": "09:30"
     },
     "infra": {
       "name": "World Trade Pro · Infrastructure",
       "projectsPerDay": 2,
       "maxProjectsShownPerDay": 3,
       "slotsUtc": [
-        "12:00",
-        "15:30"
+        "12:30",
+        "17:00"
       ],
       "dailyCardSlotUtc": "09:30",
-      "weeklyCardSlotUtc": "08:00",
+      "weeklyCardSlotUtc": "06:30",
       "weekend": false
     }
   },
@@ -39,7 +39,13 @@
   "mapLinkInFirstComment": false,
   "sourceLink": "body",
   "imageMode": "photo",
-  "stockPhoto": { "enabled": true, "types": ["news"], "credit": true },
+  "stockPhoto": {
+    "enabled": true,
+    "types": [
+      "news"
+    ],
+    "credit": true
+  },
   "buffer": {
     "pushMode": "schedule",
     "channels": {
@@ -49,7 +55,9 @@
     "maxPostsPerDay": {
       "main": 5,
       "infra": 5
-    }
+    },
+    "minGapMinutes": 180,
+    "latestSlotUtc": "19:30"
   },
   "automation": {
     "paused": false
