@@ -64,20 +64,18 @@ if (weeklySlot && isMonday) {
   if (c) mainPost('main-card-weekly', 'weekly', weeklySlot, 'Trade Flow weekly update', c); else warn('Trade Flow weekly update could not be made - not posted today');
 }
 
-// ---- infra: replace the hand-drawn daily card image with the map's projects card (same projects as the post text) ----
-const infraFile = join(DIR, 'infra-card-daily.json');
-if (existsSync(infraFile)) {
+// ---- infra: replace the hand-drawn cards' images with the map's projects card (same projects as the post text) ----
+for (const id of ['infra-card-daily', 'infra-card-weekly']) {
+  const infraFile = join(DIR, id + '.json');
+  if (!existsSync(infraFile)) continue;
   const p = JSON.parse(readFileSync(infraFile, 'utf8'));
-  if (p.shareFormat === 'projects' && p.pickUrls?.length) {
-    if (!process.env.WTP_BOT_SECRET) warn('WTP_BOT_SECRET missing - keeping the hand-drawn Infrastructure card');
-    else {
-      const c = makeCard('projects', 'infra-card-daily', p.pickUrls);
-      if (c) {
-        copyFileSync(c.png, join(IMG, 'infra-card-daily.png'));
-        p.renderNote = 'Intelligence Map share card (projects)';
-        writeFileSync(infraFile, JSON.stringify(p, null, 2));
-        console.log('infra-card-daily: image replaced by the map projects card');
-      } else warn('Infrastructure map card could not be made - keeping the hand-drawn card');
-    }
-  }
+  if (!p.shareFormat || !p.pickUrls?.length) continue;
+  if (!process.env.WTP_BOT_SECRET) { warn('WTP_BOT_SECRET missing - keeping the hand-drawn Infrastructure card'); continue; }
+  const c = makeCard(p.shareFormat, id, p.pickUrls);
+  if (c) {
+    copyFileSync(c.png, join(IMG, id + '.png'));
+    p.renderNote = 'Intelligence Map share card (' + p.shareFormat + ')';
+    writeFileSync(infraFile, JSON.stringify(p, null, 2));
+    console.log(id + ': image replaced by the map card (' + p.shareFormat + ')');
+  } else warn(id + ': map card could not be made - keeping the hand-drawn card');
 }

@@ -11,7 +11,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const format = process.argv[2] || 'flash';
-const isFlow = format !== 'projects';
+const isFlow = !format.startsWith('projects');   // flash | weekly (Trade Flow)  /  projects | projects-weekly (Infrastructure)
+const WEEKLY = format === 'projects-weekly';
 const SITE = process.env.SITE || 'https://worldtradepro.com';
 const SECRET = process.env.WTP_BOT_SECRET || '';
 const SNIPPET = process.env.MAP_SNIPPET || 'map/snippet_51.txt';
@@ -41,7 +42,11 @@ function patchProjects(body) {
   swap('picks.length < 5', 'picks.length < 3', 2);   // never more than 3 projects on the card (paywall rule); the list is then overridden by the daily post's own 3
   swap('var sectors = Object.keys(bySector)', 'if (window.__WTP_PICK && window.__WTP_PICK.length) { var only = ranked.filter(function(it) { return window.__WTP_PICK.indexOf(it.source_url) >= 0; }); if (only.length) picks = only; }\n            var sectors = Object.keys(bySector)');
   swap('y + 22 + 5 * 74 + 14', 'y + 22 + pd.picks.length * 74 + 14');
-  swap("title: 'New Infrastructure Projects', globe: 540", "title: 'New Infrastructure Projects', globe: 680");
+  swap("title: 'New Infrastructure Projects', globe: 540", "title: window.__WTP_WEEKLY ? 'Weekly Infrastructure Update' : 'New Infrastructure Projects', globe: 680");
+  // weekly variant (format "projects-weekly"): same card, own title / heading, plus a country-hotspot line
+  swap("bodyHeading(ctx, 'TOP PICKS', y - 8);", "bodyHeading(ctx, window.__WTP_WEEKLY ? 'LARGEST PROJECTS THIS WEEK' : 'TOP PICKS', y - 8);");
+  swap('sectors: sectors, picks: picks };', 'sectors: sectors, picks: picks, byCountry: byCountry };');
+  swap('y + 22 + pd.picks.length * 74 + 14);', "y + 22 + pd.picks.length * 74 + 14); if (window.__WTP_WEEKLY) { var hs = Object.keys(pd.byCountry).sort(function(a, b) { return pd.byCountry[b] - pd.byCountry[a]; }).slice(0, 4).map(function(c) { return countryName(c) + ' ' + pd.byCountry[c]; }); ctx.fillText(fitText(ctx, 'Hotspots  ' + hs.join('  ·  '), 960), 60, y + 22 + pd.picks.length * 74 + 48); }");
   return body;
 }
 
@@ -91,7 +96,7 @@ page.on('requestfailed', (r) => logs.push('[requestfailed] ' + r.url() + ' ' + (
 const siteHost = new URL(SITE).hostname;
 const html = buildPage();
 const PICKS = process.env.PICK_FILE ? JSON.parse(fs.readFileSync(process.env.PICK_FILE, 'utf8')) : [];
-await page.addInitScript((p) => { window.__WTP_PICK = p; }, PICKS);
+await page.addInitScript(({ p, w }) => { window.__WTP_PICK = p; window.__WTP_WEEKLY = w; }, { p: PICKS, w: WEEKLY });
 await page.route((u) => u.hostname === siteHost, (route) => {
   const u = new URL(route.request().url());
   if (u.pathname === '/') return route.fulfill({ status: 200, contentType: 'text/html; charset=utf-8', body: html });
@@ -114,7 +119,7 @@ try {
   }
 
   await shareBtn.click();
-  if (format !== 'flash' && format !== 'projects') {
+  if (format === 'weekly') {
     await page.locator(`.wim-share-pills button[data-fmt="${format}"]`).click();
   }
   await page.locator('.wim-share-img img, .wim-share-err').first().waitFor({ timeout: 30000 });

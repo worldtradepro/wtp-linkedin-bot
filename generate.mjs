@@ -308,7 +308,7 @@ function weeklyCardPost(items, date, slot) {
   const sectors = tally((it) => (it.sector && it.sector !== '(unspecified)' ? it.sector : '')).slice(0, 5).map(([name, n]) => ({ name, n }));
   const countries = tally((it) => isoOf(it.country)).slice(0, 5).map(([iso, n]) => ({ iso, name: countryName(iso), n }));
   const largest = [...items].filter((it) => it.project_name).sort((a, b) => (scaleRank(b.scale) - scaleRank(a.scale)) || (isEarly(b) - isEarly(a))).filter((it, i, arr) => arr.findIndex((x) => similar(x.project_name, it.project_name)) === i).slice(0, 3)
-    .map((it) => ({ iso: isoOf(it.country), name: clean(it.project_name), meta: metaOf(it) }));
+      .map((it) => ({ iso: isoOf(it.country), name: clean(it.project_name), meta: metaOf(it), url: it.source_url }));
   const total = items.length, nCountries = new Set(items.map((it) => isoOf(it.country)).filter(Boolean)).size, early = items.filter(isEarly).length;
   const lines = [
     `📊 Infrastructure pipeline · ${niceDate(from)} – ${niceDate(to)}`, '',
@@ -323,6 +323,7 @@ function weeklyCardPost(items, date, slot) {
     headline: `Infrastructure pipeline ${from} to ${to}`, blocks: [lines.join('\n')], descIndex: 0, text: lines.join('\n'),
     firstComment: BODY_LINKS ? '' : `🗂️ Full pipeline with filters: ${utm('infrastructure', 'weekly', date, 1)}`,
     image: 'card', sourceUrl: null, sourceName: '',
+    shareFormat: 'projects-weekly', pickUrls: largest.map((x) => x.url),   // image redrawn by sharecards.mjs (hand-drawn card = fallback)
     card: { kind: 'weekly', title: 'Weekly Infrastructure Update', sub: `${niceDate(from)} – ${niceDate(to)}`, kpis: [{ n: total, label: 'projects' }, { n: nCountries, label: 'countries' }, { n: early, label: 'before tender' }], sectors, countries, largest },
     meta: { total, from, to },
   };
