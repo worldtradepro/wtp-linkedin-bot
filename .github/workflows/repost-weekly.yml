@@ -48,7 +48,8 @@ jobs:
         run: |
           node generate.mjs --weekly
           node repost.mjs prune
-          node render.mjs
+          # render.mjs stops when the queue is empty (main only: the Trade Flow card is made by sharecards.mjs)
+          if ls queue/$(date -u +%F)/*.json >/dev/null 2>&1; then node render.mjs; fi
           node sharecards.mjs --weekly
           node repost.mjs finalize
 
