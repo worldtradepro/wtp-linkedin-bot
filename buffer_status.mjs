@@ -38,7 +38,7 @@ save();
 // best-guess queries; every attempt is recorded, whatever the outcome
 for (const o of orgs) {
   const shapes = [
-    { q: 'query($id: OrganizationId!) { posts(input: { organizationId: $id }, first: 250) { edges { node { id status dueAt channelId text } } } }' },
+    { q: 'query($id: OrganizationId!) { posts(input: { organizationId: $id }, first: 100) { edges { node { id status dueAt channelId text } } } }' },
     { q: 'query($id: OrganizationId!) { posts(input: { organizationId: $id }) { edges { node { id status dueAt channelId text } } } }' },
     { q: 'query($id: OrganizationId!) { posts(input: { organizationId: $id }) { id status dueAt channelId text } }' },
   ];
@@ -57,3 +57,4 @@ for (const o of orgs) {
 }
 save();
 console.log(JSON.stringify({ channels: out.channels, tries: out.tries, posts: (out.posts || []).length }, null, 2));
+// 1790009803
