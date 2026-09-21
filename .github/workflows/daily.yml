@@ -6,7 +6,9 @@ name: linkedin-daily
 
 on:
   schedule:
-    - cron: '0 4 * * *'      # 04:00 UTC daily (before the first post slot, 07:30 UTC)
+    # GitHub drops / delays runs near the top of the hour (the 04:00 run of 2026-09-21 never fired): use off-peak minutes and a backup.
+    - cron: '17 3 * * *'     # main trigger, 03:17 UTC daily (first post slot is 07:00 UTC)
+    - cron: '47 4 * * *'     # backup trigger: does nothing when today's posts were already pushed
   workflow_dispatch:
 
 permissions:
@@ -27,30 +29,41 @@ jobs:
       IMAGE_BASE_URL: https://raw.githubusercontent.com/${{ github.repository }}/images
     steps:
       - uses: actions/checkout@v4
-
+      - name: Skip the backup run when today's posts are already pushed
+        id: guard
+        run: |
+          SKIP=false
+          if [ "${{ github.event_name }}" = "schedule" ] && grep -q "\"$(date -u +%F):" state/pushed.json 2>/dev/null; then
+            SKIP=true
+            echo "Today's posts were already pushed - nothing to do (backup trigger)."
+          fi
+          echo "skip=$SKIP" >> "$GITHUB_OUTPUT"
       - name: Check secrets are present
+        if: ${{ steps.guard.outputs.skip != 'true' }}
         run: |
           test -n "$WTP_BOT_SECRET" || { echo "::error::Secret WTP_BOT_SECRET is missing (without it Infrastructure would post week-old data)"; exit 1; }
           test -n "$BUFFER_API_KEY" || { echo "::error::Secret BUFFER_API_KEY is missing"; exit 1; }
-
       - uses: actions/setup-node@v4
+        if: ${{ steps.guard.outputs.skip != 'true' }}
         with:
           node-version: 20
-
       - run: npm install --no-audit --no-fund
+        if: ${{ steps.guard.outputs.skip != 'true' }}
       - run: npx playwright install --with-deps chromium
+        if: ${{ steps.guard.outputs.skip != 'true' }}
       - run: sudo apt-get install -y --no-install-recommends fonts-roboto   # card font (Linux has no Segoe UI)
-
+        if: ${{ steps.guard.outputs.skip != 'true' }}
       - name: Generate the day's queue
+        if: ${{ steps.guard.outputs.skip != 'true' }}
         run: node generate.mjs
-
       - name: Render images
+        if: ${{ steps.guard.outputs.skip != 'true' }}
         run: node render.mjs
-
       - name: Map cards (Trade Flow flash / weekly, Infrastructure projects) from the map's own Share card
+        if: ${{ steps.guard.outputs.skip != 'true' }}
         run: node sharecards.mjs
-
       - name: Publish our own card images (branch "images")
+        if: ${{ steps.guard.outputs.skip != 'true' }}
         run: |
           set -e
           DATE=$(date -u +%F)
@@ -70,20 +83,18 @@ jobs:
           git add -A
           git diff --cached --quiet || git commit -m "images $DATE"
           git push origin HEAD:images
-
       - name: Push to Buffer
+        if: ${{ steps.guard.outputs.skip != 'true' }}
         run: node push.mjs
-
       - name: Save state (de-duplication memory)
-        if: always()
+        if: ${{ always() && steps.guard.outputs.skip != 'true' }}
         run: |
           git config user.name "wtp-bot"
           git config user.email "wtp-bot@users.noreply.github.com"
           git add state/*.json || true
           git diff --cached --quiet || (git commit -m "state $(date -u +%F)" && git pull --rebase origin ${{ github.ref_name }} && git push origin HEAD:${{ github.ref_name }})
-
       - name: Keep the readable preview (no images)
-        if: always()
+        if: ${{ always() && steps.guard.outputs.skip != 'true' }}
         uses: actions/upload-artifact@v4
         with:
           name: queue-preview
