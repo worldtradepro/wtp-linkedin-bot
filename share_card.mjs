@@ -20,13 +20,17 @@ const browser = await chromium.launch({
 });
 const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 });
 const page = await ctx.newPage();
-page.on('pageerror', (e) => console.log('[pageerror]', e.message));
+const logs = [];
+page.on('pageerror', (e) => { console.log('[pageerror]', e.message); logs.push('[pageerror] ' + e.message); });
+page.on('console', (m) => logs.push('[' + m.type() + '] ' + m.text()));
+page.on('requestfailed', (r) => logs.push('[requestfailed] ' + r.url() + ' ' + (r.failure() || {}).errorText));
 
 // Infrastructure's newest 7 days are paid: give the map's own data request the pipeline secret.
 if (!isFlow && process.env.WTP_BOT_SECRET) {
   await page.route('**/wtp/v1/**', (route) => route.continue({ headers: { ...route.request().headers(), 'X-WTP-Secret': process.env.WTP_BOT_SECRET } }));
 }
 
+try {
 const url = `${SITE}/?view=${isFlow ? 'flows' : 'infrastructure'}`;
 console.log('open', url);
 await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
@@ -57,4 +61,16 @@ fs.writeFileSync(file.replace(/\.png$/, '.txt'), res.caption);
 console.log('saved', file);
 console.log('warnings:', res.errors);
 console.log('--- caption ---\n' + res.caption);
+} catch (e) {
+  console.error('FAILED:', e.message);
+  const NL = String.fromCharCode(10);
+  fs.writeFileSync(path.join(outDir, 'error.txt'), [e.stack, '', logs.join(NL)].join(NL));
+  try { await page.screenshot({ path: path.join(outDir, 'debug.png') }); } catch (_) {}
+  try {
+    const gl = await page.evaluate(() => { const c = document.createElement('canvas'); const g = c.getContext('webgl2') || c.getContext('webgl'); return g ? g.getParameter(g.VERSION) : 'NO WEBGL'; });
+    fs.appendFileSync(path.join(outDir, 'error.txt'), NL + NL + 'WEBGL: ' + gl);
+  } catch (_) {}
+  await browser.close();
+  process.exit(1);
+}
 await browser.close();
