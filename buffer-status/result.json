@@ -1,0 +1,578 @@
+{
+  "at": "2026-09-21T09:06:19.650Z",
+  "tries": [
+    {
+      "q": "query($id: OrganizationId!) { posts(input: { organizationId: $id }, first: 60) { edges { node { id status dueAt channelI",
+      "ok": true,
+      "n": 60
+    }
+  ],
+  "orgs": 1,
+  "channels": [
+    "linkedin:worldtradepro-infrastructure",
+    "pinterest:worldtradepro",
+    "linkedin:worldtradepro-com"
+  ],
+  "queryFields": [
+    {
+      "name": "account",
+      "args": []
+    },
+    {
+      "name": "dailyPostingLimits",
+      "args": [
+        "input:DailyPostingLimitsInput"
+      ]
+    },
+    {
+      "name": "channel",
+      "args": [
+        "input:ChannelInput"
+      ]
+    },
+    {
+      "name": "channels",
+      "args": [
+        "input:ChannelsInput"
+      ]
+    },
+    {
+      "name": "aggregatedPostMetrics",
+      "args": [
+        "input:AggregatedPostMetricsInput"
+      ]
+    },
+    {
+      "name": "post",
+      "args": [
+        "input:PostInput"
+      ]
+    },
+    {
+      "name": "posts",
+      "args": [
+        "after:String",
+        "first:Int",
+        "input:PostsInput"
+      ]
+    },
+    {
+      "name": "contentItem",
+      "args": [
+        "input:ContentItemInput"
+      ]
+    },
+    {
+      "name": "contentItems",
+      "args": [
+        "after:String",
+        "first:Int",
+        "input:ContentItemsInput"
+      ]
+    },
+    {
+      "name": "instagramAudio",
+      "args": [
+        "input:InstagramAudioInput"
+      ]
+    },
+    {
+      "name": "searchInstagramAudio",
+      "args": [
+        "input:SearchInstagramAudioInput"
+      ]
+    },
+    {
+      "name": "trendingInstagramAudio",
+      "args": [
+        "input:TrendingInstagramAudioInput"
+      ]
+    },
+    {
+      "name": "configuration",
+      "args": [
+        "input:ConfigurationInput"
+      ]
+    },
+    {
+      "name": "postTemplate",
+      "args": [
+        "input:PostTemplateInput"
+      ]
+    },
+    {
+      "name": "postTemplates",
+      "args": [
+        "after:String",
+        "first:Int",
+        "input:PostTemplatesInput"
+      ]
+    },
+    {
+      "name": "ideaGroups",
+      "args": [
+        "input:IdeaGroupsInput"
+      ]
+    },
+    {
+      "name": "ideas",
+      "args": [
+        "after:String",
+        "first:Int",
+        "input:IdeasInput"
+      ]
+    }
+  ],
+  "inputTypes": {
+    "DailyPostingLimitsInput": [
+      "channelIds:null",
+      "date:DateTime"
+    ],
+    "AggregatedPostMetricsInput": [
+      "channelIds:ChannelId",
+      "endDateTime:DateTime",
+      "organizationId:OrganizationId",
+      "startDateTime:DateTime",
+      "tags:TagComparator"
+    ],
+    "PostInput": [
+      "id:PostId"
+    ],
+    "String": [],
+    "Int": [],
+    "PostsInput": [
+      "filter:PostsFiltersInput",
+      "organizationId:OrganizationId",
+      "sort:PostSortInput"
+    ],
+    "PostTemplateInput": [
+      "id:PostTemplateId"
+    ],
+    "PostTemplatesInput": [
+      "filter:PostTemplatesFilterInput",
+      "organizationId:OrganizationId"
+    ]
+  },
+  "posts": [
+    {
+      "id": "6ab0479db07e536c5a1c12ee",
+      "status": "draft",
+      "dueAt": null,
+      "channel": "worldtradepro-com",
+      "preview": "🇵🇦 🚢 Bulker Panama Canal transits drop 22% amid higher co"
+    },
+    {
+      "id": "6ab0479c9a5eadd2b1cc8038",
+      "status": "draft",
+      "dueAt": null,
+      "channel": "worldtradepro-infrastructure",
+      "preview": "🇺🇸 🏗️ $2.52B Mobile River Bridge And Bayway Project Secur"
+    },
+    {
+      "id": "6ab0479a969826aa9cb61c6f",
+      "status": "draft",
+      "dueAt": null,
+      "channel": "worldtradepro-infrastructure",
+      "preview": "🏗️ 23 new infrastructure projects tracked · 18 Sept Top 3 b"
+    },
+    {
+      "id": "6ab04799969826aa9cb61c51",
+      "status": "draft",
+      "dueAt": null,
+      "channel": "worldtradepro-com",
+      "preview": "🇳🇱 🚢 Transito launches combined sea and inland freight se"
+    },
+    {
+      "id": "6aafa42cb87fe813045f9ff1",
+      "status": "scheduled",
+      "dueAt": "2026-09-24T18:00:00.000Z",
+      "channel": "worldtradepro",
+      "preview": "Six clean deals, a hundred and twenty thousand in profit. tr"
+    },
+    {
+      "id": "6aafa426b87fe813045f9f3e",
+      "status": "scheduled",
+      "dueAt": "2026-09-24T07:00:00.000Z",
+      "channel": "worldtradepro",
+      "preview": "You advanced four hundred fifty thousand dollars against an "
+    },
+    {
+      "id": "6aae4bd05fe629aa266fa92f",
+      "status": "scheduled",
+      "dueAt": "2026-09-23T18:00:00.000Z",
+      "channel": "worldtradepro",
+      "preview": "You sent ten million dollars that morning. supply chain cris"
+    },
+    {
+      "id": "6aacfd590785d24e873924e9",
+      "status": "scheduled",
+      "dueAt": "2026-09-23T07:00:00.000Z",
+      "channel": "worldtradepro",
+      "preview": "You sold your wheat crop for thirty-three thousand dollars. "
+    },
+    {
+      "id": "6aacfd550785d24e87392495",
+      "status": "scheduled",
+      "dueAt": "2026-09-22T18:00:00.000Z",
+      "channel": "worldtradepro",
+      "preview": "Your ship has been anchored for five months. day in the life"
+    },
+    {
+      "id": "6aabb206d04791ddd01a7f46",
+      "status": "scheduled",
+      "dueAt": "2026-09-22T07:00:00.000Z",
+      "channel": "worldtradepro",
+      "preview": "You used to get paid to process this ore. supply chain crisi"
+    },
+    {
+      "id": "6ab0dd0ab94bd4e0101420fb",
+      "status": "scheduled",
+      "dueAt": "2026-09-21T19:39:00.000Z",
+      "channel": "worldtradepro-com",
+      "preview": "🇸🇦 🚢 Yanbu pipeline attack ripples across crude, freight "
+    },
+    {
+      "id": "6aabb1e4557e7400ab5e56f2",
+      "status": "scheduled",
+      "dueAt": "2026-09-21T18:00:00.000Z",
+      "channel": "worldtradepro",
+      "preview": "You lent six million dollars against a ship's mortgage. trad"
+    },
+    {
+      "id": "6ab0dd165a51e9fa48b67783",
+      "status": "scheduled",
+      "dueAt": "2026-09-21T15:30:00.000Z",
+      "channel": "worldtradepro-infrastructure",
+      "preview": "🇨🇳 🏗️ CU Lines makes size jump with 14,000 teu container "
+    },
+    {
+      "id": "6ab0dd153649bbabeac18cec",
+      "status": "scheduled",
+      "dueAt": "2026-09-21T14:30:00.000Z",
+      "channel": "worldtradepro-com",
+      "preview": "🇮🇷 ⚡ Hormuz Sees More LNG Traffic At least two liquefied n"
+    },
+    {
+      "id": "6ab0dd133649bbabeac18c92",
+      "status": "scheduled",
+      "dueAt": "2026-09-21T12:30:00.000Z",
+      "channel": "worldtradepro-com",
+      "preview": "Trade Flow update · Sep 15 – Sep 21 295 signals tracked acro"
+    },
+    {
+      "id": "6ab0dd115a51e9fa48b67701",
+      "status": "scheduled",
+      "dueAt": "2026-09-21T12:00:00.000Z",
+      "channel": "worldtradepro-infrastructure",
+      "preview": "🇲🇦 🏗️ Morocco: Utility sets out multi-billion dollar rene"
+    },
+    {
+      "id": "6ab0dd0f3649bbabeac18bbc",
+      "status": "scheduled",
+      "dueAt": "2026-09-21T10:30:00.000Z",
+      "channel": "worldtradepro-com",
+      "preview": "🇸🇦 🚢 Oil price pullback masks lingering physical crude sc"
+    },
+    {
+      "id": "6ab0dd0eb07e536c5a2b02ba",
+      "status": "scheduled",
+      "dueAt": "2026-09-21T09:30:00.000Z",
+      "channel": "worldtradepro-com",
+      "preview": "🚢 🇸🇦 Yanbu pipeline attack ripples across crude, freight "
+    },
+    {
+      "id": "6ab0dd0d5a51e9fa48b675ed",
+      "status": "scheduled",
+      "dueAt": "2026-09-21T09:30:00.000Z",
+      "channel": "worldtradepro-infrastructure",
+      "preview": "🏗️ 23 new infrastructure projects tracked · 18 Sept Top 3 b"
+    },
+    {
+      "id": "6ab0dd0bb94bd4e010142140",
+      "status": "sent",
+      "dueAt": "2026-09-21T08:00:00.000Z",
+      "channel": "worldtradepro-infrastructure",
+      "preview": "📊 Infrastructure pipeline · 15 Sept – 18 Sept 65 projects t"
+    },
+    {
+      "id": "6aaa5e663cc997e3782afaf0",
+      "status": "sent",
+      "dueAt": "2026-09-21T07:00:00.000Z",
+      "channel": "worldtradepro",
+      "preview": "You held four and a half million dollars in tin. supply chai"
+    },
+    {
+      "id": "6ab04798969826aa9cb61c35",
+      "status": "sent",
+      "dueAt": "2026-09-20T21:13:33.812Z",
+      "channel": "worldtradepro-infrastructure",
+      "preview": "🇮🇩 🏗️ Worley helps propel $21B Asian LNG and CCS project "
+    },
+    {
+      "id": "6ab04797969826aa9cb61c19",
+      "status": "sent",
+      "dueAt": "2026-09-20T21:13:17.178Z",
+      "channel": "worldtradepro-com",
+      "preview": "🇷🇺 ⚡ Russian Fuel Exports Rebound in August But Still Down"
+    },
+    {
+      "id": "6aaa5e5cb77d76d43f34d028",
+      "status": "sent",
+      "dueAt": "2026-09-20T18:00:00.000Z",
+      "channel": "worldtradepro-com",
+      "preview": "You Paid a $100,000 Premium for Certified Cocoa. The Certifi"
+    },
+    {
+      "id": "6aaa5e5b79385cf5f87dc528",
+      "status": "sent",
+      "dueAt": "2026-09-20T18:00:00.000Z",
+      "channel": "worldtradepro",
+      "preview": "You paid a hundred thousand dollar premium for certified coc"
+    },
+    {
+      "id": "6aa90e73bc24766c8967cde5",
+      "status": "sent",
+      "dueAt": "2026-09-20T13:00:00.000Z",
+      "channel": "worldtradepro-com",
+      "preview": "Two Ships Were Closing at 30 Knots. Your Radio Calls Went Un"
+    },
+    {
+      "id": "6aa90e73718aa5417ab72ee4",
+      "status": "sent",
+      "dueAt": "2026-09-20T13:00:00.000Z",
+      "channel": "worldtradepro",
+      "preview": "Two ships were on a collision course. day in the life story,"
+    },
+    {
+      "id": "6aaf2b08e70859c39a99ea7c",
+      "status": "sent",
+      "dueAt": "2026-09-19T19:17:10.000Z",
+      "channel": "worldtradepro",
+      "preview": "One Word -- Drought -- Added $50 a Ton to Corn Overnight. Yo"
+    },
+    {
+      "id": "6aaf2b08e70859c39a99ea8a",
+      "status": "sent",
+      "dueAt": "2026-09-19T18:59:48.000Z",
+      "channel": "worldtradepro",
+      "preview": "You Paid $18,000 for a Customs Bond. It Never Actually Exist"
+    },
+    {
+      "id": "6aa90e6fe67c52e837d82548",
+      "status": "sent",
+      "dueAt": "2026-09-19T18:00:00.000Z",
+      "channel": "worldtradepro-com",
+      "preview": "You Paid $18,000 for a Customs Bond. It Never Actually Exist"
+    },
+    {
+      "id": "6aa90e6ee67c52e837d82501",
+      "status": "sent",
+      "dueAt": "2026-09-19T18:00:00.000Z",
+      "channel": "worldtradepro",
+      "preview": "You paid eighteen thousand dollars for a customs bond. trade"
+    },
+    {
+      "id": "6aa7c2ebc0457698cbddd6bb",
+      "status": "sent",
+      "dueAt": "2026-09-19T13:00:00.000Z",
+      "channel": "worldtradepro-com",
+      "preview": "One Word -- Drought -- Added $50 a Ton to Corn Overnight. Yo"
+    },
+    {
+      "id": "6aa7c2ebc0457698cbddd691",
+      "status": "sent",
+      "dueAt": "2026-09-19T13:00:00.000Z",
+      "channel": "worldtradepro",
+      "preview": "Drought hit the French corn crop. global trade news, commodi"
+    },
+    {
+      "id": "6aade789b021d68b70689438",
+      "status": "sent",
+      "dueAt": "2026-09-18T19:01:27.000Z",
+      "channel": "worldtradepro",
+      "preview": "A Rival Paid $4.6 Million To Cut The Suez Canal Line. It Cos"
+    },
+    {
+      "id": "6aade789b021d68b70689440",
+      "status": "sent",
+      "dueAt": "2026-09-18T18:59:08.000Z",
+      "channel": "worldtradepro",
+      "preview": "A $4 Million Transformer Was Swinging Over Your Crew. Then T"
+    },
+    {
+      "id": "6aa7c2e89d4b7812b9e4918c",
+      "status": "sent",
+      "dueAt": "2026-09-18T18:00:00.000Z",
+      "channel": "worldtradepro-com",
+      "preview": "A Rival Paid $4.6 Million To Cut The Suez Canal Line. It Cos"
+    },
+    {
+      "id": "6aa7c2e7d19ad32d9a99b344",
+      "status": "sent",
+      "dueAt": "2026-09-18T18:00:00.000Z",
+      "channel": "worldtradepro",
+      "preview": "A rival paid four point six million dollars to cut the Suez "
+    },
+    {
+      "id": "6aa7c2e49d4b7812b9e4912c",
+      "status": "sent",
+      "dueAt": "2026-09-18T07:00:00.000Z",
+      "channel": "worldtradepro-com",
+      "preview": "A $4 Million Transformer Was Swinging Over Your Crew. Then T"
+    },
+    {
+      "id": "6aa7c2e3d19ad32d9a99b2fe",
+      "status": "sent",
+      "dueAt": "2026-09-18T07:00:00.000Z",
+      "channel": "worldtradepro",
+      "preview": "Four million dollars was swinging overhead. day in the life "
+    },
+    {
+      "id": "6aaca3b09df5696ccd23e182",
+      "status": "sent",
+      "dueAt": "2026-09-17T19:03:36.000Z",
+      "channel": "worldtradepro",
+      "preview": "One Cable Feeds A Country's Banks. It Just Got Cut. You Have"
+    },
+    {
+      "id": "6aaca3b09df5696ccd23e1af",
+      "status": "sent",
+      "dueAt": "2026-09-17T19:02:26.000Z",
+      "channel": "worldtradepro",
+      "preview": "A Hurricane Shut A Quarter Of The Region's Refineries. Gas J"
+    },
+    {
+      "id": "6aa66d29bcabda92e1aa496d",
+      "status": "sent",
+      "dueAt": "2026-09-17T18:00:00.000Z",
+      "channel": "worldtradepro-com",
+      "preview": "One Cable Feeds A Country's Banks. It Just Got Cut. You Have"
+    },
+    {
+      "id": "6aa66d28f7b1958d5ce308f3",
+      "status": "sent",
+      "dueAt": "2026-09-17T18:00:00.000Z",
+      "channel": "worldtradepro",
+      "preview": "One cable feeds a nation's banks and trade. day in the life "
+    },
+    {
+      "id": "6aa66d25ef4d6e3778c6ddcb",
+      "status": "sent",
+      "dueAt": "2026-09-17T07:00:00.000Z",
+      "channel": "worldtradepro-com",
+      "preview": "A Hurricane Shut A Quarter Of The Region's Refineries. Gas J"
+    },
+    {
+      "id": "6aa66d24bcabda92e1aa486e",
+      "status": "sent",
+      "dueAt": "2026-09-17T07:00:00.000Z",
+      "channel": "worldtradepro",
+      "preview": "The refineries went dark. supply chain crisis, global trade "
+    },
+    {
+      "id": "6aab5fb95ccda551238fdeb7",
+      "status": "sent",
+      "dueAt": "2026-09-16T19:12:36.000Z",
+      "channel": "worldtradepro",
+      "preview": "A Hacker Shut Down The Plant That Buys Your Cattle. You Had "
+    },
+    {
+      "id": "6aab5fb95ccda551238fdeac",
+      "status": "sent",
+      "dueAt": "2026-09-16T19:05:13.000Z",
+      "channel": "worldtradepro",
+      "preview": "You Just Bought $20 Million of Potash. One Announcement Cost"
+    },
+    {
+      "id": "6aa50f1ad8d9c38b67851740",
+      "status": "sent",
+      "dueAt": "2026-09-16T18:00:00.000Z",
+      "channel": "worldtradepro-com",
+      "preview": "A Hacker Shut Down The Plant That Buys Your Cattle. You Had "
+    },
+    {
+      "id": "6aa50f19589315a4f7628c32",
+      "status": "sent",
+      "dueAt": "2026-09-16T18:00:00.000Z",
+      "channel": "worldtradepro",
+      "preview": "A hacker shut down the plant that buys your cattle. supply c"
+    },
+    {
+      "id": "6aaa1c393a6b1093500bb509",
+      "status": "sent",
+      "dueAt": "2026-09-15T19:01:45.000Z",
+      "channel": "worldtradepro",
+      "preview": "You Paid $8,000 for a Truckload. The Driver Was Never Paid a"
+    },
+    {
+      "id": "6aaa1c3a3a6b1093500bb54b",
+      "status": "sent",
+      "dueAt": "2026-09-15T18:59:45.000Z",
+      "channel": "worldtradepro",
+      "preview": "Your $1.8 Million of Extra Virgin Olive Oil Was 40% Sunflowe"
+    },
+    {
+      "id": "6aa8d88eb4c09bb6d75a1182",
+      "status": "sent",
+      "dueAt": "2026-09-14T19:18:15.000Z",
+      "channel": "worldtradepro",
+      "preview": "You Bought Crude $24 Under Benchmark. Your Own Port Almost R"
+    },
+    {
+      "id": "6aa8d88fb4c09bb6d75a11ab",
+      "status": "sent",
+      "dueAt": "2026-09-14T19:05:52.000Z",
+      "channel": "worldtradepro",
+      "preview": "A Tanker Was Struck Near the Strait. Your War-Risk Insurance"
+    },
+    {
+      "id": "6aa7950e82c3b437cccaae8d",
+      "status": "sent",
+      "dueAt": "2026-09-13T19:09:39.000Z",
+      "channel": "worldtradepro",
+      "preview": "You're the Ship's Vet When the Ventilation Fails Below Deck "
+    },
+    {
+      "id": "6aa7950e82c3b437cccaae81",
+      "status": "sent",
+      "dueAt": "2026-09-13T19:03:34.000Z",
+      "channel": "worldtradepro",
+      "preview": "Your Rare Earth Supplier Just Got Shut Down Overnight. Your "
+    },
+    {
+      "id": "6aa65181ca894907a4d0c721",
+      "status": "sent",
+      "dueAt": "2026-09-12T19:21:30.000Z",
+      "channel": "worldtradepro",
+      "preview": "Your Company Paid $340,000 for Carbon Credits. The Forest Wa"
+    },
+    {
+      "id": "6aa65181ca894907a4d0c72b",
+      "status": "sent",
+      "dueAt": "2026-09-12T19:02:06.000Z",
+      "channel": "worldtradepro",
+      "preview": "You Booked a Truck For $240,000 of Copper. The Company Never"
+    },
+    {
+      "id": "6aa50e0177db9e8bf5202c94",
+      "status": "sent",
+      "dueAt": "2026-09-11T19:39:24.000Z",
+      "channel": "worldtradepro",
+      "preview": "You're 40 Feet Up a Container Stack When the Label in Front "
+    },
+    {
+      "id": "6aa50e0177db9e8bf5202c8e",
+      "status": "sent",
+      "dueAt": "2026-09-10T18:35:45.000Z",
+      "channel": "worldtradepro",
+      "preview": "Can You Spot the 4 Red Flags in This Purchase Order? (Trade "
+    },
+    {
+      "id": "6aad5c6c0d72389a984d927f",
+      "status": "sent",
+      "dueAt": "2026-06-07T16:01:46.818Z",
+      "channel": "worldtradepro-com",
+      "preview": "💰 A Single Ship Propeller Can Cost $5 Million One propeller"
+    }
+  ]
+}
