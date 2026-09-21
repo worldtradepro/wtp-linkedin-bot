@@ -1,0 +1,42 @@
+name: buffer-status
+
+# Read-only: lists the posts Buffer holds for our channels (status + due time) and publishes the result to
+# branch "images" under buffer-status/ so it can be read without opening the logs. Nothing is posted or changed.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - buffer_status.mjs
+      - .github/workflows/buffer-status.yml
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Read the Buffer queue
+        run: node buffer_status.mjs
+      - name: Publish the result (branch images)
+        if: always()
+        run: |
+          set -e
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          git fetch origin images
+          git worktree add -B images ../_images origin/images
+          mkdir -p ../_images/buffer-status
+          cp buffer_status/* ../_images/buffer-status/ 2>/dev/null || true
+          cd ../_images
+          git add -A
+          git diff --cached --quiet || git commit -m "buffer-status $(date -u +%FT%TZ)"
+          git push origin HEAD:images
