@@ -53,6 +53,10 @@ jobs:
         if: ${{ steps.guard.outputs.skip != 'true' }}
       - run: sudo apt-get install -y --no-install-recommends fonts-roboto   # card font (Linux has no Segoe UI)
         if: ${{ steps.guard.outputs.skip != 'true' }}
+      - name: Trade Flow flash card first (the news posts avoid the stories it names)
+        if: ${{ steps.guard.outputs.skip != 'true' }}
+        run: node sharecards.mjs --flash-only
+
       - name: Generate the day's queue
         if: ${{ steps.guard.outputs.skip != 'true' }}
         run: node generate.mjs

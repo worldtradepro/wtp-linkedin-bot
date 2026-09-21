@@ -25,8 +25,17 @@ const A = cfg.accounts;
 
 const warn = (m) => console.log(`::warning::sharecards: ${m}`);
 
+function readCard(out) {
+  const jf = existsSync(out) && readdirSync(out).find((f) => f.endsWith('.json') && f !== 'picks.json');
+  if (!jf) return null;
+  const meta = JSON.parse(readFileSync(join(out, jf), 'utf8'));
+  return existsSync(join(out, meta.file)) ? { png: join(out, meta.file), caption: meta.caption, link: meta.link } : null;
+}
+
 function makeCard(format, id, pickUrls) {
   const out = join(HERE, 'queue', DATE, '_share', id);
+  const done = readCard(out);
+  if (done) { console.log(id + ': reusing the card made earlier today'); return done; }   // the flash card is made BEFORE generate.mjs (news posts avoid its stories)
   rmSync(out, { recursive: true, force: true });
   mkdirSync(out, { recursive: true });
   const env = { ...process.env, OUT_DIR: out };
@@ -38,8 +47,7 @@ function makeCard(format, id, pickUrls) {
     console.log(`${id}: attempt ${attempt} failed (exit ${r.status}) ${String(r.stderr || '').split('\n').filter(Boolean).slice(-2).join(' | ')}`);
   }
   if (r.status !== 0) return null;
-  const meta = JSON.parse(readFileSync(join(out, readdirSync(out).find((f) => f.endsWith('.json') && f !== 'picks.json')), 'utf8'));
-  return { png: join(out, meta.file), caption: meta.caption, link: meta.link };
+  return readCard(out);
 }
 function mainPost(id, format, slot, headline, card) {
   const p = {
@@ -51,6 +59,12 @@ function mainPost(id, format, slot, headline, card) {
   copyFileSync(card.png, join(IMG, id + '.png'));
   writeFileSync(join(DIR, id + '.json'), JSON.stringify(p, null, 2));
   console.log(`${id}: made (${format}) -> ${slot} UTC`);
+}
+
+// ---- --flash-only: run first in the workflow, so generate.mjs can keep the flash stories out of the news posts ----
+if (args.includes('--flash-only')) {
+  if (A.main.flashCardSlotUtc && !isWeekend) { if (!makeCard('flash', 'main-card-flash', null)) warn('Trade Flow daily flash could not be made (news posts will not avoid it)'); }
+  process.exit(0);
 }
 
 // ---- main account: Trade Flow flash (weekdays) / weekly (Mondays) ----

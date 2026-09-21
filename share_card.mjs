@@ -50,6 +50,14 @@ function patchProjects(body) {
   return body;
 }
 
+// Daily flash: remember which stories the card names (window.__WTP_FLASH), so generate.mjs keeps them out of the day's news posts.
+function patchFlash(body) {
+  const from = 'tiers: tierCounts(pool), picks: picks };';
+  const n = body.split(from).length - 1;
+  if (n !== 1) throw new Error(`map code changed: expected 1x "${from}", found ${n} - update patchFlash()`);
+  return body.replace(from, 'tiers: tierCounts(pool), picks: (window.__WTP_FLASH = picks.map(function(it) { return { url: it.source_url, title: it.project_name }; }), picks) };');
+}
+
 function buildPage() {
   const src = fs.readFileSync(SNIPPET, 'utf8');
   const start = src.indexOf('<script src="https://unpkg.com/globe.gl');
@@ -59,6 +67,7 @@ function buildPage() {
   body = body.replace(/<\?php echo \$centroids_json; \?>/, JSON.stringify(centroidsJson(src)));
   if (/<\?php|\?>/.test(body)) throw new Error('unreplaced PHP left in snippet body');
   if (!isFlow) body = patchProjects(body);
+  if (format === 'flash') body = patchFlash(body);
   return '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Intelligence Map</title>' +
     '<style>html,body{margin:0;background:#eef2f7;font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif}#wtp-imap-root{height:100vh}</style></head><body>' +
     '<div id="wtp-imap-root" data-report-type="both"></div>' + body + '</body></html>';
@@ -125,6 +134,7 @@ try {
   await page.locator('.wim-share-img img, .wim-share-err').first().waitFor({ timeout: 30000 });
 
   const res = await page.evaluate(() => ({
+    flashPicks: window.__WTP_FLASH || [],
     src: (document.querySelector('.wim-share-img img') || {}).src || '',
     caption: (document.querySelector('[data-role="sharecaption"]') || {}).value || '',
     errors: [...document.querySelectorAll('.wim-share-err, .wim-share-warn')].map((e) => e.textContent.trim()),
@@ -143,7 +153,7 @@ try {
     .replace(/Live map link in the first comment\./, `Live map ➡️ ${mapLink}`);
   if (isFlow && !caption.includes(mapLink)) caption = caption.replace(/\n\n(#\S+(?: #\S+)*)\s*$/, `\n\nLive map ➡️ ${mapLink}\n\n$1`);
   fs.writeFileSync(file.replace(/\.png$/, '.txt'), caption);
-  fs.writeFileSync(file.replace(/\.png$/, '.json'), JSON.stringify({ format, file: path.basename(file), caption, link: mapLink, errors: res.errors }, null, 2));
+  fs.writeFileSync(file.replace(/\.png$/, '.json'), JSON.stringify({ format, file: path.basename(file), caption, link: mapLink, errors: res.errors, flashPicks: res.flashPicks }, null, 2));
   console.log('saved', file);
   console.log('warnings:', res.errors);
   console.log('--- caption ---' + NL + caption);

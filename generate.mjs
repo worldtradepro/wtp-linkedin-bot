@@ -10,7 +10,7 @@
 // Usage:  node generate.mjs [--date YYYY-MM-DD] [--dry]
 //   --dry  = print only, do not write files or update state/used.json
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -346,7 +346,17 @@ const isWeekend = [0, 6].includes(new Date(TODAY + 'T00:00:00Z').getUTCDay());  
 const newsN = isWeekend ? (A.main.weekendNewsPerDay ?? 1) : A.main.newsPerDay;
 const newsSlots = isWeekend ? [A.main.weekendSlotUtc || '08:30'] : A.main.slotsUtc;
 const infraOn = !(isWeekend && A.infra.weekend === false);
-const news = pickNews(flow.items || [], newsN, A.main.minScore, used, cfg.blockedWords);
+// The Trade Flow daily flash card (made first by "sharecards.mjs --flash-only") names its top stories: the single news posts skip them.
+let flashPicks = [];
+try {
+  const fdir = join(HERE, 'queue', TODAY, '_share', 'main-card-flash');
+  const jf = existsSync(fdir) && readdirSync(fdir).find((f) => f.endsWith('.json') && f !== 'picks.json');
+  if (jf) flashPicks = JSON.parse(readFileSync(join(fdir, jf), 'utf8')).flashPicks || [];
+} catch (e) { console.error('flash picks unreadable: ' + e.message); }
+const flashUrls = new Set(flashPicks.map((p) => p.url).filter(Boolean));
+const flowForNews = (flow.items || []).filter((it) => !flashUrls.has(it.source_url) && !flashPicks.some((p) => p.title && similar(p.title, it.project_name)));
+console.error(`Flash card stories kept out of the news posts: ${(flow.items || []).length - flowForNews.length} of ${flashPicks.length} named`);
+const news = pickNews(flowForNews, newsN, A.main.minScore, used, cfg.blockedWords);
 // Never expose more than maxProjectsShownPerDay distinct projects a day (the rest stays on the map for subscribers).
 // Pool = the last two days of the window (so "today's" projects are actually recent); widen to the whole window if that is too thin.
 const epcItems = epc.items || [];
@@ -383,6 +393,7 @@ if (!DRY) {
   for (const p of posts) writeFileSync(join(dir, p.id + '.json'), JSON.stringify(p, null, 2));
   writeFileSync(join(dir, 'preview.md'), preview.join('\n'));
   for (const p of posts) if (p.sourceUrl) used.add(p.sourceUrl);
+  for (const u of flashUrls) used.add(u);   // covered by the flash card: do not bring them back as news tomorrow
   for (const it of shown) used.add(it.source_url);   // projects that only appear on the daily card must not come back tomorrow
   mkdirSync(join(HERE, 'state'), { recursive: true });
   writeFileSync(STATE_FILE, JSON.stringify({ urls: [...used].slice(-600) }, null, 2));
