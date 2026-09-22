@@ -1,57 +1,30 @@
 [
   {
-    "headline": "Hormuz Sees More LNG Traffic",
-    "subsector": "",
-    "query": "lng tanker",
-    "photoId": "PNFZIshLMVU",
-    "credit": "📷 Photo: Julia Taubitz / Unsplash ➡️ https://unsplash.com/@justmejuliee?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-Hormuz-Sees-More-LNG-Traffic-1790097366230.jpg",
-    "logs": [
-      "caption-matched portrait pick for \"lng tanker\": Blue and red tanker ship docked at an lng terminal"
-    ]
-  },
-  {
     "headline": "254 MW Battery Storage Project",
     "subsector": "Power & Transmission",
     "query": "battery energy storage system",
-    "photoId": "wCSCTTZqHbI",
-    "credit": "📷 Photo: Rook of Arts / Unsplash ➡️ https://unsplash.com/@rookofartsphotography?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-254-MW-Battery-Storage-Project-1790097366230.jpg",
+    "photoId": "7WzD2mTRWK8",
+    "w": 4000,
+    "h": 3000,
+    "ratio": "1.33",
+    "credit": "📷 Photo: Sergio Martins / Unsplash ➡️ https://unsplash.com/@smartins20?utm_source=world_trade_pro&utm_medium=referral",
+    "file": "test-254-MW-Battery-Storage-Project-1790097582716.jpg",
     "logs": [
-      "caption-matched landscape (no on-topic portrait) pick for \"battery energy storage system\": Installation of an industrial battery container Crane lifting a large shipping container against the sky"
+      "caption-matched landscape (no on-topic portrait) pick for \"battery energy storage system\": Solar System Wall-mounted solar power and energy storage system"
     ]
   },
   {
-    "headline": "Slovakia Hydropower Plant Modernization",
-    "subsector": "Hydropower",
-    "query": "hydroelectric dam",
-    "photoId": "EhcI5FPSZs8",
-    "credit": "📷 Photo: Marcus Woodbridge / Unsplash ➡️ https://unsplash.com/@marcuswoodbridge?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-Slovakia-Hydropower-Plant-Mode-1790097366230.jpg",
+    "headline": "Callao Terminal Expansion",
+    "subsector": "Ports & Terminals",
+    "query": "shipping port aerial",
+    "photoId": "ANAGcyPUVwk",
+    "w": 2827,
+    "h": 3533,
+    "ratio": "1.25",
+    "credit": "📷 Photo: Nazarizal Mohammad / Unsplash ➡️ https://unsplash.com/@nazahery?utm_source=world_trade_pro&utm_medium=referral",
+    "file": "test-Callao-Terminal-Expansion-1790097582716.jpg",
     "logs": [
-      "caption-matched portrait pick for \"hydroelectric dam\": A Dam in Elan Valley in Mid Wales aerial photo of dam during daytime"
-    ]
-  },
-  {
-    "headline": "Regional Desalination and Water Treatment Scheme",
-    "subsector": "Irrigation & Water",
-    "query": "irrigation canal",
-    "photoId": "0atbvIiAhX0",
-    "credit": "📷 Photo: Elisa Stone / Unsplash ➡️ https://unsplash.com/@elisastonephotography?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-Regional-Desalination-and-Wate-1790097366230.jpg",
-    "logs": [
-      "caption-matched portrait pick for \"irrigation canal\": A long irrigation ditch reflects the dramatic cloudy sky"
-    ]
-  },
-  {
-    "headline": "Oaklands Solar Park",
-    "subsector": "Renewables",
-    "query": "solar power plant",
-    "photoId": "1PKAYeA_nZ4",
-    "credit": "📷 Photo: Soren H / Unsplash ➡️ https://unsplash.com/@hosoren?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-Oaklands-Solar-Park-1790097366230.jpg",
-    "logs": [
-      "caption-matched portrait pick for \"solar power plant\": solar panel a large solar panel with a sky background"
+      "caption-matched portrait pick for \"shipping port aerial\": Aerial view of Containers at Port red and white plastic pack"
     ]
   }
 ]
