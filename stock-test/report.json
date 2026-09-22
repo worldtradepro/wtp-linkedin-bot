@@ -365,20 +365,20 @@
     {
       "headline": "Hormuz Sees More LNG Traffic",
       "query": "lng carrier ship",
-      "photoId": "Cjro-J9z6ZA",
-      "credit": "📷 Photo: Georg Eiermann / Unsplash ➡️ https://unsplash.com/@georgeiermann?utm_source=world_trade_pro&utm_medium=referral",
-      "w": 7410,
-      "h": 4945,
-      "file": "test-hormuz-1790066766363.jpg"
+      "photoId": "SL2_a-pJoN4",
+      "credit": "📷 Photo: Markus Kammermann / Unsplash ➡️ https://unsplash.com/@makabera?utm_source=world_trade_pro&utm_medium=referral",
+      "w": 4800,
+      "h": 3200,
+      "file": "test-hormuz-1790066936036.jpg"
     },
     {
       "headline": "Yanbu pipeline attack ripples across crude, freight and gas markets",
-      "query": "oil tanker sea",
-      "photoId": "fC5l_kR_ang",
-      "credit": "📷 Photo: Adem Percem / Unsplash ➡️ https://unsplash.com/@adempercem?utm_source=world_trade_pro&utm_medium=referral",
-      "w": 3400,
-      "h": 2261,
-      "file": "test-yanbu2-1790066766363.jpg"
+      "query": "oil refinery",
+      "photoId": "vOtSZd_8Af4",
+      "credit": "📷 Photo: Jakub Pabis / Unsplash ➡️ https://unsplash.com/@jakubpabis?utm_source=world_trade_pro&utm_medium=referral",
+      "w": 6000,
+      "h": 4000,
+      "file": "test-yanbu2-1790066936036.jpg"
     }
   ]
 }
