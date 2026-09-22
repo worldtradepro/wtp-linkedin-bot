@@ -27,14 +27,15 @@ const CASES = [
 const report = [];
 for (const c of CASES) {
   const id = 'test-' + c.headline.replace(/[^a-z0-9]+/gi, '-').slice(0, 30) + '-' + NOW;
+  const logs = [];
   console.log('---', c.headline);
   console.log('  queriesFor:', queriesFor(c));
-  const r = await stockPhoto({ id, ...c }, (m) => console.log('  log:', m));
+  const r = await stockPhoto({ id, ...c }, (m) => { console.log('  log:', m); logs.push(m); });
   if (r) {
     writeFileSync(`stock_test/${id}.jpg`, r.jpeg);
-    report.push({ headline: c.headline, subsector: c.subsector, query: r.query, photoId: r.photoId, credit: r.credit, file: id + '.jpg' });
+    report.push({ headline: c.headline, subsector: c.subsector, query: r.query, photoId: r.photoId, credit: r.credit, file: id + '.jpg', logs });
   } else {
-    report.push({ headline: c.headline, subsector: c.subsector, result: null });
+    report.push({ headline: c.headline, subsector: c.subsector, result: null, logs });
   }
 }
 writeFileSync('stock_test/report.json', JSON.stringify(report, null, 2));
