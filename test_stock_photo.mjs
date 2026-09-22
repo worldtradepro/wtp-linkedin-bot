@@ -7,20 +7,13 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 mkdirSync('stock_test', { recursive: true });
 const NOW = Date.now();
 
+// Kept small on purpose: Unsplash's free "demo" app is 50 requests/hour, shared with the real daily pipeline and
+// with re-runs of this same diagnostic - a 14-case batch burned the whole hourly quota once already (2026-09-22).
 const CASES = [
-  { headline: 'Yanbu pipeline attack ripples across crude, freight and gas markets', sector: 'Shipping', subsector: '' },
   { headline: 'Hormuz Sees More LNG Traffic', sector: 'Energy', subsector: '' },
-  { headline: 'First Al-Khail Road Scheme', sector: 'Logistics & Infrastructure', subsector: 'Roads & Transport' },
-  { headline: 'Callao Terminal Expansion', sector: 'Logistics & Infrastructure', subsector: 'Ports & Terminals' },
-  { headline: 'New Runway and Terminal Building Project', sector: 'Logistics & Infrastructure', subsector: 'Airports' },
   { headline: '254 MW Battery Storage Project', sector: 'Energy', subsector: 'Power & Transmission' },
-  { headline: 'North Macedonia BESS Project', sector: 'Energy', subsector: 'Power & Transmission' },
-  { headline: 'SAN-7 Fertilizer Plant', sector: 'Agriculture', subsector: 'Fertilizer Plants' },
-  { headline: 'Ammonia-Urea Expansion', sector: 'Agriculture', subsector: 'Fertilizer Plants' },
-  { headline: 'DRI Smelting Furnace Plant', sector: 'Mining & Metals', subsector: 'Processing & Smelting' },
   { headline: 'Slovakia Hydropower Plant Modernization', sector: 'Energy', subsector: 'Hydropower' },
   { headline: 'Regional Desalination and Water Treatment Scheme', sector: 'Agriculture', subsector: 'Irrigation & Water' },
-  { headline: 'Crawford Nickel Project Fleet Purchase', sector: 'Mining & Metals', subsector: 'Mine Development' },
   { headline: 'Oaklands Solar Park', sector: 'Energy', subsector: 'Renewables' },
 ];
 

@@ -112,7 +112,11 @@ export async function stockPhoto(post, log = () => {}) {
       if (!searched.has(query)) {
         let data;
         try {
-          const r = await fetch(`${API}/search/photos?query=${encodeURIComponent(query)}&orientation=landscape&content_filter=high&per_page=30`, { headers: headers() });
+          // No orientation filter here: real photography of a niche subject (a hydropower plant, a fertiliser factory...) is mostly shot
+          // landscape, and Unsplash's own orientation filter would shrink an already-thin result pool further. Portrait is preferred
+          // below instead (LinkedIn favours vertical - matches the map cards' own 1080x1350 shape), falling back to landscape only
+          // when no on-topic portrait shot exists, rather than losing the topic match entirely for the sake of orientation.
+          const r = await fetch(`${API}/search/photos?query=${encodeURIComponent(query)}&content_filter=high&per_page=30`, { headers: headers() });
           if (r.status === 403 || r.status === 429) { log('Unsplash rate limit / key rejected (' + r.status + ')'); return null; }
           data = r.ok ? await r.json() : { results: [] };
           if (!r.ok) log('Unsplash search failed ' + r.status + ' for "' + query + '"');
@@ -121,14 +125,21 @@ export async function stockPhoto(post, log = () => {}) {
       }
       candidates.push(...searched.get(query));
     }
-    let fresh = candidates.filter((p) => !used.has(p.id) && p.width >= 1600 && p.width / p.height >= 1.3 && p.width / p.height <= 2.1);
+    let fresh = candidates.filter((p) => !used.has(p.id) && Math.max(p.width, p.height) >= 1600 && Math.min(p.width, p.height) >= 900);
     if (step.filter) fresh = fresh.filter((p) => step.filter.test(captionOf(p)));
     if (!fresh.length) continue;
-    const top = fresh.slice(0, 12);
+    // Prefer a portrait shot (LinkedIn favours vertical, and it matches the map cards' own 1080x1350 shape); fall back to
+    // whatever shape is on-topic rather than lose the topic match for the sake of orientation (real photos of a niche
+    // subject skew landscape - portrait candidates can be thin or empty).
+    const isPortrait = (p) => p.height / p.width >= 1.05 && p.height / p.width <= 2.0;
+    const portrait = fresh.filter(isPortrait);
+    const pool = portrait.length ? portrait : fresh;
+    const top = pool.slice(0, 12);
     const pick = top[hash(post.id + new Date().toISOString().slice(0, 10)) % top.length];
-    log((step.filter ? 'caption-matched' : 'unfiltered fallback') + ' pick for "' + pick.__query + '": ' + (captionOf(pick).trim() || '(no caption)'));
-    // 1600px wide JPEG, served by Unsplash's own CDN (this exact URL is what Buffer / LinkedIn will fetch)
-    const url = pick.urls.raw + (pick.urls.raw.includes('?') ? '&' : '?') + 'w=1600&fit=max&fm=jpg&q=85';
+    log((step.filter ? 'caption-matched' : 'unfiltered fallback') + (portrait.length ? ' portrait' : ' landscape (no on-topic portrait)') + ' pick for "' + pick.__query + '": ' + (captionOf(pick).trim() || '(no caption)'));
+    // Sized by the LONG side (1600px, capped) so a portrait shot isn't stretched wide - served by Unsplash's own CDN.
+    const wide = pick.width >= pick.height;
+    const url = pick.urls.raw + (pick.urls.raw.includes('?') ? '&' : '?') + (wide ? 'w=1600' : 'h=1600') + '&fit=max&fm=jpg&q=85';
     let jpeg;
     try {
       const img = await fetch(url);
