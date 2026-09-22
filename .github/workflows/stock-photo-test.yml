@@ -1,0 +1,46 @@
+name: stock-photo-test
+
+# Diagnostic only: confirms UNSPLASH_ACCESS_KEY works and shows what stockPhoto() would pick for a sample post
+# (the Yanbu pipeline story, which had no lead photo on 2026-09-21). Nothing is posted; result goes to
+# branch images/stock-test/.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - test_stock_photo.mjs
+      - stock_photo.mjs
+      - .github/workflows/stock-photo-test.yml
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check the key is present
+        run: test -n "$UNSPLASH_ACCESS_KEY" && echo "key present" || echo "::warning::UNSPLASH_ACCESS_KEY is not set"
+      - name: Run the diagnostic
+        run: node test_stock_photo.mjs
+      - name: Publish the result (branch images)
+        if: always()
+        run: |
+          set -e
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          git fetch origin images
+          git worktree add -B images ../_images origin/images
+          mkdir -p ../_images/stock-test
+          cp stock_test/* ../_images/stock-test/ 2>/dev/null || true
+          cd ../_images
+          git add -A
+          git diff --cached --quiet || git commit -m "stock-test $(date -u +%FT%TZ)"
+          git push origin HEAD:images
