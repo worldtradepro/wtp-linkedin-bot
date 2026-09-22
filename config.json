@@ -42,7 +42,8 @@
   "stockPhoto": {
     "enabled": true,
     "types": [
-      "news"
+      "news",
+      "project"
     ],
     "credit": true
   },

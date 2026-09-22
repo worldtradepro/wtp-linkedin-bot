@@ -22,6 +22,7 @@ const UTM = 'utm_source=world_trade_pro&utm_medium=referral';
 // [topic regex (also used to require it in the PHOTO'S OWN caption for a confident match), queries to try, in order]
 const RULES = [
   [/\b(lng|liquefied natural gas|regasification)\b/i, ['lng tanker', 'lng carrier ship', 'natural gas terminal']],
+  [/\bairports?\b/i, ['airport runway', 'airport terminal building']],   // before the port/terminal rule below ("airport terminal" would otherwise match "terminal")
   [/\b(oil|crude|brent|wti|opec|petroleum|refiner\w*|barrel)\b/i, ['oil tanker', 'oil refinery', 'offshore oil platform']],
   [/\b(pipeline|gas)\b/i, ['gas pipeline', 'natural gas plant']],
   [/\bsuez\b/i, ['suez canal ship', 'cargo ship strait']],
@@ -31,10 +32,19 @@ const RULES = [
   [/\b(strait|canal)\b/i, ['cargo ship strait', 'container ship ocean']],
   [/\b(container|teu|boxship|liner)\b/i, ['container ship', 'container terminal port']],
   [/\b(port|terminal|berth|harbou?r)\b/i, ['port cranes', 'shipping port aerial']],
+  [/\b(highway|motorway|road construction|roads?\s*(&|and)?\s*transport)\b/i, ['highway construction', 'road construction']],
+  [/\b(hydropower|pumped hydro|hydroelectric)\b/i, ['hydroelectric dam', 'hydropower plant']],
+  // battery/BESS BEFORE the "Power & Transmission" rule below: that is the subsector bucket's own generic name
+  // (real data files battery-storage projects under it too), so it would otherwise always outrank "battery" in the headline.
+  [/\b(battery storage|bess|energy storage|battery)\b/i, ['battery storage facility', 'battery energy storage system']],
+  [/\b(substation|transmission line|power grid|power\s*(&|and)?\s*transmission|electricity grid)\b/i, ['power transmission lines', 'electricity pylon']],
+  [/\b(fertili[sz]er|urea|ammonia)\b/i, ['fertilizer plant', 'chemical plant']],
+  [/\b(smelt(?:er|ing)|furnace|dri|direct reduced iron)\b/i, ['steel mill furnace', 'metal smelting plant']],
+  [/\b(desalination|irrigation|water treatment|reservoir)\b/i, ['water treatment plant', 'irrigation canal']],
   [/\b(bulk|capesize|panamax|iron ore|coal)\b/i, ['bulk carrier ship', 'coal mine']],
-  [/\b(grain|wheat|corn|soy\w*|rice|fertili[sz]er|harvest|agri\w*)\b/i, ['wheat field harvest', 'grain silo']],
+  [/\b(grain|wheat|corn|soy\w*|rice|harvest|agri\w*)\b/i, ['wheat field harvest', 'grain silo']],
   [/\b(copper|gold|lithium|nickel|steel|alumin(?:i)?um|mining|mine)\b/i, ['mining excavator', 'open pit mine']],
-  [/\b(solar|wind|renewable|hydrogen|battery|offshore wind)\b/i, ['wind turbines', 'solar farm']],
+  [/\b(solar|wind|renewable|hydrogen|offshore wind)\b/i, ['wind turbines', 'solar farm']],   // "battery"/"ammonia"/"fertilizer" moved to their own rules above (a battery-storage or fertiliser-plant story got a wind-turbine photo otherwise)
   [/\b(rail|train|truck|logistic\w*|freight|warehouse)\b/i, ['freight train', 'logistics warehouse']],
   [/\b(tariff|sanction\w*|customs|trade war)\b/i, ['cargo containers customs', 'international trade cargo']],
 ];
