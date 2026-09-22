@@ -1,129 +1,57 @@
 [
   {
-    "headline": "Yanbu pipeline attack ripples across crude, freight and gas markets",
-    "subsector": "",
-    "query": "oil refinery",
-    "photoId": "iTZ_guCHHt0",
-    "credit": "📷 Photo: Timothy Newman / Unsplash ➡️ https://unsplash.com/@newmanphotog?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-Yanbu-pipeline-attack-ripples--1790069598084.jpg",
-    "logs": [
-      "caption-matched pick for \"oil refinery\": Image of oil refinery at night across the sea. city skyline during night time"
-    ]
-  },
-  {
     "headline": "Hormuz Sees More LNG Traffic",
     "subsector": "",
     "query": "lng tanker",
-    "photoId": "Mbat1ZHAM9s",
+    "photoId": "PNFZIshLMVU",
     "credit": "📷 Photo: Julia Taubitz / Unsplash ➡️ https://unsplash.com/@justmejuliee?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-Hormuz-Sees-More-LNG-Traffic-1790069598084.jpg",
+    "file": "test-Hormuz-Sees-More-LNG-Traffic-1790097366230.jpg",
     "logs": [
-      "caption-matched pick for \"lng tanker\": A large lng carrier ship docked in a harbor"
-    ]
-  },
-  {
-    "headline": "First Al-Khail Road Scheme",
-    "subsector": "Roads & Transport",
-    "query": "road construction",
-    "photoId": "LnyZjkV274k",
-    "credit": "📷 Photo: Gene Gallin / Unsplash ➡️ https://unsplash.com/@genefoto?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-First-Al-Khail-Road-Scheme-1790069598084.jpg",
-    "logs": [
-      "caption-matched pick for \"road construction\": Road construction equipment at the Pittsboro traffic circle. black and brown utility trailer on brown soil"
-    ]
-  },
-  {
-    "headline": "Callao Terminal Expansion",
-    "subsector": "Ports & Terminals",
-    "query": "port cranes",
-    "photoId": "wz3WnPq58dA",
-    "credit": "📷 Photo: Stepan Konev / Unsplash ➡️ https://unsplash.com/@stepan_konev?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-Callao-Terminal-Expansion-1790069598084.jpg",
-    "logs": [
-      "caption-matched pick for \"port cranes\": Port of Novorossiysk, Black Sea a large red and white ship in a body of water"
-    ]
-  },
-  {
-    "headline": "New Runway and Terminal Building Project",
-    "subsector": "Airports",
-    "query": "airport runway",
-    "photoId": "vv14zAhJnEg",
-    "credit": "📷 Photo: Jumpei Mokudai / Unsplash ➡️ https://unsplash.com/@smoothjazz?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-New-Runway-and-Terminal-Buildi-1790069598084.jpg",
-    "logs": [
-      "caption-matched pick for \"airport runway\": an aerial view of an airport runway with mountains in the background"
+      "caption-matched portrait pick for \"lng tanker\": Blue and red tanker ship docked at an lng terminal"
     ]
   },
   {
     "headline": "254 MW Battery Storage Project",
     "subsector": "Power & Transmission",
-    "result": null,
+    "query": "battery energy storage system",
+    "photoId": "wCSCTTZqHbI",
+    "credit": "📷 Photo: Rook of Arts / Unsplash ➡️ https://unsplash.com/@rookofartsphotography?utm_source=world_trade_pro&utm_medium=referral",
+    "file": "test-254-MW-Battery-Storage-Project-1790097366230.jpg",
     "logs": [
-      "Unsplash rate limit / key rejected (403)"
-    ]
-  },
-  {
-    "headline": "North Macedonia BESS Project",
-    "subsector": "Power & Transmission",
-    "result": null,
-    "logs": [
-      "Unsplash rate limit / key rejected (403)"
-    ]
-  },
-  {
-    "headline": "SAN-7 Fertilizer Plant",
-    "subsector": "Fertilizer Plants",
-    "result": null,
-    "logs": [
-      "Unsplash rate limit / key rejected (403)"
-    ]
-  },
-  {
-    "headline": "Ammonia-Urea Expansion",
-    "subsector": "Fertilizer Plants",
-    "result": null,
-    "logs": [
-      "Unsplash rate limit / key rejected (403)"
-    ]
-  },
-  {
-    "headline": "DRI Smelting Furnace Plant",
-    "subsector": "Processing & Smelting",
-    "result": null,
-    "logs": [
-      "Unsplash rate limit / key rejected (403)"
+      "caption-matched landscape (no on-topic portrait) pick for \"battery energy storage system\": Installation of an industrial battery container Crane lifting a large shipping container against the sky"
     ]
   },
   {
     "headline": "Slovakia Hydropower Plant Modernization",
     "subsector": "Hydropower",
-    "result": null,
+    "query": "hydroelectric dam",
+    "photoId": "EhcI5FPSZs8",
+    "credit": "📷 Photo: Marcus Woodbridge / Unsplash ➡️ https://unsplash.com/@marcuswoodbridge?utm_source=world_trade_pro&utm_medium=referral",
+    "file": "test-Slovakia-Hydropower-Plant-Mode-1790097366230.jpg",
     "logs": [
-      "Unsplash rate limit / key rejected (403)"
+      "caption-matched portrait pick for \"hydroelectric dam\": A Dam in Elan Valley in Mid Wales aerial photo of dam during daytime"
     ]
   },
   {
     "headline": "Regional Desalination and Water Treatment Scheme",
     "subsector": "Irrigation & Water",
-    "result": null,
+    "query": "irrigation canal",
+    "photoId": "0atbvIiAhX0",
+    "credit": "📷 Photo: Elisa Stone / Unsplash ➡️ https://unsplash.com/@elisastonephotography?utm_source=world_trade_pro&utm_medium=referral",
+    "file": "test-Regional-Desalination-and-Wate-1790097366230.jpg",
     "logs": [
-      "Unsplash rate limit / key rejected (403)"
-    ]
-  },
-  {
-    "headline": "Crawford Nickel Project Fleet Purchase",
-    "subsector": "Mine Development",
-    "result": null,
-    "logs": [
-      "Unsplash rate limit / key rejected (403)"
+      "caption-matched portrait pick for \"irrigation canal\": A long irrigation ditch reflects the dramatic cloudy sky"
     ]
   },
   {
     "headline": "Oaklands Solar Park",
     "subsector": "Renewables",
-    "result": null,
+    "query": "solar power plant",
+    "photoId": "1PKAYeA_nZ4",
+    "credit": "📷 Photo: Soren H / Unsplash ➡️ https://unsplash.com/@hosoren?utm_source=world_trade_pro&utm_medium=referral",
+    "file": "test-Oaklands-Solar-Park-1790097366230.jpg",
     "logs": [
-      "Unsplash rate limit / key rejected (403)"
+      "caption-matched portrait pick for \"solar power plant\": solar panel a large solar panel with a sky background"
     ]
   }
 ]
