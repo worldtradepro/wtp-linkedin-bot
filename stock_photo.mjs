@@ -19,7 +19,9 @@ const API = process.env.UNSPLASH_API_BASE || 'https://api.unsplash.com';   // ov
 const KEY = process.env.UNSPLASH_ACCESS_KEY || '';
 const UTM = 'utm_source=world_trade_pro&utm_medium=referral';
 
-// [topic regex (also used to require it in the PHOTO'S OWN caption for a confident match), queries to try, in order]
+// [topic regex, queries to try in order, optional stricter "confirm" regex for the photo's OWN caption]
+// The confirm regex defaults to the topic regex, EXCEPT where that would be too easily satisfied by an
+// unrelated photo (a lone "battery" matches a car battery close-up just as well as a grid battery facility).
 const RULES = [
   [/\b(lng|liquefied natural gas|regasification)\b/i, ['lng tanker', 'lng carrier ship', 'natural gas terminal']],
   [/\bairports?\b/i, ['airport runway', 'airport terminal building']],   // before the port/terminal rule below ("airport terminal" would otherwise match "terminal")
@@ -33,18 +35,23 @@ const RULES = [
   [/\b(container|teu|boxship|liner)\b/i, ['container ship', 'container terminal port']],
   [/\b(port|terminal|berth|harbou?r)\b/i, ['port cranes', 'shipping port aerial']],
   [/\b(highway|motorway|road construction|roads?\s*(&|and)?\s*transport)\b/i, ['highway construction', 'road construction']],
-  [/\b(hydropower|pumped hydro|hydroelectric)\b/i, ['hydroelectric dam', 'hydropower plant']],
+  [/\b(hydropower|pumped hydro|hydroelectric)\b/i, ['hydroelectric dam', 'hydropower plant'], /hydro|dam|reservoir/i],
   // battery/BESS BEFORE the "Power & Transmission" rule below: that is the subsector bucket's own generic name
   // (real data files battery-storage projects under it too), so it would otherwise always outrank "battery" in the headline.
-  [/\b(battery storage|bess|energy storage|battery)\b/i, ['battery storage facility', 'battery energy storage system']],
+  // Confirm regex requires "storage"/"bess"/"grid" alongside "battery" - a bare "battery" also matches car/AA-battery photos.
+  [/\b(battery storage|bess|energy storage|battery)\b/i, ['battery storage facility', 'battery energy storage system'], /battery storage|\bbess\b|energy storage|grid.{0,15}batter|batter\w*.{0,20}(storage|grid|container|facility)/i],
   [/\b(substation|transmission line|power grid|power\s*(&|and)?\s*transmission|electricity grid)\b/i, ['power transmission lines', 'electricity pylon']],
   [/\b(fertili[sz]er|urea|ammonia)\b/i, ['fertilizer plant', 'chemical plant']],
   [/\b(smelt(?:er|ing)|furnace|dri|direct reduced iron)\b/i, ['steel mill furnace', 'metal smelting plant']],
-  [/\b(desalination|irrigation|water treatment|reservoir)\b/i, ['water treatment plant', 'irrigation canal']],
+  [/\b(desalination|irrigation|water treatment|reservoir)\b/i, ['water treatment plant', 'irrigation canal'], /desalination|irrigation|reservoir|water treatment|dam|pipe/i],
   [/\b(bulk|capesize|panamax|iron ore|coal)\b/i, ['bulk carrier ship', 'coal mine']],
   [/\b(grain|wheat|corn|soy\w*|rice|harvest|agri\w*)\b/i, ['wheat field harvest', 'grain silo']],
   [/\b(copper|gold|lithium|nickel|steel|alumin(?:i)?um|mining|mine)\b/i, ['mining excavator', 'open pit mine']],
-  [/\b(solar|wind|renewable|hydrogen|offshore wind)\b/i, ['wind turbines', 'solar farm']],   // "battery"/"ammonia"/"fertilizer" moved to their own rules above (a battery-storage or fertiliser-plant story got a wind-turbine photo otherwise)
+  // solar/wind split (each needs its OWN photo, not each other's): a solar story getting a wind-turbine photo was the same
+  // "topic regex too loose" problem as battery. "renewable"/"hydrogen" alone (neither word present) keep the combined rule.
+  [/\bsolar\b/i, ['solar farm', 'solar power plant'], /solar/i],
+  [/\bwind\b/i, ['wind turbines', 'offshore wind farm'], /wind/i],
+  [/\b(renewable|hydrogen)\b/i, ['solar farm', 'wind turbines']],
   [/\b(rail|train|truck|logistic\w*|freight|warehouse)\b/i, ['freight train', 'logistics warehouse']],
   [/\b(tariff|sanction\w*|customs|trade war)\b/i, ['cargo containers customs', 'international trade cargo']],
 ];
@@ -56,14 +63,28 @@ const SECTOR_FALLBACK = [
   [/logistic|infrastructure|transport|rail|port/i, ['port logistics']],
 ];
 const GENERIC = 'global trade cargo ship';
+const STOP_WORDS = new Set(['and', 'the', 'for', 'with', 'ship']);
+const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+// A looser fallback filter for the "relaxed" step: shares an actual word with the query, so a niche query with a thin
+// Unsplash result pool (e.g. "hydropower plant", total ~a dozen hits) cannot land on something wholly unrelated -
+// Unsplash pads thin result sets with loosely-associated photos, and an unfiltered pick had grabbed a random street scene.
+function looseFilter(queries) {
+  const words = [...new Set(queries.flatMap((q) => q.toLowerCase().split(/\s+/)).filter((w) => w.length >= 3 && !STOP_WORDS.has(w)))];
+  return words.length ? new RegExp('\\b(' + words.map(escapeRe).join('|') + ')\\b', 'i') : null;
+}
 
-// Ordered attempts: [{ queries, filter }], filter = null means "any photo of the right shape", a regex means "must be
-// named as such in the photo's own caption". The topic rule is tried confidently-filtered first, then relaxed.
+// Ordered attempts: [{ queries, filter }], filter = null means "any photo of the right shape", a regex means "must
+// share a real word with the topic in the photo's OWN caption". Confident (topic/confirm regex) first, then relaxed
+// (any query word), then sector fallback, then a fully generic cargo-ship shot.
 function plan({ headline = '', sector = '', subsector = '' }) {
   const hay = `${headline} ${subsector}`;
   const steps = [];
   const topic = RULES.find(([re]) => re.test(hay));
-  if (topic) { steps.push({ queries: topic[1], filter: topic[0] }); steps.push({ queries: topic[1], filter: null }); }
+  if (topic) {
+    const [triggerRe, queries, confirmRe] = topic;
+    steps.push({ queries, filter: confirmRe || triggerRe });
+    steps.push({ queries, filter: looseFilter(queries) });
+  }
   const sec = SECTOR_FALLBACK.find(([re]) => re.test(sector));
   if (sec) steps.push({ queries: sec[1], filter: null });
   steps.push({ queries: [GENERIC], filter: null });
@@ -105,7 +126,7 @@ export async function stockPhoto(post, log = () => {}) {
     if (!fresh.length) continue;
     const top = fresh.slice(0, 12);
     const pick = top[hash(post.id + new Date().toISOString().slice(0, 10)) % top.length];
-    log((step.filter ? 'on-topic match' : 'same-query, untitled') + ' for "' + pick.__query + '": ' + (captionOf(pick).trim() || '(no caption)'));
+    log((step.filter ? 'caption-matched' : 'unfiltered fallback') + ' pick for "' + pick.__query + '": ' + (captionOf(pick).trim() || '(no caption)'));
     // 1600px wide JPEG, served by Unsplash's own CDN (this exact URL is what Buffer / LinkedIn will fetch)
     const url = pick.urls.raw + (pick.urls.raw.includes('?') ? '&' : '?') + 'w=1600&fit=max&fm=jpg&q=85';
     let jpeg;
