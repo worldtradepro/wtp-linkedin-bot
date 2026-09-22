@@ -5,15 +5,21 @@
     "query": "oil refinery",
     "photoId": "iTZ_guCHHt0",
     "credit": "📷 Photo: Timothy Newman / Unsplash ➡️ https://unsplash.com/@newmanphotog?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-Yanbu-pipeline-attack-ripples--1790069466642.jpg"
+    "file": "test-Yanbu-pipeline-attack-ripples--1790069598084.jpg",
+    "logs": [
+      "caption-matched pick for \"oil refinery\": Image of oil refinery at night across the sea. city skyline during night time"
+    ]
   },
   {
     "headline": "Hormuz Sees More LNG Traffic",
     "subsector": "",
-    "query": "lng carrier ship",
-    "photoId": "SL2_a-pJoN4",
-    "credit": "📷 Photo: Markus Kammermann / Unsplash ➡️ https://unsplash.com/@makabera?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-Hormuz-Sees-More-LNG-Traffic-1790069466642.jpg"
+    "query": "lng tanker",
+    "photoId": "Mbat1ZHAM9s",
+    "credit": "📷 Photo: Julia Taubitz / Unsplash ➡️ https://unsplash.com/@justmejuliee?utm_source=world_trade_pro&utm_medium=referral",
+    "file": "test-Hormuz-Sees-More-LNG-Traffic-1790069598084.jpg",
+    "logs": [
+      "caption-matched pick for \"lng tanker\": A large lng carrier ship docked in a harbor"
+    ]
   },
   {
     "headline": "First Al-Khail Road Scheme",
@@ -21,7 +27,10 @@
     "query": "road construction",
     "photoId": "LnyZjkV274k",
     "credit": "📷 Photo: Gene Gallin / Unsplash ➡️ https://unsplash.com/@genefoto?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-First-Al-Khail-Road-Scheme-1790069466642.jpg"
+    "file": "test-First-Al-Khail-Road-Scheme-1790069598084.jpg",
+    "logs": [
+      "caption-matched pick for \"road construction\": Road construction equipment at the Pittsboro traffic circle. black and brown utility trailer on brown soil"
+    ]
   },
   {
     "headline": "Callao Terminal Expansion",
@@ -29,7 +38,10 @@
     "query": "port cranes",
     "photoId": "wz3WnPq58dA",
     "credit": "📷 Photo: Stepan Konev / Unsplash ➡️ https://unsplash.com/@stepan_konev?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-Callao-Terminal-Expansion-1790069466642.jpg"
+    "file": "test-Callao-Terminal-Expansion-1790069598084.jpg",
+    "logs": [
+      "caption-matched pick for \"port cranes\": Port of Novorossiysk, Black Sea a large red and white ship in a body of water"
+    ]
   },
   {
     "headline": "New Runway and Terminal Building Project",
@@ -37,51 +49,81 @@
     "query": "airport runway",
     "photoId": "vv14zAhJnEg",
     "credit": "📷 Photo: Jumpei Mokudai / Unsplash ➡️ https://unsplash.com/@smoothjazz?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-New-Runway-and-Terminal-Buildi-1790069466642.jpg"
+    "file": "test-New-Runway-and-Terminal-Buildi-1790069598084.jpg",
+    "logs": [
+      "caption-matched pick for \"airport runway\": an aerial view of an airport runway with mountains in the background"
+    ]
   },
   {
     "headline": "254 MW Battery Storage Project",
     "subsector": "Power & Transmission",
-    "result": null
+    "result": null,
+    "logs": [
+      "Unsplash rate limit / key rejected (403)"
+    ]
   },
   {
     "headline": "North Macedonia BESS Project",
     "subsector": "Power & Transmission",
-    "result": null
+    "result": null,
+    "logs": [
+      "Unsplash rate limit / key rejected (403)"
+    ]
   },
   {
     "headline": "SAN-7 Fertilizer Plant",
     "subsector": "Fertilizer Plants",
-    "result": null
+    "result": null,
+    "logs": [
+      "Unsplash rate limit / key rejected (403)"
+    ]
   },
   {
     "headline": "Ammonia-Urea Expansion",
     "subsector": "Fertilizer Plants",
-    "result": null
+    "result": null,
+    "logs": [
+      "Unsplash rate limit / key rejected (403)"
+    ]
   },
   {
     "headline": "DRI Smelting Furnace Plant",
     "subsector": "Processing & Smelting",
-    "result": null
+    "result": null,
+    "logs": [
+      "Unsplash rate limit / key rejected (403)"
+    ]
   },
   {
     "headline": "Slovakia Hydropower Plant Modernization",
     "subsector": "Hydropower",
-    "result": null
+    "result": null,
+    "logs": [
+      "Unsplash rate limit / key rejected (403)"
+    ]
   },
   {
     "headline": "Regional Desalination and Water Treatment Scheme",
     "subsector": "Irrigation & Water",
-    "result": null
+    "result": null,
+    "logs": [
+      "Unsplash rate limit / key rejected (403)"
+    ]
   },
   {
     "headline": "Crawford Nickel Project Fleet Purchase",
     "subsector": "Mine Development",
-    "result": null
+    "result": null,
+    "logs": [
+      "Unsplash rate limit / key rejected (403)"
+    ]
   },
   {
     "headline": "Oaklands Solar Park",
     "subsector": "Renewables",
-    "result": null
+    "result": null,
+    "logs": [
+      "Unsplash rate limit / key rejected (403)"
+    ]
   }
 ]
