@@ -10,11 +10,8 @@ const NOW = Date.now();
 // Kept small on purpose: Unsplash's free "demo" app is 50 requests/hour, shared with the real daily pipeline and
 // with re-runs of this same diagnostic - a 14-case batch burned the whole hourly quota once already (2026-09-22).
 const CASES = [
-  { headline: 'Hormuz Sees More LNG Traffic', sector: 'Energy', subsector: '' },
   { headline: '254 MW Battery Storage Project', sector: 'Energy', subsector: 'Power & Transmission' },
-  { headline: 'Slovakia Hydropower Plant Modernization', sector: 'Energy', subsector: 'Hydropower' },
-  { headline: 'Regional Desalination and Water Treatment Scheme', sector: 'Agriculture', subsector: 'Irrigation & Water' },
-  { headline: 'Oaklands Solar Park', sector: 'Energy', subsector: 'Renewables' },
+  { headline: 'Callao Terminal Expansion', sector: 'Logistics & Infrastructure', subsector: 'Ports & Terminals' },
 ];
 
 const report = [];
@@ -26,7 +23,7 @@ for (const c of CASES) {
   const r = await stockPhoto({ id, ...c }, (m) => { console.log('  log:', m); logs.push(m); });
   if (r) {
     writeFileSync(`stock_test/${id}.jpg`, r.jpeg);
-    report.push({ headline: c.headline, subsector: c.subsector, query: r.query, photoId: r.photoId, credit: r.credit, file: id + '.jpg', logs });
+    report.push({ headline: c.headline, subsector: c.subsector, query: r.query, photoId: r.photoId, w: r.w, h: r.h, ratio: (Math.max(r.w, r.h) / Math.min(r.w, r.h)).toFixed(2), credit: r.credit, file: id + '.jpg', logs });
   } else {
     report.push({ headline: c.headline, subsector: c.subsector, result: null, logs });
   }

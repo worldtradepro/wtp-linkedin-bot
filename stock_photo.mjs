@@ -125,13 +125,17 @@ export async function stockPhoto(post, log = () => {}) {
       }
       candidates.push(...searched.get(query));
     }
-    let fresh = candidates.filter((p) => !used.has(p.id) && Math.max(p.width, p.height) >= 1600 && Math.min(p.width, p.height) >= 900);
+    // Long side : short side capped at 2:1 regardless of orientation - a portrait OR landscape photo can still be a thin
+    // panorama/banner crop otherwise (removing the old landscape-only 1.3-2.1 cap to make room for portrait left NO
+    // ceiling on how flat/wide a landscape fallback could be).
+    const shapeOk = (p) => Math.max(p.width, p.height) / Math.min(p.width, p.height) <= 2.0;
+    let fresh = candidates.filter((p) => !used.has(p.id) && Math.max(p.width, p.height) >= 1600 && Math.min(p.width, p.height) >= 900 && shapeOk(p));
     if (step.filter) fresh = fresh.filter((p) => step.filter.test(captionOf(p)));
     if (!fresh.length) continue;
     // Prefer a portrait shot (LinkedIn favours vertical, and it matches the map cards' own 1080x1350 shape); fall back to
-    // whatever shape is on-topic rather than lose the topic match for the sake of orientation (real photos of a niche
-    // subject skew landscape - portrait candidates can be thin or empty).
-    const isPortrait = (p) => p.height / p.width >= 1.05 && p.height / p.width <= 2.0;
+    // a landscape one (still shape-capped above) rather than lose the topic match for the sake of orientation (real
+    // photos of a niche subject skew landscape - portrait candidates can be thin or empty).
+    const isPortrait = (p) => p.height >= p.width;
     const portrait = fresh.filter(isPortrait);
     const pool = portrait.length ? portrait : fresh;
     const top = pool.slice(0, 12);
