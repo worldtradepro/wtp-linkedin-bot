@@ -3,112 +3,85 @@
     "headline": "Yanbu pipeline attack ripples across crude, freight and gas markets",
     "subsector": "",
     "query": "oil refinery",
-    "photoId": "vOtSZd_8Af4",
-    "credit": "📷 Photo: Jakub Pabis / Unsplash ➡️ https://unsplash.com/@jakubpabis?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-Yanbu-pipeline-attack-ripples--1790069191321.jpg"
+    "photoId": "iTZ_guCHHt0",
+    "credit": "📷 Photo: Timothy Newman / Unsplash ➡️ https://unsplash.com/@newmanphotog?utm_source=world_trade_pro&utm_medium=referral",
+    "file": "test-Yanbu-pipeline-attack-ripples--1790069466642.jpg"
   },
   {
     "headline": "Hormuz Sees More LNG Traffic",
     "subsector": "",
     "query": "lng carrier ship",
-    "photoId": "Wx6aqlqbdys",
+    "photoId": "SL2_a-pJoN4",
     "credit": "📷 Photo: Markus Kammermann / Unsplash ➡️ https://unsplash.com/@makabera?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-Hormuz-Sees-More-LNG-Traffic-1790069191321.jpg"
+    "file": "test-Hormuz-Sees-More-LNG-Traffic-1790069466642.jpg"
   },
   {
     "headline": "First Al-Khail Road Scheme",
     "subsector": "Roads & Transport",
-    "query": "highway construction",
-    "photoId": "9Tz6W8-Pyjw",
-    "credit": "📷 Photo: Joyce Wu / Unsplash ➡️ https://unsplash.com/@joycejwu?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-First-Al-Khail-Road-Scheme-1790069191321.jpg"
+    "query": "road construction",
+    "photoId": "LnyZjkV274k",
+    "credit": "📷 Photo: Gene Gallin / Unsplash ➡️ https://unsplash.com/@genefoto?utm_source=world_trade_pro&utm_medium=referral",
+    "file": "test-First-Al-Khail-Road-Scheme-1790069466642.jpg"
   },
   {
     "headline": "Callao Terminal Expansion",
     "subsector": "Ports & Terminals",
     "query": "port cranes",
-    "photoId": "Mz-LOevCa_w",
-    "credit": "📷 Photo: Miguel A Amutio / Unsplash ➡️ https://unsplash.com/@amutiomi?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-Callao-Terminal-Expansion-1790069191321.jpg"
+    "photoId": "wz3WnPq58dA",
+    "credit": "📷 Photo: Stepan Konev / Unsplash ➡️ https://unsplash.com/@stepan_konev?utm_source=world_trade_pro&utm_medium=referral",
+    "file": "test-Callao-Terminal-Expansion-1790069466642.jpg"
   },
   {
     "headline": "New Runway and Terminal Building Project",
     "subsector": "Airports",
     "query": "airport runway",
-    "photoId": "3p3HtGKvGLM",
-    "credit": "📷 Photo: Niklas Jonasson / Unsplash ➡️ https://unsplash.com/@niklasjonasson?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-New-Runway-and-Terminal-Buildi-1790069191321.jpg"
+    "photoId": "vv14zAhJnEg",
+    "credit": "📷 Photo: Jumpei Mokudai / Unsplash ➡️ https://unsplash.com/@smoothjazz?utm_source=world_trade_pro&utm_medium=referral",
+    "file": "test-New-Runway-and-Terminal-Buildi-1790069466642.jpg"
   },
   {
     "headline": "254 MW Battery Storage Project",
     "subsector": "Power & Transmission",
-    "query": "battery energy storage system",
-    "photoId": "E4Oz0TZUDe8",
-    "credit": "📷 Photo: Wesley Tingey / Unsplash ➡️ https://unsplash.com/@wesleyphotography?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-254-MW-Battery-Storage-Project-1790069191321.jpg"
+    "result": null
   },
   {
     "headline": "North Macedonia BESS Project",
     "subsector": "Power & Transmission",
-    "query": "battery energy storage system",
-    "photoId": "wCSCTTZqHbI",
-    "credit": "📷 Photo: Rook of Arts / Unsplash ➡️ https://unsplash.com/@rookofartsphotography?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-North-Macedonia-BESS-Project-1790069191321.jpg"
+    "result": null
   },
   {
     "headline": "SAN-7 Fertilizer Plant",
     "subsector": "Fertilizer Plants",
-    "query": "fertilizer plant",
-    "photoId": "UO4bCwcxqso",
-    "credit": "📷 Photo: Roger Starnes Sr / Unsplash ➡️ https://unsplash.com/@rstar50?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-SAN-7-Fertilizer-Plant-1790069191321.jpg"
+    "result": null
   },
   {
     "headline": "Ammonia-Urea Expansion",
     "subsector": "Fertilizer Plants",
-    "query": "fertilizer plant",
-    "photoId": "0NC9p9O5x1c",
-    "credit": "📷 Photo: MDSUMAR28 / Unsplash ➡️ https://unsplash.com/@mdsumar28?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-Ammonia-Urea-Expansion-1790069191321.jpg"
+    "result": null
   },
   {
     "headline": "DRI Smelting Furnace Plant",
     "subsector": "Processing & Smelting",
-    "query": "steel mill furnace",
-    "photoId": "zHK__gTTTds",
-    "credit": "📷 Photo: yasin hemmati / Unsplash ➡️ https://unsplash.com/@yasinb3da?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-DRI-Smelting-Furnace-Plant-1790069191321.jpg"
+    "result": null
   },
   {
     "headline": "Slovakia Hydropower Plant Modernization",
     "subsector": "Hydropower",
-    "query": "hydropower plant",
-    "photoId": "-VGy6QriJEw",
-    "credit": "📷 Photo: Inna Safa / Unsplash ➡️ https://unsplash.com/@innasafa?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-Slovakia-Hydropower-Plant-Mode-1790069191321.jpg"
+    "result": null
   },
   {
     "headline": "Regional Desalination and Water Treatment Scheme",
     "subsector": "Irrigation & Water",
-    "query": "irrigation canal",
-    "photoId": "6zB9v_Lx6LA",
-    "credit": "📷 Photo: snap wander / Unsplash ➡️ https://unsplash.com/@passimage?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-Regional-Desalination-and-Wate-1790069191321.jpg"
+    "result": null
   },
   {
     "headline": "Crawford Nickel Project Fleet Purchase",
     "subsector": "Mine Development",
-    "query": "mining excavator",
-    "photoId": "6mNx-w6pC-Q",
-    "credit": "📷 Photo: Team Kiesel / Unsplash ➡️ https://unsplash.com/@team_kiesel?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-Crawford-Nickel-Project-Fleet--1790069191321.jpg"
+    "result": null
   },
   {
     "headline": "Oaklands Solar Park",
     "subsector": "Renewables",
-    "query": "wind turbines",
-    "photoId": "iGDg_f_mlWo",
-    "credit": "📷 Photo: Sander Weeteling / Unsplash ➡️ https://unsplash.com/@sanderweeteling?utm_source=world_trade_pro&utm_medium=referral",
-    "file": "test-Oaklands-Solar-Park-1790069191321.jpg"
+    "result": null
   }
 ]
