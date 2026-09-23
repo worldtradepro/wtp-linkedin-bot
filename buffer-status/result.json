@@ -1,5 +1,5 @@
 {
-  "at": "2026-09-23T06:20:13.340Z",
+  "at": "2026-09-23T06:21:51.538Z",
   "tries": [
     {
       "q": "query($id: OrganizationId!) { posts(input: { organizationId: $id }, first: 100) { edges { node { id status dueAt channel",
@@ -719,5 +719,55 @@
   ],
   "typenameTry": {},
   "postNodeType": "Post",
-  "postFields": []
+  "imgFieldTries": [
+    {
+      "field": "media",
+      "ok": false,
+      "errors": [
+        "Cannot query field \"media\" on type \"Post\". Did you mean \"via\"?"
+      ]
+    },
+    {
+      "field": "assets",
+      "ok": false,
+      "errors": [
+        "Cannot query field \"url\" on type \"Asset\"."
+      ]
+    },
+    {
+      "field": "attachments",
+      "ok": false,
+      "errors": [
+        "Cannot query field \"attachments\" on type \"Post\"."
+      ]
+    },
+    {
+      "field": "images",
+      "ok": false,
+      "errors": [
+        "Cannot query field \"images\" on type \"Post\". Did you mean \"tags\"?"
+      ]
+    },
+    {
+      "field": "photo",
+      "ok": false,
+      "errors": [
+        "Cannot query field \"photo\" on type \"Post\"."
+      ]
+    },
+    {
+      "field": "content",
+      "ok": false,
+      "errors": [
+        "Cannot query field \"content\" on type \"Post\"."
+      ]
+    },
+    {
+      "field": "metadata",
+      "ok": false,
+      "errors": [
+        "Cannot query field \"photo\" on type \"PostMetadata\"."
+      ]
+    }
+  ]
 }
