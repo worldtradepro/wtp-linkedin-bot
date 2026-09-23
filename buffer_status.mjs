@@ -65,27 +65,34 @@ for (const o of orgs) {
   if (nodeTypeName) break;
 }
 out.postNodeType = nodeTypeName;
-if (nodeTypeName) {
-  const nodeType = await gql(`{ __type(name: "${nodeTypeName}") { fields { name } } }`);
-  out.postFields = (nodeType?.data?.__type?.fields || []).map((f) => f.name);
-}
 save();
 
-// Re-fetch with whichever image-shaped field actually exists on Post
-const IMG_FIELD_CANDIDATES = ['media', 'assets', 'attachments', 'images', 'photo'];
-const imgField = IMG_FIELD_CANDIDATES.find((f) => (out.postFields || []).includes(f));
-if (imgField) {
-  const sub = { media: 'url thumbnail', assets: 'url', attachments: 'url', images: 'url', photo: 'url' }[imgField];
+// Buffer's API disables __type/__schema introspection (empty fields even though __typename itself resolves) - guess a
+// few plausible field names for a post's image instead, one real query per guess, and read the GraphQL validation
+// error's "Cannot query field ... on type ..." wording to see which name Buffer actually accepts.
+const IMG_FIELD_TRIES = [
+  { field: 'media', sub: '{ url thumbnail }' }, { field: 'assets', sub: '{ url }' }, { field: 'attachments', sub: '{ url }' },
+  { field: 'images', sub: '{ url }' }, { field: 'photo', sub: '{ url }' }, { field: 'content', sub: '{ media { url } }' },
+  { field: 'metadata', sub: '{ photo { url } }' },
+];
+out.imgFieldTries = [];
+let workingField = null;
+for (const o of orgs) {
+  for (const t of IMG_FIELD_TRIES) {
+    const d = await gql(`query($id: OrganizationId!) { posts(input: { organizationId: $id }, first: 1) { edges { node { id ${t.field} ${t.sub} } } } }`, { id: o.id });
+    const ok = !d?.errors;
+    out.imgFieldTries.push({ field: t.field, ok, errors: d?.errors?.map((e) => e.message).slice(0, 1) });
+    if (ok) { workingField = t; break; }
+  }
+  if (workingField) break;
+}
+save();
+if (workingField) {
   for (const o of orgs) {
-    const d = await gql(`query($id: OrganizationId!) { posts(input: { organizationId: $id }, first: 100) { edges { node { id dueAt channelId ${imgField} { ${sub} } } } } }`, { id: o.id });
-    out.imgFieldTry = { field: imgField, errors: d?.errors?.map((e) => e.message).slice(0, 3) };
-    const nodes = (d?.data?.posts?.edges || []).map((e) => e.node);
-    if (nodes.length) {
-      const name = Object.fromEntries(channels.map((c) => [c.id, c.name]));
-      for (const n of nodes) {
-        const p = (out.posts || []).find((x) => x.id === n.id);
-        if (p) p.media = n[imgField];
-      }
+    const d = await gql(`query($id: OrganizationId!) { posts(input: { organizationId: $id }, first: 100) { edges { node { id ${workingField.field} ${workingField.sub} } } } }`, { id: o.id });
+    for (const n of (d?.data?.posts?.edges || []).map((e) => e.node)) {
+      const p = (out.posts || []).find((x) => x.id === n.id);
+      if (p) p.media = n[workingField.field];
     }
   }
 }
