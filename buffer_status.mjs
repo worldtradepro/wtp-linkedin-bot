@@ -55,6 +55,28 @@ for (const o of orgs) {
     }
   }
 }
+// Post type's own fields (to find the image/media field name for a follow-up query)
+const postType = await gql(`{ __type(name: "Post") { fields { name type { name kind ofType { name kind } } } } }`);
+out.postFields = (postType?.data?.__type?.fields || []).map((f) => f.name);
 save();
-console.log(JSON.stringify({ channels: out.channels, tries: out.tries, posts: (out.posts || []).length }, null, 2));
-// refresh 1790143530
+
+// Re-fetch with whichever image-shaped field actually exists on Post
+const IMG_FIELD_CANDIDATES = ['media', 'assets', 'attachments', 'images', 'photo'];
+const imgField = IMG_FIELD_CANDIDATES.find((f) => out.postFields.includes(f));
+if (imgField) {
+  const sub = { media: 'url thumbnail', assets: 'url', attachments: 'url', images: 'url', photo: 'url' }[imgField];
+  for (const o of orgs) {
+    const d = await gql(`query($id: OrganizationId!) { posts(input: { organizationId: $id }, first: 100) { edges { node { id dueAt channelId ${imgField} { ${sub} } } } } }`, { id: o.id });
+    out.imgFieldTry = { field: imgField, errors: d?.errors?.map((e) => e.message).slice(0, 3) };
+    const nodes = (d?.data?.posts?.edges || []).map((e) => e.node);
+    if (nodes.length) {
+      const name = Object.fromEntries(channels.map((c) => [c.id, c.name]));
+      for (const n of nodes) {
+        const p = (out.posts || []).find((x) => x.id === n.id);
+        if (p) p.media = n[imgField];
+      }
+    }
+  }
+}
+save();
+console.log(JSON.stringify({ channels: out.channels, tries: out.tries, posts: (out.posts || []).length, postFields: out.postFields, imgFieldTry: out.imgFieldTry }, null, 2));
