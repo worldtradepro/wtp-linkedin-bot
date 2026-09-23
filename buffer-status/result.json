@@ -1,5 +1,5 @@
 {
-  "at": "2026-09-23T06:18:00.641Z",
+  "at": "2026-09-23T06:20:13.340Z",
   "tries": [
     {
       "q": "query($id: OrganizationId!) { posts(input: { organizationId: $id }, first: 100) { edges { node { id status dueAt channel",
@@ -717,5 +717,7 @@
       "preview": "💰 A Single Ship Propeller Can Cost $5 Million One propeller"
     }
   ],
-  "postNodeType": null
+  "typenameTry": {},
+  "postNodeType": "Post",
+  "postFields": []
 }
