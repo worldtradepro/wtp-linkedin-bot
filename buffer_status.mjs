@@ -71,15 +71,13 @@ save();
 // few plausible field names for a post's image instead, one real query per guess, and read the GraphQL validation
 // error's "Cannot query field ... on type ..." wording to see which name Buffer actually accepts.
 const IMG_FIELD_TRIES = [
-  { field: 'assets', sub: '{ __typename }' },
-  { field: 'assets', sub: '{ url }' },
-  { field: 'assets', sub: '{ source }' },
-  { field: 'assets', sub: '{ uri }' },
-  { field: 'assets', sub: '{ downloadUrl }' },
-  { field: 'assets', sub: '{ thumbnailUrl }' },
-  { field: 'assets', sub: '{ mediaType }' },
-  { field: 'assets', sub: '{ type }' },
-  { field: 'assets', sub: '{ permalink }' },
+  { field: 'assets', sub: '{ __typename ... on ImageAsset { url } }' },
+  { field: 'assets', sub: '{ __typename ... on ImageAsset { source } }' },
+  { field: 'assets', sub: '{ __typename ... on ImageAsset { uri } }' },
+  { field: 'assets', sub: '{ __typename ... on ImageAsset { downloadUrl } }' },
+  { field: 'assets', sub: '{ __typename ... on ImageAsset { originalUrl } }' },
+  { field: 'assets', sub: '{ __typename ... on ImageAsset { permalink } }' },
+  { field: 'assets', sub: '{ __typename ... on ImageAsset { thumbnail } }' },
 ];
 out.imgFieldTries = [];
 let workingField = null;
