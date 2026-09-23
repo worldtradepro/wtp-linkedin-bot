@@ -1,5 +1,5 @@
 {
-  "at": "2026-09-23T06:05:44.648Z",
+  "at": "2026-09-23T06:16:39.237Z",
   "tries": [
     {
       "q": "query($id: OrganizationId!) { posts(input: { organizationId: $id }, first: 100) { edges { node { id status dueAt channel",
@@ -150,11 +150,53 @@
       "preview": "You sent ten million dollars that morning. supply chain cris"
     },
     {
+      "id": "6ab36df82aa0e20bb47562c8",
+      "status": "scheduled",
+      "dueAt": "2026-09-23T17:00:00.000Z",
+      "channel": "worldtradepro-infrastructure",
+      "preview": "🇹🇼 🏗️ Contract awarded for rolling stock and electromecha"
+    },
+    {
+      "id": "6ab36df77f829c66807cd1da",
+      "status": "scheduled",
+      "dueAt": "2026-09-23T13:00:00.000Z",
+      "channel": "worldtradepro-com",
+      "preview": "🇨🇳 🌾 China soybean demand rebounds, but U.S. soy industry"
+    },
+    {
+      "id": "6ab36df67f829c66807cd1ab",
+      "status": "scheduled",
+      "dueAt": "2026-09-23T12:30:00.000Z",
+      "channel": "worldtradepro-infrastructure",
+      "preview": "🇰🇪 🏗️ Proposed $15bn+ East Africa Refinery In Lamu Advanc"
+    },
+    {
+      "id": "6ab36df42aa0e20bb4756255",
+      "status": "scheduled",
+      "dueAt": "2026-09-23T09:30:00.000Z",
+      "channel": "worldtradepro-com",
+      "preview": "⚡ 🇸🇦 Saudi Arabia Restarts East-West Oil Pipeline Why it m"
+    },
+    {
+      "id": "6ab36df3340f92dcbe22cdc0",
+      "status": "scheduled",
+      "dueAt": "2026-09-23T09:30:00.000Z",
+      "channel": "worldtradepro-infrastructure",
+      "preview": "🏗️ 15 new infrastructure projects tracked · 22 Sept Top 3 b"
+    },
+    {
       "id": "6aacfd590785d24e873924e9",
       "status": "scheduled",
       "dueAt": "2026-09-23T07:00:00.000Z",
       "channel": "worldtradepro",
       "preview": "You sold your wheat crop for thirty-three thousand dollars. "
+    },
+    {
+      "id": "6ab36df178330b3657e80b73",
+      "status": "scheduled",
+      "dueAt": "2026-09-23T06:30:00.000Z",
+      "channel": "worldtradepro-com",
+      "preview": "🇮🇳 ⚡ India’s Russian Oil Imports Slide as Refiners Hunt fo"
     },
     {
       "id": "6aacfd550785d24e87392495",
@@ -584,46 +626,11 @@
       "preview": "The Bank Guarantee Was Fake. You Called the Bank to Confirm "
     },
     {
-      "id": "6aa3ca74335eec6d542a2535",
-      "status": "sent",
-      "dueAt": "2026-09-10T18:48:24.000Z",
-      "channel": "worldtradepro",
-      "preview": "A Factory Was Liquidating $310,000 of Surplus Steel Pipe by "
-    },
-    {
-      "id": "6aa3ca74335eec6d542a253e",
-      "status": "sent",
-      "dueAt": "2026-09-10T18:48:17.000Z",
-      "channel": "worldtradepro",
-      "preview": "You're the Reefer Tech. $300,000 of Salmon Is Warming Up, an"
-    },
-    {
-      "id": "6aa3ca74335eec6d542a2531",
-      "status": "sent",
-      "dueAt": "2026-09-10T18:44:51.000Z",
-      "channel": "worldtradepro",
-      "preview": "He Wired $420,000 to His Supplier He Trusted for 5 Years. Th"
-    },
-    {
-      "id": "6aa3ca74335eec6d542a2538",
-      "status": "sent",
-      "dueAt": "2026-09-10T18:43:12.000Z",
-      "channel": "worldtradepro",
-      "preview": "Your $40 Million Cargo Set Sail. Then a War Broke Out on Its"
-    },
-    {
       "id": "6aa3ca74335eec6d542a254f",
       "status": "sent",
       "dueAt": "2026-09-10T18:42:38.000Z",
       "channel": "worldtradepro",
       "preview": "You Work Inside a Tower of Grain Dust. One Spark Is All It T"
-    },
-    {
-      "id": "6aa3ca74335eec6d542a2540",
-      "status": "sent",
-      "dueAt": "2026-09-10T18:41:10.000Z",
-      "channel": "worldtradepro",
-      "preview": "Banks Lent Tens of Millions Against a Warehouse of Nickel. S"
     },
     {
       "id": "6aa3ca74335eec6d542a2547",
@@ -645,13 +652,6 @@
       "dueAt": "2026-09-10T18:39:58.000Z",
       "channel": "worldtradepro",
       "preview": "You Signed an Inflated Invoice as a Favor for a Client. Inve"
-    },
-    {
-      "id": "6aa3ca74335eec6d542a253c",
-      "status": "sent",
-      "dueAt": "2026-09-10T18:39:19.000Z",
-      "channel": "worldtradepro",
-      "preview": "Your Container of $230,000 Copper Cathodes Sat 3 Days at a T"
     },
     {
       "id": "6aa50e0177db9e8bf5202c5d",
@@ -716,5 +716,6 @@
       "channel": "worldtradepro-com",
       "preview": "💰 A Single Ship Propeller Can Cost $5 Million One propeller"
     }
-  ]
+  ],
+  "postFields": []
 }
