@@ -1,5 +1,5 @@
 {
-  "at": "2026-09-23T06:30:41.589Z",
+  "at": "2026-09-23T06:31:49.455Z",
   "tries": [
     {
       "q": "query($id: OrganizationId!) { posts(input: { organizationId: $id }, first: 100) { edges { node { id status dueAt channel",
@@ -24,7 +24,8 @@
       "preview": "🇵🇦 🚢 Bulker Panama Canal transits drop 22% amid higher co",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://www.hellenicshippingnews.com/wp-content/uploads/2026/09/image-11.jpg"
         }
       ]
     },
@@ -36,7 +37,8 @@
       "preview": "🇺🇸 🏗️ $2.52B Mobile River Bridge And Bayway Project Secur",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://constructionreviewonline.com/wp-content/uploads/2026/09/Project-15.jpg"
         }
       ]
     },
@@ -48,7 +50,8 @@
       "preview": "🏗️ 23 new infrastructure projects tracked · 18 Sept Top 3 b",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://raw.githubusercontent.com/worldtradepro/wtp-linkedin-bot/images/2026-09-20/infra-card-daily.png"
         }
       ]
     },
@@ -60,7 +63,8 @@
       "preview": "🇳🇱 🚢 Transito launches combined sea and inland freight se",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://raw.githubusercontent.com/worldtradepro/wtp-linkedin-bot/images/2026-09-20/main-2.png"
         }
       ]
     },
@@ -252,7 +256,8 @@
       "preview": "🇹🇼 🏗️ Contract awarded for rolling stock and electromecha",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://images.unsplash.com/photo-1740914994162-0b2a49280aeb?ixid=M3wxMDc3MzAyfDB8MXxzZWFyY2h8OXx8bG9naXN0aWNzJTIwd2FyZWhvdXNlfGVufDF8fHx8MTc5MDE0Mzg4OHww&ixlib=rb-4.1.0&h=1600&fit=max&fm=jpg&q=85"
         }
       ]
     },
@@ -264,7 +269,8 @@
       "preview": "🇨🇳 🌾 China soybean demand rebounds, but U.S. soy industry",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://images.unsplash.com/photo-1564493031643-4be2c4347a17?ixid=M3wxMDc3MzAyfDB8MXxzZWFyY2h8NXx8d2hlYXQlMjBmaWVsZCUyMGhhcnZlc3R8ZW58MXx8fHwxNzkwMTQzOTM5fDA&ixlib=rb-4.1.0&h=1600&fit=max&fm=jpg&q=85"
         }
       ]
     },
@@ -276,7 +282,8 @@
       "preview": "🇰🇪 🏗️ Proposed $15bn+ East Africa Refinery In Lamu Advanc",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://constructionreviewonline.com/wp-content/uploads/2026/09/images-2026-09-22T134025.719.jpg"
         }
       ]
     },
@@ -288,7 +295,8 @@
       "preview": "⚡ 🇸🇦 Saudi Arabia Restarts East-West Oil Pipeline Why it m",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://raw.githubusercontent.com/worldtradepro/wtp-linkedin-bot/images/2026-09-23/main-card-flash.png"
         }
       ]
     },
@@ -300,7 +308,8 @@
       "preview": "🏗️ 15 new infrastructure projects tracked · 22 Sept Top 3 b",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://raw.githubusercontent.com/worldtradepro/wtp-linkedin-bot/images/2026-09-23/infra-card-daily.png"
         }
       ]
     },
@@ -324,7 +333,8 @@
       "preview": "🇮🇳 ⚡ India’s Russian Oil Imports Slide as Refiners Hunt fo",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://d32r1sh890xpii.cloudfront.net/news/1200x675/2026-09-22_zy0riqwm69.jpg"
         }
       ]
     },
@@ -348,7 +358,8 @@
       "preview": "🇶🇦 🇦🇷 ⚡ Qatar’s LNG Loss Revives Projects From Argentina",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://d32r1sh890xpii.cloudfront.net/article/1200x675/2026-09-21_sg1snqzuq6.jpg"
         }
       ]
     },
@@ -360,7 +371,8 @@
       "preview": "🏗️ Cora Gold advances on Sanankoro Gold Project The enginee",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://raw.githubusercontent.com/worldtradepro/wtp-linkedin-bot/images/2026-09-22/infra-2.png"
         }
       ]
     },
@@ -372,7 +384,8 @@
       "preview": "🇺🇸 🚢 CBP importer crackdown puts thousands of cross-borde",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://www.freightwaves.com/wp-content/uploads/2026/09/21/Customs_import-of_record_2026.jpg"
         }
       ]
     },
@@ -384,7 +397,8 @@
       "preview": "🇮🇩 🏗️ Indonesia: Worley Delivers FEEDs For Indonesia’s Fl",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://ik.imagekit.io/megaproject/oilandgas/oilandgas-16.webp?tr=w-600,f-auto"
         }
       ]
     },
@@ -396,7 +410,8 @@
       "preview": "🚢 🇸🇦 Saudi Gulf Oil Exports Pick Up After Pipeline Attack",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://raw.githubusercontent.com/worldtradepro/wtp-linkedin-bot/images/2026-09-22/main-card-flash.png"
         }
       ]
     },
@@ -408,7 +423,8 @@
       "preview": "🏗️ 12 new infrastructure projects tracked · 21 Sept Top 3 b",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://raw.githubusercontent.com/worldtradepro/wtp-linkedin-bot/images/2026-09-22/infra-card-daily.png"
         }
       ]
     },
@@ -420,7 +436,8 @@
       "preview": "🇨🇳 🚢 China thermal coal import outlook and Indonesian sup",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://images.unsplash.com/photo-1691733012658-055fdc5c7ab6?ixid=M3wxMDc3MzAyfDB8MXxzZWFyY2h8MTF8fGJ1bGslMjBjYXJyaWVyJTIwc2hpcHxlbnwxfDB8fHwxNzkwMDY1ODk0fDA&ixlib=rb-4.1.0&w=1600&fit=max&fm=jpg&q=85"
         }
       ]
     },
@@ -444,7 +461,8 @@
       "preview": "🇸🇦 🚢 Yanbu pipeline attack ripples across crude, freight ",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://raw.githubusercontent.com/worldtradepro/wtp-linkedin-bot/images/2026-09-21/main-1.png"
         }
       ]
     },
@@ -468,7 +486,8 @@
       "preview": "🇨🇳 🏗️ CU Lines makes size jump with 14,000 teu container ",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://eu-images.contentstack.com/v3/assets/bltdcfe6aab5515629e/blt0af79b80be1fc95f/6aacd6937c417913b40c08d9/Hudong_Zhonghua_CU_Lines.JPG?disable=upscale&width=1200&height=630&fit=crop&overlay=%2Fv3%2Fassets%2Fbltdcfe6aab5515629e%2Fblt1c2d9c482483c4ad%2F6a1fc26269f25104c9e16a0b%2FSM-News-overaly-logo.jpeg&overlay-width=432&overlay-height=166&overlay-align=right,bottom"
         }
       ]
     },
@@ -480,7 +499,8 @@
       "preview": "🇮🇷 ⚡ Hormuz Sees More LNG Traffic At least two liquefied n",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://images.rigzone.com/images/news/articles/Hormuz-Sees-More-LNG-Traffic-184648-1200x628.png"
         }
       ]
     },
@@ -492,7 +512,8 @@
       "preview": "Trade Flow update · Sep 15 – Sep 21 295 signals tracked acro",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://raw.githubusercontent.com/worldtradepro/wtp-linkedin-bot/images/2026-09-21/main-card-weekly.png"
         }
       ]
     },
@@ -504,7 +525,8 @@
       "preview": "🇲🇦 🏗️ Morocco: Utility sets out multi-billion dollar rene",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://www.africa-energy.com/storage/90024/Bin-El-Ouidane-dam-Achraffaik-CC-BY-SA-4.0-via-Wikimedia-Commons-.jpg"
         }
       ]
     },
@@ -516,7 +538,8 @@
       "preview": "🇸🇦 🚢 Oil price pullback masks lingering physical crude sc",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://raw.githubusercontent.com/worldtradepro/wtp-linkedin-bot/images/2026-09-21/main-2.png"
         }
       ]
     },
@@ -528,7 +551,8 @@
       "preview": "🚢 🇸🇦 Yanbu pipeline attack ripples across crude, freight ",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://raw.githubusercontent.com/worldtradepro/wtp-linkedin-bot/images/2026-09-21/main-card-flash.png"
         }
       ]
     },
@@ -540,7 +564,8 @@
       "preview": "🏗️ 23 new infrastructure projects tracked · 18 Sept Top 3 b",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://raw.githubusercontent.com/worldtradepro/wtp-linkedin-bot/images/2026-09-21/infra-card-daily.png"
         }
       ]
     },
@@ -552,7 +577,8 @@
       "preview": "📊 Infrastructure pipeline · 15 Sept – 18 Sept 65 projects t",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://raw.githubusercontent.com/worldtradepro/wtp-linkedin-bot/images/2026-09-21/infra-card-weekly.png"
         }
       ]
     },
@@ -576,7 +602,8 @@
       "preview": "🇮🇩 🏗️ Worley helps propel $21B Asian LNG and CCS project ",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://www.offshore-energy.biz/wp-content/uploads/sites/6/2026/07/Abadi-LNG-development-concept-Source-Inpex.jpg?image-crop-positioner-ts=1784213906"
         }
       ]
     },
@@ -588,7 +615,8 @@
       "preview": "🇷🇺 ⚡ Russian Fuel Exports Rebound in August But Still Down",
       "media": [
         {
-          "__typename": "ImageAsset"
+          "__typename": "ImageAsset",
+          "source": "https://d32r1sh890xpii.cloudfront.net/news/1200x675/2026-09-17_lhw1jdgjak.jpg"
         }
       ]
     },
@@ -1220,6 +1248,13 @@
   "typenameTry": {},
   "postNodeType": "Post",
   "imgFieldTries": [
+    {
+      "field": "assets",
+      "ok": false,
+      "errors": [
+        "Cannot query field \"url\" on type \"ImageAsset\"."
+      ]
+    },
     {
       "field": "assets",
       "ok": true
