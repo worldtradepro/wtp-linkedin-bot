@@ -55,35 +55,25 @@ for (const o of orgs) {
     }
   }
 }
-// Walk Query.posts -> its Connection type -> edges -> node, to find the REAL node type name (it may not be "Post"),
-// then dump that type's own fields to find the image/media field name for a follow-up query.
-const TREF = 'name kind ofType { name kind ofType { name kind ofType { name kind } } }';
-const postsField = await gql(`{ __type(name: "Query") { fields(includeDeprecated: true) { name type { ${TREF} } } } }`);
-const unwrap = (t) => { while (t && !t.name && t.ofType) t = t.ofType; return t?.name; };
-const postsRet = (postsField?.data?.__type?.fields || []).find((f) => f.name === 'posts');
-out.postsConnectionType = unwrap(postsRet?.type);
+// Ask a real post node for its own __typename (much simpler/more reliable than walking the abstract schema),
+// then dump that type's fields to find the image/media field name for a follow-up query.
 let nodeTypeName = null;
-if (out.postsConnectionType) {
-  const conn = await gql(`{ __type(name: "${out.postsConnectionType}") { fields { name type { ${TREF} } } } }`);
-  out.connectionFields = (conn?.data?.__type?.fields || []).map((f) => f.name);
-  const edgesF = (conn?.data?.__type?.fields || []).find((f) => f.name === 'edges');
-  const edgeType = unwrap(edgesF?.type);
-  if (edgeType) {
-    const edge = await gql(`{ __type(name: "${edgeType}") { fields { name type { ${TREF} } } } }`);
-    const nodeF = (edge?.data?.__type?.fields || []).find((f) => f.name === 'node');
-    nodeTypeName = unwrap(nodeF?.type);
-  }
+for (const o of orgs) {
+  const d = await gql('query($id: OrganizationId!) { posts(input: { organizationId: $id }, first: 1) { edges { node { __typename } } } }', { id: o.id });
+  out.typenameTry = { errors: d?.errors?.map((e) => e.message).slice(0, 3) };
+  nodeTypeName = d?.data?.posts?.edges?.[0]?.node?.__typename || null;
+  if (nodeTypeName) break;
 }
 out.postNodeType = nodeTypeName;
 if (nodeTypeName) {
-  const nodeType = await gql(`{ __type(name: "${nodeTypeName}") { fields { name type { ${TREF} } } } }`);
+  const nodeType = await gql(`{ __type(name: "${nodeTypeName}") { fields { name } } }`);
   out.postFields = (nodeType?.data?.__type?.fields || []).map((f) => f.name);
 }
 save();
 
 // Re-fetch with whichever image-shaped field actually exists on Post
 const IMG_FIELD_CANDIDATES = ['media', 'assets', 'attachments', 'images', 'photo'];
-const imgField = IMG_FIELD_CANDIDATES.find((f) => out.postFields.includes(f));
+const imgField = IMG_FIELD_CANDIDATES.find((f) => (out.postFields || []).includes(f));
 if (imgField) {
   const sub = { media: 'url thumbnail', assets: 'url', attachments: 'url', images: 'url', photo: 'url' }[imgField];
   for (const o of orgs) {
