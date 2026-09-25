@@ -62,5 +62,34 @@
   },
   "automation": {
     "paused": false
+  },
+  "newsletter": {
+    "signals": 6,
+    "projects": 6,
+    "minFlowScore": 8,
+    "sendTimeUtc": "06:30",
+    "kit": {
+      "mode": "draft",
+      "tags": {
+        "weekly": "wtp-weekly",
+        "daily": "wtp-daily"
+      }
+    },
+    "promo": {
+      "enabled": true,
+      "title": "The Paper Trail: A Survival Guide to Commodity Trading",
+      "text": "First physical deals usually go wrong in the same places: fake offers, bad documents or unhedged prices. This short video course walks through a deal end to end - counterparty checks, inspection, LCs, price confirmation - with a checklist for every step. The prologue is free to watch.",
+      "cta": "Watch the free prologue",
+      "url": "https://worldtradepro.com/commodity-course/"
+    },
+    "daily": {
+      "signals": 6,
+      "projects": 3,
+      "minFlowScore": 10,
+      "sendTimeUtc": "06:00"
+    },
+    "weekly": {
+      "sendTimeUtc": "06:30"
+    }
   }
 }
