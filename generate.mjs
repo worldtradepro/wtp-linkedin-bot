@@ -187,19 +187,33 @@ function projectPost(it, i, date, slot) {
     clean(it.description).replace(/.$/, '') !== title ? summaryOf(it.description, cfg.maxSummaryChars) : '',
     snapshotOf(it),
     sourceLine(it),
+    BODY_LINKS ? countryLine(it, date, i) : '',
     hashtagsFor(it, ['Infrastructure', it.company_name && it.company_name.replace(/[^A-Za-z0-9]/g, ''), sub && sub.replace(/[^A-Za-z]/g, '')]),
   ];
   return {
     account: 'infra', type: 'project', id: `infra-${i}`, scheduledAtUtc: `${date}T${slot}:00Z`,
     headline: clean(it.project_name), headPrefix: prefix, blocks, descIndex: 1,
     text: blocks.filter(Boolean).join('\n\n'),
-    firstComment: commentFor(it, `🗂️ All projects with filters: ${utm('infrastructure', 'proj', date, i)}`),
+    firstComment: commentFor(it, [`🗂️ All projects with filters: ${utm('infrastructure', 'proj', date, i)}`, BODY_LINKS ? '' : countryLine(it, date, i)].filter(Boolean).join('\n')),
     image: 'screenshot', sourceUrl: it.source_url, sourceName: it.source_name || hostOf(it.source_url),
     meta: { stage: it.stage, sector: it.sector, subsector: it.subsector, country: countryName(it.country), company: it.company_name || null, scale: it.scale || null, reportDate: it.report_date },
   };
 }
 
-const BODY_LINKS = cfg.sourceLink === 'body';   // Buffer Free has no first-comment feature: links go in the post body
+const BODY_LINKS = cfg.sourceLink === 'body';
+// The site's per-country SEO pages (/projects/<slug>/). Only countries listed in the sitemap get a link
+// (the site lists a country once it has enough projects); an unreachable sitemap just means no link.
+const slugOf = (name) => name.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/['’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const COUNTRY_PAGES = await fetch(`${cfg.site}/wp-sitemap-intel-1.xml`, { headers: { 'user-agent': 'wtp-linkedin-bot/1.0' } })
+  .then((r) => (r.ok ? r.text() : ''))
+  .then((xml) => new Set([...xml.matchAll(/\/projects\/([a-z0-9-]+)\//g)].map((m) => m[1])))
+  .catch(() => new Set());
+function countryLine(it, date, i) {
+  const name = countryName(it.country);
+  const slug = name && slugOf(name);
+  if (!slug || !COUNTRY_PAGES.has(slug)) return '';
+  return `🗺️ More ${name} projects ➡️ ${cfg.site}/projects/${slug}/?utm_source=linkedin&utm_medium=social&utm_campaign=proj-${date.replace(/-/g, '')}-${i}`;
+}   // Buffer Free has no first-comment feature: links go in the post body
 // ---- own-data cards (Infrastructure): a small slice of the pipeline + counts; company / source / description stay on the map ----
 const vague = (s) => !s || /^\(?(unspecified|unknown|n\/a|other)\)?$/i.test(clean(s));
 const subOf = (it) => (!vague(it.subsector) ? it.subsector : !vague(it.sector) ? it.sector : '');
