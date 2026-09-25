@@ -612,11 +612,9 @@ body.home .social-widget { display:none; }
             return '📍';
         }
 
-        // Default to the free window, not 7d: the most recent 7 days is paywalled for
-        // non-subscribers (see wtp_opps_query's server-side gate), so a 7d default would
-        // show an empty globe to the vast majority of first-time visitors. "7-15" is
-        // exactly the free window (7-15 days back) so anonymous visitors see real data
-        // immediately.
+        // Default to "7-15 days", not 7d: the most recent 7 days of Infrastructure is the paid
+        // part (see wtp_opps_query's server-side gate), so a 7d default would show an empty
+        // globe to most first-time visitors. Everything older than 7 days is free.
         // Two separate products (2026-09-19): Infrastructure = project pipeline, Trade Flows =
         // live signals. They have different taxonomies, sorting and audiences, so the page shows
         // ONE at a time (no "both" mix). ?view=flows deep-links to Trade Flows.
@@ -632,7 +630,7 @@ body.home .social-widget { display:none; }
         // free 7-15 day window as the paywall teaser.
         var startMode = initialMode();
         var state = { range: startMode === 'flow_distortion' ? '7' : '7-15', sector: '', subsector: '', stage: '', tier: '', showMinor: false, reportType: startMode, topSector: '', lane: '', showLanes: true, weekK: 0 };
-        // weekK: which rolling 7-day window Trade Flows shows (0 = last 7 days, free; 1+ = older, subscriber-only).
+        // weekK: which rolling 7-day window Trade Flows shows (0 = last 7 days; every week is free).
         var weeksData = [];
         function defaultRange(mode) { return mode === 'flow_distortion' ? '7' : '7-15'; }
         var MODES = {
@@ -763,7 +761,7 @@ body.home .social-widget { display:none; }
             '  <div class="wim-seg" data-role="range">' +
             '    <button data-v="7" class="wim-locked">Last 7d 🔒</button>' +
             '    <button data-v="7-15" class="active">7-15 days</button>' +
-            '    <button data-v="15plus" class="wim-locked">15 days+ 🔒</button>' +
+            '    <button data-v="15plus">15 days+</button>' +
             '  </div>' +
             '  <div class="wim-count" data-role="count"></div>' +
             '  <button type="button" class="wim-tl-share" data-role="tlshare" title="Make a LinkedIn-ready image and caption from what is on the map" aria-label="Share on LinkedIn">Share ↗</button>' +
@@ -880,8 +878,7 @@ var modalTitleEl = root.querySelector('[data-role="modaltitle"]');
             // "Last 7d" stops at day -6, not -7: day -7 belongs to the free "7-15 days"
             // window (wtp_opps_query's free_to), so starting the locked range there would
             // share a day with the free one and leak one real day of paid data through a
-            // locked button. Same reasoning on the far end: "15 days+" starts at -16, not
-            // -15, since -15 is free_from and belongs to the free window.
+            // locked button. "15 days+" starts at -16 so it does not repeat the 7-15 window's days.
             var d6 = new Date(); d6.setDate(d6.getDate() - 6);
             var d7 = new Date(); d7.setDate(d7.getDate() - 7);
             var d15 = new Date(); d15.setDate(d15.getDate() - 15);
@@ -1756,12 +1753,10 @@ var __centroidKey = c ? (c[0].toFixed(3) + ',' + c[1].toFixed(3)) : null;
             // than silently substituting the free window's own data under a locked
             // button (that used to happen and reads as "the paywall doesn't do anything").
             if (lastGated && lastFreeWindow) {
-                var fmtShort = function(iso){ var d = new Date(iso + 'T00:00:00Z'); return d.toLocaleDateString('en-US', {month:'short', day:'numeric', timeZone:'UTC'}); };
-                // Trade Flows lock everything OLDER than the free last-7-days window; Infrastructure locks the newest 7 days ("recent") or the oldest ("15plus").
-                var lockedCount = lastLockedCounts ? ((state.reportType === 'flow_distortion' || state.range === '15plus') ? lastLockedCounts.older : lastLockedCounts.recent) : null;
-                var countPhrase = lockedCount !== null ? ('<b>' + lockedCount + '</b> signal' + (lockedCount === 1 ? '' : 's') + ' hidden here. ') : '';
-                gatedNoticeEl.innerHTML = countPhrase + 'This range needs a subscription — free access covers ' +
-                    fmtShort(lastFreeWindow.from) + '–' + fmtShort(lastFreeWindow.to) + ' only. <a href="/unlock-intelligence-map/" data-role="subscribecta">' + (state.reportType === 'flow_distortion' ? 'Unlock Trade Flow history →' : 'Unlock the newest projects + full archive →') + '</a>';
+                // Only Infrastructure's newest 7 days is locked (2026-09-25); everything older and all Trade Flows are free.
+                var lockedCount = lastLockedCounts ? lastLockedCounts.recent : null;
+                var countPhrase = lockedCount !== null ? ('<b>' + lockedCount + '</b> new project' + (lockedCount === 1 ? '' : 's') + ' found in the last 7 days. ') : '';
+                gatedNoticeEl.innerHTML = countPhrase + 'Pro members see new projects as soon as they are found — everyone else sees them here 7 days later. <a href="/unlock-intelligence-map/" data-role="subscribecta">See them 7 days earlier →</a>';
                 gatedNoticeEl.style.display = 'block';
                 placeGatedNotice();
             } else {
@@ -1980,7 +1975,7 @@ var __centroidKey = c ? (c[0].toFixed(3) + ',' + c[1].toFixed(3)) : null;
             if (tlTimer) { stopPlay(); return; }
             var steps = timelineList().filter(function(w) { return !w.locked; });
             if (steps.length < 2) {
-                gatedNoticeEl.innerHTML = 'Week-by-week replay needs history — free access covers the last 7 days only. <a href="/unlock-intelligence-map/" data-role="subscribecta">Unlock Trade Flow history →</a>';
+                gatedNoticeEl.innerHTML = 'Week-by-week replay needs at least two weeks of signals.';
                 gatedNoticeEl.style.display = 'block';
                 placeGatedNotice();
                 return;
@@ -2404,8 +2399,8 @@ var __centroidKey = c ? (c[0].toFixed(3) + ',' + c[1].toFixed(3)) : null;
         }
         root.querySelector('[data-role="tlshare"]').addEventListener('click', function() { openShare(); });
 
-        // Date-range buttons for the active mode. Infrastructure shows 7-15 days as the free window and
-        // the other two locked. Trade Flows do not use them at all any more (the week timeline above
+        // Date-range buttons for the active mode. Infrastructure: "Last 7d" is the paid week, the
+        // other two are free. Trade Flows do not use them at all any more (the week timeline above
         // replaces them), so the button group is hidden in that mode.
         var RANGE_LABELS = { '7': 'Last 7d', '7-15': '7-15 days', '15plus': '15 days+' };
         function applyRangeUi() {
@@ -2414,7 +2409,7 @@ var __centroidKey = c ? (c[0].toFixed(3) + ',' + c[1].toFixed(3)) : null;
             if (rangeSeg) rangeSeg.style.display = free ? 'none' : '';
             root.querySelectorAll('[data-role="range"] button').forEach(function(b) {
                 var v = b.dataset.v;
-                var locked = !free && v !== '7-15';
+                var locked = !free && v === '7';
                 b.classList.toggle('active', v === state.range);
                 b.classList.toggle('wim-locked', locked);
                 b.textContent = RANGE_LABELS[v] + (locked ? ' 🔒' : '');
@@ -2423,10 +2418,8 @@ var __centroidKey = c ? (c[0].toFixed(3) + ',' + c[1].toFixed(3)) : null;
         function updateLockedCountBadges() {
             if (state.reportType === 'flow_distortion') { applyRangeUi(); return; }
             var recentBtn = root.querySelector('[data-role="range"] button[data-v="7"]');
-            var olderBtn = root.querySelector('[data-role="range"] button[data-v="15plus"]');
-            if (!recentBtn || !olderBtn) return;
+            if (!recentBtn) return;
             recentBtn.textContent = lastLockedCounts ? ('Last 7d 🔒 (' + lastLockedCounts.recent + ')') : 'Last 7d 🔒';
-            olderBtn.textContent = lastLockedCounts ? ('15 days+ 🔒 (' + lastLockedCounts.older + ')') : '15 days+ 🔒';
         }
 
         // The shared host occasionally answers a burst of parallel requests with a transient 503
