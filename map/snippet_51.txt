@@ -147,6 +147,8 @@ add_action('wp_footer', function() {
        pill directly over the globe, and three persona paragraphs would either not fit or
        permanently eat map space every visitor has to look past. */
     .wim-whofor-wrap { position:relative; display:inline-flex; align-items:center; margin-right:6px; }
+    .wim-browse { color:var(--accent); font-weight:700; text-decoration:none; margin-right:8px; white-space:nowrap; }
+    .wim-browse:hover { text-decoration:underline; }
     .wim-whofor-toggle { cursor:pointer; user-select:none; margin-left:0; color:var(--accent); font-weight:700; }
     .wim-whofor-toggle:hover { text-decoration:underline; }
     /* Always-visible value proposition for the active mode (full-width second row of the filter bar). */
@@ -638,6 +640,7 @@ body.home .social-widget { display:none; }
                 name: 'Infrastructure Projects',
                 lead: 'Spot infrastructure projects while they are still at feasibility / pre-FID stage — before they reach public tender.',
                 who: 'For BD &amp; market-entry teams at EPC contractors, developers, and equipment &amp; materials suppliers.',
+                browse: ['/projects/', 'Browse projects by country →'],
                 rows: [
                     ['EPC Contractors &amp; Developers', 'See which projects are moving toward tender and award, and position with the owner before competitors know the project exists.'],
                     ['Equipment &amp; Materials Suppliers', 'Know which projects are coming, in which country and sector, so you start selling in early — not after the RFQ is out.'],
@@ -654,6 +657,7 @@ body.home .social-widget { display:none; }
                 name: 'Trade Flow Signals',
                 lead: 'Live signals on disruptions hitting global trade — ports, shipping lanes, energy, metals, agriculture and policy — ranked by impact.',
                 who: 'For supply-chain, logistics and sourcing teams that need to know what is disrupting flows right now.',
+                browse: ['/trade-lanes/', 'Shipping lane tracker →'],
                 rows: [
                     ['Supply Chain &amp; Logistics Teams', 'See port congestion, chokepoint risk and route disruptions as they are detected, ranked Critical / Elevated / Watch.'],
                     ['Procurement &amp; Sourcing', 'Spot policy shifts and supply shocks that could affect what you buy and where it ships from.'],
@@ -774,6 +778,7 @@ body.home .social-widget { display:none; }
             '    <div class="wim-modeintro-lead" data-role="introlead"></div>' +
             '    <div class="wim-modeintro-who">' +
             '      <span data-role="introwho"></span> ' +
+            '      <a class="wim-browse" data-role="introbrowse" href="#"></a>' +
             '      <span class="wim-whofor-wrap">' +
             '        <span class="wim-whofor-toggle" data-role="whofortoggle">More ▾</span>' +
             '        <div class="wim-whofor-panel wim-float" data-role="whoforpanel" style="display:none;"></div>' +
@@ -836,6 +841,9 @@ var modalTitleEl = root.querySelector('[data-role="modaltitle"]');
             var m = MODES[state.reportType];
             introLeadEl.innerHTML = m.lead;
             introWhoEl.innerHTML = m.who;
+            // Link to the server-rendered SEO pages for this mode (/projects/ or /trade-lanes/).
+            var browseEl = root.querySelector('[data-role="introbrowse"]');
+            if (browseEl) { browseEl.href = m.browse[0]; browseEl.textContent = m.browse[1]; }
             whoForPanel.innerHTML = m.rows.map(function(r) {
                 return '<div class="wim-whofor-row"><b>' + r[0] + '</b><span>' + r[1] + '</span></div>';
             }).join('');
