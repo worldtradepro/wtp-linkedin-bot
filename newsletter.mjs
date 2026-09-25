@@ -1,8 +1,9 @@
 // E-mail editions for World Trade Pro, built from the site's PUBLIC API only (so only free data).
 //   weekly: Trade Flow signals of the last 7 days + lane summary; Infrastructure projects that became
 //           free during the week (first seen 7-15 days back)
-//   daily:  Trade Flow signals of the last 24 hours (48h on a quiet day) + the projects that became
-//           free today (first seen exactly 7 days ago). Skipped (skip:true) with fewer than 3 signals.
+//   daily:  short on purpose - the day's map card (the image the LinkedIn bot made this morning),
+//           headlines only for the last 24 hours (48h on a quiet day), a count of the projects that
+//           became free today, and a visible course line. Skipped (skip:true) with fewer than 3 signals.
 // Writes newsletter/out/<date>-<edition>.html (e-mail body, inline styles) + .json (subject, preview, counts).
 // Sending is a separate step (ses_send.mjs).
 //
@@ -78,6 +79,17 @@ const recent = DAILY ? flow.filter((it) => it.report_date >= dayShift(TODAY, -1)
 let signals = pickSignals(recent, ed.signals);
 if (DAILY && signals.length < 3) signals = pickSignals(flow, ed.signals);
 const SKIP = DAILY && signals.length < 3;
+
+// The map's own share card, published by linkedin-daily to the public "images" branch before this runs.
+const IMG_BASE = `https://raw.githubusercontent.com/${nl.imagesRepo || 'worldtradepro/wtp-linkedin-bot'}/images/${TODAY}`;
+async function cardUrl() {
+  for (const name of ['main-card-flash', 'main-card-weekly']) {
+    const u = `${IMG_BASE}/${name}.png`;
+    try { const r = await fetch(u, { method: 'HEAD' }); if (r.ok) return u; } catch {}
+  }
+  return null;
+}
+const CARD = DAILY ? await cardUrl() : null;
 
 // Projects: large + early-stage first, one per project name, spread across countries.
 function pickProjects(items, n) {
@@ -162,12 +174,29 @@ const proNote = `<tr><td style="padding-top:22px;${font}font-size:13px;line-heig
     These projects are a week old. Pro members see new projects as soon as they are found —
     <a href="${esc(unlock)}" style="color:${C.accent};">see them 7 days earlier</a>.
   </td></tr>`;
+// Daily: one headline per line (tier, lane) - the card carries the picture, the e-mail stays short.
+const headlineRow = (it) => {
+  const [t, color] = tier(score(it));
+  const lane = laneOf(it);
+  return `<tr><td style="padding:9px 0;border-top:1px solid ${C.line};${font}font-size:15px;line-height:1.4;">
+    <span style="font-size:11px;font-weight:700;color:${color};text-transform:uppercase;letter-spacing:.04em;">${t}${lane ? ' · ' + esc(lane.name) : ''}</span><br>
+    <a href="${esc(it.source_url)}" style="color:${C.ink};text-decoration:none;font-weight:600;">${flagOf(it.country)} ${esc(clean(it.project_name))}</a>
+    <span style="color:${C.muted};font-size:12px;"> — ${esc(it.source_name || hostOf(it.source_url))}</span>
+  </td></tr>`;
+};
+const courseLine = nl.promo?.enabled
+  ? `<tr><td style="padding:16px 0 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#fdf6e3;border:1px solid #ecd9a3;border-radius:8px;"><tr><td style="padding:12px 16px;${font}font-size:14px;line-height:1.5;color:#344054;">
+      <b style="color:${C.ink};">New to physical commodity trading?</b> ${esc(nl.promo.title)} — a short video course on avoiding fake offers, bad documents and price traps.
+      <a href="${esc(utm(nl.promo.url, 'course-daily'))}" style="color:${C.accent};font-weight:700;">Watch the free prologue →</a>
+    </td></tr></table></td></tr>`
+  : '';
 const sections = DAILY
-  ? `${h2('Top signals', 'The last 24 hours, ranked by flow impact')}
-  ${signals.map(signalRow).join('\n')}
-  ${laneStats.length ? h2('Lanes hit today') + lanesHtml : ''}
-  <tr><td>${button('Open the live trade-flow map', mapFlows)}</td></tr>
-  ${epc.length ? h2('Projects unlocked today', `${epc.length} infrastructure project${epc.length > 1 ? 's' : ''} first seen ${fmtDay(epcFrom)}`) + projects.map(projectRow).join('\n') + projectsBtn + proNote : ''}`
+  ? `${CARD ? `<tr><td style="padding:16px 0 4px;" align="center"><a href="${esc(mapFlows)}"><img src="${esc(CARD)}" width="480" alt="Today's trade-flow map: top signals and the trade lanes under pressure" style="display:block;width:100%;max-width:480px;height:auto;border:0;border-radius:10px;"></a></td></tr>` : ''}
+  ${h2('Top signals', 'The last 24 hours, ranked by flow impact')}
+  ${signals.map(headlineRow).join('\n')}
+  <tr><td style="padding-top:12px;${font}font-size:14px;"><a href="${esc(mapFlows)}" style="color:${C.accent};font-weight:700;text-decoration:none;">Open the live trade-flow map →</a></td></tr>
+  ${epc.length ? `<tr><td style="padding-top:18px;${font}font-size:14px;color:#344054;"><b style="color:${C.ink};">${epc.length} infrastructure project${epc.length > 1 ? 's' : ''} unlocked today</b> (first seen ${fmtDay(epcFrom)}). <a href="${esc(utm(cfg.site + '/projects/', 'projects-hub'))}" style="color:${C.accent};font-weight:700;text-decoration:none;">Browse by country →</a><br><span style="color:${C.muted};font-size:13px;">Pro members saw them a week ago — <a href="${esc(unlock)}" style="color:${C.muted};">see new projects 7 days earlier</a>.</span></td></tr>` : ''}
+  ${courseLine}`
   : `${h2('Trade lanes under pressure', `Signals from the last 7 days (${fmtDay(flowFrom)} – ${fmtDay(flowTo)})`)}
   ${lanesHtml}
   ${h2('Top trade-flow signals', 'Ranked by our flow-impact score')}
@@ -190,7 +219,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewp
     <div style="font-size:13px;color:${C.muted};padding-top:4px;">${head.sub}</div>
   </td></tr>
   ${sections}
-  ${promo}
+  ${DAILY ? '' : promo}
 </table>
 </td></tr></table>
 </td></tr></table>
