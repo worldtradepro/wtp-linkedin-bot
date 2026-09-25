@@ -66,7 +66,7 @@ async function sesCall(method, path, body) {
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 function footer(token) {
   const manage = `${SITE}/newsletter/unsubscribe/?t=${token}`;
-  const why = EDITION === 'daily' ? 'the daily trade-flow brief' : 'the weekly summary';
+  const why = EDITION === 'daily' ? 'Trade Flow Daily' : 'Project Leads Weekly';
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:14px 12px 28px;font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#98a2b3;">
     You get ${why} because you subscribed at worldtradepro.com.<br>
     <a href="${esc(manage)}" style="color:#667085;">Unsubscribe or change e-mails</a> · World Trade Pro · ${esc(POSTAL)}

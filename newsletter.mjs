@@ -1,7 +1,8 @@
 // E-mail editions for World Trade Pro, built from the site's PUBLIC API only (so only free data).
-//   weekly: Trade Flow signals of the last 7 days + lane summary; Infrastructure projects that became
-//           free during the week (first seen 7-15 days back)
-//   daily:  short on purpose - the day's map card (the image the LinkedIn bot made this morning),
+//   weekly: "Project Leads Weekly" - the Infrastructure projects that became free this week (first seen
+//           7-13 days back), grouped by region with links to the country pages, and the newest week as a
+//           count with the Pro offer. Readers: EPC / supplier BD.
+//   daily:  "Trade Flow Daily", short on purpose - the day's map card (the image the LinkedIn bot made this morning),
 //           headlines only for the last 24 hours (48h on a quiet day), a count of the projects that
 //           became free today, and a visible course line. Skipped (skip:true) with fewer than 3 signals.
 // Writes newsletter/out/<date>-<edition>.html (e-mail body, inline styles) + .json (subject, preview, counts).
@@ -12,7 +13,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { dayShift, fetchJson, flagOf, countryName, LANES, laneOf, clean, summaryOf, hostOf, similar, score } from './common.mjs';
+import { dayShift, fetchJson, flagOf, countryName, LANES, laneOf, clean, hostOf, similar, score } from './common.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const cfg = JSON.parse(readFileSync(join(HERE, 'config.json'), 'utf8'));
@@ -39,13 +40,10 @@ const fmtDay = (iso) => new Date(iso + 'T00:00:00Z').toLocaleDateString('en-GB',
 const tier = (n) => (n >= 12 ? ['Critical', '#b42318'] : n >= 8 ? ['Elevated', '#b54708'] : ['Watch', '#475467']);
 const SCALE_RANK = { Large: 0, Medium: 1, Small: 2 };
 const stageLabel = (s) => clean(s).replace(/^S\d+-/, '');
-// Whole sentences when there are any; otherwise the stored (255-char, often cut) text trimmed at a word with an ellipsis.
-const blurb = (it) => summaryOf(it.description, 260) || clean(it.description).replace(/\s+\S*$/, '').replace(/[,;:\-–—\s]+$/, '') + (clean(it.description) ? '…' : '');
-const flowNote = (l) => l.flow.replace(/\s*\(([^)]*)\)/, ', $1');
 
 // ---------------------------------------------------------------- data
 const flowFrom = dayShift(TODAY, DAILY ? -2 : -7), flowTo = TODAY;
-const epcFrom = dayShift(TODAY, DAILY ? -7 : -15), epcTo = dayShift(TODAY, -7);
+const epcFrom = dayShift(TODAY, DAILY ? -7 : -13), epcTo = dayShift(TODAY, -7);
 const flowRes = await fetchJson(`${API}?report_type=flow_distortion&from=${flowFrom}&to=${flowTo}&limit=1000`);
 const epcRes = await fetchJson(`${API}?report_type=epc&from=${epcFrom}&to=${epcTo}&limit=1000`);
 const blocked = (cfg.blockedWords || []).map((w) => w.toLowerCase());
@@ -108,72 +106,63 @@ function pickProjects(items, n) {
 }
 const projects = pickProjects(epc, ed.projects);
 const countBy = (items, key) => Object.entries(items.reduce((m, it) => { const k = key(it); if (k) m[k] = (m[k] || 0) + 1; return m; }, {})).sort((a, b) => b[1] - a[1]);
-const bySector = countBy(epc, (it) => clean(it.sector));
-const byCountry = countBy(epc, (it) => countryName(it.country));
 
 // ---------------------------------------------------------------- html
 const C = { ink: '#101828', muted: '#667085', line: '#eaecf0', bg: '#f5f6f8', card: '#ffffff', accent: '#0b4a6f' };
 const font = "font-family:Segoe UI,Helvetica,Arial,sans-serif;";
 const h2 = (t, sub) => `<tr><td style="padding:28px 0 6px;${font}"><div style="font-size:18px;font-weight:700;color:${C.ink};">${t}</div>${sub ? `<div style="font-size:13px;color:${C.muted};padding-top:2px;">${sub}</div>` : ''}</td></tr>`;
-const chip = (t, color) => `<span style="display:inline-block;font-size:11px;font-weight:700;color:${color};border:1px solid ${color};border-radius:10px;padding:1px 7px;">${esc(t)}</span>`;
-
-function signalRow(it) {
-  const [t, color] = tier(score(it));
-  const lane = laneOf(it);
-  const meta = [flagOf(it.country) + ' ' + esc(countryName(it.country)), esc(it.sector), lane ? esc(lane.name) : '', fmtDay(it.report_date)].filter((x) => x.trim()).join(' · ');
-  return `<tr><td style="padding:12px 0;border-top:1px solid ${C.line};${font}">
-    <div style="padding-bottom:4px;">${chip(t, color)}</div>
-    <a href="${esc(it.source_url)}" style="font-size:15px;font-weight:600;color:${C.ink};text-decoration:none;">${esc(clean(it.project_name))}</a>
-    <div style="font-size:14px;line-height:1.5;color:#344054;padding-top:4px;">${esc(blurb(it))}</div>
-    <div style="font-size:12px;color:${C.muted};padding-top:4px;">${meta} · Source: <a href="${esc(it.source_url)}" style="color:${C.muted};">${esc(it.source_name || hostOf(it.source_url))}</a></div>
-  </td></tr>`;
-}
-
-function projectRow(it) {
-  const facts = [
-    ['Where', `${flagOf(it.country)} ${countryName(it.country)}`],
-    ['Sector', [clean(it.sector), clean(it.subsector)].filter(Boolean).join(' / ')],
-    ['Stage', stageLabel(it.stage)],
-    ['Scale', clean(it.scale)],
-    ['Company', clean(it.company_name)],
-  ].filter(([, v]) => v.trim());
-  return `<tr><td style="padding:12px 0;border-top:1px solid ${C.line};${font}">
-    <a href="${esc(it.source_url)}" style="font-size:15px;font-weight:600;color:${C.ink};text-decoration:none;">${esc(clean(it.project_name))}</a>
-    <div style="font-size:14px;line-height:1.5;color:#344054;padding-top:4px;">${esc(blurb(it))}</div>
-    <div style="font-size:12px;color:${C.muted};padding-top:6px;">${facts.map(([k, v]) => `<b style="color:#475467;">${k}:</b> ${esc(v)}`).join(' &nbsp;·&nbsp; ')}</div>
-    <div style="font-size:12px;color:${C.muted};padding-top:2px;">First seen ${fmtDay(it.report_date)} · Source: <a href="${esc(it.source_url)}" style="color:${C.muted};">${esc(it.source_name || hostOf(it.source_url))}</a></div>
-  </td></tr>`;
-}
 
 const button = (label, href) => `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:14px 0 0;"><tr><td style="background:${C.accent};border-radius:6px;"><a href="${esc(href)}" style="display:inline-block;padding:10px 18px;${font}font-size:14px;font-weight:600;color:#ffffff;text-decoration:none;">${label}</a></td></tr></table>`;
 
-const lanesHtml = laneStats.length
-  ? `<tr><td style="${font}font-size:14px;color:#344054;">${laneStats.map((x) =>
-      `<div style="padding:5px 0;"><b style="color:${C.ink};">${esc(x.lane.name)}</b> — ${x.n} signal${x.n > 1 ? 's' : ''}${x.critical ? `, <span style="color:#b42318;font-weight:600;">${x.critical} critical</span>` : ''} <span style="color:${C.muted};">(${esc(flowNote(x.lane))})</span></div>`).join('')}</td></tr>`
-  : `<tr><td style="${font}font-size:14px;color:${C.muted};">No trade lane was hit by a tracked signal ${DAILY ? 'in the last 24 hours' : 'this week'}.</td></tr>`;
-
-// P.S. block: the newsletter is also the course's traffic source (config.newsletter.promo).
-const promo = nl.promo?.enabled
-  ? `<tr><td style="padding-top:26px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f0f6fa;border-radius:8px;"><tr><td style="padding:16px 18px;${font}">
-      <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:${C.accent};font-weight:700;">P.S. From World Trade Pro</div>
-      <div style="font-size:16px;font-weight:700;color:${C.ink};padding-top:4px;">${esc(nl.promo.title)}</div>
-      <div style="font-size:14px;line-height:1.5;color:#344054;padding-top:4px;">${esc(nl.promo.text)}</div>
-      ${button(esc(nl.promo.cta), utm(nl.promo.url, 'course'))}
-    </td></tr></table></td></tr>`
-  : '';
-const topList = (pairs, n) => pairs.slice(0, n).map(([k, v]) => `${esc(k)} ${v}`).join(' · ');
 const mapFlows = utm(cfg.site + '/?view=flows', 'map-flows');
 const mapInfra = utm(cfg.site + '/?view=infrastructure', 'map-infra');
 const unlock = utm(cfg.site + '/unlock-intelligence-map/', 'unlock');
 
-const head = DAILY
-  ? { kicker: 'World Trade Pro · Daily', title: 'Trade-flow brief', sub: `${fmtDay(TODAY)} ${TODAY.slice(0, 4)} · ${signals.length} top signals · ${epc.length} project${epc.length === 1 ? '' : 's'} unlocked today` }
-  : { kicker: 'World Trade Pro · Weekly', title: 'Trade flows &amp; new infrastructure projects', sub: `Week to ${fmtDay(TODAY)} ${TODAY.slice(0, 4)} · ${flow.length} trade-flow signals · ${epc.length} new projects tracked` };
-const projectsBtn = `<tr><td>${button('Browse projects by country', utm(cfg.site + '/projects/', 'projects-hub'))}</td></tr>`;
-const proNote = `<tr><td style="padding-top:22px;${font}font-size:13px;line-height:1.5;color:${C.muted};">
-    These projects are a week old. Pro members see new projects as soon as they are found —
-    <a href="${esc(unlock)}" style="color:${C.accent};">see them 7 days earlier</a>.
+// ---------------------------------------------------------------- Project Leads Weekly (edition "weekly")
+// Projects that became free this week, grouped by region, each country linked to its /projects/<country>/
+// page when the site lists one; the newest week (paid) is shown only as a count with the Pro offer.
+let LOCKED = 0, COUNTRY_PAGES = new Set();
+if (!DAILY) {
+  try { LOCKED = (await fetchJson(`${API}?report_type=epc&from=${dayShift(TODAY, -6)}&to=${TODAY}&limit=1`)).locked_counts?.recent || 0; } catch {}
+  try {
+    const xml = await (await fetch(`${cfg.site}/wp-sitemap-intel-1.xml`, { headers: { 'user-agent': 'wtp-linkedin-bot/1.0' } })).text();
+    COUNTRY_PAGES = new Set([...xml.matchAll(/\/projects\/([a-z0-9-]+)\//g)].map((m) => m[1]));
+  } catch {}
+}
+const slugOf = (name) => name.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/['’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const countryLink = (it) => {
+  const name = countryName(it.country);
+  if (!name) return '';
+  const slug = slugOf(name);
+  return COUNTRY_PAGES.has(slug)
+    ? `<a href="${esc(utm(`${cfg.site}/projects/${slug}/`, 'country-' + slug))}" style="color:${C.accent};text-decoration:none;">${flagOf(it.country)} ${esc(name)}</a>`
+    : `${flagOf(it.country)} ${esc(name)}`;
+};
+const REGION_ORDER = ['Middle East', 'Asia Pacific', 'Europe', 'Africa', 'Americas'];
+const regionOf = (it) => { const r = clean(it.region); return r === 'Asia' ? 'Asia Pacific' : r === 'South America' ? 'Americas' : (REGION_ORDER.includes(r) ? r : 'Other'); };
+const regions = DAILY ? [] : Object.entries(epc.reduce((m, it) => { (m[regionOf(it)] ||= []).push(it); return m; }, {}))
+  .sort((a, b) => b[1].length - a[1].length);
+const leadRow = (it) => {
+  const bits = [countryLink(it), esc([clean(it.sector), clean(it.subsector)].filter((x) => x && !/^unknown$/i.test(x)).join(' / ')), esc(stageLabel(it.stage)), esc(clean(it.company_name))].filter(Boolean);
+  return `<tr><td style="padding:9px 0;border-top:1px solid ${C.line};${font}font-size:14px;line-height:1.45;">
+    <a href="${esc(it.source_url)}" style="color:${C.ink};text-decoration:none;font-weight:600;font-size:15px;">${esc(clean(it.project_name))}</a><br>
+    <span style="color:${C.muted};font-size:13px;">${bits.join(' · ')}</span>
   </td></tr>`;
+};
+const proBox = `<tr><td style="padding:18px 0 4px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0f2d5e;border-radius:8px;"><tr><td style="padding:14px 18px;${font}font-size:14px;line-height:1.5;color:#dbe4f0;">
+    <b style="color:#ffffff;font-size:15px;">🔒 ${LOCKED} more project${LOCKED === 1 ? '' : 's'} found in the last 7 days.</b><br>
+    Everything below is a week old. Pro members see new projects the day they are found — time to reach the owner or EPC before the tender is public.
+    <a href="${esc(unlock)}" style="color:#c8a94a;font-weight:700;">See them 7 days earlier →</a>
+  </td></tr></table></td></tr>`;
+const weeklySections = `${LOCKED ? proBox : ''}
+  ${regions.map(([reg, items]) => h2(`${esc(reg)} <span style="color:${C.muted};font-weight:400;font-size:15px;">· ${items.length}</span>`) + pickProjects(items, ed.perRegion || 4).map(leadRow).join('\n')).join('\n')}
+  <tr><td>${button('Browse all projects by country', utm(cfg.site + '/projects/', 'projects-hub'))}</td></tr>
+  <tr><td style="padding-top:16px;${font}font-size:13px;color:${C.muted};">Also free: the <a href="${esc(utm(cfg.site + '/trade-lanes/', 'lanes-hub'))}" style="color:${C.accent};">shipping lane risk tracker</a> and the <a href="${esc(mapInfra)}" style="color:${C.accent};">live project map</a>.</td></tr>`;
+const topCountries = countBy(epc, (it) => countryName(it.country)).slice(0, 3).map(([k]) => k);
+
+const head = DAILY
+  ? { kicker: 'World Trade Pro · Trade Flow Daily', title: 'Trade-flow brief', sub: `${fmtDay(TODAY)} ${TODAY.slice(0, 4)} · ${signals.length} top signals · ${epc.length} project${epc.length === 1 ? '' : 's'} unlocked today` }
+  : { kicker: 'World Trade Pro · Project Leads Weekly', title: `${epc.length} new infrastructure projects`, sub: `First seen ${fmtDay(epcFrom)} – ${fmtDay(epcTo)} ${TODAY.slice(0, 4)}${topCountries.length ? ' · most in ' + esc(topCountries.join(', ')) : ''}` };
 // Daily: one headline per line (tier, lane) - the card carries the picture, the e-mail stays short.
 const headlineRow = (it) => {
   const [t, color] = tier(score(it));
@@ -197,16 +186,7 @@ const sections = DAILY
   <tr><td style="padding-top:12px;${font}font-size:14px;"><a href="${esc(mapFlows)}" style="color:${C.accent};font-weight:700;text-decoration:none;">Open the live trade-flow map →</a></td></tr>
   ${epc.length ? `<tr><td style="padding-top:18px;${font}font-size:14px;color:#344054;"><b style="color:${C.ink};">${epc.length} infrastructure project${epc.length > 1 ? 's' : ''} unlocked today</b> (first seen ${fmtDay(epcFrom)}). <a href="${esc(utm(cfg.site + '/projects/', 'projects-hub'))}" style="color:${C.accent};font-weight:700;text-decoration:none;">Browse by country →</a><br><span style="color:${C.muted};font-size:13px;">Pro members saw them a week ago — <a href="${esc(unlock)}" style="color:${C.muted};">see new projects 7 days earlier</a>.</span></td></tr>` : ''}
   ${courseLine}`
-  : `${h2('Trade lanes under pressure', `Signals from the last 7 days (${fmtDay(flowFrom)} – ${fmtDay(flowTo)})`)}
-  ${lanesHtml}
-  ${h2('Top trade-flow signals', 'Ranked by our flow-impact score')}
-  ${signals.map(signalRow).join('\n')}
-  <tr><td>${button('Open the live trade-flow map', mapFlows)}</td></tr>
-  ${h2('New infrastructure projects', `${epc.length} projects first seen ${fmtDay(epcFrom)} – ${fmtDay(epcTo)}${bySector.length ? ' · ' + topList(bySector, 4) : ''}`)}
-  ${byCountry.length ? `<tr><td style="${font}font-size:13px;color:${C.muted};padding-bottom:6px;">Most active: ${topList(byCountry, 6)}</td></tr>` : ''}
-  ${projects.map(projectRow).join('\n')}
-  ${projectsBtn}
-  ${proNote}`;
+  : weeklySections;
 
 const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${head.kicker}</title></head>
 <body style="margin:0;padding:0;background:${C.bg};">
@@ -219,7 +199,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewp
     <div style="font-size:13px;color:${C.muted};padding-top:4px;">${head.sub}</div>
   </td></tr>
   ${sections}
-  ${DAILY ? '' : promo}
+
 </table>
 </td></tr></table>
 </td></tr></table>
@@ -229,12 +209,10 @@ const lead = laneStats[0];
 const top = signals[0] ? clean(signals[0].project_name) : '';
 const subject = DAILY
   ? (top.length > 90 ? top.slice(0, 87).replace(/\s+\S*$/, '') + '…' : top) + (signals.length > 1 ? ` + ${signals.length - 1} more signals` : '')
-  : lead?.critical
-    ? `${lead.lane.name}: ${lead.critical} critical signal${lead.critical > 1 ? 's' : ''} + ${epc.length} new projects`
-    : `This week in trade flows + ${epc.length} new infrastructure projects`;
+  : `${epc.length} new infrastructure projects this week${topCountries.length ? ': ' + topCountries.join(', ') : ''}`;
 const preview = DAILY
   ? (signals[1] ? clean(signals[1].project_name).slice(0, 140) : 'Today in trade flows')
-  : (signals[0] ? clean(signals[0].project_name).slice(0, 140) : 'Trade flows and new infrastructure projects this week');
+  : (projects[0] ? clean(projects[0].project_name).slice(0, 140) + (LOCKED ? ` · ${LOCKED} more locked for Pro` : '') : 'New infrastructure projects this week');
 
 const NAME = `${TODAY}-${EDITION}`;
 mkdirSync(OUT, { recursive: true });

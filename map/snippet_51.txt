@@ -51,7 +51,9 @@ function wtp_map_country_centroids() {
 }
 
 add_shortcode('wtp_intelligence_map', function() {
-    return '<div id="wtp-imap-root" data-report-type="both"></div>';
+    // data-nl: the "Get this by e-mail" link only shows once the newsletter signup is live (WTP Newsletter snippet).
+    $nl = function_exists('wtp_nl_ready') && wtp_nl_ready() ? '1' : '';
+    return '<div id="wtp-imap-root" data-report-type="both" data-nl="' . $nl . '"></div>';
 });
 
 add_action('wp_footer', function() {
@@ -783,6 +785,7 @@ body.home .social-widget { display:none; }
             '    <div class="wim-modeintro-who">' +
             '      <span data-role="introwho"></span> ' +
             '      <a class="wim-browse" data-role="introbrowse" href="#"></a>' +
+            '      <a class="wim-browse" data-role="introemail" href="#" style="display:none">📧 Get this by e-mail</a>' +
             '      <span class="wim-whofor-wrap">' +
             '        <span class="wim-whofor-toggle" data-role="whofortoggle">More ▾</span>' +
             '        <div class="wim-whofor-panel wim-float" data-role="whoforpanel" style="display:none;"></div>' +
@@ -848,6 +851,12 @@ var modalTitleEl = root.querySelector('[data-role="modaltitle"]');
             // Link to the server-rendered SEO pages for this mode (/projects/ or /trade-lanes/).
             var browseEl = root.querySelector('[data-role="introbrowse"]');
             if (browseEl) { browseEl.href = m.browse[0]; browseEl.textContent = m.browse[1]; }
+            // Newsletter for this mode: Trade Flow Daily or Project Leads Weekly (only once signup is live).
+            var emailEl = root.querySelector('[data-role="introemail"]');
+            if (emailEl && root.dataset.nl === '1') {
+                emailEl.style.display = '';
+                emailEl.href = '/newsletter/?list=' + (state.reportType === 'flow_distortion' ? 'flow' : 'projects');
+            }
             whoForPanel.innerHTML = m.rows.map(function(r) {
                 return '<div class="wim-whofor-row"><b>' + r[0] + '</b><span>' + r[1] + '</span></div>';
             }).join('');
