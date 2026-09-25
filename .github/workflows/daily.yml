@@ -59,6 +59,10 @@ jobs:
         if: ${{ steps.guard.outputs.skip != 'true' }}
         run: node sharecards.mjs --flash-only
 
+      - name: Merge duplicate Infrastructure projects first (a failure must not stop the posts)
+        if: ${{ steps.guard.outputs.skip != 'true' && vars.DEDUPE_PAUSED != 'true' }}
+        continue-on-error: true
+        run: python3 dedupe_projects.py
       - name: Generate the day's queue
         if: ${{ steps.guard.outputs.skip != 'true' }}
         run: node generate.mjs

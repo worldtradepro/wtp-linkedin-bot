@@ -1,0 +1,27 @@
+name: dedupe-projects
+
+# Merge duplicate Infrastructure projects (one project reported by several outlets / on several days)
+# and send the marks to the site. Recomputes everything each run, so it is safe to run any time;
+# it also runs inside linkedin-daily before the day's posts are picked.
+# Twice a day so a late pipeline ingest is covered. Pause: repository variable DEDUPE_PAUSED = true
+
+on:
+  schedule:
+    - cron: '23 9 * * *'
+    - cron: '23 16 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: dedupe-projects
+  cancel-in-progress: false
+
+jobs:
+  run:
+    if: ${{ vars.DEDUPE_PAUSED != 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 dedupe_projects.py
