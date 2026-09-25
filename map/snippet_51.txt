@@ -113,6 +113,8 @@ add_action('wp_footer', function() {
     .wim-seg button { appearance:none; border:none; background:transparent; color:var(--text-dim); font-size:12.5px; font-weight:600; padding:7px 12px; cursor:pointer; font-family:inherit; border-right:1px solid var(--line); }
     .wim-seg button.wim-locked { color:var(--text-faint); }
     .wim-seg button:last-child { border-right:none; }
+    .wim-seg a { color:var(--accent); font-size:12.5px; font-weight:700; padding:7px 12px; text-decoration:none; white-space:nowrap; }
+    .wim-seg a:hover { text-decoration:underline; }
     .wim-seg button.active { background:var(--accent-dim); color:var(--accent); }
     .wim-select { appearance:none; background:var(--bg-elev-2); border:1px solid var(--line); color:var(--text); font-size:12.5px; font-weight:600; padding:7px 26px 7px 12px; border-radius:8px; font-family:inherit; cursor:pointer; }
     .wim-spacer { flex:1; }
@@ -404,8 +406,8 @@ add_action('wp_footer', function() {
    space is left below it. */
 /* Layout fix 2026-09-05 (2): the mobile-only version of this fix above still
    let desktop pins float over/into the filter bar's own screen band (pins
-   near the top of the visible globe land in the same rows as "Last 7d /
-   7-15 days / 15 days+"). Made unconditional (not just <=760px) so the
+   near the top of the visible globe land in the same rows as the range
+   buttons). Made unconditional (not just <=760px) so the
    filter bar reserves real space on every screen size and the globe (and
    every pin on it) always renders strictly below it, never behind it. */
 #wtp-imap-root { display:flex; flex-direction:column; }
@@ -614,9 +616,11 @@ body.home .social-widget { display:none; }
             return '📍';
         }
 
-        // Default to "7-15 days", not 7d: the most recent 7 days of Infrastructure is the paid
-        // part (see wtp_opps_query's server-side gate), so a 7d default would show an empty
-        // globe to most first-time visitors. Everything older than 7 days is free.
+        // Infrastructure opens on "30 days", not 7d: the most recent 7 days is the paid part (see
+        // wtp_opps_query's server-side gate), so a 7d default would show an empty globe to most
+        // first-time visitors. For them the server clips 30/90 days to what is older than 7 days.
+        // The full history is not drawn on the globe (thousands of pins); "Full archive" links to
+        // the server-rendered /projects/ pages instead.
         // Two separate products (2026-09-19): Infrastructure = project pipeline, Trade Flows =
         // live signals. They have different taxonomies, sorting and audiences, so the page shows
         // ONE at a time (no "both" mix). ?view=flows deep-links to Trade Flows.
@@ -628,13 +632,12 @@ body.home .social-widget { display:none; }
             return root.dataset.reportType === 'flow_distortion' ? 'flow_distortion' : 'epc';
         }
         // Trade Flows are free at every date range (server: report_type=flow_distortion skips the
-        // gate) and perishable, so that mode opens on the freshest 7 days; Infrastructure keeps the
-        // free 7-15 day window as the paywall teaser.
+        // gate) and perishable, so that mode opens on the freshest 7 days; Infrastructure opens on 30 days.
         var startMode = initialMode();
-        var state = { range: startMode === 'flow_distortion' ? '7' : '7-15', sector: '', subsector: '', stage: '', tier: '', showMinor: false, reportType: startMode, topSector: '', lane: '', showLanes: true, weekK: 0 };
+        var state = { range: startMode === 'flow_distortion' ? '7' : '30', sector: '', subsector: '', stage: '', tier: '', showMinor: false, reportType: startMode, topSector: '', lane: '', showLanes: true, weekK: 0 };
         // weekK: which rolling 7-day window Trade Flows shows (0 = last 7 days; every week is free).
         var weeksData = [];
-        function defaultRange(mode) { return mode === 'flow_distortion' ? '7' : '7-15'; }
+        function defaultRange(mode) { return mode === 'flow_distortion' ? '7' : '30'; }
         var MODES = {
             epc: {
                 name: 'Infrastructure Projects',
@@ -764,8 +767,9 @@ body.home .social-widget { display:none; }
             '  </div>' +
             '  <div class="wim-seg" data-role="range">' +
             '    <button data-v="7" class="wim-locked">Last 7d 🔒</button>' +
-            '    <button data-v="7-15" class="active">7-15 days</button>' +
-            '    <button data-v="15plus">15 days+</button>' +
+            '    <button data-v="30" class="active">30 days</button>' +
+            '    <button data-v="90">90 days</button>' +
+            '    <a href="/projects/" data-role="archivelink" title="Every tracked project, country by country">Full archive →</a>' +
             '  </div>' +
             '  <div class="wim-count" data-role="count"></div>' +
             '  <button type="button" class="wim-tl-share" data-role="tlshare" title="Make a LinkedIn-ready image and caption from what is on the map" aria-label="Share on LinkedIn">Share ↗</button>' +
@@ -883,17 +887,11 @@ var modalTitleEl = root.querySelector('[data-role="modaltitle"]');
                 return { from: fmtDate(wa), to: fmtDate(wb) };
             }
             var to = new Date();
-            // "Last 7d" stops at day -6, not -7: day -7 belongs to the free "7-15 days"
-            // window (wtp_opps_query's free_to), so starting the locked range there would
-            // share a day with the free one and leak one real day of paid data through a
-            // locked button. "15 days+" starts at -16 so it does not repeat the 7-15 window's days.
+            // "Last 7d" stops at day -6, not -7: day -7 is the newest free day (wtp_opps_query's
+            // free_to), so "Last 7d" is exactly the paid week. 30/90 days run up to today; the
+            // server trims them to free_to for non-subscribers and reports the rest as locked_counts.
             var d6 = new Date(); d6.setDate(d6.getDate() - 6);
-            var d7 = new Date(); d7.setDate(d7.getDate() - 7);
-            var d15 = new Date(); d15.setDate(d15.getDate() - 15);
-            var d16 = new Date(); d16.setDate(d16.getDate() - 16);
             if (state.range === '7') return { from: fmtDate(d6), to: fmtDate(to) };
-            if (state.range === '7-15') return { from: fmtDate(d15), to: fmtDate(d7) };
-            if (state.range === '15plus') return { from: '2020-01-01', to: fmtDate(d16) };
             var from = new Date();
             from.setDate(from.getDate() - parseInt(state.range, 10));
             return { from: fmtDate(from), to: fmtDate(to) };
@@ -1760,7 +1758,9 @@ var __centroidKey = c ? (c[0].toFixed(3) + ',' + c[1].toFixed(3)) : null;
             // name how many signals are actually hidden there (locked_counts), rather
             // than silently substituting the free window's own data under a locked
             // button (that used to happen and reads as "the paywall doesn't do anything").
-            if (lastGated && lastFreeWindow) {
+            // Only the fully locked "Last 7d" view gets the overlay; 30/90 days show everything that is
+            // free, and the "Last 7d 🔒 (N)" button already says how much newer data is locked.
+            if (lastGated && lastFreeWindow && state.range === '7') {
                 // Only Infrastructure's newest 7 days is locked (2026-09-25); everything older and all Trade Flows are free.
                 var lockedCount = lastLockedCounts ? lastLockedCounts.recent : null;
                 var countPhrase = lockedCount !== null ? ('<b>' + lockedCount + '</b> new project' + (lockedCount === 1 ? '' : 's') + ' found in the last 7 days. ') : '';
@@ -2330,7 +2330,7 @@ var __centroidKey = c ? (c[0].toFixed(3) + ',' + c[1].toFixed(3)) : null;
             var fromTxt = pd.from < '2021-01-01' ? 'Archive' : tlShort(pd.from) + ' – ' + tlShort(pd.to);
             return {
                 caption: projectsCaption(pd), link: shareLink('projects', pd.to, 'infrastructure'), filename: 'projects-' + pd.to + '.png',
-                tip: state.range === '7' ? 'The last-7-days window is the paid part of the map — posting it gives away what subscribers pay for. The 7–15 day window keeps the paywall meaningful.' : '',
+                tip: state.range === '7' ? 'The last-7-days window is the paid part of the map — posting it gives away what subscribers pay for. The 30-day view keeps the paywall meaningful.' : '',
                 spec: {
                     title: 'New Infrastructure Projects', globe: 540, footer: 'Early project leads for BD teams',
                     sub: fromTxt + '  ·  ' + pd.total + ' projects  ·  ' + pd.preTender + ' before tender',
@@ -2410,7 +2410,7 @@ var __centroidKey = c ? (c[0].toFixed(3) + ',' + c[1].toFixed(3)) : null;
         // Date-range buttons for the active mode. Infrastructure: "Last 7d" is the paid week, the
         // other two are free. Trade Flows do not use them at all any more (the week timeline above
         // replaces them), so the button group is hidden in that mode.
-        var RANGE_LABELS = { '7': 'Last 7d', '7-15': '7-15 days', '15plus': '15 days+' };
+        var RANGE_LABELS = { '7': 'Last 7d', '30': '30 days', '90': '90 days' };
         function applyRangeUi() {
             var free = state.reportType === 'flow_distortion';
             var rangeSeg = root.querySelector('[data-role="range"]');
