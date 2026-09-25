@@ -153,7 +153,7 @@ add_action('wp_footer', function() {
     .wim-whofor-toggle:hover { text-decoration:underline; }
     /* Always-visible value proposition for the active mode (full-width second row of the filter bar). */
     .wim-modeseg button { font-size:13px; padding:7px 16px; }
-    /* Week-by-week timeline (Trade Flows mode): oldest week left, this week right. Bar height = Critical+Elevated signals that week, colour = worst tier, lock = subscriber-only week. */
+    /* Week-by-week timeline (Trade Flows mode): this week left, older weeks to the right. Bar height = Critical+Elevated signals that week, colour = worst tier. Every week is free (2026-09-25); the lock style only shows if the server ever marks a week locked. */
     .wim-timeline { flex:1 1 100%; order:9; display:flex; align-items:center; justify-content:center; gap:10px; padding-top:8px; border-top:1px solid var(--line); flex-wrap:wrap; }
     .wim-tl-play { appearance:none; border:1px solid var(--line-strong); background:var(--bg-elev-2); color:var(--accent); width:30px; height:30px; border-radius:50%; font-size:12px; cursor:pointer; padding:0 0 0 2px; font-family:inherit; }
     .wim-tl-play:hover { background:var(--accent-dim); }
@@ -1917,15 +1917,15 @@ var __centroidKey = c ? (c[0].toFixed(3) + ',' + c[1].toFixed(3)) : null;
             openItemsModal(unmapped, 'Global & Unmapped Signals');
         }
 
-        // Stamps the hidden-signal count straight onto the two locked range
-        // buttons (e.g. "Last 7d 🔒 (23)") so a non-subscriber can see how much
+        // Stamps the hidden-project count straight onto the locked "Last 7d" range
+        // button (e.g. "Last 7d 🔒 (23)") so a non-subscriber can see how much
         // is actually behind the paywall instead of guessing from an empty click.
         // Falls back to the plain label when no count is available yet (first
         // paint, or a subscriber for whom the server sends no locked_counts).
         // ── Trade Flows timeline (week by week) ───────────────────────────────────
         // Data: GET lane-weeks (server-side roll-up, so any amount of history stays cheap).
-        // k=0 (last 7 days) is free; older weeks come back as {locked:true,total} for
-        // non-subscribers, which is what draws the lock icons and the upsell.
+        // Every week is free since 2026-09-25 (the server no longer sends {locked:true}); the
+        // locked-week code paths below stay only as a fallback if a week is ever gated again.
         var LANE_WEEKS_API = /opportunities\/?$/.test(API) ? API.replace(/opportunities\/?$/, 'lane-weeks') : API.replace(/\/$/, '') + '/lane-weeks';
         // The subscription notice floats over the top of the globe, just under the filter bar,
         // instead of pushing the globe down (which used to shrink it on every locked click).
@@ -1950,7 +1950,7 @@ var __centroidKey = c ? (c[0].toFixed(3) + ',' + c[1].toFixed(3)) : null;
             var show = state.reportType === 'flow_distortion' && weeksData.length > 0;
             tl.style.display = show ? '' : 'none';
             if (!show) return;
-            // Displayed newest FIRST: the free week on the left, then the paid weeks going back in time.
+            // Displayed newest FIRST: this week on the left, then older weeks going back in time.
             var list = timelineList().slice().reverse();
             var heat = function(w) { return w.locked ? 0 : (w.tiers.crit + w.tiers.elev); };
             var maxHeat = Math.max.apply(null, list.map(heat).concat([1]));
