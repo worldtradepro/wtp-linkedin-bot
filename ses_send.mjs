@@ -69,7 +69,7 @@ function footer(token) {
   const why = EDITION === 'daily' ? 'the daily trade-flow brief' : 'the weekly summary';
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:14px 12px 28px;font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#98a2b3;">
     You get ${why} because you subscribed at worldtradepro.com.<br>
-    <a href="${esc(manage)}" style="color:#667085;">Unsubscribe or change e-mails</a> · World Trade Pro · ${esc(ses.postalAddress)}
+    <a href="${esc(manage)}" style="color:#667085;">Unsubscribe or change e-mails</a> · World Trade Pro · ${esc(POSTAL)}
   </td></tr></table>`;
 }
 function toText(html) {
@@ -103,13 +103,13 @@ const page = readFileSync(join(OUT, NAME + '.html'), 'utf8');
 const state = existsSync(STATE) ? JSON.parse(readFileSync(STATE, 'utf8')) : {};
 if (!ONLY && state[NAME]?.done) { console.log(`${NAME} already sent (${state[NAME].sent} messages) - nothing to do`); process.exit(0); }
 
-let rcpts;
-if (ONLY) rcpts = [{ email: ONLY, token: '0'.repeat(32) }];
-else {
-  const r = await fetch(`${SITE}/wp-json/wtp/v1/subscribers?edition=${EDITION}&secret=${encodeURIComponent(process.env.WTP_BOT_SECRET || '')}`, { headers: { 'user-agent': 'wtp-linkedin-bot/1.0' } });
-  if (!r.ok) throw new Error(`subscriber list -> HTTP ${r.status}`);
-  rcpts = (await r.json()).items || [];
-}
+// Recipients + the footer's postal address come from the site (kept out of this public repo).
+const listRes = await fetch(`${SITE}/wp-json/wtp/v1/subscribers?edition=${EDITION}&secret=${encodeURIComponent(process.env.WTP_BOT_SECRET || '')}`, { headers: { 'user-agent': 'wtp-linkedin-bot/1.0' } });
+if (!listRes.ok) throw new Error(`subscriber list -> HTTP ${listRes.status}`);
+const list = await listRes.json();
+const POSTAL = list.address || ses.postalAddress || '';
+if (!POSTAL) console.log('::warning::No postal address set (WordPress: Settings -> WTP Newsletter) - required in marketing e-mail footers.');
+const rcpts = ONLY ? [{ email: ONLY, token: '0'.repeat(32) }] : (list.items || []);
 const idOf = (email) => createHmac('sha256', process.env.WTP_BOT_SECRET || 'local').update(email.toLowerCase()).digest('hex').slice(0, 20);
 const done = new Set(!ONLY && existsSync(PROGRESS) ? JSON.parse(readFileSync(PROGRESS, 'utf8')) : []);
 const todo = rcpts.filter((x) => !done.has(idOf(x.email)));

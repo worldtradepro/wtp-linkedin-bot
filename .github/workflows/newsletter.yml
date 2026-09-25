@@ -1,0 +1,61 @@
+name: newsletter
+
+# E-mail editions from the public API -> Amazon SES, one message per subscriber of the site's own list.
+#   daily  : Monday-Friday ~04:30 UTC, to subscribers who ticked the daily brief (skipped on a day with < 3 signals)
+#   weekly : Tuesday ~04:15 UTC, to subscribers of the weekly summary
+# Needs secrets AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY (IAM user that may only send via SES) and WTP_BOT_SECRET.
+# Pause everything: repository variable NEWSLETTER_PAUSED = true
+
+on:
+  schedule:
+    - cron: '23 4 * * 1-5'   # daily edition
+    - cron: '13 4 * * 2'     # weekly edition
+  workflow_dispatch:
+    inputs:
+      edition:
+        description: 'daily or weekly'
+        required: true
+        default: 'weekly'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: newsletter
+  cancel-in-progress: false
+
+jobs:
+  run:
+    if: ${{ vars.NEWSLETTER_PAUSED != 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pick the edition
+        id: ed
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then E="${{ inputs.edition }}";
+          elif [ "${{ github.event.schedule }}" = "13 4 * * 2" ]; then E=weekly; else E=daily; fi
+          echo "edition=$E" >> "$GITHUB_OUTPUT"; echo "Edition: $E"
+      - name: Check secrets
+        run: |
+          test -n "$AWS_ACCESS_KEY_ID" && test -n "$AWS_SECRET_ACCESS_KEY" || { echo "::error::AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY missing"; exit 1; }
+          test -n "$WTP_BOT_SECRET" || { echo "::error::WTP_BOT_SECRET missing"; exit 1; }
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Build the issue
+        run: node newsletter.mjs --edition ${{ steps.ed.outputs.edition }}
+      - name: Send through Amazon SES
+        run: node ses_send.mjs --edition ${{ steps.ed.outputs.edition }}
+      - name: Keep the issue + state in the repo
+        run: |
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          git add newsletter/out state/newsletter.json 2>/dev/null || git add newsletter/out
+          git commit -m "newsletter $(date -u +%F) ${{ steps.ed.outputs.edition }}" || exit 0
+          git pull --rebase origin main && git push origin HEAD:main
