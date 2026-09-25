@@ -4,7 +4,7 @@
 //   daily:  Trade Flow signals of the last 24 hours (48h on a quiet day) + the projects that became
 //           free today (first seen exactly 7 days ago). Skipped (skip:true) with fewer than 3 signals.
 // Writes newsletter/out/<date>-<edition>.html (e-mail body, inline styles) + .json (subject, preview, counts).
-// Sending is a separate step (kit_push.mjs).
+// Sending is a separate step (ses_send.mjs).
 //
 // Usage:  node newsletter.mjs [--edition weekly|daily] [--date YYYY-MM-DD]
 

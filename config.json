@@ -68,13 +68,6 @@
     "projects": 6,
     "minFlowScore": 8,
     "sendTimeUtc": "06:30",
-    "kit": {
-      "mode": "draft",
-      "tags": {
-        "weekly": "wtp-weekly",
-        "daily": "wtp-daily"
-      }
-    },
     "promo": {
       "enabled": true,
       "title": "The Paper Trail: A Survival Guide to Commodity Trading",
@@ -90,6 +83,15 @@
     },
     "weekly": {
       "sendTimeUtc": "06:30"
+    },
+    "ses": {
+      "region": "eu-west-1",
+      "from": "brief@worldtradepro.com",
+      "fromName": "World Trade Pro",
+      "replyTo": "contact@worldtradepro.com",
+      "postalAddress": "",
+      "configurationSet": "",
+      "weeklyReserve": 0
     }
   }
 }
