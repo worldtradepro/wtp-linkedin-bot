@@ -23,6 +23,7 @@ const dateArg = args.includes('--date') ? args[args.indexOf('--date') + 1] : nul
 const TODAY = dateArg || new Date().toISOString().slice(0, 10);
 const API = cfg.site + '/wp-json/wtp/v1/opportunities';
 const STATE_FILE = join(HERE, 'state', 'used.json');
+const RECENT_FILE = join(HERE, 'state', 'recent_posts.json');   // headlines of the last days' news posts (topic repeats across days)
 
 
 const TIER_HINT = (n) => n >= 12 ? 'Likely to move prices or disrupt flows now' : (n >= 8 ? 'Material development worth tracking' : 'Background signal');
@@ -54,8 +55,11 @@ function pickNews(items, n, minScore, used, blocked) {
       if (picks.length >= n) return;
       if (picks.includes(it)) continue;
       if (picks.some((p) => p.source_url === it.source_url || similar(p.project_name, it.project_name))) continue;
+      if (recentNews.some((r) => similar(r.title, it.project_name))) continue;   // same story from another outlet on a later day
       const lane = laneOf(it);
       if (strict) {
+        // same country + sector posted in the last 2 days (2026-09-26: two Saudi Red Sea export stories on consecutive days) - only when nothing else qualifies
+        if (isoOf(it.country) && recentNews.some((r) => r.date >= dayShift(TODAY, -2) && r.iso === isoOf(it.country) && r.sector === it.sector)) continue;
         if (lane && picks.some((p) => laneOf(p)?.id === lane.id)) continue;             // one post per lane per day
         if (picks.filter((p) => p.sector === it.sector).length >= Math.ceil(n / 2)) continue; // spread across sectors
       }
@@ -277,6 +281,8 @@ function weeklyCardPost(items, date, slot) {
 // ---------------------------------------------------------------- main
 const used = new Set(existsSync(STATE_FILE) ? JSON.parse(readFileSync(STATE_FILE, 'utf8')).urls || [] : []);
 
+const recentNews = (existsSync(RECENT_FILE) ? JSON.parse(readFileSync(RECENT_FILE, 'utf8')).posts || [] : []).filter((r) => r.date >= dayShift(TODAY, -3) && r.date < TODAY);
+
 const flow = await fetchJson(`${API}?report_type=flow_distortion&from=${dayShift(TODAY, -2)}&to=${TODAY}&limit=1000`);
 // Infrastructure: the freshest 7 days are the paid window, so anonymous requests only ever see 7-15 days back.
 // With WTP_BOT_SECRET set (env var / GitHub secret — never commit it) the API skips the gate and the bot posts the
@@ -343,5 +349,9 @@ if (!DRY) {
   for (const it of (isWeekly ? projs : shown)) used.add(it.source_url);   // projects that only appear on the daily card must not come back tomorrow
   mkdirSync(join(HERE, 'state'), { recursive: true });
   writeFileSync(STATE_FILE, JSON.stringify({ urls: [...used].slice(-600) }, null, 2));
+  const kept = (existsSync(RECENT_FILE) ? JSON.parse(readFileSync(RECENT_FILE, 'utf8')).posts || [] : []).filter((r) => r.date >= dayShift(TODAY, -14) && r.date !== TODAY);
+  const today = [...news, ...flashPicks.map((f) => ({ project_name: f.title, country: f.country, sector: f.sector }))].filter((it) => it.project_name)
+    .map((it) => ({ date: TODAY, title: it.project_name, iso: isoOf(it.country), sector: it.sector || '' }));
+  writeFileSync(RECENT_FILE, JSON.stringify({ posts: [...kept, ...today] }, null, 2));
   console.error(`\nWrote ${posts.length} posts to ${dir}`);
 }

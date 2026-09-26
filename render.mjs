@@ -11,6 +11,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { stockPhoto } from './stock_photo.mjs';
+import { createHash } from 'node:crypto';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -21,6 +22,14 @@ const DIR = join(HERE, 'queue', DATE);
 const IMG = join(DIR, 'images');
 const cfg = JSON.parse(readFileSync(join(HERE, 'config.json'), 'utf8'));
 const MAX_EXCERPT = 850;
+// Images used in the last 30 days (URL without query + content hash): some outlets put the same file photo on every story
+// about a topic (2026-09-26: two Saudi pipeline posts in a row with one oilprice.com picture) -> a repeat goes to the stock-photo fallback.
+const IMG_STATE = join(HERE, 'state', 'images_used.json');
+const imgUsed = (existsSync(IMG_STATE) ? JSON.parse(readFileSync(IMG_STATE, 'utf8')).items || [] : [])
+  .filter((x) => x.date >= new Date(Date.now() - 30 * 864e5).toISOString().slice(0, 10));
+const imgKey = (u) => (u || '').replace(/[?#].*$/, '');
+const sha1 = (buf) => createHash('sha1').update(buf).digest('hex');
+const imgSeen = (url, buf) => imgUsed.find((x) => (url && x.url === imgKey(url)) || (buf && x.hash === sha1(buf)));
 const W = 1200, H = 760, FH = 800;
 
 const clean = (s) => (s || '').replace(/\s+/g, ' ').trim();
@@ -405,6 +414,8 @@ for (const f of files) {
     const imageMode = cfg.imageMode || 'photo';
     let photo = null;
     if (imageMode === 'photo') { try { photo = await leadPhoto(page); } catch (e) { why = 'photo lookup failed: ' + String(e.message || e).slice(0, 60); } }
+    const seen = photo && imgSeen(photo.url, photo.jpeg);
+    if (seen) { why = 'lead photo already used on ' + seen.date + ' -> stock photo'; console.log('  ' + p.id + ': ' + why); photo = null; }
     if (photo) { writeFileSync(outPhoto, photo.jpeg); kind = 'photo'; photoUrl = photo.url; photoMime = photo.mime; why = 'article lead photo ' + photo.w + 'x' + photo.h; }
     const wantShot = imageMode === 'screenshot' && !(p.type === 'project' && cfg.accounts.infra.imageMode === 'card');
     if (!wantShot) { if (!photo && !why) why = 'no usable lead photo -> own themed card'; if (sameArticle && info.h1) articleHeadline = info.h1; }   // the article's own headline is more descriptive than the terse project name
@@ -494,10 +505,12 @@ for (const f of files) {
     imagePath: 'images/' + p.id + (kind === 'photo' ? '.jpg' : '.png'), imageKind: kind, imageUrl: photoUrl || null, imageRehost: kind === 'photo' && !/jpeg|png|gif/i.test(photoMime), stockPhoto: !!stockCredit || /^Unsplash/.test(why), excerptFromArticle: !!excerpt, renderNote: why,
   });
   writeFileSync(path, JSON.stringify(p, null, 2));
+  if (kind === 'photo' && existsSync(outPhoto)) imgUsed.push({ date: DATE, id: p.id, url: imgKey(photoUrl), hash: sha1(readFileSync(outPhoto)) });
   report.push({ id: p.id, image: kind, note: why, excerptChars: excerpt.length });
   console.log(`${p.id}: ${kind} (${why}) · excerpt ${excerpt.length} chars`);
 }
 await browser.close();
+if (!ONLY) writeFileSync(IMG_STATE, JSON.stringify({ items: imgUsed }, null, 2));
 
 // human-readable preview with the final text
 const A = cfg.accounts;
