@@ -39,6 +39,12 @@
   "mapLinkInFirstComment": false,
   "sourceLink": "body",
   "imageMode": "photo",
+  "imageSearch": {
+    "enabled": true,
+    "types": ["news", "project"],
+    "credit": true,
+    "minScore": 0.62
+  },
   "stockPhoto": {
     "enabled": true,
     "types": [

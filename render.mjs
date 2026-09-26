@@ -11,6 +11,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { stockPhoto } from './stock_photo.mjs';
+import { bestImage, loadPhoto } from './image_search.mjs';
 import { createHash } from 'node:crypto';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -33,6 +34,7 @@ const imgSeen = (url, buf) => imgUsed.find((x) => (url && x.url === imgKey(url))
 const W = 1200, H = 760, FH = 800;
 
 const clean = (s) => (s || '').replace(/\s+/g, ' ').trim();
+const hostOf = (u) => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return ''; } };
 const STOP = new Set('the and for with from that this into over amid after their than have will says said its are was has new more your'.split(' '));
 const toks = (s) => new Set(clean(s).toLowerCase().replace(/[^a-z0-9 ]/g, ' ').split(' ').filter((w) => w.length > 3 && !STOP.has(w)));
 const overlap = (a, b) => { const A = toks(a), B = toks(b); if (!A.size || !B.size) return 0; let n = 0; for (const w of A) if (B.has(w)) n++; return n / Math.min(A.size, B.size); };
@@ -300,52 +302,33 @@ const BAD_IMG = /logo|placeholder|default|fallback|favicon|sprite|brand|avatar|i
 async function leadPhoto(page) {
   const cands = await page.evaluate(() => {
     const abs = (u) => { try { return new URL(u, location.href).href; } catch { return ''; } };
-    const meta = (n) => abs(document.querySelector('meta[property="' + n + '"],meta[name="' + n + '"]')?.content || '');
-    const out = [meta('og:image'), meta('og:image:url'), meta('twitter:image')];
+    const meta = (n) => document.querySelector('meta[property="' + n + '"],meta[name="' + n + '"]')?.content || '';
+    const altOf = (u) => {   // caption / alt text of the picture on the page (tells whether it shows THIS story or is a file photo)
+      const file = (u.split('?')[0].split('/').pop() || '').slice(0, 40);
+      const img = !file ? null : [...document.images].find((i) => (i.currentSrc || i.src).includes(file));
+      return [img?.alt, img?.title, img?.closest('figure')?.querySelector('figcaption')?.innerText].filter(Boolean).join(' ');
+    };
+    const out = [];
+    for (const n of ['og:image', 'og:image:url', 'twitter:image']) { const u = abs(meta(n)); if (u) out.push({ u, alt: [meta('og:image:alt'), meta('twitter:image:alt'), altOf(u)].filter(Boolean).join(' ') }); }
     const imgs = [...document.querySelectorAll('article img, main img, [class*="article" i] img')]
       .filter((i) => i.complete && i.naturalWidth >= 600 && !i.closest('[class*="advert" i],[class*="sponsor" i],[id*="google_ads" i],[class*="related" i],aside,footer,nav'))
-      .map((i) => ({ u: abs(i.currentSrc || i.src), a: i.naturalWidth * i.naturalHeight })).sort((a, b) => b.a - a.a);
-    if (imgs[0]) out.push(imgs[0].u);
-    return [...new Set(out.filter(Boolean))];
+      .map((i) => ({ u: abs(i.currentSrc || i.src), a: i.naturalWidth * i.naturalHeight, alt: [i.alt, i.closest('figure')?.querySelector('figcaption')?.innerText].filter(Boolean).join(' ') })).sort((a, b) => b.a - a.a);
+    if (imgs[0]) out.push({ u: imgs[0].u, alt: imgs[0].alt });
+    return out.filter((c, k) => out.findIndex((x) => x.u === c.u) === k);
   });
-  const rq = page.context().request;
   const origin = new URL(page.url()).origin;
   let generic = '';
   try {
-    const r = await rq.get(origin + '/', { timeout: 12000 });
+    const r = await page.context().request.get(origin + '/', { timeout: 12000 });
     const m = (await r.text()).match(/<meta[^>]+(?:property|name)=["']og:image["'][^>]+content=["']([^"']+)/i);
     if (m) generic = new URL(m[1], origin).href;
   } catch { /* homepage unreachable: skip the generic-banner check */ }
-  const tmp = await page.context().newPage();
-  try {
-    for (const url of cands) {
-      let path = ''; try { path = new URL(url).pathname; } catch { continue; }
-      if (BAD_IMG.test(path) || (generic && url === generic)) continue;
-      let resp; try { resp = await rq.get(url, { timeout: 15000, headers: { referer: page.url() } }); } catch { continue; }
-      if (!resp.ok()) continue;
-      const body = await resp.body();
-      if (body.length < 20000) continue;
-      // some CDNs serve pictures as application/octet-stream: trust the file's own magic bytes, not the header
-      const head4 = body.subarray(0, 4).toString('hex');
-      const ctype = body[0] === 0xff && body[1] === 0xd8 ? 'image/jpeg' : head4 === '89504e47' ? 'image/png' : (body.subarray(0, 4).toString() === 'RIFF' && body.subarray(8, 12).toString() === 'WEBP') ? 'image/webp' : body.subarray(0, 3).toString() === 'GIF' ? 'image/gif' : '';
-      if (!ctype) continue;
-      const res = await tmp.evaluate(async ({ b64, mime }) => {
-        const img = new Image(); img.src = 'data:' + mime + ';base64,' + b64;
-        try { await img.decode(); } catch { return null; }
-        const w = img.naturalWidth, h = img.naturalHeight, r = w / h;
-        if (w < 600 || h < 315 || r < 1.0 || r > 2.4) return { ok: false };
-        const k = document.createElement('canvas'); k.width = 64; k.height = 36;
-        const kg = k.getContext('2d'); kg.drawImage(img, 0, 0, 64, 36);
-        const d = kg.getImageData(0, 0, 64, 36).data, seen = new Set();
-        for (let i = 0; i < d.length; i += 4) seen.add((d[i] >> 4) + ',' + (d[i + 1] >> 4) + ',' + (d[i + 2] >> 4));
-        if (seen.size < 45) return { ok: false };   // flat / few-colour graphic = a logo banner, not a photo
-        const s = Math.min(1, 1600 / w), c = document.createElement('canvas'); c.width = Math.round(w * s); c.height = Math.round(h * s);
-        const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
-        return { ok: true, w: c.width, h: c.height, data: c.toDataURL('image/jpeg', 0.9).split(',')[1] };
-      }, { b64: body.toString('base64'), mime: ctype });
-      if (res && res.ok) return { url, w: res.w, h: res.h, jpeg: Buffer.from(res.data, 'base64'), mime: ctype };
-    }
-  } finally { await tmp.close(); }
+  for (const c of cands) {
+    let path = ''; try { path = new URL(c.u).pathname; } catch { continue; }
+    if (BAD_IMG.test(path) || (generic && c.u === generic)) continue;
+    const photo = await loadPhoto(page.context(), c.u, page.url(), { minR: 1.0, maxR: 2.4 });
+    if (photo) return { photo, alt: clean(c.alt) };
+  }
   return null;
 }
 
@@ -381,7 +364,7 @@ for (const f of files) {
     continue;
   }
   const page = await ctx.newPage();
-  let kind = 'card', why = '', excerpt = '', articleHeadline = '', realSource = '', photoUrl = '', photoMime = '', stockCredit = '';
+  let kind = 'card', why = '', excerpt = '', articleHeadline = '', realSource = '', photoUrl = '', photoMime = '', stockCredit = '', imageCredit = '', rehost = false;
   try {
     await page.goto(p.sourceUrl, { waitUntil: 'domcontentloaded', timeout: 35000 });
     // Some pipeline rows carry a Google News redirect link: wait until it lands on the real publisher page, then use THAT as the source.
@@ -413,10 +396,29 @@ for (const f of files) {
     // imageMode "photo" (default): the article's lead photo like the friend's posts, else our own themed portrait card. "screenshot" = the old headline crop.
     const imageMode = cfg.imageMode || 'photo';
     let photo = null;
-    if (imageMode === 'photo') { try { photo = await leadPhoto(page); } catch (e) { why = 'photo lookup failed: ' + String(e.message || e).slice(0, 60); } }
-    const seen = photo && imgSeen(photo.url, photo.jpeg);
-    if (seen) { why = 'lead photo already used on ' + seen.date + ' -> stock photo'; console.log('  ' + p.id + ': ' + why); photo = null; }
-    if (photo) { writeFileSync(outPhoto, photo.jpeg); kind = 'photo'; photoUrl = photo.url; photoMime = photo.mime; why = 'article lead photo ' + photo.w + 'x' + photo.h; }
+    const isCfg = cfg.imageSearch || {};
+    if (imageMode === 'photo') {
+      let lead = null;
+      try { lead = await leadPhoto(page); } catch (e) { why = 'photo lookup failed: ' + String(e.message || e).slice(0, 60); }
+      if (isCfg.enabled !== false && (isCfg.types || ['news', 'project']).includes(p.type)) {
+        // relevance first (user 2026-09-26): the article's own photo competes with image-search results for the headline's key words
+        const head = sameArticle && info.h1 ? info.h1 : p.headline;
+        try {
+          photo = await bestImage(ctx, { headline: head, context: excerpt, articleUrl: realSource || p.sourceUrl, lead, seen: imgSeen, minScore: isCfg.minScore ?? 0.45 }, (m) => console.log('  ' + p.id + ': ' + m));
+        } catch (e) { console.log('  ' + p.id + ': image search failed: ' + String(e.message || e).slice(0, 80)); }
+        if (!photo && lead?.photo && !imgSeen(lead.photo.url, lead.photo.jpeg)) photo = { ...lead.photo, credit: hostOf(realSource || p.sourceUrl), source: 'article', note: 'article photo (nothing more relevant found)' };
+        if (!photo && !why) why = 'no relevant photo found';
+      } else if (lead?.photo) {
+        const seen = imgSeen(lead.photo.url, lead.photo.jpeg);
+        if (seen) why = 'lead photo already used on ' + seen.date; else photo = { ...lead.photo, source: 'article', note: 'article lead photo' };
+      }
+    }
+    if (photo) {
+      writeFileSync(outPhoto, photo.jpeg); kind = 'photo'; photoUrl = photo.url; photoMime = photo.mime;
+      rehost = photo.source === 'search';   // third-party sites often block hot-linking: serve our own copy
+      if (photo.credit && isCfg.credit !== false) imageCredit = '📷 Image: ' + photo.credit;
+      why = (photo.note || 'photo') + ' ' + photo.w + 'x' + photo.h;
+    }
     const wantShot = imageMode === 'screenshot' && !(p.type === 'project' && cfg.accounts.infra.imageMode === 'card');
     if (!wantShot) { if (!photo && !why) why = 'no usable lead photo -> own themed card'; if (sameArticle && info.h1) articleHeadline = info.h1; }   // the article's own headline is more descriptive than the terse project name
     if (wantShot && sameArticle && !blocked && info.region && info.visibleChars > 400) {
@@ -499,10 +501,12 @@ for (const f of files) {
   const blocks = [...p.blocks];
   if (excerpt) blocks[p.descIndex] = excerpt;
   if (articleHeadline) blocks[0] = `${p.headPrefix || ''} ${clean(articleHeadline)}`.trim();
+  for (let k = blocks.length - 1; k >= 0; k--) if (/^📷 /.test(blocks[k] || '')) blocks.splice(k, 1);   // a re-render must not stack credit lines
+  if (imageCredit && !stockCredit) blocks.splice(/^#/.test(blocks[blocks.length - 1] || '') ? blocks.length - 1 : blocks.length, 0, imageCredit);   // where the picture comes from
   if (stockCredit) blocks.splice(/^#/.test(blocks[blocks.length - 1] || '') ? blocks.length - 1 : blocks.length, 0, stockCredit);   // photographer credit sits just above the hashtags
   Object.assign(p, {
     blocks, text: blocks.filter(Boolean).join('\n\n'),
-    imagePath: 'images/' + p.id + (kind === 'photo' ? '.jpg' : '.png'), imageKind: kind, imageUrl: photoUrl || null, imageRehost: kind === 'photo' && !/jpeg|png|gif/i.test(photoMime), stockPhoto: !!stockCredit || /^Unsplash/.test(why), excerptFromArticle: !!excerpt, renderNote: why,
+    imagePath: 'images/' + p.id + (kind === 'photo' ? '.jpg' : '.png'), imageKind: kind, imageUrl: photoUrl || null, imageRehost: kind === 'photo' && (rehost || !/jpeg|png|gif/i.test(photoMime)), imageCredit: stockCredit ? '' : imageCredit, stockPhoto: !!stockCredit || /^Unsplash/.test(why), excerptFromArticle: !!excerpt, renderNote: why,
   });
   writeFileSync(path, JSON.stringify(p, null, 2));
   if (kind === 'photo' && existsSync(outPhoto)) imgUsed.push({ date: DATE, id: p.id, url: imgKey(photoUrl), hash: sha1(readFileSync(outPhoto)) });
