@@ -53,9 +53,24 @@ jobs:
       - name: Send through Amazon SES
         run: node ses_send.mjs --edition ${{ steps.ed.outputs.edition }}
       - name: Keep the issue + state in the repo
+        # Another newsletter run may have pushed meanwhile (a dispatch runs the commit it was started on):
+        # merge the sent-record JSON by key instead of rebasing, and stage only this issue's files.
+        if: always()
         run: |
           git config user.name "wtp-bot"
           git config user.email "wtp-bot@users.noreply.github.com"
-          git add newsletter/out state/newsletter.json 2>/dev/null || git add newsletter/out
-          git commit -m "newsletter $(date -u +%F) ${{ steps.ed.outputs.edition }}" || exit 0
-          git pull --rebase origin main && git push origin HEAD:main
+          N="$(date -u +%F)-${{ steps.ed.outputs.edition }}"
+          for i in 1 2 3; do
+            git fetch -q origin main
+            git show origin/main:state/newsletter.json > /tmp/remote.json 2>/dev/null || echo '{}' > /tmp/remote.json
+            test -f state/newsletter.json || echo '{}' > state/newsletter.json
+            node -e "const fs=require('fs');const r=JSON.parse(fs.readFileSync('/tmp/remote.json'));const l=JSON.parse(fs.readFileSync('state/newsletter.json'));fs.writeFileSync('state/newsletter.json',JSON.stringify({...r,...l},null,2)+'
+')"
+            git reset -q --mixed origin/main
+            git add state/newsletter.json newsletter/out/$N.* 2>/dev/null || true
+            git diff --cached --quiet && exit 0
+            git commit -q -m "newsletter $N"
+            git push origin HEAD:main && exit 0
+            sleep 5
+          done
+          exit 1
