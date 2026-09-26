@@ -1,21 +1,21 @@
 name: newsletter
 
 # E-mail editions from the public API -> Amazon SES, one message per subscriber of the site's own list.
-#   daily  : Monday-Friday ~04:30 UTC, to subscribers who ticked the daily brief (skipped on a day with < 3 signals)
-#   weekly : Tuesday ~04:15 UTC, to subscribers of the weekly summary
+#   flow     : "Trade Flow Weekly", Mondays ~04:20 UTC
+#   projects : "EPC Project Leads Weekly", Tuesdays ~04:15 UTC
 # Needs secrets AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY (IAM user that may only send via SES) and WTP_BOT_SECRET.
 # Pause everything: repository variable NEWSLETTER_PAUSED = true
 
 on:
   schedule:
-    - cron: '23 4 * * 1-5'   # daily edition
-    - cron: '13 4 * * 2'     # weekly edition
+    - cron: '23 4 * * 1'     # Trade Flow Weekly
+    - cron: '13 4 * * 2'     # EPC Project Leads Weekly
   workflow_dispatch:
     inputs:
       edition:
-        description: 'daily or weekly'
+        description: 'flow or projects'
         required: true
-        default: 'weekly'
+        default: 'projects'
 
 permissions:
   contents: write
@@ -39,7 +39,7 @@ jobs:
         id: ed
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then E="${{ inputs.edition }}";
-          elif [ "${{ github.event.schedule }}" = "13 4 * * 2" ]; then E=weekly; else E=daily; fi
+          elif [ "${{ github.event.schedule }}" = "13 4 * * 2" ]; then E=projects; else E=flow; fi
           echo "edition=$E" >> "$GITHUB_OUTPUT"; echo "Edition: $E"
       - name: Check secrets
         run: |

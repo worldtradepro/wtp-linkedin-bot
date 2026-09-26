@@ -2,15 +2,14 @@
 //   Recipients: GET <site>/wp-json/wtp/v1/subscribers?edition=... (the site's own double-opt-in list,
 //   snippet "WTP Newsletter"), one message each, with a personal unsubscribe link in the footer and
 //   RFC 8058 one-click List-Unsubscribe headers (Gmail / Yahoo bulk-sender rules).
-//   Before sending, checks SES's 24-hour quota; a run that would not fit is refused (the daily edition
-//   is skipped with a warning, so the weekly one keeps its room).
+//   Before sending, checks SES's 24-hour quota; a run that would not fit is refused (exit 1, so it is noticed).
 //   Progress is written after every message (newsletter/out/<name>.sent.json), so a re-run after a
 //   crash continues where it stopped instead of sending twice. This repo and its Actions logs are
 //   PUBLIC: the progress file holds only keyed hashes (HMAC with WTP_BOT_SECRET), and logs never
 //   print an address.
 // Env: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION (IAM user limited to SES sending), WTP_BOT_SECRET.
 //
-// Usage:  node ses_send.mjs [--edition weekly|daily] [--date YYYY-MM-DD] [--dry] [--to me@example.com]
+// Usage:  node ses_send.mjs [--edition flow|projects] [--date YYYY-MM-DD] [--dry] [--to me@example.com]
 //   --dry  list what would be sent        --to  send only to this one address (test; no state written)
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
@@ -26,7 +25,8 @@ const args = process.argv.slice(2);
 const arg = (k) => (args.includes(k) ? args[args.indexOf(k) + 1] : null);
 const DRY = args.includes('--dry');
 const ONLY = arg('--to');
-const EDITION = arg('--edition') || 'weekly';
+const EDITION = arg('--edition') || 'projects';
+if (!['flow', 'projects'].includes(EDITION)) throw new Error('--edition must be flow or projects');
 const TODAY = arg('--date') || new Date().toISOString().slice(0, 10);
 const NAME = `${TODAY}-${EDITION}`;
 const OUT = join(HERE, 'newsletter', 'out');
@@ -66,7 +66,7 @@ async function sesCall(method, path, body) {
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 function footer(token) {
   const manage = `${SITE}/newsletter/unsubscribe/?t=${token}`;
-  const why = EDITION === 'daily' ? 'Trade Flow Daily' : 'Project Leads Weekly';
+  const why = EDITION === 'flow' ? 'Trade Flow Weekly' : 'EPC Project Leads Weekly';
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:14px 12px 28px;font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#98a2b3;">
     You get ${why} because you subscribed at worldtradepro.com.<br>
     <a href="${esc(manage)}" style="color:#667085;">Unsubscribe or change e-mails</a> · World Trade Pro · ${esc(POSTAL)}
@@ -119,12 +119,12 @@ if (DRY || !todo.length) process.exit(0);
 const account = await sesCall('GET', '/v2/email/account');
 const quota = account.SendQuota || {};
 const left = Math.floor((quota.Max24HourSend ?? 0) - (quota.SentLast24Hours ?? 0));
-const reserve = EDITION === 'daily' ? (nl.ses.weeklyReserve || 0) : 0;   // keep room for Tuesday's weekly
+const reserve = 0;
 if (!account.ProductionAccessEnabled && !ONLY) console.log('::warning::SES is still in sandbox mode: only verified addresses will receive mail.');
 if (todo.length > left - reserve) {
   const msg = `SES quota: ${left} left in 24h (reserve ${reserve}), ${todo.length} needed - ${NAME} NOT sent. Raise the SES sending quota.`;
   console.log(`::error::${msg}`);
-  process.exit(EDITION === 'daily' ? 0 : 1);   // a skipped daily is fine; a skipped weekly must be noticed
+  process.exit(1);   // a skipped weekly issue must be noticed
 }
 const gap = Math.ceil(1000 / Math.max(1, (quota.MaxSendRate || 1) * 0.8));
 let sent = 0, failed = 0;
