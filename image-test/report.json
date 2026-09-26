@@ -2,16 +2,15 @@
   {
     "headline": "Aramco Restores East-West Pipeline as War Risk Closes In on Yanbu",
     "query": "aramco east-west yanbu pipeline",
-    "pick": null,
+    "pick": {
+      "url": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA2cJGjl.img?w=1200&h=872&m=4&q=93",
+      "credit": "msn.com",
+      "note": "news photo \"aramco east-west yanbu pipeline\" #2 match 0.65 \"Saudi Arabia restarts East-West oil pipeline, to resume expo\"",
+      "w": 1200,
+      "h": 872
+    },
     "logs": [
-      "raw rows: 12",
-      "Saudi East-West pipeline restarts, but full flow may take weeks | https://www.msn.com/en-us/news/other/saudi-east-west-pipelin | Wed, 23 Sep 2026 02:28:58 GMT",
-      "Saudis in process of starting vital East-West oil pipeline | https://businessmirror.com.ph/2026/09/23/saudis-in-process-o | Wed, 23 Sep 2026 03:58:00 GMT",
-      "Saudi Arabia East-West Pipeline restarts after drone attacks | https://finance.yahoo.com/energy/articles/saudi-arabia-east- | Tue, 22 Sep 2026 10:38:00 GMT",
-      "Saudi Arabia close to resuming Red Sea exports as East-West pipeline c | https://www.theglobeandmail.com/business/article-saudi-arabi | Tue, 22 Sep 2026 06:11:00 GMT",
-      "Saudi Aramco eyes resuming operation of East-West oil pipeline damaged | https://www.msn.com/en-in/news/other/saudi-aramco-eyes-resum | Wed, 16 Sep 2026 18:44:37 GMT",
-      "Saudi Aramco Rapidly Deploys Bypass for Damaged East-West Pipeline | https://www.instituteforenergyresearch.org/international-iss | Wed, 23 Sep 2026 04:59:00 GMT",
-      "no matching news articles for \"aramco east-west yanbu pipeline\""
+      "  skipped host/url: finance.yahoo.com apiv2/social/images/yahoo-finance-default-logo.png"
     ]
   },
   {
@@ -19,8 +18,7 @@
     "query": "india pulse imports",
     "pick": null,
     "logs": [
-      "raw rows: 0",
-      "no matching news articles for \"india pulse imports\""
+      "  no og:image: https://www.financialexpress.com/policy/economy-pulse-imports-surge-62-in-apr-ju"
     ]
   }
 ]
