@@ -83,7 +83,7 @@ export async function bingImages(ctx, query, log = () => {}) {
     await page.waitForSelector('a.iusc', { timeout: 12000 }).catch(() => {});
     const rows = await page.evaluate(() => [...document.querySelectorAll('a.iusc')].slice(0, 30).map((a) => { try { return JSON.parse(a.getAttribute('m')); } catch { return null; } }).filter(Boolean)
       .map((m) => ({ url: m.murl, page: m.purl, title: m.t || '', desc: m.desc || '' })));
-    if (!rows.length) log('Bing Images: no results for "' + query + '"');
+    if (!rows.length) log('Bing Images: no results for "' + query + '" (page title: ' + (await page.title()).slice(0, 60) + ')');
     return rows;
   } catch (e) { log('Bing Images failed: ' + String(e.message || e).slice(0, 80)); return []; }
   finally { await page.close().catch(() => {}); }
