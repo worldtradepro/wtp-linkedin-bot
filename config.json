@@ -12,8 +12,8 @@
       ],
       "weekendNewsPerDay": 1,
       "weekendSlotUtc": "08:30",
-      "flashCardSlotUtc": "09:30",
-      "weeklyCardSlotUtc": "09:30"
+      "flashCardSlotUtc": null,
+      "weeklyCardSlotUtc": null
     },
     "infra": {
       "name": "World Trade Pro · Infrastructure",
