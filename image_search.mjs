@@ -79,20 +79,43 @@ async function getText(url, ms = 15000) {
   try { const r = await fetch(url, { headers: { 'user-agent': UA, accept: 'text/html,application/xhtml+xml,application/xml' }, redirect: 'follow', signal: ac.signal }); return r.ok ? { url: r.url, text: await r.text() } : null; }
   catch { return null; } finally { clearTimeout(t); }
 }
-export async function newsArticles(query, log = () => {}) {
-  const rss = await getText('https://www.bing.com/news/search?q=' + encodeURIComponent(query) + '&format=rss&mkt=en-US');
-  if (!rss) { log('Bing News RSS unreachable'); return []; }
-  return [...rss.text.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((m) => {
+function rssItems(xml) {
+  return [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((m) => {
     const tag = (n) => unxml((m[1].match(new RegExp('<' + n + '>([\\s\\S]*?)</' + n + '>')) || [])[1]);
     let link = tag('link'); try { const u = new URL(link).searchParams.get('url'); if (u) link = u; } catch { /* keep */ }
-    return { title: tag('title'), link, date: tag('pubDate') };
+    return { title: tag('title').replace(/\s+-\s+[^-]{2,60}$/, ''), link, date: tag('pubDate') };   // Google News appends " - Publisher"
   }).filter((x) => x.title && x.link);
+}
+// Bing News RSS answers the GitHub runner only some of the time (12 rows, then 0 for the same query): retry once, then Google News RSS
+// (its links are news.google.com redirects, resolved by the browser in ogImageOf).
+export async function newsArticles(query, log = () => {}) {
+  const q = encodeURIComponent(query);
+  for (let k = 0; k < (process.env.WTP_NEWS_SOURCE === 'google' ? 0 : 2); k++) {   // WTP_NEWS_SOURCE=google: test the fallback alone
+    const rss = await getText('https://www.bing.com/news/search?q=' + q + '&format=rss&mkt=en-US');
+    const items = rss ? rssItems(rss.text) : [];
+    if (items.length) return items;
+    await new Promise((r) => setTimeout(r, 3000));
+  }
+  const g = await getText('https://news.google.com/rss/search?q=' + q + '+when:21d&hl=en-US&gl=US&ceid=US:en');
+  const items = g ? rssItems(g.text) : [];
+  log((items.length ? 'Bing News empty -> Google News: ' : 'no news results (Bing + Google) for ') + (items.length || '"' + query + '"'));
+  return items;
 }
 async function ogImageOf(ctx, link) {
   // a real browser page: many news sites answer plain HTTP clients with 403
   const page = await ctx.newPage();
   try {
     await page.goto(link, { waitUntil: 'domcontentloaded', timeout: 25000 });
+    for (let k = 0; k < 2 && /consent\.google\./.test(page.url()); k++) {   // EU consent wall in front of the redirect: privacy-preserving choice first
+      for (const re of [/^reject all$/i, /^accept all$/i]) {
+        const b = page.getByRole('button', { name: re }).first();
+        if (await b.isVisible({ timeout: 1500 }).catch(() => false)) { await b.click().catch(() => {}); break; }
+      }
+      await page.waitForURL((u) => !/consent\.google\./.test(u.hostname), { timeout: 8000 }).catch(() => {});
+    }
+    if (/news\.google\.com/.test(page.url())) await page.waitForURL((u) => !/google\.com/.test(u.hostname), { timeout: 15000 }).catch(() => {});
+    if (/google\.com/.test(new URL(page.url()).hostname)) return null;   // redirect did not resolve (consent page etc.)
+    await page.waitForLoadState('domcontentloaded').catch(() => {});
     await page.waitForTimeout(1200);
     const r = await page.evaluate(() => {
       const m = (n) => document.querySelector('meta[property="' + n + '"],meta[name="' + n + '"]')?.content || '';
@@ -164,12 +187,16 @@ export async function bestImage(ctx, { headline, context = '', articleUrl, lead,
   }
   const names = terms.filter((t) => t.weight >= 2);
   const hasName = (title) => !names.length || relevance(title, names) > 0;
+  const words = (x) => new Set(norm(x).trim().split(' ').filter((w) => w.length > 2));
+  const H = words(headline);
+  const republish = (title) => { const T = words(title); let n = 0; for (const w of T) if (H.has(w)) n++; return n / Math.max(1, Math.max(T.size, H.size)) >= 0.8; };   // same article syndicated elsewhere = same photo
+  const leadHash = lead?.photo ? sha1(lead.photo.jpeg) : '';
   const q = searchQuery(terms);
   if (q.split(' ').length >= 2) {
     const since = Date.now() - 21 * 864e5;   // older coverage is another event ("2019 attack"), not this one
     const own = hostOf(articleUrl);
     const rows = (await newsArticles(q, log)).map((m, i) => ({ ...m, i, r: relevance(m.title, terms) }))
-      .filter((m) => (!m.date || Date.parse(m.date) >= since) && ((m.r >= 0.35 && hasName(m.title)) || m.r >= 0.55))   // same story: a shared name (East-West, Yanbu) + enough key words, or most key words
+      .filter((m) => (!m.date || Date.parse(m.date) >= since) && ((m.r >= 0.35 && hasName(m.title)) || m.r >= 0.55) && !republish(m.title))   // same story: a shared name (East-West, Yanbu) + enough key words, or most key words
       .sort((a, b) => b.r - a.r || a.i - b.i).slice(0, 8);
     if (!rows.length) log('no matching news articles for "' + q + '"');
     for (const m of rows.slice(0, 5)) {
@@ -188,7 +215,7 @@ export async function bestImage(ctx, { headline, context = '', articleUrl, lead,
     if (seen(c.url)) continue;
     const ph = await loadPhoto(ctx, c.url, c.page, { minR: 0.75, maxR: 2.1, minW: 700, minH: 450 });
     if (!ph) { log('  image skipped (' + lastLoadFail + '): ' + c.note + ' ' + c.url.slice(-60)); continue; }
-    if (seen(c.url, ph.jpeg)) continue;
+    if (seen(c.url, ph.jpeg) || (leadHash && sha1(ph.jpeg) === leadHash)) continue;
     return { ...ph, credit: c.host, pageUrl: c.page, source: 'search', score: c.score, note: c.note };
   }
   return null;
