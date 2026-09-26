@@ -1,7 +1,7 @@
 // Weekly e-mails for World Trade Pro, built from the site's PUBLIC API only (so only free data).
 //   flow:     "Trade Flow Weekly" (Mondays) - readers: commodity traders, charterers, logistics.
 //             The week's big story, a risk scoreboard for the 9 shipping lanes (this week vs last, 4-week trend),
-//             by-the-numbers bullets, top signals per market, lanes to watch, then the Verified Trader box.
+//             by-the-numbers bullets, top signals per market, lanes to watch, then the Verified Commodity Supply & Demand box.
 //   projects: "EPC Project Leads Weekly" (Tuesdays) - readers: BD at EPC contractors / equipment makers, owners.
 //             Projects that became free this week (first seen 7-13 days ago): the top lead with what the stage
 //             means for bidders, then open tenders / early stage / awards, the locked newest week as a count
@@ -177,8 +177,8 @@ async function buildFlow() {
     body.push(bullets(watch.slice(0, 3).map((x) => `${link(esc(x.l.name), laneLink(x.l), C.ink)} — ${rising.includes(x) ? 'pressure up three weeks running' : 'pressure up on last week'} (${esc(x.l.flow)}).`)));
   }
   body.push(para(`Go deeper: ${link('shipping lane tracker', lanesHub)} · ${link('live map', map)}`, '18px 0 0'));
-  // 6. Verified Trader + course
-  body.push(box(`<b style="color:${C.ink};font-size:15px;">Trading physically?</b><br><span style="color:${C.text};">Get a Verified Trader profile, so buyers and sellers can check you before the first call — and you can check them.</span><br>${link('Apply for verification →', utm(cfg.site + '/join-verified-club/', 'verified-trader'))}`, '#f0f5fb', '#c9d8ea'));
+  // 6. Verified Commodity Supply & Demand + course
+  body.push(box(`<b style="color:${C.ink};font-size:15px;">Buying or selling bulk commodities?</b><br><span style="color:${C.text};">Get verified as a real buyer or seller — we check role, mandate and recent trades, then connect you with verified counterparties on the other side.</span><br>${link('Verified Commodity Supply &amp; Demand →', utm(cfg.site + '/join-verified-club/', 'commodity-sd'))}`, '#f0f5fb', '#c9d8ea'));
   if (nl.promo?.enabled) body.push(para(`<span style="font-size:13px;color:${C.muted};"><b>P.S.</b> New to physical deals? ${esc(nl.promo.title)} walks through one end to end — fake offers, documents, LCs, price confirmation. ${link('Watch the free prologue →', utm(nl.promo.url, 'course'), C.muted)}</span>`, '16px 0 0'));
 
   const topLaneWord = lead ? (lead.p > lead.pp ? 'rises' : lead.p < lead.pp ? 'eases' : 'holds') : '';
