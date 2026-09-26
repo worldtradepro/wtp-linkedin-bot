@@ -1,6 +1,6 @@
 name: image-search-test
 
-# Diagnostic only: checks that Bing Images answers from the GitHub runner and shows what image_search.mjs picks.
+# Diagnostic only: checks that the same-story news photo search (Bing News RSS + article og:image) works from the GitHub runner.
 # Nothing is posted; result goes to branch images/image-test/.
 
 on:
@@ -8,7 +8,6 @@ on:
   push:
     paths:
       - test_image_search.mjs
-      - test_image_sources.mjs
       - image_search.mjs
       - .github/workflows/image-search-test.yml
 
@@ -26,7 +25,7 @@ jobs:
           node-version: 20
       - run: npm install --no-audit --no-fund && npx playwright install --with-deps chromium
       - name: Run the diagnostic
-        run: node test_image_search.mjs; node test_image_sources.mjs
+        run: node test_image_search.mjs
       - name: Publish the result (branch images)
         if: always()
         run: |

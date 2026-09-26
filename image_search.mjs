@@ -66,39 +66,67 @@ export function searchQuery(terms) {
 
 // hosts whose pictures are screenshots / thumbnails with text, watermarked stock, or social posts
 const SKIP_HOST = /(^|\.)(linkedin\.com|licdn\.com|x\.com|twitter\.com|twimg\.com|facebook\.com|fbcdn\.net|instagram\.com|pinterest\.[a-z.]+|pinimg\.com|youtube\.com|ytimg\.com|tiktok\.com|reddit\.com|redd\.it|threadreaderapp\.com|gettyimages\.[a-z.]+|shutterstock\.com|alamy\.com|istockphoto\.com|dreamstime\.com|123rf\.com|depositphotos\.com|stock\.adobe\.com|adobestock\.com|freepik\.com|vecteezy\.com|worldtradepro\.com|scribd\.com|slideshare\.net|researchgate\.net|wikipedia\.org)$/i;
-// charts / infographics / data pages: old numbers presented as today's picture would mislead
-const CHART_WORDS = /(chart|charts|graph|graphs|infographic|statistics|statistic|stats|data|trends?|by country|forecast|outlook|table|ranking|top \d+|percent|%|\$\s?\d|billion|million|tonnes|report)/i;
 const DATA_HOST = /(statista|indexbox|chartforest|tradingeconomics|ceicdata|macrotrends|ycharts|visualcapitalist|ourworldindata|worldbank|imf\.org|oec\.world|tridge|volza|zauba|seair|exportgenius|marketresearch|mordorintelligence|researchandmarkets|slideshare|scribd)/i;
 const BAD_URL = /logo|favicon|sprite|avatar|icon|placeholder|banner|\.svg(\?|$)|\.gif(\?|$)/i;
 const hostOf = (u) => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return ''; } };
 
-export async function bingImages(ctx, query, log = () => {}) {
+// Other outlets' articles on the same story (Bing News RSS - plain HTTP; Bing IMAGES serves junk to GitHub's data-centre IPs,
+// checked 2026-09-26), each with its own lead photo (og:image). Returns [{ url, page, title, date }].
+const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
+const unxml = (s) => (s || '').replace(/<!\[CDATA\[|\]\]>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").trim();
+async function getText(url, ms = 15000) {
+  const ac = new AbortController(); const t = setTimeout(() => ac.abort(), ms);
+  try { const r = await fetch(url, { headers: { 'user-agent': UA, accept: 'text/html,application/xhtml+xml,application/xml' }, redirect: 'follow', signal: ac.signal }); return r.ok ? { url: r.url, text: await r.text() } : null; }
+  catch { return null; } finally { clearTimeout(t); }
+}
+export async function newsArticles(query, log = () => {}) {
+  const rss = await getText('https://www.bing.com/news/search?q=' + encodeURIComponent(query) + '&format=rss&mkt=en-US');
+  if (!rss) { log('Bing News RSS unreachable'); return []; }
+  return [...rss.text.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((m) => {
+    const tag = (n) => unxml((m[1].match(new RegExp('<' + n + '>([\\s\\S]*?)</' + n + '>')) || [])[1]);
+    let link = tag('link'); try { const u = new URL(link).searchParams.get('url'); if (u) link = u; } catch { /* keep */ }
+    return { title: tag('title'), link, date: tag('pubDate') };
+  }).filter((x) => x.title && x.link);
+}
+async function ogImageOf(ctx, link) {
+  // a real browser page: many news sites answer plain HTTP clients with 403
   const page = await ctx.newPage();
   try {
-    await page.goto('https://www.bing.com/images/search?q=' + encodeURIComponent(query) + '&qft=+filterui:imagesize-large&first=1', { waitUntil: 'domcontentloaded', timeout: 30000 });
-    for (const re of [/^(reject|decline|reject all)$/i, /^(accept|agree|accept all)$/i]) {   // EU consent banner (privacy-preserving choice first)
-      const b = page.getByRole('button', { name: re }).first();
-      if (await b.isVisible({ timeout: 800 }).catch(() => false)) { await b.click().catch(() => {}); await page.waitForTimeout(800); break; }
+    await page.goto(link, { waitUntil: 'domcontentloaded', timeout: 25000 });
+    await page.waitForTimeout(1200);
+    const r = await page.evaluate(() => {
+      const m = (n) => document.querySelector('meta[property="' + n + '"],meta[name="' + n + '"]')?.content || '';
+      return { img: m('og:image') || m('og:image:url') || m('twitter:image'), page: location.href };
+    });
+    if (!r.img) return null;
+    const img = new URL(r.img, r.page);
+    // MSN re-publishes with small thumbnails (w=688&h=500): its image server resizes on request
+    if (/msn\.com$|akamaized\.net$/.test(img.hostname) && img.searchParams.get('w')) {
+      const w = +img.searchParams.get('w'), h = +img.searchParams.get('h') || 0;
+      if (w && w < 1200) { img.searchParams.set('w', '1200'); if (h) img.searchParams.set('h', String(Math.round(h * 1200 / w))); }
     }
-    await page.waitForSelector('a.iusc', { timeout: 12000 }).catch(() => {});
-    const rows = await page.evaluate(() => [...document.querySelectorAll('a.iusc')].slice(0, 30).map((a) => { try { return JSON.parse(a.getAttribute('m')); } catch { return null; } }).filter(Boolean)
-      .map((m) => ({ url: m.murl, page: m.purl, title: m.t || '', desc: m.desc || '' })));
-    if (!rows.length) log('Bing Images: no results for "' + query + '" (page title: ' + (await page.title()).slice(0, 60) + ')');
-    return rows;
-  } catch (e) { log('Bing Images failed: ' + String(e.message || e).slice(0, 80)); return []; }
-  finally { await page.close().catch(() => {}); }
+    return { img: img.href, page: r.page };
+  } catch { return null; } finally { await page.close().catch(() => {}); }
 }
 
 // Download + check one picture: real photo (not a flat logo), big enough, shape inside [minR, maxR] (width / height). Returns a JPEG buffer.
+export let lastLoadFail = '';
 export async function loadPhoto(ctx, url, referer, { minR = 1.0, maxR = 2.4, minW = 600, minH = 315 } = {}) {
+  lastLoadFail = '';
   const rq = ctx.request;
-  let resp; try { resp = await rq.get(url, { timeout: 15000, headers: referer ? { referer } : {} }); } catch { return null; }
-  if (!resp.ok()) return null;
-  const body = await resp.body();
-  if (body.length < 20000) return null;
+  let body = null;
+  try { const resp = await rq.get(url, { timeout: 15000, headers: referer ? { referer } : {} }); if (resp.ok()) body = await resp.body(); else lastLoadFail = 'HTTP ' + resp.status(); }
+  catch (e) { lastLoadFail = 'download: ' + String(e.message).slice(0, 50); }
+  if (!body) {   // some image servers refuse non-browser clients: open the picture in a real page instead
+    const pg = await ctx.newPage();
+    try { const r = await pg.goto(url, { timeout: 20000, referer }); if (r && r.ok()) body = await r.body(); else lastLoadFail = 'HTTP ' + (r ? r.status() : '?') + ' (browser)'; }
+    catch (e) { lastLoadFail = 'browser download: ' + String(e.message).slice(0, 50); } finally { await pg.close().catch(() => {}); }
+  }
+  if (!body) return null;
+  if (body.length < 20000) { lastLoadFail = 'small file ' + body.length; return null; }
   const head4 = body.subarray(0, 4).toString('hex');   // trust the magic bytes: some CDNs send application/octet-stream
   const mime = body[0] === 0xff && body[1] === 0xd8 ? 'image/jpeg' : head4 === '89504e47' ? 'image/png' : (body.subarray(0, 4).toString() === 'RIFF' && body.subarray(8, 12).toString() === 'WEBP') ? 'image/webp' : '';
-  if (!mime) return null;
+  if (!mime) { lastLoadFail = 'not jpeg/png/webp (' + body.subarray(0, 12).toString('hex') + ')'; return null; }
   const tmp = await ctx.newPage();
   try {
     const res = await tmp.evaluate(async ({ b64, mime, minR, maxR, minW, minH }) => {
@@ -117,6 +145,7 @@ export async function loadPhoto(ctx, url, referer, { minR = 1.0, maxR = 2.4, min
       const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
       return { ok: true, w: c.width, h: c.height, data: c.toDataURL('image/jpeg', 0.9).split(',')[1] };
     }, { b64: body.toString('base64'), mime, minR, maxR, minW, minH });
+    if (!res || !res.ok) lastLoadFail = res?.why || 'decode failed';
     return res && res.ok ? { url, w: res.w, h: res.h, jpeg: Buffer.from(res.data, 'base64'), mime } : null;
   } finally { await tmp.close().catch(() => {}); }
 }
@@ -133,20 +162,24 @@ export async function bestImage(ctx, { headline, context = '', articleUrl, lead,
     const r = lead.alt ? relevance(lead.alt, terms) : 0;
     cands.push({ kind: 'article', score: 0.5 + 0.5 * r, photo: lead.photo, host: hostOf(articleUrl), note: `article photo (caption match ${r.toFixed(2)})` });
   }
+  const names = terms.filter((t) => t.weight >= 2);
+  const hasName = (title) => !names.length || relevance(title, names) > 0;
   const q = searchQuery(terms);
   if (q.split(' ').length >= 2) {
-    const rows = await bingImages(ctx, q, log);
-    rows.forEach((m, i) => {
-      const host = hostOf(m.page), ihost = hostOf(m.url);
-      if (!m.url || !host || SKIP_HOST.test(host) || SKIP_HOST.test(ihost) || BAD_URL.test(m.url)) return;
-      if (DATA_HOST.test(host) || CHART_WORDS.test(m.title)) return;
-      if ((m.title.match(/[^ -À-ɏ‐-‧]/g) || []).length > m.title.length * 0.3) return;   // non-Latin page title: most likely not an English news picture
-      const yr = new Date().getUTCFullYear();
-      const old = ((m.title + ' ' + m.page).match(/(19[5-9]\d|20[0-4]\d)/g) || []).some((y) => +y <= yr - 2);   // "2019 attack": another event, not this one
-      const r = relevance(m.title + ' ' + m.page + ' ' + m.url.split('/').pop(), terms) - (old ? 0.3 : 0);
-      cands.push({ kind: 'search', score: 0.75 * r + 0.25 * (1 - i / 30),   // Bing's own rank reflects what the picture shows, the title only what the page is about
-         url: m.url, page: m.page, host, title: m.title, note: `search "${q}" #${i + 1} match ${r.toFixed(2)} "${m.title.slice(0, 60)}"` });
-    });
+    const since = Date.now() - 21 * 864e5;   // older coverage is another event ("2019 attack"), not this one
+    const own = hostOf(articleUrl);
+    const rows = (await newsArticles(q, log)).map((m, i) => ({ ...m, i, r: relevance(m.title, terms) }))
+      .filter((m) => (!m.date || Date.parse(m.date) >= since) && ((m.r >= 0.35 && hasName(m.title)) || m.r >= 0.55))   // same story: a shared name (East-West, Yanbu) + enough key words, or most key words
+      .sort((a, b) => b.r - a.r || a.i - b.i).slice(0, 8);
+    if (!rows.length) log('no matching news articles for "' + q + '"');
+    for (const m of rows.slice(0, 5)) {
+      const og = await ogImageOf(ctx, m.link);
+      if (!og) { log('  no og:image: ' + m.link.slice(0, 80)); continue; }
+      const host = hostOf(og.page), ihost = hostOf(og.img);
+      if (!host || host === own || SKIP_HOST.test(host) || SKIP_HOST.test(ihost) || DATA_HOST.test(host) || BAD_URL.test(og.img)) { log('  skipped host/url: ' + host + ' ' + og.img.slice(-50)); continue; }
+      // another outlet's photo of the SAME story beats a caption-less file photo
+      cands.push({ kind: 'search', score: 0.55 + 0.45 * m.r - 0.01 * m.i, url: og.img, page: og.page, host, title: m.title, note: `news photo "${q}" #${m.i + 1} match ${m.r.toFixed(2)} "${m.title.slice(0, 60)}"` });
+    }
   }
   cands.sort((a, b) => b.score - a.score);
   for (const c of cands.slice(0, 10)) {
@@ -154,7 +187,7 @@ export async function bestImage(ctx, { headline, context = '', articleUrl, lead,
     if (c.kind === 'article') return { ...c.photo, credit: c.host, source: 'article', score: c.score, note: c.note };
     if (seen(c.url)) continue;
     const ph = await loadPhoto(ctx, c.url, c.page, { minR: 0.75, maxR: 2.1, minW: 700, minH: 450 });
-    if (!ph) { log('  image skipped (download/shape): ' + c.note); continue; }
+    if (!ph) { log('  image skipped (' + lastLoadFail + '): ' + c.note + ' ' + c.url.slice(-60)); continue; }
     if (seen(c.url, ph.jpeg)) continue;
     return { ...ph, credit: c.host, pageUrl: c.page, source: 'search', score: c.score, note: c.note };
   }
