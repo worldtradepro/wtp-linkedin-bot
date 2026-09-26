@@ -3,15 +3,20 @@
 
 export const dayShift = (iso, n) => new Date(new Date(iso + 'T00:00:00Z').getTime() + n * 864e5).toISOString().slice(0, 10);
 
-export async function fetchJson(url, tries = 3) {
+// The shared host sometimes answers with a transient 503 or an HTML error/challenge page instead of JSON
+// (2026-09-26 08:33 UTC run died that way). Back off 5s, 15s, 45s, 90s (~2.5 min) before giving up.
+export async function fetchJson(url, tries = 5) {
   for (let i = 0; i < tries; i++) {
     try {
-      const r = await fetch(url, { headers: { 'user-agent': 'wtp-linkedin-bot/1.0' } });
+      const r = await fetch(url, { headers: { 'user-agent': 'wtp-linkedin-bot/1.0', accept: 'application/json' } });
       if (!r.ok) throw new Error('HTTP ' + r.status);
-      return await r.json();
+      const body = await r.text();
+      try { return JSON.parse(body); } catch { throw new Error('not JSON (HTTP ' + r.status + '): ' + body.slice(0, 80).replace(/\s+/g, ' ')); }
     } catch (e) {
       if (i === tries - 1) throw e;
-      await new Promise((res) => setTimeout(res, 1200 * (i + 1)));  // the shared host sometimes answers a burst with a transient 503
+      const wait = [5, 15, 45, 90][i] || 90;
+      console.warn(`fetchJson: ${e.message} - retry ${i + 1}/${tries - 1} in ${wait}s`);
+      await new Promise((res) => setTimeout(res, wait * 1000));
     }
   }
 }

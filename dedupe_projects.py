@@ -22,6 +22,7 @@ import math
 import os
 import re
 import sys
+import time
 import urllib.parse
 import urllib.request
 from collections import Counter, defaultdict
@@ -225,8 +226,17 @@ def fetch_all(site, secret):
         q = urllib.parse.urlencode({'report_type': 'epc', 'from': '2020-01-01', 'to': to, 'limit': 10000,
                                     'offset': offset, 'include_dups': 1, 'secret': secret})
         req = urllib.request.Request(f"{site}/wp-json/wtp/v1/opportunities?{q}", headers={'User-Agent': 'wtp-linkedin-bot/1.0'})
-        with urllib.request.urlopen(req, timeout=60) as r:
-            j = json.load(r)
+        for attempt in range(5):  # the host sometimes answers with an HTML error page instead of JSON
+            try:
+                with urllib.request.urlopen(req, timeout=60) as r:
+                    j = json.load(r)
+                break
+            except (ValueError, OSError) as e:
+                if attempt == 4:
+                    raise
+                wait = (5, 15, 45, 90)[attempt]
+                print(f'fetch failed ({e}); retry in {wait}s', file=sys.stderr)
+                time.sleep(wait)
         rows += j.get('items') or []
         if not j.get('truncated'):
             return rows
