@@ -294,8 +294,11 @@ const epc = await fetchJson(`${API}?report_type=epc&from=${epcFrom}&to=${epcTo}&
 
 const A = cfg.accounts;
 const isWeekend = [0, 6].includes(new Date(TODAY + 'T00:00:00Z').getUTCDay());   // Sat / Sun (UTC)
-const newsN = isWeekend ? (A.main.weekendNewsPerDay ?? 1) : A.main.newsPerDay;
-const newsSlots = isWeekend ? [A.main.weekendSlotUtc || '08:30'] : A.main.slotsUtc;
+// Trade Flow Weekly day (the PDF carousel takes the morning slot on the main page): one news post fewer, so 3 posts that day, not 4
+const isReportDay = !isWeekend && A.main.weeklyReport && new Date(TODAY + 'T00:00:00Z').getUTCDay() === A.main.weeklyReport.dayUtc;
+const newsSlots = isWeekend ? [A.main.weekendSlotUtc || '08:30'] : isReportDay ? A.main.weeklyReport.newsSlotsUtc : A.main.slotsUtc;
+const newsN = isWeekend ? (A.main.weekendNewsPerDay ?? 1) : isReportDay ? newsSlots.length : A.main.newsPerDay;
+if (isReportDay) console.error(`Trade Flow Weekly day: ${newsN} news posts (${newsSlots.join(', ')} UTC), the weekly carousel is at ${A.main.weeklyReport.slotUtc} UTC`);
 const infraOn = !(isWeekend && A.infra.weekend === false);
 // The Trade Flow daily flash card (made first by "sharecards.mjs --flash-only") names its top stories: the single news posts skip them.
 let flashPicks = [];

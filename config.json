@@ -13,7 +13,16 @@
       "weekendNewsPerDay": 1,
       "weekendSlotUtc": "08:30",
       "flashCardSlotUtc": null,
-      "weeklyCardSlotUtc": null
+      "weeklyCardSlotUtc": null,
+      "weeklyReport": {
+        "dayUtc": 1,
+        "slotUtc": "07:30",
+        "newsSlotsUtc": [
+          "13:00",
+          "17:30"
+        ],
+        "_note": "Mondays: Trade Flow Weekly PDF carousel at 07:30 UTC (08:30 BST / 09:30 CEST) takes the morning slot; only 2 news posts that day"
+      }
     },
     "infra": {
       "name": "World Trade Pro · Infrastructure",
