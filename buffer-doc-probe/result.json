@@ -1,0 +1,239 @@
+{
+  "at": "2026-09-27T19:49:25.175Z",
+  "types": {
+    "CreatePostInput": [
+      "aiAssisted: Boolean  // If this post was created with the help of AI",
+      "assets: [AssetInput!]!  // Ordered list of assets on this post.",
+      "channelId: ChannelId!  // Channel's Id for which we want to create the post",
+      "draftId: DraftId  // Is set when the Post is generated from a Draft",
+      "dueAt: DateTime  // Date when the post is scheduled to be published",
+      "ideaId: IdeaId  // Is set when the Post is generated from an Idea",
+      "metadata: PostInputMetaData  // Metadata of the post which differs based on the social network/service",
+      "mode: ShareMode!  // How the post is being scheduled.",
+      "needsApproval: Boolean!  // Submit the post for approval instead of scheduling it. A post submitted for\napproval is always a draft, so this conflict",
+      "saveToDraft: Boolean  // If true, saves the post as a draft instead of scheduling it.\nWhen saving as draft:\n- Post status will be 'draft' instead",
+      "schedulingType: SchedulingType!  // Scheduling type to indicate notification publishing or automatic publishing",
+      "source: String  // source where the composer was initiated from, used for tracking.",
+      "tagIds: [TagId!]  // List of tag IDs",
+      "text: String  // Text content of the Post.\n\nNote: for threaded posts, this needs to match the first item in the `thread` array."
+    ],
+    "AssetInput": [
+      "document: DocumentAssetInput  // Document asset",
+      "image: ImageAssetInput  // Image asset",
+      "video: VideoAssetInput  // Video asset"
+    ],
+    "PostInputMetaData": [
+      "bluesky: BlueskyPostMetadataInput  // Metadata for Bluesky post",
+      "facebook: FacebookPostMetadataInput  // Metadata for Facebook post",
+      "google: GoogleBusinessPostMetadataInput  // Metadata for Google Business Profile post",
+      "instagram: InstagramPostMetadataInput  // Metadata for Instagram post",
+      "linkedin: LinkedInPostMetadataInput  // Metadata for LinkedIn post",
+      "mastodon: MastodonPostMetadataInput  // Metadata for Mastodon post",
+      "pinterest: PinterestPostMetadataInput  // Metadata for Pinterest post",
+      "substack: SubstackPostMetadataInput  // Metadata for Substack post",
+      "threads: ThreadsPostMetadataInput  // Metadata for Threads post",
+      "tiktok: TikTokPostMetadataInput  // Metadata for TikTok post",
+      "twitter: TwitterPostMetadataInput  // Metadata for Twitter post",
+      "youtube: YoutubePostMetadataInput  // Metadata for Youtube post"
+    ],
+    "ShareMode": [
+      "addToQueue",
+      "customScheduled",
+      "shareNext",
+      "shareNow"
+    ],
+    "SchedulingType": [
+      "automatic",
+      "notification"
+    ],
+    "DocumentAssetInput": [
+      "thumbnailUrl: String!  // Document thumbnail URL",
+      "title: String!  // Document title",
+      "url: String!  // Document URL"
+    ],
+    "ImageAssetInput": [
+      "metadata: ImageMetadataInput  // Image specific metadata",
+      "thumbnailUrl: String  // URL to the static thumbnail of the asset",
+      "url: String!  // URL to the file source"
+    ],
+    "VideoAssetInput": [
+      "metadata: VideoMetadataInput  // Video specific metadata",
+      "thumbnailUrl: String  // Do not use: social networks do not accept custom video thumbnail images, and\nthe API rejects video assets that set this ",
+      "url: String!  // URL to the file source"
+    ],
+    "BlueskyPostMetadataInput": [
+      "linkAttachment: LinkAttachmentInput  // Link attachment. Mutually exclusive with a non-empty `assets` array — input providing both is rejected.",
+      "thread: [ThreadedPostInput!]  // The ordered list of posts that make up the thread (not paginated). This\narray is the source of truth for what gets publi"
+    ],
+    "FacebookPostMetadataInput": [
+      "annotations: [AnnotationInputFacebook!]  // Annotations representing entities in the text",
+      "firstComment: String  // Facebook post's first comment",
+      "linkAttachment: LinkAttachmentInput  // Link attachment. Mutually exclusive with a non-empty `assets` array — input providing both is rejected.",
+      "type: PostTypeFacebook!  // The channel-specific type of the post, eg, post, story, reel for Facebook"
+    ],
+    "GoogleBusinessPostMetadataInput": [
+      "detailsEvent: GoogleBusinessEventMetaDataInput  // Details of the Event metadata",
+      "detailsOffer: GoogleBusinessOfferMetaDataInput  // Details of the Offer metadata",
+      "detailsWhatsNew: GoogleBusinessWhatsNewMetaDataInput  // Details of the Whats new metadata",
+      "title: String  // Title if available in the given GBP post type: event and offer",
+      "type: PostTypeGoogleBusiness!  // The channel-specific type of the post, eg, post, offer, event for Google Business Profile"
+    ],
+    "InstagramPostMetadataInput": [
+      "firstComment: String  // Instagram post's first comment",
+      "geolocation: InstagramGeolocationInput  // Geolocation of the post",
+      "isAiGenerated: Boolean  // Whether the post discloses AI-generated content",
+      "link: String  // Shop Grid link for the post",
+      "shouldShareToFeed: Boolean!  // Indicates whether post should be shared to feed",
+      "stickerFields: InstagramStickerFieldsInput  // Sticker fields for reminder-based publishing",
+      "type: PostType!  // The channel-specific type of the post, eg, post, story, reel for Instagram"
+    ],
+    "LinkedInPostMetadataInput": [
+      "annotations: [AnnotationInputLinkedIn!]  // Annotations representing entities in the text",
+      "firstComment: String  // LinkedIn post's first comment",
+      "linkAttachment: LinkAttachmentInput  // Link attachment. Mutually exclusive with a non-empty `assets` array — input providing both is rejected."
+    ],
+    "MastodonPostMetadataInput": [
+      "spoilerText: String  // Spoiler text hiding the root text of this post",
+      "thread: [ThreadedPostInput!]  // The ordered list of posts that make up the thread (not paginated). This\narray is the source of truth for what gets publi"
+    ],
+    "PinterestPostMetadataInput": [
+      "boardServiceId: String  // The board ID of the Pin, can be obtained when fetching the channel details with the following query:\n```\nquery GetChanne",
+      "title: String  // The title of the Pin",
+      "url: String  // The Pin destination link"
+    ],
+    "SubstackPostMetadataInput": [
+      "linkAttachment: LinkAttachmentInput  // Link attachment. Mutually exclusive with a non-empty `assets` array — input providing both is rejected."
+    ],
+    "ThreadsPostMetadataInput": [
+      "linkAttachment: LinkAttachmentInput  // Link attachment. Mutually exclusive with a non-empty `assets` array — input providing both is rejected.",
+      "locationId: String  // LocationId associated with the post",
+      "locationName: String  // Location name associated with the post",
+      "thread: [ThreadedPostInput!]  // The ordered list of posts that make up the thread (not paginated). This\narray is the source of truth for what gets publi",
+      "topic: String  // Topic associated with the post",
+      "type: PostType  // The type of the post"
+    ],
+    "TikTokPostMetadataInput": [
+      "isAiGenerated: Boolean  // Whether the post discloses AI-generated content (TikTok video only)",
+      "title: String  // The title of the TikTok post (for photo posts)"
+    ],
+    "TwitterPostMetadataInput": [
+      "isAiGenerated: Boolean  // Whether the post discloses AI-generated content (original tweets only, never retweets)",
+      "retweet: RetweetMetadataInput  // The details of the tweet being retweeted",
+      "thread: [ThreadedPostInput!]  // The ordered list of posts that make up the thread (not paginated). This\narray is the source of truth for what gets publi"
+    ],
+    "YoutubePostMetadataInput": [
+      "categoryId: String  // Youtube Category ID, one ID of this list:\nID: 1 -> Film & Animation\nID: 2 -> Autos & Vehicles\nID: 10 -> Music\nID: 15 -> ",
+      "embeddable: Boolean  // Indicates whether the video allows embedding (default: true)",
+      "isAiGenerated: Boolean  // Whether the post discloses AI-generated content",
+      "license: YoutubeLicense  // Video license (default: youtube)",
+      "madeForKids: Boolean  // Indicates whether the video is suitable for kids (default: false)",
+      "notifySubscribers: Boolean  // Indicates whether to notify subscribers on publish video (default: true)",
+      "privacy: YoutubePrivacy  // Privacy setting for post (default: public)",
+      "title: String  // Title of the Youtube post. Required on create; optional on edit (omitted preserves existing value)."
+    ],
+    "ImageMetadataInput": [
+      "altText: String!  // Alternative text for accessibility",
+      "animatedThumbnail: String  // Animated thumbnail URL",
+      "userTags: [UserTagInput!]  // Accounts to tag at specific points on the image. Each tag's x/y position uses normalized 0.0-1.0 coordinates - see UserT"
+    ],
+    "VideoMetadataInput": [
+      "thumbnailOffset: Int  // Offset of the thumbnail chosen for the video, in ms",
+      "title: String  // Video title"
+    ],
+    "LinkAttachmentInput": [
+      "description: String  // Description shown on the link card",
+      "thumbnail: LinkAttachmentThumbnailInput  // Thumbnail shown on the link card",
+      "title: String  // Title shown on the link card",
+      "url: String!  // URL that the link asset has been built from"
+    ],
+    "ThreadedPostInput": [
+      "assets: [AssetInput!]!  // Ordered list of assets on this threaded post",
+      "metadata: ThreadItemMetadataInput  // Service-specific fields for this threaded post",
+      "text: String  // The text body content of the threaded post"
+    ],
+    "GoogleBusinessEventMetaDataInput": [
+      "button: GoogleBusinessPostActionType  // Action button. Optional: a post with no button, or `none`, publishes without a call-to-action. On edit, omitting it pres",
+      "endDate: DateTime  // End date of the event. Required on create; optional on edit (omitted preserves existing value).",
+      "isFullDayEvent: Boolean!  // Indicate whether the event has a start or end time.",
+      "link: String  // Link to the action",
+      "startDate: DateTime  // Start date of the event. Required on create; optional on edit (omitted preserves existing value).",
+      "title: String  // Title of the event. Required on create; optional on edit (omitted preserves existing value)."
+    ],
+    "GoogleBusinessOfferMetaDataInput": [
+      "code: String  // Coupon code for the offer",
+      "endDate: DateTime  // End date of the offer. Required on create; optional on edit (omitted preserves existing value).",
+      "link: String  // Link to the offer",
+      "startDate: DateTime  // Start date of the offer. Required on create; optional on edit (omitted preserves existing value).",
+      "terms: String  // Terms and Conditions",
+      "title: String  // Title of the offer. Required on create; optional on edit (omitted preserves existing value)."
+    ],
+    "GoogleBusinessWhatsNewMetaDataInput": [
+      "button: GoogleBusinessPostActionType  // Action button. Optional: a post with no button, or `none`, publishes without a call-to-action. On edit, omitting it pres",
+      "link: String  // Link to the action"
+    ],
+    "InstagramGeolocationInput": [
+      "id: String  // The id of this location",
+      "text: String  // The name of this location"
+    ],
+    "InstagramStickerFieldsInput": [
+      "music: String  // Placeholder text for the post's music",
+      "other: String  // Additional field for any other post content",
+      "products: String  // Placeholder text for the post's linked products",
+      "text: String  // Text for the Story or Reel",
+      "topics: String  // Placeholder text for the post's topics (Reels only)"
+    ],
+    "PostType": [
+      "carousel",
+      "event",
+      "ghost_post",
+      "offer",
+      "post",
+      "reel",
+      "short",
+      "story",
+      "thread",
+      "whats_new"
+    ],
+    "AnnotationInputLinkedIn": [
+      "id: String!  // The id of the annotation, e.g. 1521226",
+      "entity: String!  // The entity of the annotation, e.g. urn:li:organization:1521226",
+      "length: Int!  // The length of the annotation, e.g. 6",
+      "link: String!  // The link of the annotation, e.g. https://www.linkedin.com/company/bufferapp",
+      "localizedName: String!  // The localized name of the annotation, e.g. Buffer",
+      "start: Int!  // The start of the annotation, e.g. 5",
+      "vanityName: String!  // The vanity name of the annotation, e.g. bufferapp"
+    ],
+    "RetweetMetadataInput": [
+      "id: String!  // Retweet ID",
+      "comment: String  // Optional user comment shown above the embedded retweet"
+    ],
+    "UserTagInput": [
+      "handle: String!  // The handle (username) of the account to tag, without the leading @.",
+      "x: Float!  // Horizontal position of the tag as a normalized decimal float between 0.0 and 1.0 - the fraction of the image width from ",
+      "y: Float!  // Vertical position of the tag as a normalized decimal float between 0.0 and 1.0 - the fraction of the image height from t"
+    ],
+    "LinkAttachmentThumbnailInput": [
+      "url: String!  // URL of the thumbnail image"
+    ],
+    "ThreadItemMetadataInput": [
+      "bluesky: ThreadItemBlueskyMetadataInput  // Bluesky fields for this thread item",
+      "threads: ThreadItemThreadsMetadataInput  // Threads fields for this thread item"
+    ],
+    "GoogleBusinessPostActionType": [
+      "book",
+      "call",
+      "learn_more",
+      "none",
+      "order",
+      "shop",
+      "signup"
+    ],
+    "ThreadItemBlueskyMetadataInput": [
+      "linkAttachment: LinkAttachmentInput  // Link attachment. Mutually exclusive with a non-empty `assets` array — input providing both is rejected."
+    ],
+    "ThreadItemThreadsMetadataInput": [
+      "linkAttachment: LinkAttachmentInput  // Link attachment. Mutually exclusive with a non-empty `assets` array — input providing both is rejected."
+    ]
+  },
+  "documentSupported": true
+}
