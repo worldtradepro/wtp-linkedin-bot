@@ -1,5 +1,5 @@
 {
-  "at": "2026-09-27T19:53:00.481Z",
+  "at": "2026-09-27T19:57:58.087Z",
   "types": {
     "CreatePostInput": [
       "aiAssisted: Boolean  // If this post was created with the help of AI",
@@ -235,55 +235,5 @@
       "linkAttachment: LinkAttachmentInput  // Link attachment. Mutually exclusive with a non-empty `assets` array — input providing both is rejected."
     ]
   },
-  "documentSupported": true,
-  "fetchFromCloud": {
-    "WorldTradePro-Trade-Flow-Weekly-2026-W39.pdf": {
-      "status": 200,
-      "type": "application/pdf",
-      "bytes": 2038749,
-      "looksPdf": true,
-      "looksJpeg": false
-    },
-    "WorldTradePro-Trade-Flow-Weekly-2026-W39-cover.jpg": {
-      "status": 200,
-      "type": "image/jpeg",
-      "bytes": 239790,
-      "looksPdf": false,
-      "looksJpeg": true
-    }
-  },
-  "channel": {
-    "name": "worldtradepro-com",
-    "service": "linkedin"
-  },
-  "draft": {
-    "request": {
-      "text": "(test)",
-      "channelId": "(main)",
-      "schedulingType": "automatic",
-      "mode": "addToQueue",
-      "saveToDraft": true,
-      "assets": [
-        {
-          "document": {
-            "url": "https://worldtradepro.com/wp-content/uploads/2026/09/WorldTradePro-Trade-Flow-Weekly-2026-W39.pdf",
-            "thumbnailUrl": "https://worldtradepro.com/wp-content/uploads/2026/09/WorldTradePro-Trade-Flow-Weekly-2026-W39-cover.jpg",
-            "title": "Trade Flow Weekly · Week 39, 2026"
-          }
-        }
-      ]
-    },
-    "response": {
-      "data": {
-        "createPost": {
-          "__typename": "PostActionSuccess",
-          "post": {
-            "id": "6ab9742354f1e60c7e78fa3a",
-            "status": "draft",
-            "dueAt": null
-          }
-        }
-      }
-    }
-  }
+  "documentSupported": true
 }
