@@ -36,6 +36,21 @@ save();
 console.log('document asset in schema:', out.documentSupported);
 for (const [n, v] of Object.entries(seen)) if (v && /asset|document|createpost/i.test(n)) console.log(n, JSON.stringify(v, null, 1));
 
+// inputs can also come from a committed file (so a push can run the draft test without the Actions UI)
+try { const f = JSON.parse(fs.readFileSync('buffer_doc_probe_input.json', 'utf8')); if (f.draft === 1) { process.env.PROBE_DRAFT = '1'; process.env.PROBE_PDF_URL = f.pdf_url; process.env.PROBE_THUMB_URL = f.thumb_url; } } catch {}
+// can a cloud machine (like Buffer's fetcher) download the files, or does Cloudflare answer with a challenge page?
+if (process.env.PROBE_PDF_URL) {
+  out.fetchFromCloud = {};
+  for (const u of [process.env.PROBE_PDF_URL, process.env.PROBE_THUMB_URL]) {
+    try { const r = await fetch(u, { headers: { 'user-agent': 'Mozilla/5.0 (compatible; bufferbot)' } }); const b = Buffer.from(await r.arrayBuffer());
+      out.fetchFromCloud[u.split('/').pop()] = { status: r.status, type: r.headers.get('content-type'), bytes: b.length, looksPdf: b.slice(0, 5).toString() === '%PDF-', looksJpeg: b[0] === 0xff && b[1] === 0xd8 };
+    } catch (e) { out.fetchFromCloud[u] = 'error ' + e.message; }
+  }
+  save();
+  const ok = Object.values(out.fetchFromCloud).every((x) => x.status === 200 && (x.looksPdf || x.looksJpeg));
+  if (!ok) { console.log('files NOT reachable from the cloud as real files - draft test skipped', JSON.stringify(out.fetchFromCloud)); process.env.PROBE_DRAFT = '0'; }
+}
+
 if (process.env.PROBE_DRAFT === '1') {
   const orgs = (await gql('query { account { organizations { id } } }'))?.data?.account?.organizations || [];
   let channel = null;

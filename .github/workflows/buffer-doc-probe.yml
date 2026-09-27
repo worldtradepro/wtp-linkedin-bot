@@ -19,6 +19,7 @@ on:
   push:
     paths:
       - buffer_doc_probe.mjs
+      - buffer_doc_probe_input.json
       - .github/workflows/buffer-doc-probe.yml
 
 permissions:
