@@ -4,3 +4,5 @@ gen.err
 *.bak*
 .env
 share_test/
+media_library/candidates/
+reports/out/

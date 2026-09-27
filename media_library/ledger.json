@@ -1,0 +1,53 @@
+[
+  {
+    "id": "wm-163925081",
+    "file": "wm-163925081.jpg",
+    "sourceId": "wm-163925081",
+    "source": "wikimedia",
+    "page": "https://commons.wikimedia.org/wiki/File:Crude_Oil_Tanker_in_Port_Arthur,_Texas.jpg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/d/da/Crude_Oil_Tanker_in_Port_Arthur%2C_Texas.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Quintin Soloviev",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "retrieved": "2026-09-27",
+    "width": 8064,
+    "height": 5858,
+    "title": "Crude Oil Tanker in Port Arthur, Texas.jpg",
+    "caption": "Illustrative: a crude oil tanker off Port Arthur, Texas",
+    "credit": "Photo: Quintin Soloviev · CC0 · Wikimedia Commons",
+    "tags": [
+      "hero",
+      "crude",
+      "tanker",
+      "shipping"
+    ],
+    "illustrative": true,
+    "usedIn": []
+  },
+  {
+    "id": "wm-89786238",
+    "file": "wm-89786238.jpg",
+    "sourceId": "wm-89786238",
+    "source": "wikimedia",
+    "page": "https://commons.wikimedia.org/wiki/File:STS_operations_on_suezmax_oil_tanker.jpg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/e/e5/STS_operations_on_suezmax_oil_tanker.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Martian-2007",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "retrieved": "2026-09-27",
+    "width": 1280,
+    "height": 720,
+    "title": "STS operations on suezmax oil tanker.jpg",
+    "caption": "Illustrative: ship-to-ship transfer on a Suezmax crude tanker",
+    "credit": "Photo: Martian-2007 · CC BY-SA 4.0 · Wikimedia Commons",
+    "tags": [
+      "sts",
+      "crude",
+      "tanker",
+      "shipping",
+      "hormuz"
+    ],
+    "illustrative": true,
+    "usedIn": []
+  }
+]

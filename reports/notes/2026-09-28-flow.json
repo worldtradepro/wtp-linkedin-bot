@@ -1,0 +1,71 @@
+{
+  "_about": "Editorial layer for one issue. In production this file is written by ONE LLM call from data.json (facts only from the listed stories, every claim linked). For this sample it was written by hand from the week's stories.",
+  "title": "Lane risk eased, costs did not: Saudi crude re-routes and freight eats a fifth of the cargo",
+  "short": "Saudi crude re-routes, freight eats a fifth of the cargo",
+  "dek": "Fewer critical alerts on the Gulf chokepoints this week, but the bill for working around them kept rising — in tanker rates, war-risk cover and ship-to-ship capacity.",
+  "takeaways": [
+    "Aramco restarted the East-West pipeline (Petroline) less than two weeks after attacks knocked out the 7 million bpd system — but Yanbu, its Red Sea outlet, is now itself in the risk zone.",
+    "Freight is now roughly a fifth of the cost of a crude cargo, per OilPrice.com; Japan pays the most per barrel delivered and Iraq is rushing out last-minute cargoes.",
+    "Critical alerts fell to 34 from 39 and pressure eased on Hormuz, Bab el-Mandeb and the Red Sea — while the Black Sea was the only big lane where it rose."
+  ],
+  "hero": {
+    "value": "~⅕",
+    "label": "of the cost of a crude cargo is now freight",
+    "bullets": [
+      "Japan now pays the most per delivered barrel",
+      "Iraq is offering last-minute cargoes as buyers balk at Gulf freight",
+      "Marine insurers report billions lost on war-risk cover"
+    ]
+  },
+  "big": {
+    "heading": "The big story: the Yanbu detour works — at a price",
+    "paras": [
+      "Three weeks after the attack on Saudi Arabia's East-West pipeline, the system is back. <a href=\"https://oilprice.com/Energy/Energy-General/Aramco-Restores-East-West-Pipeline-as-War-Risk-Closes-In-on-Yanbu.html\">OilPrice.com</a> reports Aramco restarted Petroline less than two weeks after the strikes knocked out the 7 million bpd line that has carried most Saudi crude around the Strait of Hormuz. The catch: the war risk is now closing in on Yanbu, the Red Sea terminal the detour depends on.",
+      "The disruption did more than cut one route. <a href=\"https://www.hellenicshippingnews.com/yanbu-pipeline-attack-ripples-across-crude-freight-and-gas-markets/\">Hellenic Shipping News</a> traces it through higher tanker rates, tighter diesel supply into Europe and extra pressure on gas. While the pipe was down, Saudi barrels went back through the Gulf and out via ship-to-ship transfers — and <a href=\"https://gcaptain.com/gulf-of-oman-ship-to-ship-oil-transfers-reach-limit-as-saudi-exports-surge/\">gCaptain</a> says STS capacity in the Gulf of Oman has now reached its limit.",
+      "The result is a market that keeps moving oil but charges for every workaround. <a href=\"https://oilprice.com/Energy/Crude-Oil/Soaring-Freight-Costs-Make-Japans-Crude-Imports-the-Worlds-Most-Expensive.html\">Freight is now roughly a fifth of the cost of a crude cargo</a>, making Japan's imports the world's most expensive; <a href=\"https://www.rigzone.com/news/wire/iraq_rushes_oil_offers_amid_high_shipping_costs-26-sep-2026-184708-article/?rss=true\">Iraq's SOMO is offering last-minute cargoes</a> because buyers balk at freight from deep inside the Gulf; and <a href=\"https://www.hellenicshippingnews.com/marine-insurers-lose-billions-supporting-hormuz-energy-flows-iumi/\">marine insurers say they have lost billions</a> covering war risk despite higher premiums."
+    ],
+    "slide": [
+      "Aramco restarted the 7 million bpd East-West pipeline less than two weeks after the attacks.",
+      "But Yanbu — its Red Sea outlet and the main Hormuz bypass — is now inside the war-risk zone.",
+      "While the pipe was down, Gulf of Oman ship-to-ship transfers hit their limit."
+    ]
+  },
+  "lanesNote": "Pressure eased on the three Gulf and Red Sea lanes that dominated September — Hormuz, Bab el-Mandeb and the Red Sea & Suez — with fewer critical alerts than the week before. The Black Sea moved the other way, with attacks threatening the grain trade. Quieter lanes do not mean cheaper voyages: the cost of the detours is still in the freight.",
+  "markets": {
+    "Energy": "Beyond the Gulf, buyers keep re-shuffling: India's Russian crude imports fell 16.5% in August as a new US sanctions law looms, and Qatar's lost LNG capacity is reviving projects from Argentina to Timor-Leste.",
+    "Shipping": "Suez transits were up 27% year on year in August as some lines selectively returned — the Red Sea is reopening for some, even as Saudi crude costs more to move through it.",
+    "Agriculture": "China's soybean buying rebounded ahead of the US–China meeting, and Russia says it could restart up to 80% of its Black Sea grain terminal capacity if attacks stop.",
+    "Policy": "Washington's diesel-export-ban debate ran all week: a reported 90-day ban plan, a White House denial, and industry warnings that a ban would cut Gulf Coast refinery runs.",
+    "Metals": "Few signals, but big money: Washington is building a critical-minerals stockpile — Mercuria pledged $500m to EXIM's Project Vault and Glencore will help build it with $500m of government financing — while EXIM will finance up to $7 billion of Argentine minerals and energy projects."
+  },
+  "implications": [
+    {
+      "who": "Crude & product traders",
+      "text": "Price the delivered barrel, not the FOB one: with freight near a fifth of cargo value, destination and route choice now move margins as much as the benchmark does."
+    },
+    {
+      "who": "Charterers & shipowners",
+      "text": "Gulf of Oman STS capacity is a bottleneck; expect premiums for prompt tonnage and longer waits if Yanbu loadings are disrupted again."
+    },
+    {
+      "who": "Buyers in Asia & Europe",
+      "text": "Iraqi and other Gulf sellers are discounting and offering prompt cargoes — there is room to negotiate on freight-heavy grades."
+    }
+  ],
+  "watch": [
+    "Yanbu: any strike on the Red Sea terminal would close the main Hormuz bypass again.",
+    "US diesel exports: whether the ban talk becomes policy — Mexico and Latin America are most exposed.",
+    "Black Sea: attacks on the grain trade vs. Turkey's push for a shipping deal."
+  ],
+  "question": "Are freight and war-risk costs changing where you buy or sell this quarter? Which route or grade has become uneconomic for you?",
+  "images": {
+    "hero": "wm-163925081",
+    "story": "wm-89786238"
+  },
+  "_check": {
+    "warnings": [
+      "numbers not found in the source material (check them): 80%"
+    ],
+    "errors": []
+  }
+}

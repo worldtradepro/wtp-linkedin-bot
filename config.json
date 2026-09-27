@@ -105,5 +105,11 @@
       "minFlowScore": 8,
       "perMarket": 2
     }
+  },
+  "weeklyReport": {
+    "model": "anthropic/claude-opus-5.5",
+    "reviewTo": "contact@worldtradepro.com",
+    "linkedinSlotUtc": "07:30",
+    "_note": "Trade Flow Weekly: Sunday 18:xx UTC draft + review e-mail, Monday 06:xx UTC publish (site + forum + Buffer)"
   }
 }
