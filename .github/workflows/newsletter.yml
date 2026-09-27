@@ -64,8 +64,7 @@ jobs:
             git fetch -q origin main
             git show origin/main:state/newsletter.json > /tmp/remote.json 2>/dev/null || echo '{}' > /tmp/remote.json
             test -f state/newsletter.json || echo '{}' > state/newsletter.json
-            node -e "const fs=require('fs');const r=JSON.parse(fs.readFileSync('/tmp/remote.json'));const l=JSON.parse(fs.readFileSync('state/newsletter.json'));fs.writeFileSync('state/newsletter.json',JSON.stringify({...r,...l},null,2)+'
-')"
+            node -e "const fs=require('fs');const r=JSON.parse(fs.readFileSync('/tmp/remote.json'));const l=JSON.parse(fs.readFileSync('state/newsletter.json'));fs.writeFileSync('state/newsletter.json',JSON.stringify({...r,...l},null,2)+String.fromCharCode(10))"
             git reset -q --mixed origin/main
             git add state/newsletter.json newsletter/out/$N.* 2>/dev/null || true
             git diff --cached --quiet && exit 0
