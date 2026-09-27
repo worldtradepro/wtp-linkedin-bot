@@ -11,7 +11,9 @@ name: weekly-report
 on:
   schedule:
     - cron: '17 18 * * 0'    # Sunday: stage + review mail
-    - cron: '7 6 * * 1'      # Monday: publish
+    - cron: '7 6 * * 1'      # Monday: publish (07:07 UK)
+    - cron: '7 9 * * 1'      # Monday: retry - publishes an issue approved late (idempotent)
+    - cron: '7 11 * * 1'     # Monday: last retry
   workflow_dispatch:
     inputs:
       step:
@@ -50,15 +52,23 @@ jobs:
         run: |
           STEP="${{ github.event.inputs.step }}"
           if [ -z "$STEP" ]; then
-            if [ "${{ github.event.schedule }}" = "7 6 * * 1" ]; then STEP=publish; else STEP=stage; fi
+            case "${{ github.event.schedule }}" in "17 18 * * 0") STEP=stage ;; *) STEP=publish ;; esac
           fi
           DATE="${{ github.event.inputs.date }}"
           if [ -z "$DATE" ]; then
             if [ "$STEP" = "publish" ]; then DATE=$(date -u -d "$( [ "$(date -u +%u)" = 1 ] && echo today || echo 'last monday')" +%F); else DATE=$(date -u -d 'next monday' +%F); fi
           fi
-          echo "step=$STEP" >> "$GITHUB_OUTPUT"; echo "date=$DATE" >> "$GITHUB_OUTPUT"
-          echo "Trade Flow Weekly: $STEP for Monday $DATE"
+          GO=true
+          if [ "$STEP" = "publish" ] && ! node -e "process.exit(require('./state/weekly.json')['$DATE'] ? 0 : 1)" 2>/dev/null; then
+            GO=false; echo "::notice::Nothing was staged for $DATE through this workflow - nothing to publish."
+          fi
+          if [ "$STEP" = "publish" ] && node -e "const s=require('./state/weekly.json')['$DATE'];process.exit(s&&s.bufferPostId?0:1)" 2>/dev/null; then
+            GO=false; echo "Already published and queued for $DATE."
+          fi
+          echo "step=$STEP" >> "$GITHUB_OUTPUT"; echo "date=$DATE" >> "$GITHUB_OUTPUT"; echo "go=$GO" >> "$GITHUB_OUTPUT"
+          echo "Trade Flow Weekly: $STEP for Monday $DATE (run: $GO)"
       - name: Check secrets
+        if: ${{ steps.w.outputs.go == 'true' }}
         run: |
           test -n "$WTP_PUBLISH_KEY" || { echo "::error::Secret WTP_PUBLISH_KEY is missing (WordPress: Settings -> WTP Insights publishing)"; exit 1; }
           if [ "${{ steps.w.outputs.step }}" = "stage" ]; then
@@ -108,11 +118,11 @@ jobs:
 
       # ---------------- Monday: publish
       - name: Publish (site + forum) and queue LinkedIn in Buffer
-        if: ${{ steps.w.outputs.step == 'publish' }}
+        if: ${{ steps.w.outputs.step == 'publish' && steps.w.outputs.go == 'true' }}
         run: node weekly_publish.mjs --date ${{ steps.w.outputs.date }}
 
       - name: Keep notes + state in the repo
-        if: always()
+        if: ${{ always() && steps.w.outputs.go == 'true' }}
         run: |
           git config user.name "wtp-bot"; git config user.email "wtp-bot@users.noreply.github.com"
           for i in 1 2 3; do

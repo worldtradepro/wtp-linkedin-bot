@@ -23,10 +23,11 @@ const wp = JSON.parse(readFileSync(join(OUT, 'wp.json'), 'utf8'));
 const forumRaw = readFileSync(join(OUT, 'forum.html'), 'utf8');
 const caption = readFileSync(join(OUT, 'linkedin.txt'), 'utf8');
 const notes = JSON.parse(readFileSync(join(HERE, 'reports', 'notes', `${DATE}-flow.json`), 'utf8'));
+const warnings = notes._check?.warnings || [];   // any warning -> the issue waits for the owner's approval
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 const payload = {
-  slug: man.slug, title: wp.title, excerpt: wp.excerpt, content: wp.content, featured: 'hero', share: 'share',
+  slug: man.slug, hold: warnings.length > 0, title: wp.title, excerpt: wp.excerpt, content: wp.content, featured: 'hero', share: 'share',
   assets: Object.fromEntries(Object.entries(man.assets).map(([k, a]) => [k, { url: `${BASE}/${a.name}`, filename: a.name, alt: a.alt, title: `${man.docTitle} – ${k}` }])),
   forum: { title: (forumRaw.match(/<!-- title: (.*?) -->/) || [])[1], html: forumRaw.replace(/<!-- title: .*? -->\n?/, '') },
 };
@@ -38,24 +39,26 @@ console.log(`draft ${res.id} staged: ${res.preview}`);
 const STATE = join(HERE, 'state', 'weekly.json');
 const state = existsSync(STATE) ? JSON.parse(readFileSync(STATE, 'utf8')) : {};
 state[DATE] = { slug: man.slug, id: res.id, url: res.url, preview: res.preview, edit: res.edit, docTitle: man.docTitle,
-  pdfUrl: res.media.pdf.url, coverUrl: res.media.cover.url, caption, stagedAt: new Date().toISOString() };
+  held: !!res.held, pdfUrl: res.media.pdf.url, coverUrl: res.media.cover.url, caption, stagedAt: new Date().toISOString() };
 mkdirSync(dirname(STATE), { recursive: true });
 writeFileSync(STATE, JSON.stringify(state, null, 2));
 
 if (!args.includes('--no-mail')) {
-  const warn = notes._check?.warnings || [];
+  const warn = warnings;
   const box = (t, body) => `<div style="border:1px solid #e4e7ec;border-radius:8px;padding:12px 16px;margin:14px 0"><b>${t}</b><div style="margin-top:6px">${body}</div></div>`;
   const btn = (label, href, bg) => `<a href="${esc(href)}" style="display:inline-block;background:${bg};color:#fff;text-decoration:none;font-weight:700;padding:10px 16px;border-radius:6px;margin:4px 8px 4px 0">${label}</a>`;
   const html = `<div style="font:15px/1.55 Segoe UI,Arial,sans-serif;color:#101828;max-width:640px">
 <p style="color:#667085;margin:0">Trade Flow Weekly · Week ${man.week}, ${man.year} — review</p>
 <h2 style="margin:6px 0 4px">${esc(wp.title)}</h2><p style="margin:0 0 10px;color:#344054">${esc(wp.excerpt)}</p>
-<p><b>Publishes automatically on Monday ${DATE} at about 07:00 UK time</b> (website, forum thread, LinkedIn at 08:30). Do nothing if it looks right.</p>
+${res.held
+  ? `<p style="background:#fef3f2;border:1px solid #fecdca;border-radius:8px;padding:10px 14px"><b>Waiting for your approval.</b> The fact-check raised ${warn.length} point(s) below, so this issue will <b>not</b> go out unless you approve it. Check them (edit the WordPress draft if needed), then press <b>Approve</b>. Approved before Monday ~07:00 UK it publishes then; later approvals go out at the 10:00 or 12:00 UK check.</p>`
+  : `<p><b>Publishes automatically on Monday ${DATE} at about 07:00 UK time</b> (website, forum thread, LinkedIn at 08:30). Do nothing if it looks right.</p>`}
 ${warn.length ? box('⚠️ Please check (automatic fact-check)', '<ul style="margin:0;padding-left:18px">' + warn.map((w) => `<li>${esc(w)}</li>`).join('') + '</ul>') : box('✅ Automatic fact-check', 'Every link and number traces back to this week\'s sources.')}
-<p>${btn('Preview the article', res.preview, '#0f2d5e')}${btn('Edit in WordPress', res.edit, '#475467')}${btn('Hold this issue', res.hold, '#b42318')}</p>
-<p style="font-size:13px;color:#667085">Edits you make to the WordPress draft are kept when it publishes. "Hold" stops the website, forum and LinkedIn posts; <a href="${esc(res.resume)}">resume</a> undoes it. The preview needs you to be logged in to WordPress.</p>
+<p>${btn('Preview the article', res.preview, '#0f2d5e')}${btn('Edit in WordPress', res.edit, '#475467')}${res.held ? btn('Approve', res.resume, '#027a48') : btn('Hold this issue', res.hold, '#b42318')}</p>
+<p style="font-size:13px;color:#667085">Edits you make to the WordPress draft are kept when it publishes. ${res.held ? `Changed your mind after approving? <a href="${esc(res.hold)}">Hold it again</a>.` : `"Hold" stops the website, forum and LinkedIn posts; <a href="${esc(res.resume)}">approve</a> undoes it.`} The preview needs you to be logged in to WordPress.</p>
 ${box('LinkedIn document post (main page, Monday 07:30 UTC)', `<p style="margin:0 0 6px"><a href="${esc(res.media.pdf.url)}">Open the PDF (7 pages)</a></p><pre style="white-space:pre-wrap;font:13px/1.5 Segoe UI,Arial,sans-serif;margin:0">${esc(caption)}</pre>`)}
 ${box('Forum thread (Global Commodity Radar, as chief_editor)', `<p style="margin:0 0 6px"><b>${esc(payload.forum.title)}</b></p>${payload.forum.html}`)}
 <p style="font-size:12px;color:#98a2b3">Written by ${esc(notes._generated?.model || 'the model')} from ${Object.keys(JSON.parse(readFileSync(join(OUT, 'data.json'), 'utf8')).clusters || {}).length} story clusters; checked by weekly_notes.mjs.</p></div>`;
-  const m = await sendMail({ to: cfg.weeklyReport?.reviewTo || cfg.newsletter.ses.replyTo, subject: `Review: Trade Flow Weekly W${man.week}${warn.length ? ` (${warn.length} to check)` : ''} — publishes Mon ~07:00 UK`, html });
+  const m = await sendMail({ to: cfg.weeklyReport?.reviewTo || cfg.newsletter.ses.replyTo, subject: res.held ? `Approve needed: Trade Flow Weekly W${man.week} (${warn.length} to check) — not published until you approve` : `Review: Trade Flow Weekly W${man.week} — publishes Mon ~07:00 UK`, html });
   console.log('review mail sent', m.MessageId || '');
 }
