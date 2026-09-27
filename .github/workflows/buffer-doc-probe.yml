@@ -1,0 +1,56 @@
+name: buffer-doc-probe
+
+# Can Buffer's API post a LinkedIn PDF document? Default run is READ-ONLY (schema dump).
+# Manual run with draft=1 also creates ONE Buffer draft (never published) to prove the free plan accepts it.
+# Result goes to branch "images" under buffer-doc-probe/.
+
+on:
+  workflow_dispatch:
+    inputs:
+      draft:
+        description: 'Also create one Buffer DRAFT with the PDF (1 = yes)'
+        default: '0'
+      pdf_url:
+        description: 'Public URL of the PDF'
+        default: ''
+      thumb_url:
+        description: 'Public URL of the thumbnail image'
+        default: ''
+  push:
+    paths:
+      - buffer_doc_probe.mjs
+      - .github/workflows/buffer-doc-probe.yml
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+      PROBE_DRAFT: ${{ github.event.inputs.draft || '0' }}
+      PROBE_PDF_URL: ${{ github.event.inputs.pdf_url }}
+      PROBE_THUMB_URL: ${{ github.event.inputs.thumb_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Probe Buffer
+        run: node buffer_doc_probe.mjs
+      - name: Publish the result (branch images)
+        if: always()
+        run: |
+          set -e
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          git fetch origin images
+          git worktree add -B images ../_images origin/images
+          mkdir -p ../_images/buffer-doc-probe
+          cp buffer_doc_probe/* ../_images/buffer-doc-probe/ 2>/dev/null || true
+          cd ../_images
+          git add -A
+          git diff --cached --quiet || git commit -m "buffer-doc-probe $(date -u +%FT%TZ)"
+          git push origin HEAD:images
