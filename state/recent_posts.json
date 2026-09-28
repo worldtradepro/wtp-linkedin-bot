@@ -5,6 +5,18 @@
       "title": "Iraq Rushes Oil Offers amid High Shipping Costs",
       "iso": "IQ",
       "sector": "Energy"
+    },
+    {
+      "date": "2026-09-28",
+      "title": "Energy Workforce warns diesel export ban could cut U.S. refinery output",
+      "iso": "US",
+      "sector": "Energy"
+    },
+    {
+      "date": "2026-09-28",
+      "title": "Gulf of Oman Ship-to-ship Oil Transfers Reach Limit as Saudi Exports Surge",
+      "iso": "OM",
+      "sector": "Shipping"
     }
   ]
 }
