@@ -99,7 +99,7 @@
       "fromName": "World Trade Pro",
       "replyTo": "contact@worldtradepro.com",
       "postalAddress": "",
-      "configurationSet": ""
+      "configurationSet": "wtp-newsletter"
     },
     "flow": {
       "minFlowScore": 8,
