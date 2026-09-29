@@ -3,6 +3,9 @@
 //   snippet "WTP Newsletter"), one message each, with a personal unsubscribe link in the footer and
 //   RFC 8058 one-click List-Unsubscribe headers (Gmail / Yahoo bulk-sender rules).
 //   Before sending, checks SES's 24-hour quota; a run that would not fit is refused (exit 1, so it is noticed).
+//   Also reads the SES account-level suppression list (hard bounces + complaints), skips those subscribers and
+//   reports them to the site (POST /wtp/v1/suppress), which marks them bounced / complained. Needs
+//   ses:ListSuppressedDestinations; without it the run only warns and sends as before.
 //   Progress is written after every message (newsletter/out/<name>.sent.json), so a re-run after a
 //   crash continues where it stopped instead of sending twice. This repo and its Actions logs are
 //   PUBLIC: the progress file holds only keyed hashes (HMAC with WTP_BOT_SECRET), and logs never
@@ -43,16 +46,19 @@ export function signingKey(secret, day, region, service) {
 export function signature(secret, day, region, service, stringToSign) {
   return createHmac('sha256', signingKey(secret, day, region, service)).update(stringToSign, 'utf8').digest('hex');
 }
-async function sesCall(method, path, body) {
+// RFC 3986 encoding, as SigV4 canonical query strings require
+const enc3986 = (s) => encodeURIComponent(s).replace(/[!'()*]/g, (c) => '%' + c.charCodeAt(0).toString(16).toUpperCase());
+async function sesCall(method, path, body, query = {}) {
   const region = process.env.AWS_REGION || ses.region;
+  const qs = Object.keys(query).sort().map((k) => `${enc3986(k)}=${enc3986(query[k])}`).join('&');
   const host = `email.${region}.amazonaws.com`;
   const payload = body ? JSON.stringify(body) : '';
   const amz = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
   const day = amz.slice(0, 8);
   const scope = `${day}/${region}/ses/aws4_request`;
-  const canonical = `${method}\n${path}\n\ncontent-type:application/json\nhost:${host}\nx-amz-date:${amz}\n\ncontent-type;host;x-amz-date\n${sha256(payload)}`;
+  const canonical = `${method}\n${path}\n${qs}\ncontent-type:application/json\nhost:${host}\nx-amz-date:${amz}\n\ncontent-type;host;x-amz-date\n${sha256(payload)}`;
   const sig = signature(process.env.AWS_SECRET_ACCESS_KEY, day, region, 'ses', `AWS4-HMAC-SHA256\n${amz}\n${scope}\n${sha256(canonical)}`);
-  const r = await fetch(`${process.env.SES_ENDPOINT || 'https://' + host}${path}`, {   // SES_ENDPOINT: local mock for tests only
+  const r = await fetch(`${process.env.SES_ENDPOINT || 'https://' + host}${path}${qs ? '?' + qs : ''}`, {   // SES_ENDPOINT: local mock for tests only
     method, body: body ? payload : undefined,
     headers: { 'Content-Type': 'application/json', 'X-Amz-Date': amz,
       Authorization: `AWS4-HMAC-SHA256 Credential=${process.env.AWS_ACCESS_KEY_ID}/${scope}, SignedHeaders=content-type;host;x-amz-date, Signature=${sig}` },
@@ -112,7 +118,37 @@ if (!POSTAL) console.log('::warning::No postal address set (WordPress: Settings 
 const rcpts = ONLY ? [{ email: ONLY, token: '0'.repeat(32) }] : (list.items || []);
 const idOf = (email) => createHmac('sha256', process.env.WTP_BOT_SECRET || 'local').update(email.toLowerCase()).digest('hex').slice(0, 20);
 const done = new Set(!ONLY && existsSync(PROGRESS) ? JSON.parse(readFileSync(PROGRESS, 'utf8')) : []);
-const todo = rcpts.filter((x) => !done.has(idOf(x.email)));
+
+// SES suppression list -> skip + write back. SNS push cannot be used: Cloudflare challenges AWS traffic to the site.
+async function suppressedList() {
+  const out = new Map();
+  let token = null;
+  do {
+    const r = await sesCall('GET', '/v2/email/suppression/addresses', null, { PageSize: '1000', ...(token ? { NextToken: token } : {}) });
+    for (const x of r.SuppressedDestinationSummaries || []) out.set(String(x.EmailAddress).toLowerCase(), x.Reason);
+    token = r.NextToken;
+  } while (token);
+  return out;
+}
+const blocked = new Map();
+if (!ONLY) {
+  try {
+    const sup = await suppressedList();
+    for (const x of rcpts) if (sup.has(x.email.toLowerCase())) blocked.set(x.email, sup.get(x.email.toLowerCase()));
+    console.log(`SES suppression list: ${sup.size} addresses, ${blocked.size} of them still subscribed`);
+  } catch (e) {
+    const why = /AccessDenied|-> 403/.test(e.message) ? 'grant ses:ListSuppressedDestinations to the sending IAM user' : e.message.slice(0, 120);
+    console.log(`::warning::Could not read the SES suppression list (${why}) - bounces/complaints not synced this run.`);
+  }
+  if (blocked.size && !DRY) {
+    const r = await fetch(`${SITE}/wp-json/wtp/v1/suppress?secret=${encodeURIComponent(process.env.WTP_BOT_SECRET || '')}`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'user-agent': 'wtp-linkedin-bot/1.0' },
+      body: JSON.stringify({ items: [...blocked].map(([email, reason]) => ({ email, reason })) }),
+    });
+    console.log(r.ok ? `site: ${(await r.json()).changed} subscriber(s) marked bounced/complained` : `::warning::site /suppress -> HTTP ${r.status}`);
+  }
+}
+const todo = rcpts.filter((x) => !done.has(idOf(x.email)) && !blocked.has(x.email));
 console.log(`${NAME}: ${rcpts.length} recipients, ${done.size} already sent, ${todo.length} to go - "${meta.subject}"`);
 if (DRY || !todo.length) process.exit(0);
 
