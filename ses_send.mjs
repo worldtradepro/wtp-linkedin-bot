@@ -103,7 +103,23 @@ function message(meta, page, rcpt) {
 }
 
 // ---------------------------------------------------------------- run
-const meta = JSON.parse(readFileSync(join(OUT, NAME + '.json'), 'utf8'));
+// --check: permissions smoke test (no subscriber mail): account/quota, suppression list read, and one send through the
+// configuration set to the SES mailbox simulator (not delivered, does not count against reputation).
+if (args.includes('--check')) {
+  const acc = await sesCall('GET', '/v2/email/account');
+  console.log(`account: production=${acc.ProductionAccessEnabled}, quota ${acc.SendQuota?.SentLast24Hours}/${acc.SendQuota?.Max24HourSend} in 24h, ${acc.SendQuota?.MaxSendRate}/s`);
+  const sup = await sesCall('GET', '/v2/email/suppression/addresses', null, { PageSize: '100' });
+  console.log(`suppression list readable: ${(sup.SuppressedDestinationSummaries || []).length} address(es) on the first page`);
+  const r = await sesCall('POST', '/v2/email/outbound-emails', {
+    FromEmailAddress: `"${ses.fromName}" <${ses.from}>`,
+    Destination: { ToAddresses: ['success@simulator.amazonses.com'] },
+    Content: { Simple: { Subject: { Data: 'SES permissions check' }, Body: { Text: { Data: 'Smoke test from ses_send.mjs --check' } } } },
+    ...(ses.configurationSet ? { ConfigurationSetName: ses.configurationSet } : {}),
+  });
+  console.log(`simulator send OK (configuration set: ${ses.configurationSet || 'none'}, message id ${r.MessageId})`);
+  process.exit(0);
+}
+const meta =JSON.parse(readFileSync(join(OUT, NAME + '.json'), 'utf8'));
 if (meta.skip) { console.log(`${NAME}: marked skip (too few signals) - nothing sent`); process.exit(0); }
 const page = readFileSync(join(OUT, NAME + '.html'), 'utf8');
 const state = existsSync(STATE) ? JSON.parse(readFileSync(STATE, 'utf8')) : {};

@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
     inputs:
       edition:
-        description: 'flow or projects'
+        description: 'flow, projects, or check (SES permissions smoke test, no subscriber mail)'
         required: true
         default: 'projects'
 
@@ -48,14 +48,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: SES permissions check
+        if: steps.ed.outputs.edition == 'check'
+        run: node ses_send.mjs --check
       - name: Build the issue
+        if: steps.ed.outputs.edition != 'check'
         run: node newsletter.mjs --edition ${{ steps.ed.outputs.edition }}
       - name: Send through Amazon SES
+        if: steps.ed.outputs.edition != 'check'
         run: node ses_send.mjs --edition ${{ steps.ed.outputs.edition }}
       - name: Keep the issue + state in the repo
         # Another newsletter run may have pushed meanwhile (a dispatch runs the commit it was started on):
         # merge the sent-record JSON by key instead of rebasing, and stage only this issue's files.
-        if: always()
+        if: always() && steps.ed.outputs.edition != 'check'
         run: |
           git config user.name "wtp-bot"
           git config user.email "wtp-bot@users.noreply.github.com"
