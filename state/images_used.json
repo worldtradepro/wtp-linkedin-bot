@@ -29,6 +29,36 @@
       "id": "main-2",
       "url": "https://img.sbs.co.kr/newimg/news/20260925/202225845_1280.jpg",
       "hash": "07a42726a5a5d6edebb6db6e0aaa883b3982a29f"
+    },
+    {
+      "date": "2026-09-29",
+      "id": "infra-1",
+      "url": "https://www.marinelog.com/wp-content/uploads/2026/09/SX222-NYK-Dec25-wo-Options-Sea-SB-Fore_media.jpg",
+      "hash": "3e90c407a38c295aa4c2d3469bdca96b8b170d1b"
+    },
+    {
+      "date": "2026-09-29",
+      "id": "infra-2",
+      "url": "https://mdb.ad-hoc-news.de/bild/bild-2800398_1920_1080.webp",
+      "hash": "92630e0b804c6ce8668317676caf461e4389e3e2"
+    },
+    {
+      "date": "2026-09-29",
+      "id": "main-1",
+      "url": "https://d32r1sh890xpii.cloudfront.net/news/1200x675/2026-09-28_gnrh0nqytc.jpg",
+      "hash": "5648d065bf4d5d65fac27ae6ae9993d3e7c91350"
+    },
+    {
+      "date": "2026-09-29",
+      "id": "main-2",
+      "url": "https://images.marinelink.com/images/maritime/w800/adobe-stockrangsarit-173944.jpeg",
+      "hash": "96292088ecfae6a9ac5158d9697fff1b6ea622c4"
+    },
+    {
+      "date": "2026-09-29",
+      "id": "main-3",
+      "url": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA2d6C3S.img",
+      "hash": "fd943798d6d2eae44dcf0dd67a84f367f44aaa6d"
     }
   ]
 }
