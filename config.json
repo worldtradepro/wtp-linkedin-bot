@@ -119,7 +119,7 @@
   "singlePosts": false,
   "_singlePosts": "2026-09-30: user decision - the single news / project image posts (daily.yml: generate/render/push) are replaced by the Daily Scan carousels (daily-scan.yml). true = run them again.",
   "dailyScan": {
-    "startDate": "2026-10-01",
+    "startDate": "2026-09-30",
     "model": "anthropic/claude-opus-5.5",
     "photoGapDays": 14,
     "flow": {
