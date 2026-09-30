@@ -23,12 +23,18 @@ export async function ask(system, messages, { model, title = 'World Trade Pro', 
     // the conversation so far goes in as one prompt on stdin (the CLI has no multi-message input in print mode)
     const prompt = messages.map((m) => (m.role === 'user' ? m.content : `YOUR PREVIOUS ANSWER:\n${m.content}`)).join('\n\n---\n\n');
     const cwd = mkdtempSync(join(tmpdir(), 'wtp-llm-'));
+    // a token copied from a wrapped terminal line often carries a line break or spaces: strip all whitespace.
+    // Log only its shape (never the value) so a bad secret can be diagnosed from the run log.
+    const raw = process.env.CLAUDE_CODE_OAUTH_TOKEN || '';
+    const token = raw.replace(/\s+/g, '');
+    if (raw) console.log(`Claude token: ${token.length} chars, starts sk-ant-oat: ${token.startsWith('sk-ant-oat')}, whitespace removed: ${raw.length - token.length}`);
+    const env = raw ? { ...process.env, CLAUDE_CODE_OAUTH_TOKEN: token } : process.env;
     const bin = process.env.CLAUDE_BIN || 'claude';
     let out;
     try {
       out = execFileSync(bin, ['-p', 'Follow the instructions in the input and reply with the JSON object only.',
         '--system-prompt', system, '--model', cliModel(model), '--max-turns', '1', '--output-format', 'json'],
-      { cwd, input: prompt, encoding: 'utf8', maxBuffer: 20 * 1024 * 1024, timeout: 15 * 60000, shell: process.platform === 'win32' });
+      { cwd, env, input: prompt, encoding: 'utf8', maxBuffer: 20 * 1024 * 1024, timeout: 15 * 60000, shell: process.platform === 'win32' });
     } catch (e) {
       // the CLI exits non-zero on API/auth errors; its JSON on stdout still says why. Never echo the (long) command line.
       const so = String(e.stdout || ''), se = String(e.stderr || '');
