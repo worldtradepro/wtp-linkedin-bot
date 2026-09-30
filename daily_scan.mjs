@@ -456,7 +456,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8">
 .s.dark{background:${T.main};color:#fff;border-top-color:${T.accent}}
 .s.photo,.s.cover{padding-top:0}
 .k{font-size:25px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:${T.kick};margin-bottom:24px}.dark .k{color:${T.accent}}
-h1{font:600 60px/1.1 Newsreader,serif;margin:0}h2{font:600 52px/1.14 Newsreader,serif;margin:0 0 26px}h2.sm{font-size:44px;margin-bottom:34px}
+h1{font:600 60px/1.1 Newsreader,serif;margin:0}h2{font:600 calc(52px*var(--fs,1))/1.14 Newsreader,serif;margin:0 0 26px}h2.sm{font-size:44px;margin-bottom:34px}
 .ph{margin:0 -84px;background-size:cover;background-position:center;background-color:#1d2939}.ph.none{background:linear-gradient(135deg,${T.main},#344054)}
 .cr{margin:0 -84px;padding:7px 84px;font-size:15px;line-height:1.3;color:#667085;background:#f2f4f7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cover .cr{background:rgba(0,0,0,.25);color:#b9c6da}
@@ -467,18 +467,18 @@ h1{font:600 60px/1.1 Newsreader,serif;margin:0}h2{font:600 52px/1.14 Newsreader,
 .body{padding-top:30px}
 .chips{display:flex;flex-wrap:wrap;gap:12px;margin:-6px 0 22px}.chip{font-size:22px;font-weight:700;color:#fff;border-radius:999px;padding:6px 17px}.chip.o{background:${T.tint};color:#344054;border:2px solid #e4e7ec}
 .stat{display:flex;align-items:baseline;gap:22px;margin:-6px 0 18px}.stat b{font:600 84px/1 Newsreader,serif;color:${T.main};white-space:nowrap}.stat span{font-size:25px;line-height:1.3;color:#475467;font-weight:600}
-.what{font-size:31px;line-height:1.42;color:#344054;margin:0}
-.h3{font:600 40px/1.18 Newsreader,serif;color:#475467;margin:-4px 0 26px}
-.blk{border-top:2px solid #eaecf0;padding:24px 0 10px}.blk b{display:block;font-size:21px;letter-spacing:.1em;text-transform:uppercase;color:${T.kick};margin-bottom:8px}.blk p{font-size:33px;line-height:1.42;margin:0;color:#344054}
-.blk ul{margin:0;padding:0;list-style:none}.blk li{font-size:31px;line-height:1.38;color:#344054;padding:0 0 16px 36px;position:relative}.blk li:before{content:'';position:absolute;left:0;top:14px;width:14px;height:14px;border-radius:3px;background:${T.accent}}
+.what{font-size:calc(31px*var(--fs,1));line-height:1.42;color:#344054;margin:0}
+.h3{font:600 calc(40px*var(--fs,1))/1.18 Newsreader,serif;color:#475467;margin:-4px 0 26px}
+.blk{border-top:2px solid #eaecf0;padding:calc(24px*var(--fs,1)) 0 calc(10px*var(--fs,1))}.blk b{display:block;font-size:21px;letter-spacing:.1em;text-transform:uppercase;color:${T.kick};margin-bottom:8px}.blk p{font-size:calc(33px*var(--fs,1));line-height:1.42;margin:0;color:#344054}
+.blk ul{margin:0;padding:0;list-style:none}.blk li{font-size:calc(31px*var(--fs,1));line-height:1.38;color:#344054;padding:0 0 calc(16px*var(--fs,1)) 36px;position:relative}.blk li:before{content:'';position:absolute;left:0;top:14px;width:14px;height:14px;border-radius:3px;background:${T.accent}}
 .blk.watch p{font-weight:600;color:#101828}
 .meta{position:absolute;left:84px;right:84px;bottom:96px;font-size:21px;color:#667085;line-height:1.5}.meta span{display:inline-block;min-width:110px;font-weight:700;color:#98a2b3;text-transform:uppercase;letter-spacing:.08em;font-size:18px}
 .gl-list .gr{display:grid;grid-template-columns:30px 1fr;gap:14px;padding:17px 0;border-top:2px solid #eaecf0}.gr .dot{width:16px;height:16px;border-radius:50%;margin-top:11px}
-.gr b{display:block;font-size:29px;line-height:1.28;font-weight:600;color:#101828}.gr span{font-size:22px;color:#667085}.gr.st b{font-size:32px}
+.gr b{display:block;font-size:calc(29px*var(--fs,1));line-height:1.28;font-weight:600;color:#101828}.gr span{font-size:22px;color:#667085}.gr.st b{font-size:calc(32px*var(--fs,1))}
 .gr:not(.st) b{font-weight:400;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .sep{font-size:20px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#98a2b3;padding:20px 0 6px;border-top:4px solid ${T.main}}
 .bhead{display:flex;gap:28px;align-items:center;margin:-4px 0 18px}.gsm{flex:0 0 190px;height:190px;border-radius:50%;background-size:cover;background-position:center;box-shadow:0 0 0 6px ${T.tint}}
-.lead2{font-size:29px;line-height:1.4;color:#344054;margin:0}
+.lead2{font-size:calc(29px*var(--fs,1));line-height:1.4;color:#344054;margin:0}
 .lg{display:flex;gap:30px;font-size:21px;color:#667085;margin:0 0 6px}.lg i{display:inline-block;width:28px;height:14px;border-radius:3px;margin-right:9px;vertical-align:middle}
 i.now{background:${T.main}}i.prev{background:#c3cad5}
 .cb{display:grid;grid-template-columns:380px 1fr 150px;gap:18px;align-items:center;padding:12px 0;border-bottom:2px solid #eaecf0}
@@ -501,6 +501,13 @@ await page.evaluate(() => document.fonts.ready);
 await page.waitForTimeout(500);
 const els = await page.$$('section.s');
 // overflow guard: content must end above the meta block / stats row / footer
+// auto-fit: a slide whose text runs into its meta block / stats row / footer gets its body type scaled down in 4% steps
+// (to 78% at most); only a slide that still does not fit fails the run (quality guard)
+await page.$$eval('section.s', (ss) => ss.forEach((s) => {
+  const fits = () => { const f = s.querySelector('footer').getBoundingClientRect().top; const m = s.querySelector('.meta,.row3,.follow'); const lim = m ? m.getBoundingClientRect().top : f;
+    const kids = [...s.querySelectorAll('.blk,.cb,.gr,.lead2,h2,.what,.two,.stg,.url,.lead,.cv')].filter((e) => !e.closest('.meta')); return Math.max(0, ...kids.map((e) => e.getBoundingClientRect().bottom)) <= lim - 6; };
+  for (let fs = 1; !fits() && fs > 0.78; ) { fs = Math.round((fs - 0.04) * 100) / 100; s.style.setProperty('--fs', fs); }
+}));
 const over = await page.$$eval('section.s', (ss) => ss.map((s, i) => { const f = s.querySelector('footer').getBoundingClientRect().top; const m = s.querySelector('.meta,.row3,.follow'); const lim = m ? m.getBoundingClientRect().top : f;
   const kids = [...s.querySelectorAll('.blk,.cb,.gr,.lead2,h2,.what,.two,.stg,.url,.lead,.cv')].filter((e) => !e.closest('.meta')); const bottom = Math.max(0, ...kids.map((e) => e.getBoundingClientRect().bottom)); return bottom > lim - 6 ? i + 1 : 0; }).filter(Boolean));
 if (over.length) { console.error('TEXT OVERFLOW on slide(s):', over.join(', ')); if (!args.includes('--allow-overflow')) process.exitCode = 3; }
