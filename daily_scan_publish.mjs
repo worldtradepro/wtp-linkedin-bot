@@ -39,7 +39,7 @@ for (const [u, type] of [[pdfUrl, 'application/pdf'], [coverUrl, 'image/jpeg']])
   }
   if (!ok) throw new Error(`not reachable as ${type}: ${u}`);
 }
-state[KEY_] = { pdfUrl, coverUrl, issue: A.issue };
+state[KEY_] = { pdfUrl, coverUrl, issue: A.issue, scanDay: A.scanDay };
 save();
 console.log('files:', pdfUrl, coverUrl);
 if (args.includes('--no-buffer')) { delete state[KEY_]; save(); console.log('dry run: not queued in Buffer'); process.exit(0); }
