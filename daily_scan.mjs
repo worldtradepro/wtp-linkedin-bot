@@ -121,17 +121,15 @@ async function infraData() {
   const q = SECRET ? `&secret=${encodeURIComponent(SECRET)}` : '';
   const res = await fetchJson(`${API}/opportunities?report_type=epc&from=${dayShift(DATE, -21)}&to=${dayShift(DATE, -1)}&limit=2000${q}`);
   const all = (res.items || []).filter(ok);
-  // the scan covers the previous UTC day; without the secret (local tests) the newest public day stands in for it
-  // Projects reach the feed several days after their report date and the daily intake is uneven: use the most recent day of
-  // the last 7 with at least 3 projects that no earlier Daily Project Scan has covered (state/scan_pushed.json).
-  // The slides show that day's date, so the scan never mislabels its day.
-  const count = (d0) => all.filter((it) => it.report_date === d0).length;
+  // Projects reach the feed days after their report date and the daily intake is uneven (4 one day, 29 another), so each
+  // scan draws on the last 7 days and skips projects an earlier Daily Project Scan already featured (state/scan_pushed.json).
+  // Without the secret (local tests) the newest public day stands in for "yesterday".
   const pushedF = join(HERE, 'state', 'scan_pushed.json');
-  const covered = new Set(Object.entries(existsSync(pushedF) ? JSON.parse(readFileSync(pushedF, 'utf8')) : {})
-    .filter(([k, v]) => k.endsWith(':infra') && v.bufferPostId && v.scanDay).map(([, v]) => v.scanDay));
-  const D1 = SECRET ? ([1, 2, 3, 4, 5, 6, 7].map((n) => dayShift(DATE, -n)).find((d0) => count(d0) >= 3 && !covered.has(d0)) || dayShift(DATE, -1))
-    : all.map((it) => it.report_date).sort().pop();
-  const day = all.filter((it) => it.report_date === D1);
+  const featured = new Set(Object.entries(existsSync(pushedF) ? JSON.parse(readFileSync(pushedF, 'utf8')) : {})
+    .filter(([k, v]) => k.endsWith(':infra') && v.bufferPostId).flatMap(([, v]) => v.pickIds || []));
+  const D1 = SECRET ? dayShift(DATE, -1) : all.map((it) => it.report_date).sort().pop();
+  const W0 = dayShift(D1, -6);
+  const day = all.filter((it) => it.report_date >= W0 && it.report_date <= D1 && !featured.has(String(it.id)));
   // Google News redirect links cannot be read (no article text for the note) and name the outlet poorly: rank them last among equals
   const rank = (it) => stageW(it.stage) * 10 + scaleW(it.scale) * 6 + (parseInt(it.credibility, 10) || 0) - (hostOf(it.source_url) === 'news.google.com' ? 9 : 0);
   // topics that are not business-development leads for this audience (politically charged, defence)
@@ -140,7 +138,7 @@ async function infraData() {
   // shortlist 8 (one per country), read their articles, then take the 3 best that have real article text
   const short = [];
   for (const it of sorted) {
-    if (short.length === 8) break;
+    if (short.length === 10) break;
     if (short.some((p) => p.country === it.country || similar(p.project_name, it.project_name))) continue;
     short.push(it);
   }
@@ -156,7 +154,7 @@ async function infraData() {
   const pk = picks.map((it) => ({ ...proj(it), article: texts.get(it) }));
   const tally = (key) => { const t = {}; for (const it of day) { const k = key(it) || 'Other'; t[k] = (t[k] || 0) + 1; } return Object.entries(t).sort((a, b) => b[1] - a[1]); };
   return {
-    series: 'infra', date: DATE, scanDay: D1, issue: issueNo, fresh: !!SECRET,
+    series: 'infra', date: DATE, scanDay: D1, windowFrom: W0, issue: issueNo, fresh: !!SECRET,
     totals: { projects: day.length, awarded: day.filter((it) => stageW(it.stage) === 5).length, tenders: day.filter((it) => stageW(it.stage) === 4).length,
       countries: new Set(day.map((it) => it.country)).size, large: day.filter((it) => scaleW(it.scale) >= 3).length },
     byStage: ['S1', 'S2', 'S3', 'S4', 'S5'].map((s) => [STAGE[s], day.filter((it) => String(it.stage).startsWith(s)).length]),
@@ -170,7 +168,7 @@ async function infraData() {
 function material(d) {
   return d.series === 'flow'
     ? { day: d.scanDay, totals: d.totals, sectors: d.sectors, picks: d.picks, lanes: d.lanes.map((l) => ({ lane: l.name, flow: l.flow, signals_scan_day: l.today, pressure_7d: l.p, pressure_prev_7d: l.pp })), also_on_radar: d.alsoOnRadar.map((s) => ({ title: s.title, source: s.source, tier: s.tier })) }
-    : { day: d.scanDay, totals: d.totals, by_stage: d.byStage, by_region: d.byRegion, by_sector: d.bySector, picks: d.picks, others: d.others.map((p) => ({ name: p.name, country: p.country, sector: p.sector, stage: p.stage, scale: p.scale })) };
+    : { window: `${d.windowFrom} to ${d.scanDay} (last 7 days)`, totals: d.totals, by_stage: d.byStage, by_region: d.byRegion, by_sector: d.bySector, picks: d.picks, others: d.others.map((p) => ({ name: p.name, country: p.country, sector: p.sector, stage: p.stage, scale: p.scale })) };
 }
 const LIMITS = SERIES === 'flow'
   ? { headline: 90, hook: 220, board: 200, question: 140, item: { headline: 80, statValue: 14, statLabel: 60, what: 260, why: 260, watch: 170 }, fact: 120 }
@@ -214,12 +212,12 @@ ${COMMON}
 - "why" explains the consequence for physical flows ONLY as far as the material supports it: the affected lane and its flow ("laneFlow"), the commodity, route, volumes or costs named in the reports.
 Return ONE JSON object only: {"headline": the day in one line, "hook": 1-2 sentences for the post caption, "board": one sentence reading the lane risk board, "question": one concrete question to the readers about today's signals that a trader or charterer can answer from experience (no yes/no, no "thoughts?"), "items": [{"id", "headline", "statValue", "statLabel", "what", "why", "facts": [3], "watch"} x3 in the given order]}.`,
   infra: `You write "${SERIES_NAME}", a daily LinkedIn carousel by World Trade Pro for EPC contractors, equipment suppliers, subcontractors and project developers (business development people).
-You get the previous day's 3 most significant new infrastructure projects (with the article text), the other new projects and the day's breakdown by stage, region and sector.
+You get the 3 most significant new infrastructure projects of the last 7 days that have not been featured before (with the article text), the other new projects and the week's breakdown by stage, region and sector.
 Write ONLY from this material. Hard rules:
 ${COMMON}
 - "who": owner / developer / EPC contractor / licensors named in the material, as "Owner: X. EPC: Y." If none is named, write "Not named in the report".
 - "angle": who in the supply chain this is relevant to and why, grounded in the stage (Feasibility, Development, Pre-FID, Tender, Awarded), scope, sector and scale given. An awarded EPC contract means subcontracting and equipment packages come next; a tender means bidders. Do not invent package names, values or dates.
-Return ONE JSON object only: {"headline": the day in one line, "hook": 1-2 sentences for the post caption, "board": one sentence reading the day's pipeline breakdown, "question": one concrete question to the readers about today's projects that a BD or procurement person can answer from experience (no yes/no, no "thoughts?"), "items": [{"id", "headline" (a clear project title), "statValue", "statLabel", "what", "who", "angle", "facts": [3], "watch"} x3 in the given order]}.`,
+Return ONE JSON object only: {"headline": the three projects in one line, "hook": 1-2 sentences for the post caption, "board": one sentence reading the last 7 days' pipeline breakdown, "question": one concrete question to the readers about today's projects that a BD or procurement person can answer from experience (no yes/no, no "thoughts?"), "items": [{"id", "headline" (a clear project title), "statValue", "statLabel", "what", "who", "angle", "facts": [3], "watch"} x3 in the given order]}.`,
 }[SERIES];
 
 async function writeNote(d) {
@@ -394,7 +392,7 @@ const chipsFor = (p) => SERIES === 'flow'
 const src = (p) => `${esc(p.source)}${p.otherReports?.length ? ` + ${p.otherReports.length} more report${p.otherReports.length > 1 ? 's' : ''}` : ''} · ${esc(p.date)}`;
 
 const cover = slide(`${photo(COVER, 610)}
-  <div class="datebox"><b>${esc(DATE_BIG)}</b><span>${esc(DAYW)} · ${dt.getUTCFullYear()} · Issue #${d.issue}</span></div>
+  <div class="datebox"><b>${esc(DATE_BIG)}</b><span>${SERIES === 'infra' ? 'Last 7 days' : esc(DAYW)} · ${dt.getUTCFullYear()} · Issue #${d.issue}</span></div>
   <div class="cv"><div class="k">${SERIES_NAME}</div><h1>${esc(N.headline)}</h1></div>
   <div class="row3">${SERIES === 'flow'
     ? bigStat(d.totals.signals, 'trade-flow signals') + bigStat(d.totals.critical, 'critical') + bigStat(d.totals.lanesActive + '/9', 'lanes with signals')
@@ -406,8 +404,8 @@ const glanceRows = SERIES === 'flow'
      ...d.alsoOnRadar.slice(0, 5).map((p) => ({ tag: `<span class="dot" style="background:${TIER_C[p.tier]}"></span>`, t: p.title, s: `${p.source}${p.lane ? ' · ' + p.lane : ''}` }))]
   : [...d.picks.map((p, i) => ({ strong: true, tag: `<span class="dot" style="background:${STAGE_C[p.stage] || '#475467'}"></span>`, t: byId[p.id].headline, s: `${p.country} · ${p.stage} · slides ${3 + i * 2}–${4 + i * 2}` })),
      ...d.others.slice(0, 5).map((p) => ({ tag: `<span class="dot" style="background:${STAGE_C[p.stage] || '#475467'}"></span>`, t: p.name, s: `${p.country} · ${p.stage || p.sector}${p.subsector ? ' · ' + p.subsector : ''}` }))];
-const glance = slide(`<div class="k">${SERIES === 'flow' ? 'Yesterday at a glance' : 'The day at a glance'}</div>
-  <h2 class="sm">${SERIES === 'flow' ? `${d.totals.signals} signals, ${d.totals.critical} critical. The three that matter most, then the rest of the radar.` : `${d.totals.projects} new projects in ${d.totals.countries} countries. The three most significant, then the rest.`}</h2>
+const glance = slide(`<div class="k">${SERIES === 'flow' ? 'Yesterday at a glance' : 'The week at a glance'}</div>
+  <h2 class="sm">${SERIES === 'flow' ? `${d.totals.signals} signals, ${d.totals.critical} critical. The three that matter most, then the rest of the radar.` : `${d.totals.projects} new projects in ${d.totals.countries} countries over the last 7 days. The three most significant, then the rest.`}</h2>
   <div class="gl-list">${glanceRows.map((r, i) => `${i === 3 ? '<div class="sep">Also on the radar</div>' : ''}<div class="gr${r.strong ? ' st' : ''}">${r.tag}<div><b>${esc(r.t)}</b><span>${esc(r.s)}</span></div></div>`).join('')}</div>`, 2);
 
 const storySlides = d.picks.flatMap((p, i) => { const x = byId[p.id];
@@ -436,7 +434,7 @@ if (SERIES === 'flow') {
 } else {
   const maxS = Math.max(...d.byStage.map((x) => x[1]), 1);
   const bars = (rows) => { const m = Math.max(...rows.map((r) => r[1]), 1); return rows.slice(0, 5).map(([k, n]) => `<div class="hb"><span>${esc(k)}</span><i style="width:${(n / m * 100).toFixed(1)}%"></i><b>${n}</b></div>`).join(''); };
-  board = slide(`<div class="k">The day's pipeline</div>
+  board = slide(`<div class="k">Pipeline · last 7 days</div>
     <div class="bhead">${GLOBE ? `<div class="gsm" style="background-image:url('${GLOBE}')"></div>` : ''}<p class="lead2">${esc(N.board)}</p></div>
     <div class="stg">${d.byStage.map(([s, n]) => `<div><i style="height:${(n / maxS * 100).toFixed(1)}%;background:${STAGE_C[s]}"></i><b>${n}</b><span>${s}</span></div>`).join('')}</div>
     <div class="two"><div><b class="t">By region</b>${bars(d.byRegion)}</div><div><b class="t">By sector</b>${bars(d.bySector)}</div></div>`, 9);
@@ -527,14 +525,14 @@ ${N.hook}
 
 ${d.picks.map((p) => `▪️ ${SERIES === 'infra' && p.flag ? p.flag + ' ' : ''}${byId[p.id].headline}`).join('\n')}
 
-👉 Swipe for ${SERIES === 'flow' ? 'what happened, why it matters and the 9-lane risk board' : 'who is involved, where the opportunity is and the day\'s full pipeline'}.
+👉 Swipe for ${SERIES === 'flow' ? 'what happened, why it matters and the 9-lane risk board' : 'who is involved, where the opportunity is and the week\'s full pipeline'}.
 
 💬 ${N.question}
 
 ${TAGS}`;
 writeFileSync(join(OUT, 'linkedin.txt'), caption);
 const docTitle = `${SERIES_NAME} · ${DATE_SHORT}`;
-writeFileSync(join(OUT, 'assets.json'), JSON.stringify({ series: SERIES, date: DATE, scanDay: d.scanDay, issue: d.issue, docTitle, pdf: 'carousel.pdf', cover: 'cover.jpg', caption, photos: PH.map((r) => r?.id || null), coverPhoto: COVER?.id || null }, null, 2));
+writeFileSync(join(OUT, 'assets.json'), JSON.stringify({ series: SERIES, date: DATE, scanDay: d.scanDay, issue: d.issue, docTitle, pdf: 'carousel.pdf', cover: 'cover.jpg', caption, photos: PH.map((r) => r?.id || null), coverPhoto: COVER?.id || null, pickIds: d.picks.map((p) => p.id) }, null, 2));
 // remember the photos only when this run is the one that gets published (--commit-photos in the workflow)
 if (args.includes('--commit-photos')) { USED[DATE + ':' + SERIES] = [COVER, ...PH].filter(Boolean).map((r) => r.id); mkdirSync(dirname(USED_F), { recursive: true }); writeFileSync(USED_F, JSON.stringify(USED, null, 2)); }
 console.log(`rendered ${els.length} slides -> ${OUT}`);
