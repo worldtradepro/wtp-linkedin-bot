@@ -12,6 +12,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, rmSync
 import { execFileSync } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { ask } from './llm.mjs';
 import { dayShift, fetchJson, flagOf, countryName, LANES, laneOf, clean, hostOf, similar, score, summaryOf, tokens } from './common.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -214,23 +215,16 @@ Return ONE JSON object only: {"headline": the day in one line, "hook": 1-2 sente
 }[SERIES];
 
 async function writeNote(d) {
-  const KEY = process.env.OPENROUTER_API_KEY;
-  if (!KEY) throw new Error('OPENROUTER_API_KEY missing');
   const user = `FIELD LIMITS (characters): headline <= ${LIMITS.headline}; hook <= ${LIMITS.hook}; board <= ${LIMITS.board}; question <= ${LIMITS.question}; ${KEYS.map((k) => `items[].${k} <= ${LIMITS.item[k]}`).join('; ')}; each fact <= ${LIMITS.fact}.
 Pick ids, in this order: ${d.picks.map((p) => p.id).join(', ')}.
 
 SOURCE MATERIAL:
 ${JSON.stringify(material(d))}`;
-  const messages = [{ role: 'system', content: SYSTEM }, { role: 'user', content: user }];
+  const messages = [{ role: 'user', content: user }];
   let note, chk, res;
   for (let attempt = 1; attempt <= 3; attempt++) {
-    const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST', headers: { authorization: 'Bearer ' + KEY, 'content-type': 'application/json', 'HTTP-Referer': cfg.site, 'X-Title': 'World Trade Pro - ' + SERIES_NAME },
-      body: JSON.stringify({ model: DS.model || cfg.weeklyReport?.model || 'anthropic/claude-opus-5.5', temperature: 0.2, max_tokens: 4000, messages }),
-    });
-    res = await r.json();
-    if (!r.ok || !res.choices) throw new Error(`OpenRouter ${r.status}: ${JSON.stringify(res).slice(0, 300)}`);
-    const text = res.choices[0].message.content;
+    res = await ask(SYSTEM, messages, { model: DS.model || cfg.weeklyReport?.model, title: 'World Trade Pro - ' + SERIES_NAME, site: cfg.site });
+    const text = res.text;
     try { note = JSON.parse(text.slice(text.indexOf('{'), text.lastIndexOf('}') + 1)); chk = check(note, d); } catch (e) { chk = { hard: ['not valid JSON: ' + e.message], soft: [] }; }
     console.log(`note attempt ${attempt}: ${res.model}, hard ${chk.hard.length}`);
     if (!chk.hard.length) break;

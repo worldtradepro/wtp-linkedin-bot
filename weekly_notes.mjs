@@ -5,10 +5,11 @@
 //        images come from media_library/ledger.json
 //   soft (listed in the review e-mail): numbers not found in the source material; "quiet" said about a market that
 //        had elevated/critical stories; a market with elevated/critical stories but no note
-// Env: OPENROUTER_API_KEY. Usage: node weekly_notes.mjs --date YYYY-MM-DD [--force]
+// Env: CLAUDE_CODE_OAUTH_TOKEN (Claude subscription) or OPENROUTER_API_KEY. Usage: node weekly_notes.mjs --date YYYY-MM-DD [--force]
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
+import { ask as llmAsk, engine } from './llm.mjs';
 import { fileURLToPath } from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -20,8 +21,7 @@ const OUT = join(HERE, 'reports', 'out', `${TODAY}-flow`);
 const NOTES = join(HERE, 'reports', 'notes', `${TODAY}-flow.json`);
 const CHECK_ONLY = args.includes('--check-only');   // re-check an existing note (e.g. after editing it by hand); no model call
 if (existsSync(NOTES) && !args.includes('--force') && !CHECK_ONLY) { console.log('note exists (use --force to rewrite):', NOTES); process.exit(0); }
-const KEY = process.env.OPENROUTER_API_KEY;
-if (!KEY && !CHECK_ONLY) throw new Error('OPENROUTER_API_KEY missing');
+if (!engine() && !CHECK_ONLY) throw new Error('model credentials missing: CLAUDE_CODE_OAUTH_TOKEN or OPENROUTER_API_KEY');
 const data = JSON.parse(readFileSync(join(OUT, 'data.json'), 'utf8'));
 const ledger = JSON.parse(readFileSync(join(HERE, 'media_library', 'ledger.json'), 'utf8'));
 const example = JSON.parse(readFileSync(join(HERE, 'reports', 'notes', 'example-flow.json'), 'utf8'));
@@ -107,16 +107,8 @@ if (CHECK_ONLY) {
 }
 
 // ---------------------------------------------------------------- call
-async function ask(messages) {
-  const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-    method: 'POST',
-    headers: { authorization: 'Bearer ' + KEY, 'content-type': 'application/json', 'HTTP-Referer': cfg.site, 'X-Title': 'World Trade Pro - Trade Flow Weekly' },
-    body: JSON.stringify({ model: W.model || 'anthropic/claude-opus-5.5', temperature: 0.3, max_tokens: 6000, messages }),
-  });
-  const j = await r.json();
-  if (!r.ok || !j.choices) throw new Error(`OpenRouter ${r.status}: ${JSON.stringify(j).slice(0, 400)}`);
-  return { text: j.choices[0].message.content, usage: j.usage, model: j.model };
-}
+// Claude subscription (CLAUDE_CODE_OAUTH_TOKEN) or OpenRouter - see llm.mjs
+const ask = (msgs) => llmAsk(SYSTEM, msgs.filter((m) => m.role !== 'system'), { model: W.model, title: 'World Trade Pro - Trade Flow Weekly', maxTokens: 6000, temperature: 0.3, site: cfg.site });
 const parse = (t) => JSON.parse(t.slice(t.indexOf('{'), t.lastIndexOf('}') + 1));
 
 const messages = [{ role: 'system', content: SYSTEM }, { role: 'user', content: USER }];

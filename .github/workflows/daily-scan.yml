@@ -36,7 +36,8 @@ jobs:
     timeout-minutes: 40
     env:
       WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
-      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}   # owner's Claude Max subscription (claude setup-token)
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}             # fallback if no subscription token
       WTP_PUBLISH_KEY: ${{ secrets.WTP_PUBLISH_KEY }}
       BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
       IMAGE_BASE_URL: https://raw.githubusercontent.com/${{ github.repository }}/images
@@ -61,18 +62,20 @@ jobs:
       - name: Check secrets
         if: ${{ steps.d.outputs.todo != '' }}
         run: |
-          # until OPENROUTER_API_KEY and WTP_PUBLISH_KEY exist the single posts (daily.yml) keep running, so this is a warning, not a failure
-          miss=""; for v in WTP_BOT_SECRET OPENROUTER_API_KEY WTP_PUBLISH_KEY BUFFER_API_KEY; do test -n "${!v}" || miss="$miss $v"; done
+          # until CLAUDE_CODE_OAUTH_TOKEN (or OPENROUTER_API_KEY) and WTP_PUBLISH_KEY exist the single posts (daily.yml) keep running, so this is a warning, not a failure
+          miss=""; for v in WTP_BOT_SECRET WTP_PUBLISH_KEY BUFFER_API_KEY; do test -n "${!v}" || miss="$miss $v"; done
+          [ -n "$CLAUDE_CODE_OAUTH_TOKEN$OPENROUTER_API_KEY" ] || miss="$miss CLAUDE_CODE_OAUTH_TOKEN"
           if [ -n "$miss" ]; then echo "::warning::Daily Scan not running - missing secrets:$miss"; echo "ready=false" >> "$GITHUB_OUTPUT"; else echo "ready=true" >> "$GITHUB_OUTPUT"; fi
         id: secrets
       - uses: actions/setup-node@v4
         if: ${{ steps.d.outputs.todo != '' && steps.secrets.outputs.ready == 'true' }}
         with:
-          node-version: 20
+          node-version: 22
       - name: Install
         if: ${{ steps.d.outputs.todo != '' && steps.secrets.outputs.ready == 'true' }}
         run: |
           npm install --no-audit --no-fund
+          npm install -g @anthropic-ai/claude-code   # model calls on the Claude subscription (llm.mjs)
           npx playwright install --with-deps chromium
           sudo apt-get install -y --no-install-recommends fonts-roboto
           sudo apt-get install -y --no-install-recommends python3-pil
