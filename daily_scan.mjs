@@ -149,7 +149,7 @@ async function infraData() {
   for (const it of pool) if (picks.length < 3 && !picks.some((p) => (p.subsector || p.sector) === (it.subsector || it.sector))) picks.push(it);   // 3 different sub-sectors
   for (const it of pool) if (picks.length < 3 && !picks.includes(it)) picks.push(it);
   const proj = (it) => ({ id: String(it.id), name: clean(it.project_name), country: countryName(it.country), flag: flagOf(it.country), region: it.region || '',
-    sector: it.sector || '', subsector: it.subsector || '', stage: stageOf(it.stage), scale: it.scale || '', company: clean(it.company_name),
+    sector: it.sector || '', subsector: /^(unknown|n\/a|other|none)$/i.test(String(it.subsector || '').trim()) ? '' : (it.subsector || ''), stage: stageOf(it.stage), scale: it.scale || '', company: clean(it.company_name),
     summary: clean(it.description), source: sourceOf(it), url: it.source_url, date: it.report_date });
   const pk = picks.map((it) => ({ ...proj(it), article: texts.get(it) }));
   const tally = (key) => { const t = {}; for (const it of day) { const k = key(it) || 'Other'; t[k] = (t[k] || 0) + 1; } return Object.entries(t).sort((a, b) => b[1] - a[1]); };
