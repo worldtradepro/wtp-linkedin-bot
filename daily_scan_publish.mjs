@@ -1,10 +1,9 @@
-// Daily Scan, last step: the rendered carousel -> website media library -> Buffer document post.
-//   1) POST <site>/wp-json/wtp/v1/insights/media (header X-WTP-Publish-Key): the site downloads carousel.pdf + cover.jpg from
-//      the public images branch (raw.githubusercontent serves PDFs as octet-stream, which LinkedIn may reject) and returns
-//      their media-library URLs.
+// Daily Scan, last step: the rendered carousel (already on the images branch) -> Buffer document post.
+//   1) jsDelivr URLs of carousel.pdf + cover.jpg (raw.githubusercontent serves PDFs as octet-stream, which LinkedIn may reject;
+//      jsDelivr serves application/pdf), checked before use.
 //   2) Buffer createPost with a document asset on the page's channel at dailyScan.<series>.slotUtc (a late run posts 10 min from now).
 // Idempotent: state/scan_pushed.json remembers the Buffer post per date + series.
-// Env: WTP_PUBLISH_KEY, BUFFER_API_KEY, IMAGE_BASE_URL (public base of the images branch).
+// Env: BUFFER_API_KEY, IMAGES_SHA (commit on the images branch that holds the files), GITHUB_REPOSITORY.
 // Usage: node daily_scan_publish.mjs --series flow|infra [--date YYYY-MM-DD]
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
@@ -27,21 +26,22 @@ if (!existsSync(join(OUT, 'assets.json'))) { console.error(`nothing rendered for
 const A = JSON.parse(readFileSync(join(OUT, 'assets.json'), 'utf8'));
 const save = () => { mkdirSync(dirname(STATE), { recursive: true }); writeFileSync(STATE, JSON.stringify(state, null, 2)); };
 
-// 1) media library
-const BASE = `${process.env.IMAGE_BASE_URL}/scan/${DATE}`;
-const stem = `WorldTradePro-${SERIES === 'flow' ? 'Daily-Trade-Flow-Scan' : 'Daily-Project-Scan'}-${A.scanDay}`;
-const r = await fetch(`${cfg.site}/wp-json/wtp/v1/insights/media`, {
-  method: 'POST', headers: { 'content-type': 'application/json', 'x-wtp-publish-key': process.env.WTP_PUBLISH_KEY, 'user-agent': 'wtp-linkedin-bot/1.0' },
-  body: JSON.stringify({ assets: {
-    pdf: { url: `${BASE}/${SERIES}.pdf`, filename: `${stem}.pdf`, title: A.docTitle },
-    cover: { url: `${BASE}/${SERIES}-cover.jpg`, filename: `${stem}-cover.jpg`, alt: A.docTitle, title: A.docTitle + ' – cover' },
-  } }),
-});
-const m = await r.json().catch(() => ({ error: 'non-JSON reply, HTTP ' + r.status }));
-if (!r.ok || !m.media?.pdf?.url) throw new Error(`media upload failed (${r.status}): ${JSON.stringify(m).slice(0, 300)}`);
-state[KEY_] = { pdfUrl: m.media.pdf.url, coverUrl: m.media.cover.url, issue: A.issue };
+// 1) public URLs for Buffer/LinkedIn: jsDelivr serves the images-branch files with the right Content-Type (application/pdf),
+//    pinned to the commit that added them (IMAGES_SHA), so no cache can serve an older file.
+const BASE = `https://cdn.jsdelivr.net/gh/${process.env.GITHUB_REPOSITORY || 'worldtradepro/wtp-linkedin-bot'}@${process.env.IMAGES_SHA || 'images'}/scan/${DATE}`;
+const pdfUrl = `${BASE}/${SERIES}.pdf`, coverUrl = `${BASE}/${SERIES}-cover.jpg`;
+for (const [u, type] of [[pdfUrl, 'application/pdf'], [coverUrl, 'image/jpeg']]) {
+  let ok = false;
+  for (let i = 0; i < 8 && !ok; i++) {
+    const h = await fetch(u, { method: 'HEAD' }).catch(() => null);
+    ok = !!h && h.ok && (h.headers.get('content-type') || '').startsWith(type);
+    if (!ok) await new Promise((r) => setTimeout(r, 8000));
+  }
+  if (!ok) throw new Error(`not reachable as ${type}: ${u}`);
+}
+state[KEY_] = { pdfUrl, coverUrl, issue: A.issue };
 save();
-console.log('media:', m.media.pdf.url, m.media.cover.url);
+console.log('files:', pdfUrl, coverUrl);
 if (args.includes('--no-buffer')) { delete state[KEY_]; save(); console.log('dry run: not queued in Buffer'); process.exit(0); }
 
 // 2) Buffer

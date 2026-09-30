@@ -4,7 +4,7 @@ name: daily-scan
 #   main page      Daily Trade Flow Scan  (07:30 UTC; not on Mondays, when Trade Flow Weekly takes that slot)
 #   Infrastructure Daily Project Scan     (08:30 UTC)
 # Steps per series: data + article text -> editorial note (OpenRouter, checked in code) -> photos from media_library -> render ->
-# PDF/cover on the images branch -> website media library -> Buffer document post. A day with fewer than 3 stories is skipped.
+# PDF/cover on the images branch -> jsDelivr URL -> Buffer document post. A day with fewer than 3 stories is skipped.
 # A failed run turns red and GitHub e-mails the repository owner.
 # Pause switch: Settings -> Secrets and variables -> Actions -> Variables -> SCAN_PAUSED = true
 
@@ -38,7 +38,6 @@ jobs:
       WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}   # owner's Claude Max subscription (claude setup-token)
       OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}             # fallback if no subscription token
-      WTP_PUBLISH_KEY: ${{ secrets.WTP_PUBLISH_KEY }}
       BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
       IMAGE_BASE_URL: https://raw.githubusercontent.com/${{ github.repository }}/images
       WEEKLY_PAUSED: ${{ vars.WEEKLY_PAUSED }}
@@ -62,8 +61,8 @@ jobs:
       - name: Check secrets
         if: ${{ steps.d.outputs.todo != '' }}
         run: |
-          # until CLAUDE_CODE_OAUTH_TOKEN (or OPENROUTER_API_KEY) and WTP_PUBLISH_KEY exist the single posts (daily.yml) keep running, so this is a warning, not a failure
-          miss=""; for v in WTP_BOT_SECRET WTP_PUBLISH_KEY BUFFER_API_KEY; do test -n "${!v}" || miss="$miss $v"; done
+          # until CLAUDE_CODE_OAUTH_TOKEN (or OPENROUTER_API_KEY) exists the single posts (daily.yml) keep running, so this is a warning, not a failure
+          miss=""; for v in WTP_BOT_SECRET BUFFER_API_KEY; do test -n "${!v}" || miss="$miss $v"; done
           [ -n "$CLAUDE_CODE_OAUTH_TOKEN$OPENROUTER_API_KEY" ] || miss="$miss CLAUDE_CODE_OAUTH_TOKEN"
           if [ -n "$miss" ]; then echo "::warning::Daily Scan not running - missing secrets:$miss"; echo "ready=false" >> "$GITHUB_OUTPUT"; else echo "ready=true" >> "$GITHUB_OUTPUT"; fi
         id: secrets
@@ -96,6 +95,7 @@ jobs:
           echo "built=$built" >> "$GITHUB_OUTPUT"
           echo "failed=$failed" >> "$GITHUB_OUTPUT"
       - name: Put PDF + cover on the images branch
+        id: img
         if: ${{ steps.build.outputs.built != '' }}
         run: |
           set -e
@@ -117,9 +117,11 @@ jobs:
           git add -A
           git diff --cached --quiet || git commit -m "scan $DATE"
           git push origin HEAD:images
-          sleep 15   # raw.githubusercontent can lag a few seconds behind the push
-      - name: Publish (website media + Buffer)
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Publish (jsDelivr file URLs -> Buffer document post)
         if: ${{ steps.build.outputs.built != '' }}
+        env:
+          IMAGES_SHA: ${{ steps.img.outputs.sha }}
         run: |
           fail=0
           for s in ${{ steps.build.outputs.built }}; do

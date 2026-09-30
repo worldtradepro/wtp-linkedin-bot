@@ -29,7 +29,6 @@ jobs:
       UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}   # optional: stock photo when an article has no lead picture
       IMAGE_BASE_URL: https://raw.githubusercontent.com/${{ github.repository }}/images
       SCAN_MODEL: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN || secrets.OPENROUTER_API_KEY }}   # only tested for presence (see the guard step)
-      SCAN_PUBLISH: ${{ secrets.WTP_PUBLISH_KEY }}
     steps:
       - uses: actions/checkout@v4
       - name: Skip the backup run when today's posts are already pushed
@@ -41,13 +40,13 @@ jobs:
             echo "Today's posts were already pushed - nothing to do (backup trigger)."
           fi
           # 2026-09-30: the single news / project posts are replaced by the Daily Scan carousels (daily-scan.yml) -
-          # but only once that workflow can run (its secrets exist); until then the single posts keep the pages alive.
+          # but only once that workflow can run (its model secret exists); until then the single posts keep the pages alive.
           if node -e "process.exit(require('./config.json').singlePosts === false ? 0 : 1)"; then
-            if [ -n "$SCAN_MODEL" ] && [ -n "$SCAN_PUBLISH" ]; then
+            if [ -n "$SCAN_MODEL" ]; then
               SKIP=true
               echo "Single posts are off (config.json singlePosts=false): the Daily Scan carousels replace them."
             else
-              echo "::warning::Daily Scan secrets (CLAUDE_CODE_OAUTH_TOKEN / WTP_PUBLISH_KEY) are missing - posting the single posts meanwhile."
+              echo "::warning::Daily Scan secret CLAUDE_CODE_OAUTH_TOKEN is missing - posting the single posts meanwhile."
             fi
           fi
           echo "skip=$SKIP" >> "$GITHUB_OUTPUT"
