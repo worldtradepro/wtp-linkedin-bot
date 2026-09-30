@@ -122,7 +122,10 @@ async function infraData() {
   const res = await fetchJson(`${API}/opportunities?report_type=epc&from=${dayShift(DATE, -21)}&to=${dayShift(DATE, -1)}&limit=2000${q}`);
   const all = (res.items || []).filter(ok);
   // the scan covers the previous UTC day; without the secret (local tests) the newest public day stands in for it
-  const D1 = SECRET ? dayShift(DATE, -1) : all.map((it) => it.report_date).sort().pop();
+  // the pipeline's daily intake is uneven: use the most recent of the last 3 days that has at least 3 new projects
+  // (the slides show that day's date, so the scan never mislabels its day)
+  const count = (d0) => all.filter((it) => it.report_date === d0).length;
+  const D1 = SECRET ? ([1, 2, 3].map((n) => dayShift(DATE, -n)).find((d0) => count(d0) >= 3) || dayShift(DATE, -1)) : all.map((it) => it.report_date).sort().pop();
   const day = all.filter((it) => it.report_date === D1);
   // Google News redirect links cannot be read (no article text for the note) and name the outlet poorly: rank them last among equals
   const rank = (it) => stageW(it.stage) * 10 + scaleW(it.scale) * 6 + (parseInt(it.credibility, 10) || 0) - (hostOf(it.source_url) === 'news.google.com' ? 9 : 0);

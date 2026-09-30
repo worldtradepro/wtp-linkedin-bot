@@ -24,9 +24,18 @@ export async function ask(system, messages, { model, title = 'World Trade Pro', 
     const prompt = messages.map((m) => (m.role === 'user' ? m.content : `YOUR PREVIOUS ANSWER:\n${m.content}`)).join('\n\n---\n\n');
     const cwd = mkdtempSync(join(tmpdir(), 'wtp-llm-'));
     const bin = process.env.CLAUDE_BIN || 'claude';
-    const out = execFileSync(bin, ['-p', 'Follow the instructions in the input and reply with the JSON object only.',
-      '--system-prompt', system, '--model', cliModel(model), '--max-turns', '1', '--allowedTools', '', '--output-format', 'json'],
-    { cwd, input: prompt, encoding: 'utf8', maxBuffer: 20 * 1024 * 1024, timeout: 15 * 60000, shell: process.platform === 'win32' });
+    let out;
+    try {
+      out = execFileSync(bin, ['-p', 'Follow the instructions in the input and reply with the JSON object only.',
+        '--system-prompt', system, '--model', cliModel(model), '--max-turns', '1', '--output-format', 'json'],
+      { cwd, input: prompt, encoding: 'utf8', maxBuffer: 20 * 1024 * 1024, timeout: 15 * 60000, shell: process.platform === 'win32' });
+    } catch (e) {
+      // the CLI exits non-zero on API/auth errors; its JSON on stdout still says why. Never echo the (long) command line.
+      const so = String(e.stdout || ''), se = String(e.stderr || '');
+      let why = '';
+      try { const j = JSON.parse(so); why = `${j.subtype || ''} ${j.result || ''}`; } catch { why = so.slice(0, 600); }
+      throw new Error(`Claude CLI failed (exit ${e.status}): ${why.trim().slice(0, 600)} ${se.trim().slice(0, 600)}`.trim());
+    }
     const j = JSON.parse(out);
     if (j.is_error || j.subtype && j.subtype !== 'success') throw new Error(`Claude CLI: ${j.subtype || 'error'} ${String(j.result || '').slice(0, 300)}`);
     return { text: j.result, model: cliModel(model) + ' (Claude subscription)', usage: j.usage || null };
