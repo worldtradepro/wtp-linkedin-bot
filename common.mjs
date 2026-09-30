@@ -79,3 +79,34 @@ export function similar(a, b) {
   return shared / Math.min(A.size, B.size) >= 0.5;   // overlap coefficient: catches "same story, different outlet"
 }
 export const score = (it) => parseInt(it.confidence, 10) || 0;
+
+// ---------------------------------------------------------------- tenders & awards by industry
+// (Daily Project Scan slides, EPC Project Leads Weekly e-mail). Industries in display order: the map's sectors, else "Other".
+export const INDUSTRIES = ['Energy', 'Mining & Metals', 'Agriculture', 'Logistics & Infrastructure', 'Chemicals', 'Other'];
+export const industryOf = (it) => (INDUSTRIES.includes(it.sector) ? it.sector : 'Other');
+// public-service buys the upstream CPV/keyword rules let through: not commodity EPC leads for this audience
+// ("railroad", "cross-border interconnector" must survive: whole words only)
+export const NOT_EPC = /hospital|\bhealth\b|klinik|spital|\bclinic|\bschools?\b|\bpolice\b|politi(ei|a)\b|\bpatrol|coast ?guard|border (police|guard)|military|prison|\bhousing\b|\bstreets?\b|\broads?\b|\bbridges?\b|highway|motorway|detention|\bjail|immigration|weapons?|ammunition|missile/i;
+export const money = (usd) => (!usd ? '' : usd >= 1e9 ? `US$${(usd / 1e9).toFixed(1)}bn` : usd >= 1e6 ? `US$${Math.round(usd / 1e6)}m` : `US$${Math.round(usd / 1e3)}k`);
+const titleCase = (s) => (/[a-z]/.test(s) || s.length <= 5 ? s : s.toLowerCase().replace(/(^|[\s(\/&-])(\p{L})/gu, (m, a, c) => a + c.toUpperCase()));
+// value, buyer and winner are only in the description the official-source modules write:
+//   "EU open tender by BUYER (est. US$1,134.4M): TITLE" · "EU contract US$2,218.8M awarded to WINNER (Canada) by BUYER: TITLE"
+//   "World Bank-financed contract US$8.8M awarded to WINNER (Türkiye): TITLE" · news items: company_name
+const stageNo = (s) => parseInt(String(s || '').slice(1, 2), 10) || 0;   // 'S4-Tender' -> 4
+export function dealOf(it) {
+  const d = String(it.description || '');
+  const m = /US\$([\d,.]+)\s*([MBK])?/i.exec(d);
+  const usd = m ? parseFloat(m[1].replace(/,/g, '')) * ({ B: 1e9, M: 1e6, K: 1e3 }[(m[2] || '').toUpperCase()] || 1) : 0;
+  // the winner is known only from an official award notice; a news item's company can be the owner or the contractor
+  const winner = (/awarded to (.+?)(?: \([^)]*\))? by /.exec(d) || /awarded to (.+?)(?: \([^)]*\))?: /.exec(d) || [])[1] || '';
+  // "(est. US$60M, deadline 2026-11-17)" / "(deadline 2026-11-17)" after the buyer
+  const buyer = (/(?:tender|procurement|notice) by (.+?)(?: \([^()]*(?:est\.|deadline|US\$)[^()]*\))?: /.exec(d) || [])[1] || '';
+  const dl = /deadline (\d{4}-\d{2}-\d{2})/.exec(d)?.[1] || '';
+  const deadline = dl && dl >= it.report_date ? new Date(dl + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }) : '';
+  // TED titles start with the CPV label and the buyer's file number: "Gas pipelines – 24/006 - The Provision of ..."
+  const name = clean(it.project_name).replace(/^[^–]{3,45} – (?=.{15})/, '').replace(/^[\w./-]*\d[\w./-]*\s*[-/:]\s+/, '').replace(/^(construction work for|construction work|works for|supply of)\s*[–-]?\s*/i, '').replace(/^\p{Ll}/u, (c) => c.toUpperCase());
+  const role = stageNo(it.stage) === 5 ? (winner ? 'winner' : '') : (buyer ? 'buyer' : '');
+  const who = clean(stageNo(it.stage) === 5 ? winner || it.company_name : buyer || it.company_name).replace(/^(asociere|consorzio|consortium|groupement|ute|arge)\s*:?\s*/i, '');
+  return { id: String(it.id), name, role, country: countryName(it.country), industry: industryOf(it), usd, value: money(usd), deadline,
+    who: /^(n\/?a|unknown|none|-)$/i.test(who) ? '' : titleCase(who).replace(/\s+/g, ' ').slice(0, 70), date: it.report_date, url: it.source_url || '' };
+}

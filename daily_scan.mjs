@@ -13,7 +13,7 @@ import { execFileSync } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ask } from './llm.mjs';
-import { dayShift, fetchJson, flagOf, countryName, LANES, laneOf, clean, hostOf, similar, score, summaryOf, tokens } from './common.mjs';
+import { dayShift, fetchJson, flagOf, countryName, LANES, laneOf, clean, hostOf, similar, score, summaryOf, tokens, INDUSTRIES, industryOf, NOT_EPC, dealOf } from './common.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const cfg = JSON.parse(readFileSync(join(HERE, 'config.json'), 'utf8'));
@@ -117,33 +117,6 @@ const STAGE = { S1: 'Feasibility', S2: 'Development', S3: 'Pre-FID', S4: 'Tender
 const stageOf = (s) => STAGE[String(s || '').slice(0, 2)] || '';
 const stageW = (s) => ({ S5: 5, S4: 4, S3: 3, S2: 2, S1: 1 })[String(s || '').slice(0, 2)] || 0;
 const scaleW = (s) => ({ Mega: 4, Large: 3, Medium: 2, Small: 1 })[s] || 0;
-// industries on the tender/award slides, in this order (the map's sectors; anything else is "Other")
-const INDUSTRIES = ['Energy', 'Mining & Metals', 'Agriculture', 'Logistics & Infrastructure', 'Chemicals', 'Other'];
-const industryOf = (it) => (INDUSTRIES.includes(it.sector) ? it.sector : 'Other');
-// public-service buys the upstream CPV/keyword rules let through: not commodity EPC leads for this audience
-// ("railroad", "cross-border interconnector" must survive: whole words only)
-const NOT_EPC = /hospital|klinik|spital|\bclinic|\bschools?\b|\bpolice\b|politi(ei|a)\b|\bpatrol|coast ?guard|border (police|guard)|military|prison|\bhousing\b|\bstreets?\b|\broads?\b|\bbridges?\b/i;
-const money = (usd) => (!usd ? '' : usd >= 1e9 ? `US$${(usd / 1e9).toFixed(1)}bn` : usd >= 1e6 ? `US$${Math.round(usd / 1e6)}m` : `US$${Math.round(usd / 1e3)}k`);
-const titleCase = (s) => (/[a-z]/.test(s) || s.length <= 5 ? s : s.toLowerCase().replace(/(^|[\s(\/&-])(\p{L})/gu, (m, a, c) => a + c.toUpperCase()));
-// value, buyer and winner are only in the description the official-source modules write:
-//   "EU open tender by BUYER (est. US$1,134.4M): TITLE" · "EU contract US$2,218.8M awarded to WINNER (Canada) by BUYER: TITLE"
-//   "World Bank-financed contract US$8.8M awarded to WINNER (Türkiye): TITLE" · news items: company_name
-function dealOf(it) {
-  const d = String(it.description || '');
-  const m = /US\$([\d,.]+)\s*([MBK])?/i.exec(d);
-  const usd = m ? parseFloat(m[1].replace(/,/g, '')) * ({ B: 1e9, M: 1e6, K: 1e3 }[(m[2] || '').toUpperCase()] || 1) : 0;
-  const winner = (/awarded to (.+?)(?: \([^)]*\))? by /.exec(d) || /awarded to (.+?)(?: \([^)]*\))?: /.exec(d) || [])[1] || (stageW(it.stage) === 5 ? it.company_name : '');
-  // "(est. US$60M, deadline 2026-11-17)" / "(deadline 2026-11-17)" after the buyer
-  const buyer = (/(?:tender|procurement|notice) by (.+?)(?: \([^()]*(?:est\.|deadline|US\$)[^()]*\))?: /.exec(d) || [])[1] || '';
-  const dl = /deadline (\d{4}-\d{2}-\d{2})/.exec(d)?.[1] || '';
-  const deadline = dl && dl >= it.report_date ? new Date(dl + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }) : '';
-  // TED titles start with the CPV label and the buyer's file number: "Gas pipelines – 24/006 - The Provision of ..."
-  const name = clean(it.project_name).replace(/^[^–]{3,45} – (?=.{15})/, '').replace(/^[\w./-]*\d[\w./-]*\s*[-/:]\s+/, '').replace(/^(construction work for|construction work|works for|supply of)\s*[–-]?\s*/i, '').replace(/^\p{Ll}/u, (c) => c.toUpperCase());
-  const who = clean(stageW(it.stage) === 5 ? winner : buyer).replace(/^(asociere|consorzio|consortium|groupement|ute|arge)\s*:?\s*/i, '');
-  return { id: String(it.id), name, country: countryName(it.country), industry: industryOf(it), usd, value: money(usd), deadline,
-    who: /^(n\/?a|unknown|none|-)$/i.test(who) ? '' : titleCase(who).replace(/\s+/g, ' ').slice(0, 70), date: it.report_date, source: sourceOf(it) };
-}
-
 async function infraData() {
   const q = SECRET ? `&secret=${encodeURIComponent(SECRET)}` : '';
   const res = await fetchJson(`${API}/opportunities?report_type=epc&from=${dayShift(DATE, -21)}&to=${dayShift(DATE, -1)}&limit=2000${q}`);
@@ -499,7 +472,7 @@ function dealSlide(groups, kind) {
   return slide(`<div class="k">${tender ? 'Open tenders' : 'Contracts awarded'} · by industry · last 7 days</div>
     <h2 class="sm">${tender ? `${week} tenders open to bidders this week. The largest new ones in each industry:` : `${week} contracts awarded this week. Who won the largest new ones:`}</h2>
     ${gs.filter((g) => g.take.length).map((g) => `<div class="ind"><div class="ind-h"><b>${esc(g.industry)}</b><span>${g.week} this week</span></div>
-      ${g.take.map((r) => `<div class="dl"><b>${esc(r.name)}</b><span>${[esc(r.country), r.value ? `<em>${esc(r.value)}</em>` : '', tender && r.deadline ? `<em>bids due ${esc(r.deadline)}</em>` : '', r.who ? (tender ? '' : 'won by ') + esc(r.who) : ''].filter(Boolean).join(' · ')}</span></div>`).join('')}</div>`).join('')}
+      ${g.take.map((r) => `<div class="dl"><b>${esc(r.name)}</b><span>${[esc(r.country), r.value ? `<em>${esc(r.value)}</em>` : '', tender && r.deadline ? `<em>bids due ${esc(r.deadline)}</em>` : '', r.who ? (r.role === 'winner' ? 'won by ' : '') + esc(r.who) : ''].filter(Boolean).join(' · ')}</span></div>`).join('')}</div>`).join('')}
     <p class="fine">${tender ? 'Official notices: EU TED, UK Find a Tender, World Bank, plus press reports. Bid documents and deadlines on the source notice.' : 'Official award notices (EU TED, UK Find a Tender, World Bank) and press reports.'} Full list with links: worldtradepro.com/projects</p>`, 0);
 }
 const dealSlides = SERIES === 'infra' ? [dealSlide(d.tenders || [], 'tender'), dealSlide(d.awards || [], 'award')].filter(Boolean) : [];

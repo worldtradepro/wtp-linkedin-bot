@@ -16,7 +16,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { dayShift, fetchJson, flagOf, countryName, LANES, laneOf, clean, hostOf, similar, score, summaryOf, tokens } from './common.mjs';
+import { dayShift, fetchJson, flagOf, countryName, LANES, laneOf, clean, hostOf, similar, score, summaryOf, tokens, INDUSTRIES, NOT_EPC, dealOf } from './common.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const cfg = JSON.parse(readFileSync(join(HERE, 'config.json'), 'utf8'));
@@ -281,9 +281,38 @@ async function buildProjects() {
     shown.forEach((it) => body.push(leadRow(it)));
     if (items.length > shown.length) body.push(para(`<span style="font-size:13px;">${link(`+ ${items.length - shown.length} more on the site →`, utm(cfg.site + '/projects/', 'more-' + key))}</span>`, '6px 0 0'));
   };
-  section('Open tenders', 'Bid window: consortia and subcontract pricing now', tenders, 'tenders');
+  // tenders and awards grouped by industry, biggest first; value, bid deadline and buyer/winner from the notice
+  // (official EU TED / UK Find a Tender / World Bank notices and press reports)
+  const dealSection = (title, sub, items, key, tender) => {
+    const seen = [], deals = [];
+    for (const it of items) {
+      if (NOT_EPC.test(`${it.project_name} ${it.description}`)) continue;
+      const d = dealOf(it);
+      if (seen.some((n) => n.toLowerCase() === d.name.toLowerCase() || similar(n, d.name))) continue;
+      seen.push(d.name); deals.push({ ...d, it });
+    }
+    if (!deals.length) return;
+    deals.sort((a, b) => (b.usd || 0) - (a.usd || 0));
+    const perIndustry = ed.perIndustry || 4;
+    body.push(h2(`${title} <span style="color:${C.muted};font-weight:400;">· ${deals.length}</span>`, sub));
+    let hidden = 0;
+    for (const ind of INDUSTRIES) {
+      const group = deals.filter((d) => d.industry === ind);
+      if (!group.length) continue;
+      body.push(row(`<div style="font-size:13px;font-weight:700;color:${C.ink};border-bottom:2px solid ${C.navy};padding-bottom:3px;">${esc(ind)} <span style="color:${C.muted};font-weight:400;">· ${group.length}</span></div>`, '12px 0 2px'));
+      for (const d of group.slice(0, perIndustry)) {
+        const bits = [countryLink(d.it), d.value ? `<b style="color:${C.ink};">${esc(d.value)}</b>` : '', tender && d.deadline ? `<b style="color:#b54708;">bids due ${esc(d.deadline)}</b>` : '',
+          d.who ? ({ winner: 'Won by ', buyer: 'Buyer: ' }[d.role] || '') + esc(d.who) : ''].filter(Boolean);
+        body.push(row(`<a href="${esc(d.url)}" style="color:${C.ink};text-decoration:none;font-weight:600;font-size:15px;line-height:1.4;">${esc(d.name)}</a><br>
+          <span style="color:${C.muted};font-size:13px;line-height:1.5;">${bits.join(' · ')}</span>`, `8px 0;border-top:1px solid ${C.line}`));
+      }
+      hidden += Math.max(0, group.length - perIndustry);
+    }
+    if (hidden) body.push(para(`<span style="font-size:13px;">${link(`+ ${hidden} more on the site →`, utm(cfg.site + '/projects/', 'more-' + key))}</span>`, '6px 0 0'));
+  };
+  dealSection('Open tenders by industry', 'Bid window: consortia and subcontract pricing now. Bid documents on the linked notice.', tenders, 'tenders', true);
   section('Early stage', 'Feasibility to pre-FID: get on the bidder list', early, 'early');
-  section('Awarded', 'Winners are buying equipment and placing subcontracts', awards, 'awards');
+  dealSection('Contracts awarded by industry', 'Winners are buying equipment and placing subcontracts', awards, 'awards', false);
   if (moved.length) {
     body.push(h2('Stage moves', 'Projects that advanced since first seen'));
     pick(moved, perSection).forEach((it) => body.push(row(`${esc(clean(it.project_name))} <span style="color:${C.muted};font-size:13px;">— ${esc((STAGE[stageKey(it.moved)] || [clean(it.moved)])[0])} → <b>${esc((STAGE[stageKey(it.stage)] || [clean(it.stage)])[0])}</b></span>`, `8px 0;border-top:1px solid ${C.line};font-size:14px;color:${C.ink}`)));
