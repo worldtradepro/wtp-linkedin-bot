@@ -117,6 +117,33 @@ const STAGE = { S1: 'Feasibility', S2: 'Development', S3: 'Pre-FID', S4: 'Tender
 const stageOf = (s) => STAGE[String(s || '').slice(0, 2)] || '';
 const stageW = (s) => ({ S5: 5, S4: 4, S3: 3, S2: 2, S1: 1 })[String(s || '').slice(0, 2)] || 0;
 const scaleW = (s) => ({ Mega: 4, Large: 3, Medium: 2, Small: 1 })[s] || 0;
+// industries on the tender/award slides, in this order (the map's sectors; anything else is "Other")
+const INDUSTRIES = ['Energy', 'Mining & Metals', 'Agriculture', 'Logistics & Infrastructure', 'Chemicals', 'Other'];
+const industryOf = (it) => (INDUSTRIES.includes(it.sector) ? it.sector : 'Other');
+// public-service buys the upstream CPV/keyword rules let through: not commodity EPC leads for this audience
+// ("railroad", "cross-border interconnector" must survive: whole words only)
+const NOT_EPC = /hospital|klinik|spital|\bclinic|\bschools?\b|\bpolice\b|politi(ei|a)\b|\bpatrol|coast ?guard|border (police|guard)|military|prison|\bhousing\b|\bstreets?\b|\broads?\b|\bbridges?\b/i;
+const money = (usd) => (!usd ? '' : usd >= 1e9 ? `US$${(usd / 1e9).toFixed(1)}bn` : usd >= 1e6 ? `US$${Math.round(usd / 1e6)}m` : `US$${Math.round(usd / 1e3)}k`);
+const titleCase = (s) => (/[a-z]/.test(s) || s.length <= 5 ? s : s.toLowerCase().replace(/(^|[\s(\/&-])(\p{L})/gu, (m, a, c) => a + c.toUpperCase()));
+// value, buyer and winner are only in the description the official-source modules write:
+//   "EU open tender by BUYER (est. US$1,134.4M): TITLE" · "EU contract US$2,218.8M awarded to WINNER (Canada) by BUYER: TITLE"
+//   "World Bank-financed contract US$8.8M awarded to WINNER (Türkiye): TITLE" · news items: company_name
+function dealOf(it) {
+  const d = String(it.description || '');
+  const m = /US\$([\d,.]+)\s*([MBK])?/i.exec(d);
+  const usd = m ? parseFloat(m[1].replace(/,/g, '')) * ({ B: 1e9, M: 1e6, K: 1e3 }[(m[2] || '').toUpperCase()] || 1) : 0;
+  const winner = (/awarded to (.+?)(?: \([^)]*\))? by /.exec(d) || /awarded to (.+?)(?: \([^)]*\))?: /.exec(d) || [])[1] || (stageW(it.stage) === 5 ? it.company_name : '');
+  // "(est. US$60M, deadline 2026-11-17)" / "(deadline 2026-11-17)" after the buyer
+  const buyer = (/(?:tender|procurement|notice) by (.+?)(?: \([^()]*(?:est\.|deadline|US\$)[^()]*\))?: /.exec(d) || [])[1] || '';
+  const dl = /deadline (\d{4}-\d{2}-\d{2})/.exec(d)?.[1] || '';
+  const deadline = dl && dl >= it.report_date ? new Date(dl + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }) : '';
+  // TED titles start with the CPV label and the buyer's file number: "Gas pipelines – 24/006 - The Provision of ..."
+  const name = clean(it.project_name).replace(/^[^–]{3,45} – (?=.{15})/, '').replace(/^[\w./-]*\d[\w./-]*\s*[-/:]\s+/, '').replace(/^(construction work for|construction work|works for|supply of)\s*[–-]?\s*/i, '').replace(/^\p{Ll}/u, (c) => c.toUpperCase());
+  const who = clean(stageW(it.stage) === 5 ? winner : buyer).replace(/^(asociere|consorzio|consortium|groupement|ute|arge)\s*:?\s*/i, '');
+  return { id: String(it.id), name, country: countryName(it.country), industry: industryOf(it), usd, value: money(usd), deadline,
+    who: /^(n\/?a|unknown|none|-)$/i.test(who) ? '' : titleCase(who).replace(/\s+/g, ' ').slice(0, 70), date: it.report_date, source: sourceOf(it) };
+}
+
 async function infraData() {
   const q = SECRET ? `&secret=${encodeURIComponent(SECRET)}` : '';
   const res = await fetchJson(`${API}/opportunities?report_type=epc&from=${dayShift(DATE, -21)}&to=${dayShift(DATE, -1)}&limit=2000${q}`);
@@ -152,6 +179,22 @@ async function infraData() {
     sector: it.sector || '', subsector: /^(unknown|n\/a|other|none)$/i.test(String(it.subsector || '').trim()) ? '' : (it.subsector || ''), stage: stageOf(it.stage), scale: it.scale || '', company: clean(it.company_name),
     summary: clean(it.description), source: sourceOf(it), url: it.source_url, date: it.report_date });
   const pk = picks.map((it) => ({ ...proj(it), article: texts.get(it) }));
+  // Tenders and awards by industry (slides "Open tenders" / "Contracts awarded"): official notices and news, not the 3 picks,
+  // never a notice an earlier scan already listed (listIds in state/scan_pushed.json), biggest first.
+  const listed = new Set(Object.entries(existsSync(pushedF) ? JSON.parse(readFileSync(pushedF, 'utf8')) : {})
+    .filter(([k, v]) => k.endsWith(':infra') && v.bufferPostId).flatMap(([, v]) => v.listIds || []));
+  const pickSet = new Set(picks.map((it) => String(it.id)));
+  const byIndustry = (w) => {
+    const pool = day.filter((it) => stageW(it.stage) === w && !offTopic.test(it.project_name + ' ' + it.description));
+    const fresh = pool.filter((it) => !pickSet.has(String(it.id)) && !listed.has(String(it.id)));
+    const seen = [];
+    const same = (a, b) => a.toLowerCase() === b.toLowerCase() || similar(a, b);   // similar() reads Latin letters only
+    const rows = fresh.filter((it) => !NOT_EPC.test(it.project_name + ' ' + it.description)).map(dealOf)
+      .sort((a, b) => (b.usd || 0) - (a.usd || 0) || (b.date > a.date ? 1 : -1))
+      .filter((r) => (seen.some((x) => same(x, r.name)) ? false : seen.push(r.name)));
+    return INDUSTRIES.map((ind) => ({ industry: ind, week: pool.filter((it) => industryOf(it) === ind).length, rows: rows.filter((r) => r.industry === ind) }))
+      .filter((g) => g.week);
+  };
   const tally = (key) => { const t = {}; for (const it of day) { const k = key(it) || 'Other'; t[k] = (t[k] || 0) + 1; } return Object.entries(t).sort((a, b) => b[1] - a[1]); };
   return {
     series: 'infra', date: DATE, scanDay: D1, windowFrom: W0, issue: issueNo, fresh: !!SECRET,
@@ -161,6 +204,7 @@ async function infraData() {
     byRegion: tally((it) => it.region), bySector: tally((it) => it.sector),
     picks: pk,
     others: sorted.filter((it) => !picks.includes(it)).slice(0, 8).map(proj),
+    tenders: byIndustry(4), awards: byIndustry(5),
   };
 }
 
@@ -368,7 +412,7 @@ im.crop((int(cx - r), int(y - r), int(cx + r), int(y + r))).resize((900, 900), I
 `, join(cardDir, cardPng), join(cardDir, '_globe.png')]);
 const GLOBE_FILE = cardPng && existsSync(join(cardDir, '_globe.png')) ? join(cardDir, '_globe.png') : '';
 
-// ================================================================ slides (1080x1350, 10 per carousel)
+// ================================================================ slides (1080x1350: 10 per carousel, 12 for infra with the tender/award slides)
 const S = { w: 1080, h: 1350 };
 const T = SERIES === 'flow'
   ? { main: '#0f2d5e', accent: '#c8a94a', kick: '#0b4a6f', tint: '#f3f6fa' }
@@ -377,12 +421,12 @@ const fileUrl = (f) => 'file:///' + f.replace(/\\/g, '/');
 const GLOBE = GLOBE_FILE ? fileUrl(GLOBE_FILE) : '';
 const TIER_C = { Critical: '#b42318', Elevated: '#b54708', Watch: '#667085' };
 const STAGE_C = { Awarded: '#027a48', Tender: '#b54708', 'Pre-FID': '#0b4a6f', Development: '#475467', Feasibility: '#667085' };
-const TOTAL = 10;
+// slide numbers are filled in once the deck is assembled (the infra deck has optional tender/award slides)
 const dt = new Date(d.scanDay + 'T00:00:00Z');
 const DAYW = dt.toLocaleDateString('en-GB', { weekday: 'long', timeZone: 'UTC' });
 const DATE_SHORT = dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
 const DATE_BIG = dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', timeZone: 'UTC' });
-const slide = (inner, n, cls = '') => `<section class="s ${cls}">${inner}<footer><span>WORLD TRADE PRO · ${SERIES_NAME.toUpperCase()} · ${DATE_SHORT.toUpperCase()}</span><span>${n} / ${TOTAL}</span></footer></section>`;
+const slide = (inner, n, cls = '') => `<section class="s ${cls}">${inner}<footer><span>WORLD TRADE PRO · ${SERIES_NAME.toUpperCase()} · ${DATE_SHORT.toUpperCase()}</span><span>__N__ / __TOTAL__</span></footer></section>`;
 const bigStat = (v, l) => `<div class="bs"><b>${v}</b><span>${l}</span></div>`;
 const photo = (r, h) => r ? `<div class="ph" style="height:${h}px;background-image:url('${fileUrl(join(LIB, r.file))}')"></div><div class="cr">${esc(r.caption.replace(/\.$/, ''))} · ${esc(r.credit)}</div>` : `<div class="ph none" style="height:${h}px"></div>`;
 const label = SERIES === 'flow' ? 'Signal' : 'Project';
@@ -444,7 +488,22 @@ const cta = SERIES === 'flow'
     <p class="lead">Free. Updated every weekday. Lane pages with 13-week history at worldtradepro.com/trade-lanes</p><div class="follow">Follow World Trade Pro for tomorrow's scan</div>`, 10, 'dark')
   : slide(`<div class="k">Every project, every country</div><h2>Project trackers for 66 countries, updated every day</h2><div class="url">worldtradepro.com/projects</div>
     <p class="lead">Owners, contractors, stages and sources in one place. Free.</p><div class="follow">Follow World Trade Pro Infrastructure for tomorrow's scan</div>`, 10, 'dark');
-const slides = [cover, glance, ...storySlides, board, cta];
+// Open tenders / Contracts awarded, grouped by industry: up to 9 rows, spread over the industries (biggest first in each)
+function dealSlide(groups, kind) {
+  const rows = [], cap = 9, gs = groups.map((g) => ({ ...g, take: [] }));
+  for (let i = 0; rows.length < cap && gs.some((g) => g.rows.length > g.take.length); i++)
+    for (const g of gs) if (rows.length < cap && g.rows[i]) { g.take.push(g.rows[i]); rows.push(g.rows[i]); }
+  if (rows.length < 3) return null;
+  const week = groups.reduce((a, g) => a + g.week, 0);
+  const tender = kind === 'tender';
+  return slide(`<div class="k">${tender ? 'Open tenders' : 'Contracts awarded'} · by industry · last 7 days</div>
+    <h2 class="sm">${tender ? `${week} tenders open to bidders this week. The largest new ones in each industry:` : `${week} contracts awarded this week. Who won the largest new ones:`}</h2>
+    ${gs.filter((g) => g.take.length).map((g) => `<div class="ind"><div class="ind-h"><b>${esc(g.industry)}</b><span>${g.week} this week</span></div>
+      ${g.take.map((r) => `<div class="dl"><b>${esc(r.name)}</b><span>${[esc(r.country), r.value ? `<em>${esc(r.value)}</em>` : '', tender && r.deadline ? `<em>bids due ${esc(r.deadline)}</em>` : '', r.who ? (tender ? '' : 'won by ') + esc(r.who) : ''].filter(Boolean).join(' · ')}</span></div>`).join('')}</div>`).join('')}
+    <p class="fine">${tender ? 'Official notices: EU TED, UK Find a Tender, World Bank, plus press reports. Bid documents and deadlines on the source notice.' : 'Official award notices (EU TED, UK Find a Tender, World Bank) and press reports.'} Full list with links: worldtradepro.com/projects</p>`, 0);
+}
+const dealSlides = SERIES === 'infra' ? [dealSlide(d.tenders || [], 'tender'), dealSlide(d.awards || [], 'award')].filter(Boolean) : [];
+const slides = [cover, glance, ...storySlides, ...dealSlides, board, cta].map((h, i, all) => h.replace('__N__', i + 1).replace('__TOTAL__', all.length));
 
 const html = `<!doctype html><html><head><meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
@@ -483,6 +542,9 @@ i.now{background:${T.main}}i.prev{background:#c3cad5}
 .cb-n{font-size:24px;font-weight:600;line-height:1.2}.cb-n em{font-style:normal;color:#b42318;font-size:20px;margin-left:6px}.cb-b i{display:block;height:14px;border-radius:0 5px 5px 0;min-width:3px}.cb-b i+i{margin-top:3px}
 .cb-v{font-size:22px;font-weight:700;text-align:right}.st-high{color:#b42318}.st-elevated{color:#b54708}.st-watch{color:#475467}.st-quiet{color:#98a2b3}
 .fine{font-size:19px;color:#98a2b3;margin-top:12px}
+.ind{margin:0 0 calc(14px*var(--fs,1))}.ind-h{display:flex;justify-content:space-between;align-items:baseline;border-bottom:4px solid ${T.main};padding:4px 0 6px}.ind-h b{font-size:24px;letter-spacing:.08em;text-transform:uppercase;color:${T.kick}}.ind-h span{font-size:20px;color:#667085;font-weight:600}
+.dl{padding:calc(11px*var(--fs,1)) 0;border-bottom:2px solid #eaecf0}.dl b{display:block;font-size:calc(27px*var(--fs,1));line-height:1.25;font-weight:600;color:#101828;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dl span{display:block;font-size:calc(21px*var(--fs,1));color:#667085;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dl em{font-style:normal;font-weight:700;color:${T.main}}
 .stg{display:flex;gap:18px;align-items:flex-end;height:250px;margin:6px 0 26px}.stg div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}.stg i{display:block;width:100%;border-radius:8px 8px 0 0;min-height:4px}.stg b{font:600 40px/1.2 Newsreader,serif;margin-top:6px}.stg span{font-size:20px;color:#667085}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:40px}.two .t{display:block;font-size:21px;letter-spacing:.1em;text-transform:uppercase;color:${T.kick};margin-bottom:10px}
 .hb{display:grid;grid-template-columns:1fr;gap:4px;padding:8px 0;border-top:2px solid #eaecf0;position:relative}.hb span{font-size:22px;color:#344054;padding-right:50px}.hb i{display:block;height:12px;border-radius:0 5px 5px 0;background:${T.main};min-width:3px}.hb b{position:absolute;right:0;top:8px;font-size:22px}
@@ -503,11 +565,11 @@ const els = await page.$$('section.s');
 // (to 78% at most); only a slide that still does not fit fails the run (quality guard)
 await page.$$eval('section.s', (ss) => ss.forEach((s) => {
   const fits = () => { const f = s.querySelector('footer').getBoundingClientRect().top; const m = s.querySelector('.meta,.row3,.follow'); const lim = m ? m.getBoundingClientRect().top : f;
-    const kids = [...s.querySelectorAll('.blk,.cb,.gr,.lead2,h2,.what,.two,.stg,.url,.lead,.cv')].filter((e) => !e.closest('.meta')); return Math.max(0, ...kids.map((e) => e.getBoundingClientRect().bottom)) <= lim - 6; };
+    const kids = [...s.querySelectorAll('.blk,.cb,.gr,.lead2,h2,.what,.two,.stg,.url,.lead,.cv,.ind,.fine')].filter((e) => !e.closest('.meta')); return Math.max(0, ...kids.map((e) => e.getBoundingClientRect().bottom)) <= lim - 6; };
   for (let fs = 1; !fits() && fs > 0.78; ) { fs = Math.round((fs - 0.04) * 100) / 100; s.style.setProperty('--fs', fs); }
 }));
 const over = await page.$$eval('section.s', (ss) => ss.map((s, i) => { const f = s.querySelector('footer').getBoundingClientRect().top; const m = s.querySelector('.meta,.row3,.follow'); const lim = m ? m.getBoundingClientRect().top : f;
-  const kids = [...s.querySelectorAll('.blk,.cb,.gr,.lead2,h2,.what,.two,.stg,.url,.lead,.cv')].filter((e) => !e.closest('.meta')); const bottom = Math.max(0, ...kids.map((e) => e.getBoundingClientRect().bottom)); return bottom > lim - 6 ? i + 1 : 0; }).filter(Boolean));
+  const kids = [...s.querySelectorAll('.blk,.cb,.gr,.lead2,h2,.what,.two,.stg,.url,.lead,.cv,.ind,.fine')].filter((e) => !e.closest('.meta')); const bottom = Math.max(0, ...kids.map((e) => e.getBoundingClientRect().bottom)); return bottom > lim - 6 ? i + 1 : 0; }).filter(Boolean));
 if (over.length) { console.error('TEXT OVERFLOW on slide(s):', over.join(', ')); if (!args.includes('--allow-overflow')) process.exitCode = 3; }
 rmSync(join(OUT, 'pdfpages'), { recursive: true, force: true });
 mkdirSync(join(OUT, 'pdfpages'), { recursive: true });
@@ -525,14 +587,15 @@ ${N.hook}
 
 ${d.picks.map((p) => `▪️ ${SERIES === 'infra' && p.flag ? p.flag + ' ' : ''}${byId[p.id].headline}`).join('\n')}
 
-👉 Swipe for ${SERIES === 'flow' ? 'what happened, why it matters and the 9-lane risk board' : 'who is involved, where the opportunity is and the week\'s full pipeline'}.
+👉 Swipe for ${SERIES === 'flow' ? 'what happened, why it matters and the 9-lane risk board' : (dealSlides.length ? 'who is involved, where the opportunity is, this week\'s open tenders and contract awards by industry, and the full pipeline' : 'who is involved, where the opportunity is and the week\'s full pipeline')}.
 
 💬 ${N.question}
 
 ${TAGS}`;
 writeFileSync(join(OUT, 'linkedin.txt'), caption);
 const docTitle = `${SERIES_NAME} · ${DATE_SHORT}`;
-writeFileSync(join(OUT, 'assets.json'), JSON.stringify({ series: SERIES, date: DATE, scanDay: d.scanDay, issue: d.issue, docTitle, pdf: 'carousel.pdf', cover: 'cover.jpg', caption, photos: PH.map((r) => r?.id || null), coverPhoto: COVER?.id || null, pickIds: d.picks.map((p) => p.id) }, null, 2));
+writeFileSync(join(OUT, 'assets.json'), JSON.stringify({ series: SERIES, date: DATE, scanDay: d.scanDay, issue: d.issue, docTitle, pdf: 'carousel.pdf', cover: 'cover.jpg', caption, photos: PH.map((r) => r?.id || null), coverPhoto: COVER?.id || null, pickIds: d.picks.map((p) => p.id),
+  listIds: dealSlides.length ? [...(d.tenders || []), ...(d.awards || [])].flatMap((g) => g.rows).filter((r) => html.includes(esc(r.name))).map((r) => r.id) : [] }, null, 2));
 // remember the photos only when this run is the one that gets published (--commit-photos in the workflow)
 if (args.includes('--commit-photos')) { USED[DATE + ':' + SERIES] = [COVER, ...PH].filter(Boolean).map((r) => r.id); mkdirSync(dirname(USED_F), { recursive: true }); writeFileSync(USED_F, JSON.stringify(USED, null, 2)); }
 console.log(`rendered ${els.length} slides -> ${OUT}`);
