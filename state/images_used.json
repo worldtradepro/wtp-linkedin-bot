@@ -59,6 +59,36 @@
       "id": "main-3",
       "url": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA2d6C3S.img",
       "hash": "fd943798d6d2eae44dcf0dd67a84f367f44aaa6d"
+    },
+    {
+      "date": "2026-09-30",
+      "id": "infra-1",
+      "url": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA2cNfM6.img",
+      "hash": "329f4777f464bd1211f93272c4fdc7064d566867"
+    },
+    {
+      "date": "2026-09-30",
+      "id": "infra-2",
+      "url": "https://images.unsplash.com/photo-1540380403593-2f4cbbc006dd",
+      "hash": "e05a77350671ffaaa67d5294178144115591c5ee"
+    },
+    {
+      "date": "2026-09-30",
+      "id": "main-1",
+      "url": "https://www.freightwaves.com/wp-content/uploads/2026/09/29/PanamaCanalTower.jpg",
+      "hash": "61796fe6d0699461a03a75968c6b9c413ecb09aa"
+    },
+    {
+      "date": "2026-09-30",
+      "id": "main-2",
+      "url": "https://splash247.com/wp-content/uploads/2026/09/Uni-Tankers-780x470.jpg",
+      "hash": "d1e1b2e42bb223e92a8715d31255833e69805b15"
+    },
+    {
+      "date": "2026-09-30",
+      "id": "main-3",
+      "url": "https://cdn.brownfieldagnews.com/wp-content/uploads/2024/04/Exports.jpg",
+      "hash": "b99c61b4696b4096d991c5091feb5146eb6dfdb7"
     }
   ]
 }

@@ -35,6 +35,24 @@
       "title": "Qatar Extends LNG Force Majeure as Hormuz Crisis Drags On",
       "iso": "IR",
       "sector": "Energy"
+    },
+    {
+      "date": "2026-09-30",
+      "title": "New limits: More ships can transit this key cargo chokepoint",
+      "iso": "PA",
+      "sector": "Shipping"
+    },
+    {
+      "date": "2026-09-30",
+      "title": "Uni-Tankers lines up eight stainless newbuilds",
+      "iso": "CN",
+      "sector": "Shipping"
+    },
+    {
+      "date": "2026-09-30",
+      "title": "Record cheese, butterfat exports point to strong 2026 for dairy",
+      "iso": "US",
+      "sector": "Agriculture"
     }
   ]
 }
