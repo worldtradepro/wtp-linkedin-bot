@@ -1,0 +1,91 @@
+{
+  "headline": "SABIC AN SAN-7 FID, Jinhui ultramax order, Saipem Caspian cable logistics",
+  "hook": "SABIC AN takes FID on SAN-7 with a ~$3.5bn EPC to Samsung E&A. Jinhui orders two more ultramaxes, and Saipem hires SCA to move cable to the Caspian.",
+  "board": "Of 42 new projects in the last 7 days, 30 are awarded and 4 are in tender. Energy leads with 28, and Europe (14) and Asia Pacific (13) account for most.",
+  "question": "On a Samsung E&A-led fertilizer EPC like SAN-7, how many months after FID do you usually start talks on subcontract and equipment packages?",
+  "items": [
+    {
+      "id": "3529",
+      "headline": "SABIC AN takes FID on SAN-7 ammonia-urea complex in Al Jubail",
+      "statValue": "$3.5bn",
+      "statLabel": "EPC contract awarded to Samsung E&A (approx.)",
+      "what": "BCInsight (CRU) reports that SABIC Agri-Nutrients has taken FID on SAN-7 in Al Jubail. The project adds 1.2 million t/a of ammonia and 2.6 million t/a of urea capacity.",
+      "who": "Owner: SABIC Agri-Nutrients. EPC: Samsung E&A. Licensors: Stamicarbon (MAIRE's Nextchem), thyssenkrupp Uhde Fertilizer Technology.",
+      "angle": "The EPC is awarded and FID is taken on a large fertilizer complex, so Samsung E&A's procurement and subcontracting come next. This matters to fertilizer plant equipment suppliers and construction subcontractors in Saudi Arabia.",
+      "facts": [
+        "The complex includes two urea plants",
+        "Nextchem, via Stamicarbon, supplies an NX STAMI Urea package under a EUR 125m contract",
+        "Stamicarbon's scope covers licensing, the Process Design Package and proprietary equipment"
+      ],
+      "watch": "Construction start, which the report expects in Q4 2026."
+    },
+    {
+      "id": "3534",
+      "headline": "Jinhui orders two 64,500 dwt ultramax bulkers at Jiangmen Nanyang",
+      "statValue": "$71.4m",
+      "statLabel": "Two 64,500 dwt ultramaxes at $35.7m each",
+      "what": "Splash247 reports that Jinhui Shipping has ordered two more ultramax bulkers from Jiangmen Nanyang Ship Engineering. This brings its ultramax newbuilding programme to 14 ships.",
+      "who": "Owner: Jinhui Shipping and Transportation (via Jinmao Marine and Jinquan Marine). Shipyard: Jiangmen Nanyang Ship Engineering.",
+      "angle": "This is an awarded newbuild order at a Chinese yard, part of a 14-ship programme across three yards. It matters to marine equipment and outfitting suppliers at Jiangmen Nanyang, New Dayang and Hantong, and to ship lenders.",
+      "facts": [
+        "Around 65% of the price is funded by bank borrowing, the rest from internal resources",
+        "In June, Jinhui ordered two 64,100 dwt ships at New Dayang for $68m",
+        "Jinhui currently operates 19 vessels: 16 owned and 3 chartered-in"
+      ],
+      "watch": "Delivery of Jinhui's first 63,500 dwt ultramax from Jiangsu Hantong, scheduled for December this year per Splash247."
+    },
+    {
+      "id": "3539",
+      "headline": "Saipem awards Subsea Cable Assets ~$20m cable transport contract for Caspian",
+      "statValue": "5 x 1,100t",
+      "statLabel": "Cable transport carousels to be supplied by SCA",
+      "what": "Subsea Cable Assets (SCA) says it has won its first contract, worth about $20m, from Saipem Contracting Netherlands. SCA will move cable from load-out at JDR Cable Systems in the UK to the Caspian region.",
+      "who": "Client: Saipem Contracting Netherlands. Contractor: Subsea Cable Assets (SCA). Cable load-out: JDR Cable Systems (UK).",
+      "angle": "This awarded logistics package crosses several regions. It matters to cable transport vessel and barge operators, SPMT and heavy-transport providers, and load-out and port services on the UK–Southeastern Europe–Caspian route.",
+      "facts": [
+        "Scope: engineering, fabrication, installation and operation, demobilization and reinstatement",
+        "In Southeastern Europe, SPMTs will move the loaded carousels onto smaller transport barges",
+        "SCA says it has delivered more than 50 carousels and related equipment worldwide"
+      ],
+      "watch": "The carousels are being manufactured at SCA's Dubai facility, with shipment to Europe planned by the end of 2026."
+    }
+  ],
+  "_generated": {
+    "at": "2026-09-30T20:16:01.852Z",
+    "model": "claude-opus-5-5 (Claude subscription)",
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 6547,
+      "cache_read_input_tokens": 10682,
+      "output_tokens": 3516,
+      "output_tokens_details": {
+        "thinking_tokens": 1885
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 6547,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 3516,
+          "cache_read_input_tokens": 10682,
+          "cache_creation_input_tokens": 6547,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 6547
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  }
+}

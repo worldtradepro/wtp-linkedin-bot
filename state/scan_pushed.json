@@ -1,0 +1,28 @@
+{
+  "2026-09-30:flow": {
+    "pdfUrl": "https://cdn.jsdelivr.net/gh/worldtradepro/wtp-linkedin-bot@fc8591660e2a303e8e0c371313c6c9237691ef40/scan/2026-09-30/flow.pdf",
+    "coverUrl": "https://cdn.jsdelivr.net/gh/worldtradepro/wtp-linkedin-bot@fc8591660e2a303e8e0c371313c6c9237691ef40/scan/2026-09-30/flow-cover.jpg",
+    "issue": 1,
+    "scanDay": "2026-09-29",
+    "pickIds": [
+      "3796",
+      "3811",
+      "3795"
+    ],
+    "bufferPostId": "6abd6e2a01f18483b9ef5663",
+    "dueAt": "2026-09-30T20:26:41.660Z"
+  },
+  "2026-09-30:infra": {
+    "pdfUrl": "https://cdn.jsdelivr.net/gh/worldtradepro/wtp-linkedin-bot@fc8591660e2a303e8e0c371313c6c9237691ef40/scan/2026-09-30/infra.pdf",
+    "coverUrl": "https://cdn.jsdelivr.net/gh/worldtradepro/wtp-linkedin-bot@fc8591660e2a303e8e0c371313c6c9237691ef40/scan/2026-09-30/infra-cover.jpg",
+    "issue": 1,
+    "scanDay": "2026-09-29",
+    "pickIds": [
+      "3529",
+      "3534",
+      "3539"
+    ],
+    "bufferPostId": "6abd6e2ec6f337a779f284bc",
+    "dueAt": "2026-09-30T20:26:45.601Z"
+  }
+}
