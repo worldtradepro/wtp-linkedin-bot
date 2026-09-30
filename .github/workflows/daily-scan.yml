@@ -1,0 +1,145 @@
+name: daily-scan
+
+# Every day: one 10-slide PDF carousel per LinkedIn page, same format every day.
+#   main page      Daily Trade Flow Scan  (07:30 UTC; not on Mondays, when Trade Flow Weekly takes that slot)
+#   Infrastructure Daily Project Scan     (08:30 UTC)
+# Steps per series: data + article text -> editorial note (OpenRouter, checked in code) -> photos from media_library -> render ->
+# PDF/cover on the images branch -> website media library -> Buffer document post. A day with fewer than 3 stories is skipped.
+# A failed run turns red and GitHub e-mails the repository owner.
+# Pause switch: Settings -> Secrets and variables -> Actions -> Variables -> SCAN_PAUSED = true
+
+on:
+  schedule:
+    - cron: '17 5 * * *'     # main trigger, 05:17 UTC (first post 07:30 UTC)
+    - cron: '17 6 * * *'     # backup: does nothing for a series that is already queued
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Publication date YYYY-MM-DD (default: today UTC)'
+        required: false
+      dry_run:
+        description: 'Test: build + upload to the website media library, but do NOT queue in Buffer'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-scan
+  cancel-in-progress: false
+
+jobs:
+  run:
+    if: ${{ vars.SCAN_PAUSED != 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      WTP_PUBLISH_KEY: ${{ secrets.WTP_PUBLISH_KEY }}
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+      IMAGE_BASE_URL: https://raw.githubusercontent.com/${{ github.repository }}/images
+      WEEKLY_PAUSED: ${{ vars.WEEKLY_PAUSED }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Date and what is still to do
+        id: d
+        run: |
+          DATE="${{ github.event.inputs.date }}"; [ -z "$DATE" ] && DATE=$(date -u +%F)
+          echo "date=$DATE" >> "$GITHUB_OUTPUT"
+          todo=""
+          for s in flow infra; do
+            if [ "$s" = flow ] && [ "$(date -u -d "$DATE" +%u)" = 1 ] && [ "$WEEKLY_PAUSED" != "true" ] && node -e "process.exit(require('./config.json').dailyScan.flow.skipMondays ? 0 : 1)"; then
+              echo "flow: Monday - Trade Flow Weekly takes the main page's morning slot"; continue; fi
+            if grep -q "\"$DATE:$s\"" state/scan_pushed.json 2>/dev/null && node -e "process.exit(require('./state/scan_pushed.json')['$DATE:$s']?.bufferPostId ? 0 : 1)"; then
+              echo "$s: already queued"; continue; fi
+            todo="$todo $s"
+          done
+          echo "todo=$todo" >> "$GITHUB_OUTPUT"
+          echo "to do:$todo"
+      - name: Check secrets
+        if: ${{ steps.d.outputs.todo != '' }}
+        run: |
+          for v in WTP_BOT_SECRET OPENROUTER_API_KEY WTP_PUBLISH_KEY BUFFER_API_KEY; do test -n "${!v}" || { echo "::error::Secret $v is missing"; exit 1; }; done
+      - uses: actions/setup-node@v4
+        if: ${{ steps.d.outputs.todo != '' }}
+        with:
+          node-version: 20
+      - name: Install
+        if: ${{ steps.d.outputs.todo != '' }}
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+          sudo apt-get install -y --no-install-recommends fonts-roboto
+          sudo apt-get install -y --no-install-recommends python3-pil
+      - name: Build the carousels
+        id: build
+        if: ${{ steps.d.outputs.todo != '' }}
+        run: |
+          built=""; failed=""
+          for s in ${{ steps.d.outputs.todo }}; do
+            set +e
+            node daily_scan.mjs --series $s --date ${{ steps.d.outputs.date }} ${{ github.event.inputs.dry_run != 'true' && '--commit-photos' || '' }}
+            code=$?
+            set -e
+            if [ $code -eq 2 ]; then echo "::notice::$s: fewer than 3 stories - no scan today"; continue; fi
+            if [ $code -ne 0 ]; then echo "::error::$s: build failed (exit $code)"; failed="$failed $s"; continue; fi
+            built="$built $s"
+          done
+          echo "built=$built" >> "$GITHUB_OUTPUT"
+          echo "failed=$failed" >> "$GITHUB_OUTPUT"
+      - name: Put PDF + cover on the images branch
+        if: ${{ steps.build.outputs.built != '' }}
+        run: |
+          set -e
+          DATE=${{ steps.d.outputs.date }}
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin images >/dev/null 2>&1; then
+            git fetch origin images
+            git worktree add -B images ../_images origin/images
+          else
+            git worktree add --orphan -b images ../_images
+          fi
+          mkdir -p "../_images/scan/$DATE"
+          for s in ${{ steps.build.outputs.built }}; do
+            cp "reports/out/$DATE-scan-$s/carousel.pdf" "../_images/scan/$DATE/$s.pdf"
+            cp "reports/out/$DATE-scan-$s/cover.jpg" "../_images/scan/$DATE/$s-cover.jpg"
+          done
+          cd ../_images
+          git add -A
+          git diff --cached --quiet || git commit -m "scan $DATE"
+          git push origin HEAD:images
+          sleep 15   # raw.githubusercontent can lag a few seconds behind the push
+      - name: Publish (website media + Buffer)
+        if: ${{ steps.build.outputs.built != '' }}
+        run: |
+          fail=0
+          for s in ${{ steps.build.outputs.built }}; do
+            node daily_scan_publish.mjs --series $s --date ${{ steps.d.outputs.date }} ${{ github.event.inputs.dry_run == 'true' && '--no-buffer' || '' }} || fail=1
+          done
+          exit $fail
+      - name: Save state (photos used, posts queued) and the day's notes
+        if: ${{ always() && steps.d.outputs.todo != '' }}
+        run: |
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then echo "dry run - state not saved"; exit 0; fi
+          git add state/*.json reports/notes/*-scan-*.json || true
+          git diff --cached --quiet || (git commit -m "scan state ${{ steps.d.outputs.date }}" && git pull --rebase origin ${{ github.ref_name }} && git push origin HEAD:${{ github.ref_name }})
+      - name: Keep the carousels for review
+        if: ${{ always() && steps.build.outputs.built != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-scan-${{ steps.d.outputs.date }}
+          path: |
+            reports/out/*-scan-*/carousel.pdf
+            reports/out/*-scan-*/linkedin.txt
+            reports/out/*-scan-*/data.json
+          retention-days: 14
+      - name: Fail the run if a series failed (GitHub then e-mails the owner)
+        if: ${{ always() && steps.build.outputs.failed != '' }}
+        run: |
+          echo "::error::build failed for:${{ steps.build.outputs.failed }}"
+          exit 1

@@ -1,0 +1,50 @@
+lib-fpso|FPSO vessel|floating production storage offloading
+lib-drillship|drillship|jack-up rig
+lib-compressor|gas compressor station|compressor station pipeline
+lib-cement|cement plant|cement factory kiln
+lib-warehouse|logistics warehouse|distribution centre trucks
+lib-trucks|freight trucks highway|truck convoy cargo
+lib-rail-freight|freight train|rail freight wagons
+lib-port-cranes|ship to shore cranes|gantry cranes port
+lib-palm-oil|oil palm plantation|palm oil mill
+lib-cocoa|cocoa beans|cocoa farm
+lib-cotton|cotton harvest|cotton field
+lib-cattle|cattle ranch|livestock
+lib-fishing|fishing port|fishing boats harbour
+lib-timber|timber logs|log yard sawmill
+lib-gold|gold mine|gold bars
+lib-nickel|nickel mine|nickel smelter
+lib-uranium-nuclear|nuclear power plant|nuclear reactor cooling tower
+lib-geothermal|geothermal power plant|geothermal
+lib-gulf-industry|Ras Tanura|Jubail industrial city|Abu Dhabi skyline industry
+lib-gulf-port|Jebel Ali port|Dubai port|Port of Fujairah
+lib-singapore-port|Port of Singapore|Singapore container terminal
+lib-rotterdam|Port of Rotterdam|Maasvlakte
+lib-china-port|Port of Shanghai|Yangshan port|Ningbo port
+lib-africa-port|Port of Mombasa|Port of Durban|Lagos port
+lib-india-port|Port of Mumbai|Mundra port|Jawaharlal Nehru Port
+lib-us-gulf|Houston Ship Channel|Port of Corpus Christi|Sabine Pass LNG
+lib-brazil-port|Port of Santos|Paranagua port
+lib-australia-port|Port Hedland|Port of Newcastle coal
+lib-black-sea-port|Port of Odesa|Novorossiysk port|Constanta port
+lib-norway-offshore|North Sea platform Norway|Johan Sverdrup
+lib-desert-solar|solar park desert|concentrated solar power
+lib-industrial-construction|industrial plant construction|refinery construction site
+lib-engineers|engineers hard hats site|construction workers site
+lib-control-room|control room industrial|plant control room
+lib-welding|pipe welding|welder steel
+lib-heavy-lift|heavy lift crane|crawler crane construction
+lib-modules|modular construction plant modules|module transport
+lib-substation-hv|high voltage substation|transformer substation
+lib-ev-battery|battery factory|gigafactory
+lib-semiconductor|semiconductor fab|cleanroom factory
+lib-shipping-bridge|ship bridge navigation|ship officer bridge
+lib-tugboats|tugboats harbour|tug assisting ship
+lib-bunkering|bunkering vessel|ship refuelling
+lib-canal-lock|canal lock|river barge
+lib-river-barge|river barge cargo|inland waterway barge
+lib-air-cargo|air cargo plane|cargo aircraft loading
+lib-customs|customs inspection containers|border crossing trucks
+lib-refinery-flare|gas flare|refinery flare stack
+lib-storage-lng|LNG storage tank|regasification terminal FSRU
+lib-hydro-power|hydropower station turbine|run of river hydro

@@ -3,13 +3,15 @@
   "accounts": {
     "main": {
       "name": "World Trade Pro",
-      "newsPerDay": 3,
+      "newsPerDay": 2,
       "minScore": 10,
       "slotsUtc": [
         "06:30",
         "13:00",
         "17:30"
       ],
+      "videoSlotUtc": "17:30",
+      "_videoTest": "2026-09-28: last daily slot (17:30 UTC) reserved for a Trade Flow Daily video instead of a 3rd news post, to A/B video vs text. Video isn't auto-generated/published yet - build+post manually until the pipeline is wired up. See linkedin_video/ and memory project_linkedin_daily_video.md.",
       "weekendNewsPerDay": 1,
       "weekendSlotUtc": "08:30",
       "flashCardSlotUtc": null,
@@ -26,12 +28,14 @@
     },
     "infra": {
       "name": "World Trade Pro · Infrastructure",
-      "projectsPerDay": 2,
+      "projectsPerDay": 1,
       "maxProjectsShownPerDay": 3,
       "slotsUtc": [
         "12:30",
         "17:00"
       ],
+      "videoSlotUtc": "17:00",
+      "_videoTest": "2026-09-28: last daily slot (17:00 UTC) reserved for a Project Radar video instead of a 2nd project post, to A/B video vs text. Not auto-generated/published yet - build+post manually until wired up.",
       "dailyCardSlotUtc": "09:30",
       "weeklyCardSlotUtc": "06:30",
       "weekend": false
@@ -111,5 +115,20 @@
     "reviewTo": "contact@worldtradepro.com",
     "linkedinSlotUtc": "07:30",
     "_note": "Trade Flow Weekly: Sunday 18:xx UTC draft + review e-mail, Monday 06:xx UTC publish (site + forum + Buffer)"
+  },
+  "singlePosts": false,
+  "_singlePosts": "2026-09-30: user decision - the single news / project image posts (daily.yml: generate/render/push) are replaced by the Daily Scan carousels (daily-scan.yml). true = run them again.",
+  "dailyScan": {
+    "startDate": "2026-10-01",
+    "model": "anthropic/claude-opus-5.5",
+    "photoGapDays": 14,
+    "flow": {
+      "slotUtc": "07:30",
+      "skipMondays": true,
+      "_note": "Mondays the main page gets Trade Flow Weekly at 07:30 instead"
+    },
+    "infra": {
+      "slotUtc": "08:30"
+    }
   }
 }

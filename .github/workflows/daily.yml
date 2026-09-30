@@ -38,6 +38,11 @@ jobs:
             SKIP=true
             echo "Today's posts were already pushed - nothing to do (backup trigger)."
           fi
+          # 2026-09-30: the single news / project posts are replaced by the Daily Scan carousels (daily-scan.yml)
+          if node -e "process.exit(require('./config.json').singlePosts === false ? 0 : 1)"; then
+            SKIP=true
+            echo "Single posts are off (config.json singlePosts=false): the Daily Scan carousels replace them."
+          fi
           echo "skip=$SKIP" >> "$GITHUB_OUTPUT"
       - name: Check secrets are present
         if: ${{ steps.guard.outputs.skip != 'true' }}

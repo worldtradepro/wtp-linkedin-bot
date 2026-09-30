@@ -1,0 +1,12 @@
+lib-suez-canal-b|Suez Canal ship|Suez Canal container ship|Port Said
+lib-pipeline-b|oil pipeline|pipeline construction|gas pipeline
+lib-lng-plant-b|LNG plant|LNG terminal|liquefaction plant
+lib-lpg-carrier-b|LPG carrier|gas carrier ship|LPG tanker
+lib-oilfield-b|oil field pumpjack|oil well|drilling rig
+lib-red-sea|Red Sea ship|Jeddah port|Red Sea coast port
+lib-hormuz-region|Strait of Hormuz ship|Fujairah|Gulf of Oman ship
+lib-malacca|Strait of Malacca ship|Singapore Strait ships|Singapore anchorage ships
+lib-fertilizer-plant-b|fertilizer plant|nitrogen fertilizer factory|urea granulation
+lib-lithium-b|lithium brine evaporation ponds|lithium mine|spodumene mine
+lib-desalination-b|desalination plant|seawater reverse osmosis plant|desalination
+lib-hydrogen-b|electrolyser hydrogen plant|green hydrogen facility|hydrogen refuelling station

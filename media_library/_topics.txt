@@ -1,0 +1,52 @@
+lib-crude-tanker|crude oil tanker at sea|VLCC tanker|suezmax tanker
+lib-product-tanker|product tanker ship|chemical tanker ship
+lib-lpg-carrier|LPG carrier ship|gas carrier ship port
+lib-container-ship|container ship at sea|large container ship
+lib-container-port|container terminal cranes|container port aerial
+lib-bulk-carrier|bulk carrier ship|capesize bulk carrier
+lib-grain-loading|grain loading ship port|grain terminal ship
+lib-suez-canal|Suez Canal ship transit|Suez Canal
+lib-panama-canal|Panama Canal locks ship|Panama Canal ship
+lib-bosphorus|Bosphorus tanker|Bosphorus ship
+lib-shipyard|shipyard ship construction|dry dock ship
+lib-port-general|seaport cargo harbour|oil terminal jetty tanker
+lib-refinery|oil refinery|petroleum refinery night
+lib-offshore-platform|offshore oil platform|oil rig North Sea
+lib-pipeline|oil pipeline|gas pipeline construction
+lib-lng-plant|LNG plant|LNG terminal storage tanks
+lib-oil-storage|oil storage tanks|tank farm oil terminal
+lib-oilfield|oil pumpjack field|oil well drilling rig
+lib-gas-processing|natural gas processing plant|gas plant flare
+lib-petrochemical|petrochemical plant|chemical plant industry
+lib-power-plant|power station|combined cycle gas power plant
+lib-coal|coal mine|coal terminal ship loading
+lib-wheat|wheat harvest combine|wheat field
+lib-grain-silo|grain silo elevator|grain storage silos
+lib-soybean|soybean harvest|soybean field
+lib-corn|corn harvest|maize field
+lib-rice|rice paddy harvest|rice field
+lib-sugar-coffee|sugarcane harvest|coffee plantation
+lib-fertilizer-plant|fertilizer plant|ammonia plant urea
+lib-copper-mine|copper mine open pit|copper cathodes
+lib-iron-ore|iron ore mine|iron ore train
+lib-steel-mill|steel mill|steel plant blast furnace
+lib-aluminium|aluminium smelter|aluminium ingots
+lib-lithium|lithium mine|lithium brine ponds
+lib-rail-construction|railway construction|railway track construction
+lib-high-speed-train|high speed train|high-speed rail
+lib-metro|metro construction|subway train station
+lib-wind-onshore|wind farm|wind turbines landscape
+lib-wind-offshore|offshore wind farm|offshore wind turbine installation vessel
+lib-solar|solar farm|solar power plant panels
+lib-hydro-dam|hydroelectric dam|dam construction
+lib-transmission|high voltage transmission lines|electrical substation
+lib-battery-storage|battery energy storage system|battery storage containers
+lib-construction-site|construction site cranes|large construction site
+lib-bridge|bridge construction|cable-stayed bridge construction
+lib-tunnel|tunnel boring machine|tunnel construction
+lib-data-centre|data center building|data centre servers
+lib-desalination|desalination plant|water treatment plant
+lib-airport|airport construction|airport terminal apron
+lib-road|highway construction|road construction asphalt
+lib-hydrogen|hydrogen electrolyser plant|hydrogen production facility
+lib-mining-general|open pit mine trucks|mining haul truck
