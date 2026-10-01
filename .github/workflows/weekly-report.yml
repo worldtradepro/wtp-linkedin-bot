@@ -10,10 +10,14 @@ name: weekly-report
 
 on:
   schedule:
-    - cron: '17 18 * * 0'    # Sunday: stage + review mail
-    - cron: '7 6 * * 1'      # Monday: publish (07:07 UK)
-    - cron: '7 9 * * 1'      # Monday: retry - publishes an issue approved late (idempotent)
-    - cron: '7 11 * * 1'     # Monday: last retry
+    # GitHub starts this repo's scheduled runs ~6 hours late (2026-09-28: 06:07 -> 13:42), so the triggers are early and
+    # repeated; a stage run for a week already staged, or a publish run for a week already queued, stops at the first step.
+    - cron: '17 10 * * 0'    # Sunday: stage + review mail (lands ~16:30 UTC)
+    - cron: '17 14 * * 0'    # Sunday: stage retry
+    - cron: '7 0 * * 1'      # Monday: publish (lands ~06:30 UTC; LinkedIn slot 07:30)
+    - cron: '7 2 * * 1'      # Monday: retries - also publish an issue approved late (idempotent)
+    - cron: '7 5 * * 1'
+    - cron: '7 9 * * 1'
   workflow_dispatch:
     inputs:
       step:
@@ -53,13 +57,16 @@ jobs:
         run: |
           STEP="${{ github.event.inputs.step }}"
           if [ -z "$STEP" ]; then
-            case "${{ github.event.schedule }}" in "17 18 * * 0") STEP=stage ;; *) STEP=publish ;; esac
+            if [ "$(date -u +%u)" = 7 ]; then STEP=stage; else STEP=publish; fi   # Sunday stages, Monday publishes
           fi
           DATE="${{ github.event.inputs.date }}"
           if [ -z "$DATE" ]; then
             if [ "$STEP" = "publish" ]; then DATE=$(date -u -d "$( [ "$(date -u +%u)" = 1 ] && echo today || echo 'last monday')" +%F); else DATE=$(date -u -d 'next monday' +%F); fi
           fi
           GO=true
+          if [ "$STEP" = "stage" ] && [ "${{ github.event_name }}" = "schedule" ] && node -e "process.exit(require('./state/weekly.json')['$DATE'] ? 0 : 1)" 2>/dev/null; then
+            GO=false; echo "Already staged for $DATE (a manual run re-stages)."
+          fi
           if [ "$STEP" = "publish" ] && ! node -e "process.exit(require('./state/weekly.json')['$DATE'] ? 0 : 1)" 2>/dev/null; then
             GO=false; echo "::notice::Nothing was staged for $DATE through this workflow - nothing to publish."
           fi

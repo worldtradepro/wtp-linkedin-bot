@@ -7,9 +7,15 @@ name: newsletter
 # Pause everything: repository variable NEWSLETTER_PAUSED = true
 
 on:
+  # GitHub starts this repo's scheduled runs ~6 hours late (2026-09-29: 04:13 -> 10:41), so each day has three triggers
+  # from just after midnight UTC; the first one sends, the later ones find the issue sent (ses_send.mjs) and stop.
   schedule:
-    - cron: '23 4 * * 1'     # Trade Flow Weekly
-    - cron: '13 4 * * 2'     # EPC Project Leads Weekly
+    - cron: '23 0 * * 1'     # Monday: Trade Flow Weekly
+    - cron: '23 2 * * 1'
+    - cron: '23 4 * * 1'
+    - cron: '13 0 * * 2'     # Tuesday: EPC Project Leads Weekly
+    - cron: '13 2 * * 2'
+    - cron: '13 4 * * 2'
   workflow_dispatch:
     inputs:
       edition:
@@ -39,7 +45,7 @@ jobs:
         id: ed
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then E="${{ inputs.edition }}";
-          elif [ "${{ github.event.schedule }}" = "13 4 * * 2" ]; then E=projects; else E=flow; fi
+          elif [ "$(date -u +%u)" = 2 ]; then E=projects; else E=flow; fi   # by weekday: several triggers per day
           echo "edition=$E" >> "$GITHUB_OUTPUT"; echo "Edition: $E"
       - name: Check secrets
         run: |
