@@ -74,6 +74,11 @@
     ],
     "bufferPostId": "6abe14f855a3f6ac7b2ae75f",
     "dueAt": "2026-10-01T08:30:00.000Z",
-    "hook": "Three awards this week: FEED for a 25 mtpa US LNG terminal, a Shell offshore structures EPC in Malaysia and a $2,218.8M nuclear construction contract in Romania."
+    "hook": "Three awards this week: FEED for a 25 mtpa US LNG terminal, a Shell offshore structures EPC in Malaysia and a $2,218.8M nuclear construction contract in Romania.",
+    "repost": {
+      "bufferPostId": "6abe893c76ec6eedcd145798",
+      "dueAt": "2026-10-01T16:34:28.038Z",
+      "link": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7511341750100082689"
+    }
   }
 }
