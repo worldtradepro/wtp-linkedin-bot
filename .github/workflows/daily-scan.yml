@@ -9,9 +9,16 @@ name: daily-scan
 # Pause switch: Settings -> Secrets and variables -> Actions -> Variables -> SCAN_PAUSED = true
 
 on:
+  # GitHub starts this repo's scheduled runs ~6 hours late (seen 2026-09-28..10-01: 03:17 -> 09:40, 09:23 -> 15:58),
+  # so the triggers are spread from late evening on: the first run after 00:00 UTC builds the day and queues it
+  # in Buffer for the 07:30 / 08:30 UTC slots; every later run (and one that fires before midnight, which still
+  # sees yesterday's date) finds both series already queued and stops after the first step.
   schedule:
-    - cron: '17 5 * * *'     # main trigger, 05:17 UTC (first post 07:30 UTC)
-    - cron: '17 6 * * *'     # backup: does nothing for a series that is already queued
+    - cron: '17 22 * * *'
+    - cron: '17 0 * * *'
+    - cron: '17 2 * * *'
+    - cron: '17 4 * * *'
+    - cron: '17 6 * * *'
   workflow_dispatch:
     inputs:
       date:
