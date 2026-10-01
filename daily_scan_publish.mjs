@@ -39,7 +39,8 @@ for (const [u, type] of [[pdfUrl, 'application/pdf'], [coverUrl, 'image/jpeg']])
   }
   if (!ok) throw new Error(`not reachable as ${type}: ${u}`);
 }
-state[KEY_] = { pdfUrl, coverUrl, issue: A.issue, scanDay: A.scanDay, pickIds: A.pickIds || [], listIds: A.listIds || [] };
+state[KEY_] = { pdfUrl, coverUrl, issue: A.issue, scanDay: A.scanDay, pickIds: A.pickIds || [], listIds: A.listIds || [],
+  hook: A.hook || '', tenders: A.tenders, awards: A.awards };   // hook + counts: scan_repost.mjs
 save();
 console.log('files:', pdfUrl, coverUrl);
 if (args.includes('--no-buffer')) { delete state[KEY_]; save(); console.log('dry run: not queued in Buffer'); process.exit(0); }

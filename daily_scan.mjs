@@ -207,6 +207,10 @@ function check(n, d) {
   for (const k of ['headline', 'hook', 'board', 'question']) if (String(n[k]).length > LIMITS[k]) hard.push(`${k} is ${String(n[k]).length} chars (max ${LIMITS[k]})`);
   const all = [n.headline, n.hook, n.board, n.question, ...(n.items || []).flatMap((it) => [...KEYS.map((k) => it[k]), ...(it.facts || [])])].join(' ');
   if (/<[a-z]/i.test(all)) hard.push('no HTML');
+  // cover line: one takeaway, not a list of the three stories; question: "A or B?" (2026-10-01: zero reactions on lists and open questions)
+  if ((String(n.headline).match(/[,;]/g) || []).length > 1 || /\band\b.*,|,.*\band\b.*,/i.test(String(n.headline)) && String(n.headline).split(',').length > 2)
+    hard.push('headline must be ONE takeaway or number, not a list of the stories (at most one comma)');
+  if (!/\bor\b[^?]*\?\s*$/i.test(String(n.question))) hard.push('question must be a two-option question ending "... A or B?"');
   if (/[\u{1F300}-\u{1FAFF}]/u.test(all)) hard.push('no emojis');
   const corpus = JSON.stringify(material(d)).toLowerCase().replace(/,(?=\d{3})/g, '');
   const missing = new Set();
@@ -227,14 +231,14 @@ You get the previous day's 3 strongest trade-flow signals (with the article text
 Write ONLY from this material. Hard rules:
 ${COMMON}
 - "why" explains the consequence for physical flows ONLY as far as the material supports it: the affected lane and its flow ("laneFlow"), the commodity, route, volumes or costs named in the reports.
-Return ONE JSON object only: {"headline": the day in one line, "hook": 1-2 sentences for the post caption, "board": one sentence reading the lane risk board, "question": one concrete question to the readers about today's signals that a trader or charterer can answer from experience (no yes/no, no "thoughts?"), "items": [{"id", "headline", "statValue", "statLabel", "what", "why", "facts": [3], "watch"} x3 in the given order]}.`,
+Return ONE JSON object only: {"headline": the cover line - ONE sharp takeaway or ONE striking number from the material, stated as a claim a reader can agree or disagree with (e.g. "Awards outran tenders three to one this week" or "Hormuz detours now cost more than the cargo margin"); never a list of the three stories ("X in A, Y in B, Z in C" is wrong), at most one comma, "hook": 1-2 sentences for the post caption whose FIRST sentence carries that takeaway, "board": one sentence reading the lane risk board, "question": a two-option question the reader answers with one word or a short reply, in the form "A or B?" - two concrete, plausible options taken from today's signals, for a trader or charterer (e.g. "Would you price this package now or wait for the FEED?"); no open "how/what/which" questions, no "thoughts?", "items": [{"id", "headline", "statValue", "statLabel", "what", "why", "facts": [3], "watch"} x3 in the given order]}.`,
   infra: `You write "${SERIES_NAME}", a daily LinkedIn carousel by World Trade Pro for EPC contractors, equipment suppliers, subcontractors and project developers (business development people).
 You get the 3 most significant new infrastructure projects of the last 7 days that have not been featured before (with the article text), the other new projects and the week's breakdown by stage, region and sector.
 Write ONLY from this material. Hard rules:
 ${COMMON}
 - "who": owner / developer / EPC contractor / licensors named in the material, as "Owner: X. EPC: Y." If none is named, write "Not named in the report".
 - "angle": who in the supply chain this is relevant to and why, grounded in the stage (Feasibility, Development, Pre-FID, Tender, Awarded), scope, sector and scale given. An awarded EPC contract means subcontracting and equipment packages come next; a tender means bidders. Do not invent package names, values or dates.
-Return ONE JSON object only: {"headline": the three projects in one line, "hook": 1-2 sentences for the post caption, "board": one sentence reading the last 7 days' pipeline breakdown, "question": one concrete question to the readers about today's projects that a BD or procurement person can answer from experience (no yes/no, no "thoughts?"), "items": [{"id", "headline" (a clear project title), "statValue", "statLabel", "what", "who", "angle", "facts": [3], "watch"} x3 in the given order]}.`,
+Return ONE JSON object only: {"headline": the cover line - ONE sharp takeaway or ONE striking number from the material, stated as a claim a reader can agree or disagree with (e.g. "Awards outran tenders three to one this week" or "Hormuz detours now cost more than the cargo margin"); never a list of the three stories ("X in A, Y in B, Z in C" is wrong), at most one comma, "hook": 1-2 sentences for the post caption whose FIRST sentence carries that takeaway, "board": one sentence reading the last 7 days' pipeline breakdown, "question": a two-option question the reader answers with one word or a short reply, in the form "A or B?" - two concrete, plausible options taken from today's projects, for a BD or procurement person (e.g. "Would you price this package now or wait for the FEED?"); no open "how/what/which" questions, no "thoughts?", "items": [{"id", "headline" (a clear project title), "statValue", "statLabel", "what", "who", "angle", "facts": [3], "watch"} x3 in the given order]}.`,
 }[SERIES];
 
 async function writeNote(d) {
@@ -567,7 +571,8 @@ ${d.picks.map((p) => `▪️ ${SERIES === 'infra' && p.flag ? p.flag + ' ' : ''}
 ${TAGS}`;
 writeFileSync(join(OUT, 'linkedin.txt'), caption);
 const docTitle = `${SERIES_NAME} · ${DATE_SHORT}`;
-writeFileSync(join(OUT, 'assets.json'), JSON.stringify({ series: SERIES, date: DATE, scanDay: d.scanDay, issue: d.issue, docTitle, pdf: 'carousel.pdf', cover: 'cover.jpg', caption, photos: PH.map((r) => r?.id || null), coverPhoto: COVER?.id || null, pickIds: d.picks.map((p) => p.id),
+writeFileSync(join(OUT, 'assets.json'), JSON.stringify({ series: SERIES, date: DATE, scanDay: d.scanDay, issue: d.issue, docTitle, pdf: 'carousel.pdf', cover: 'cover.jpg', caption, photos: PH.map((r) => r?.id || null), coverPhoto: COVER?.id || null, pickIds: d.picks.map((p) => p.id), hook: N.hook,
+  tenders: SERIES === 'infra' ? d.totals.tenders : undefined, awards: SERIES === 'infra' ? d.totals.awarded : undefined,
   listIds: dealSlides.length ? [...(d.tenders || []), ...(d.awards || [])].flatMap((g) => g.rows).filter((r) => html.includes(esc(r.name))).map((r) => r.id) : [] }, null, 2));
 // remember the photos only when this run is the one that gets published (--commit-photos in the workflow)
 if (args.includes('--commit-photos')) { USED[DATE + ':' + SERIES] = [COVER, ...PH].filter(Boolean).map((r) => r.id); mkdirSync(dirname(USED_F), { recursive: true }); writeFileSync(USED_F, JSON.stringify(USED, null, 2)); }

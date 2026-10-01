@@ -1,0 +1,52 @@
+name: scan-repost
+
+# Once the day's Daily Project Scan is live on the Infrastructure page, the main page shares it (scan_repost.mjs),
+# queued for dailyScan.infra.repostSlotUtc (12:30 UTC). A run before the scan is live does nothing; so does a run
+# after it was shared. GitHub starts this repo's scheduled runs ~6 hours late, so these triggers land ~09:30-15:30 UTC.
+
+on:
+  schedule:
+    - cron: '17 3 * * *'
+    - cron: '17 5 * * *'
+    - cron: '17 7 * * *'
+    - cron: '17 9 * * *'
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Scan date YYYY-MM-DD (default: today UTC)'
+        required: false
+      dry_run:
+        description: 'Test: print the post, do NOT queue it in Buffer'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-scan        # same group as daily-scan: both write state/scan_pushed.json
+  cancel-in-progress: false
+
+jobs:
+  run:
+    if: ${{ vars.SCAN_PAUSED != 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Share the Project Scan on the main page
+        run: |
+          DATE="${{ github.event.inputs.date }}"; [ -z "$DATE" ] && DATE=$(date -u +%F)
+          node scan_repost.mjs --date "$DATE" ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
+      - name: Save state
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          git add state/scan_pushed.json
+          git diff --cached --quiet || (git commit -m "scan repost state" && git pull --rebase origin ${{ github.ref_name }} && git push origin HEAD:${{ github.ref_name }})
