@@ -21,6 +21,8 @@ const state = existsSync(STATE) ? JSON.parse(readFileSync(STATE, 'utf8')) : {};
 const KEY = `${DATE}:infra`;
 const S = state[KEY];
 if (!S?.bufferPostId) { console.log(`${KEY}: no Project Scan queued - nothing to share`); process.exit(0); }
+const DAYS = DS.infra?.repostDaysUtc;   // e.g. [2, 4] = Tue + Thu only; unset = every day
+if (Array.isArray(DAYS) && !DAYS.includes(new Date(`${DATE}T12:00:00Z`).getUTCDay())) { console.log(`${KEY}: not a repost day (repostDaysUtc ${DAYS.join(',')}) - nothing shared`); process.exit(0); }
 if (S.repost?.bufferPostId) { console.log(`${KEY}: already shared on the main page (${S.repost.bufferPostId})`); process.exit(0); }
 
 const BKEY = process.env.BUFFER_API_KEY;

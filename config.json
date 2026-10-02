@@ -10,7 +10,8 @@
         "13:00",
         "17:30"
       ],
-      "videoSlotUtc": "17:30",
+      "videoSlotUtc": "14:00",
+      "_videoSlot": "2026-10-02: main page = max 2 posts/day, ~6.5h apart: 07:30 carousel + 14:00 video (US East 10:00 / India 19:30 / Gulf 18:00 / Africa 15-16). Followers: ~57% in UTC+0..+5:30 (India 24%, Africa 14%), ~31% Americas.",
       "_videoTest": "2026-09-28: last daily slot (17:30 UTC) reserved for a Trade Flow Daily video instead of a 3rd news post, to A/B video vs text. Video isn't auto-generated/published yet - build+post manually until the pipeline is wired up. See linkedin_video/ and memory project_linkedin_daily_video.md.",
       "weekendNewsPerDay": 1,
       "weekendSlotUtc": "08:30",
@@ -125,10 +126,14 @@
     "flow": {
       "slotUtc": "07:30",
       "skipMondays": true,
-      "_note": "Mondays the main page gets Trade Flow Weekly at 07:30 instead"
+      "skipWeekends": true,
+      "_note": "Mondays the main page gets Trade Flow Weekly at 07:30 instead. Weekends (Sat/Sun UTC) no flow scan - the main page posts only the 14:00 video (company pages engage ~50% less at weekends)."
     },
     "infra": {
-      "slotUtc": "08:30"
+      "slotUtc": "08:30",
+      "repostSlotUtc": "10:30",
+      "repostDaysUtc": [2, 4],
+      "_repost": "scan_repost.mjs shares the Project Scan on the main page only on these UTC weekdays (0=Sun..6=Sat; 2=Tue, 4=Thu), keeping the main page to ~2 posts/day."
     }
   },
   "videoQueue": {

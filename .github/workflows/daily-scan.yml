@@ -59,6 +59,8 @@ jobs:
           for s in flow infra; do
             if [ "$s" = flow ] && [ "$(date -u -d "$DATE" +%u)" = 1 ] && [ "$WEEKLY_PAUSED" != "true" ] && node -e "process.exit(require('./config.json').dailyScan.flow.skipMondays ? 0 : 1)"; then
               echo "flow: Monday - Trade Flow Weekly takes the main page's morning slot"; continue; fi
+            if [ "$s" = flow ] && [ "$(date -u -d "$DATE" +%u)" -ge 6 ] && node -e "process.exit(require('./config.json').dailyScan.flow.skipWeekends ? 0 : 1)"; then
+              echo "flow: weekend - the main page posts only the video"; continue; fi
             if grep -q "\"$DATE:$s\"" state/scan_pushed.json 2>/dev/null && node -e "process.exit(require('./state/scan_pushed.json')['$DATE:$s']?.bufferPostId ? 0 : 1)"; then
               echo "$s: already queued"; continue; fi
             todo="$todo $s"

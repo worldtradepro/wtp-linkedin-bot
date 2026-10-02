@@ -7,7 +7,7 @@ name: linkedin-video
 
 on:
   schedule:
-    - cron: '23 12 * * *'     # 12:23 UTC daily, ~5h before the 17:30 UTC video slot (a late run is spaced by placeAt)
+    - cron: '23 9 * * *'      # 09:23 UTC daily, ~4.5h before the 14:00 UTC video slot (a late run is spaced by placeAt)
   workflow_dispatch:
 
 permissions:
