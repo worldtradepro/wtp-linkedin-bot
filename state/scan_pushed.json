@@ -129,6 +129,11 @@
     "tenders": 21,
     "awards": 53,
     "bufferPostId": "6abf42d622215530c715ee34",
-    "dueAt": "2026-10-02T08:30:00.000Z"
+    "dueAt": "2026-10-02T08:30:00.000Z",
+    "repost": {
+      "bufferPostId": "6abf7dc9b41a266eabf3868a",
+      "dueAt": "2026-10-02T12:30:00.000Z",
+      "link": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7511704169716822016"
+    }
   }
 }
