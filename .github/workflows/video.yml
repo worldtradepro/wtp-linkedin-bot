@@ -1,0 +1,40 @@
+name: linkedin-video
+
+# Books ONE queued video (made locally, stored in Cloudflare R2: wtp/video_queue.json) onto Buffer for the page's reserved video slot.
+# Mode comes from config.json -> videoQueue.pushMode: "draft" = Buffer draft for a human to approve, "schedule" = fully automatic.
+# Pause: Settings -> Secrets and variables -> Actions -> Variables -> BOT_PAUSED = true (also pauses text posts), or config videoQueue.paused = true.
+# Uses the same BUFFER_API_KEY secret as the text bot. Reads the public queue URL, so it needs no R2 credentials.
+
+on:
+  schedule:
+    - cron: '23 12 * * *'     # 12:23 UTC daily, ~5h before the 17:30 UTC video slot (a late run is spaced by placeAt)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: linkedin-video
+  cancel-in-progress: false
+
+jobs:
+  push-video:
+    if: ${{ vars.BOT_PAUSED != 'true' }}
+    runs-on: ubuntu-latest
+    env:
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require the secret
+        run: test -n "$BUFFER_API_KEY" || { echo "::error::Secret BUFFER_API_KEY is missing"; exit 1; }
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Book the next queued video
+        run: node push_video.mjs
+      - name: Save state
+        run: |
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          git add state/video_pushed.json || true
+          git diff --cached --quiet || (git commit -m "video state $(date -u +%F)" && git pull --rebase origin ${{ github.ref_name }} && git push origin HEAD:${{ github.ref_name }})

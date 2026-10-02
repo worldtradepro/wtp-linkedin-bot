@@ -1,0 +1,196 @@
+[
+  {
+    "id": "px-14807922",
+    "file": "linkedin_video/raw_clips/14807922.mp4",
+    "source": "pexels",
+    "page": "https://www.pexels.com/video/cargo-ship-sailing-on-the-body-of-water-14807922/",
+    "license": "Pexels License (free commercial use, no attribution required)",
+    "licenseUrl": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-02",
+    "caption": "Illustrative: bulk carrier at a loading berth",
+    "usedIn": [
+      "laneB_liq_v1 s0"
+    ]
+  },
+  {
+    "id": "px-4778075",
+    "file": "linkedin_video/raw_clips/4778075.mp4",
+    "source": "pexels",
+    "page": "https://www.pexels.com/video/loading-a-cargo-ship-for-transport-4778075/",
+    "license": "Pexels License",
+    "licenseUrl": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-02",
+    "caption": "Illustrative: loading ore into a ship's hold (not the Bulk Jupiter)",
+    "usedIn": [
+      "laneB_liq_v1 s1"
+    ]
+  },
+  {
+    "id": "px-16123591",
+    "file": "linkedin_video/raw_clips/16123591.mp4",
+    "source": "pexels",
+    "page": "https://www.pexels.com/video/iron-mine-loding-aria-16123591/",
+    "license": "Pexels License",
+    "licenseUrl": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-02",
+    "caption": "Illustrative: ore stockpile and loaders",
+    "usedIn": [
+      "laneB_liq_v1 s2"
+    ]
+  },
+  {
+    "id": "px-37292896",
+    "file": "linkedin_video/raw_clips/37292896.mp4",
+    "source": "pexels",
+    "page": "https://www.pexels.com/video/large-tanker-ship-in-stormy-ocean-waters-37292896/",
+    "license": "Pexels License",
+    "licenseUrl": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-02",
+    "caption": "Illustrative: ship in heavy seas (source is HLG HDR, tone-mapped to SDR)",
+    "usedIn": [
+      "laneB_liq_v1 s3"
+    ]
+  },
+  {
+    "id": "px-36050428",
+    "file": "linkedin_video/raw_clips/36050428.mp4",
+    "source": "pexels",
+    "page": "https://www.pexels.com/video/stormy-sea-view-from-a-boat-deck-36050428/",
+    "license": "Pexels License",
+    "licenseUrl": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-02",
+    "caption": "Illustrative: stormy sea from a ship's deck",
+    "usedIn": [
+      "laneB_liq_v1 s6"
+    ]
+  },
+  {
+    "id": "px-11015515",
+    "file": "linkedin_video/raw_clips/11015515.mp4",
+    "source": "pexels",
+    "page": "https://www.pexels.com/video/drone-footage-of-a-bulk-carrier-ship-leaving-a-coastal-city-harbour-11015515/",
+    "license": "Pexels License",
+    "licenseUrl": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-02",
+    "caption": "Illustrative: bulk carrier leaving harbour",
+    "usedIn": [
+      "laneB_liq_v1 s7"
+    ]
+  },
+  {
+    "id": "px-9654558",
+    "file": "linkedin_video/assets/videos/tanker_deck.mp4",
+    "source": "pexels",
+    "page": "https://www.pexels.com/video/an-oil-tanker-traveling-across-the-sea-9654558/",
+    "author": "Zahid Nisar",
+    "license": "Pexels License",
+    "licenseUrl": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-01",
+    "caption": "Illustrative: oil tanker deck at sea",
+    "usedIn": [
+      "cards_test_v14 s0"
+    ]
+  },
+  {
+    "id": "pb-7338",
+    "file": "linkedin_video/assets/videos/pb_7338.mp4",
+    "source": "pixabay",
+    "page": "https://pixabay.com/videos/id-7338/",
+    "author": "wastedgeneration",
+    "license": "Pixabay Content License (free commercial use, no attribution required)",
+    "licenseUrl": "https://pixabay.com/service/license-summary/",
+    "retrieved": "2026-10-02",
+    "caption": "Illustrative: tanker on a strait (not an LNG carrier)",
+    "tags": "ship, freight ship, tanker, river, ocean, istanbul, bosphorus, sea, nature, vessel, boat",
+    "durationSec": 17,
+    "hdrToneMapped": false,
+    "usedIn": [
+      "laneB_lng_boiloff_v2 (candidate)"
+    ]
+  },
+  {
+    "id": "pb-7105",
+    "file": "linkedin_video/assets/videos/pb_7105.mp4",
+    "source": "pixabay",
+    "page": "https://pixabay.com/videos/id-7105/",
+    "author": "Hans",
+    "license": "Pixabay Content License (free commercial use, no attribution required)",
+    "licenseUrl": "https://pixabay.com/service/license-summary/",
+    "retrieved": "2026-10-02",
+    "caption": "Illustrative: ice crystals, cold",
+    "tags": "soap bubble, freeze, crystal formation, crystals, ice crystals, cold, bubble, backlighting, winter, bullet, wintry, frozen, frost, spherical shape, spherical, icy, icy cold, ice flowers, crystal growth, crystalline, snow, ice cream, the winter's tale, winter magic, fairytale, magical, magic, frozen bubble, double bubble",
+    "durationSec": 16,
+    "hdrToneMapped": false,
+    "usedIn": [
+      "laneB_lng_boiloff_v2 (candidate)"
+    ]
+  },
+  {
+    "id": "pb-7558",
+    "file": "linkedin_video/assets/videos/pb_7558.mp4",
+    "source": "pixabay",
+    "page": "https://pixabay.com/videos/id-7558/",
+    "author": "B_A",
+    "license": "Pixabay Content License (free commercial use, no attribution required)",
+    "licenseUrl": "https://pixabay.com/service/license-summary/",
+    "retrieved": "2026-10-02",
+    "caption": "Illustrative: frozen bubble, cold",
+    "tags": "soap bubble, freeze, frost, night, cold, darkness, ice cream, icy",
+    "durationSec": 32,
+    "hdrToneMapped": false,
+    "usedIn": [
+      "laneB_lng_boiloff_v2 (candidate)"
+    ]
+  },
+  {
+    "id": "pb-2673",
+    "file": "linkedin_video/assets/videos/pb_2673.mp4",
+    "source": "pixabay",
+    "page": "https://pixabay.com/videos/id-2673/",
+    "author": "jLasWilson",
+    "license": "Pixabay Content License (free commercial use, no attribution required)",
+    "licenseUrl": "https://pixabay.com/service/license-summary/",
+    "retrieved": "2026-10-02",
+    "caption": "Illustrative: gas flame",
+    "tags": "fire, flame, gas, gas fire, warm",
+    "durationSec": 17,
+    "hdrToneMapped": false,
+    "usedIn": [
+      "laneB_lng_boiloff_v2 (candidate)"
+    ]
+  },
+  {
+    "id": "pb-348057",
+    "file": "linkedin_video/assets/videos/pb_348057.mp4",
+    "source": "pixabay",
+    "page": "https://pixabay.com/videos/id-348057/",
+    "author": "Gylfi",
+    "license": "Pixabay Content License (free commercial use, no attribution required)",
+    "licenseUrl": "https://pixabay.com/service/license-summary/",
+    "retrieved": "2026-10-02",
+    "caption": "Illustrative: steam over cold landscape",
+    "tags": "geothermal, iceland, nature, steam, landscape, natural, mountain, waterfall, trees, snow, winter, cold, frost, snowy, frozen, ice, cliffs",
+    "durationSec": 22,
+    "hdrToneMapped": false,
+    "usedIn": [
+      "laneB_lng_boiloff_v2 (candidate)"
+    ]
+  },
+  {
+    "id": "pb-129181",
+    "file": "linkedin_video/assets/videos/pb_129181.mp4",
+    "source": "pixabay",
+    "page": "https://pixabay.com/videos/id-129181/",
+    "author": "Engin_Akyurt",
+    "license": "Pixabay Content License (free commercial use, no attribution required)",
+    "licenseUrl": "https://pixabay.com/service/license-summary/",
+    "retrieved": "2026-10-02",
+    "caption": "Illustrative: cargo ship at sunrise",
+    "tags": "ship, sunset, sunrise, sea, ocean, container, port, transport, cargo, freight, boat, work, morning, nature, evening, crane, dock, trade, transfer, sky, light",
+    "durationSec": 59,
+    "hdrToneMapped": false,
+    "usedIn": [
+      "laneB_lng_boiloff_v2 (candidate)"
+    ]
+  }
+]
