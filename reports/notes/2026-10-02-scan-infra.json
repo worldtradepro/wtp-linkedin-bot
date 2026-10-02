@@ -1,0 +1,91 @@
+{
+  "headline": "Awards outran tenders 53 to 21 this week",
+  "hook": "Awards outran tenders 53 to 21 this week, so the work is moving to subcontract and supply packages. Today: NGED's $796M substation civils framework, Scatec's 900 MW Shadwan and a Sarawak FSRU.",
+  "board": "Of 92 new projects in 51 countries, 53 were awards and 21 were tenders. Energy accounted for 60 and Europe for 39.",
+  "question": "Would you pitch the NGED framework contractors or Scatec's Shadwan build first?",
+  "items": [
+    {
+      "id": "4058",
+      "headline": "NGED substation civil works framework, 132kV to 11kV, United Kingdom",
+      "statValue": "$796.0M",
+      "statLabel": "Framework value awarded by National Grid UK",
+      "what": "National Grid UK has awarded a civil works framework for 132kV, 66kV, 33kV and 11kV substations on the NGED distribution network, covering new and refurbished substation sites, per UK Find a Tender.",
+      "who": "Owner: National Grid UK Limited. Contractors: A I & Z A Grant, Alpha Construction, Alun Griffiths, Amalgamated Construction and others.",
+      "angle": "This is an awarded framework, so the next step is subcontracting by the named contractors. That opens work for suppliers of cable ducts, fencing, drainage and building materials, and for crews who can work in live substations.",
+      "facts": [
+        "The lot in the notice covers the NGED network zones of Redruth and Bodmin",
+        "Works will often be carried out in a live substation environment",
+        "Scope also covers building maintenance: roofs, glazing, joinery, trench covers, doors and gates"
+      ],
+      "watch": "Call-offs under the framework. The notice says these may include protecting substations from flooding, high winds and high humidity."
+    },
+    {
+      "id": "4040",
+      "headline": "Shadwan 900 MW onshore wind project, Egypt",
+      "statValue": "$716M",
+      "statLabel": "Total capex, 900 MW Shadwan onshore wind",
+      "what": "Scatec, in partnership with EDF power solutions, has started construction of the 900 MW Shadwan onshore wind project in Egypt, Scatec announced on 1 October 2026.",
+      "who": "Owner: Scatec with EDF power solutions. EPC: Not named in the report. Scatec says it will deliver the project through its integrated model.",
+      "angle": "Construction has started on one of Africa's largest onshore wind farms, per Scatec. Scatec is using its own D&C activities, so equipment and construction subcontractors should approach Scatec directly.",
+      "facts": [
+        "Scatec signed equity bridge loans totalling USD 150M with The Arab Energy Fund",
+        "A joint development agreement with EDF targets a 29% equity stake in Shadwan",
+        "Expected output is about 4 TWh a year, avoiding an estimated 1.6m t of CO2 a year"
+      ],
+      "watch": "Scatec says it intends to invite additional equity partners into the project."
+    },
+    {
+      "id": "4042",
+      "headline": "FSRU-based LNG import terminal, Sarawak, Malaysia",
+      "statValue": "1 Oct 2026",
+      "statLabel": "Hoegh Evi–Petros deal reported by LNG Prime",
+      "what": "Hoegh Evi and Petros have signed a deal to jointly develop an LNG import terminal in Malaysia's Sarawak state, LNG Prime reports.",
+      "who": "Owner: Petros and Hoegh Evi (joint developers). EPC: Not named in the report.",
+      "angle": "This is a joint development deal, not a construction award. It is early, so FSRU, marine and regasification suppliers can follow it, but no scope or value has been reported yet.",
+      "facts": [
+        "LNG Prime describes Hoegh Evi as a Norwegian FSRU player",
+        "Petros is Sarawak's state-owned oil and gas company",
+        "The terminal will be FSRU-based, per LNG Prime"
+      ],
+      "watch": "Details of capacity, site and schedule. None appear in the available LNG Prime text, which is paywalled."
+    }
+  ],
+  "_generated": {
+    "at": "2026-10-02T05:35:33.523Z",
+    "model": "claude-opus-5-5 (Claude subscription)",
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 17417,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 3386,
+      "output_tokens_details": {
+        "thinking_tokens": 2038
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 17417,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 3386,
+          "cache_read_input_tokens": 0,
+          "cache_creation_input_tokens": 17417,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 17417
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  }
+}

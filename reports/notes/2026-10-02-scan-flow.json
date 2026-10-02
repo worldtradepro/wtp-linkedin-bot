@@ -1,0 +1,88 @@
+{
+  "headline": "Diesel export policy outranked every shipping signal yesterday",
+  "hook": "Diesel export policy led the day: Argus Media reports Trump has moderated his calls for a US diesel export ban, and Reuters says Russia has extended its ban to the end of October.",
+  "board": "Strait of Hormuz still carries the most lane pressure at 36, down from 51 the prior week, while Gulf of Aden fell from 12 to 1 and Red Sea & Suez rose from 6 to 9.",
+  "question": "Would you lock in diesel cover now or wait for Russia's end-October decision?",
+  "items": [
+    {
+      "id": "4030",
+      "headline": "Trump softens push for a US diesel export ban",
+      "statValue": "1 of 38",
+      "statLabel": "Critical signals in the day's scan",
+      "what": "Argus Media reports that Trump has moderated his calls for a diesel export ban.",
+      "why": "A softer US stance bears on US diesel export flows. The feed carries only the headline, so it gives no volumes, routes or timing to measure the effect.",
+      "facts": [
+        "Reported by Argus Media on 1 October 2026.",
+        "Scored 14, the top-ranked of the day's 38 signals.",
+        "Also on radar: Brownfield reports farmers face mounting diesel expenses."
+      ],
+      "watch": "Any formal US policy step on diesel exports. The material gives no decision date or details."
+    },
+    {
+      "id": "4032",
+      "headline": "Russia keeps its diesel export ban through October",
+      "statValue": "End-Oct",
+      "statLabel": "New expiry of Russia's diesel export ban, per Reuters",
+      "what": "Reuters reports that Russia has extended its diesel export ban until the end of October.",
+      "why": "The extension keeps Russian diesel exports restricted for the rest of October. The material does not give volumes, scope or exemptions.",
+      "facts": [
+        "Reported by Reuters on 1 October 2026.",
+        "Rated Elevated with a score of 11, in the Policy sector.",
+        "The second diesel export curb among the day's top three signals."
+      ],
+      "watch": "Whether Russia extends the ban again when it expires at the end of October."
+    },
+    {
+      "id": "3998",
+      "headline": "Metals, petroleum and chemicals lift US rail volumes",
+      "statValue": "537,397",
+      "statLabel": "US weekly carloads and intermodal units, per AAR",
+      "what": "Per AAR data reported by FreightWaves, US rail traffic for the week ending September 26 reached 537,397 units: 235,787 carloads (up 3% y/y) and 301,610 intermodal units (up 6.3%).",
+      "why": "Gains came from metallic ores and metals (+9.5%), petroleum products (+9.4%) and chemicals (+7.2%). Coal carloads fell 2.1%, and domestic coal consumption was down 11.4% y/y.",
+      "facts": [
+        "Coal inventories are up 1.4 million tons since the end of 2025.",
+        "First 38 weeks: 8,679,882 carloads (+2.7%) and 10,778,696 intermodal units (+4.1%).",
+        "North American weekly traffic on nine railroads: 733,610 units, up 3.5%."
+      ],
+      "watch": "Coal in the next AAR weekly data: FreightWaves says the run-up to winter has been slow, with US coal production down 2.4% through Sept. 5."
+    }
+  ],
+  "_generated": {
+    "at": "2026-10-02T05:34:20.620Z",
+    "model": "claude-opus-5-5 (Claude subscription)",
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 17262,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 2921,
+      "output_tokens_details": {
+        "thinking_tokens": 1845
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 17262,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 2921,
+          "cache_read_input_tokens": 0,
+          "cache_creation_input_tokens": 17262,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 17262
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  }
+}

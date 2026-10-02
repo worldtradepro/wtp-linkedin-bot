@@ -80,5 +80,55 @@
       "dueAt": "2026-10-01T16:34:28.038Z",
       "link": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7511341750100082689"
     }
+  },
+  "2026-10-02:flow": {
+    "pdfUrl": "https://cdn.jsdelivr.net/gh/worldtradepro/wtp-linkedin-bot@08b4cda82967320ca9ac05c11684b5a069380e84/scan/2026-10-02/flow.pdf",
+    "coverUrl": "https://cdn.jsdelivr.net/gh/worldtradepro/wtp-linkedin-bot@08b4cda82967320ca9ac05c11684b5a069380e84/scan/2026-10-02/flow-cover.jpg",
+    "issue": 3,
+    "scanDay": "2026-10-01",
+    "pickIds": [
+      "4030",
+      "4032",
+      "3998"
+    ],
+    "listIds": [],
+    "hook": "Diesel export policy led the day: Argus Media reports Trump has moderated his calls for a US diesel export ban, and Reuters says Russia has extended its ban to the end of October.",
+    "bufferPostId": "6abf42cfc07bdc2fc26b90b0",
+    "dueAt": "2026-10-02T07:30:00.000Z"
+  },
+  "2026-10-02:infra": {
+    "pdfUrl": "https://cdn.jsdelivr.net/gh/worldtradepro/wtp-linkedin-bot@08b4cda82967320ca9ac05c11684b5a069380e84/scan/2026-10-02/infra.pdf",
+    "coverUrl": "https://cdn.jsdelivr.net/gh/worldtradepro/wtp-linkedin-bot@08b4cda82967320ca9ac05c11684b5a069380e84/scan/2026-10-02/infra-cover.jpg",
+    "issue": 3,
+    "scanDay": "2026-10-01",
+    "pickIds": [
+      "4058",
+      "4040",
+      "4042"
+    ],
+    "listIds": [
+      "4053",
+      "4054",
+      "3961",
+      "3922",
+      "4057",
+      "4056",
+      "3980",
+      "4036",
+      "4037",
+      "4039",
+      "4043",
+      "3931",
+      "4044",
+      "4048",
+      "4055",
+      "4046",
+      "3974"
+    ],
+    "hook": "Awards outran tenders 53 to 21 this week, so the work is moving to subcontract and supply packages. Today: NGED's $796M substation civils framework, Scatec's 900 MW Shadwan and a Sarawak FSRU.",
+    "tenders": 21,
+    "awards": 53,
+    "bufferPostId": "6abf42d622215530c715ee34",
+    "dueAt": "2026-10-02T08:30:00.000Z"
   }
 }
