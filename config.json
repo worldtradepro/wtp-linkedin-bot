@@ -134,7 +134,7 @@
   "videoQueue": {
     "_note": "2026-10-02: finished videos are made locally (video_factory/), uploaded to R2 under wtp/ and listed in wtp/video_queue.json; push_video.mjs books ONE per run at accounts.<acct>.videoSlotUtc. pushMode draft = Buffer draft for a human to approve; schedule = fully automatic. paused:true stops it.",
     "publicBase": "https://pub-78bdb7e1a97f4bb899a3aa9aa5b99372.r2.dev",
-    "pushMode": "draft",
+    "pushMode": "schedule",
     "paused": false
   }
 }
