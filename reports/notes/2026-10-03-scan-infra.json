@@ -1,0 +1,91 @@
+{
+  "headline": "Awarded contracts outnumbered tenders 55 to 34 this week",
+  "hook": "Awarded contracts outnumbered tenders 55 to 34 in the last seven days. Today's picks: Zeevonk cable installation, Absheron FID and a Quebec lithium mine expansion.",
+  "board": "Of 113 new projects in 55 countries, 55 were awarded and 34 went to tender; Energy led sectors with 72 and Europe led regions with 53.",
+  "question": "Would you go after Zeevonk's 2029 cable campaign or the NAL lithium plant expansion first?",
+  "items": [
+    {
+      "id": "4043",
+      "headline": "Boskalis wins Zeevonk phase one inter-array cable contract",
+      "statValue": "149 km",
+      "statLabel": "66 kV inter-array cables linking 69 turbines",
+      "what": "Boskalis has won what it calls a \"sizeable\" contract to transport and install inter-array cables for the first 1 GW phase of the 2 GW Zeevonk offshore wind project. In Boskalis' classification, sizeable means €50m to €150m.",
+      "who": "Owner: Vattenfall and Copenhagen Infrastructure Partners JV. Installer: Boskalis. Cable supplier: TKF.",
+      "angle": "An awarded installation scope with engineering starting soon. It matters to survey, cable protection system, seabed intervention and offshore support suppliers ahead of the 2029 campaign. A second 1 GW phase follows.",
+      "facts": [
+        "Cables will ship from the Eemshaven factory on Boskalis' cable-laying vessel Boka Ocean.",
+        "The site lies 63-84 km off the Dutch coast near Bergen aan Zee (IJmuiden Ver Beta).",
+        "Phase two, due in 2032, adds 1 GW plus 500 MW of system integration, including an electrolyzer."
+      ],
+      "watch": "Boskalis expects engineering to start shortly, ahead of the offshore installation campaign planned for 2029."
+    },
+    {
+      "id": "3934",
+      "headline": "TotalEnergies takes FID on Absheron full-field gas development",
+      "statValue": "6 bcm/y",
+      "statLabel": "Gas output target, plus 47,000 b/d condensate",
+      "what": "African Mining Market reports that TotalEnergies and its partners confirmed FID on full-field development of the Absheron gas and condensate field. The field is in the Caspian Sea, about 100 km southeast of Baku. Start-up is expected in 2029.",
+      "who": "Operator: TotalEnergies (35%). Partners: SOCAR (35%), XRG (30%). EPC: Not named in the report.",
+      "angle": "FID moves a large offshore gas and condensate development into execution. It matters to EPC contractors, offshore fabricators and equipment suppliers, since execution packages come next. No contractors are named.",
+      "facts": [
+        "The initial phase has produced since 2023: 1.5 bcm of gas and 12,000 b/d of condensate.",
+        "FID came the same day as TotalEnergies' Strategy and Outlook presentation.",
+        "CEO Patrick Pouyanné called Absheron a low cost, low emissions project."
+      ],
+      "watch": "Contractor appointments for the full-field build, which the report does not name, ahead of the 2029 start-up."
+    },
+    {
+      "id": "4044",
+      "headline": "Elevra starts $366m North American Lithium mine expansion in Quebec",
+      "statValue": "373,000 t",
+      "statLabel": "Annual spodumene concentrate after expansion, vs 199,000 t",
+      "what": "The Northern Miner reports that Elevra Lithium has started building a $366m (US$271m) three-stage brownfield expansion of its North American Lithium mine in Quebec. The expansion adds milling, flotation, filtration and crushing capacity.",
+      "who": "Owner: Elevra Lithium. EPC: Not named in the report.",
+      "angle": "A brownfield expansion now in execution. It matters to suppliers of milling, flotation, filtration, crushing and ore sorting equipment and to site contractors. Stages two and three run to mid-2028 and mid-2029.",
+      "facts": [
+        "Stage one adds 15-20% to output from mid-2027. CEO Lucas Dow expects first extra tonnes in June.",
+        "Stage two lifts milling capacity to 6,500 tonnes per day in mid-2028.",
+        "The prefeasibility study shows a $943m post-tax NPV (8%), 50% IRR and 34-month payback."
+      ],
+      "watch": "Elevra is negotiating another price-protected offtake, and stage one output is due from mid-2027."
+    }
+  ],
+  "_generated": {
+    "at": "2026-10-03T01:12:14.915Z",
+    "model": "claude-opus-5-5 (Claude subscription)",
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 17912,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 3766,
+      "output_tokens_details": {
+        "thinking_tokens": 2251
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 17912,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 3766,
+          "cache_read_input_tokens": 0,
+          "cache_creation_input_tokens": 17912,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 17912
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  }
+}

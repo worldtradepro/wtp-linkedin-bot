@@ -135,5 +135,41 @@
       "dueAt": "2026-10-02T12:30:00.000Z",
       "link": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7511704169716822016"
     }
+  },
+  "2026-10-03:infra": {
+    "pdfUrl": "https://cdn.jsdelivr.net/gh/worldtradepro/wtp-linkedin-bot@28a8cc095f11756ed8916b21396136d9058f7b4f/scan/2026-10-03/infra.pdf",
+    "coverUrl": "https://cdn.jsdelivr.net/gh/worldtradepro/wtp-linkedin-bot@28a8cc095f11756ed8916b21396136d9058f7b4f/scan/2026-10-03/infra-cover.jpg",
+    "issue": 4,
+    "scanDay": "2026-10-02",
+    "pickIds": [
+      "4043",
+      "3934",
+      "4044"
+    ],
+    "listIds": [
+      "4144",
+      "4126",
+      "4128",
+      "4135",
+      "4138",
+      "4147",
+      "4150",
+      "4123",
+      "4129",
+      "4124",
+      "4127",
+      "4131",
+      "4132",
+      "4038",
+      "4121",
+      "4122",
+      "3935",
+      "3946"
+    ],
+    "hook": "Awarded contracts outnumbered tenders 55 to 34 in the last seven days. Today's picks: Zeevonk cable installation, Absheron FID and a Quebec lithium mine expansion.",
+    "tenders": 34,
+    "awards": 55,
+    "bufferPostId": "6ac056a25831428806ab9efd",
+    "dueAt": "2026-10-03T08:30:00.000Z"
   }
 }
