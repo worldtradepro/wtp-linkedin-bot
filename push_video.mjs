@@ -87,9 +87,17 @@ if (!next) { log('Nothing to push.'); process.exit(0); }
 
 const acct = next.account || 'main';
 const slot = (cfg.accounts?.[acct] || {}).videoSlotUtc || '17:30';
-const today = new Date().toISOString().slice(0, 10);
-let wanted = Date.parse(`${today}T${slot}:00Z`);
-if (wanted < Date.now() + 15 * 60000) wanted = Date.parse(`${new Date(Date.now() + 86400000).toISOString().slice(0, 10)}T${slot}:00Z`);   // slot already gone today -> tomorrow's slot
+// Book one day ahead: the earliest of today/tomorrow whose slot is still >= 15 min away and has no video yet (state dueAt).
+// GitHub's scheduled runs can start hours late (2026-10-03: 09:23 cron ran at 14:21 and today's slot was lost), so
+// tomorrow is always already booked by the time its slot comes; several runs a day are safe (a covered day is skipped).
+const booked = new Set(Object.values(state.pushed).map((p) => String(p.dueAt || '').slice(0, 10)).filter(Boolean));
+let wanted = null;
+for (let k = 0; k <= 1 && wanted === null; k++) {
+  const day = new Date(Date.now() + k * 86400000).toISOString().slice(0, 10);
+  const t = Date.parse(`${day}T${slot}:00Z`);
+  if (t >= Date.now() + 15 * 60000 && !booked.has(day)) wanted = t;
+}
+if (wanted === null) { log(`Today's and tomorrow's ${slot} UTC video slots are already booked (or gone) - nothing to do.`); process.exit(0); }
 
 if (!DRY && !(await videoOk(next.video_url))) fail(`Video URL is not a reachable video: ${next.video_url}`);
 const channel = await channelFor(acct);
@@ -106,7 +114,7 @@ if (DRY) { log(JSON.stringify({ ...input, text: input.text.slice(0, 70).replace(
 const MUT = `mutation($input: CreatePostInput!) { createPost(input: $input) { __typename ... on PostActionSuccess { post { id dueAt } } ... on MutationError { message } } }`;
 const res = (await gql(MUT, { input })).createPost;
 if (res.__typename !== 'PostActionSuccess') fail(`${res.__typename}: ${res.message || ''}`);
-state.pushed[next.name] = { postId: res.post.id, mode: MODE, at: new Date().toISOString() };
+state.pushed[next.name] = { postId: res.post.id, mode: MODE, at: new Date().toISOString(), dueAt: res.post.dueAt || null };
 mkdirSync(dirname(STATE_FILE), { recursive: true });
 writeFileSync(STATE_FILE, JSON.stringify(state, null, 2));
 log(`OK -> Buffer post ${res.post.id}${res.post.dueAt ? ' · due ' + res.post.dueAt : ' (draft)'}`);

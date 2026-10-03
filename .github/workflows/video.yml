@@ -7,7 +7,9 @@ name: linkedin-video
 
 on:
   schedule:
-    - cron: '23 9 * * *'      # 09:23 UTC daily, ~4.5h before the 14:00 UTC video slot (a late run is spaced by placeAt)
+    - cron: '23 3 * * *'      # push_video books one day ahead (today/tomorrow without a video), so runs can start late or
+    - cron: '23 9 * * *'      # repeat safely: a day that already has a video is skipped. Three runs = slack for GitHub's
+    - cron: '23 16 * * *'     # hours-late scheduled starts (2026-10-03: the 09:23 run started 14:21).
   workflow_dispatch:
 
 permissions:
