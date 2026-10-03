@@ -104,7 +104,7 @@ const channel = await channelFor(acct);
 const dues = await duesFor(channel);
 const placed = placeAt(dues, wanted);
 const input = { text: next.caption, channelId: channel, schedulingType: 'automatic',
-  assets: [{ video: { url: next.video_url, metadata: { thumbnailOffset: 1500 } } }] };
+  assets: [{ video: { url: next.video_url, metadata: { thumbnailOffset: 100 } } }] };
 if (MODE === 'draft') { input.mode = 'addToQueue'; input.saveToDraft = true; }
 else { input.mode = 'customScheduled'; input.dueAt = new Date(placed).toISOString(); }
 
