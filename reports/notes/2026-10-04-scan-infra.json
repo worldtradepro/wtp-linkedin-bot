@@ -1,0 +1,91 @@
+{
+  "headline": "Zeevonk is awarding its big packages before its own FID",
+  "hook": "Zeevonk's first phase still has no final investment decision, but its cable, monopile and foundation packages are already awarded. Awards also outnumbered tenders 52 to 34 this week.",
+  "board": "Of 110 new projects in 54 countries this week, 52 were awarded and 34 went to tender. Europe led with 52 projects and energy accounted for 70.",
+  "question": "Would you commit crews and equipment to Zeevonk before its FID or wait for the decision?",
+  "items": [
+    {
+      "id": "4045",
+      "headline": "Boskalis wins inter-array cabling on Zeevonk phase 1, Dutch North Sea",
+      "statValue": "€50m-€150m",
+      "statLabel": "Inter-array cable installation contract, Boskalis",
+      "what": "Splash247 reports that Boskalis has won the contract to transport and install inter-array cables on the first phase of the Zeevonk offshore wind farm. Boskalis calls the award sizable, its term for €50m to €150m.",
+      "who": "Owner: Vattenfall and Copenhagen Infrastructure Partners JV. EPC: Not named in the report.",
+      "angle": "For marine, survey and seabed intervention suppliers: packages are being awarded before FID. Boskalis's scope includes surveys and rock installation, and engineering is set to start shortly, so subcontract and supply talks come next.",
+      "facts": [
+        "Boka Ocean will carry the cables from TKF's Eemshaven plant and install them offshore.",
+        "Phase 1 is 1 GW, 63-84 km offshore. Phase 2 adds 1 GW plus 500 MW of system integration by 2032.",
+        "DEME won the transport and installation of the 69 monopile foundations in July."
+      ],
+      "watch": "The phase 1 FID, which Vattenfall has said it is targeting for around the end of this year. Offshore installation is scheduled for 2029."
+    },
+    {
+      "id": "3972",
+      "headline": "BOMESC wins FPSO topsides contract from SBM Offshore for South America",
+      "statValue": "$225m-$295m",
+      "statLabel": "FPSO topsides contract, BOMESC from SBM Offshore",
+      "what": "Splash247 reports that BOMESC subsidiary Tianjin BOMESC Offshore Engineering has signed with Single Buoy Moorings to design, procure and build topside modules for an FPSO bound for South America.",
+      "who": "Owner: Not named in the report. EPC: SBM Offshore (Single Buoy Moorings). Topsides: Tianjin BOMESC Offshore Engineering.",
+      "angle": "For suppliers of topside equipment and materials: the award covers design, procurement and construction, so purchasing for the modules follows. Fabrication will take place at BOMESC's base in Tianjin.",
+      "facts": [
+        "The value is RMB1.6bn-2.1bn, with fixed and variable parts set by the actual workload.",
+        "The upper end of the value is more than BOMESC's reported 2025 revenue.",
+        "BOMESC worked on FPSO Sepetiba for Petrobras' Mero development in the Santos Basin."
+      ],
+      "watch": "Completion is scheduled for the second half of 2028. The FPSO and the project it will serve have not yet been named."
+    },
+    {
+      "id": "3963",
+      "headline": "Gas Networks Ireland awards network services and works contract 24/006",
+      "statValue": "$1,011.2m",
+      "statLabel": "EU TED contract award, Gas Networks Ireland",
+      "what": "An EU TED notice shows that Gas Networks Ireland has awarded contract 24/006, for network services and works on its gas pipelines, to GMC Civil & Mechanical Engineering and Murphy International.",
+      "who": "Owner: Gas Networks Ireland. EPC: GMC Civil & Mechanical Engineering Ltd / Murphy International Limited.",
+      "angle": "For pipe, fittings and civil subcontractors in Ireland: this is a large awarded contract for pipeline construction and network works, so supply and subcontract work will go through the two named contractors.",
+      "facts": [
+        "The notice was published on 29 Sep 2026 in TED issue 188/2026.",
+        "It is classed as a large-scale award in the Pipelines & Storage subsector.",
+        "It is one of 25 Logistics & Infrastructure projects logged this week."
+      ],
+      "watch": "The notice as captured gives no duration or lot split. TED notice 669203-2026 is the place to confirm scope and term."
+    }
+  ],
+  "_generated": {
+    "at": "2026-10-04T00:37:21.354Z",
+    "model": "claude-opus-5-5 (Claude subscription)",
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 17250,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 3232,
+      "output_tokens_details": {
+        "thinking_tokens": 1756
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 17250,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 3232,
+          "cache_read_input_tokens": 0,
+          "cache_creation_input_tokens": 17250,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 17250
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  }
+}

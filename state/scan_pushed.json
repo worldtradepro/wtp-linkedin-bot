@@ -171,5 +171,37 @@
     "awards": 55,
     "bufferPostId": "6ac056a25831428806ab9efd",
     "dueAt": "2026-10-03T08:30:00.000Z"
+  },
+  "2026-10-04:infra": {
+    "pdfUrl": "https://cdn.jsdelivr.net/gh/worldtradepro/wtp-linkedin-bot@3299f35efae1d6fe0a472cc69dcdbcdc3deb2254/scan/2026-10-04/infra.pdf",
+    "coverUrl": "https://cdn.jsdelivr.net/gh/worldtradepro/wtp-linkedin-bot@3299f35efae1d6fe0a472cc69dcdbcdc3deb2254/scan/2026-10-04/infra-cover.jpg",
+    "issue": 5,
+    "scanDay": "2026-10-03",
+    "pickIds": [
+      "4045",
+      "3972",
+      "3963"
+    ],
+    "listIds": [
+      "4137",
+      "4146",
+      "4148",
+      "3962",
+      "4145",
+      "4041",
+      "3965",
+      "3976",
+      "3977",
+      "3927",
+      "3940",
+      "3942",
+      "3944",
+      "3936"
+    ],
+    "hook": "Zeevonk's first phase still has no final investment decision, but its cable, monopile and foundation packages are already awarded. Awards also outnumbered tenders 52 to 34 this week.",
+    "tenders": 34,
+    "awards": 52,
+    "bufferPostId": "6ac19ff27d53b827e0f45b50",
+    "dueAt": "2026-10-04T08:30:00.000Z"
   }
 }
