@@ -781,7 +781,7 @@ body.home .social-widget { display:none; }
             '      <span data-role="introwho"></span> ' +
             '      <a class="wim-browse" data-role="introbrowse" href="#"></a>' +
             '      <a class="wim-browse" data-role="introemail" data-wtp-cta="map-email" href="#" style="display:none">📧 Get this by e-mail</a>' +
-            '      <a class="wim-browse" data-role="introrequest" data-wtp-cta="map-request" href="/china-sourcing-support-request/"></a>' +
+            '      <a class="wim-browse" data-role="introrequest" data-wtp-cta="map-request" href="/project-sourcing/"></a>' +
             '      <span class="wim-whofor-wrap">' +
             '        <span class="wim-whofor-toggle" data-role="whofortoggle">More ▾</span>' +
             '        <div class="wim-whofor-panel wim-float" data-role="whoforpanel" style="display:none;"></div>' +
@@ -849,7 +849,13 @@ var modalTitleEl = root.querySelector('[data-role="modaltitle"]');
             if (browseEl) { browseEl.href = m.browse[0]; browseEl.textContent = m.browse[1]; }
             // Call to action to the existing buyer / supplier form (/china-sourcing-support-request/).
             var reqEl = root.querySelector('[data-role="introrequest"]');
-            if (reqEl) reqEl.textContent = state.reportType === 'flow_distortion' ? 'Buying or selling commodities? Send a request →' : 'Need or supply equipment? Send a request →';
+            if (reqEl) {
+                var isFlowMode = state.reportType === 'flow_distortion';
+                // Trade Flow audience (traders, buyers): Verified Commodities. Infrastructure audience: project sourcing (buyer / supplier form).
+                reqEl.textContent = isFlowMode ? 'Buying or selling bulk commodities? Get verified →' : 'Need or supply equipment? Send a request →';
+                reqEl.setAttribute('href', isFlowMode ? '/join-verified-club/' : '/project-sourcing/');
+                reqEl.setAttribute('data-wtp-cta', isFlowMode ? 'map-verified' : 'map-request');
+            }
             // Newsletter for this mode: Trade Flow Daily or Project Leads Weekly (only once signup is live).
             var emailEl = root.querySelector('[data-role="introemail"]');
             if (emailEl && root.dataset.nl === '1') {
