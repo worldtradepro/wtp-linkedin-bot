@@ -118,6 +118,22 @@
     "flow": {
       "minFlowScore": 8,
       "perMarket": 2
+    },
+    "weekly": {
+      "name": "World Trade Pro Weekly",
+      "subtitle": "The 10 things worth a call this week",
+      "firstIssue": "2026-10-06",
+      "sendDayUtc": 2,
+      "slotUtc": "04:15",
+      "audienceLine": "the people who build and move commodities",
+      "sponsor": {
+        "enabled": false,
+        "name": "",
+        "text": "",
+        "url": "",
+        "_note": "enabled:true + name/text/url = the sponsor line at the top of every issue; disabled = a small \"sponsor this newsletter\" link at the bottom"
+      },
+      "_note": "2026-10-05 owner decision: Trade Flow Weekly (Mon) + EPC Project Leads Weekly (Tue) merged into ONE Tuesday issue. Built by newsletter_weekly.mjs as sector-tagged blocks; ses_send.mjs assembles a personal version per subscriber (their sectors first and in full, the rest folded; traders see flows first). Old editions flow/projects stay runnable for history."
     }
   },
   "weeklyReport": {

@@ -1,27 +1,36 @@
 name: newsletter
 
-# E-mail editions from the public API -> Amazon SES, one message per subscriber of the site's own list.
-#   flow     : "Trade Flow Weekly", Mondays ~04:20 UTC
-#   projects : "EPC Project Leads Weekly", Tuesdays ~04:15 UTC
+# World Trade Pro Weekly: ONE e-mail every Tuesday (owner decision 2026-10-05; Trade Flow Weekly + EPC Project Leads Weekly merged).
+#   newsletter_weekly.mjs builds the week's sector-tagged blocks from the public API; ses_send.mjs assembles a personal
+#   version per subscriber (their sectors first, the rest folded) and sends through Amazon SES.
 # Needs secrets AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY (IAM user that may only send via SES) and WTP_BOT_SECRET.
 # Pause everything: repository variable NEWSLETTER_PAUSED = true
 
 on:
-  # GitHub starts this repo's scheduled runs ~6 hours late (2026-09-29: 04:13 -> 10:41), so each day has three triggers
-  # from just after midnight UTC; the first one sends, the later ones find the issue sent (ses_send.mjs) and stop.
+  # GitHub starts this repo's scheduled runs late (2026-09-29: 04:13 -> 10:41), so Tuesday has three triggers from just
+  # after midnight UTC; the first one sends, the later ones find the issue sent (state/newsletter.json) and stop.
   schedule:
-    - cron: '23 0 * * 1'     # Monday: Trade Flow Weekly
-    - cron: '23 2 * * 1'
-    - cron: '23 4 * * 1'
-    - cron: '13 0 * * 2'     # Tuesday: EPC Project Leads Weekly
+    - cron: '13 0 * * 2'     # Tuesday: World Trade Pro Weekly
     - cron: '13 2 * * 2'
     - cron: '13 4 * * 2'
   workflow_dispatch:
     inputs:
       edition:
-        description: 'flow, projects, or check (SES permissions smoke test, no subscriber mail)'
+        description: 'weekly (default), check (SES permissions smoke test, no subscriber mail), or the legacy flow / projects'
         required: true
-        default: 'projects'
+        default: 'weekly'
+      to:
+        description: 'Test: send only to this address (no state written). Optional.'
+        required: false
+        default: ''
+      sectors:
+        description: 'Test: pretend the test recipient follows these sectors, e.g. metals,energy. Optional.'
+        required: false
+        default: ''
+      role:
+        description: 'Test: pretend the test recipient has this role, e.g. epc. Optional.'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -34,7 +43,7 @@ jobs:
   run:
     if: ${{ vars.NEWSLETTER_PAUSED != 'true' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -44,9 +53,11 @@ jobs:
       - name: Pick the edition
         id: ed
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then E="${{ inputs.edition }}";
-          elif [ "$(date -u +%u)" = 2 ]; then E=projects; else E=flow; fi   # by weekday: several triggers per day
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then E="${{ inputs.edition }}"; else E=weekly; fi
           echo "edition=$E" >> "$GITHUB_OUTPUT"; echo "Edition: $E"
+          T="${{ inputs.to }}"; S="${{ inputs.sectors }}"; R="${{ inputs.role }}"
+          TEST=""; [ -n "$T" ] && TEST="--to $T"; [ -n "$S" ] && TEST="$TEST --sectors $S"; [ -n "$R" ] && TEST="$TEST --role $R"
+          echo "test=$TEST" >> "$GITHUB_OUTPUT"
       - name: Check secrets
         run: |
           test -n "$AWS_ACCESS_KEY_ID" && test -n "$AWS_SECRET_ACCESS_KEY" || { echo "::error::AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY missing"; exit 1; }
@@ -59,14 +70,15 @@ jobs:
         run: node ses_send.mjs --check
       - name: Build the issue
         if: steps.ed.outputs.edition != 'check'
-        run: node newsletter.mjs --edition ${{ steps.ed.outputs.edition }}
+        run: |
+          if [ "${{ steps.ed.outputs.edition }}" = weekly ]; then node newsletter_weekly.mjs --preview; else node newsletter.mjs --edition ${{ steps.ed.outputs.edition }}; fi
       - name: Send through Amazon SES
         if: steps.ed.outputs.edition != 'check'
-        run: node ses_send.mjs --edition ${{ steps.ed.outputs.edition }}
+        run: node ses_send.mjs --edition ${{ steps.ed.outputs.edition }} ${{ steps.ed.outputs.test }}
       - name: Keep the issue + state in the repo
-        # Another newsletter run may have pushed meanwhile (a dispatch runs the commit it was started on):
-        # merge the sent-record JSON by key instead of rebasing, and stage only this issue's files.
-        if: always() && steps.ed.outputs.edition != 'check'
+        # Another run may have pushed meanwhile (a dispatch runs the commit it was started on): merge the sent-record
+        # JSON by key instead of rebasing, and stage only this issue's files. A --to test send writes no state.
+        if: always() && steps.ed.outputs.edition != 'check' && steps.ed.outputs.test == ''
         run: |
           git config user.name "wtp-bot"
           git config user.email "wtp-bot@users.noreply.github.com"

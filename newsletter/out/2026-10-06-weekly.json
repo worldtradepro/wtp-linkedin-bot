@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-06",
+  "edition": "weekly",
+  "skip": false,
+  "subject": "US$2.2bn award: Nuclear Power Station Construction Work at CNE…",
+  "preview": "115 new projects in 58 countries · 37 tenders · 57 awards · 276 trade-flow signals, 32 critical",
+  "counts": {
+    "epc": 115,
+    "tenders": 37,
+    "awards": 57,
+    "flow": 276,
+    "critical": 32,
+    "calls": 9,
+    "sectors": [
+      "energy:37",
+      "power:41",
+      "metals:9",
+      "agri:7",
+      "chem:2",
+      "infra:1",
+      "shipping:18"
+    ]
+  }
+}

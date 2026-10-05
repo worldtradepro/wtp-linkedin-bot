@@ -12,13 +12,16 @@
 //   print an address.
 // Env: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION (IAM user limited to SES sending), WTP_BOT_SECRET.
 //
-// Usage:  node ses_send.mjs [--edition flow|projects] [--date YYYY-MM-DD] [--dry] [--to me@example.com]
+// Usage:  node ses_send.mjs [--edition weekly|flow|projects] [--date YYYY-MM-DD] [--dry] [--to me@example.com]
+//   weekly (default, from 2026-10-06): World Trade Pro Weekly, assembled PER SUBSCRIBER from <date>-weekly.blocks.json
+//   (newsletter_assemble.mjs: the reader's sectors first and in full, the rest folded; section order by role).
 //   --dry  list what would be sent        --to  send only to this one address (test; no state written)
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash, createHmac } from 'node:crypto';
+import { assemble, document as doc } from './newsletter_assemble.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const cfg = JSON.parse(readFileSync(join(HERE, 'config.json'), 'utf8'));
@@ -28,13 +31,14 @@ const args = process.argv.slice(2);
 const arg = (k) => (args.includes(k) ? args[args.indexOf(k) + 1] : null);
 const DRY = args.includes('--dry');
 const ONLY = arg('--to');
-const EDITION = arg('--edition') || 'projects';
-if (!['flow', 'projects'].includes(EDITION)) throw new Error('--edition must be flow or projects');
+const EDITION = arg('--edition') || 'weekly';
+if (!['weekly', 'flow', 'projects'].includes(EDITION)) throw new Error('--edition must be weekly, flow or projects');
 const TODAY = arg('--date') || new Date().toISOString().slice(0, 10);
 const NAME = `${TODAY}-${EDITION}`;
 const OUT = join(HERE, 'newsletter', 'out');
 const STATE = join(HERE, 'state', 'newsletter.json');
 const PROGRESS = join(OUT, NAME + '.sent.json');
+const BLOCKS = join(OUT, NAME + '.blocks.json');
 const SITE = process.env.WTP_SITE || cfg.site;   // WTP_SITE: local WordPress for tests only
 
 // ---------------------------------------------------------------- SigV4 (AWS Signature Version 4)
@@ -72,10 +76,10 @@ async function sesCall(method, path, body, query = {}) {
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 function footer(token) {
   const manage = `${SITE}/newsletter/unsubscribe/?t=${token}`;
-  const why = EDITION === 'flow' ? 'Trade Flow Weekly' : 'EPC Project Leads Weekly';
+  const why = EDITION === 'weekly' ? (nl.weekly?.name || 'World Trade Pro Weekly') : EDITION === 'flow' ? 'Trade Flow Weekly' : 'EPC Project Leads Weekly';
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:14px 12px 28px;font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#98a2b3;">
     You get ${why} because you subscribed at worldtradepro.com.<br>
-    <a href="${esc(manage)}" style="color:#667085;">Unsubscribe or change e-mails</a> · World Trade Pro · ${esc(POSTAL)}
+    <a href="${esc(manage)}" style="color:#667085;">Unsubscribe${EDITION === 'weekly' ? ' or change your sectors' : ' or change e-mails'}</a> · World Trade Pro · ${esc(POSTAL)}
   </td></tr></table>`;
 }
 function toText(html) {
@@ -84,7 +88,9 @@ function toText(html) {
     .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/[ \t]+/g, ' ').replace(/\n\s*\n+/g, '\n\n').trim();
 }
 function message(meta, page, rcpt) {
-  const html = page.replace(/<\/body>/i, footer(rcpt.token) + '</body>');
+  // weekly: each subscriber gets the issue assembled for their sectors and role; the manage link carries their token
+  const body = blocks ? doc(blocks, assemble({ ...blocks, links: { ...blocks.links, manage: `${SITE}/newsletter/unsubscribe/?t=${rcpt.token}` } }, rcpt)) : page;
+  const html = body.replace(/<\/body>/i, footer(rcpt.token) + '</body>');
   const oneClick = `${SITE}/wp-json/wtp/v1/unsubscribe?t=${rcpt.token}`;
   return {
     FromEmailAddress: `"${ses.fromName}" <${ses.from}>`,
@@ -122,6 +128,8 @@ if (args.includes('--check')) {
 const meta =JSON.parse(readFileSync(join(OUT, NAME + '.json'), 'utf8'));
 if (meta.skip) { console.log(`${NAME}: marked skip (too few signals) - nothing sent`); process.exit(0); }
 const page = readFileSync(join(OUT, NAME + '.html'), 'utf8');
+const blocks = EDITION === 'weekly' && existsSync(BLOCKS) ? JSON.parse(readFileSync(BLOCKS, 'utf8')) : null;
+if (EDITION === 'weekly' && !blocks) console.log('::warning::no blocks file - every subscriber gets the default (unpersonalised) issue');
 const state = existsSync(STATE) ? JSON.parse(readFileSync(STATE, 'utf8')) : {};
 if (!ONLY && state[NAME]?.done) { console.log(`${NAME} already sent (${state[NAME].sent} messages) - nothing to do`); process.exit(0); }
 
@@ -131,7 +139,7 @@ if (!listRes.ok) throw new Error(`subscriber list -> HTTP ${listRes.status}`);
 const list = await listRes.json();
 const POSTAL = list.address || ses.postalAddress || '';
 if (!POSTAL) console.log('::warning::No postal address set (WordPress: Settings -> WTP Newsletter) - required in marketing e-mail footers.');
-const rcpts = ONLY ? [{ email: ONLY, token: '0'.repeat(32) }] : (list.items || []);
+const rcpts = ONLY ? [{ email: ONLY, token: '0'.repeat(32), sectors: arg('--sectors') || '', role: arg('--role') || '' }] : (list.items || []);   // --to test send: --sectors metals,energy --role epc
 const idOf = (email) => createHmac('sha256', process.env.WTP_BOT_SECRET || 'local').update(email.toLowerCase()).digest('hex').slice(0, 20);
 const done = new Set(!ONLY && existsSync(PROGRESS) ? JSON.parse(readFileSync(PROGRESS, 'utf8')) : []);
 

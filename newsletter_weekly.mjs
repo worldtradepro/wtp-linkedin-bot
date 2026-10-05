@@ -1,0 +1,226 @@
+// World Trade Pro Weekly - the one e-mail (Tuesdays), built from the public API only.
+//   "The 10 things worth a call this week": tenders and awards with a name / value / deadline, new projects by sector,
+//   the trade flows that changed and what they mean for buyers and shippers. One build per week -> tagged blocks
+//   (newsletter/out/<date>-weekly.blocks.json); ses_send.mjs assembles a personal version per subscriber
+//   (newsletter_assemble.mjs: the reader's sectors first and in full, the rest folded; section order by role).
+// Also writes the default HTML (no preferences) + .json meta, and preview HTML for a few reader profiles when --preview.
+// Usage:  node newsletter_weekly.mjs [--date YYYY-MM-DD] [--preview]      (date = the Tuesday of sending; covers the 7 days before)
+
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { dayShift, fetchJson, flagOf, countryName, LANES, laneOf, clean, hostOf, similar, score, summaryOf, tokens, NOT_EPC, dealOf } from './common.mjs';
+import { SECTORS, SECTOR_ORDER, sectorKeyOf, C, font, esc, row, h2, para, link, box, pill, assemble, document as doc } from './newsletter_assemble.mjs';
+
+const HERE = dirname(fileURLToPath(import.meta.url));
+const cfg = JSON.parse(readFileSync(join(HERE, 'config.json'), 'utf8'));
+const nl = cfg.newsletter;
+const W = nl.weekly || {};
+const args = process.argv.slice(2);
+const TODAY = args.includes('--date') ? args[args.indexOf('--date') + 1] : new Date().toISOString().slice(0, 10);
+const API = cfg.site + '/wp-json/wtp/v1';
+const OUT = join(HERE, 'newsletter', 'out');
+const NAME = `${TODAY}-weekly`;
+const FROM = dayShift(TODAY, -7), TO = dayShift(TODAY, -1);
+
+const utm = (u, content) => { const url = new URL(u); url.searchParams.set('utm_source', 'newsletter'); url.searchParams.set('utm_medium', 'email'); url.searchParams.set('utm_campaign', 'weekly-' + TODAY); if (content) url.searchParams.set('utm_content', content); return url.toString(); };
+const fmtDay = (iso) => new Date(iso + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' });
+const plural = (n, w, ws = w + 's') => `${n} ${n === 1 ? w : ws}`;
+const cut = (s, n) => (s.length > n ? s.slice(0, n - 1).replace(/\s+\S*$/, '') + '…' : s);
+const blocked = (cfg.blockedWords || []).map((w) => w.toLowerCase());
+const ok = (it) => it.source_url && !blocked.some((w) => clean(it.project_name + ' ' + it.description).toLowerCase().includes(w));
+const isNA = (s) => !s || /^(n\/?a|unknown|none|not specified|-)$/i.test(clean(s));
+const gnews = (it) => hostOf(it.source_url) === 'news.google.com' && clean(it.project_name).match(/^(.*\S)\s+-\s+([^-]{2,40})$/);
+const title = (it) => { const g = gnews(it); return g ? g[1] : clean(it.project_name); };
+const source = (it) => { const g = gnews(it); return esc(g ? g[2] : it.source_name || hostOf(it.source_url)); };
+// Official notices (TED / Find a Tender / World Bank) carry a generated one-liner that only repeats value, buyer and winner -
+// the fact line already shows those, so no snippet for them.
+const OFFICIAL = /^(EU|UK|World Bank|WB) (contract|open tender|tender|notice|procurement)/i;
+const snippet = (desc, max) => { if (OFFICIAL.test(clean(desc))) return ''; const s = summaryOf(desc, max); if (s) return s; const t = clean(desc); return t.length > 60 ? cut(t, Math.min(max, t.length - 1)) : ''; };
+const isoWeek = (iso) => { const d = new Date(iso + 'T00:00:00Z'); const day = (d.getUTCDay() + 6) % 7; d.setUTCDate(d.getUTCDate() - day + 3); const y = d.getUTCFullYear(), jan4 = new Date(Date.UTC(y, 0, 4)); return [y, 1 + Math.round(((d - jan4) / 864e5 - 3 + ((jan4.getUTCDay() + 6) % 7)) / 7)]; };
+const [YEAR, WEEK] = isoWeek(FROM);
+const issueNo = Math.max(1, Math.round((Date.parse(TODAY) - Date.parse(W.firstIssue || TODAY)) / (7 * 864e5)) + 1);
+
+// ---------------------------------------------------------------- data
+const [epcRes, flowRes, lw] = await Promise.all([
+  fetchJson(`${API}/opportunities?report_type=epc&from=${FROM}&to=${TO}&limit=1000`),
+  fetchJson(`${API}/opportunities?report_type=flow_distortion&from=${FROM}&to=${TO}&limit=1000`),
+  fetchJson(`${API}/lane-weeks?weeks=4`),
+]);
+const epc = (epcRes.items || []).filter(ok).filter((it) => !NOT_EPC.test(`${it.project_name} ${it.description}`))
+  .map((it) => ({ ...it, moved: it.latest_stage && it.latest_stage !== it.stage ? it.stage : '', stage: it.latest_stage || it.stage, key: sectorKeyOf(it) }));
+// news signals: the radar's market label is reliable (Energy / Metals / Agriculture / Shipping); only Policy items need the text
+const FLOWKEY = { energy: 'energy', metals: 'metals', agriculture: 'agri', shipping: 'shipping' };
+const flowKey = (it) => FLOWKEY[(it.sector || '').toLowerCase()] || sectorKeyOf(it);
+const stripBoiler = (d) => clean(d).replace(/\s*The post .*? appeared first on .*$/i, '').replace(/\s*Read more.*$/i, '');
+const flow = (flowRes.items || []).filter(ok).map((it) => ({ ...it, description: stripBoiler(it.description), key: flowKey(it) }));
+const weeks = lw.weeks || [];
+let COUNTRY_PAGES = new Set();
+try { const xml = await (await fetch(`${cfg.site}/wp-sitemap-intel-1.xml`, { headers: { 'user-agent': 'wtp-linkedin-bot/1.0' } })).text(); COUNTRY_PAGES = new Set([...xml.matchAll(/\/projects\/([a-z0-9-]+)\//g)].map((m) => m[1])); } catch {}
+const slugOf = (name) => name.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/['’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const countryLink = (it, bold = false) => {
+  const name = countryName(it.country); if (!name || isNA(name)) return '';
+  const slug = slugOf(name); const label = `${flagOf(it.country)} ${esc(name)}`;
+  return COUNTRY_PAGES.has(slug) ? `<a href="${esc(utm(`${cfg.site}/projects/${slug}/`, 'country-' + slug))}" style="color:${bold ? C.ink : C.muted};text-decoration:none;font-weight:${bold ? 700 : 400};">${label}</a>` : label;
+};
+
+// ---------------------------------------------------------------- 1. worth a call: deals with a name, value or deadline
+const STAGE = {
+  S1: ['Feasibility', 'Consultants and FEED contractors position now; the equipment list comes later.'],
+  S2: ['Development', 'The owner is building the project team (FEED, permits, finance): the time to get on the bidder list.'],
+  S3: ['Pre-FID', 'Close to the investment decision; main EPC and long-lead equipment packages are being prepared.'],
+  S4: ['Tender', 'The tender is out: bidders are forming consortia and pricing equipment and subcontracts now.'],
+  S5: ['Awarded', 'Contract awarded: the winner now buys equipment and places subcontracts.'],
+};
+const stageKey = (s) => (clean(s).match(/^S(\d)/) || [])[0] || '';
+const SCALE_RANK = { Mega: -1, Large: 0, Medium: 1, Small: 2 };
+const dealsAll = [];
+for (const it of epc.filter((x) => ['S4', 'S5'].includes(stageKey(x.stage)))) {
+  const d = dealOf(it);
+  if (dealsAll.some((x) => x.name.toLowerCase() === d.name.toLowerCase() || similar(x.name, d.name))) continue;
+  // a deal is "worth a call" when the notice names money, a counterparty or a deadline
+  const substance = (d.usd ? 2 : 0) + (d.who ? 1 : 0) + (d.deadline ? 1 : 0) + (SCALE_RANK[it.scale] <= 0 ? 1 : 0);
+  if (!substance) continue;
+  dealsAll.push({ ...d, it, substance, strong: !!d.usd || (!!d.who && !!d.deadline), tender: stageKey(it.stage) === 'S4' });
+}
+dealsAll.sort((a, b) => b.substance - a.substance || (b.usd || 0) - (a.usd || 0));
+const callCard = (d) => {
+  const it = d.it, [st, why] = STAGE[stageKey(it.stage)] || ['', ''];
+  const facts = [countryLink(it, true), d.value ? `<b style="color:${C.ink};">${esc(d.value)}</b>` : '', d.tender && d.deadline ? `<b style="color:#b54708;">bids due ${esc(d.deadline)}</b>` : '',
+    d.who ? ({ winner: 'Won by ', buyer: 'Buyer: ' }[d.role] || '') + `<b style="color:${C.ink};">${esc(d.who)}</b>` : (isNA(it.company_name) ? '' : esc(clean(it.company_name)))].filter(Boolean);
+  const call = d.tender ? (d.who ? `Call ${esc(d.who)}'s procurement team about the bid documents` : 'Get the bid documents from the linked notice and line up partners') : (d.who ? `Call ${esc(d.who)}: they are now buying equipment and placing subcontracts` : 'Find out who won and get on their vendor list');
+  return `<a href="${esc(d.url)}" style="display:block;color:${C.ink};text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:4px 0 2px;">${esc(d.name)}</a>
+    <div style="font-size:13px;color:${C.muted};line-height:1.6;">${esc(st)} · ${facts.join(' · ')}</div>
+    ${snippet(it.description, 180) ? `<div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:6px;">${esc(snippet(it.description, 180))}</div>` : ''}
+    <div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:6px;"><b style="color:${C.ink};">The call:</b> ${call}.</div>`;
+};
+// up to 2 per sector so one busy sector cannot take all three default slots; the assembler re-ranks per reader
+const calls = []; const perKey = {};
+for (const d of dealsAll) { const k = d.it.key; if ((perKey[k] || 0) >= 2) continue; perKey[k] = (perKey[k] || 0) + 1; calls.push({ key: k, sector: SECTORS[k], strong: d.strong, html: callCard(d) }); if (calls.length >= 9) break; }
+
+// ---------------------------------------------------------------- 2. new projects by sector
+const sectorOf = (it) => [clean(it.subsector)].filter((x) => x && !/^unknown$/i.test(x)).join('');
+const projRow = (it) => {
+  const [st] = STAGE[stageKey(it.stage)] || [''];
+  const bits = [countryLink(it), esc(sectorOf(it)), st ? esc(st) : '', it.scale && it.scale !== 'Unknown' ? esc(it.scale) : '', isNA(it.company_name) ? '' : esc(clean(it.company_name))].filter(Boolean);
+  return row(`<a href="${esc(it.source_url)}" style="color:${C.ink};text-decoration:none;font-weight:600;font-size:15px;line-height:1.4;">${esc(clean(it.project_name))}</a><br><span style="color:${C.muted};font-size:13px;line-height:1.5;">${bits.join(' · ')}</span>`, `8px 0;border-top:1px solid ${C.line}`);
+};
+const usedInCalls = new Set(calls.map((c) => c.html));
+const projects = [];
+for (const k of SECTOR_ORDER) {
+  const items = epc.filter((it) => it.key === k);
+  if (!items.length) continue;
+  // large first, then earlier stage, newest; one per project name, max 2 per country in the visible rows
+  const sorted = [...items].sort((a, b) => (SCALE_RANK[a.scale] ?? 3) - (SCALE_RANK[b.scale] ?? 3) || (b.report_date > a.report_date ? 1 : -1));
+  const rows = [], per = {}, seen = [];
+  for (const it of sorted) {
+    if (seen.some((n) => similar(n, it.project_name))) continue;
+    const c = it.country || '-'; if ((per[c] || 0) >= 2) continue;
+    per[c] = (per[c] || 0) + 1; seen.push(it.project_name); rows.push(projRow(it));
+    if (rows.length >= 8) break;
+  }
+  projects.push({ key: k, count: items.length, rows, moreUrl: utm(cfg.site + '/intelligence-map/?view=infrastructure', 'more-' + k) });
+}
+
+// ---------------------------------------------------------------- 3. flows that changed
+const idx = (c) => (c ? c.crit * 3 + c.elev * 2 + c.watch : 0);
+const lanes = LANES.map((l) => { const hist = weeks.map((w) => w.lanes?.[l.id] || null); const now = hist[0] || { crit: 0, elev: 0, watch: 0 }, prev = hist[1] || { crit: 0, elev: 0, watch: 0 }; return { l, now, prev, n: now.crit + now.elev + now.watch, p: idx(now), pp: idx(prev) }; }).sort((a, b) => b.p - a.p || b.n - a.n);
+const status = (p) => (p >= 30 ? ['High', '#b42318'] : p >= 10 ? ['Elevated', '#b54708'] : p > 0 ? ['Watch', '#475467'] : ['Quiet', '#98a2b3']);
+const change = (a, b) => (a > b ? `<span style="color:#b42318;font-weight:700;">▲ more pressure</span>` : a < b ? `<span style="color:#027a48;font-weight:700;">▼ easing</span>` : `<span style="color:${C.muted};">— unchanged</span>`);
+// cluster the week's signals (same story from several outlets), strongest first
+function related(a, b) { if (similar(a, b)) return true; const A = tokens(a), B = tokens(b); let s = 0; for (const w of A) if (B.has(w)) s++; return s >= 2 && s / Math.min(A.size, B.size) >= 0.33; }
+const clusters = [];
+for (const it of [...flow].filter((x) => score(x) >= (nl.minFlowScore || 8)).sort((a, b) => score(b) - score(a) || (b.report_date > a.report_date ? 1 : -1))) {
+  const c = clusters.find((x) => [x.lead, ...x.more].some((m) => related(m.project_name, it.project_name)));
+  if (c) c.more.push(it); else clusters.push({ lead: it, more: [] });
+}
+// what a flow signal means for the people who buy or ship the goods: by lane, else by sector
+// "What it means": the direction the HEADLINE points (less moving, more moving, corridor at risk, rules, freight) for the people
+// who buy or move that commodity. Deterministic on purpose: every sentence must be true of any story that matches its cue.
+const WHO = { energy: 'crude, LNG and product buyers', metals: 'concentrate and metal buyers', agri: 'grain and food importers', shipping: 'shippers and forwarders',
+  chem: 'fertilizer and chemical buyers', power: 'utilities and IPPs', infra: 'project teams', recycling: 'scrap traders', equipment: 'equipment buyers' };
+const RISK = /attack|strike|seiz|blockad|closure|closed|halt|suspend|sanction|\bban\b|embargo|shut/i;
+const NEG = /drop|fall|fell|declin|slump|plunge|\bcut|lower|shortage|tight|delay|disrupt|congest|bottleneck|curb|restrict/i;
+const POS = /surge|soar|jump|record|high|rise|rising|increase|boost|comeback|ramp|expand|raise|reopen|resume|ease|more ships|more cargo|lift/i;
+const RULE = /tariff|dut(y|ies)|quota|\brule|regulat|licen[cs]e|export control|customs|inspection regime/i;
+const FREIGHT = /freight|\brates?\b|tanker|charter|tonnage|\bslots?\b|transit|canal|port fee/i;
+const dirOf = (t) => (RISK.test(t) ? 'risk' : NEG.test(t) ? 'neg' : POS.test(t) ? 'pos' : RULE.test(t) ? 'rule' : FREIGHT.test(t) ? 'freight' : '');
+const SENT = (w, key) => key === 'shipping' ? {
+  risk: `This corridor is at risk: ${w} should map the alternative routing now and budget the extra days and insurance.`,
+  neg: `Less capacity on this route: ${w} should book early and expect queues and higher slot premiums.`,
+  pos: `More capacity on this route: ${w} can expect shorter queues and softer slot premiums, usually within weeks.`,
+  rule: `The rules changed, not the ships: ${w} should check paperwork, fees and transit conditions before the next booking.`,
+  freight: `The freight leg is what changed: ${w} should re-price door-to-door before committing the next shipment.`,
+  '': `${w} should watch this route; it is on the radar for a reason.`,
+} : {
+  risk: `Supply through this corridor is at risk: ${w} should line up alternative origins and price the re-routing before the next fixture.`,
+  neg: `Less is moving from this origin: ${w} can expect firmer offers and longer lead times for a few weeks.`,
+  pos: `More is moving from this origin: ${w} get more offers and softer premiums; freight on the route tends to follow.`,
+  rule: `The rules changed, not the volumes: ${w} should check paperwork, origin and duty before loading.`,
+  freight: `The freight leg is what changed: ${w} should re-price landed cost before fixing the next cargo.`,
+  '': `${w} should watch this origin; it is on the radar for a reason.`,
+};
+const meansFor = (it, l, lr) => {
+  const w = WHO[it.key] || WHO.shipping;
+  const dir = dirOf(title(it)) || dirOf(it.description || '');
+  const core = SENT(w, it.key)[dir];
+  const lane = l ? `The ${esc(l.name)} carries ${esc(l.flow)}${lr && lr.now.crit ? ` and logged ${plural(lr.now.crit, 'critical signal')} this week` : ''}. ` : '';
+  return lane + core.charAt(0).toUpperCase() + core.slice(1);
+};
+const flowItems = [];
+const flowPer = {};
+for (const c of clusters.slice(0, 14)) {
+  if ((flowPer[c.lead.key] || 0) >= 2) continue; flowPer[c.lead.key] = (flowPer[c.lead.key] || 0) + 1;
+  const it = c.lead, l = laneOf(it) || LANES.find((x) => [it, ...c.more].some((m) => x.re.test(m.project_name + ' ' + m.description)));
+  const lr = l && lanes.find((x) => x.l.id === l.id);
+  const what = snippet(it.description, 200);
+  const means = meansFor(it, l, lr);
+  flowItems.push({ key: it.key, html: row(`<div style="font-size:11px;font-weight:700;color:${C.muted};">${pill(SECTORS[it.key] || it.sector)} ${l ? `&nbsp;<span style="color:${C.muted};font-weight:400;">${esc(l.name)}</span>` : ''}</div>
+    <a href="${esc(it.source_url)}" style="display:block;color:${C.ink};text-decoration:none;font-size:16px;font-weight:700;line-height:1.35;padding:4px 0 2px;">${flagOf(it.country)} ${esc(title(it))}</a>
+    <div style="font-size:12px;color:${C.muted};">${source(it)}${c.more.length ? ` · ${c.more.length + 1} reports this week` : ''}</div>
+    ${what ? `<div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:6px;">${esc(what)}</div>` : ''}
+    <div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:6px;"><b style="color:${C.ink};">What it means:</b> ${means}</div>`, `12px 0;border-top:1px solid ${C.line}`) });
+}
+const hot = lanes.filter((x) => x.n > 0);
+const laneBoard = hot.length ? row(`<div style="font-size:13px;font-weight:700;color:${C.ink};padding-bottom:4px;">Lane pressure this week</div>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${hot.slice(0, 4).map((x) => { const [s, col] = status(x.p); return `<tr><td style="${font}font-size:14px;color:${C.text};padding:6px 0;border-top:1px solid ${C.line};"><a href="${esc(utm(`${cfg.site}/trade-lanes/${x.l.id}/`, 'lane-' + x.l.id))}" style="color:${C.ink};text-decoration:none;font-weight:600;">${esc(x.l.name)}</a> <span style="color:${C.muted};font-size:12px;">· ${plural(x.n, 'signal')}</span></td><td style="${font}font-size:13px;padding:6px 0;border-top:1px solid ${C.line};text-align:right;white-space:nowrap;"><span style="color:${col};font-weight:700;">●</span> ${s} &nbsp; ${change(x.p, x.pp)}</td></tr>`; }).join('')}</table>
+  <div style="font-size:12px;color:${C.muted};padding-top:6px;">${link('All 9 lanes, week by week →', utm(cfg.site + '/trade-lanes/', 'lanes-hub'), C.muted)}</div>`, '14px 0 0') : '';
+
+// ---------------------------------------------------------------- 4. stage moves (short), tail
+const moved = epc.filter((it) => it.moved);
+const movesHtml = moved.length ? row(`<div style="font-size:13px;color:${C.muted};"><b style="color:${C.ink};">Stage moves:</b> ${moved.slice(0, 4).map((it) => `${esc(clean(it.project_name))} <span style="white-space:nowrap;">${esc((STAGE[stageKey(it.moved)] || [clean(it.moved)])[0])} → <b>${esc((STAGE[stageKey(it.stage)] || [clean(it.stage)])[0])}</b></span>`).join(' · ')}${moved.length > 4 ? ` · +${moved.length - 4} more` : ''}</div>`, '18px 0 0') : '';
+const sponsorMail = `mailto:${nl.ses?.replyTo || 'contact@worldtradepro.com'}?subject=${encodeURIComponent('Sponsor World Trade Pro Weekly')}`;
+const sponsor = W.sponsor?.enabled && W.sponsor.name
+  ? { html: `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.sand};border-radius:8px;"><tr><td style="padding:10px 14px;${font}font-size:13px;line-height:1.5;color:${C.text};"><span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:${C.muted};">This issue is brought to you by</span><br><b style="color:${C.ink};font-size:14px;">${esc(W.sponsor.name)}</b> — ${esc(W.sponsor.text || '')} ${W.sponsor.url ? link('Learn more →', utm(W.sponsor.url, 'sponsor')) : ''}</td></tr></table>` }
+  : null;
+const tail = [
+  box(`<b style="color:${C.ink};font-size:15px;">Need equipment, spares or services for a project?</b><br><span style="color:${C.text};">Tell us what the project needs; we point you to checked suppliers.</span> ${link('Post a requirement →', utm(cfg.site + '/project-sourcing/#csr-apply', 'sourcing-demand'))}<br><span style="color:${C.text};">Supplier or service provider? </span>${link('List your company →', utm(cfg.site + '/project-sourcing/?side=supply#csr-apply', 'sourcing-supply'))}`, '#fdf6e3', '#ecd9a3'),
+  para(`<span style="font-size:13px;color:${C.muted};">${sponsor ? 'Reach the people who build and move commodities: ' : 'Reach ' + (W.audienceLine || 'the people who build and move commodities') + ': '}<a href="${sponsorMail}" style="color:${C.muted};font-weight:700;text-decoration:none;">sponsor this newsletter →</a></span>`, '14px 0 0'),
+  nl.promo?.enabled ? para(`<span style="font-size:13px;color:${C.muted};"><b>P.S.</b> New to physical deals? ${esc(nl.promo.title)} walks through one end to end. ${link('Watch the free prologue →', utm(nl.promo.url, 'course'), C.muted)}</span>`, '12px 0 0') : '',
+].filter(Boolean);
+
+// ---------------------------------------------------------------- head, subject, blocks
+const tenders = epc.filter((it) => stageKey(it.stage) === 'S4').length, awards = epc.filter((it) => stageKey(it.stage) === 'S5').length;
+const crit = flow.filter((it) => score(it) >= 12).length;
+const countries = new Set(epc.map((it) => countryName(it.country)).filter(Boolean)).size;
+const topDeal = dealsAll[0];
+const subject = cut(topDeal ? `${topDeal.value ? topDeal.value + ' ' : ''}${topDeal.tender ? 'tender' : 'award'}: ${topDeal.name}` : `${plural(epc.length, 'new project')}, ${plural(tenders, 'tender')}, ${plural(awards, 'award')}`, 64);
+const preview = cut(`${plural(epc.length, 'new project')} in ${countries} countries · ${tenders} tenders · ${awards} awards · ${plural(flow.length, 'trade-flow signal')}, ${crit} critical`, 110);
+const blocks = {
+  date: TODAY, edition: 'weekly', issue: issueNo, week: WEEK, year: YEAR, from: FROM, to: TO, subject, preview,
+  head: { kicker: `${W.name || 'World Trade Pro Weekly'} · Issue ${issueNo} · Week ${WEEK}`, title: W.subtitle || 'The 10 things worth a call this week', sub: `${fmtDay(FROM)} – ${fmtDay(TO)} ${YEAR} · ${plural(epc.length, 'new project')} in ${countries} countries · ${tenders} tenders · ${awards} awards · ${plural(flow.length, 'trade-flow signal')}` },
+  sponsor, calls, projects, flows: { lanes: laneBoard, items: flowItems }, moves: movesHtml, tail,
+  links: { projects: utm(cfg.site + '/projects/', 'projects-hub'), map: utm(cfg.site + '/intelligence-map/', 'map'), manage: cfg.site + '/newsletter/unsubscribe/' },
+  skip: epc.length + flow.length < 5,
+  counts: { epc: epc.length, tenders, awards, flow: flow.length, critical: crit, calls: calls.length, sectors: projects.map((p) => `${p.key}:${p.count}`) },
+};
+mkdirSync(OUT, { recursive: true });
+writeFileSync(join(OUT, NAME + '.blocks.json'), JSON.stringify(blocks, null, 1));
+writeFileSync(join(OUT, NAME + '.html'), doc(blocks, assemble(blocks, {})));
+writeFileSync(join(OUT, NAME + '.json'), JSON.stringify({ date: TODAY, edition: 'weekly', skip: blocks.skip, subject, preview, counts: blocks.counts }, null, 2));
+if (args.includes('--preview')) {
+  for (const [tag, reader] of [['metals-buyer', { sectors: 'metals', role: 'procurement' }], ['energy-supplier', { sectors: 'energy,power', role: 'equipment' }], ['agri-trader', { sectors: 'agri', role: 'trader' }], ['shipping', { sectors: 'shipping', role: 'shipping' }]])
+    writeFileSync(join(OUT, `${NAME}.preview-${tag}.html`), doc(blocks, assemble(blocks, reader)));
+  console.log('previews: metals-buyer, energy-supplier, agri-trader, shipping');
+}
+console.log(`weekly ${TODAY} (issue ${issueNo}, W${WEEK})${blocks.skip ? ' SKIP: too little data' : ''}: "${subject}" (${subject.length}) — ${JSON.stringify(blocks.counts)} -> newsletter/out/${NAME}.html`);
