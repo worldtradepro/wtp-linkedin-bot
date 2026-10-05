@@ -98,17 +98,22 @@ export function assemble(b, readerLike = {}, opts = {}) {
   const tile = (n, label, color, d) => `<td width="25%" style="padding:0 3px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${color}12;border-radius:8px;"><tr><td style="padding:10px 6px 8px;text-align:center;${font}"><div style="font-size:24px;font-weight:800;color:${color};line-height:1.1;">${n}</div><div style="font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:${C.muted};padding-top:2px;">${label}</div><div style="font-size:11.5px;font-weight:700;padding-top:3px;">${delta(d)}</div></td></tr></table></td>`;
   const sectorsLine = reader.sectors.length ? `${reader.sectors.map((k) => sectorPill(k)).join(' ')} <a href="${esc(b.links.manage)}" style="color:${C.muted};font-size:12px;text-decoration:none;">change ›</a>` : `<span style="color:${C.muted};font-size:13px;">All sectors · </span><a href="${esc(b.links.manage)}" style="color:${C.accent};font-size:13px;font-weight:700;text-decoration:none;">pick yours ›</a>`;
   const rl = roleLine(reader.role);
-  out.push(`<tr><td style="${font}padding-bottom:12px;border-bottom:3px solid ${C.navy};">
-    <div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:${C.accent};font-weight:700;">${esc(b.head.kicker)}</div>
-    <div style="font-size:27px;font-weight:800;color:${C.ink};padding-top:6px;line-height:1.15;">${esc(titleFor(reader.role, b.head.title))}</div>
-    <div style="font-size:13px;color:${C.muted};padding:6px 0 10px;">${esc(b.head.sub)}${rl ? ` · ${esc(rl)}` : ''}</div>
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 -3px;"><tr>${tile(st.epc ?? 0, 'new projects', C.navy, dl.epc)}${tile(st.tenders ?? 0, 'tenders', '#b45309', dl.tenders)}${tile(st.awards ?? 0, 'awards', '#15803d', dl.awards)}${tile(st.flow ?? 0, 'flow signals', '#0369a1', dl.flow)}</tr></table>
-    <div style="padding-top:10px;">${sectorsLine}</div>
+  out.push(`<tr><td style="padding:0;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.navy};border-radius:10px 10px 0 0;"><tr><td style="padding:26px 24px 22px;${font}">
+      <div style="font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:${C.gold};font-weight:700;">${esc(b.head.kicker)}</div>
+      <div style="font-size:30px;font-weight:800;color:#ffffff;padding-top:8px;line-height:1.12;letter-spacing:-.01em;">${esc(titleFor(reader.role, b.head.title))}</div>
+      <div style="font-size:13.5px;color:rgba(255,255,255,.72);padding-top:10px;line-height:1.5;">${esc(b.head.sub)}</div>
+      ${rl ? `<div style="font-size:13.5px;color:#ffffff;padding-top:10px;line-height:1.5;border-top:1px solid rgba(255,255,255,.18);margin-top:12px;"><span style="color:${C.gold};font-weight:700;">▸</span> ${esc(rl)}</div>` : ''}
+    </td></tr></table>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:14px 0 0;${font}">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 -3px;"><tr>${tile(st.epc ?? 0, 'new projects', C.navy, dl.epc)}${tile(st.tenders ?? 0, 'tenders', '#b45309', dl.tenders)}${tile(st.awards ?? 0, 'awards', '#15803d', dl.awards)}${tile(st.flow ?? 0, 'flow signals', '#0369a1', dl.flow)}</tr></table>
+      <div style="padding:12px 0 4px;border-bottom:1px solid ${C.line};">${sectorsLine}</div>
+    </td></tr></table>
   </td></tr>`);
   if (b.sponsor?.html) out.push(row(b.sponsor.html, '12px 0 0'));
   if (b.editor) out.push(b.editor);
 
-  const sectionHead = (t, sub) => row(`<div style="font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:${C.navy};border-left:4px solid ${C.gold};padding-left:10px;line-height:1.3;">${t}${sub ? `<div style="font-size:12px;font-weight:400;letter-spacing:0;text-transform:none;color:${C.muted};padding-top:2px;">${sub}</div>` : ''}</div>`, '28px 0 6px');
+  const sectionHead = (t, sub) => row(`<div style="font-size:15px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:${C.navy};border-left:5px solid ${C.gold};padding-left:12px;line-height:1.25;">${t}${sub ? `<div style="font-size:12.5px;font-weight:400;letter-spacing:0;text-transform:none;color:${C.muted};padding-top:3px;">${sub}</div>` : ''}</div>`, '32px 0 8px');
   const callsSec = () => {
     const picked = [...b.calls].sort((x, y) => (rank(x.key) + (x.strong ? 0 : 1)) - (rank(y.key) + (y.strong ? 0 : 1))).slice(0, callsN);
     if (!picked.length) return;
@@ -164,7 +169,7 @@ export function document(b, bodyHtml) {
 <body style="margin:0;padding:0;background:${C.bg};">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;">${pre}</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.bg};"><tr><td align="center" style="padding:16px 8px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:620px;background:${C.card};border-radius:10px;"><tr><td style="padding:22px 18px 26px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:620px;background:${C.card};border-radius:10px;"><tr><td style="padding:0 18px 26px;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
 ${bodyHtml}
 </table>
