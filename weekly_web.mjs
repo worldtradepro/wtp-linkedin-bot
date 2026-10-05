@@ -64,8 +64,9 @@ const css = `
 .wtpw .foot{border-top:1px solid var(--line);margin-top:34px;padding-top:16px;font-size:14px;color:var(--muted)}.wtpw .foot a{font-weight:700;color:var(--navy);text-decoration:none;margin-right:18px}
 @media(max-width:640px){.wtpw .hero{padding:22px 18px}.wtpw .hero h1{font-size:28px}.wtpw .tiles{grid-template-columns:1fr 1fr}.wtpw table.list th:nth-child(4),.wtpw table.list td:nth-child(4),.wtpw table.list th:nth-child(5),.wtpw table.list td:nth-child(5){display:none}}`;
 
-const body = `<style>${css}</style>
-<div class="wtpw">
+// The CSS is NOT in the post body: the site strips <style> from API-inserted content (kses) - it lives in snippet 67
+// (WTP Insights URLs, byline & share tags) which prints it on every Insights post. The standalone preview adds it itself.
+const body = `<div class="wtpw">
 <div class="hero"${PHOTO ? ` style="background-image:linear-gradient(90deg, rgba(11,37,69,.96) 0%, rgba(11,37,69,.86) 55%, rgba(11,37,69,.5) 100%), url('${esc(PHOTO.publicUrl)}');background-size:cover;background-position:center;"` : ''}><div class="k">${esc(b.head.kicker)}</div><h1>${esc(b.head.title)}</h1><div class="sub">${esc(b.head.sub)}</div>${b.promise ? `<div class="promise">${esc(b.promise)}</div>` : ''}${PHOTO ? `<div class="credit">${esc(PHOTO.credit)}${PHOTO.illustrative ? ' · illustrative' : ''}</div>` : ''}</div>
 <div class="tiles"><div class="tile"><b>${st.epc ?? 0}</b><span>new projects</span><i>${delta(dl.epc)}</i></div><div class="tile"><b>${st.tenders ?? 0}</b><span>tenders</span><i>${delta(dl.tenders)}</i></div><div class="tile"><b>${st.awards ?? 0}</b><span>awards</span><i>${delta(dl.awards)}</i></div><div class="tile"><b>${st.flow ?? 0}</b><span>flow signals</span><i>${delta(dl.flow)}</i></div></div>
 <div class="toc">${toc}${b.pdfUrl ? `<a class="pdf" href="${esc(b.pdfUrl)}">Download the PDF report ↓</a>` : ''}</div>
@@ -86,5 +87,6 @@ ${b.flows?.items?.length ? `<h2 id="flows">Flows that moved</h2>${emailTable(b.f
 const title = `${W.name || 'World Trade Pro Weekly'} · Issue ${b.issue}: ${b.subject}`;
 const excerpt = `${b.preview}. Who's buying, who won, what moved — the week of ${fmtDay(b.from)} – ${fmtDay(b.to)}.`;
 writeFileSync(join(HERE, 'newsletter', 'out', `${NAME}.wp.json`), JSON.stringify({ slug, url, title, excerpt, content: `<!-- wp:html -->\n${body}\n<!-- /wp:html -->` }, null, 1));
-writeFileSync(join(HERE, 'newsletter', 'out', `${NAME}.web.html`), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title></head><body style="margin:0;background:#fff;padding:24px 16px">${body}</body></html>`);
+writeFileSync(join(HERE, 'newsletter', 'out', `${NAME}.web.html`), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title><style>${css}</style></head><body style="margin:0;background:#fff;padding:24px 16px">${body}</body></html>`);
+writeFileSync(join(HERE, 'newsletter', 'web.css'), css.trim() + '\n');   // the same CSS, for snippet 67 (site side)
 console.log(`web issue: ${slug} -> ${url} (${Object.values(full).reduce((n, a) => n + a.length, 0)} projects listed, ${(body.length / 1024).toFixed(0)} KB)`);
