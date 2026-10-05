@@ -1,0 +1,57 @@
+name: instagram-video
+
+# Posts ONE queued Commodity Decoded video (same R2 queue as linkedin-video) as an Instagram Reel, directly through the
+# Instagram API (no Buffer). Instagram has no scheduling, so the post goes out when the run happens, once per UTC day,
+# not before config.json -> instagram.postUtc. Two crons = slack for GitHub's late scheduled starts; a day that already
+# has a post is skipped.
+# Pause: Variables -> BOT_PAUSED = true (pauses everything), or config.json instagram.paused = true.
+# Secrets: IG_WTP_USER_ID, IG_WTP_ACCESS_TOKEN (60-day token, refreshed every run), SECRETS_PAT (fine-grained token that can
+# write this repo's secrets, so the rotated token is saved).
+
+on:
+  schedule:
+    - cron: '7 15 * * *'
+    - cron: '37 17 * * *'
+  workflow_dispatch:
+    inputs:
+      check_only:
+        description: 'Only check the token (no post)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram-video
+  cancel-in-progress: false
+
+jobs:
+  post-reel:
+    if: ${{ vars.BOT_PAUSED != 'true' }}
+    runs-on: ubuntu-latest
+    env:
+      IG_WTP_USER_ID: ${{ secrets.IG_WTP_USER_ID }}
+      IG_WTP_ACCESS_TOKEN: ${{ secrets.IG_WTP_ACCESS_TOKEN }}
+      SECRETS_PAT: ${{ secrets.SECRETS_PAT }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require the secrets
+        run: test -n "$IG_WTP_USER_ID" && test -n "$IG_WTP_ACCESS_TOKEN" || { echo "::error::Secrets IG_WTP_USER_ID / IG_WTP_ACCESS_TOKEN are missing"; exit 1; }
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check the token only
+        if: ${{ inputs.check_only }}
+        run: node push_instagram.mjs --check
+      - name: Post the next queued video
+        if: ${{ !inputs.check_only }}
+        run: node push_instagram.mjs
+      - name: Save state
+        if: ${{ !inputs.check_only }}
+        run: |
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          git add state/ig_pushed.json || true
+          git diff --cached --quiet || (git commit -m "instagram state $(date -u +%F)" && git pull --rebase origin ${{ github.ref_name }} && git push origin HEAD:${{ github.ref_name }})
