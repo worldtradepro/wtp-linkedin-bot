@@ -11,6 +11,8 @@
     "flow": 276,
     "critical": 32,
     "calls": 9,
+    "calendar": 6,
+    "notes": true,
     "sectors": [
       "energy:37",
       "power:41",

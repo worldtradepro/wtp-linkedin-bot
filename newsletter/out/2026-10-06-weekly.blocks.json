@@ -18,16 +18,26 @@
   "tenders": 37,
   "awards": 57,
   "flow": 276,
-  "critical": 32
+  "critical": 32,
+  "deltas": {
+   "epc": 42,
+   "tenders": 31,
+   "awards": 10,
+   "flow": -66
+  }
  },
  "directory": "",
+ "editor": "<tr><td style=\"padding:16px 0 0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#f4efe4;border-radius:10px;\"><tr><td style=\"padding:16px 18px;font-family:Segoe UI,Helvetica,Arial,sans-serif;\">\n  <div style=\"font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8a6d1f;\">This week</div>\n  <div style=\"font-size:15.5px;line-height:1.6;color:#101828;padding-top:6px;\">Europe did the buying this week. Tenders rose from 6 to 37 on the week, nearly all of them public notices from Poland, the UK, Ireland and the Balkans, and the biggest award was Romania's <a href=\"https://ted.europa.eu/en/notice/-/detail/674215-2026\">US$2.2bn Cernavodă nuclear contract</a>, which went to a Canadian-Italian-Korean consortium; the five largest awards went to Canadian, Irish, British and Indian contractors. If you sell into European power and rail, the bid calendar below is your next fortnight; if you buy, the award values are your benchmarks. On the water, <a href=\"https://www.hellenicshippingnews.com/crude-oil-exports-through-the-strait-of-hormuz-hit-prewar-levels-but-fuel-shipments-remain-constrained/\">Hormuz crude is back to pre-war volumes</a> while Venezuela's barrels are being priced out by freight.</div>\n  <div style=\"font-size:13px;color:#667085;padding-top:8px;\">— Yi Huang, World Trade Pro</div>\n</td></tr></table></td></tr>",
+ "chart": "<tr><td style=\"padding:10px 0 0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n  <tr><td width=\"150\" style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:700;color:#15803d;padding:5px 8px 5px 0;white-space:nowrap;\">Power &amp; renewables</td>\n    <td style=\"padding:5px 0;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td width=\"32%\" title=\"tenders\" style=\"background:#b45309;height:14px;font-size:1px;line-height:14px;\">&nbsp;</td><td width=\"44%\" title=\"awards\" style=\"background:#15803d;height:14px;font-size:1px;line-height:14px;\">&nbsp;</td><td width=\"24%\" title=\"earlier stage\" style=\"background:#cbd5e1;height:14px;font-size:1px;line-height:14px;\">&nbsp;</td><td style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12px;color:#344054;padding-left:8px;white-space:nowrap;\"><b>41</b> <span style=\"color:#667085;\">· US$4.4bn</span></td><td width=\"100%\"></td></tr></table></td></tr><tr><td width=\"150\" style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:700;color:#c2410c;padding:5px 8px 5px 0;white-space:nowrap;\">Oil, gas &amp; LNG</td>\n    <td style=\"padding:5px 0;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td width=\"15%\" title=\"tenders\" style=\"background:#b45309;height:14px;font-size:1px;line-height:14px;\">&nbsp;</td><td width=\"56%\" title=\"awards\" style=\"background:#15803d;height:14px;font-size:1px;line-height:14px;\">&nbsp;</td><td width=\"20%\" title=\"earlier stage\" style=\"background:#cbd5e1;height:14px;font-size:1px;line-height:14px;\">&nbsp;</td><td style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12px;color:#344054;padding-left:8px;white-space:nowrap;\"><b>37</b> <span style=\"color:#667085;\">· US$1.1bn</span></td><td width=\"100%\"></td></tr></table></td></tr><tr><td width=\"150\" style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:700;color:#0369a1;padding:5px 8px 5px 0;white-space:nowrap;\">Shipping, ports &amp; logistics</td>\n    <td style=\"padding:5px 0;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td width=\"22%\" title=\"tenders\" style=\"background:#b45309;height:14px;font-size:1px;line-height:14px;\">&nbsp;</td><td width=\"22%\" title=\"awards\" style=\"background:#15803d;height:14px;font-size:1px;line-height:14px;\">&nbsp;</td><td style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12px;color:#344054;padding-left:8px;white-space:nowrap;\"><b>18</b> <span style=\"color:#667085;\">· US$1.5bn</span></td><td width=\"100%\"></td></tr></table></td></tr><tr><td width=\"150\" style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:700;color:#1d4ed8;padding:5px 8px 5px 0;white-space:nowrap;\">Metals &amp; mining</td>\n    <td style=\"padding:5px 0;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td width=\"10%\" title=\"tenders\" style=\"background:#b45309;height:14px;font-size:1px;line-height:14px;\">&nbsp;</td><td width=\"7%\" title=\"awards\" style=\"background:#15803d;height:14px;font-size:1px;line-height:14px;\">&nbsp;</td><td width=\"5%\" title=\"earlier stage\" style=\"background:#cbd5e1;height:14px;font-size:1px;line-height:14px;\">&nbsp;</td><td style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12px;color:#344054;padding-left:8px;white-space:nowrap;\"><b>9</b></td><td width=\"100%\"></td></tr></table></td></tr><tr><td width=\"150\" style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:700;color:#65a30d;padding:5px 8px 5px 0;white-space:nowrap;\">Agriculture &amp; food</td>\n    <td style=\"padding:5px 0;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td width=\"12%\" title=\"tenders\" style=\"background:#b45309;height:14px;font-size:1px;line-height:14px;\">&nbsp;</td><td width=\"5%\" title=\"awards\" style=\"background:#15803d;height:14px;font-size:1px;line-height:14px;\">&nbsp;</td><td style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12px;color:#344054;padding-left:8px;white-space:nowrap;\"><b>7</b> <span style=\"color:#667085;\">· US$416m</span></td><td width=\"100%\"></td></tr></table></td></tr><tr><td width=\"150\" style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:700;color:#7c3aed;padding:5px 8px 5px 0;white-space:nowrap;\">Chemicals &amp; fertilizers</td>\n    <td style=\"padding:5px 0;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td width=\"2%\" title=\"awards\" style=\"background:#15803d;height:14px;font-size:1px;line-height:14px;\">&nbsp;</td><td width=\"2%\" title=\"earlier stage\" style=\"background:#cbd5e1;height:14px;font-size:1px;line-height:14px;\">&nbsp;</td><td style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12px;color:#344054;padding-left:8px;white-space:nowrap;\"><b>2</b></td><td width=\"100%\"></td></tr></table></td></tr><tr><td width=\"150\" style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12.5px;font-weight:700;color:#0f766e;padding:5px 8px 5px 0;white-space:nowrap;\">Infrastructure &amp; construction</td>\n    <td style=\"padding:5px 0;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td width=\"2%\" title=\"awards\" style=\"background:#15803d;height:14px;font-size:1px;line-height:14px;\">&nbsp;</td><td style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12px;color:#344054;padding-left:8px;white-space:nowrap;\"><b>1</b></td><td width=\"100%\"></td></tr></table></td></tr>\n</table>\n<div style=\"font-size:12px;color:#667085;padding-top:6px;\"><span style=\"display:inline-block;width:10px;height:10px;background:#b45309;vertical-align:middle;\"></span> tenders &nbsp; <span style=\"display:inline-block;width:10px;height:10px;background:#15803d;vertical-align:middle;\"></span> awards &nbsp; <span style=\"display:inline-block;width:10px;height:10px;background:#cbd5e1;vertical-align:middle;\"></span> earlier stage &nbsp;·&nbsp; value where the notice names one</div></td></tr>",
+ "superlatives": "<tr><td style=\"padding:22px 0 0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"margin:0 -4px;\"><tr>\n  <td width=\"33%\" valign=\"top\" style=\"padding:0 4px;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-top:3px solid #0f2d5e;\"><tr><td style=\"padding:8px 2px 0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><div style=\"font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#667085;\">Biggest deal</div><div style=\"font-size:15px;font-weight:700;color:#101828;line-height:1.3;padding-top:3px;\"><a href=\"https://ted.europa.eu/en/notice/-/detail/674215-2026\" style=\"color:#101828;text-decoration:none;\">US$2.2bn</a></div><div style=\"font-size:12px;color:#667085;padding-top:2px;\">Nuclear Power Station Construction Work at CNE…</div></td></tr></table></td>\n  <td width=\"33%\" valign=\"top\" style=\"padding:0 4px;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-top:3px solid #15803d;\"><tr><td style=\"padding:8px 2px 0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><div style=\"font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#667085;\">Most awards</div><div style=\"font-size:15px;font-weight:700;color:#101828;line-height:1.3;padding-top:3px;\">Vale</div><div style=\"font-size:12px;color:#667085;padding-top:2px;\">2 contracts this week</div></td></tr></table></td>\n  <td width=\"33%\" valign=\"top\" style=\"padding:0 4px;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-top:3px solid #0369a1;\"><tr><td style=\"padding:8px 2px 0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><div style=\"font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#667085;\">Busiest country</div><div style=\"font-size:15px;font-weight:700;color:#101828;line-height:1.3;padding-top:3px;\"><a href=\"https://worldtradepro.com/projects/poland/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-06&amp;utm_content=top-country\" style=\"color:#101828;text-decoration:none;\">🇵🇱 Poland</a></div><div style=\"font-size:12px;color:#667085;padding-top:2px;\">8 new projects</div></td></tr></table></td>\n</tr></table></td></tr>",
+ "calendar": "<tr><td style=\"padding:0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n  <td width=\"76\" valign=\"top\" style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;padding:9px 10px 9px 0;border-top:1px solid #eaecf0;\"><div style=\"font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#b42318;\">Wed</div><div style=\"font-size:18px;font-weight:800;color:#b42318;line-height:1.1;\">7 <span style=\"font-size:12px;font-weight:700;color:#667085;\">Oct</span></div></td>\n  <td valign=\"top\" style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;padding:9px 0;border-top:1px solid #eaecf0;\"><span style=\"display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:#1d4ed8;border-radius:100px;padding:2px 9px;\">Metals &amp; mining</span><br><a href=\"https://ted.europa.eu/en/notice/-/detail/667858-2026\" style=\"color:#101828;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.35;\">Mining Equipment for JSW S.A. KWK 'Knurów-Szczygłowice'</a><div style=\"font-size:12.5px;color:#667085;padding-top:2px;\">Poland · Jastrzębska Spółka Węglowa S.A. z siedzibą w Jastrzębiu Zdroju, Zakład</div></td>\n</tr></table></td></tr>\n<tr><td style=\"padding:0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n  <td width=\"76\" valign=\"top\" style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;padding:9px 10px 9px 0;border-top:1px solid #eaecf0;\"><div style=\"font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#b42318;\">Thu</div><div style=\"font-size:18px;font-weight:800;color:#b42318;line-height:1.1;\">8 <span style=\"font-size:12px;font-weight:700;color:#667085;\">Oct</span></div></td>\n  <td valign=\"top\" style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;padding:9px 0;border-top:1px solid #eaecf0;\"><span style=\"display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:#0369a1;border-radius:100px;padding:2px 9px;\">Shipping, ports &amp; logistics</span><br><a href=\"https://ted.europa.eu/en/notice/-/detail/677179-2026\" style=\"color:#101828;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.35;\">Debr.-Ny.egyháza signaling and telecommunications</a><div style=\"font-size:12.5px;color:#667085;padding-top:2px;\">Hungary · <b style=\"color:#101828;\">US$187m</b> · Építési és Közlekedési Minisztérium</div></td>\n</tr></table></td></tr>\n<tr><td style=\"padding:0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n  <td width=\"76\" valign=\"top\" style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;padding:9px 10px 9px 0;border-top:1px solid #eaecf0;\"><div style=\"font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#667085;\">Wed</div><div style=\"font-size:18px;font-weight:800;color:#101828;line-height:1.1;\">14 <span style=\"font-size:12px;font-weight:700;color:#667085;\">Oct</span></div></td>\n  <td valign=\"top\" style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;padding:9px 0;border-top:1px solid #eaecf0;\"><span style=\"display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:#0369a1;border-radius:100px;padding:2px 9px;\">Shipping, ports &amp; logistics</span><br><a href=\"https://ted.europa.eu/en/notice/-/detail/678953-2026\" style=\"color:#101828;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.35;\">Wharf Construction - Infrastructure Upgrade for Ships in Basen V Port Gdynia</a><div style=\"font-size:12.5px;color:#667085;padding-top:2px;\">Poland · Zarząd Morskiego Portu Gdynia S.A.</div></td>\n</tr></table></td></tr>\n<tr><td style=\"padding:0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n  <td width=\"76\" valign=\"top\" style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;padding:9px 10px 9px 0;border-top:1px solid #eaecf0;\"><div style=\"font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#667085;\">Wed</div><div style=\"font-size:18px;font-weight:800;color:#101828;line-height:1.1;\">14 <span style=\"font-size:12px;font-weight:700;color:#667085;\">Oct</span></div></td>\n  <td valign=\"top\" style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;padding:9px 0;border-top:1px solid #eaecf0;\"><span style=\"display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:#15803d;border-radius:100px;padding:2px 9px;\">Power &amp; renewables</span><br><a href=\"https://ted.europa.eu/en/notice/-/detail/675325-2026\" style=\"color:#101828;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.35;\">Construction of PV installations PV Skalin 1 (5.61MW) and PV Gryfice 2</a><div style=\"font-size:12.5px;color:#667085;padding-top:2px;\">Poland · ENEA Nowa Energia sp. z o.o.</div></td>\n</tr></table></td></tr>\n<tr><td style=\"padding:0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n  <td width=\"76\" valign=\"top\" style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;padding:9px 10px 9px 0;border-top:1px solid #eaecf0;\"><div style=\"font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#667085;\">Thu</div><div style=\"font-size:18px;font-weight:800;color:#101828;line-height:1.1;\">15 <span style=\"font-size:12px;font-weight:700;color:#667085;\">Oct</span></div></td>\n  <td valign=\"top\" style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;padding:9px 0;border-top:1px solid #eaecf0;\"><span style=\"display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:#0369a1;border-radius:100px;padding:2px 9px;\">Shipping, ports &amp; logistics</span><br><a href=\"https://ted.europa.eu/en/notice/-/detail/683759-2026\" style=\"color:#101828;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.35;\">Tender for the Construction of a New Cargo Facility at Ras Hanzir between Laboratory and…</a><div style=\"font-size:12.5px;color:#667085;padding-top:2px;\">Malta · <b style=\"color:#101828;\">US$80m</b> · Infrastructure Malta</div></td>\n</tr></table></td></tr>\n<tr><td style=\"padding:0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n  <td width=\"76\" valign=\"top\" style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;padding:9px 10px 9px 0;border-top:1px solid #eaecf0;\"><div style=\"font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#667085;\">Tue</div><div style=\"font-size:18px;font-weight:800;color:#101828;line-height:1.1;\">20 <span style=\"font-size:12px;font-weight:700;color:#667085;\">Oct</span></div></td>\n  <td valign=\"top\" style=\"font-family:Segoe UI,Helvetica,Arial,sans-serif;padding:9px 0;border-top:1px solid #eaecf0;\"><span style=\"display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:#c2410c;border-radius:100px;padding:2px 9px;\">Oil, gas &amp; LNG</span><br><a href=\"https://ted.europa.eu/en/notice/-/detail/680927-2026\" style=\"color:#101828;text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.35;\">Professional Services for Gas Industry - Diagnostics of Gas Pipelines</a><div style=\"font-size:12.5px;color:#667085;padding-top:2px;\">Poland · Operator Gazociągów Przesyłowych GAZ-SYSTEM S.A.</div></td>\n</tr></table></td></tr>",
  "sponsor": null,
  "calls": [
   {
    "key": "power",
    "sector": "Power & renewables",
    "strong": true,
-   "html": "<a href=\"https://ted.europa.eu/en/notice/-/detail/674215-2026\" style=\"display:block;color:#101828;text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:6px 0 6px;\">Nuclear Power Station Construction Work at CNE Cernavodă</a>\n    <div style=\"font-size:13px;color:#667085;line-height:1.9;\"><span style=\"display:inline-block;font-size:12px;font-weight:700;color:#15803d;background:#15803d14;border:1px solid #15803d55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Awarded</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/romania/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-06&amp;utm_content=country-romania\" style=\"color:#101828;text-decoration:none;font-weight:700;\">🇷🇴 Romania</a> &nbsp;·&nbsp; <span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0f2d5e;background:#0f2d5e14;border:1px solid #0f2d5e55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">US$2.2bn</span> &nbsp;·&nbsp; won by <b style=\"color:#101828;\">Candu Energy, Canadian Commercial Corporation, Ansaldo Nucleare, Korea</b></div>",
+   "html": "<a href=\"https://ted.europa.eu/en/notice/-/detail/674215-2026\" style=\"display:block;color:#101828;text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:6px 0 6px;\">Nuclear Power Station Construction Work at CNE Cernavodă</a>\n    <div style=\"font-size:13px;color:#667085;line-height:1.9;\"><span style=\"display:inline-block;font-size:12px;font-weight:700;color:#15803d;background:#15803d14;border:1px solid #15803d55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Awarded</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/romania/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-06&amp;utm_content=country-romania\" style=\"color:#101828;text-decoration:none;font-weight:700;\">🇷🇴 Romania</a> &nbsp;·&nbsp; <span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0f2d5e;background:#0f2d5e14;border:1px solid #0f2d5e55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">US$2.2bn</span> &nbsp;·&nbsp; won by <b style=\"color:#101828;\">Candu Energy, Canadian Commercial Corporation, Ansaldo Nucleare, Korea</b></div><div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;\">A US$2.2bn civil package for two CANDU units sets the European nuclear benchmark this year; the consortium will now place heavy civil, M&amp;E and site-services subcontracts in Romania.</div>",
    "call": "<div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;border-top:1px dashed #eaecf0;margin-top:8px;\"><b style=\"color:#0f2d5e;\">The call:</b> Candu Energy, Canadian Commercial Corporation, Ansaldo Nucleare, Korea is now buying equipment and placing subcontracts. Get on their vendor list.</div>",
    "buyer": "<div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;border-top:1px dashed #eaecf0;margin-top:8px;\"><b style=\"color:#15803d;\">For buyers:</b> Reference price: US$2.2bn for this scope in Romania. Candu Energy, Canadian Commercial Corporation, Ansaldo Nucleare, Korea is now booked on this job.</div>"
   },
@@ -35,7 +45,7 @@
    "key": "power",
    "sector": "Power & renewables",
    "strong": true,
-   "html": "<a href=\"https://ted.europa.eu/en/notice/-/detail/667588-2026\" style=\"display:block;color:#101828;text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:6px 0 6px;\">The MaresConnect 750MW HVDC Interconnector System</a>\n    <div style=\"font-size:13px;color:#667085;line-height:1.9;\"><span style=\"display:inline-block;font-size:12px;font-weight:700;color:#b45309;background:#b4530914;border:1px solid #b4530955;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Tender</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/ireland/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-06&amp;utm_content=country-ireland\" style=\"color:#101828;text-decoration:none;font-weight:700;\">🇮🇪 Ireland</a> &nbsp;·&nbsp; <span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0f2d5e;background:#0f2d5e14;border:1px solid #0f2d5e55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">US$1.1bn</span> &nbsp;·&nbsp; buyer <b style=\"color:#101828;\">MaresConnect Limited (MCL)</b></div>",
+   "html": "<a href=\"https://ted.europa.eu/en/notice/-/detail/667588-2026\" style=\"display:block;color:#101828;text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:6px 0 6px;\">The MaresConnect 750MW HVDC Interconnector System</a>\n    <div style=\"font-size:13px;color:#667085;line-height:1.9;\"><span style=\"display:inline-block;font-size:12px;font-weight:700;color:#b45309;background:#b4530914;border:1px solid #b4530955;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Tender</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/ireland/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-06&amp;utm_content=country-ireland\" style=\"color:#101828;text-decoration:none;font-weight:700;\">🇮🇪 Ireland</a> &nbsp;·&nbsp; <span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0f2d5e;background:#0f2d5e14;border:1px solid #0f2d5e55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">US$1.1bn</span> &nbsp;·&nbsp; buyer <b style=\"color:#101828;\">MaresConnect Limited (MCL)</b></div><div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;\">A US$1.1bn Ireland-Wales HVDC tender is a converter-station and subsea-cable package: the handful of HVDC suppliers will decide the price, and consortia are forming now.</div>",
    "call": "<div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;border-top:1px dashed #eaecf0;margin-top:8px;\"><b style=\"color:#0f2d5e;\">The call:</b> Ask MaresConnect Limited (MCL) for the bid documents.</div>",
    "buyer": "<div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;border-top:1px dashed #eaecf0;margin-top:8px;\"><b style=\"color:#15803d;\">For buyers:</b> A peer is buying this scope at an estimated US$1.1bn; a live comparison for your own package.</div>"
   },
@@ -43,7 +53,7 @@
    "key": "energy",
    "sector": "Oil, gas & LNG",
    "strong": true,
-   "html": "<a href=\"https://ted.europa.eu/en/notice/-/detail/669203-2026\" style=\"display:block;color:#101828;text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:6px 0 6px;\">The Provision of Network Services and Works To Gas Networks Ireland</a>\n    <div style=\"font-size:13px;color:#667085;line-height:1.9;\"><span style=\"display:inline-block;font-size:12px;font-weight:700;color:#15803d;background:#15803d14;border:1px solid #15803d55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Awarded</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/ireland/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-06&amp;utm_content=country-ireland\" style=\"color:#101828;text-decoration:none;font-weight:700;\">🇮🇪 Ireland</a> &nbsp;·&nbsp; <span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0f2d5e;background:#0f2d5e14;border:1px solid #0f2d5e55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">US$1.0bn</span> &nbsp;·&nbsp; won by <b style=\"color:#101828;\">GMC Civil &amp; Mechanical Engineering Ltd / Murphy International Limited</b></div>",
+   "html": "<a href=\"https://ted.europa.eu/en/notice/-/detail/669203-2026\" style=\"display:block;color:#101828;text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:6px 0 6px;\">The Provision of Network Services and Works To Gas Networks Ireland</a>\n    <div style=\"font-size:13px;color:#667085;line-height:1.9;\"><span style=\"display:inline-block;font-size:12px;font-weight:700;color:#15803d;background:#15803d14;border:1px solid #15803d55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Awarded</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/ireland/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-06&amp;utm_content=country-ireland\" style=\"color:#101828;text-decoration:none;font-weight:700;\">🇮🇪 Ireland</a> &nbsp;·&nbsp; <span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0f2d5e;background:#0f2d5e14;border:1px solid #0f2d5e55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">US$1.0bn</span> &nbsp;·&nbsp; won by <b style=\"color:#101828;\">GMC Civil &amp; Mechanical Engineering Ltd / Murphy International Limited</b></div><div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;\">A US$1.0bn multi-year framework means GMC and Murphy, not the utility, will buy pipe, fittings and civils for Irish gas networks for years.</div>",
    "call": "<div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;border-top:1px dashed #eaecf0;margin-top:8px;\"><b style=\"color:#0f2d5e;\">The call:</b> GMC Civil &amp; Mechanical Engineering Ltd / Murphy International Limited is now buying equipment and placing subcontracts. Get on their vendor list.</div>",
    "buyer": "<div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;border-top:1px dashed #eaecf0;margin-top:8px;\"><b style=\"color:#15803d;\">For buyers:</b> Reference price: US$1.0bn for this scope in Ireland. GMC Civil &amp; Mechanical Engineering Ltd / Murphy International Limited is now booked on this job.</div>"
   },
@@ -51,7 +61,7 @@
    "key": "shipping",
    "sector": "Shipping, ports & logistics",
    "strong": true,
-   "html": "<a href=\"https://ted.europa.eu/en/notice/-/detail/683852-2026\" style=\"display:block;color:#101828;text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:6px 0 6px;\">Rekonstrukcija i izgradnja drugog kolosijeka Dugo Selo - Novska</a>\n    <div style=\"font-size:13px;color:#667085;line-height:1.9;\"><span style=\"display:inline-block;font-size:12px;font-weight:700;color:#15803d;background:#15803d14;border:1px solid #15803d55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Awarded</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/croatia/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-06&amp;utm_content=country-croatia\" style=\"color:#101828;text-decoration:none;font-weight:700;\">🇭🇷 Croatia</a> &nbsp;·&nbsp; <span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0f2d5e;background:#0f2d5e14;border:1px solid #0f2d5e55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">US$762m</span> &nbsp;·&nbsp; won by <b style=\"color:#101828;\">Afcons Infrastructure Limited</b></div>",
+   "html": "<a href=\"https://ted.europa.eu/en/notice/-/detail/683852-2026\" style=\"display:block;color:#101828;text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:6px 0 6px;\">Rekonstrukcija i izgradnja drugog kolosijeka Dugo Selo - Novska</a>\n    <div style=\"font-size:13px;color:#667085;line-height:1.9;\"><span style=\"display:inline-block;font-size:12px;font-weight:700;color:#15803d;background:#15803d14;border:1px solid #15803d55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Awarded</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/croatia/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-06&amp;utm_content=country-croatia\" style=\"color:#101828;text-decoration:none;font-weight:700;\">🇭🇷 Croatia</a> &nbsp;·&nbsp; <span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0f2d5e;background:#0f2d5e14;border:1px solid #0f2d5e55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">US$762m</span> &nbsp;·&nbsp; won by <b style=\"color:#101828;\">Afcons Infrastructure Limited</b></div><div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;\">Afcons taking a US$762m Croatian rail line is an Indian contractor winning EU-funded work; track, signalling and OHLE suppliers should expect its enquiries.</div>",
    "call": "<div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;border-top:1px dashed #eaecf0;margin-top:8px;\"><b style=\"color:#0f2d5e;\">The call:</b> Afcons Infrastructure Limited is now buying equipment and placing subcontracts. Get on their vendor list.</div>",
    "buyer": "<div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;border-top:1px dashed #eaecf0;margin-top:8px;\"><b style=\"color:#15803d;\">For buyers:</b> Reference price: US$762m for this scope in Croatia. Afcons Infrastructure Limited is now booked on this job.</div>"
   },
@@ -59,7 +69,7 @@
    "key": "shipping",
    "sector": "Shipping, ports & logistics",
    "strong": true,
-   "html": "<a href=\"https://ted.europa.eu/en/notice/-/detail/677179-2026\" style=\"display:block;color:#101828;text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:6px 0 6px;\">Debr.-Ny.egyháza signaling and telecommunications</a>\n    <div style=\"font-size:13px;color:#667085;line-height:1.9;\"><span style=\"display:inline-block;font-size:12px;font-weight:700;color:#b45309;background:#b4530914;border:1px solid #b4530955;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Tender</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/hungary/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-06&amp;utm_content=country-hungary\" style=\"color:#101828;text-decoration:none;font-weight:700;\">🇭🇺 Hungary</a> &nbsp;·&nbsp; <span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0f2d5e;background:#0f2d5e14;border:1px solid #0f2d5e55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">US$187m</span> &nbsp;·&nbsp; <span style=\"display:inline-block;font-size:12px;font-weight:700;color:#b42318;background:#b4231814;border:1px solid #b4231855;border-radius:6px;padding:1px 7px;white-space:nowrap;\">bids due 8 Oct</span> &nbsp;·&nbsp; buyer <b style=\"color:#101828;\">Építési és Közlekedési Minisztérium</b></div>",
+   "html": "<a href=\"https://ted.europa.eu/en/notice/-/detail/677179-2026\" style=\"display:block;color:#101828;text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:6px 0 6px;\">Debr.-Ny.egyháza signaling and telecommunications</a>\n    <div style=\"font-size:13px;color:#667085;line-height:1.9;\"><span style=\"display:inline-block;font-size:12px;font-weight:700;color:#b45309;background:#b4530914;border:1px solid #b4530955;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Tender</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/hungary/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-06&amp;utm_content=country-hungary\" style=\"color:#101828;text-decoration:none;font-weight:700;\">🇭🇺 Hungary</a> &nbsp;·&nbsp; <span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0f2d5e;background:#0f2d5e14;border:1px solid #0f2d5e55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">US$187m</span> &nbsp;·&nbsp; <span style=\"display:inline-block;font-size:12px;font-weight:700;color:#b42318;background:#b4231814;border:1px solid #b4231855;border-radius:6px;padding:1px 7px;white-space:nowrap;\">bids due 8 Oct</span> &nbsp;·&nbsp; buyer <b style=\"color:#101828;\">Építési és Közlekedési Minisztérium</b></div><div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;\">Hungary's US$187m signalling and telecoms tender closes 8 October: a short window, so only bidders already qualified for Hungarian rail will make it.</div>",
    "call": "<div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;border-top:1px dashed #eaecf0;margin-top:8px;\"><b style=\"color:#0f2d5e;\">The call:</b> Ask Építési és Közlekedési Minisztérium for the bid documents before 8 Oct.</div>",
    "buyer": "<div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;border-top:1px dashed #eaecf0;margin-top:8px;\"><b style=\"color:#15803d;\">For buyers:</b> A peer is buying this scope at an estimated US$187m; a live comparison for your own package (their bids close 8 Oct).</div>"
   },
@@ -67,7 +77,7 @@
    "key": "energy",
    "sector": "Oil, gas & LNG",
    "strong": true,
-   "html": "<a href=\"https://ted.europa.eu/en/notice/-/detail/683554-2026\" style=\"display:block;color:#101828;text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:6px 0 6px;\">Reabilitarea reţelelor de termoficare în Constanţa</a>\n    <div style=\"font-size:13px;color:#667085;line-height:1.9;\"><span style=\"display:inline-block;font-size:12px;font-weight:700;color:#b45309;background:#b4530914;border:1px solid #b4530955;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Tender</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/romania/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-06&amp;utm_content=country-romania\" style=\"color:#101828;text-decoration:none;font-weight:700;\">🇷🇴 Romania</a> &nbsp;·&nbsp; <span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0f2d5e;background:#0f2d5e14;border:1px solid #0f2d5e55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">US$43m</span> &nbsp;·&nbsp; <span style=\"display:inline-block;font-size:12px;font-weight:700;color:#b42318;background:#b4231814;border:1px solid #b4231855;border-radius:6px;padding:1px 7px;white-space:nowrap;\">bids due 2 Nov</span> &nbsp;·&nbsp; buyer <b style=\"color:#101828;\">Municipiul Constanta</b></div>",
+   "html": "<a href=\"https://ted.europa.eu/en/notice/-/detail/683554-2026\" style=\"display:block;color:#101828;text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:6px 0 6px;\">Reabilitarea reţelelor de termoficare în Constanţa</a>\n    <div style=\"font-size:13px;color:#667085;line-height:1.9;\"><span style=\"display:inline-block;font-size:12px;font-weight:700;color:#b45309;background:#b4530914;border:1px solid #b4530955;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Tender</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/romania/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-06&amp;utm_content=country-romania\" style=\"color:#101828;text-decoration:none;font-weight:700;\">🇷🇴 Romania</a> &nbsp;·&nbsp; <span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0f2d5e;background:#0f2d5e14;border:1px solid #0f2d5e55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">US$43m</span> &nbsp;·&nbsp; <span style=\"display:inline-block;font-size:12px;font-weight:700;color:#b42318;background:#b4231814;border:1px solid #b4231855;border-radius:6px;padding:1px 7px;white-space:nowrap;\">bids due 2 Nov</span> &nbsp;·&nbsp; buyer <b style=\"color:#101828;\">Municipiul Constanta</b></div><div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;\">A US$43m district-heating rehabilitation in Constanța is pre-insulated pipe and civils; a municipal buyer, so expect EU-funding paperwork and local-content pressure.</div>",
    "call": "<div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;border-top:1px dashed #eaecf0;margin-top:8px;\"><b style=\"color:#0f2d5e;\">The call:</b> Ask Municipiul Constanta for the bid documents before 2 Nov.</div>",
    "buyer": "<div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;border-top:1px dashed #eaecf0;margin-top:8px;\"><b style=\"color:#15803d;\">For buyers:</b> A peer is buying this scope at an estimated US$43m; a live comparison for your own package (their bids close 2 Nov).</div>"
   },
@@ -75,7 +85,7 @@
    "key": "agri",
    "sector": "Agriculture & food",
    "strong": true,
-   "html": "<a href=\"https://ted.europa.eu/en/notice/-/detail/668556-2026\" style=\"display:block;color:#101828;text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:6px 0 6px;\">Dam Construction for ПАВЕЦ 'Чаира' and Reservoir 'Яденица'</a>\n    <div style=\"font-size:13px;color:#667085;line-height:1.9;\"><span style=\"display:inline-block;font-size:12px;font-weight:700;color:#b45309;background:#b4530914;border:1px solid #b4530955;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Tender</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/bulgaria/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-06&amp;utm_content=country-bulgaria\" style=\"color:#101828;text-decoration:none;font-weight:700;\">🇧🇬 Bulgaria</a> &nbsp;·&nbsp; <span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0f2d5e;background:#0f2d5e14;border:1px solid #0f2d5e55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">US$398m</span> &nbsp;·&nbsp; buyer <b style=\"color:#101828;\">Национална Електрическа Компания Еад</b></div>",
+   "html": "<a href=\"https://ted.europa.eu/en/notice/-/detail/668556-2026\" style=\"display:block;color:#101828;text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:6px 0 6px;\">Dam Construction for ПАВЕЦ 'Чаира' and Reservoir 'Яденица'</a>\n    <div style=\"font-size:13px;color:#667085;line-height:1.9;\"><span style=\"display:inline-block;font-size:12px;font-weight:700;color:#b45309;background:#b4530914;border:1px solid #b4530955;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Tender</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/bulgaria/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-06&amp;utm_content=country-bulgaria\" style=\"color:#101828;text-decoration:none;font-weight:700;\">🇧🇬 Bulgaria</a> &nbsp;·&nbsp; <span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0f2d5e;background:#0f2d5e14;border:1px solid #0f2d5e55;border-radius:6px;padding:1px 7px;white-space:nowrap;\">US$398m</span> &nbsp;·&nbsp; buyer <b style=\"color:#101828;\">Национална Електрическа Компания Еад</b></div><div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;\">Bulgaria's US$398m Yadenitsa dam for the Chaira pumped-storage plant is heavy civil and hydromechanical work; a national utility buyer with a long tender.</div>",
    "call": "<div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;border-top:1px dashed #eaecf0;margin-top:8px;\"><b style=\"color:#0f2d5e;\">The call:</b> Ask Национална Електрическа Компания Еад for the bid documents.</div>",
    "buyer": "<div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:8px;border-top:1px dashed #eaecf0;margin-top:8px;\"><b style=\"color:#15803d;\">For buyers:</b> A peer is buying this scope at an estimated US$398m; a live comparison for your own package.</div>"
   },
@@ -193,27 +203,51 @@
   "items": [
    {
     "key": "energy",
-    "html": "<tr><td style=\"padding:12px 0;border-top:1px solid #eaecf0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><div style=\"font-size:11px;font-weight:700;color:#667085;\"><span style=\"display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:#c2410c;border-radius:100px;padding:2px 9px;\">Oil, gas &amp; LNG</span> </div>\n    <a href=\"https://oilprice.com/Energy/Crude-Oil/Venezuelas-Oil-Exports-Drop-9-as-Freight-Costs-Bite.html\" style=\"display:block;color:#101828;text-decoration:none;font-size:16px;font-weight:700;line-height:1.35;padding:4px 0 2px;\">🇻🇪 Venezuela’s Oil Exports Drop 9% as Freight Costs Bite</a>\n    <div style=\"font-size:12px;color:#667085;\">oilprice.com</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\">Venezuela’s oil exports fell nearly 9% in September to 1.08 million barrels per day as soaring tanker costs forced traders to demand steeper…</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\"><b style=\"color:#101828;\">What it means:</b> Less is moving from this origin: crude, LNG and product buyers can expect firmer offers and longer lead times for a few weeks.</div></td></tr>"
+    "url": "https://oilprice.com/Energy/Crude-Oil/Venezuelas-Oil-Exports-Drop-9-as-Freight-Costs-Bite.html",
+    "title": "Venezuela’s Oil Exports Drop 9% as Freight Costs Bite",
+    "source": "oilprice.com",
+    "summary": "Venezuela’s oil exports fell nearly 9% in September to 1.08 million barrels per day as soaring tanker costs forced traders to demand steeper…",
+    "html": "<tr><td style=\"padding:12px 0;border-top:1px solid #eaecf0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><div style=\"font-size:11px;font-weight:700;color:#667085;\"><span style=\"display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:#c2410c;border-radius:100px;padding:2px 9px;\">Oil, gas &amp; LNG</span> </div>\n    <a href=\"https://oilprice.com/Energy/Crude-Oil/Venezuelas-Oil-Exports-Drop-9-as-Freight-Costs-Bite.html\" style=\"display:block;color:#101828;text-decoration:none;font-size:16px;font-weight:700;line-height:1.35;padding:4px 0 2px;\">🇻🇪 Venezuela’s Oil Exports Drop 9% as Freight Costs Bite</a>\n    <div style=\"font-size:12px;color:#667085;\">oilprice.com</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\">Venezuela’s oil exports fell nearly 9% in September to 1.08 million barrels per day as soaring tanker costs forced traders to demand steeper…</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\"><b style=\"color:#101828;\">What it means:</b> Freight, not supply, is cutting Venezuelan exports: buyers of heavy sour crude get steeper discounts but fewer and later cargoes.</div></td></tr>"
    },
    {
     "key": "shipping",
-    "html": "<tr><td style=\"padding:12px 0;border-top:1px solid #eaecf0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><div style=\"font-size:11px;font-weight:700;color:#667085;\"><span style=\"display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:#0369a1;border-radius:100px;padding:2px 9px;\">Shipping, ports &amp; logistics</span> &nbsp;<span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0369a1;background:#0369a114;border:1px solid #0369a155;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Panama Canal</span></div>\n    <a href=\"https://www.freightwaves.com/news/new-limits-more-ships-can-transit-this-key-cargo-chokepoint\" style=\"display:block;color:#101828;text-decoration:none;font-size:16px;font-weight:700;line-height:1.35;padding:4px 0 2px;\">🇵🇦 New limits: More ships can transit this key cargo chokepoint</a>\n    <div style=\"font-size:12px;color:#667085;\">freightwaves.com</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\">The Panama Canal has raised the number of daily transit slots for the largest container vessels.</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\"><b style=\"color:#101828;\">What it means:</b> The Panama Canal carries Atlantic → Pacific (US Gulf LNG &amp; grain → Asia) and logged 1 critical signal this week. More capacity on this route: shippers and forwarders can expect shorter queues and softer slot premiums, usually within weeks.</div></td></tr>"
+    "url": "https://www.freightwaves.com/news/new-limits-more-ships-can-transit-this-key-cargo-chokepoint",
+    "title": "New limits: More ships can transit this key cargo chokepoint",
+    "source": "freightwaves.com",
+    "summary": "The Panama Canal has raised the number of daily transit slots for the largest container vessels.",
+    "html": "<tr><td style=\"padding:12px 0;border-top:1px solid #eaecf0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><div style=\"font-size:11px;font-weight:700;color:#667085;\"><span style=\"display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:#0369a1;border-radius:100px;padding:2px 9px;\">Shipping, ports &amp; logistics</span> &nbsp;<span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0369a1;background:#0369a114;border:1px solid #0369a155;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Panama Canal</span></div>\n    <a href=\"https://www.freightwaves.com/news/new-limits-more-ships-can-transit-this-key-cargo-chokepoint\" style=\"display:block;color:#101828;text-decoration:none;font-size:16px;font-weight:700;line-height:1.35;padding:4px 0 2px;\">🇵🇦 New limits: More ships can transit this key cargo chokepoint</a>\n    <div style=\"font-size:12px;color:#667085;\">freightwaves.com</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\">The Panama Canal has raised the number of daily transit slots for the largest container vessels.</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\"><b style=\"color:#101828;\">What it means:</b> More daily slots for the largest ships means shorter queues on the US Gulf to Asia route; LNG and grain shippers should see slot premiums ease.</div></td></tr>"
    },
    {
     "key": "energy",
-    "html": "<tr><td style=\"padding:12px 0;border-top:1px solid #eaecf0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><div style=\"font-size:11px;font-weight:700;color:#667085;\"><span style=\"display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:#c2410c;border-radius:100px;padding:2px 9px;\">Oil, gas &amp; LNG</span> &nbsp;<span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0369a1;background:#0369a114;border:1px solid #0369a155;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Strait of Hormuz</span></div>\n    <a href=\"https://oilprice.com/Energy/Energy-General/Middle-East-Oil-Exports-Stage-a-Remarkable-Comeback.html\" style=\"display:block;color:#101828;text-decoration:none;font-size:16px;font-weight:700;line-height:1.35;padding:4px 0 2px;\">🇮🇷 Middle East Oil Exports Stage a Remarkable Comeback</a>\n    <div style=\"font-size:12px;color:#667085;\">oilprice.com · 2 reports this week</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\">Exports of crude oil from the Middle East hit their highest level in September since the war with Iran began, reinforcing a trend of increased…</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\"><b style=\"color:#101828;\">What it means:</b> The Strait of Hormuz carries Gulf crude, LNG &amp; products → Asia and logged 5 critical signals this week. More is moving from this origin: crude, LNG and product buyers get more offers and softer premiums; freight on the route tends to follow.</div></td></tr>"
+    "url": "https://oilprice.com/Energy/Energy-General/Middle-East-Oil-Exports-Stage-a-Remarkable-Comeback.html",
+    "title": "Middle East Oil Exports Stage a Remarkable Comeback",
+    "source": "oilprice.com",
+    "summary": "Exports of crude oil from the Middle East hit their highest level in September since the war with Iran began, reinforcing a trend of increased…",
+    "html": "<tr><td style=\"padding:12px 0;border-top:1px solid #eaecf0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><div style=\"font-size:11px;font-weight:700;color:#667085;\"><span style=\"display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:#c2410c;border-radius:100px;padding:2px 9px;\">Oil, gas &amp; LNG</span> &nbsp;<span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0369a1;background:#0369a114;border:1px solid #0369a155;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Strait of Hormuz</span></div>\n    <a href=\"https://oilprice.com/Energy/Energy-General/Middle-East-Oil-Exports-Stage-a-Remarkable-Comeback.html\" style=\"display:block;color:#101828;text-decoration:none;font-size:16px;font-weight:700;line-height:1.35;padding:4px 0 2px;\">🇮🇷 Middle East Oil Exports Stage a Remarkable Comeback</a>\n    <div style=\"font-size:12px;color:#667085;\">oilprice.com · 2 reports this week</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\">Exports of crude oil from the Middle East hit their highest level in September since the war with Iran began, reinforcing a trend of increased…</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\"><b style=\"color:#101828;\">What it means:</b> Gulf crude is flowing at the highest level since the war began: more offers for Asian refiners, even as attacks on shipping keep war-risk premiums in freight.</div></td></tr>"
    },
    {
     "key": "shipping",
-    "html": "<tr><td style=\"padding:12px 0;border-top:1px solid #eaecf0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><div style=\"font-size:11px;font-weight:700;color:#667085;\"><span style=\"display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:#0369a1;border-radius:100px;padding:2px 9px;\">Shipping, ports &amp; logistics</span> &nbsp;<span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0369a1;background:#0369a114;border:1px solid #0369a155;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Strait of Hormuz</span></div>\n    <a href=\"https://www.hellenicshippingnews.com/crude-oil-exports-through-the-strait-of-hormuz-hit-prewar-levels-but-fuel-shipments-remain-constrained/\" style=\"display:block;color:#101828;text-decoration:none;font-size:16px;font-weight:700;line-height:1.35;padding:4px 0 2px;\">🇮🇷 Crude oil exports through the Strait of Hormuz hit prewar levels, but fuel shipments remain constrained</a>\n    <div style=\"font-size:12px;color:#667085;\">hellenicshippingnews.com · 6 reports this week</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\">Crude oil exports from the Strait of Hormuz have basically returned to levels normal before the Iran war, as U.S. military escorts have boosted…</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\"><b style=\"color:#101828;\">What it means:</b> The Strait of Hormuz carries Gulf crude, LNG &amp; products → Asia and logged 5 critical signals this week. More capacity on this route: shippers and forwarders can expect shorter queues and softer slot premiums, usually within weeks.</div></td></tr>"
+    "url": "https://www.hellenicshippingnews.com/crude-oil-exports-through-the-strait-of-hormuz-hit-prewar-levels-but-fuel-shipments-remain-constrained/",
+    "title": "Crude oil exports through the Strait of Hormuz hit prewar levels, but fuel shipments remain constrained",
+    "source": "hellenicshippingnews.com",
+    "summary": "Crude oil exports from the Strait of Hormuz have basically returned to levels normal before the Iran war, as U.S. military escorts have boosted…",
+    "html": "<tr><td style=\"padding:12px 0;border-top:1px solid #eaecf0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><div style=\"font-size:11px;font-weight:700;color:#667085;\"><span style=\"display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:#0369a1;border-radius:100px;padding:2px 9px;\">Shipping, ports &amp; logistics</span> &nbsp;<span style=\"display:inline-block;font-size:12px;font-weight:700;color:#0369a1;background:#0369a114;border:1px solid #0369a155;border-radius:6px;padding:1px 7px;white-space:nowrap;\">Strait of Hormuz</span></div>\n    <a href=\"https://www.hellenicshippingnews.com/crude-oil-exports-through-the-strait-of-hormuz-hit-prewar-levels-but-fuel-shipments-remain-constrained/\" style=\"display:block;color:#101828;text-decoration:none;font-size:16px;font-weight:700;line-height:1.35;padding:4px 0 2px;\">🇮🇷 Crude oil exports through the Strait of Hormuz hit prewar levels, but fuel shipments remain constrained</a>\n    <div style=\"font-size:12px;color:#667085;\">hellenicshippingnews.com · 6 reports this week</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\">Crude oil exports from the Strait of Hormuz have basically returned to levels normal before the Iran war, as U.S. military escorts have boosted…</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\"><b style=\"color:#101828;\">What it means:</b> Crude through Hormuz is back to pre-war levels but refined products are not: product buyers east of Suez stay short while crude buyers are supplied.</div></td></tr>"
    },
    {
     "key": "agri",
-    "html": "<tr><td style=\"padding:12px 0;border-top:1px solid #eaecf0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><div style=\"font-size:11px;font-weight:700;color:#667085;\"><span style=\"display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:#65a30d;border-radius:100px;padding:2px 9px;\">Agriculture &amp; food</span> </div>\n    <a href=\"https://www.brownfieldagnews.com/market-news/wheat-bounces-and-corn-manages-a-mostly-firm-finish/\" style=\"display:block;color:#101828;text-decoration:none;font-size:16px;font-weight:700;line-height:1.35;padding:4px 0 2px;\">🇨🇳 Wheat bounces and corn manages a mostly firm finish</a>\n    <div style=\"font-size:12px;color:#667085;\">brownfieldagnews.com</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\">Soybeans were lower on fund and technical selling.</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\"><b style=\"color:#101828;\">What it means:</b> Less is moving from this origin: grain and food importers can expect firmer offers and longer lead times for a few weeks.</div></td></tr>"
+    "url": "https://www.brownfieldagnews.com/market-news/wheat-bounces-and-corn-manages-a-mostly-firm-finish/",
+    "title": "Wheat bounces and corn manages a mostly firm finish",
+    "source": "brownfieldagnews.com",
+    "summary": "Soybeans were lower on fund and technical selling.",
+    "html": "<tr><td style=\"padding:12px 0;border-top:1px solid #eaecf0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><div style=\"font-size:11px;font-weight:700;color:#667085;\"><span style=\"display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:#65a30d;border-radius:100px;padding:2px 9px;\">Agriculture &amp; food</span> </div>\n    <a href=\"https://www.brownfieldagnews.com/market-news/wheat-bounces-and-corn-manages-a-mostly-firm-finish/\" style=\"display:block;color:#101828;text-decoration:none;font-size:16px;font-weight:700;line-height:1.35;padding:4px 0 2px;\">🇨🇳 Wheat bounces and corn manages a mostly firm finish</a>\n    <div style=\"font-size:12px;color:#667085;\">brownfieldagnews.com</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\">Soybeans were lower on fund and technical selling.</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\"><b style=\"color:#101828;\">What it means:</b> Wheat and corn firmed into the week's close; importers tendering this month are buying into a bounce, not a dip.</div></td></tr>"
    },
    {
     "key": "agri",
-    "html": "<tr><td style=\"padding:12px 0;border-top:1px solid #eaecf0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><div style=\"font-size:11px;font-weight:700;color:#667085;\"><span style=\"display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:#65a30d;border-radius:100px;padding:2px 9px;\">Agriculture &amp; food</span> </div>\n    <a href=\"https://www.brownfieldagnews.com/news/record-cheese-butterfat-exports-point-to-strong-2026-for-dairy/\" style=\"display:block;color:#101828;text-decoration:none;font-size:16px;font-weight:700;line-height:1.35;padding:4px 0 2px;\">🇺🇸 Record cheese, butterfat exports point to strong 2026 for dairy</a>\n    <div style=\"font-size:12px;color:#667085;\">brownfieldagnews.com</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\">2026 could be another record year for U.S. dairy exports. CoBank ag economist Abbi Groves says international business continues to be strong.</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\"><b style=\"color:#101828;\">What it means:</b> More is moving from this origin: grain and food importers get more offers and softer premiums; freight on the route tends to follow.</div></td></tr>"
+    "url": "https://www.brownfieldagnews.com/news/record-cheese-butterfat-exports-point-to-strong-2026-for-dairy/",
+    "title": "Record cheese, butterfat exports point to strong 2026 for dairy",
+    "source": "brownfieldagnews.com",
+    "summary": "2026 could be another record year for U.S. dairy exports. CoBank ag economist Abbi Groves says international business continues to be strong.",
+    "html": "<tr><td style=\"padding:12px 0;border-top:1px solid #eaecf0;font-family:Segoe UI,Helvetica,Arial,sans-serif;\"><div style=\"font-size:11px;font-weight:700;color:#667085;\"><span style=\"display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:#65a30d;border-radius:100px;padding:2px 9px;\">Agriculture &amp; food</span> </div>\n    <a href=\"https://www.brownfieldagnews.com/news/record-cheese-butterfat-exports-point-to-strong-2026-for-dairy/\" style=\"display:block;color:#101828;text-decoration:none;font-size:16px;font-weight:700;line-height:1.35;padding:4px 0 2px;\">🇺🇸 Record cheese, butterfat exports point to strong 2026 for dairy</a>\n    <div style=\"font-size:12px;color:#667085;\">brownfieldagnews.com</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\">2026 could be another record year for U.S. dairy exports. CoBank ag economist Abbi Groves says international business continues to be strong.</div>\n    <div style=\"font-size:14px;line-height:1.5;color:#344054;padding-top:6px;\"><b style=\"color:#101828;\">What it means:</b> Record US cheese and butterfat exports mean more reefer demand on US export lanes and firmer dairy offers for importers into 2026.</div></td></tr>"
    }
   ]
  },
@@ -236,6 +270,8 @@
   "flow": 276,
   "critical": 32,
   "calls": 9,
+  "calendar": 6,
+  "notes": true,
   "sectors": [
    "energy:37",
    "power:41",
@@ -245,5 +281,211 @@
    "infra:1",
    "shipping:18"
   ]
+ },
+ "material": {
+  "deals": [
+   {
+    "name": "Nuclear Power Station Construction Work at CNE Cernavodă",
+    "stage": "award",
+    "country": "Romania",
+    "value": "US$2.2bn",
+    "who": "Candu Energy, Canadian Commercial Corporation, Ansaldo Nucleare, Korea",
+    "deadline": "",
+    "sector": "Power & renewables",
+    "url": "https://ted.europa.eu/en/notice/-/detail/674215-2026",
+    "summary": ""
+   },
+   {
+    "name": "The MaresConnect 750MW HVDC Interconnector System",
+    "stage": "tender",
+    "country": "Ireland",
+    "value": "US$1.1bn",
+    "who": "MaresConnect Limited (MCL)",
+    "deadline": "",
+    "sector": "Power & renewables",
+    "url": "https://ted.europa.eu/en/notice/-/detail/667588-2026",
+    "summary": ""
+   },
+   {
+    "name": "The Provision of Network Services and Works To Gas Networks Ireland",
+    "stage": "award",
+    "country": "Ireland",
+    "value": "US$1.0bn",
+    "who": "GMC Civil & Mechanical Engineering Ltd / Murphy International Limited",
+    "deadline": "",
+    "sector": "Oil, gas & LNG",
+    "url": "https://ted.europa.eu/en/notice/-/detail/669203-2026",
+    "summary": ""
+   },
+   {
+    "name": "Civil Works within NGED Substations 132kV, 66kV, 33kV and 11kV Framework",
+    "stage": "award",
+    "country": "United Kingdom",
+    "value": "US$796m",
+    "who": "A I & Z A Grant Ltd / Alpha Construction Limited / Alun Griffiths (Con",
+    "deadline": "",
+    "sector": "Power & renewables",
+    "url": "https://www.find-tender.service.gov.uk/Notice/092704-2026",
+    "summary": ""
+   },
+   {
+    "name": "Rekonstrukcija i izgradnja drugog kolosijeka Dugo Selo - Novska",
+    "stage": "award",
+    "country": "Croatia",
+    "value": "US$762m",
+    "who": "Afcons Infrastructure Limited",
+    "deadline": "",
+    "sector": "Shipping, ports & logistics",
+    "url": "https://ted.europa.eu/en/notice/-/detail/683852-2026",
+    "summary": ""
+   },
+   {
+    "name": "Debr.-Ny.egyháza signaling and telecommunications",
+    "stage": "tender",
+    "country": "Hungary",
+    "value": "US$187m",
+    "who": "Építési és Közlekedési Minisztérium",
+    "deadline": "8 Oct",
+    "sector": "Shipping, ports & logistics",
+    "url": "https://ted.europa.eu/en/notice/-/detail/677179-2026",
+    "summary": ""
+   },
+   {
+    "name": "Tender for the Construction of a New Cargo Facility at Ras Hanzir between Laboratory and Fuel Wharves, Corradino, Grand Harbour, Malta.",
+    "stage": "tender",
+    "country": "Malta",
+    "value": "US$80m",
+    "who": "Infrastructure Malta",
+    "deadline": "15 Oct",
+    "sector": "Shipping, ports & logistics",
+    "url": "https://ted.europa.eu/en/notice/-/detail/683759-2026",
+    "summary": ""
+   },
+   {
+    "name": "Railway Construction Works - Ramavtal Mindre BEST-arbeten",
+    "stage": "tender",
+    "country": "Sweden",
+    "value": "US$75m",
+    "who": "Trafikverket Myndighet",
+    "deadline": "12 Nov",
+    "sector": "Shipping, ports & logistics",
+    "url": "https://ted.europa.eu/en/notice/-/detail/680281-2026",
+    "summary": ""
+   },
+   {
+    "name": "Reabilitarea reţelelor de termoficare în Constanţa",
+    "stage": "tender",
+    "country": "Romania",
+    "value": "US$43m",
+    "who": "Municipiul Constanta",
+    "deadline": "2 Nov",
+    "sector": "Oil, gas & LNG",
+    "url": "https://ted.europa.eu/en/notice/-/detail/683554-2026",
+    "summary": ""
+   },
+   {
+    "name": "Kishorn Port - Phase 1B East Quay Development",
+    "stage": "tender",
+    "country": "United Kingdom",
+    "value": "US$40m",
+    "who": "Kishorn Port Limited",
+    "deadline": "2 Nov",
+    "sector": "Shipping, ports & logistics",
+    "url": "https://www.find-tender.service.gov.uk/Notice/093459-2026",
+    "summary": ""
+   },
+   {
+    "name": "Modernization of Čunovo Power Plant",
+    "stage": "tender",
+    "country": "Slovakia",
+    "value": "US$39m",
+    "who": "Vodohospodárska Výstavba, Štátny Podnik",
+    "deadline": "12 Nov",
+    "sector": "Power & renewables",
+    "url": "https://ted.europa.eu/en/notice/-/detail/675024-2026",
+    "summary": ""
+   },
+   {
+    "name": "Dam Construction for ПАВЕЦ 'Чаира' and Reservoir 'Яденица'",
+    "stage": "tender",
+    "country": "Bulgaria",
+    "value": "US$398m",
+    "who": "Национална Електрическа Компания Еад",
+    "deadline": "",
+    "sector": "Agriculture & food",
+    "url": "https://ted.europa.eu/en/notice/-/detail/668556-2026",
+    "summary": ""
+   }
+  ],
+  "flows": [
+   {
+    "url": "https://oilprice.com/Energy/Crude-Oil/Venezuelas-Oil-Exports-Drop-9-as-Freight-Costs-Bite.html",
+    "title": "Venezuela’s Oil Exports Drop 9% as Freight Costs Bite",
+    "source": "oilprice.com",
+    "sector": "Oil, gas & LNG",
+    "summary": "Venezuela’s oil exports fell nearly 9% in September to 1.08 million barrels per day as soaring tanker costs forced traders to demand steeper…"
+   },
+   {
+    "url": "https://www.freightwaves.com/news/new-limits-more-ships-can-transit-this-key-cargo-chokepoint",
+    "title": "New limits: More ships can transit this key cargo chokepoint",
+    "source": "freightwaves.com",
+    "sector": "Shipping, ports & logistics",
+    "summary": "The Panama Canal has raised the number of daily transit slots for the largest container vessels."
+   },
+   {
+    "url": "https://oilprice.com/Energy/Energy-General/Middle-East-Oil-Exports-Stage-a-Remarkable-Comeback.html",
+    "title": "Middle East Oil Exports Stage a Remarkable Comeback",
+    "source": "oilprice.com",
+    "sector": "Oil, gas & LNG",
+    "summary": "Exports of crude oil from the Middle East hit their highest level in September since the war with Iran began, reinforcing a trend of increased…"
+   },
+   {
+    "url": "https://www.hellenicshippingnews.com/crude-oil-exports-through-the-strait-of-hormuz-hit-prewar-levels-but-fuel-shipments-remain-constrained/",
+    "title": "Crude oil exports through the Strait of Hormuz hit prewar levels, but fuel shipments remain constrained",
+    "source": "hellenicshippingnews.com",
+    "sector": "Shipping, ports & logistics",
+    "summary": "Crude oil exports from the Strait of Hormuz have basically returned to levels normal before the Iran war, as U.S. military escorts have boosted…"
+   },
+   {
+    "url": "https://www.brownfieldagnews.com/market-news/wheat-bounces-and-corn-manages-a-mostly-firm-finish/",
+    "title": "Wheat bounces and corn manages a mostly firm finish",
+    "source": "brownfieldagnews.com",
+    "sector": "Agriculture & food",
+    "summary": "Soybeans were lower on fund and technical selling."
+   },
+   {
+    "url": "https://www.brownfieldagnews.com/news/record-cheese-butterfat-exports-point-to-strong-2026-for-dairy/",
+    "title": "Record cheese, butterfat exports point to strong 2026 for dairy",
+    "source": "brownfieldagnews.com",
+    "sector": "Agriculture & food",
+    "summary": "2026 could be another record year for U.S. dairy exports. CoBank ag economist Abbi Groves says international business continues to be strong."
+   }
+  ],
+  "deltas": {
+   "epc": 42,
+   "tenders": 31,
+   "awards": 10,
+   "flow": -66
+  },
+  "prev": {
+   "epc": 73,
+   "tenders": 6,
+   "awards": 47,
+   "flow": 342
+  },
+  "topWinner": {
+   "who": "Vale",
+   "n": 2
+  },
+  "topCountry": {
+   "name": "Poland",
+   "n": 8
+  },
+  "biggest": {
+   "name": "Nuclear Power Station Construction Work at CNE Cernavodă",
+   "value": "US$2.2bn",
+   "who": "Candu Energy, Canadian Commercial Corporation, Ansaldo Nucleare, Korea",
+   "url": "https://ted.europa.eu/en/notice/-/detail/674215-2026"
+  }
  }
 }

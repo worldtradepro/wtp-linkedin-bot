@@ -48,6 +48,8 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}   # editor's notes (weekly_editor.mjs); OPENROUTER_API_KEY works too
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
     steps:
       - uses: actions/checkout@v4
       - name: Pick the edition
@@ -72,6 +74,12 @@ jobs:
         if: steps.ed.outputs.edition != 'check'
         run: |
           if [ "${{ steps.ed.outputs.edition }}" = weekly ]; then node newsletter_weekly.mjs --preview; else node newsletter.mjs --edition ${{ steps.ed.outputs.edition }}; fi
+      - name: Editor's notes (one model call, checked in code) and rebuild with them
+        # a failed or skipped editor never blocks the issue: without notes the rule-based sentences stay
+        if: steps.ed.outputs.edition == 'weekly'
+        continue-on-error: true
+        run: |
+          node weekly_editor.mjs && node newsletter_weekly.mjs --preview
       - name: Send through Amazon SES
         if: steps.ed.outputs.edition != 'check'
         run: node ses_send.mjs --edition ${{ steps.ed.outputs.edition }} ${{ steps.ed.outputs.test }}
@@ -89,7 +97,7 @@ jobs:
             test -f state/newsletter.json || echo '{}' > state/newsletter.json
             node -e "const fs=require('fs');const r=JSON.parse(fs.readFileSync('/tmp/remote.json'));const l=JSON.parse(fs.readFileSync('state/newsletter.json'));fs.writeFileSync('state/newsletter.json',JSON.stringify({...r,...l},null,2)+String.fromCharCode(10))"
             git reset -q --mixed origin/main
-            git add state/newsletter.json newsletter/out/$N.* 2>/dev/null || true
+            git add state/newsletter.json newsletter/out/$N.* newsletter/notes/$N.json 2>/dev/null || true
             git diff --cached --quiet && exit 0
             git commit -q -m "newsletter $N"
             git push origin HEAD:main && exit 0

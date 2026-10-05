@@ -93,18 +93,20 @@ export function assemble(b, readerLike = {}, opts = {}) {
   const out = [];
   const buyer = isBuyer(reader.role);
   // masthead: kicker, role-specific title, four stat tiles, the reader's sectors
-  const tile = (n, label, color) => `<td width="25%" style="padding:0 3px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${color}12;border-radius:8px;"><tr><td style="padding:10px 6px;text-align:center;${font}"><div style="font-size:22px;font-weight:800;color:${color};line-height:1.1;">${n}</div><div style="font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:${C.muted};padding-top:2px;">${label}</div></td></tr></table></td>`;
-  const st = b.stats || {};
+  const st = b.stats || {}, dl = st.deltas || {};
+  const delta = (d) => (d === undefined || d === null ? '' : d > 0 ? `<span style="color:#15803d;">▲ ${d}</span>` : d < 0 ? `<span style="color:#b42318;">▼ ${-d}</span>` : `<span style="color:${C.muted};">= last week</span>`);
+  const tile = (n, label, color, d) => `<td width="25%" style="padding:0 3px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${color}12;border-radius:8px;"><tr><td style="padding:10px 6px 8px;text-align:center;${font}"><div style="font-size:24px;font-weight:800;color:${color};line-height:1.1;">${n}</div><div style="font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:${C.muted};padding-top:2px;">${label}</div><div style="font-size:11.5px;font-weight:700;padding-top:3px;">${delta(d)}</div></td></tr></table></td>`;
   const sectorsLine = reader.sectors.length ? `${reader.sectors.map((k) => sectorPill(k)).join(' ')} <a href="${esc(b.links.manage)}" style="color:${C.muted};font-size:12px;text-decoration:none;">change ›</a>` : `<span style="color:${C.muted};font-size:13px;">All sectors · </span><a href="${esc(b.links.manage)}" style="color:${C.accent};font-size:13px;font-weight:700;text-decoration:none;">pick yours ›</a>`;
   const rl = roleLine(reader.role);
   out.push(`<tr><td style="${font}padding-bottom:12px;border-bottom:3px solid ${C.navy};">
     <div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:${C.accent};font-weight:700;">${esc(b.head.kicker)}</div>
     <div style="font-size:27px;font-weight:800;color:${C.ink};padding-top:6px;line-height:1.15;">${esc(titleFor(reader.role, b.head.title))}</div>
     <div style="font-size:13px;color:${C.muted};padding:6px 0 10px;">${esc(b.head.sub)}${rl ? ` · ${esc(rl)}` : ''}</div>
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 -3px;"><tr>${tile(st.epc ?? 0, 'new projects', C.navy)}${tile(st.tenders ?? 0, 'tenders', '#b45309')}${tile(st.awards ?? 0, 'awards', '#15803d')}${tile(st.flow ?? 0, 'flow signals', '#0369a1')}</tr></table>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 -3px;"><tr>${tile(st.epc ?? 0, 'new projects', C.navy, dl.epc)}${tile(st.tenders ?? 0, 'tenders', '#b45309', dl.tenders)}${tile(st.awards ?? 0, 'awards', '#15803d', dl.awards)}${tile(st.flow ?? 0, 'flow signals', '#0369a1', dl.flow)}</tr></table>
     <div style="padding-top:10px;">${sectorsLine}</div>
   </td></tr>`);
   if (b.sponsor?.html) out.push(row(b.sponsor.html, '12px 0 0'));
+  if (b.editor) out.push(b.editor);
 
   const sectionHead = (t, sub) => row(`<div style="font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:${C.navy};border-left:4px solid ${C.gold};padding-left:10px;line-height:1.3;">${t}${sub ? `<div style="font-size:12px;font-weight:400;letter-spacing:0;text-transform:none;color:${C.muted};padding-top:2px;">${sub}</div>` : ''}</div>`, '28px 0 6px');
   const callsSec = () => {
@@ -135,8 +137,19 @@ export function assemble(b, readerLike = {}, opts = {}) {
     items.forEach((f) => out.push(f.html));
     if (b.flows.lanes) out.push(b.flows.lanes);
   };
+  const overviewSec = () => {
+    if (!b.chart && !b.superlatives) return;
+    out.push(sectionHead('The week in one look', 'New projects by sector, and the three records of the week'));
+    if (b.chart) out.push(b.chart);
+    if (b.superlatives) out.push(b.superlatives);
+  };
+  const calendarSec = () => {
+    if (!b.calendar) return;
+    out.push(sectionHead(buyer ? 'Bid deadlines your peers set' : 'Bid deadlines, next 14 days', 'Soonest first. Red = this week.'));
+    out.push(b.calendar);
+  };
   if (b.directory) out.push(b.directory);   // "new on the supplier directory" - only when the week had listings
-  const order = FLOWFIRST.includes(reader.role) ? [flowsSec, callsSec, projectsSec] : [callsSec, projectsSec, flowsSec];
+  const order = FLOWFIRST.includes(reader.role) ? [overviewSec, flowsSec, callsSec, calendarSec, projectsSec] : [overviewSec, callsSec, calendarSec, projectsSec, flowsSec];
   order.forEach((f) => f());
   if (b.moves) out.push(b.moves);
   out.push(button('Browse every project, with filters →', b.links.projects));

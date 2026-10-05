@@ -10,6 +10,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { dayShift, fetchJson, flagOf, countryName, LANES, laneOf, clean, hostOf, similar, score, summaryOf, tokens, NOT_EPC, dealOf } from './common.mjs';
+import { existsSync } from 'node:fs';
 import { SECTORS, SECTOR_ORDER, sectorKeyOf, C, font, esc, row, para, link, box, pill, sectorPill, badge, colorOf, assemble, document as doc } from './newsletter_assemble.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -22,6 +23,10 @@ const API = cfg.site + '/wp-json/wtp/v1';
 const OUT = join(HERE, 'newsletter', 'out');
 const NAME = `${TODAY}-weekly`;
 const FROM = dayShift(TODAY, -7), TO = dayShift(TODAY, -1);
+const PFROM = dayShift(TODAY, -14), PTO = dayShift(TODAY, -8);   // the week before, for the deltas
+// Editorial notes (weekly_editor.mjs, or written by hand): { lede_html, deals_why: {deal name: sentence}, flows_why: {url: sentence}, signoff }
+const NOTES_FILE = join(HERE, 'newsletter', 'notes', `${NAME}.json`);
+const NOTES = existsSync(NOTES_FILE) ? JSON.parse(readFileSync(NOTES_FILE, 'utf8')) : null;
 
 const utm = (u, content) => { const url = new URL(u); url.searchParams.set('utm_source', 'newsletter'); url.searchParams.set('utm_medium', 'email'); url.searchParams.set('utm_campaign', 'weekly-' + TODAY); if (content) url.searchParams.set('utm_content', content); return url.toString(); };
 const fmtDay = (iso) => new Date(iso + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' });
@@ -42,10 +47,12 @@ const [YEAR, WEEK] = isoWeek(FROM);
 const issueNo = Math.max(1, Math.round((Date.parse(TODAY) - Date.parse(W.firstIssue || TODAY)) / (7 * 864e5)) + 1);
 
 // ---------------------------------------------------------------- data
-const [epcRes, flowRes, lw] = await Promise.all([
+const [epcRes, flowRes, lw, pEpcRes, pFlowRes] = await Promise.all([
   fetchJson(`${API}/opportunities?report_type=epc&from=${FROM}&to=${TO}&limit=1000`),
   fetchJson(`${API}/opportunities?report_type=flow_distortion&from=${FROM}&to=${TO}&limit=1000`),
   fetchJson(`${API}/lane-weeks?weeks=4`),
+  fetchJson(`${API}/opportunities?report_type=epc&from=${PFROM}&to=${PTO}&limit=1000`),
+  fetchJson(`${API}/opportunities?report_type=flow_distortion&from=${PFROM}&to=${PTO}&limit=1000`),
 ]);
 const epc = (epcRes.items || []).filter(ok).filter((it) => !NOT_EPC.test(`${it.project_name} ${it.description}`))
   .map((it) => ({ ...it, moved: it.latest_stage && it.latest_stage !== it.stage ? it.stage : '', stage: it.latest_stage || it.stage, key: sectorKeyOf(it) }));
@@ -97,9 +104,10 @@ const callCard = (d) => {
     ? `A peer is buying this scope${d.value ? ` at an estimated ${esc(d.value)}` : ''}; a live comparison for your own package${d.deadline ? ` (their bids close ${esc(d.deadline)})` : ''}.`
     : `${d.value ? `Reference price: ${esc(d.value)} for this scope in ${esc(countryName(it.country) || 'this market')}. ` : ''}${name && !isNA(name) ? `${esc(name)} is now booked on this job.` : 'The winner\'s team is now committed.'}`;
   const line = (label, text, color) => `<div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:8px;border-top:1px dashed ${C.line};margin-top:8px;"><b style="color:${color};">${label}</b> ${text}</div>`;
+  const why = NOTES?.deals_why?.[d.name];
   return {
     html: `<a href="${esc(d.url)}" style="display:block;color:${C.ink};text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:6px 0 6px;">${esc(d.name)}</a>
-    <div style="font-size:13px;color:${C.muted};line-height:1.9;">${facts.join(' &nbsp;·&nbsp; ')}</div>`,
+    <div style="font-size:13px;color:${C.muted};line-height:1.9;">${facts.join(' &nbsp;·&nbsp; ')}</div>${why ? `<div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:8px;">${esc(why)}</div>` : ''}`,
     call: line('The call:', call, C.navy),
     buyer: line('For buyers:', buyer, '#15803d'),
   };
@@ -185,8 +193,8 @@ for (const c of clusters.slice(0, 14)) {
   const it = c.lead, l = laneOf(it) || LANES.find((x) => [it, ...c.more].some((m) => x.re.test(m.project_name + ' ' + m.description)));
   const lr = l && lanes.find((x) => x.l.id === l.id);
   const what = snippet(it.description, 150);
-  const means = meansFor(it, l, lr);
-  flowItems.push({ key: it.key, html: row(`<div style="font-size:11px;font-weight:700;color:${C.muted};">${sectorPill(it.key)} ${l ? `&nbsp;${badge(esc(l.name), '#0369a1')}` : ''}</div>
+  const means = NOTES?.flows_why?.[it.source_url] ? esc(NOTES.flows_why[it.source_url]) : meansFor(it, l, lr);
+  flowItems.push({ key: it.key, url: it.source_url, title: title(it), source: source(it).replace(/&amp;/g, '&'), summary: what, html: row(`<div style="font-size:11px;font-weight:700;color:${C.muted};">${sectorPill(it.key)} ${l ? `&nbsp;${badge(esc(l.name), '#0369a1')}` : ''}</div>
     <a href="${esc(it.source_url)}" style="display:block;color:${C.ink};text-decoration:none;font-size:16px;font-weight:700;line-height:1.35;padding:4px 0 2px;">${flagOf(it.country)} ${esc(title(it))}</a>
     <div style="font-size:12px;color:${C.muted};">${source(it)}${c.more.length ? ` · ${c.more.length + 1} reports this week` : ''}</div>
     ${what ? `<div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:6px;">${esc(what)}</div>` : ''}
@@ -210,6 +218,61 @@ const tail = [
   nl.promo?.enabled ? para(`<span style="font-size:13px;color:${C.muted};"><b>P.S.</b> New to physical deals? ${esc(nl.promo.title)} walks through one end to end. ${link('Watch the free prologue →', utm(nl.promo.url, 'course'), C.muted)}</span>`, '12px 0 0') : '',
 ].filter(Boolean);
 
+// ---------------------------------------------------------------- week-on-week, superlatives, bid calendar, sector chart, editor's note
+const pEpc = (pEpcRes.items || []).filter(ok).filter((it) => !NOT_EPC.test(`${it.project_name} ${it.description}`));
+const pFlow = (pFlowRes.items || []).filter(ok);
+const pTenders = pEpc.filter((it) => stageKey(it.stage) === 'S4').length, pAwards = pEpc.filter((it) => stageKey(it.stage) === 'S5').length;
+const deltas = { epc: epc.length - pEpc.length, tenders: epc.filter((it) => stageKey(it.stage) === 'S4').length - pTenders, awards: epc.filter((it) => stageKey(it.stage) === 'S5').length - pAwards, flow: flow.length - pFlow.length };
+
+// superlatives: biggest deal, most-named winner, busiest country - each one line, each a link
+const winners = {}, winnerUsd = {};
+for (const d of dealsAll.filter((x) => !x.tender && x.who)) { winners[d.who] = (winners[d.who] || 0) + 1; winnerUsd[d.who] = (winnerUsd[d.who] || 0) + (d.usd || 0); }
+const topWinner = Object.entries(winners).sort((a, b) => b[1] - a[1] || (winnerUsd[b[0]] || 0) - (winnerUsd[a[0]] || 0))[0];
+const byCountry = {};
+for (const it of epc) { const c = countryName(it.country); if (c && !isNA(c)) byCountry[c] = (byCountry[c] || []).concat(it); }
+const topCountry = Object.entries(byCountry).sort((a, b) => b[1].length - a[1].length)[0];
+const biggest = [...dealsAll].sort((a, b) => (b.usd || 0) - (a.usd || 0))[0];
+const supTile = (k, v, sub, href, color) => `<td width="33%" valign="top" style="padding:0 4px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:3px solid ${color};"><tr><td style="padding:8px 2px 0;${font}"><div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:${C.muted};">${k}</div><div style="font-size:15px;font-weight:700;color:${C.ink};line-height:1.3;padding-top:3px;">${href ? `<a href="${esc(href)}" style="color:${C.ink};text-decoration:none;">${v}</a>` : v}</div><div style="font-size:12px;color:${C.muted};padding-top:2px;">${sub}</div></td></tr></table></td>`;
+const superlatives = (biggest || topWinner || topCountry) ? row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 -4px;"><tr>
+  ${biggest && biggest.usd ? supTile('Biggest deal', esc(biggest.value), esc(cut(biggest.name, 48)), biggest.url, C.navy) : ''}
+  ${topWinner ? supTile('Most awards', esc(cut(topWinner[0], 36)), `${plural(topWinner[1], 'contract')} this week${winnerUsd[topWinner[0]] ? ' · ' + esc(moneyOf(winnerUsd[topWinner[0]])) : ''}`, '', '#15803d') : ''}
+  ${topCountry ? supTile('Busiest country', `${flagOf(topCountry[1][0].country)} ${esc(topCountry[0])}`, plural(topCountry[1].length, 'new project'), COUNTRY_PAGES.has(slugOf(topCountry[0])) ? utm(`${cfg.site}/projects/${slugOf(topCountry[0])}/`, 'top-country') : '', '#0369a1') : ''}
+</tr></table>`, '22px 0 0') : '';
+function moneyOf(usd) { return !usd ? '' : usd >= 1e9 ? `US$${(usd / 1e9).toFixed(1)}bn` : `US$${Math.round(usd / 1e6)}m`; }
+
+// bid calendar: tenders whose notice names a deadline in the next 14 days, soonest first
+const calItems = [];
+for (const it of epc.filter((x) => stageKey(x.stage) === 'S4')) {
+  const m = /deadline (\d{4}-\d{2}-\d{2})/.exec(it.description || '');
+  if (!m || m[1] < TODAY || m[1] > dayShift(TODAY, 14)) continue;
+  const d = dealOf(it);
+  calItems.push({ iso: m[1], key: it.key, name: d.name, value: d.value, country: countryName(it.country), url: d.url, who: d.who });
+}
+calItems.sort((a, b) => a.iso.localeCompare(b.iso));
+const calDay = (iso) => new Date(iso + 'T00:00:00Z').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' });
+const calendar = calItems.length ? calItems.slice(0, 8).map((c, i, arr) => row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+  <td width="76" valign="top" style="${font}padding:9px 10px 9px 0;border-top:1px solid ${C.line};"><div style="font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:${c.iso <= dayShift(TODAY, 3) ? '#b42318' : C.muted};">${calDay(c.iso).split(' ')[0]}</div><div style="font-size:18px;font-weight:800;color:${c.iso <= dayShift(TODAY, 3) ? '#b42318' : C.ink};line-height:1.1;">${calDay(c.iso).split(' ')[1]} <span style="font-size:12px;font-weight:700;color:${C.muted};">${calDay(c.iso).split(' ')[2]}</span></div></td>
+  <td valign="top" style="${font}padding:9px 0;border-top:1px solid ${C.line};">${sectorPill(c.key)}<br><a href="${esc(c.url)}" style="color:${C.ink};text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.35;">${esc(cut(c.name, 90))}</a><div style="font-size:12.5px;color:${C.muted};padding-top:2px;">${[c.country ? esc(c.country) : '', c.value ? `<b style="color:${C.ink};">${esc(c.value)}</b>` : '', c.who ? esc(c.who) : ''].filter(Boolean).join(' · ')}</div></td>
+</tr></table>`)).join('\n') : '';
+
+// sector chart: one horizontal bar per sector (tenders + awards + other), drawn with table cells so it renders in every mail client
+const chartRows = SECTOR_ORDER.map((k) => { const items = epc.filter((it) => it.key === k); return { k, t: items.filter((it) => stageKey(it.stage) === 'S4').length, a: items.filter((it) => stageKey(it.stage) === 'S5').length, o: items.filter((it) => !['S4', 'S5'].includes(stageKey(it.stage))).length, usd: items.reduce((n, it) => n + (dealOf(it).usd || 0), 0) }; })
+  .filter((r) => r.t + r.a + r.o > 0).sort((a, b) => (b.t + b.a + b.o) - (a.t + a.a + a.o));
+const chartMax = Math.max(1, ...chartRows.map((r) => r.t + r.a + r.o));
+const seg = (n, color, title) => (n ? `<td width="${Math.round((n / chartMax) * 100)}%" title="${title}" style="background:${color};height:14px;font-size:1px;line-height:14px;">&nbsp;</td>` : '');
+const chart = chartRows.length ? row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+  ${chartRows.map((r) => `<tr><td width="150" style="${font}font-size:12.5px;font-weight:700;color:${colorOf(r.k)};padding:5px 8px 5px 0;white-space:nowrap;">${esc(SECTORS[r.k])}</td>
+    <td style="padding:5px 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>${seg(r.t, '#b45309', 'tenders')}${seg(r.a, '#15803d', 'awards')}${seg(r.o, '#cbd5e1', 'earlier stage')}<td style="${font}font-size:12px;color:${C.text};padding-left:8px;white-space:nowrap;"><b>${r.t + r.a + r.o}</b>${r.usd ? ` <span style="color:${C.muted};">· ${esc(moneyOf(r.usd))}</span>` : ''}</td><td width="100%"></td></tr></table></td></tr>`).join('')}
+</table>
+<div style="font-size:12px;color:${C.muted};padding-top:6px;"><span style="display:inline-block;width:10px;height:10px;background:#b45309;vertical-align:middle;"></span> tenders &nbsp; <span style="display:inline-block;width:10px;height:10px;background:#15803d;vertical-align:middle;"></span> awards &nbsp; <span style="display:inline-block;width:10px;height:10px;background:#cbd5e1;vertical-align:middle;"></span> earlier stage &nbsp;·&nbsp; value where the notice names one</div>`, '10px 0 0') : '';
+
+// editor's note: the one place a person speaks. From the notes file (LLM-drafted, reviewed) - nothing is invented in code.
+const editor = NOTES?.lede_html ? row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.sand};border-radius:10px;"><tr><td style="padding:16px 18px;${font}">
+  <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8a6d1f;">This week</div>
+  <div style="font-size:15.5px;line-height:1.6;color:${C.ink};padding-top:6px;">${NOTES.lede_html}</div>
+  ${NOTES.signoff ? `<div style="font-size:13px;color:${C.muted};padding-top:8px;">— ${esc(NOTES.signoff)}</div>` : ''}
+</td></tr></table>`, '16px 0 0') : '';
+
 // ---------------------------------------------------------------- head, subject, blocks
 const tenders = epc.filter((it) => stageKey(it.stage) === 'S4').length, awards = epc.filter((it) => stageKey(it.stage) === 'S5').length;
 const crit = flow.filter((it) => score(it) >= 12).length;
@@ -220,11 +283,14 @@ const preview = cut(`${plural(epc.length, 'new project')} in ${countries} countr
 const blocks = {
   date: TODAY, edition: 'weekly', issue: issueNo, week: WEEK, year: YEAR, from: FROM, to: TO, subject, preview,
   head: { kicker: `${W.name || 'World Trade Pro Weekly'} · Issue ${issueNo} · Week ${WEEK}`, title: W.subtitle || "Who's buying, who won, what moved", sub: `${fmtDay(FROM)} – ${fmtDay(TO)} ${YEAR} · ${plural(epc.length, 'new project')} in ${countries} countries · ${tenders} tenders · ${awards} awards · ${plural(flow.length, 'trade-flow signal')}` },
-  stats: { epc: epc.length, tenders, awards, flow: flow.length, critical: crit }, directory: '',
+  stats: { epc: epc.length, tenders, awards, flow: flow.length, critical: crit, deltas }, directory: '',
+  editor, chart, superlatives, calendar,
   sponsor, calls, projects, flows: { lanes: laneBoard, items: flowItems }, moves: movesHtml, tail,
   links: { projects: utm(cfg.site + '/projects/', 'projects-hub'), map: utm(cfg.site + '/intelligence-map/', 'map'), manage: cfg.site + '/newsletter/unsubscribe/' },
   skip: epc.length + flow.length < 5,
-  counts: { epc: epc.length, tenders, awards, flow: flow.length, critical: crit, calls: calls.length, sectors: projects.map((p) => `${p.key}:${p.count}`) },
+  counts: { epc: epc.length, tenders, awards, flow: flow.length, critical: crit, calls: calls.length, calendar: calItems.length, notes: !!NOTES, sectors: projects.map((p) => `${p.key}:${p.count}`) },
+  // material for weekly_editor.mjs (names + urls the model may use; nothing else)
+  material: { deals: dealsAll.slice(0, 12).map((d) => ({ name: d.name, stage: d.tender ? 'tender' : 'award', country: countryName(d.it.country), value: d.value, who: d.who, deadline: d.deadline, sector: SECTORS[d.it.key], url: d.url, summary: snippet(d.it.description, 240) })), flows: flowItems.map((f) => ({ url: f.url, title: f.title, source: f.source, sector: SECTORS[f.key], summary: f.summary })), deltas, prev: { epc: pEpc.length, tenders: pTenders, awards: pAwards, flow: pFlow.length }, topWinner: topWinner ? { who: topWinner[0], n: topWinner[1] } : null, topCountry: topCountry ? { name: topCountry[0], n: topCountry[1].length } : null, biggest: biggest ? { name: biggest.name, value: biggest.value, who: biggest.who, url: biggest.url } : null },
 };
 mkdirSync(OUT, { recursive: true });
 writeFileSync(join(OUT, NAME + '.blocks.json'), JSON.stringify(blocks, null, 1));
