@@ -24,6 +24,12 @@
       "mode": "schedule",
       "at": "2026-10-04T09:54:06.952Z",
       "dueAt": "2026-10-05T15:00:00.000Z"
+    },
+    "cd_banana_ripening": {
+      "postId": "6ac3ee7bfbfba590d084d141",
+      "mode": "schedule",
+      "at": "2026-10-05T18:37:47.495Z",
+      "dueAt": "2026-10-06T15:00:00.000Z"
     }
   }
 }
