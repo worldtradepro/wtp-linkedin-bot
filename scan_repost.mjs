@@ -49,10 +49,10 @@ for (const o of (await gql('query { account { organizations { id } } }')).accoun
 }
 if (!channel) throw new Error(`LinkedIn channel "${want}" not found in Buffer`);
 
-const deals = S.tenders || S.awards ? `\n\nAlso inside: ${S.tenders || 0} open tenders and ${S.awards || 0} contract awards by industry.` : '\n\nAlso inside: this week\'s open tenders and contract awards by industry.';
+const deals = S.tenders || S.awards ? `\n\nAlso inside: ${S.tenders || 0} open tenders and ${S.awards || 0} contract awards by industry.` : '\n\nAlso inside: the open tenders and contract awards by industry.';
 const text = `🏗️ Today's Daily Project Scan #${S.issue} from our Infrastructure page${S.hook ? `\n\n${S.hook}` : ''}${deals}
 
-Follow WorldTradePro Infrastructure for tomorrow's scan 👇
+Follow WorldTradePro Infrastructure & Supply Chain for tomorrow's scan 👇
 ${post.externalLink}`;
 const slot = Date.parse(`${DATE}T${DS.infra?.repostSlotUtc || '12:30'}:00Z`);
 const due = new Date(Math.max(slot, Date.now() + 10 * 60000));

@@ -205,11 +205,10 @@ const stageKey = (s) => (clean(s).match(/^S(\d)/) || [])[0] || '';
 const SCALE_RANK = { Large: 0, Medium: 1, Small: 2 };
 
 async function buildProjects() {
-  const from = dayShift(TODAY, -13), to = dayShift(TODAY, -7);   // first seen 7-13 days ago = free this week
+  const from = dayShift(TODAY, -7), to = dayShift(TODAY, -1);   // first seen in the last 7 days (the map is free since 2026-10-04, newest week included)
   const res = await fetchJson(`${API}/opportunities?report_type=epc&from=${from}&to=${to}&limit=1000`);
   const epc = (res.items || []).filter(ok).map((it) => ({ ...it, moved: it.latest_stage && it.latest_stage !== it.stage ? it.stage : '', stage: it.latest_stage || it.stage }));
-  let LOCKED = 0, COUNTRY_PAGES = new Set();
-  try { LOCKED = (await fetchJson(`${API}/opportunities?report_type=epc&from=${dayShift(TODAY, -6)}&to=${TODAY}&limit=1`)).locked_counts?.recent || 0; } catch {}
+  let COUNTRY_PAGES = new Set();
   try {
     const xml = await (await fetch(`${cfg.site}/wp-sitemap-intel-1.xml`, { headers: { 'user-agent': 'wtp-linkedin-bot/1.0' } })).text();
     COUNTRY_PAGES = new Set([...xml.matchAll(/\/projects\/([a-z0-9-]+)\//g)].map((m) => m[1]));
@@ -251,7 +250,6 @@ async function buildProjects() {
   const regions = countBy(epc, REGION);
   const sectors = countBy(epc, (it) => clean(it.sector));
   const hub = utm(cfg.site + '/projects/', 'projects-hub');
-  const unlock = utm(cfg.site + '/unlock-intelligence-map/', 'unlock');
   const perSection = ed.perSection || 6;
 
   const body = [];
@@ -273,7 +271,6 @@ async function buildProjects() {
     sectors.length ? `By sector: ${sectors.map(([k, n]) => `${esc(k)} ${n}`).join(' · ')}.` : '',
     `By region: ${regions.map(([k, n]) => `${esc(k)} ${n}`).join(' · ')}.`,
   ].filter(Boolean)));
-  if (LOCKED) body.push(box(`<b style="color:#ffffff;font-size:15px;">🔒 ${plural(LOCKED, 'more project')} found in the last 7 days.</b><br><span style="color:#dbe4f0;">Everything in this e-mail is a week old. Pro members see new projects the day they are found — time to reach the owner or EPC before the tender is public.</span><br>${link('See them 7 days earlier →', unlock, C.gold)}`, C.navy));
   const section = (title, sub, items, key) => {
     if (!items.length) return;
     const shown = pick(items, perSection);
@@ -318,15 +315,15 @@ async function buildProjects() {
     pick(moved, perSection).forEach((it) => body.push(row(`${esc(clean(it.project_name))} <span style="color:${C.muted};font-size:13px;">— ${esc((STAGE[stageKey(it.moved)] || [clean(it.moved)])[0])} → <b>${esc((STAGE[stageKey(it.stage)] || [clean(it.stage)])[0])}</b></span>`, `8px 0;border-top:1px solid ${C.line};font-size:14px;color:${C.ink}`)));
   }
   body.push(button(`Filter all projects by country →`, hub));
-  body.push(box(`<b style="color:${C.ink};font-size:15px;">Need Chinese equipment or an EPC partner for a project?</b><br><span style="color:${C.text};">Tell us what the project needs. We match owners and contractors with checked Chinese manufacturers and EPCs — factory checks, inspection and procurement follow-up included.</span><br>${link('Submit an EPC supply request →', utm(cfg.site + '/china-sourcing-support-request/#csr-apply', 'epc-request'))}<br><span style="color:${C.muted};font-size:13px;">Chinese manufacturer or EPC? ${link('Send us your supplier profile', utm(cfg.site + '/china-sourcing-support-request/?side=supply#csr-apply', 'epc-supplier'), C.muted)} and we will match you to projects like these.</span>`, '#fdf6e3', '#ecd9a3'));
+  body.push(box(`<b style="color:${C.ink};font-size:15px;">Need Chinese equipment or an EPC partner for a project?</b><br><span style="color:${C.text};">Tell us what the project needs. We match owners and contractors with checked Chinese manufacturers and EPCs — factory checks, inspection and procurement follow-up included.</span><br>${link('Submit an EPC supply request →', utm(cfg.site + '/project-sourcing/#csr-apply', 'epc-request'))}<br><span style="color:${C.muted};font-size:13px;">Chinese manufacturer or EPC? ${link('Send us your supplier profile', utm(cfg.site + '/project-sourcing/?side=supply#csr-apply', 'epc-supplier'), C.muted)} and we will match you to projects like these.</span>`, '#fdf6e3', '#ecd9a3'));
   body.push(para(`<span style="font-size:13px;color:${C.muted};">Also free: the ${link('live project map', utm(cfg.site + '/intelligence-map/?view=infrastructure', 'map-infra'), C.muted)} and the ${link('shipping lane tracker', utm(cfg.site + '/trade-lanes/', 'lanes-hub'), C.muted)}.</span>`, '16px 0 0'));
 
   const subject = cut(`${epc.length} new projects: ${plural(tenders.length, 'tender')}, ${plural(awards.length, 'award')}${countries[0] ? ' — top: ' + countries[0][0] : ''}`, 64);
-  const preview = cut(topLead ? `${(STAGE[stageKey(topLead.stage)] || [''])[0]}: ${clean(topLead.project_name)}${LOCKED ? ` · ${LOCKED} newer locked for Pro` : ''}` : 'New infrastructure projects this week', 110);
+  const preview = cut(topLead ? `${(STAGE[stageKey(topLead.stage)] || [''])[0]}: ${clean(topLead.project_name)}` : 'New infrastructure projects this week', 110);
   return {
     head: { kicker: 'World Trade Pro · EPC Project Leads Weekly', title: `${plural(epc.length, 'new project')} this week`, sub: `First seen ${fmtDay(from)} – ${fmtDay(to)} ${TODAY.slice(0, 4)} · energy, mining & commodity infrastructure` },
     body: body.join('\n'), subject, preview, skip: epc.length === 0,
-    counts: { epc: epc.length, tenders: tenders.length, early: early.length, awards: awards.length, moved: moved.length, locked: LOCKED },
+    counts: { epc: epc.length, tenders: tenders.length, early: early.length, awards: awards.length, moved: moved.length },
   };
 }
 

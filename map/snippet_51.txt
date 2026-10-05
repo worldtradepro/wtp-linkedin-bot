@@ -618,11 +618,9 @@ body.home .social-widget { display:none; }
             return '📍';
         }
 
-        // Infrastructure opens on "30 days", not 7d: the most recent 7 days is the paid part (see
-        // wtp_opps_query's server-side gate), so a 7d default would show an empty globe to most
-        // first-time visitors. For them the server clips 30/90 days to what is older than 7 days.
-        // The full history is not drawn on the globe (thousands of pins); "Full archive" links to
-        // the server-rendered /projects/ pages instead.
+        // Everything is free (2026-10-04) and both modes open on the freshest 7 days. The server limits public
+        // Infrastructure reads to the last 30 days (see wtp_opps_query), so the globe never draws the full history;
+        // older projects live on the server-rendered, cached /projects/ pages.
         // Two separate products (2026-09-19): Infrastructure = project pipeline, Trade Flows =
         // live signals. They have different taxonomies, sorting and audiences, so the page shows
         // ONE at a time (no "both" mix). ?view=flows deep-links to Trade Flows.
@@ -633,13 +631,11 @@ body.home .social-widget { display:none; }
             if (v === 'infrastructure') return 'epc';
             return root.dataset.reportType === 'flow_distortion' ? 'flow_distortion' : 'epc';
         }
-        // Trade Flows are free at every date range (server: report_type=flow_distortion skips the
-        // gate) and perishable, so that mode opens on the freshest 7 days; Infrastructure opens on 30 days.
         var startMode = initialMode();
-        var state = { range: startMode === 'flow_distortion' ? '7' : '30', sector: '', subsector: '', stage: '', tier: '', showMinor: false, reportType: startMode, topSector: '', lane: '', showLanes: true, weekK: 0 };
+        var state = { range: '7', sector: '', subsector: '', stage: '', tier: '', showMinor: false, reportType: startMode, topSector: '', lane: '', showLanes: true, weekK: 0 };
         // weekK: which rolling 7-day window Trade Flows shows (0 = last 7 days; every week is free).
         var weeksData = [];
-        function defaultRange(mode) { return mode === 'flow_distortion' ? '7' : '30'; }
+        function defaultRange(mode) { return '7'; }
         var MODES = {
             epc: {
                 name: 'Infrastructure Projects',
@@ -768,10 +764,9 @@ body.home .social-widget { display:none; }
             '    <button data-v="flow_distortion"' + (state.reportType==='flow_distortion'?' class="active"':'') + '>Trade Flows</button>' +
             '  </div>' +
             '  <div class="wim-seg" data-role="range">' +
-            '    <button data-v="7" class="wim-locked">Last 7d 🔒</button>' +
-            '    <button data-v="30" class="active">30 days</button>' +
-            '    <button data-v="90">90 days</button>' +
-            '    <a href="/projects/" data-role="archivelink" title="Every tracked project, country by country">Full archive →</a>' +
+            '    <button data-v="7" class="active">7 days</button>' +
+            '    <button data-v="30">30 days</button>' +
+            '    <a href="/projects/" data-role="archivelink" title="Projects older than 30 days, country by country">30+ days →</a>' +
             '  </div>' +
             '  <div class="wim-count" data-role="count"></div>' +
             '  <button type="button" class="wim-tl-share" data-role="tlshare" title="Make a LinkedIn-ready image and caption from what is on the map" aria-label="Share on LinkedIn">Share ↗</button>' +
@@ -785,7 +780,8 @@ body.home .social-widget { display:none; }
             '    <div class="wim-modeintro-who">' +
             '      <span data-role="introwho"></span> ' +
             '      <a class="wim-browse" data-role="introbrowse" href="#"></a>' +
-            '      <a class="wim-browse" data-role="introemail" href="#" style="display:none">📧 Get this by e-mail</a>' +
+            '      <a class="wim-browse" data-role="introemail" data-wtp-cta="map-email" href="#" style="display:none">📧 Get this by e-mail</a>' +
+            '      <a class="wim-browse" data-role="introrequest" data-wtp-cta="map-request" href="/china-sourcing-support-request/"></a>' +
             '      <span class="wim-whofor-wrap">' +
             '        <span class="wim-whofor-toggle" data-role="whofortoggle">More ▾</span>' +
             '        <div class="wim-whofor-panel wim-float" data-role="whoforpanel" style="display:none;"></div>' +
@@ -851,6 +847,9 @@ var modalTitleEl = root.querySelector('[data-role="modaltitle"]');
             // Link to the server-rendered SEO pages for this mode (/projects/ or /trade-lanes/).
             var browseEl = root.querySelector('[data-role="introbrowse"]');
             if (browseEl) { browseEl.href = m.browse[0]; browseEl.textContent = m.browse[1]; }
+            // Call to action to the existing buyer / supplier form (/china-sourcing-support-request/).
+            var reqEl = root.querySelector('[data-role="introrequest"]');
+            if (reqEl) reqEl.textContent = state.reportType === 'flow_distortion' ? 'Buying or selling commodities? Send a request →' : 'Need or supply equipment? Send a request →';
             // Newsletter for this mode: Trade Flow Daily or Project Leads Weekly (only once signup is live).
             var emailEl = root.querySelector('[data-role="introemail"]');
             if (emailEl && root.dataset.nl === '1') {
@@ -863,6 +862,11 @@ var modalTitleEl = root.querySelector('[data-role="modaltitle"]');
             setWhoForOpen(false);
         }
         renderModeIntro();
+        // Measure the map's calls to action (GA event map_cta_click, cta = map-email | map-request).
+        root.addEventListener('click', function(e) {
+            var a = e.target.closest && e.target.closest('[data-wtp-cta]');
+            if (a && typeof gtag === 'function') gtag('event', 'map_cta_click', { cta: a.getAttribute('data-wtp-cta'), link_url: a.href, transport_type: 'beacon' });
+        });
         whoForToggle.addEventListener('click', function(e) {
             e.stopPropagation();
             setWhoForOpen(whoForPanel.style.display !== 'block');
@@ -884,9 +888,7 @@ var modalTitleEl = root.querySelector('[data-role="modaltitle"]');
         });
 
         function fmtDate(d) { return d.toISOString().slice(0,10); }
-        // Range buttons are aligned to the paywall's own boundaries (see wtp_opps_query's
-        // 7/15-day gate) instead of arbitrary day-counts, so each button is either fully
-        // free or fully paid — no more "this button is only partly usable" ambiguity.
+        // Range buttons: 7 / 30 days up to today. The server limits public Infrastructure reads to 30 days.
         function rangeDates() {
             // Trade Flows: one rolling 7-day window picked on the timeline (matches the server's lane-weeks windows).
             if (state.reportType === 'flow_distortion') {
@@ -896,9 +898,6 @@ var modalTitleEl = root.querySelector('[data-role="modaltitle"]');
                 return { from: fmtDate(wa), to: fmtDate(wb) };
             }
             var to = new Date();
-            // "Last 7d" stops at day -6, not -7: day -7 is the newest free day (wtp_opps_query's
-            // free_to), so "Last 7d" is exactly the paid week. 30/90 days run up to today; the
-            // server trims them to free_to for non-subscribers and reports the rest as locked_counts.
             var d6 = new Date(); d6.setDate(d6.getDate() - 6);
             if (state.range === '7') return { from: fmtDate(d6), to: fmtDate(to) };
             var from = new Date();
@@ -1763,22 +1762,8 @@ var __centroidKey = c ? (c[0].toFixed(3) + ',' + c[1].toFixed(3)) : null;
                 : ' · <b>0</b> off-map';
             countEl.innerHTML = 'Showing <b>' + mapped.length + '</b> of <b>' + items.length + '</b>' + offMapHtml + minorHtml + truncNote + filterNote;
 
-            // Server-side paywall rejected the requested range — say so explicitly, and
-            // name how many signals are actually hidden there (locked_counts), rather
-            // than silently substituting the free window's own data under a locked
-            // button (that used to happen and reads as "the paywall doesn't do anything").
-            // Only the fully locked "Last 7d" view gets the overlay; 30/90 days show everything that is
-            // free, and the "Last 7d 🔒 (N)" button already says how much newer data is locked.
-            if (lastGated && lastFreeWindow && state.range === '7') {
-                // Only Infrastructure's newest 7 days is locked (2026-09-25); everything older and all Trade Flows are free.
-                var lockedCount = lastLockedCounts ? lastLockedCounts.recent : null;
-                var countPhrase = lockedCount !== null ? ('<b>' + lockedCount + '</b> new project' + (lockedCount === 1 ? '' : 's') + ' found in the last 7 days. ') : '';
-                gatedNoticeEl.innerHTML = countPhrase + 'Pro members see new projects as soon as they are found — everyone else sees them here 7 days later. <a href="/unlock-intelligence-map/" data-role="subscribecta">See them 7 days earlier →</a>';
-                gatedNoticeEl.style.display = 'block';
-                placeGatedNotice();
-            } else {
-                gatedNoticeEl.style.display = 'none';
-            }
+            // No paywall any more. The overlay element is still used by the timeline messages; hide it when a reload re-renders.
+            gatedNoticeEl.style.display = 'none';
 
             var minorLink = countEl.querySelector('[data-role="toggleminor"]');
             if (minorLink) minorLink.addEventListener('click', function(e){ e.preventDefault(); state.showMinor = !state.showMinor; applyFilters(); });
@@ -1983,7 +1968,7 @@ var __centroidKey = c ? (c[0].toFixed(3) + ',' + c[1].toFixed(3)) : null;
             load();
         }
         function loadWeeks() {
-            fetchJson(LANE_WEEKS_API + '?weeks=13', 2).then(function(json) {
+            fetchJson(LANE_WEEKS_API + '?weeks=4', 2).then(function(json) {
                 weeksData = (json && json.weeks) || [];
                 renderTimeline();
             }).catch(function() { weeksData = []; renderTimeline(); });
@@ -2176,7 +2161,7 @@ var __centroidKey = c ? (c[0].toFixed(3) + ',' + c[1].toFixed(3)) : null;
                 L.push('• ' + (flagFor(it.country) ? flagFor(it.country) + ' ' : '') + cleanTitle(it.project_name, 90) + ' — ' + [countryName(it.country), it.subsector && it.subsector !== '(unspecified)' ? it.subsector : it.sector, it.stage, it.scale].filter(Boolean).join(' · '));
             });
             L.push('');
-            L.push('Full pipeline with sector, stage and country filters on the Intelligence Map (link in the first comment). Subscribers see new projects 7 days earlier.');
+            L.push('Full pipeline with sector, stage and country filters on the Intelligence Map (link in the first comment).');
             L.push('');
             L.push('#Infrastructure #EPC #ProjectFinance #Tenders #BusinessDevelopment');
             return L.join('\n');
@@ -2339,7 +2324,7 @@ var __centroidKey = c ? (c[0].toFixed(3) + ',' + c[1].toFixed(3)) : null;
             var fromTxt = pd.from < '2021-01-01' ? 'Archive' : tlShort(pd.from) + ' – ' + tlShort(pd.to);
             return {
                 caption: projectsCaption(pd), link: shareLink('projects', pd.to, 'infrastructure'), filename: 'projects-' + pd.to + '.png',
-                tip: state.range === '7' ? 'The last-7-days window is the paid part of the map — posting it gives away what subscribers pay for. The 30-day view keeps the paywall meaningful.' : '',
+                tip: '',
                 spec: {
                     title: 'New Infrastructure Projects', globe: 540, footer: 'Early project leads for BD teams',
                     sub: fromTxt + '  ·  ' + pd.total + ' projects  ·  ' + pd.preTender + ' before tender',
@@ -2416,28 +2401,27 @@ var __centroidKey = c ? (c[0].toFixed(3) + ',' + c[1].toFixed(3)) : null;
         }
         root.querySelector('[data-role="tlshare"]').addEventListener('click', function() { openShare(); });
 
-        // Date-range buttons for the active mode. Infrastructure: "Last 7d" is the paid week, the
-        // other two are free. Trade Flows do not use them at all any more (the week timeline above
-        // replaces them), so the button group is hidden in that mode.
-        var RANGE_LABELS = { '7': 'Last 7d', '30': '30 days', '90': '90 days' };
+        // Date-range buttons for the active mode (all free). Trade Flows do not use the buttons (the 4-week
+        // timeline above replaces them), so only the "30+ days ->" link stays visible there (to /trade-lanes/).
+        var RANGE_LABELS = { '7': '7 days', '30': '30 days' };
         function applyRangeUi() {
             var free = state.reportType === 'flow_distortion';
             var rangeSeg = root.querySelector('[data-role="range"]');
-            if (rangeSeg) rangeSeg.style.display = free ? 'none' : '';
+            if (rangeSeg) rangeSeg.style.display = '';
+            var olderLink = root.querySelector('[data-role="archivelink"]');
+            if (olderLink) {
+                olderLink.setAttribute('href', free ? '/trade-lanes/' : '/projects/');
+                olderLink.setAttribute('title', free ? 'Trade Flow history older than 30 days, lane by lane' : 'Projects older than 30 days, country by country');
+            }
             root.querySelectorAll('[data-role="range"] button').forEach(function(b) {
+                b.style.display = free ? 'none' : '';
                 var v = b.dataset.v;
-                var locked = !free && v === '7';
                 b.classList.toggle('active', v === state.range);
-                b.classList.toggle('wim-locked', locked);
-                b.textContent = RANGE_LABELS[v] + (locked ? ' 🔒' : '');
+                b.classList.remove('wim-locked');
+                b.textContent = RANGE_LABELS[v];
             });
         }
-        function updateLockedCountBadges() {
-            if (state.reportType === 'flow_distortion') { applyRangeUi(); return; }
-            var recentBtn = root.querySelector('[data-role="range"] button[data-v="7"]');
-            if (!recentBtn) return;
-            recentBtn.textContent = lastLockedCounts ? ('Last 7d 🔒 (' + lastLockedCounts.recent + ')') : 'Last 7d 🔒';
-        }
+        function updateLockedCountBadges() { applyRangeUi(); }   // nothing is locked any more; kept so load() stays unchanged
 
         // The shared host occasionally answers a burst of parallel requests with a transient 503
         // (seen right after a deploy); retrying twice after a short pause turns that into a slower

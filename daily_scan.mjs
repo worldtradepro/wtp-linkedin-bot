@@ -121,15 +121,24 @@ async function infraData() {
   const q = SECRET ? `&secret=${encodeURIComponent(SECRET)}` : '';
   const res = await fetchJson(`${API}/opportunities?report_type=epc&from=${dayShift(DATE, -21)}&to=${dayShift(DATE, -1)}&limit=2000${q}`);
   const all = (res.items || []).filter(ok);
-  // Projects reach the feed days after their report date and the daily intake is uneven (4 one day, 29 another), so each
-  // scan draws on the last 7 days and skips projects an earlier Daily Project Scan already featured (state/scan_pushed.json).
+  // The scan reports YESTERDAY: the window is everything found since the last published issue (normally one day) and it
+  // skips projects an earlier scan already featured (state/scan_pushed.json). The daily intake is uneven (4 one day, 29
+  // another) and the pipeline runs on weekdays only, so on a slow day / after a weekend the window is widened day by day
+  // (up to 7 days) until it holds MIN_WINDOW_ITEMS projects, and the slides then say "last N days" instead of "yesterday".
   // Without the secret (local tests) the newest public day stands in for "yesterday".
   const pushedF = join(HERE, 'state', 'scan_pushed.json');
   const featured = new Set(Object.entries(existsSync(pushedF) ? JSON.parse(readFileSync(pushedF, 'utf8')) : {})
     .filter(([k, v]) => k.endsWith(':infra') && v.bufferPostId).flatMap(([, v]) => v.pickIds || []));
   const D1 = SECRET ? dayShift(DATE, -1) : all.map((it) => it.report_date).sort().pop();
-  const W0 = dayShift(D1, -6);
-  const day = all.filter((it) => it.report_date >= W0 && it.report_date <= D1 && !featured.has(String(it.id)));
+  const lastScanDay = Object.entries(existsSync(pushedF) ? JSON.parse(readFileSync(pushedF, 'utf8')) : {})
+    .filter(([k, v]) => k.endsWith(':infra') && v.bufferPostId && v.scanDay && v.scanDay < D1).map(([, v]) => v.scanDay).sort().pop();
+  let W0 = lastScanDay ? dayShift(lastScanDay, 1) : D1;
+  if (W0 < dayShift(D1, -6)) W0 = dayShift(D1, -6);
+  const MIN_WINDOW_ITEMS = 12;
+  const inWin = () => all.filter((it) => it.report_date >= W0 && it.report_date <= D1 && !featured.has(String(it.id)));
+  while (inWin().length < MIN_WINDOW_ITEMS && W0 > dayShift(D1, -6)) W0 = dayShift(W0, -1);
+  const day = inWin();
+  const span = Math.round((new Date(D1 + 'T00:00:00Z') - new Date(W0 + 'T00:00:00Z')) / 864e5) + 1;
   // Google News redirect links cannot be read (no article text for the note) and name the outlet poorly: rank them last among equals
   const rank = (it) => stageW(it.stage) * 10 + scaleW(it.scale) * 6 + (parseInt(it.credibility, 10) || 0) - (hostOf(it.source_url) === 'news.google.com' ? 9 : 0);
   // topics that are not business-development leads for this audience (politically charged, defence)
@@ -170,7 +179,7 @@ async function infraData() {
   };
   const tally = (key) => { const t = {}; for (const it of day) { const k = key(it) || 'Other'; t[k] = (t[k] || 0) + 1; } return Object.entries(t).sort((a, b) => b[1] - a[1]); };
   return {
-    series: 'infra', date: DATE, scanDay: D1, windowFrom: W0, issue: issueNo, fresh: !!SECRET,
+    series: 'infra', date: DATE, scanDay: D1, windowFrom: W0, span, issue: issueNo, fresh: !!SECRET,
     totals: { projects: day.length, awarded: day.filter((it) => stageW(it.stage) === 5).length, tenders: day.filter((it) => stageW(it.stage) === 4).length,
       countries: new Set(day.map((it) => it.country)).size, large: day.filter((it) => scaleW(it.scale) >= 3).length },
     byStage: ['S1', 'S2', 'S3', 'S4', 'S5'].map((s) => [STAGE[s], day.filter((it) => String(it.stage).startsWith(s)).length]),
@@ -185,7 +194,7 @@ async function infraData() {
 function material(d) {
   return d.series === 'flow'
     ? { day: d.scanDay, totals: d.totals, sectors: d.sectors, picks: d.picks, lanes: d.lanes.map((l) => ({ lane: l.name, flow: l.flow, signals_scan_day: l.today, pressure_7d: l.p, pressure_prev_7d: l.pp })), also_on_radar: d.alsoOnRadar.map((s) => ({ title: s.title, source: s.source, tier: s.tier })) }
-    : { window: `${d.windowFrom} to ${d.scanDay} (last 7 days)`, totals: d.totals, by_stage: d.byStage, by_region: d.byRegion, by_sector: d.bySector, picks: d.picks, others: d.others.map((p) => ({ name: p.name, country: p.country, sector: p.sector, stage: p.stage, scale: p.scale })) };
+    : { window: d.span === 1 ? `${d.scanDay} (yesterday)` : `${d.windowFrom} to ${d.scanDay} (last ${d.span} days)`, totals: d.totals, by_stage: d.byStage, by_region: d.byRegion, by_sector: d.bySector, picks: d.picks, others: d.others.map((p) => ({ name: p.name, country: p.country, sector: p.sector, stage: p.stage, scale: p.scale })) };
 }
 const LIMITS = SERIES === 'flow'
   ? { headline: 90, hook: 220, board: 200, question: 140, item: { headline: 80, statValue: 14, statLabel: 60, what: 260, why: 260, watch: 170 }, fact: 120 }
@@ -233,12 +242,12 @@ ${COMMON}
 - "why" explains the consequence for physical flows ONLY as far as the material supports it: the affected lane and its flow ("laneFlow"), the commodity, route, volumes or costs named in the reports.
 Return ONE JSON object only: {"headline": the cover line - ONE sharp takeaway or ONE striking number from the material, stated as a claim a reader can agree or disagree with (e.g. "Awards outran tenders three to one this week" or "Hormuz detours now cost more than the cargo margin"); never a list of the three stories ("X in A, Y in B, Z in C" is wrong), at most one comma, "hook": 1-2 sentences for the post caption whose FIRST sentence carries that takeaway, "board": one sentence reading the lane risk board, "question": a two-option question the reader answers with one word or a short reply, in the form "A or B?" - two concrete, plausible options taken from today's signals, for a trader or charterer (e.g. "Would you price this package now or wait for the FEED?"); no open "how/what/which" questions, no "thoughts?", "items": [{"id", "headline", "statValue", "statLabel", "what", "why", "facts": [3], "watch"} x3 in the given order]}.`,
   infra: `You write "${SERIES_NAME}", a daily LinkedIn carousel by World Trade Pro for EPC contractors, equipment suppliers, subcontractors and project developers (business development people).
-You get the 3 most significant new infrastructure projects of the last 7 days that have not been featured before (with the article text), the other new projects and the week's breakdown by stage, region and sector.
+You get the 3 most significant new infrastructure projects of the window given in the material (normally yesterday; up to 7 days on a slow day) that have not been featured before (with the article text), the other new projects and the window's breakdown by stage, region and sector.
 Write ONLY from this material. Hard rules:
 ${COMMON}
 - "who": owner / developer / EPC contractor / licensors named in the material, as "Owner: X. EPC: Y." If none is named, write "Not named in the report".
 - "angle": who in the supply chain this is relevant to and why, grounded in the stage (Feasibility, Development, Pre-FID, Tender, Awarded), scope, sector and scale given. An awarded EPC contract means subcontracting and equipment packages come next; a tender means bidders. Do not invent package names, values or dates.
-Return ONE JSON object only: {"headline": the cover line - ONE sharp takeaway or ONE striking number from the material, stated as a claim a reader can agree or disagree with (e.g. "Awards outran tenders three to one this week" or "Hormuz detours now cost more than the cargo margin"); never a list of the three stories ("X in A, Y in B, Z in C" is wrong), at most one comma, "hook": 1-2 sentences for the post caption whose FIRST sentence carries that takeaway, "board": one sentence reading the last 7 days' pipeline breakdown, "question": a two-option question the reader answers with one word or a short reply, in the form "A or B?" - two concrete, plausible options taken from today's projects, for a BD or procurement person (e.g. "Would you price this package now or wait for the FEED?"); no open "how/what/which" questions, no "thoughts?", "items": [{"id", "headline" (a clear project title), "statValue", "statLabel", "what", "who", "angle", "facts": [3], "watch"} x3 in the given order]}.`,
+Return ONE JSON object only: {"headline": the cover line - ONE sharp takeaway or ONE striking number from the material, stated as a claim a reader can agree or disagree with (e.g. "Awards outran tenders three to one yesterday" or "Hormuz detours now cost more than the cargo margin"); never a list of the three stories ("X in A, Y in B, Z in C" is wrong), at most one comma, "hook": 1-2 sentences for the post caption whose FIRST sentence carries that takeaway, "board": one sentence reading the pipeline breakdown of the window given (say "yesterday" when the window is one day, otherwise "the last N days"), "question": a two-option question the reader answers with one word or a short reply, in the form "A or B?" - two concrete, plausible options taken from today's projects, for a BD or procurement person (e.g. "Would you price this package now or wait for the FEED?"); no open "how/what/which" questions, no "thoughts?", "items": [{"id", "headline" (a clear project title), "statValue", "statLabel", "what", "who", "angle", "facts": [3], "watch"} x3 in the given order]}.`,
 }[SERIES];
 
 async function writeNote(d) {
@@ -403,6 +412,11 @@ const dt = new Date(d.scanDay + 'T00:00:00Z');
 const DAYW = dt.toLocaleDateString('en-GB', { weekday: 'long', timeZone: 'UTC' });
 const DATE_SHORT = dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
 const DATE_BIG = dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', timeZone: 'UTC' });
+// infra window label: "yesterday" for a one-day window, otherwise "the last N days" (slow days / after weekends)
+const SPAN = SERIES === 'infra' ? (d.span || 1) : 1;
+const WHEN = SPAN === 1 ? 'yesterday' : `the last ${SPAN} days`;
+const WHEN_CAP = SPAN === 1 ? 'Yesterday' : `Last ${SPAN} days`;
+const WHEN_IN = SPAN === 1 ? 'yesterday' : `in the last ${SPAN} days`;
 const slide = (inner, n, cls = '') => `<section class="s ${cls}">${inner}<footer><span>WORLD TRADE PRO · ${SERIES_NAME.toUpperCase()} · ${DATE_SHORT.toUpperCase()}</span><span>__N__ / __TOTAL__</span></footer></section>`;
 const bigStat = (v, l) => `<div class="bs"><b>${v}</b><span>${l}</span></div>`;
 const photo = (r, h) => r ? `<div class="ph" style="height:${h}px;background-image:url('${fileUrl(join(LIB, r.file))}')"></div><div class="cr">${esc(r.caption.replace(/\.$/, ''))} · ${esc(r.credit)}</div>` : `<div class="ph none" style="height:${h}px"></div>`;
@@ -413,7 +427,7 @@ const chipsFor = (p) => SERIES === 'flow'
 const src = (p) => `${esc(p.source)}${p.otherReports?.length ? ` + ${p.otherReports.length} more report${p.otherReports.length > 1 ? 's' : ''}` : ''} · ${esc(p.date)}`;
 
 const cover = slide(`${photo(COVER, 610)}
-  <div class="datebox"><b>${esc(DATE_BIG)}</b><span>${SERIES === 'infra' ? 'Last 7 days' : esc(DAYW)} · ${dt.getUTCFullYear()} · Issue #${d.issue}</span></div>
+  <div class="datebox"><b>${esc(DATE_BIG)}</b><span>${SERIES === 'infra' && SPAN > 1 ? WHEN_CAP : esc(DAYW)} · ${dt.getUTCFullYear()} · Issue #${d.issue}</span></div>
   <div class="cv"><div class="k">${SERIES_NAME}</div><h1>${esc(N.headline)}</h1></div>
   <div class="row3">${SERIES === 'flow'
     ? bigStat(d.totals.signals, 'trade-flow signals') + bigStat(d.totals.critical, 'critical') + bigStat(d.totals.lanesActive + '/9', 'lanes with signals')
@@ -425,8 +439,8 @@ const glanceRows = SERIES === 'flow'
      ...d.alsoOnRadar.slice(0, 5).map((p) => ({ tag: `<span class="dot" style="background:${TIER_C[p.tier]}"></span>`, t: p.title, s: `${p.source}${p.lane ? ' · ' + p.lane : ''}` }))]
   : [...d.picks.map((p, i) => ({ strong: true, tag: `<span class="dot" style="background:${STAGE_C[p.stage] || '#475467'}"></span>`, t: byId[p.id].headline, s: `${p.country} · ${p.stage} · slides ${3 + i * 2}–${4 + i * 2}` })),
      ...d.others.slice(0, 5).map((p) => ({ tag: `<span class="dot" style="background:${STAGE_C[p.stage] || '#475467'}"></span>`, t: p.name, s: `${p.country} · ${p.stage || p.sector}${p.subsector ? ' · ' + p.subsector : ''}` }))];
-const glance = slide(`<div class="k">${SERIES === 'flow' ? 'Yesterday at a glance' : 'The week at a glance'}</div>
-  <h2 class="sm">${SERIES === 'flow' ? `${d.totals.signals} signals, ${d.totals.critical} critical. The three that matter most, then the rest of the radar.` : `${d.totals.projects} new projects in ${d.totals.countries} countries over the last 7 days. The three most significant, then the rest.`}</h2>
+const glance = slide(`<div class="k">${SERIES === 'flow' ? 'Yesterday at a glance' : WHEN_CAP + ' at a glance'}</div>
+  <h2 class="sm">${SERIES === 'flow' ? `${d.totals.signals} signals, ${d.totals.critical} critical. The three that matter most, then the rest of the radar.` : `${d.totals.projects} new projects in ${d.totals.countries} countries ${SPAN === 1 ? 'found yesterday' : 'over ' + WHEN}. The three most significant, then the rest.`}</h2>
   <div class="gl-list">${glanceRows.map((r, i) => `${i === 3 ? '<div class="sep">Also on the radar</div>' : ''}<div class="gr${r.strong ? ' st' : ''}">${r.tag}<div><b>${esc(r.t)}</b><span>${esc(r.s)}</span></div></div>`).join('')}</div>`, 2);
 
 const storySlides = d.picks.flatMap((p, i) => { const x = byId[p.id];
@@ -455,27 +469,27 @@ if (SERIES === 'flow') {
 } else {
   const maxS = Math.max(...d.byStage.map((x) => x[1]), 1);
   const bars = (rows) => { const m = Math.max(...rows.map((r) => r[1]), 1); return rows.slice(0, 5).map(([k, n]) => `<div class="hb"><span>${esc(k)}</span><i style="width:${(n / m * 100).toFixed(1)}%"></i><b>${n}</b></div>`).join(''); };
-  board = slide(`<div class="k">Pipeline · last 7 days</div>
+  board = slide(`<div class="k">Pipeline · ${WHEN_CAP.toLowerCase()}</div>
     <div class="bhead">${GLOBE ? `<div class="gsm" style="background-image:url('${GLOBE}')"></div>` : ''}<p class="lead2">${esc(N.board)}</p></div>
     <div class="stg">${d.byStage.map(([s, n]) => `<div><i style="height:${(n / maxS * 100).toFixed(1)}%;background:${STAGE_C[s]}"></i><b>${n}</b><span>${s}</span></div>`).join('')}</div>
     <div class="two"><div><b class="t">By region</b>${bars(d.byRegion)}</div><div><b class="t">By sector</b>${bars(d.bySector)}</div></div>`, 9);
 }
 const cta = SERIES === 'flow'
-  ? slide(`<div class="k">Every signal, every day</div><h2>All ${d.totals.signals} of yesterday's signals are pinned on the live trade-flow map</h2><div class="url">worldtradepro.com</div>
-    <p class="lead">Free. Updated every weekday. Lane pages with 13-week history at worldtradepro.com/trade-lanes</p><div class="follow">Follow World Trade Pro for tomorrow's scan</div>`, 10, 'dark')
-  : slide(`<div class="k">Every project, every country</div><h2>Project trackers for 66 countries, updated every day</h2><div class="url">worldtradepro.com/projects</div>
-    <p class="lead">Owners, contractors, stages and sources in one place. Free.</p><div class="follow">Follow World Trade Pro Infrastructure for tomorrow's scan</div>`, 10, 'dark');
+  ? slide(`<div class="k">Work with us</div><h2>Buying or selling bulk commodities? Get verified</h2><div class="url">worldtradepro.com/join-verified-club</div>
+    <p class="lead">End buyers, producers, exporters, traders and mandate holders: apply as a verified counterparty. We check role, authority and recent physical trades, then introduce vetted parties only. All ${d.totals.signals} of yesterday's signals are free on the live map at worldtradepro.com</p><div class="follow">Follow World Trade Pro for tomorrow's scan</div>`, 10, 'dark')
+  : slide(`<div class="k">Work with us</div><h2>Supply equipment or EPC services? Or need a supplier for a project?</h2><div class="url">worldtradepro.com/project-sourcing</div>
+    <p class="lead">Manufacturers, fabricators, subcontractors: register what you offer. Project owners and EPCs: tell us what you need. Free tracker for 66 countries: worldtradepro.com/projects</p><div class="follow">Follow World Trade Pro Infrastructure &amp; Supply Chain for tomorrow's scan</div>`, 10, 'dark');
 // Open tenders / Contracts awarded, grouped by industry: up to 9 rows, spread over the industries (biggest first in each)
 function dealSlide(groups, kind) {
   const rows = [], cap = 9, gs = groups.map((g) => ({ ...g, take: [] }));
   for (let i = 0; rows.length < cap && gs.some((g) => g.rows.length > g.take.length); i++)
     for (const g of gs) if (rows.length < cap && g.rows[i]) { g.take.push(g.rows[i]); rows.push(g.rows[i]); }
   if (rows.length < 3) return null;
-  const week = groups.reduce((a, g) => a + g.week, 0);
+  const week = groups.reduce((a, g) => a + g.week, 0);   // count in the window (yesterday, or the last N days)
   const tender = kind === 'tender';
-  return slide(`<div class="k">${tender ? 'Open tenders' : 'Contracts awarded'} · by industry · last 7 days</div>
-    <h2 class="sm">${tender ? `${week} tenders open to bidders this week. The largest new ones in each industry:` : `${week} contracts awarded this week. Who won the largest new ones:`}</h2>
-    ${gs.filter((g) => g.take.length).map((g) => `<div class="ind"><div class="ind-h"><b>${esc(g.industry)}</b><span>${g.week} this week</span></div>
+  return slide(`<div class="k">${tender ? 'Open tenders' : 'Contracts awarded'} · by industry · ${WHEN_CAP.toLowerCase()}</div>
+    <h2 class="sm">${tender ? `${week} tenders open to bidders, found ${WHEN_IN}. The largest new ones in each industry:` : `${week} contracts awarded, found ${WHEN_IN}. Who won the largest new ones:`}</h2>
+    ${gs.filter((g) => g.take.length).map((g) => `<div class="ind"><div class="ind-h"><b>${esc(g.industry)}</b><span>${g.week} ${SPAN === 1 ? 'yesterday' : 'new'}</span></div>
       ${g.take.map((r) => `<div class="dl"><b>${esc(r.name)}</b><span>${[esc(r.country), r.value ? `<em>${esc(r.value)}</em>` : '', tender && r.deadline ? `<em>bids due ${esc(r.deadline)}</em>` : '', r.who ? (r.role === 'winner' ? 'won by ' : '') + esc(r.who) : ''].filter(Boolean).join(' · ')}</span></div>`).join('')}</div>`).join('')}
     <p class="fine">${tender ? 'Official notices: EU TED, UK Find a Tender, World Bank, plus press reports. Bid documents and deadlines on the source notice.' : 'Official award notices (EU TED, UK Find a Tender, World Bank) and press reports.'} Full list with links: worldtradepro.com/projects</p>`, 0);
 }
@@ -564,9 +578,11 @@ ${N.hook}
 
 ${d.picks.map((p) => `▪️ ${SERIES === 'infra' && p.flag ? p.flag + ' ' : ''}${byId[p.id].headline}`).join('\n')}
 
-👉 Swipe for ${SERIES === 'flow' ? 'what happened, why it matters and the 9-lane risk board' : (dealSlides.length ? 'who is involved, where the opportunity is, this week\'s open tenders and contract awards by industry, and the full pipeline' : 'who is involved, where the opportunity is and the week\'s full pipeline')}.
+👉 Swipe for ${SERIES === 'flow' ? 'what happened, why it matters and the 9-lane risk board' : (dealSlides.length ? 'who is involved, where the opportunity is, the open tenders and contract awards by industry, and the full pipeline' : 'who is involved, where the opportunity is and the full pipeline')}.
 
 💬 ${N.question}
+
+🤝 ${SERIES === 'flow' ? 'Buying or selling bulk commodities? Apply to be verified: the link is on the last slide.' : 'Supplier, manufacturer or EPC? Register what you offer. Project owner? Tell us what you need. The request link is on the last slide.'}
 
 ${TAGS}`;
 writeFileSync(join(OUT, 'linkedin.txt'), caption);
