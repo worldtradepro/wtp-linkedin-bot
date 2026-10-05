@@ -80,10 +80,12 @@ jobs:
         run: |
           if [ "${{ steps.ed.outputs.edition }}" = weekly ]; then node newsletter_weekly.mjs --preview; else node newsletter.mjs --edition ${{ steps.ed.outputs.edition }}; fi
       - name: Editor's notes (one model call, checked in code) and rebuild with them
-        # a failed or skipped editor never blocks the issue: without notes the rule-based sentences stay
+        # a failed or skipped editor never blocks the issue: without notes the rule-based sentences stay.
+        # The model runs through the Claude Code CLI on the owner's subscription (llm.mjs), so the CLI is installed here.
         if: env.PAUSED != '1' && steps.ed.outputs.edition == 'weekly'
         continue-on-error: true
         run: |
+          npm install -g @anthropic-ai/claude-code
           node weekly_editor.mjs && node newsletter_weekly.mjs --preview
       - name: Web version of the issue on the site (the e-mail's "All N projects" links land here)
         if: env.PAUSED != '1' && steps.ed.outputs.edition == 'weekly'
