@@ -121,7 +121,7 @@
     },
     "weekly": {
       "name": "World Trade Pro Weekly",
-      "subtitle": "The 10 things worth a call this week",
+      "subtitle": "Who's buying, who won, what moved",
       "firstIssue": "2026-10-06",
       "sendDayUtc": 2,
       "slotUtc": "04:15",

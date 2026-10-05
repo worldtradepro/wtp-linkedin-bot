@@ -62,12 +62,9 @@ export function readerOf(r = {}) {
 export const BUYER = ['procurement', 'owner'], SUPPLIER = ['equipment', 'service', 'epc'], FLOWFIRST = ['trader', 'shipping'];
 // EPC contractors bid for work AND buy equipment: they read like a supplier (who is buying) - the buyer line is for owners / procurement.
 export const isBuyer = (role) => BUYER.includes(role);
-export function titleFor(role, base) {
-  if (isBuyer(role)) return 'The 10 things worth knowing before you buy this week';
-  if (FLOWFIRST.includes(role)) return 'The 10 moves worth knowing this week';
-  if (SUPPLIER.includes(role)) return base || 'The 10 things worth a call this week';
-  return 'The 10 things worth knowing this week';
-}
+// One masthead for everyone - each reader finds their word in it: suppliers "who's buying", owners and procurement
+// "who won" (reference prices, who is booked), traders and charterers "what moved". The role line underneath does the rest.
+export function titleFor(role, base) { return base || "Who's buying, who won, what moved"; }
 // One sentence under the masthead that tells this reader why the issue is arranged the way it is.
 export function roleLine(role) {
   if (isBuyer(role)) return 'For buyers: what comparable work just cost, who is now booked, and what moved your landed cost.';
@@ -113,7 +110,7 @@ export function assemble(b, readerLike = {}, opts = {}) {
   const callsSec = () => {
     const picked = [...b.calls].sort((x, y) => (rank(x.key) + (x.strong ? 0 : 1)) - (rank(y.key) + (y.strong ? 0 : 1))).slice(0, callsN);
     if (!picked.length) return;
-    out.push(sectionHead(buyer ? 'What comparable work just cost' : 'Worth a call this week', buyer ? 'Awards = reference prices and who is now booked. Tenders = what your peers are buying.' : 'Tenders and awards with a counterparty, a value or a deadline.'));
+    out.push(sectionHead('Deals of the week', buyer ? 'Awards = reference prices and who is now booked. Tenders = what your peers are buying.' : 'Tenders and awards with a counterparty, a value or a deadline.'));
     picked.forEach((c, i) => out.push(row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid ${C.line};border-left:5px solid ${colorOf(c.key)};border-radius:8px;"><tr><td style="padding:12px 16px;${font}">
       <div>${sectorPill(c.key)} <span style="font-size:11px;color:${C.muted};font-weight:700;">&nbsp;${i + 1}/${picked.length}</span></div>${c.html}${buyer ? c.buyer || '' : c.call || ''}</td></tr></table>`, '8px 0 0')));
   };
@@ -133,7 +130,7 @@ export function assemble(b, readerLike = {}, opts = {}) {
   };
   const flowsSec = () => {
     if (!b.flows || (!b.flows.items.length && !b.flows.lanes)) return;
-    out.push(sectionHead(buyer ? 'Costs that moved' : 'Flows that changed', buyer ? 'Freight, routes and supply moves that change your landed cost' : 'Where cargo is moving differently this week, and what it means'));
+    out.push(sectionHead('Flows that moved', buyer ? 'Freight, routes and supply moves that change your landed cost' : 'Where cargo is moving differently this week, and what it means'));
     const items = [...b.flows.items].sort((x, y) => rank(x.key) - rank(y.key)).slice(0, flowsN);
     items.forEach((f) => out.push(f.html));
     if (b.flows.lanes) out.push(b.flows.lanes);

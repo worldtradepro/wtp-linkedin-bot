@@ -219,7 +219,7 @@ const subject = cut(topDeal ? `${topDeal.value ? topDeal.value + ' ' : ''}${topD
 const preview = cut(`${plural(epc.length, 'new project')} in ${countries} countries · ${tenders} tenders · ${awards} awards · ${plural(flow.length, 'trade-flow signal')}, ${crit} critical`, 110);
 const blocks = {
   date: TODAY, edition: 'weekly', issue: issueNo, week: WEEK, year: YEAR, from: FROM, to: TO, subject, preview,
-  head: { kicker: `${W.name || 'World Trade Pro Weekly'} · Issue ${issueNo} · Week ${WEEK}`, title: W.subtitle || 'The 10 things worth a call this week', sub: `${fmtDay(FROM)} – ${fmtDay(TO)} ${YEAR} · ${plural(epc.length, 'new project')} in ${countries} countries · ${tenders} tenders · ${awards} awards · ${plural(flow.length, 'trade-flow signal')}` },
+  head: { kicker: `${W.name || 'World Trade Pro Weekly'} · Issue ${issueNo} · Week ${WEEK}`, title: W.subtitle || "Who's buying, who won, what moved", sub: `${fmtDay(FROM)} – ${fmtDay(TO)} ${YEAR} · ${plural(epc.length, 'new project')} in ${countries} countries · ${tenders} tenders · ${awards} awards · ${plural(flow.length, 'trade-flow signal')}` },
   stats: { epc: epc.length, tenders, awards, flow: flow.length, critical: crit }, directory: '',
   sponsor, calls, projects, flows: { lanes: laneBoard, items: flowItems }, moves: movesHtml, tail,
   links: { projects: utm(cfg.site + '/projects/', 'projects-hub'), map: utm(cfg.site + '/intelligence-map/', 'map'), manage: cfg.site + '/newsletter/unsubscribe/' },
