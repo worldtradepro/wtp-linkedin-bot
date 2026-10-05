@@ -1,10 +1,14 @@
 {
-  "instagram": { "paused": true, "postUtc": "15:00", "_note": "2026-10-05 paused by owner until the cover pages are fixed; set paused to false to release" },
+  "instagram": {
+    "paused": true,
+    "postUtc": "15:00",
+    "_note": "2026-10-05 paused by owner until the cover pages are fixed; set paused to false to release"
+  },
   "site": "https://worldtradepro.com",
   "accounts": {
     "main": {
       "name": "World Trade Pro",
-      "newsPerDay": 2,
+      "newsPerDay": 0,
       "minScore": 10,
       "slotsUtc": [
         "06:30",
@@ -14,7 +18,7 @@
       "videoSlotUtc": "15:00",
       "_videoSlot": "2026-10-03: main page = max 2 posts/day: 07:30 carousel (Europe/Africa/Gulf morning) + 15:00 video (UK 16:00, US East 11:00, US West 08:00, Gulf 19:00, Africa 16-17). Owner: India followers are low quality - do not optimise for India. Without India: Americas ~41%, Africa ~19%, UK+Europe ~10%, Gulf ~7%.",
       "_videoTest": "2026-09-28: last daily slot (17:30 UTC) reserved for a Trade Flow Daily video instead of a 3rd news post, to A/B video vs text. Video isn't auto-generated/published yet - build+post manually until the pipeline is wired up. See linkedin_video/ and memory project_linkedin_daily_video.md.",
-      "weekendNewsPerDay": 1,
+      "weekendNewsPerDay": 0,
       "weekendSlotUtc": "08:30",
       "flashCardSlotUtc": null,
       "weeklyCardSlotUtc": null,
@@ -26,21 +30,25 @@
           "17:30"
         ],
         "_note": "Mondays: Trade Flow Weekly PDF carousel at 07:30 UTC (08:30 BST / 09:30 CEST) takes the morning slot; only 2 news posts that day"
-      }
+      },
+      "_newsOff": "2026-10-05 owner decision: the main page posts ONLY explainer videos (videoSlotUtc). No news posts, no Daily Scan, no weekly carousel. Set newsPerDay back to 2 to restore."
     },
     "infra": {
       "name": "World Trade Pro · Infrastructure & Supply Chain",
-      "projectsPerDay": 1,
+      "projectsPerDay": 3,
       "maxProjectsShownPerDay": 3,
       "slotsUtc": [
+        "07:30",
         "12:30",
-        "17:00"
+        "16:30"
       ],
       "videoSlotUtc": "17:00",
       "_videoTest": "2026-09-28: last daily slot (17:00 UTC) reserved for a Project Radar video instead of a 2nd project post, to A/B video vs text. Not auto-generated/published yet - build+post manually until wired up.",
-      "dailyCardSlotUtc": "09:30",
-      "weeklyCardSlotUtc": "06:30",
-      "weekend": false
+      "dailyCardSlotUtc": null,
+      "weeklyCardSlotUtc": null,
+      "weekend": false,
+      "_cards": "2026-10-05: the \"N new projects tracked\" daily card and the weekly pipeline card are off (median 18 impressions, 4 clicks in 2 weeks); null = not generated.",
+      "_projects": "2026-10-05: Infra page = 3 single project posts/day, big named projects first (scale + company name). Data 9/20-10/4: single project posts were the only format that reached beyond followers (120/99/62 impressions on Morocco/SABIC/Ima)."
     }
   },
   "blockedWords": [
@@ -116,10 +124,12 @@
     "model": "anthropic/claude-opus-5.5",
     "reviewTo": "contact@worldtradepro.com",
     "linkedinSlotUtc": "07:30",
-    "_note": "Trade Flow Weekly: Sunday 18:xx UTC draft + review e-mail, Monday 06:xx UTC publish (site + forum + Buffer)"
+    "_note": "Trade Flow Weekly: Sunday 18:xx UTC draft + review e-mail, Monday 06:xx UTC publish (site + forum + Buffer)",
+    "linkedinPost": false,
+    "_linkedinPost": "2026-10-05: Trade Flow Weekly still publishes to the site (+ newsletter) but is NOT posted on LinkedIn (main page = video only). true = post the PDF carousel again."
   },
-  "singlePosts": false,
-  "_singlePosts": "2026-09-30: user decision - the single news / project image posts (daily.yml: generate/render/push) are replaced by the Daily Scan carousels (daily-scan.yml). true = run them again.",
+  "singlePosts": true,
+  "_singlePosts": "2026-10-05: single project posts are back ON for the Infra page (daily.yml). Main news posts are off via accounts.main.newsPerDay=0. 2026-09-30 note kept for history: the carousels replaced them for one week.",
   "dailyScan": {
     "startDate": "2026-09-30",
     "model": "anthropic/claude-opus-5.5",
@@ -133,9 +143,14 @@
     "infra": {
       "slotUtc": "08:30",
       "repostSlotUtc": "10:30",
-      "repostDaysUtc": [2, 4],
+      "repostDaysUtc": [
+        2,
+        4
+      ],
       "_repost": "scan_repost.mjs shares the Project Scan on the main page only on these UTC weekdays (0=Sun..6=Sat; 2=Tue, 4=Thu), keeping the main page to ~2 posts/day."
-    }
+    },
+    "paused": true,
+    "_paused": "2026-10-05 owner decision: both Daily Scan carousels (flow + infra) are off - 5 infra issues averaged 16 impressions, 0 reactions; the main page is video-only. daily-scan.yml and scan-repost.yml read this flag. false = resume."
   },
   "videoQueue": {
     "_note": "2026-10-02: finished videos are made locally (video_factory/), uploaded to R2 under wtp/ and listed in wtp/video_queue.json; push_video.mjs books ONE per run at accounts.<acct>.videoSlotUtc. pushMode draft = Buffer draft for a human to approve; schedule = fully automatic. paused:true stops it.",

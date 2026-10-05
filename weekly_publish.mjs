@@ -28,6 +28,7 @@ save();
 console.log(`published ${res.url} · forum topic ${res.forum_topic}`);
 
 // 2) LinkedIn via Buffer
+if (cfg.weeklyReport?.linkedinPost === false) { console.log('LinkedIn post is off (config.json weeklyReport.linkedinPost=false): site + newsletter only.'); S.linkedinSkipped = true; save(); process.exit(0); }
 if (S.bufferPostId) { console.log('Buffer post already created:', S.bufferPostId); process.exit(0); }
 const KEY = process.env.BUFFER_API_KEY;
 async function gql(query, variables) {

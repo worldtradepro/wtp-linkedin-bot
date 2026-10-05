@@ -56,6 +56,9 @@ jobs:
           DATE="${{ github.event.inputs.date }}"; [ -z "$DATE" ] && DATE=$(date -u +%F)
           echo "date=$DATE" >> "$GITHUB_OUTPUT"
           todo=""
+          # 2026-10-05: config.json dailyScan.paused=true -> build nothing, post nothing (main page = video only, Infra = single project posts)
+          if node -e "process.exit(require('./config.json').dailyScan.paused ? 0 : 1)"; then
+            echo "Daily Scan is paused in config.json (dailyScan.paused) - nothing to do"; echo "todo=" >> "$GITHUB_OUTPUT"; exit 0; fi
           for s in flow infra; do
             if [ "$s" = flow ] && [ "$(date -u -d "$DATE" +%u)" = 1 ] && [ "$WEEKLY_PAUSED" != "true" ] && node -e "process.exit(require('./config.json').dailyScan.flow.skipMondays ? 0 : 1)"; then
               echo "flow: Monday - Trade Flow Weekly takes the main page's morning slot"; continue; fi

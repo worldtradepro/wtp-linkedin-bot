@@ -84,17 +84,21 @@ const scaleRank = (s) => SCALE_RANK[(s || '').trim().toLowerCase()] || 0;
 
 function audienceOf(it) {
   const t = `${it.subsector || ''} ${it.sector || ''}`.toLowerCase();
+  // Word boundaries matter: "Rail & Inland Transport" used to match /port/ and got the port-equipment line (2026-10-05).
+  // Specific modes (rail, airport, shipyard) go before the generic port rule.
   const rules = [
-    [/port|terminal/, 'terminal equipment suppliers, marine & civil EPC, port operators'],
-    [/rail/, 'rolling-stock and signalling suppliers, civil EPC, track contractors'],
-    [/airport/, 'airfield and terminal contractors, baggage and security systems suppliers'],
+    [/\brail|metro|mrt\b|tram/, 'rolling-stock and signalling suppliers, civil EPC, track contractors'],
+    [/airport|airfield/, 'airfield and terminal contractors, baggage and security systems suppliers'],
+    [/shipyard|fleet|vessel|newbuild/, 'shipyards, marine equipment and propulsion suppliers, ship finance'],
+    [/\bports?\b|terminal|harbour|harbor|dredg/, 'terminal equipment suppliers, marine & civil EPC, port operators'],
+    [/refin|petrochem/, 'process EPC, licensors, static and rotating equipment suppliers'],
     [/renewable|solar|wind|battery|storage/, 'EPC partners, inverter / battery / turbine suppliers, grid contractors'],
-    [/power|transmission/, 'transmission EPC, transformer and cable suppliers, substation contractors'],
-    [/lng|oil|gas|pipeline|storage/, 'process EPC, pipeline contractors, compressor and valve suppliers'],
+    [/\bpower\b|transmission|grid|substation/, 'transmission EPC, transformer and cable suppliers, substation contractors'],
+    [/\blng\b|\boil\b|\bgas\b|pipeline|upstream|offshore/, 'process EPC, pipeline contractors, compressor and valve suppliers'],
     [/hydrogen|ammonia/, 'electrolyser and process-equipment suppliers, EPC'],
-    [/mine|mining|lithium|copper|critical|metal/, 'mining-equipment makers, process-plant EPC, materials suppliers'],
-    [/fertilizer/, 'process EPC and equipment suppliers'],
-    [/grain|food|irrigation|water|agri/, 'agri-processing equipment makers, civil and water-treatment contractors'],
+    [/\bmine\b|mining|lithium|copper|critical|metal|smelt/, 'mining-equipment makers, process-plant EPC, materials suppliers'],
+    [/fertili[sz]er|urea/, 'process EPC and equipment suppliers'],
+    [/grain|food|irrigation|\bwater\b|agri/, 'agri-processing equipment makers, civil and water-treatment contractors'],
   ];
   for (const [re, txt] of rules) if (re.test(t)) return txt;
   return 'EPC contractors, developers and equipment suppliers';
@@ -104,6 +108,11 @@ function projectTags(it) {
   const c = countryName(it.country).replace(/[^A-Za-z]/g, '');
   return ['#Infrastructure', sub && '#' + sub, c && '#' + c, '#EPC', '#BusinessDevelopment'].filter(Boolean).slice(0, 5).join(' ');
 }
+
+// A bot wall / aggregator blurb that the radar fetched instead of the article must never become a post's description
+// (2026-10-05: three Infra posts carried "This website uses a security service to protect against malicious bots").
+const BAD_DESC = /security service|malicious bots?|not a bot|verif(y|ies|ying) (that )?you|access denied|enable javascript|checking your browser|just a moment|cloudflare|handpick the biggest stories|skip the noise|digest you can trust|all rights reserved|cookies?\b|subscribe to/i;
+const descOf = (it) => (BAD_DESC.test(it.description || '') ? '' : it.description || '');
 
 function pickProjects(items, n, used) {
   const cands = items
@@ -116,6 +125,9 @@ function pickProjects(items, n, used) {
       if (picks.length >= n) return;
       if (picks.includes(it)) continue;
       if (picks.some((p) => similar(p.project_name, it.project_name))) continue;
+      // 2026-10-05: the posts that reached beyond our followers were all big, named projects (SABIC FID 99 impressions,
+      // Morocco procurement plan 120, Ima FID 62); the strict pass wants a company name and at least medium scale.
+      if (strict && (!it.company_name || scaleRank(it.scale) < 2)) continue;
       if (strict && picks.some((p) => p.sector === it.sector || isoOf(p.country) === isoOf(it.country))) continue;  // different sector and country each
       picks.push(it);
     }
@@ -184,11 +196,11 @@ function snapshotOf(it) {
 }
 function projectPost(it, i, date, slot) {
   const sub = subOf(it);   // skips "(unspecified)" / "Unknown" so no #Unknown hashtag
-  const title = clean(it.description) && /[.!?]$/.test(clean(it.description)) && clean(it.description).length <= 140 ? clean(it.description).replace(/.$/, '') : clean(it.project_name);
+  const title = clean(descOf(it)) && /[.!?]$/.test(clean(descOf(it))) && clean(descOf(it)).length <= 140 ? clean(descOf(it)).replace(/.$/, '') : clean(it.project_name);
   const prefix = `${flagsFor({ ...it, project_name: title })} 🏗️`.trim();
   const blocks = [
     `${prefix} ${title}`,
-    clean(it.description).replace(/.$/, '') !== title ? summaryOf(it.description, cfg.maxSummaryChars) : '',
+    clean(descOf(it)).replace(/.$/, '') !== title ? summaryOf(descOf(it), cfg.maxSummaryChars) : '',
     snapshotOf(it),
     sourceLine(it),
     BODY_LINKS ? countryLine(it, date, i) : '',
@@ -297,7 +309,8 @@ const isWeekend = [0, 6].includes(new Date(TODAY + 'T00:00:00Z').getUTCDay());  
 // Trade Flow Weekly day (the PDF carousel takes the morning slot on the main page): one news post fewer, so 3 posts that day, not 4
 const isReportDay = !isWeekend && A.main.weeklyReport && new Date(TODAY + 'T00:00:00Z').getUTCDay() === A.main.weeklyReport.dayUtc;
 const newsSlots = isWeekend ? [A.main.weekendSlotUtc || '08:30'] : isReportDay ? A.main.weeklyReport.newsSlotsUtc : A.main.slotsUtc;
-const newsN = isWeekend ? (A.main.weekendNewsPerDay ?? 1) : isReportDay ? newsSlots.length : A.main.newsPerDay;
+// newsPerDay 0 = the main page is video-only (2026-10-05): no news posts on any day, report day included.
+const newsN = A.main.newsPerDay === 0 ? 0 : isWeekend ? (A.main.weekendNewsPerDay ?? 1) : isReportDay ? newsSlots.length : A.main.newsPerDay;
 if (isReportDay) console.error(`Trade Flow Weekly day: ${newsN} news posts (${newsSlots.join(', ')} UTC), the weekly carousel is at ${A.main.weeklyReport.slotUtc} UTC`);
 const infraOn = !(isWeekend && A.infra.weekend === false);
 // The Trade Flow daily flash card (made first by "sharecards.mjs --flash-only") names its top stories: the single news posts skip them.
@@ -326,8 +339,9 @@ if (!cardsOk) console.error('WARNING: WTP_BOT_SECRET is not set -> Infrastructur
 const posts = [
   ...news.map((it, k) => newsPost(it, k + 1, TODAY, newsSlots[k % newsSlots.length])),
   ...projs.map((it, k) => projectPost(it, k + 1, TODAY, A.infra.slotsUtc[k % A.infra.slotsUtc.length])),
-  ...(cardsOk && shown.length && !isWeekly ? [dailyCardPost(epcItems, shown, TODAY, A.infra.dailyCardSlotUtc)] : []),
-  ...(cardsOk && infraOn && isWeekly && epcItems.length ? [weeklyCardPost(epcItems, TODAY, A.infra.weeklyCardSlotUtc)] : []),
+  // a null slot in config.json switches the card off (2026-10-05: both Infra cards off)
+  ...(cardsOk && A.infra.dailyCardSlotUtc && shown.length && !isWeekly ? [dailyCardPost(epcItems, shown, TODAY, A.infra.dailyCardSlotUtc)] : []),
+  ...(cardsOk && A.infra.weeklyCardSlotUtc && infraOn && isWeekly && epcItems.length ? [weeklyCardPost(epcItems, TODAY, A.infra.weeklyCardSlotUtc)] : []),
 ];
 
 const preview = [`# LinkedIn queue — ${TODAY}`, '',

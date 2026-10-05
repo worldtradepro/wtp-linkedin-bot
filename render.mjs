@@ -140,7 +140,8 @@ function excerptOf(info, headline) {
   // strip section labels that sites glue onto the first sentence ("Operational Overview Saudi Arabia ..."), and refuse fragments (must start with a capital letter)
   const unlabel = (s) => clean(s).replace(/^(operational overview|overview|summary|key points|highlights|background|breaking)\s*[:\-–—]?\s+/i, '');
   // never let a cookie / consent / ad-blocker / subscription banner leak into a post ("we and our partners process personal data ...")
-  const BANNER = /personal data|legitimate interest|display ads|consent|cookies?\b|privacy|advertis|tracking|third[- ]party|partners? process|subscribe|subscription|sign in|log in|your browser|javascript|ad[- ]?block/i;
+  // ... nor a bot wall (Cloudflare "This website uses a security service ...") or an aggregator's own tagline ("we handpick the biggest stories") - 2026-10-05
+  const BANNER = /personal data|legitimate interest|display ads|consent|cookies?\b|privacy|advertis|tracking|third[- ]party|partners? process|subscribe|subscription|sign in|log in|your browser|javascript|ad[- ]?block|security service|malicious bots?|not a bot|verif(y|ies|ying) (that )?you|access denied|checking your browser|just a moment|cloudflare|handpick|skip the noise|digest you can trust/i;
   const goodSentence = (s) => { const t = unlabel(s); return t.length > 40 && /^[A-Z]/.test(t) && !/^(update|correction|editor)/i.test(t) && !BANNER.test(t) && overlap(t, headline) < 0.8; };
   const parts = [];
   // 1st choice: the publisher's own summary line (og:description) - it is written to stand alone.

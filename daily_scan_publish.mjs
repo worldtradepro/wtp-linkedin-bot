@@ -21,6 +21,7 @@ const OUT = join(HERE, 'reports', 'out', `${DATE}-scan-${SERIES}`);
 const STATE = join(HERE, 'state', 'scan_pushed.json');
 const state = existsSync(STATE) ? JSON.parse(readFileSync(STATE, 'utf8')) : {};
 const KEY_ = `${DATE}:${SERIES}`;
+if (DS.paused) { console.log(`${KEY_}: Daily Scan is paused (config.json dailyScan.paused) - not queued in Buffer`); process.exit(0); }
 if (state[KEY_]?.bufferPostId) { console.log(`${KEY_}: already queued in Buffer (${state[KEY_].bufferPostId})`); process.exit(0); }
 if (!existsSync(join(OUT, 'assets.json'))) { console.error(`nothing rendered for ${KEY_}`); process.exit(1); }
 const A = JSON.parse(readFileSync(join(OUT, 'assets.json'), 'utf8'));

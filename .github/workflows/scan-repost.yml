@@ -42,6 +42,7 @@ jobs:
       - name: Share the Project Scan on the main page
         run: |
           DATE="${{ github.event.inputs.date }}"; [ -z "$DATE" ] && DATE=$(date -u +%F)
+          if node -e "process.exit(require('./config.json').dailyScan.paused ? 0 : 1)"; then echo "Daily Scan is paused (config.json) - nothing to share"; exit 0; fi
           node scan_repost.mjs --date "$DATE" ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
       - name: Save state
         if: ${{ github.event.inputs.dry_run != 'true' }}
