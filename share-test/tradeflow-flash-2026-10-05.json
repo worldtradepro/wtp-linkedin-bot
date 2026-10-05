@@ -1,0 +1,27 @@
+{
+  "format": "flash",
+  "file": "tradeflow-flash-2026-10-05.png",
+  "caption": "🚢 🇺🇸 Tankers: Can the US Sustain Increased Crude Export Capabilities?\n\nWhy it matters: Material development worth tracking — Shipping, United States.\nSource: hellenicshippingnews.com\n\nAlso flagged today:\n⚡ 🇨🇳 Europe’s Diesel Woes Just Got Even Worse (oilprice.com)\n🚢 🇮🇷 Iraq Shifts Oil Strategy By Arranging Tanker To Move Past Hormuz (gcaptain.com)\n\nTrade lanes under pressure (last 7 days): Strait of Hormuz (5 Critical · 9 Elevated) · Red Sea & Suez Canal (2 Critical · 2 Elevated) · Panama Canal (1 Critical)\n\n14 signals tracked Oct 5 — 0 Critical, 4 Elevated. Live map ➡️ https://worldtradepro.com/?view=flows&utm_source=linkedin&utm_medium=social&utm_campaign=flash-20261005\n\n#TradeFlows #SupplyChain #Commodities #Shipping #Logistics",
+  "link": "https://worldtradepro.com/?view=flows&utm_source=linkedin&utm_medium=social&utm_campaign=flash-20261005",
+  "errors": [],
+  "flashPicks": [
+    {
+      "url": "https://www.hellenicshippingnews.com/tankers-can-the-us-sustain-increased-crude-export-capabilities/",
+      "title": "Tankers: Can the US Sustain Increased Crude Export Capabilities?",
+      "country": "United States",
+      "sector": "Shipping"
+    },
+    {
+      "url": "https://oilprice.com/Energy/Crude-Oil/Europes-Diesel-Woes-Just-Got-Even-Worse.html",
+      "title": "Europe’s Diesel Woes Just Got Even Worse",
+      "country": "China",
+      "sector": "Energy"
+    },
+    {
+      "url": "https://gcaptain.com/iraq-shifts-oil-strategy-by-arranging-tanker-to-move-past-hormuz/",
+      "title": "Iraq Shifts Oil Strategy By Arranging Tanker To Move Past Hormuz",
+      "country": "Iran",
+      "sector": "Shipping"
+    }
+  ]
+}
