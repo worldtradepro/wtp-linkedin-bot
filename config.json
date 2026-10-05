@@ -1,4 +1,5 @@
 {
+  "instagram": { "paused": true, "postUtc": "15:00", "_note": "2026-10-05 paused by owner until the cover pages are fixed; set paused to false to release" },
   "site": "https://worldtradepro.com",
   "accounts": {
     "main": {
