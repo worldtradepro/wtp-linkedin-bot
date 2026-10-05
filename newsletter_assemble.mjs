@@ -11,6 +11,9 @@ export const SECTORS = {
   equipment: 'Industrial equipment', recycling: 'Scrap & recycled materials',
 };
 export const SECTOR_ORDER = Object.keys(SECTORS);
+// one colour per sector, used everywhere the sector appears (pill, card edge, folded line) so a reader learns it fast
+export const SECTOR_COLOR = { energy: '#c2410c', power: '#15803d', metals: '#1d4ed8', agri: '#65a30d', chem: '#7c3aed', infra: '#0f766e', shipping: '#0369a1', equipment: '#b45309', recycling: '#4d7c0f' };
+export const colorOf = (k) => SECTOR_COLOR[k] || '#475467';
 
 // Which of the 9 reader sectors a pipeline item belongs to. The radar's own labels are broader (Energy / Logistics &
 // Infrastructure / ...), so the subsector and the title decide. Order matters: fertilizer before agri, rail before infra.
@@ -45,7 +48,9 @@ export const para = (html, pad = '0 0 8px') => row(`<div style="font-size:15px;l
 export const link = (label, href, color = C.accent) => `<a href="${esc(href)}" style="color:${color};font-weight:700;text-decoration:none;">${label}</a>`;
 export const button = (label, href) => row(`<table role="presentation" cellpadding="0" cellspacing="0"><tr><td style="background:${C.navy};border-radius:6px;"><a href="${esc(href)}" style="display:inline-block;padding:13px 22px;${font}font-size:15px;font-weight:700;color:#ffffff;text-decoration:none;">${label}</a></td></tr></table>`, '14px 0 4px');
 export const box = (html, bg, border) => row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${bg};${border ? `border:1px solid ${border};` : ''}border-radius:8px;"><tr><td style="padding:14px 18px;${font}font-size:14px;line-height:1.55;">${html}</td></tr></table>`, '18px 0 0');
-export const pill = (label, color = C.accent) => `<span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:${color};border:1px solid ${color};border-radius:100px;padding:1px 8px;">${esc(label)}</span>`;
+export const pill = (label, color = C.accent) => `<span style="display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:${color};border-radius:100px;padding:2px 9px;">${esc(label)}</span>`;
+export const sectorPill = (k) => pill(SECTORS[k] || k, colorOf(k));
+export const badge = (label, color) => `<span style="display:inline-block;font-size:12px;font-weight:700;color:${color};background:${color}14;border:1px solid ${color}55;border-radius:6px;padding:1px 7px;white-space:nowrap;">${label}</span>`;
 
 // ---------------------------------------------------------------- the reader
 // reader = { sectors: 'metals,energy' | ['metals'], role: 'epc' | ... } (both optional, as the subscriber export returns them)
@@ -54,13 +59,21 @@ export function readerOf(r = {}) {
   const sectors = SECTOR_ORDER.filter((k) => raw.map((x) => String(x).trim().toLowerCase()).includes(k));
   return { sectors, role: String(r.role || '').toLowerCase() };
 }
-const BUYER = ['epc', 'procurement', 'owner'], SUPPLIER = ['equipment', 'service'], FLOWFIRST = ['trader', 'shipping'];
+export const BUYER = ['procurement', 'owner'], SUPPLIER = ['equipment', 'service', 'epc'], FLOWFIRST = ['trader', 'shipping'];
+// EPC contractors bid for work AND buy equipment: they read like a supplier (who is buying) - the buyer line is for owners / procurement.
+export const isBuyer = (role) => BUYER.includes(role);
+export function titleFor(role, base) {
+  if (isBuyer(role)) return 'The 10 things worth knowing before you buy this week';
+  if (FLOWFIRST.includes(role)) return 'The 10 moves worth knowing this week';
+  if (SUPPLIER.includes(role)) return base || 'The 10 things worth a call this week';
+  return 'The 10 things worth knowing this week';
+}
 // One sentence under the masthead that tells this reader why the issue is arranged the way it is.
 export function roleLine(role) {
-  if (BUYER.includes(role)) return 'Buyer\'s view: the tenders and awards tell you who is buying, and when.';
-  if (SUPPLIER.includes(role)) return 'Supplier\'s view: an awarded contract means the winner is now buying equipment and placing subcontracts. Those are your calls.';
-  if (FLOWFIRST.includes(role)) return 'Trader\'s view: the flows that moved this week come first, then the projects that will move them next.';
-  if (role === 'finance') return 'Finance view: new projects and awards are tomorrow\'s financing, insurance and hedging demand.';
+  if (isBuyer(role)) return 'For buyers: what comparable work just cost, who is now booked, and what moved your landed cost.';
+  if (SUPPLIER.includes(role)) return 'For suppliers and contractors: who is buying, who just won, and the call to make.';
+  if (FLOWFIRST.includes(role)) return 'For traders and charterers: the flows that moved first, then the projects behind them.';
+  if (role === 'finance') return 'For finance: new projects and awards are next year\'s financing, insurance and hedging demand.';
   return '';
 }
 
@@ -81,48 +94,51 @@ export function assemble(b, readerLike = {}, opts = {}) {
   const perSector = opts.perSector || 5, callsN = opts.calls || 3, flowsN = opts.flows || 3;
 
   const out = [];
-  // masthead
-  const sectorsLine = reader.sectors.length ? `Your sectors: <b style="color:${C.ink};">${reader.sectors.map((k) => esc(SECTORS[k])).join(', ')}</b> · ${link('change', b.links.manage, C.muted).replace('font-weight:700;', 'font-weight:400;')}` : `All sectors · ${link('choose yours', b.links.manage, C.muted).replace('font-weight:700;', 'font-weight:400;')}`;
+  const buyer = isBuyer(reader.role);
+  // masthead: kicker, role-specific title, four stat tiles, the reader's sectors
+  const tile = (n, label, color) => `<td width="25%" style="padding:0 3px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${color}12;border-radius:8px;"><tr><td style="padding:10px 6px;text-align:center;${font}"><div style="font-size:22px;font-weight:800;color:${color};line-height:1.1;">${n}</div><div style="font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:${C.muted};padding-top:2px;">${label}</div></td></tr></table></td>`;
+  const st = b.stats || {};
+  const sectorsLine = reader.sectors.length ? `${reader.sectors.map((k) => sectorPill(k)).join(' ')} <a href="${esc(b.links.manage)}" style="color:${C.muted};font-size:12px;text-decoration:none;">change ›</a>` : `<span style="color:${C.muted};font-size:13px;">All sectors · </span><a href="${esc(b.links.manage)}" style="color:${C.accent};font-size:13px;font-weight:700;text-decoration:none;">pick yours ›</a>`;
   const rl = roleLine(reader.role);
-  out.push(`<tr><td style="${font}padding-bottom:8px;border-bottom:3px solid ${C.navy};">
+  out.push(`<tr><td style="${font}padding-bottom:12px;border-bottom:3px solid ${C.navy};">
     <div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:${C.accent};font-weight:700;">${esc(b.head.kicker)}</div>
-    <div style="font-size:26px;font-weight:700;color:${C.ink};padding-top:6px;line-height:1.2;">${esc(b.head.title)}</div>
-    <div style="font-size:13px;color:${C.muted};padding:6px 0 2px;">${esc(b.head.sub)}</div>
-    <div style="font-size:13px;color:${C.muted};">${sectorsLine}</div>
-    ${rl ? `<div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:8px;">${esc(rl)}</div>` : ''}
+    <div style="font-size:27px;font-weight:800;color:${C.ink};padding-top:6px;line-height:1.15;">${esc(titleFor(reader.role, b.head.title))}</div>
+    <div style="font-size:13px;color:${C.muted};padding:6px 0 10px;">${esc(b.head.sub)}${rl ? ` · ${esc(rl)}` : ''}</div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 -3px;"><tr>${tile(st.epc ?? 0, 'new projects', C.navy)}${tile(st.tenders ?? 0, 'tenders', '#b45309')}${tile(st.awards ?? 0, 'awards', '#15803d')}${tile(st.flow ?? 0, 'flow signals', '#0369a1')}</tr></table>
+    <div style="padding-top:10px;">${sectorsLine}</div>
   </td></tr>`);
   if (b.sponsor?.html) out.push(row(b.sponsor.html, '12px 0 0'));
 
-  // the three sections, in the order this role reads them
+  const sectionHead = (t, sub) => row(`<div style="font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:${C.navy};border-left:4px solid ${C.gold};padding-left:10px;line-height:1.3;">${t}${sub ? `<div style="font-size:12px;font-weight:400;letter-spacing:0;text-transform:none;color:${C.muted};padding-top:2px;">${sub}</div>` : ''}</div>`, '28px 0 6px');
   const callsSec = () => {
-    // a reader's own sector comes first, but only a STRONG deal (value, or counterparty + deadline) may jump the queue
     const picked = [...b.calls].sort((x, y) => (rank(x.key) + (x.strong ? 0 : 1)) - (rank(y.key) + (y.strong ? 0 : 1))).slice(0, callsN);
     if (!picked.length) return;
-    out.push(h2('Worth a call this week', 'Tenders and awards with a name, a value or a deadline. Ranked for your sectors.'));
-    picked.forEach((c, i) => out.push(row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid ${C.line};border-left:4px solid ${mine.has(c.key) ? C.gold : C.navy};border-radius:8px;"><tr><td style="padding:12px 16px;${font}">
-      <div style="font-size:11px;color:${C.muted};font-weight:700;">${i + 1} / ${picked.length} &nbsp; ${pill(SECTORS[c.key] || c.sector)}</div>${c.html}</td></tr></table>`, '8px 0 0')));
+    out.push(sectionHead(buyer ? 'What comparable work just cost' : 'Worth a call this week', buyer ? 'Awards = reference prices and who is now booked. Tenders = what your peers are buying.' : 'Tenders and awards with a counterparty, a value or a deadline.'));
+    picked.forEach((c, i) => out.push(row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid ${C.line};border-left:5px solid ${colorOf(c.key)};border-radius:8px;"><tr><td style="padding:12px 16px;${font}">
+      <div>${sectorPill(c.key)} <span style="font-size:11px;color:${C.muted};font-weight:700;">&nbsp;${i + 1}/${picked.length}</span></div>${c.html}${buyer ? c.buyer || '' : c.call || ''}</td></tr></table>`, '8px 0 0')));
   };
   const projectsSec = () => {
     const groups = [...b.projects].sort((x, y) => rank(x.key) - rank(y.key) || y.count - x.count);
     if (!groups.length) return;
     const total = groups.reduce((n, g) => n + g.count, 0);
-    out.push(h2(`New projects this week <span style="color:${C.muted};font-weight:400;">· ${total}</span>`, mine.size ? 'Your sectors in full; the rest in one line at the end' : 'Largest first, by sector'));
+    out.push(sectionHead(`New projects this week <span style="color:${C.muted};font-weight:400;">· ${total}</span>`, mine.size ? 'Your sectors in full; the rest in one line below' : 'Largest first, by sector'));
     const folded = [];
     for (const g of groups) {
       if (!follows(g.key)) { folded.push(g); continue; }
-      out.push(row(`<div style="font-size:13px;font-weight:700;color:${C.ink};border-bottom:2px solid ${mine.has(g.key) ? C.gold : C.navy};padding-bottom:3px;">${esc(SECTORS[g.key])} <span style="color:${C.muted};font-weight:400;">· ${g.count}</span></div>`, '14px 0 2px'));
+      out.push(row(`<div style="border-bottom:2px solid ${colorOf(g.key)};padding-bottom:4px;">${sectorPill(g.key)} <span style="font-size:13px;font-weight:700;color:${C.ink};">&nbsp;${g.count}</span></div>`, '14px 0 2px'));
       g.rows.slice(0, perSector).forEach((h) => out.push(h));
-      if (g.count > perSector) out.push(para(`<span style="font-size:13px;">${link(`+ ${g.count - perSector} more ${esc(SECTORS[g.key].toLowerCase())} projects →`, g.moreUrl)}</span>`, '6px 0 0'));
+      if (g.count > perSector) out.push(para(`<span style="font-size:13px;">${link(`All ${g.count} ${esc(SECTORS[g.key].toLowerCase())} projects ›`, g.moreUrl, colorOf(g.key))}</span>`, '6px 0 0'));
     }
-    if (folded.length) out.push(para(`<span style="font-size:13px;color:${C.muted};"><b>Also this week:</b> ${folded.map((g) => `${link(esc(SECTORS[g.key]), g.moreUrl, C.muted).replace('font-weight:700;', 'font-weight:600;')} ${g.count}`).join(' · ')}</span>`, '14px 0 0'));
+    if (folded.length) out.push(row(`<div style="font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:${C.muted};padding-bottom:6px;">Also this week</div>${folded.map((g) => `<a href="${esc(g.moreUrl)}" style="text-decoration:none;display:inline-block;margin:0 6px 6px 0;">${pill(`${SECTORS[g.key]} · ${g.count}`, colorOf(g.key))}</a>`).join('')}`, '16px 0 0'));
   };
   const flowsSec = () => {
     if (!b.flows || (!b.flows.items.length && !b.flows.lanes)) return;
-    out.push(h2('Flows that changed', 'Where cargo is moving differently this week and what it means for buyers and shippers'));
+    out.push(sectionHead(buyer ? 'Costs that moved' : 'Flows that changed', buyer ? 'Freight, routes and supply moves that change your landed cost' : 'Where cargo is moving differently this week, and what it means'));
     const items = [...b.flows.items].sort((x, y) => rank(x.key) - rank(y.key)).slice(0, flowsN);
     items.forEach((f) => out.push(f.html));
     if (b.flows.lanes) out.push(b.flows.lanes);
   };
+  if (b.directory) out.push(b.directory);   // "new on the supplier directory" - only when the week had listings
   const order = FLOWFIRST.includes(reader.role) ? [flowsSec, callsSec, projectsSec] : [callsSec, projectsSec, flowsSec];
   order.forEach((f) => f());
   if (b.moves) out.push(b.moves);

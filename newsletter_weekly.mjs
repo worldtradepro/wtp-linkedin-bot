@@ -10,7 +10,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { dayShift, fetchJson, flagOf, countryName, LANES, laneOf, clean, hostOf, similar, score, summaryOf, tokens, NOT_EPC, dealOf } from './common.mjs';
-import { SECTORS, SECTOR_ORDER, sectorKeyOf, C, font, esc, row, h2, para, link, box, pill, assemble, document as doc } from './newsletter_assemble.mjs';
+import { SECTORS, SECTOR_ORDER, sectorKeyOf, C, font, esc, row, para, link, box, pill, sectorPill, badge, colorOf, assemble, document as doc } from './newsletter_assemble.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const cfg = JSON.parse(readFileSync(join(HERE, 'config.json'), 'utf8'));
@@ -85,25 +85,36 @@ for (const it of epc.filter((x) => ['S4', 'S5'].includes(stageKey(x.stage)))) {
 }
 dealsAll.sort((a, b) => b.substance - a.substance || (b.usd || 0) - (a.usd || 0));
 const callCard = (d) => {
-  const it = d.it, [st, why] = STAGE[stageKey(it.stage)] || ['', ''];
-  const facts = [countryLink(it, true), d.value ? `<b style="color:${C.ink};">${esc(d.value)}</b>` : '', d.tender && d.deadline ? `<b style="color:#b54708;">bids due ${esc(d.deadline)}</b>` : '',
-    d.who ? ({ winner: 'Won by ', buyer: 'Buyer: ' }[d.role] || '') + `<b style="color:${C.ink};">${esc(d.who)}</b>` : (isNA(it.company_name) ? '' : esc(clean(it.company_name)))].filter(Boolean);
-  const call = d.tender ? (d.who ? `Call ${esc(d.who)}'s procurement team about the bid documents` : 'Get the bid documents from the linked notice and line up partners') : (d.who ? `Call ${esc(d.who)}: they are now buying equipment and placing subcontracts` : 'Find out who won and get on their vendor list');
-  return `<a href="${esc(d.url)}" style="display:block;color:${C.ink};text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:4px 0 2px;">${esc(d.name)}</a>
-    <div style="font-size:13px;color:${C.muted};line-height:1.6;">${esc(st)} · ${facts.join(' · ')}</div>
-    ${snippet(it.description, 180) ? `<div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:6px;">${esc(snippet(it.description, 180))}</div>` : ''}
-    <div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:6px;"><b style="color:${C.ink};">The call:</b> ${call}.</div>`;
+  const it = d.it, [st] = STAGE[stageKey(it.stage)] || [''];
+  const who = d.who ? `<b style="color:${C.ink};">${esc(d.who)}</b>` : (isNA(it.company_name) ? '' : `<b style="color:${C.ink};">${esc(clean(it.company_name))}</b>`);
+  const facts = [badge(esc(st), d.tender ? '#b45309' : '#15803d'), countryLink(it, true), d.value ? badge(esc(d.value), C.navy) : '', d.tender && d.deadline ? badge(`bids due ${esc(d.deadline)}`, '#b42318') : '',
+    who ? ({ winner: 'won by ', buyer: 'buyer ' }[d.role] || '') + who : ''].filter(Boolean);
+  const name = d.who || clean(it.company_name);
+  const call = d.tender
+    ? (d.who ? `Ask ${esc(d.who)} for the bid documents${d.deadline ? ` before ${esc(d.deadline)}` : ''}.` : 'Pull the bid documents from the notice and line up partners.')
+    : (d.who ? `${esc(d.who)} is now buying equipment and placing subcontracts. Get on their vendor list.` : 'Find the winner and get on their vendor list.');
+  const buyer = d.tender
+    ? `A peer is buying this scope${d.value ? ` at an estimated ${esc(d.value)}` : ''}; a live comparison for your own package${d.deadline ? ` (their bids close ${esc(d.deadline)})` : ''}.`
+    : `${d.value ? `Reference price: ${esc(d.value)} for this scope in ${esc(countryName(it.country) || 'this market')}. ` : ''}${name && !isNA(name) ? `${esc(name)} is now booked on this job.` : 'The winner\'s team is now committed.'}`;
+  const line = (label, text, color) => `<div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:8px;border-top:1px dashed ${C.line};margin-top:8px;"><b style="color:${color};">${label}</b> ${text}</div>`;
+  return {
+    html: `<a href="${esc(d.url)}" style="display:block;color:${C.ink};text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:6px 0 6px;">${esc(d.name)}</a>
+    <div style="font-size:13px;color:${C.muted};line-height:1.9;">${facts.join(' &nbsp;·&nbsp; ')}</div>`,
+    call: line('The call:', call, C.navy),
+    buyer: line('For buyers:', buyer, '#15803d'),
+  };
 };
 // up to 2 per sector so one busy sector cannot take all three default slots; the assembler re-ranks per reader
 const calls = []; const perKey = {};
-for (const d of dealsAll) { const k = d.it.key; if ((perKey[k] || 0) >= 2) continue; perKey[k] = (perKey[k] || 0) + 1; calls.push({ key: k, sector: SECTORS[k], strong: d.strong, html: callCard(d) }); if (calls.length >= 9) break; }
+for (const d of dealsAll) { const k = d.it.key; if ((perKey[k] || 0) >= 2) continue; perKey[k] = (perKey[k] || 0) + 1; calls.push({ key: k, sector: SECTORS[k], strong: d.strong, ...callCard(d) }); if (calls.length >= 9) break; }
 
 // ---------------------------------------------------------------- 2. new projects by sector
 const sectorOf = (it) => [clean(it.subsector)].filter((x) => x && !/^unknown$/i.test(x)).join('');
 const projRow = (it) => {
   const [st] = STAGE[stageKey(it.stage)] || [''];
-  const bits = [countryLink(it), esc(sectorOf(it)), st ? esc(st) : '', it.scale && it.scale !== 'Unknown' ? esc(it.scale) : '', isNA(it.company_name) ? '' : esc(clean(it.company_name))].filter(Boolean);
-  return row(`<a href="${esc(it.source_url)}" style="color:${C.ink};text-decoration:none;font-weight:600;font-size:15px;line-height:1.4;">${esc(clean(it.project_name))}</a><br><span style="color:${C.muted};font-size:13px;line-height:1.5;">${bits.join(' · ')}</span>`, `8px 0;border-top:1px solid ${C.line}`);
+  const stColor = { Tender: '#b45309', Awarded: '#15803d', 'Pre-FID': '#7c3aed' }[st] || C.muted;
+  const bits = [st ? `<b style="color:${stColor};">${esc(st)}</b>` : '', countryLink(it), esc(sectorOf(it)), it.scale && it.scale !== 'Unknown' ? esc(it.scale) : '', isNA(it.company_name) ? '' : esc(clean(it.company_name))].filter(Boolean);
+  return row(`<a href="${esc(it.source_url)}" style="color:${C.ink};text-decoration:none;font-weight:600;font-size:15px;line-height:1.4;">${esc(clean(it.project_name))}</a><br><span style="color:${C.muted};font-size:12.5px;line-height:1.5;">${bits.join(' · ')}</span>`, `7px 0;border-top:1px solid ${C.line}`);
 };
 const usedInCalls = new Set(calls.map((c) => c.html));
 const projects = [];
@@ -119,7 +130,7 @@ for (const k of SECTOR_ORDER) {
     per[c] = (per[c] || 0) + 1; seen.push(it.project_name); rows.push(projRow(it));
     if (rows.length >= 8) break;
   }
-  projects.push({ key: k, count: items.length, rows, moreUrl: utm(cfg.site + '/intelligence-map/?view=infrastructure', 'more-' + k) });
+  projects.push({ key: k, count: items.length, rows, moreUrl: utm(cfg.site + '/projects/', 'more-' + k) });
 }
 
 // ---------------------------------------------------------------- 3. flows that changed
@@ -173,9 +184,9 @@ for (const c of clusters.slice(0, 14)) {
   if ((flowPer[c.lead.key] || 0) >= 2) continue; flowPer[c.lead.key] = (flowPer[c.lead.key] || 0) + 1;
   const it = c.lead, l = laneOf(it) || LANES.find((x) => [it, ...c.more].some((m) => x.re.test(m.project_name + ' ' + m.description)));
   const lr = l && lanes.find((x) => x.l.id === l.id);
-  const what = snippet(it.description, 200);
+  const what = snippet(it.description, 150);
   const means = meansFor(it, l, lr);
-  flowItems.push({ key: it.key, html: row(`<div style="font-size:11px;font-weight:700;color:${C.muted};">${pill(SECTORS[it.key] || it.sector)} ${l ? `&nbsp;<span style="color:${C.muted};font-weight:400;">${esc(l.name)}</span>` : ''}</div>
+  flowItems.push({ key: it.key, html: row(`<div style="font-size:11px;font-weight:700;color:${C.muted};">${sectorPill(it.key)} ${l ? `&nbsp;${badge(esc(l.name), '#0369a1')}` : ''}</div>
     <a href="${esc(it.source_url)}" style="display:block;color:${C.ink};text-decoration:none;font-size:16px;font-weight:700;line-height:1.35;padding:4px 0 2px;">${flagOf(it.country)} ${esc(title(it))}</a>
     <div style="font-size:12px;color:${C.muted};">${source(it)}${c.more.length ? ` · ${c.more.length + 1} reports this week` : ''}</div>
     ${what ? `<div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:6px;">${esc(what)}</div>` : ''}
@@ -209,6 +220,7 @@ const preview = cut(`${plural(epc.length, 'new project')} in ${countries} countr
 const blocks = {
   date: TODAY, edition: 'weekly', issue: issueNo, week: WEEK, year: YEAR, from: FROM, to: TO, subject, preview,
   head: { kicker: `${W.name || 'World Trade Pro Weekly'} · Issue ${issueNo} · Week ${WEEK}`, title: W.subtitle || 'The 10 things worth a call this week', sub: `${fmtDay(FROM)} – ${fmtDay(TO)} ${YEAR} · ${plural(epc.length, 'new project')} in ${countries} countries · ${tenders} tenders · ${awards} awards · ${plural(flow.length, 'trade-flow signal')}` },
+  stats: { epc: epc.length, tenders, awards, flow: flow.length, critical: crit }, directory: '',
   sponsor, calls, projects, flows: { lanes: laneBoard, items: flowItems }, moves: movesHtml, tail,
   links: { projects: utm(cfg.site + '/projects/', 'projects-hub'), map: utm(cfg.site + '/intelligence-map/', 'map'), manage: cfg.site + '/newsletter/unsubscribe/' },
   skip: epc.length + flow.length < 5,
@@ -219,7 +231,7 @@ writeFileSync(join(OUT, NAME + '.blocks.json'), JSON.stringify(blocks, null, 1))
 writeFileSync(join(OUT, NAME + '.html'), doc(blocks, assemble(blocks, {})));
 writeFileSync(join(OUT, NAME + '.json'), JSON.stringify({ date: TODAY, edition: 'weekly', skip: blocks.skip, subject, preview, counts: blocks.counts }, null, 2));
 if (args.includes('--preview')) {
-  for (const [tag, reader] of [['metals-buyer', { sectors: 'metals', role: 'procurement' }], ['energy-supplier', { sectors: 'energy,power', role: 'equipment' }], ['agri-trader', { sectors: 'agri', role: 'trader' }], ['shipping', { sectors: 'shipping', role: 'shipping' }]])
+  for (const [tag, reader] of [['metals-buyer', { sectors: 'metals', role: 'procurement' }], ['energy-supplier', { sectors: 'energy,power', role: 'equipment' }], ['agri-trader', { sectors: 'agri', role: 'trader' }], ['shipping', { sectors: 'shipping', role: 'shipping' }], ['power-owner', { sectors: 'power', role: 'owner' }]])
     writeFileSync(join(OUT, `${NAME}.preview-${tag}.html`), doc(blocks, assemble(blocks, reader)));
   console.log('previews: metals-buyer, energy-supplier, agri-trader, shipping');
 }
