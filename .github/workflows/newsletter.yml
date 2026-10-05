@@ -60,7 +60,12 @@ jobs:
           T="${{ inputs.to }}"; S="${{ inputs.sectors }}"; R="${{ inputs.role }}"
           TEST=""; [ -n "$T" ] && TEST="--to $T"; [ -n "$S" ] && TEST="$TEST --sectors $S"; [ -n "$R" ] && TEST="$TEST --role $R"
           echo "test=$TEST" >> "$GITHUB_OUTPUT"
+      - name: Paused in config.json? (newsletter.weekly.paused - owner reviews the issue before the schedule resumes)
+        if: ${{ github.event_name == 'schedule' }}
+        run: |
+          if node -e "process.exit(require('./config.json').newsletter.weekly.paused ? 0 : 1)"; then echo "::warning::World Trade Pro Weekly is paused in config.json (newsletter.weekly.paused) - nothing built or sent"; echo "PAUSED=1" >> "$GITHUB_ENV"; fi
       - name: Check secrets
+        if: env.PAUSED != '1'
         run: |
           test -n "$AWS_ACCESS_KEY_ID" && test -n "$AWS_SECRET_ACCESS_KEY" || { echo "::error::AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY missing"; exit 1; }
           test -n "$WTP_BOT_SECRET" || { echo "::error::WTP_BOT_SECRET missing"; exit 1; }
@@ -68,25 +73,32 @@ jobs:
         with:
           node-version: 20
       - name: SES permissions check
-        if: steps.ed.outputs.edition == 'check'
+        if: env.PAUSED != '1' && steps.ed.outputs.edition == 'check'
         run: node ses_send.mjs --check
       - name: Build the issue
-        if: steps.ed.outputs.edition != 'check'
+        if: env.PAUSED != '1' && steps.ed.outputs.edition != 'check'
         run: |
           if [ "${{ steps.ed.outputs.edition }}" = weekly ]; then node newsletter_weekly.mjs --preview; else node newsletter.mjs --edition ${{ steps.ed.outputs.edition }}; fi
       - name: Editor's notes (one model call, checked in code) and rebuild with them
         # a failed or skipped editor never blocks the issue: without notes the rule-based sentences stay
-        if: steps.ed.outputs.edition == 'weekly'
+        if: env.PAUSED != '1' && steps.ed.outputs.edition == 'weekly'
         continue-on-error: true
         run: |
           node weekly_editor.mjs && node newsletter_weekly.mjs --preview
+      - name: Web version of the issue on the site (the e-mail's "All N projects" links land here)
+        if: env.PAUSED != '1' && steps.ed.outputs.edition == 'weekly'
+        env:
+          WTP_PUBLISH_KEY: ${{ secrets.WTP_PUBLISH_KEY }}
+        run: |
+          node weekly_web.mjs
+          node weekly_web_publish.mjs || echo "::error::web issue not published - the e-mail's sector links will 404 until the next run"
       - name: Send through Amazon SES
-        if: steps.ed.outputs.edition != 'check'
+        if: env.PAUSED != '1' && steps.ed.outputs.edition != 'check'
         run: node ses_send.mjs --edition ${{ steps.ed.outputs.edition }} ${{ steps.ed.outputs.test }}
       - name: Keep the issue + state in the repo
         # Another run may have pushed meanwhile (a dispatch runs the commit it was started on): merge the sent-record
         # JSON by key instead of rebasing, and stage only this issue's files. A --to test send writes no state.
-        if: always() && steps.ed.outputs.edition != 'check' && steps.ed.outputs.test == ''
+        if: env.PAUSED != '1' && always() && steps.ed.outputs.edition != 'check' && steps.ed.outputs.test == ''
         run: |
           git config user.name "wtp-bot"
           git config user.email "wtp-bot@users.noreply.github.com"

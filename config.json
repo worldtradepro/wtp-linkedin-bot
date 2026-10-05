@@ -125,7 +125,9 @@
       "firstIssue": "2026-10-06",
       "sendDayUtc": 2,
       "slotUtc": "04:15",
-      "audienceLine": "the people who build and move commodities",
+      "paused": true,
+    "_paused": "2026-10-05: scheduled Tuesday runs do nothing while true (owner reviews issue 1 first). Manual Run workflow still works. Set false to let the schedule send.",
+    "audienceLine": "the people who build and move commodities",
       "sponsor": {
         "enabled": false,
         "name": "",

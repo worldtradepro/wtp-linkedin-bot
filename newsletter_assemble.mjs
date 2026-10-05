@@ -12,8 +12,9 @@ export const SECTORS = {
 };
 export const SECTOR_ORDER = Object.keys(SECTORS);
 // one colour per sector, used everywhere the sector appears (pill, card edge, folded line) so a reader learns it fast
-export const SECTOR_COLOR = { energy: '#c2410c', power: '#15803d', metals: '#1d4ed8', agri: '#65a30d', chem: '#7c3aed', infra: '#0f766e', shipping: '#0369a1', equipment: '#b45309', recycling: '#4d7c0f' };
-export const colorOf = (k) => SECTOR_COLOR[k] || '#475467';
+// Report discipline (MGI / BP): one dark, one accent, greys. Sectors are told apart by their LABEL, not by nine colours.
+export const SECTOR_COLOR = {};
+export const colorOf = () => '#1F6FEB';
 
 // Which of the 9 reader sectors a pipeline item belongs to. The radar's own labels are broader (Energy / Logistics &
 // Infrastructure / ...), so the subsector and the title decide. Order matters: fertilizer before agri, rail before infra.
@@ -39,7 +40,7 @@ export function sectorKeyOf(it) {
 }
 
 // ---------------------------------------------------------------- html helpers (inline styles: e-mail clients)
-export const C = { ink: '#101828', text: '#344054', muted: '#667085', line: '#eaecf0', bg: '#f5f6f8', card: '#ffffff', accent: '#0b4a6f', navy: '#0f2d5e', gold: '#c8a94a', sand: '#f4efe4' };
+export const C = { ink: '#111827', text: '#374151', muted: '#6B7280', faint: '#9CA3AF', line: '#E5E7EB', soft: '#F3F4F6', bg: '#f5f6f8', card: '#ffffff', accent: '#1F6FEB', accent2: '#9DB4D6', navy: '#0B2545', gold: '#c8a94a', sand: '#f4efe4' };
 export const font = 'font-family:Segoe UI,Helvetica,Arial,sans-serif;';
 export const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 export const row = (inner, pad = '0') => `<tr><td style="padding:${pad};${font}">${inner}</td></tr>`;
@@ -48,9 +49,9 @@ export const para = (html, pad = '0 0 8px') => row(`<div style="font-size:15px;l
 export const link = (label, href, color = C.accent) => `<a href="${esc(href)}" style="color:${color};font-weight:700;text-decoration:none;">${label}</a>`;
 export const button = (label, href) => row(`<table role="presentation" cellpadding="0" cellspacing="0"><tr><td style="background:${C.navy};border-radius:6px;"><a href="${esc(href)}" style="display:inline-block;padding:13px 22px;${font}font-size:15px;font-weight:700;color:#ffffff;text-decoration:none;">${label}</a></td></tr></table>`, '14px 0 4px');
 export const box = (html, bg, border) => row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${bg};${border ? `border:1px solid ${border};` : ''}border-radius:8px;"><tr><td style="padding:14px 18px;${font}font-size:14px;line-height:1.55;">${html}</td></tr></table>`, '18px 0 0');
-export const pill = (label, color = C.accent) => `<span style="display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#ffffff;background:${color};border-radius:100px;padding:2px 9px;">${esc(label)}</span>`;
-export const sectorPill = (k) => pill(SECTORS[k] || k, colorOf(k));
-export const badge = (label, color) => `<span style="display:inline-block;font-size:12px;font-weight:700;color:${color};background:${color}14;border:1px solid ${color}55;border-radius:6px;padding:1px 7px;white-space:nowrap;">${label}</span>`;
+export const pill = (label, color = C.navy, filled = false) => `<span style="display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:${filled ? '#ffffff' : color};background:${filled ? color : 'transparent'};border:1px solid ${color};border-radius:3px;padding:1px 7px;">${esc(label)}</span>`;
+export const sectorPill = (k) => pill(SECTORS[k] || k, C.muted);
+export const badge = (label, color) => `<span style="display:inline-block;font-size:12px;font-weight:700;color:${color};white-space:nowrap;">${label}</span>`;
 
 // ---------------------------------------------------------------- the reader
 // reader = { sectors: 'metals,energy' | ['metals'], role: 'epc' | ... } (both optional, as the subscriber export returns them)
@@ -95,31 +96,33 @@ export function assemble(b, readerLike = {}, opts = {}) {
   // masthead: kicker, role-specific title, four stat tiles, the reader's sectors
   const st = b.stats || {}, dl = st.deltas || {};
   const delta = (d) => (d === undefined || d === null ? '' : d > 0 ? `<span style="color:#15803d;">▲ ${d}</span>` : d < 0 ? `<span style="color:#b42318;">▼ ${-d}</span>` : `<span style="color:${C.muted};">= last week</span>`);
-  const tile = (n, label, color, d) => `<td width="25%" style="padding:0 3px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${color}12;border-radius:8px;"><tr><td style="padding:10px 6px 8px;text-align:center;${font}"><div style="font-size:24px;font-weight:800;color:${color};line-height:1.1;">${n}</div><div style="font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:${C.muted};padding-top:2px;">${label}</div><div style="font-size:11.5px;font-weight:700;padding-top:3px;">${delta(d)}</div></td></tr></table></td>`;
-  const sectorsLine = reader.sectors.length ? `${reader.sectors.map((k) => sectorPill(k)).join(' ')} <a href="${esc(b.links.manage)}" style="color:${C.muted};font-size:12px;text-decoration:none;">change ›</a>` : `<span style="color:${C.muted};font-size:13px;">All sectors · </span><a href="${esc(b.links.manage)}" style="color:${C.accent};font-size:13px;font-weight:700;text-decoration:none;">pick yours ›</a>`;
+  const tile = (n, label, color, d) => `<td width="25%" style="padding:0 3px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.soft};border-top:3px solid ${color};"><tr><td style="padding:10px 6px 8px;text-align:center;${font}"><div style="font-size:26px;font-weight:800;color:${C.navy};line-height:1.1;">${n}</div><div style="font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:${C.muted};padding-top:2px;">${label}</div><div style="font-size:11.5px;font-weight:700;padding-top:3px;">${delta(d)}</div></td></tr></table></td>`;
+  const sectorsLine = `<span style="font-size:12px;color:${C.muted};">Your sectors:</span> ${reader.sectors.length ? reader.sectors.map((k) => pill(SECTORS[k], C.navy, true)).join(' ') : pill('All sectors', C.navy, true)} <a href="${esc(b.links.manage)}" style="color:${C.accent};font-size:12px;font-weight:700;text-decoration:none;">&nbsp;change ›</a>`;
   const rl = roleLine(reader.role);
   out.push(`<tr><td style="padding:0;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.navy};border-radius:10px 10px 0 0;"><tr><td style="padding:26px 24px 22px;${font}">
       <div style="font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:${C.gold};font-weight:700;">${esc(b.head.kicker)}</div>
       <div style="font-size:30px;font-weight:800;color:#ffffff;padding-top:8px;line-height:1.12;letter-spacing:-.01em;">${esc(titleFor(reader.role, b.head.title))}</div>
       <div style="font-size:13.5px;color:rgba(255,255,255,.72);padding-top:10px;line-height:1.5;">${esc(b.head.sub)}</div>
+      ${b.promise ? `<div style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:${C.gold};font-weight:700;padding-top:12px;">${esc(b.promise)}</div>` : ''}
       ${rl ? `<div style="font-size:13.5px;color:#ffffff;padding-top:10px;line-height:1.5;border-top:1px solid rgba(255,255,255,.18);margin-top:12px;"><span style="color:${C.gold};font-weight:700;">▸</span> ${esc(rl)}</div>` : ''}
     </td></tr></table>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:14px 0 0;${font}">
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 -3px;"><tr>${tile(st.epc ?? 0, 'new projects', C.navy, dl.epc)}${tile(st.tenders ?? 0, 'tenders', '#b45309', dl.tenders)}${tile(st.awards ?? 0, 'awards', '#15803d', dl.awards)}${tile(st.flow ?? 0, 'flow signals', '#0369a1', dl.flow)}</tr></table>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 -3px;"><tr>${tile(st.epc ?? 0, 'new projects', C.navy, dl.epc)}${tile(st.tenders ?? 0, 'tenders', C.accent, dl.tenders)}${tile(st.awards ?? 0, 'awards', C.navy, dl.awards)}${tile(st.flow ?? 0, 'flow signals', C.accent2, dl.flow)}</tr></table>
       <div style="padding:12px 0 4px;border-bottom:1px solid ${C.line};">${sectorsLine}</div>
+      ${b.openThese ? `<div style="font-size:13.5px;color:${C.text};padding:10px 0 0;line-height:1.6;"><b style="color:${C.navy};">Open these three:</b> ${b.openThese}</div>` : ''}
     </td></tr></table>
   </td></tr>`);
   if (b.sponsor?.html) out.push(row(b.sponsor.html, '12px 0 0'));
   if (b.editor) out.push(b.editor);
 
-  const sectionHead = (t, sub) => row(`<div style="font-size:15px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:${C.navy};border-left:5px solid ${C.gold};padding-left:12px;line-height:1.25;">${t}${sub ? `<div style="font-size:12.5px;font-weight:400;letter-spacing:0;text-transform:none;color:${C.muted};padding-top:3px;">${sub}</div>` : ''}</div>`, '32px 0 8px');
+  const sectionHead = (t, sub) => row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="background:${C.navy};padding:9px 14px;${font}font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#ffffff;">${t}</td></tr></table>${sub ? `<div style="font-size:12.5px;color:${C.muted};padding:6px 2px 0;">${sub}</div>` : ''}`, '30px 0 6px');
   const callsSec = () => {
     const picked = [...b.calls].sort((x, y) => (rank(x.key) + (x.strong ? 0 : 1)) - (rank(y.key) + (y.strong ? 0 : 1))).slice(0, callsN);
     if (!picked.length) return;
     out.push(sectionHead('Deals of the week', buyer ? 'Awards = reference prices and who is now booked. Tenders = what your peers are buying.' : 'Tenders and awards with a counterparty, a value or a deadline.'));
-    picked.forEach((c, i) => out.push(row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid ${C.line};border-left:5px solid ${colorOf(c.key)};border-radius:8px;"><tr><td style="padding:12px 16px;${font}">
-      <div>${sectorPill(c.key)} <span style="font-size:11px;color:${C.muted};font-weight:700;">&nbsp;${i + 1}/${picked.length}</span></div>${c.html}${buyer ? c.buyer || '' : c.call || ''}</td></tr></table>`, '8px 0 0')));
+    picked.forEach((c, i) => out.push(row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" id="d${i + 1}" style="border-left:4px solid ${C.accent};background:${C.soft};"><tr><td style="padding:12px 16px 14px;${font}">
+      <div><span style="font-size:11px;color:${C.faint};font-weight:700;">${i + 1} / ${picked.length}</span> &nbsp;${sectorPill(c.key)}</div>${c.html}${c.why ? '' : (buyer ? c.buyer || '' : c.call || '')}</td></tr></table>`, '8px 0 0')));
   };
   const projectsSec = () => {
     const groups = [...b.projects].sort((x, y) => rank(x.key) - rank(y.key) || y.count - x.count);
@@ -129,11 +132,11 @@ export function assemble(b, readerLike = {}, opts = {}) {
     const folded = [];
     for (const g of groups) {
       if (!follows(g.key)) { folded.push(g); continue; }
-      out.push(row(`<div style="border-bottom:2px solid ${colorOf(g.key)};padding-bottom:4px;">${sectorPill(g.key)} <span style="font-size:13px;font-weight:700;color:${C.ink};">&nbsp;${g.count}</span></div>`, '14px 0 2px'));
+      out.push(row(`<div style="border-bottom:2px solid ${C.navy};padding-bottom:4px;font-size:13px;font-weight:800;color:${C.navy};">${esc(SECTORS[g.key])} <span style="color:${C.muted};font-weight:400;">· ${g.count}</span></div>`, '14px 0 2px'));
       g.rows.slice(0, perSector).forEach((h) => out.push(h));
       if (g.count > perSector) out.push(para(`<span style="font-size:13px;">${link(`All ${g.count} ${esc(SECTORS[g.key].toLowerCase())} projects ›`, g.moreUrl, colorOf(g.key))}</span>`, '6px 0 0'));
     }
-    if (folded.length) out.push(row(`<div style="font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:${C.muted};padding-bottom:6px;">Also this week</div>${folded.map((g) => `<a href="${esc(g.moreUrl)}" style="text-decoration:none;display:inline-block;margin:0 6px 6px 0;">${pill(`${SECTORS[g.key]} · ${g.count}`, colorOf(g.key))}</a>`).join('')}`, '16px 0 0'));
+    if (folded.length) out.push(row(`<div style="font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:${C.muted};padding-bottom:6px;">Also this week</div>${folded.map((g) => `<a href="${esc(g.moreUrl)}" style="text-decoration:none;display:inline-block;margin:0 6px 6px 0;">${pill(`${SECTORS[g.key]} · ${g.count}`, C.navy)}</a>`).join('')}`, '16px 0 0'));
   };
   const flowsSec = () => {
     if (!b.flows || (!b.flows.items.length && !b.flows.lanes)) return;
@@ -143,10 +146,11 @@ export function assemble(b, readerLike = {}, opts = {}) {
     if (b.flows.lanes) out.push(b.flows.lanes);
   };
   const overviewSec = () => {
-    if (!b.chart && !b.superlatives) return;
-    out.push(sectionHead('The week in one look', 'New projects by sector, and the three records of the week'));
+    if (!b.chart && !b.callout) return;
+    out.push(sectionHead('The week in one look'));
+    if (b.chartTitle) out.push(row(`<div style="font-size:17px;font-weight:700;color:${C.ink};line-height:1.35;">${esc(b.chartTitle)}</div><div style="font-size:12.5px;color:${C.muted};padding-top:2px;">New projects by sector · tenders / awards / earlier stage · value where the notice names one</div>`, '8px 0 0'));
     if (b.chart) out.push(b.chart);
-    if (b.superlatives) out.push(b.superlatives);
+    if (b.callout) out.push(b.callout);
   };
   const calendarSec = () => {
     if (!b.calendar) return;
@@ -159,6 +163,11 @@ export function assemble(b, readerLike = {}, opts = {}) {
   if (b.moves) out.push(b.moves);
   out.push(button('Browse every project, with filters →', b.links.projects));
   for (const t of b.tail) out.push(t);
+  // footer four-piece (forward / add your project / sectors / past issues); "sectors" is this reader's own preferences link
+  if (b.footer) out.push(row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid ${C.line};"><tr>
+    <td width="50%" valign="top" style="padding:14px 8px 0 0;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.footer.forward)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Forward to a colleague →</a><br><a href="${esc(b.footer.add)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Add your project or tender →</a></td>
+    <td width="50%" valign="top" style="padding:14px 0 0 8px;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.links.manage)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Choose your sectors →</a><br><a href="${esc(b.footer.archive)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Past issues →</a></td>
+  </tr></table>`, '20px 0 0'));
   return out.join('\n');
 }
 

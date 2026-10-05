@@ -45,6 +45,8 @@ const snippet = (desc, max) => { if (OFFICIAL.test(clean(desc))) return ''; cons
 const isoWeek = (iso) => { const d = new Date(iso + 'T00:00:00Z'); const day = (d.getUTCDay() + 6) % 7; d.setUTCDate(d.getUTCDate() - day + 3); const y = d.getUTCFullYear(), jan4 = new Date(Date.UTC(y, 0, 4)); return [y, 1 + Math.round(((d - jan4) / 864e5 - 3 + ((jan4.getUTCDay() + 6) % 7)) / 7)]; };
 const [YEAR, WEEK] = isoWeek(FROM);
 const issueNo = Math.max(1, Math.round((Date.parse(TODAY) - Date.parse(W.firstIssue || TODAY)) / (7 * 864e5)) + 1);
+const SLUG = `world-trade-pro-weekly-${YEAR}-w${String(WEEK).padStart(2, '0')}`;
+const ISSUE_URL = `${cfg.site}/blog/${SLUG}/`;   // the web version (weekly_web.mjs + weekly_web_publish.mjs), published before the send
 
 // ---------------------------------------------------------------- data
 const [epcRes, flowRes, lw, pEpcRes, pFlowRes] = await Promise.all([
@@ -54,8 +56,13 @@ const [epcRes, flowRes, lw, pEpcRes, pFlowRes] = await Promise.all([
   fetchJson(`${API}/opportunities?report_type=epc&from=${PFROM}&to=${PTO}&limit=1000`),
   fetchJson(`${API}/opportunities?report_type=flow_distortion&from=${PFROM}&to=${PTO}&limit=1000`),
 ]);
-const epc = (epcRes.items || []).filter(ok).filter((it) => !NOT_EPC.test(`${it.project_name} ${it.description}`))
+// one project = one name: the radar keeps a row per report, so same-name rows (several outlets, TED repeats) are merged here,
+// keeping the row with the most advanced stage. Every count in the issue (tiles, chart, lists) uses this merged set.
+const mergeByName = (items) => { const out = []; for (const it of [...items].sort((a, b) => (stageNo(b.stage) - stageNo(a.stage)) || (b.report_date > a.report_date ? 1 : -1))) { if (!out.some((p) => similar(p.project_name, it.project_name))) out.push(it); } return out; };
+const stageNo = (s) => parseInt((String(s || '').match(/^S(\d)/) || [])[1] || '0', 10);
+const epcRaw = (epcRes.items || []).filter(ok).filter((it) => !NOT_EPC.test(`${it.project_name} ${it.description}`))
   .map((it) => ({ ...it, moved: it.latest_stage && it.latest_stage !== it.stage ? it.stage : '', stage: it.latest_stage || it.stage, key: sectorKeyOf(it) }));
+const epc = mergeByName(epcRaw);
 // news signals: the radar's market label is reliable (Energy / Metals / Agriculture / Shipping); only Policy items need the text
 const FLOWKEY = { energy: 'energy', metals: 'metals', agriculture: 'agri', shipping: 'shipping' };
 const flowKey = (it) => FLOWKEY[(it.sector || '').toLowerCase()] || sectorKeyOf(it);
@@ -109,15 +116,29 @@ const callCard = (d) => {
     html: `<a href="${esc(d.url)}" style="display:block;color:${C.ink};text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:6px 0 6px;">${esc(d.name)}</a>
     <div style="font-size:13px;color:${C.muted};line-height:1.9;">${facts.join(' &nbsp;·&nbsp; ')}</div>${why ? `<div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:8px;">${esc(why)}</div>` : ''}`,
     call: line('The call:', call, C.navy),
-    buyer: line('For buyers:', buyer, '#15803d'),
+    buyer: line('For buyers:', buyer, C.navy),
+    why: !!why,
   };
 };
 // up to 2 per sector so one busy sector cannot take all three default slots; the assembler re-ranks per reader
 const calls = []; const perKey = {};
-for (const d of dealsAll) { const k = d.it.key; if ((perKey[k] || 0) >= 2) continue; perKey[k] = (perKey[k] || 0) + 1; calls.push({ key: k, sector: SECTORS[k], strong: d.strong, ...callCard(d) }); if (calls.length >= 9) break; }
+for (const d of dealsAll) { const k = d.it.key; if ((perKey[k] || 0) >= 2) continue; perKey[k] = (perKey[k] || 0) + 1; calls.push({ key: k, sector: SECTORS[k], strong: d.strong, name: d.name, ...callCard(d) }); if (calls.length >= 9) break; }
 
 // ---------------------------------------------------------------- 2. new projects by sector
 const sectorOf = (it) => [clean(it.subsector)].filter((x) => x && !/^unknown$/i.test(x)).join('');
+// every project of the week, per sector, for the web issue (weekly_web.mjs): name, stage, country, scale, company, value, deadline
+const full = {};
+for (const k of SECTOR_ORDER) {
+  const items = epc.filter((it) => it.key === k).sort((a, b) => (SCALE_RANK[a.scale] ?? 3) - (SCALE_RANK[b.scale] ?? 3) || (b.report_date > a.report_date ? 1 : -1));
+  if (!items.length) continue;
+  const seen = [];
+  full[k] = items.map((it) => {
+    const d = dealOf(it), sk = stageKey(it.stage);
+    return { name: clean(it.project_name), url: it.source_url, stageKey: sk, usd: d.usd || 0, stage: (STAGE[sk] || [clean(it.stage) || ''])[0], country: countryName(it.country) && !isNA(countryName(it.country)) ? `${flagOf(it.country)} ${countryName(it.country)}` : '', scale: it.scale && it.scale !== 'Unknown' ? it.scale : '', company: isNA(it.company_name) ? '' : clean(it.company_name), sub: sectorOf(it), value: d.value, deadline: sk === 'S4' ? d.deadline : '' };
+  });
+}
+
+
 const projRow = (it) => {
   const [st] = STAGE[stageKey(it.stage)] || [''];
   const stColor = { Tender: '#b45309', Awarded: '#15803d', 'Pre-FID': '#7c3aed' }[st] || C.muted;
@@ -138,7 +159,7 @@ for (const k of SECTOR_ORDER) {
     per[c] = (per[c] || 0) + 1; seen.push(it.project_name); rows.push(projRow(it));
     if (rows.length >= 8) break;
   }
-  projects.push({ key: k, count: items.length, rows, moreUrl: utm(cfg.site + '/projects/', 'more-' + k) });
+  projects.push({ key: k, count: items.length, rows, moreUrl: utm(ISSUE_URL, 'more-' + k) + '#sec-' + k });
 }
 
 // ---------------------------------------------------------------- 3. flows that changed
@@ -197,7 +218,7 @@ for (const c of clusters.slice(0, 14)) {
   flowItems.push({ key: it.key, url: it.source_url, title: title(it), source: source(it).replace(/&amp;/g, '&'), summary: what, html: row(`<div style="font-size:11px;font-weight:700;color:${C.muted};">${sectorPill(it.key)} ${l ? `&nbsp;${badge(esc(l.name), '#0369a1')}` : ''}</div>
     <a href="${esc(it.source_url)}" style="display:block;color:${C.ink};text-decoration:none;font-size:16px;font-weight:700;line-height:1.35;padding:4px 0 2px;">${flagOf(it.country)} ${esc(title(it))}</a>
     <div style="font-size:12px;color:${C.muted};">${source(it)}${c.more.length ? ` · ${c.more.length + 1} reports this week` : ''}</div>
-    ${what ? `<div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:6px;">${esc(what)}</div>` : ''}
+    ${what && !NOTES?.flows_why?.[it.source_url] ? `<div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:6px;">${esc(what)}</div>` : ''}
     <div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:6px;"><b style="color:${C.ink};">What it means:</b> ${means}</div>`, `12px 0;border-top:1px solid ${C.line}`) });
 }
 const hot = lanes.filter((x) => x.n > 0);
@@ -219,7 +240,7 @@ const tail = [
 ].filter(Boolean);
 
 // ---------------------------------------------------------------- week-on-week, superlatives, bid calendar, sector chart, editor's note
-const pEpc = (pEpcRes.items || []).filter(ok).filter((it) => !NOT_EPC.test(`${it.project_name} ${it.description}`));
+const pEpc = mergeByName((pEpcRes.items || []).filter(ok).filter((it) => !NOT_EPC.test(`${it.project_name} ${it.description}`)));
 const pFlow = (pFlowRes.items || []).filter(ok);
 const pTenders = pEpc.filter((it) => stageKey(it.stage) === 'S4').length, pAwards = pEpc.filter((it) => stageKey(it.stage) === 'S5').length;
 const deltas = { epc: epc.length - pEpc.length, tenders: epc.filter((it) => stageKey(it.stage) === 'S4').length - pTenders, awards: epc.filter((it) => stageKey(it.stage) === 'S5').length - pAwards, flow: flow.length - pFlow.length };
@@ -259,12 +280,21 @@ const calendar = calItems.length ? calItems.slice(0, 8).map((c, i, arr) => row(`
 const chartRows = SECTOR_ORDER.map((k) => { const items = epc.filter((it) => it.key === k); return { k, t: items.filter((it) => stageKey(it.stage) === 'S4').length, a: items.filter((it) => stageKey(it.stage) === 'S5').length, o: items.filter((it) => !['S4', 'S5'].includes(stageKey(it.stage))).length, usd: items.reduce((n, it) => n + (dealOf(it).usd || 0), 0) }; })
   .filter((r) => r.t + r.a + r.o > 0).sort((a, b) => (b.t + b.a + b.o) - (a.t + a.a + a.o));
 const chartMax = Math.max(1, ...chartRows.map((r) => r.t + r.a + r.o));
-const seg = (n, color, title) => (n ? `<td width="${Math.round((n / chartMax) * 100)}%" title="${title}" style="background:${color};height:14px;font-size:1px;line-height:14px;">&nbsp;</td>` : '');
+const seg = (n, color, title) => (n ? `<td width="${Math.round((n / chartMax) * 100)}%" title="${title}" style="background:${color};height:16px;font-size:1px;line-height:16px;">&nbsp;</td>` : '');
 const chart = chartRows.length ? row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-  ${chartRows.map((r) => `<tr><td width="150" style="${font}font-size:12.5px;font-weight:700;color:${colorOf(r.k)};padding:5px 8px 5px 0;white-space:nowrap;">${esc(SECTORS[r.k])}</td>
-    <td style="padding:5px 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>${seg(r.t, '#b45309', 'tenders')}${seg(r.a, '#15803d', 'awards')}${seg(r.o, '#cbd5e1', 'earlier stage')}<td style="${font}font-size:12px;color:${C.text};padding-left:8px;white-space:nowrap;"><b>${r.t + r.a + r.o}</b>${r.usd ? ` <span style="color:${C.muted};">· ${esc(moneyOf(r.usd))}</span>` : ''}</td><td width="100%"></td></tr></table></td></tr>`).join('')}
+  ${chartRows.map((r) => `<tr><td width="150" style="${font}font-size:12.5px;font-weight:700;color:${C.ink};padding:5px 8px 5px 0;white-space:nowrap;">${esc(SECTORS[r.k])}</td>
+    <td style="padding:5px 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>${seg(r.t, C.accent, 'tenders')}${seg(r.a, C.navy, 'awards')}${seg(r.o, '#D1D5DB', 'earlier stage')}<td style="${font}font-size:12px;color:${C.text};padding-left:8px;white-space:nowrap;"><b>${r.t + r.a + r.o}</b>${r.usd ? ` <span style="color:${C.muted};">· ${esc(moneyOf(r.usd))}</span>` : ''}</td><td width="100%"></td></tr></table></td></tr>`).join('')}
 </table>
-<div style="font-size:12px;color:${C.muted};padding-top:6px;"><span style="display:inline-block;width:10px;height:10px;background:#b45309;vertical-align:middle;"></span> tenders &nbsp; <span style="display:inline-block;width:10px;height:10px;background:#15803d;vertical-align:middle;"></span> awards &nbsp; <span style="display:inline-block;width:10px;height:10px;background:#cbd5e1;vertical-align:middle;"></span> earlier stage &nbsp;·&nbsp; value where the notice names one</div>`, '10px 0 0') : '';
+<div style="font-size:12px;color:${C.muted};padding-top:6px;"><span style="display:inline-block;width:10px;height:10px;background:${C.accent};vertical-align:middle;"></span> tenders &nbsp; <span style="display:inline-block;width:10px;height:10px;background:${C.navy};vertical-align:middle;"></span> awards &nbsp; <span style="display:inline-block;width:10px;height:10px;background:#D1D5DB;vertical-align:middle;"></span> earlier stage &nbsp;·&nbsp; Source: World Trade Pro project radar, ${fmtDay(FROM)} – ${fmtDay(TO)}</div>`, '10px 0 0') : '';
+// the chart's title is its conclusion (BP / MGI): the leading sector, its count, and its money if the notices named any
+const lead = chartRows[0];
+const chartTitle = lead ? `${SECTORS[lead.k]} led the week with ${plural(lead.t + lead.a + lead.o, 'new project')}${lead.usd ? ` and ${moneyOf(lead.usd)} of named contract value` : ''}${chartRows[1] ? `; ${SECTORS[chartRows[1].k].toLowerCase()} next with ${chartRows[1].t + chartRows[1].a + chartRows[1].o}` : ''}.` : '';
+// ONE big number (MGI): the biggest deal, with the two other records as small print
+const callout = biggest && biggest.usd ? row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.soft};border:1px solid ${C.line};"><tr>
+  <td width="42%" valign="top" style="padding:16px 18px;${font}border-right:1px solid ${C.line};"><div style="font-size:38px;font-weight:800;color:${C.navy};line-height:1;letter-spacing:-.02em;">${esc(biggest.value)}</div><div style="font-size:12.5px;color:${C.muted};padding-top:6px;line-height:1.4;">biggest contract of the week</div></td>
+  <td valign="top" style="padding:16px 18px;${font}"><a href="${esc(biggest.url)}" style="color:${C.ink};text-decoration:none;font-weight:700;font-size:14.5px;line-height:1.4;">${esc(cut(biggest.name, 70))}</a><div style="font-size:12.5px;color:${C.muted};padding-top:4px;line-height:1.5;">${esc(countryName(biggest.it.country) || '')}${biggest.who ? ` · ${biggest.tender ? 'buyer' : 'won by'} ${esc(cut(biggest.who, 60))}` : ''}</div>
+    <div style="font-size:12.5px;color:${C.text};padding-top:8px;line-height:1.6;">${topWinner ? `<b>Most awards:</b> ${esc(cut(topWinner[0], 40))} (${topWinner[1]})<br>` : ''}${topCountry ? `<b>Busiest country:</b> ${flagOf(topCountry[1][0].country)} ${esc(topCountry[0])} (${plural(topCountry[1].length, 'new project')})` : ''}</div></td>
+</tr></table>`, '14px 0 0') : superlatives;
 
 // editor's note: the one place a person speaks. From the notes file (LLM-drafted, reviewed) - nothing is invented in code.
 const editor = NOTES?.lede_html ? row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.sand};border-radius:10px;"><tr><td style="padding:16px 18px;${font}">
@@ -281,10 +311,13 @@ const topDeal = dealsAll[0];
 const subject = cut(topDeal ? `${topDeal.value ? topDeal.value + ' ' : ''}${topDeal.tender ? 'tender' : 'award'}: ${topDeal.name}` : `${plural(epc.length, 'new project')}, ${plural(tenders, 'tender')}, ${plural(awards, 'award')}`, 64);
 const preview = cut(`${plural(epc.length, 'new project')} in ${countries} countries · ${tenders} tenders · ${awards} awards · ${plural(flow.length, 'trade-flow signal')}, ${crit} critical`, 110);
 const blocks = {
-  date: TODAY, edition: 'weekly', issue: issueNo, week: WEEK, year: YEAR, from: FROM, to: TO, subject, preview,
-  head: { kicker: `${W.name || 'World Trade Pro Weekly'} · Issue ${issueNo} · Week ${WEEK}`, title: W.subtitle || "Who's buying, who won, what moved", sub: `${fmtDay(FROM)} – ${fmtDay(TO)} ${YEAR} · ${plural(epc.length, 'new project')} in ${countries} countries · ${tenders} tenders · ${awards} awards · ${plural(flow.length, 'trade-flow signal')}` },
+  date: TODAY, edition: 'weekly', issue: issueNo, week: WEEK, year: YEAR, from: FROM, to: TO, subject, preview, slug: SLUG, issueUrl: ISSUE_URL, full,
+  head: { kicker: `${W.name || 'World Trade Pro Weekly'} · Issue ${issueNo} · Week ${WEEK}`, title: W.subtitle || "Who's buying, who won, what moved", sub: `${fmtDay(FROM)} – ${fmtDay(TO)} ${YEAR} · ${plural(epc.length, 'new project')} in ${countries} countries (${epcRaw.length} reports) · ${tenders} tenders · ${awards} awards · ${plural(flow.length, 'trade-flow signal')}` },
   stats: { epc: epc.length, tenders, awards, flow: flow.length, critical: crit, deltas }, directory: '',
-  editor, chart, superlatives, calendar,
+  editor, chart, chartTitle, callout, superlatives, calendar,
+  promise: `${plural(calls.slice(0, 3).length, 'deal')} · ${plural(calItems.length, 'deadline')} · ${plural(Math.min(3, flowItems.length), 'flow')} · about 5 minutes`,
+  openThese: calls.slice(0, 3).map((c, i) => `<a href="#d${i + 1}" style="color:${C.accent};text-decoration:none;font-weight:700;">${esc(cut(c.name, 44))}</a>`).join(' &nbsp;·&nbsp; '),
+  footer: { forward: `mailto:?subject=${encodeURIComponent((W.name || 'World Trade Pro Weekly') + ' - worth a look')}&body=${encodeURIComponent('Free Tuesday e-mail: tenders, awards, new projects and trade flows, filtered to your sectors. ' + cfg.site + '/subscribe/')}`, add: utm(cfg.site + '/project-sourcing/', 'footer-add'), archive: utm(cfg.site + '/blog/', 'footer-archive'), issue: utm(ISSUE_URL, 'footer-web') },
   sponsor, calls, projects, flows: { lanes: laneBoard, items: flowItems }, moves: movesHtml, tail,
   links: { projects: utm(cfg.site + '/projects/', 'projects-hub'), map: utm(cfg.site + '/intelligence-map/', 'map'), manage: cfg.site + '/newsletter/unsubscribe/' },
   skip: epc.length + flow.length < 5,

@@ -3,24 +3,24 @@
   "edition": "weekly",
   "skip": false,
   "subject": "US$2.2bn award: Nuclear Power Station Construction Work at CNE…",
-  "preview": "115 new projects in 58 countries · 37 tenders · 57 awards · 276 trade-flow signals, 32 critical",
+  "preview": "92 new projects in 53 countries · 30 tenders · 47 awards · 276 trade-flow signals, 32 critical",
   "counts": {
-    "epc": 115,
-    "tenders": 37,
-    "awards": 57,
+    "epc": 92,
+    "tenders": 30,
+    "awards": 47,
     "flow": 276,
     "critical": 32,
     "calls": 9,
-    "calendar": 6,
+    "calendar": 5,
     "notes": true,
     "sectors": [
-      "energy:37",
-      "power:41",
-      "metals:9",
+      "energy:33",
+      "power:24",
+      "metals:8",
       "agri:7",
       "chem:2",
       "infra:1",
-      "shipping:18"
+      "shipping:17"
     ]
   }
 }
