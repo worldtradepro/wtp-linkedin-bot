@@ -19,12 +19,12 @@ const wp = JSON.parse(readFileSync(join(HERE, 'newsletter', 'out', `${TODAY}-wee
 const call = async (path, body) => {
   const r = await fetch(`${cfg.site}/wp-json/wtp/v1/insights/${path}`, { method: 'POST', headers: { 'content-type': 'application/json', 'x-wtp-publish-key': KEY, 'user-agent': 'wtp-linkedin-bot/1.0' }, body: JSON.stringify(body) });
   const j = await r.json().catch(() => ({ error: 'non-JSON reply, HTTP ' + r.status }));
-  return { status: r.status, ...j };
+  return { http: r.status, body: j };   // the API's own "status" field ("draft") must not shadow the HTTP status
 };
 const s = await call('stage', { slug: wp.slug, title: wp.title, excerpt: wp.excerpt, content: wp.content, forum: { title: `${wp.title}`, html: `<p>${wp.excerpt}</p><p>Full issue: <a href="${wp.url}">${wp.url}</a></p>` } });
-if (s.status === 409) console.log(`already published: ${s.url}`);
-else if (s.status !== 200) { console.log(`::error::stage failed (${s.status}): ${JSON.stringify(s).slice(0, 300)}`); process.exit(1); }
-else console.log(`staged draft ${s.id}`);
+if (s.http === 409) console.log(`already published: ${s.body.url}`);
+else if (s.http !== 200) { console.log(`::error::stage failed (HTTP ${s.http}): ${JSON.stringify(s.body).slice(0, 300)}`); process.exit(1); }
+else console.log(`staged draft ${s.body.id}`);
 const p = await call('publish', { slug: wp.slug });
-if (p.status !== 200 || p.held) { console.log(`::error::publish failed (${p.status}): ${JSON.stringify(p).slice(0, 300)}`); process.exit(1); }
-console.log(`live: ${p.url}${p.forum_topic ? ` · forum topic ${p.forum_topic}` : ''}`);
+if (p.http !== 200 || p.body.held) { console.log(`::error::publish failed (HTTP ${p.http}): ${JSON.stringify(p.body).slice(0, 300)}`); process.exit(1); }
+console.log(`live: ${p.body.url}${p.body.forum_topic ? ` · forum topic ${p.body.forum_topic}` : ''}`);

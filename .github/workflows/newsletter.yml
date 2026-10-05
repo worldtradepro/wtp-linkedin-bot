@@ -71,7 +71,10 @@ jobs:
           test -n "$WTP_BOT_SECRET" || { echo "::error::WTP_BOT_SECRET missing"; exit 1; }
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+      - name: Install dependencies (playwright for the PDF; the rest is plain node)
+        if: env.PAUSED != '1'
+        run: npm install --no-audit --no-fund
       - name: SES permissions check
         if: env.PAUSED != '1' && steps.ed.outputs.edition == 'check'
         run: node ses_send.mjs --check

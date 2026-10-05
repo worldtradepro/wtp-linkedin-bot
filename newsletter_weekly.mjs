@@ -330,7 +330,7 @@ const blocks = {
   head: { kicker: `${W.name || 'World Trade Pro Weekly'} · Issue ${issueNo} · Week ${WEEK}`, title: W.subtitle || "Who's buying, who won, what moved", sub: `${fmtDay(FROM)} – ${fmtDay(TO)} ${YEAR} · ${plural(epc.length, 'new project')} in ${countries} countries (${epcRaw.length} reports) · ${tenders} tenders · ${awards} awards · ${plural(flow.length, 'trade-flow signal')}` },
   stats: { epc: epc.length, tenders, awards, flow: flow.length, critical: crit, deltas }, directory: '',
   editor, chart, chartTitle, callout, superlatives, calendar, dash, calendarCount: calItems.length,
-  promise: `${plural(calls.slice(0, 3).length, 'deal')} · ${plural(calItems.length, 'deadline')} · ${plural(Math.min(3, flowItems.length), 'flow')} · about 5 minutes`,
+  promise: `${plural(epc.length, 'project')} · ${plural(tenders, 'tender')} · ${plural(awards, 'award')}${calItems.length ? ` · ${plural(calItems.length, 'deadline')}` : ''} · five minutes, then the full issue online`,
   openThese: calls.slice(0, 3).map((c, i) => `<a href="#d${i + 1}" style="color:${C.accent};text-decoration:none;font-weight:700;">${esc(cut(c.name, 44))}</a>`).join(' &nbsp;·&nbsp; '),
   footer: { forward: `mailto:?subject=${encodeURIComponent((W.name || 'World Trade Pro Weekly') + ' - worth a look')}&body=${encodeURIComponent('Free Tuesday e-mail: tenders, awards, new projects and trade flows, filtered to your sectors. ' + cfg.site + '/subscribe/')}`, add: utm(cfg.site + '/project-sourcing/', 'footer-add'), archive: utm(cfg.site + '/blog/', 'footer-archive'), issue: utm(ISSUE_URL, 'footer-web') },
   sponsor, calls, projects, flows: { lanes: laneBoard, items: flowItems }, moves: movesHtml, tail,

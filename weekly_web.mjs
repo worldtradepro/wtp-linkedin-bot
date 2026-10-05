@@ -10,6 +10,7 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SECTORS, SECTOR_ORDER, esc } from './newsletter_assemble.mjs';
+import { pickPhoto } from './weekly_photo.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const cfg = JSON.parse(readFileSync(join(HERE, 'config.json'), 'utf8'));
@@ -30,6 +31,8 @@ const delta = (d) => (d > 0 ? `<span class="up">▲ ${d}</span>` : d < 0 ? `<spa
 // the e-mail blocks are table HTML with inline styles; on the web they sit inside a 760px column and read fine as they are.
 // Project rows / deal cards are reused verbatim; the full per-sector lists come from blocks.full (every project, not 8).
 const full = b.full || {};
+const leadKey = Object.entries(full).sort((x, y) => y[1].length - x[1].length)[0]?.[0] || 'energy';
+const PHOTO = pickPhoto(leadKey, b.issue);   // hero photo from the licensed library, served from the repo
 const sectorsOut = SECTOR_ORDER.filter((k) => (full[k] || []).length).map((k) => {
   const items = full[k];
   return `<section class="sec" id="sec-${k}"><h2>${esc(SECTORS[k])} <span class="n">${items.length}</span></h2>
@@ -47,7 +50,7 @@ const css = `
 .wtpw .hero{background:var(--navy);color:#fff;padding:34px 32px 28px;border-radius:12px}
 .wtpw .hero .k{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
 .wtpw .hero h1{font-size:38px;line-height:1.1;margin:10px 0 12px;color:#fff;letter-spacing:-.01em;font-family:inherit!important}
-.wtpw .hero .sub{color:rgba(255,255,255,.75);font-size:15px}.wtpw .hero .promise{color:var(--gold);font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;margin-top:12px}
+.wtpw .hero .sub{color:rgba(255,255,255,.75);font-size:15px}.wtpw .hero .credit{font-size:10.5px;color:rgba(255,255,255,.5);margin-top:14px}.wtpw .hero .promise{color:var(--gold);font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;margin-top:12px}
 .wtpw .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0 0}.wtpw .tile{background:var(--soft);border-top:3px solid var(--navy);padding:12px 8px 10px;text-align:center}
 .wtpw .tile b{display:block;font-size:30px;color:var(--navy);line-height:1}.wtpw .tile span{display:block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-top:4px;font-weight:700}.wtpw .tile i{display:block;font-style:normal;font-size:12px;font-weight:700;margin-top:3px}
 .wtpw .up{color:#15803d}.wtpw .dn{color:#b42318}.wtpw .eq{color:var(--muted)}
@@ -63,7 +66,7 @@ const css = `
 
 const body = `<style>${css}</style>
 <div class="wtpw">
-<div class="hero"><div class="k">${esc(b.head.kicker)}</div><h1>${esc(b.head.title)}</h1><div class="sub">${esc(b.head.sub)}</div>${b.promise ? `<div class="promise">${esc(b.promise)}</div>` : ''}</div>
+<div class="hero"${PHOTO ? ` style="background-image:linear-gradient(90deg, rgba(11,37,69,.96) 0%, rgba(11,37,69,.86) 55%, rgba(11,37,69,.5) 100%), url('${esc(PHOTO.publicUrl)}');background-size:cover;background-position:center;"` : ''}><div class="k">${esc(b.head.kicker)}</div><h1>${esc(b.head.title)}</h1><div class="sub">${esc(b.head.sub)}</div>${b.promise ? `<div class="promise">${esc(b.promise)}</div>` : ''}${PHOTO ? `<div class="credit">${esc(PHOTO.credit)}${PHOTO.illustrative ? ' · illustrative' : ''}</div>` : ''}</div>
 <div class="tiles"><div class="tile"><b>${st.epc ?? 0}</b><span>new projects</span><i>${delta(dl.epc)}</i></div><div class="tile"><b>${st.tenders ?? 0}</b><span>tenders</span><i>${delta(dl.tenders)}</i></div><div class="tile"><b>${st.awards ?? 0}</b><span>awards</span><i>${delta(dl.awards)}</i></div><div class="tile"><b>${st.flow ?? 0}</b><span>flow signals</span><i>${delta(dl.flow)}</i></div></div>
 <div class="toc">${toc}${b.pdfUrl ? `<a class="pdf" href="${esc(b.pdfUrl)}">Download the PDF report ↓</a>` : ''}</div>
 ${NOTES?.lede_html ? `<div class="note"><div class="k">This week</div><div>${NOTES.lede_html}</div>${NOTES.signoff ? `<div class="s">— ${esc(NOTES.signoff)}</div>` : ''}</div>` : ''}

@@ -9,6 +9,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { chromium } from 'playwright';
 import { SECTORS, SECTOR_ORDER, esc } from './newsletter_assemble.mjs';
+import { pickPhoto } from './weekly_photo.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const cfg = JSON.parse(readFileSync(join(HERE, 'config.json'), 'utf8'));
@@ -31,9 +32,12 @@ const full = b.full || {};
 const total = Object.values(full).reduce((n, a) => n + a.length, 0);
 const M = b.material || {};
 const logo = pathToFileURL(join(HERE, 'assets', 'logo_light.png')).href;
+// cover photo: a licensed library photo for the week's leading sector (flattened into the PDF; credit on the cover)
+const leadKey = Object.entries(full).sort((x, y) => y[1].length - x[1].length)[0]?.[0] || 'energy';
+const PHOTO = pickPhoto(leadKey, b.issue);
 
 // ---------------------------------------------------------------- pages
-const cover = `<section class="page cover">
+const cover = `<section class="page cover"${PHOTO ? ` style="background-image:linear-gradient(90deg, rgba(11,37,69,.97) 0%, rgba(11,37,69,.88) 55%, rgba(11,37,69,.45) 100%), url('${PHOTO.localUrl}');background-size:cover;background-position:center;"` : ''}>
   <div class="cv-top"><img src="${logo}" alt="World Trade Pro" class="logo"><div class="k">${esc(W.name || 'World Trade Pro Weekly')} · Issue ${b.issue} · Week ${b.week}, ${b.year}</div></div>
   <h1>Who's buying,<br>who won,<br>what moved</h1>
   <div class="cv-sub">${fmtDay(b.from)} – ${fmtDay(b.to)} · ${plural(st.epc ?? 0, 'new project')} in ${esc(String(b.head.sub).match(/in (\d+) countries/)?.[1] || '')} countries · ${st.tenders} tenders · ${st.awards} awards · ${plural(st.flow ?? 0, 'trade-flow signal')}</div>
@@ -44,7 +48,7 @@ const cover = `<section class="page cover">
     <div><b>${st.awards ?? 0}</b><span>awards</span><i>${delta(dl.awards)}</i></div>
     <div><b>${st.flow ?? 0}</b><span>flow signals</span><i>${delta(dl.flow)}</i></div>
   </div>
-  <div class="cv-foot">worldtradepro.com · free every Tuesday · data: World Trade Pro project radar and trade-flow radar, public sources only</div>
+  <div class="cv-foot">worldtradepro.com · free every Tuesday · data: World Trade Pro project radar and trade-flow radar, public sources only${PHOTO ? ` · ${esc(PHOTO.credit)}${PHOTO.illustrative ? ' (illustrative)' : ''}` : ''}</div>
 </section>`;
 
 const thisWeek = `<section class="page">
