@@ -203,5 +203,29 @@
     "awards": 52,
     "bufferPostId": "6ac19ff27d53b827e0f45b50",
     "dueAt": "2026-10-04T08:30:00.000Z"
+  },
+  "2026-10-05:infra": {
+    "pdfUrl": "https://cdn.jsdelivr.net/gh/worldtradepro/wtp-linkedin-bot@86693b0ec3414a78b7b6b3d7389cc6cf530245f5/scan/2026-10-05/infra.pdf",
+    "coverUrl": "https://cdn.jsdelivr.net/gh/worldtradepro/wtp-linkedin-bot@86693b0ec3414a78b7b6b3d7389cc6cf530245f5/scan/2026-10-05/infra-cover.jpg",
+    "issue": 6,
+    "scanDay": "2026-10-04",
+    "pickIds": [
+      "4046",
+      "3918",
+      "3917"
+    ],
+    "listIds": [
+      "3910",
+      "3911",
+      "3914",
+      "3915",
+      "3921",
+      "3907"
+    ],
+    "hook": "Awards outran tenders 49 to 34 this week, and today's three picks are all signed vessel or rig deals. They are a Greek suezmax order, a North Sea SOV charter and a Noble drillship for Tullow off Ghana.",
+    "tenders": 34,
+    "awards": 49,
+    "bufferPostId": "6ac2f59769a169193a53d649",
+    "dueAt": "2026-10-05T08:30:00.000Z"
   }
 }

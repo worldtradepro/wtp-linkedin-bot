@@ -1,0 +1,91 @@
+{
+  "headline": "Awards outran tenders 49 to 34 this week",
+  "hook": "Awards outran tenders 49 to 34 this week, and today's three picks are all signed vessel or rig deals. They are a Greek suezmax order, a North Sea SOV charter and a Noble drillship for Tullow off Ghana.",
+  "board": "Of 107 new projects in 54 countries over the last 7 days, 49 were awarded and 34 went to tender. Europe led with 50 and energy accounted for 68.",
+  "question": "Would you target Tullow's Ghana well campaign or Siemens Gamesa's North Sea maintenance work?",
+  "items": [
+    {
+      "id": "4046",
+      "headline": "Akrotiri Tankers orders second suezmax at New Times Shipbuilding",
+      "statValue": "$84.4m",
+      "statLabel": "Price of second suezmax, per shipbroking sources",
+      "what": "Greek owner Akrotiri Tankers has gone back to China's New Times Shipbuilding for a second suezmax crude tanker, Splash247 reports. Shipbroking sources put the order at $84.4m.",
+      "who": "Owner: Akrotiri Tankers. Shipbuilder: New Times Shipbuilding.",
+      "angle": "This is an awarded newbuild, so it matters to marine equipment and system suppliers serving New Times. Akrotiri has placed LR1, suezmax and VLAC orders at the same yard, so most of its newbuild demand goes through one shipbuilder.",
+      "facts": [
+        "157,000 dwt tanker scheduled for delivery in June 2029",
+        "First suezmax at New Times, booked earlier this year, cost around $82m",
+        "Akrotiri also ordered two 93,000 cu m VLACs at New Times for 2029 delivery"
+      ],
+      "watch": "Delivery of both suezmaxes, due in 2029, with the second ship scheduled for June 2029."
+    },
+    {
+      "id": "3918",
+      "headline": "Siemens Gamesa charters Purus Horizon SOV for North Sea wind",
+      "statValue": "2027",
+      "statLabel": "Vessel due to start work early in the year",
+      "what": "Siemens Gamesa has taken Purus' service operation vessel Purus Horizon on a long-term charter for offshore wind maintenance in the North Sea, Splash247 reports.",
+      "who": "Vessel owner: Purus. Charterer: Siemens Gamesa.",
+      "angle": "This charter has been awarded, so it is relevant to offshore wind O&M service providers, crewing firms and vessel suppliers in the North Sea. Purus has not named the wind farms, so the way in is through Purus and Siemens Gamesa directly.",
+      "facts": [
+        "Purus has not disclosed the wind farms, charter length or value",
+        "Ex-Edda Passat began a five-year contract at Ørsted's Race Bank off the UK in 2018",
+        "Purus won a five-year CSOV charter for Purus Power at OranjeWind earlier this year"
+      ],
+      "watch": "Work is due to start early in 2027. Also watch for Purus or Siemens Gamesa to name the North Sea wind farms the vessel will serve."
+    },
+    {
+      "id": "3917",
+      "headline": "Tullow books Noble drillship for up to 10 wells offshore Ghana",
+      "statValue": "10 wells",
+      "statLabel": "Maximum scope of Noble Faye Kozack contract",
+      "what": "Tullow Oil has awarded Noble Corporation a contract for the 2013-built drillship Noble Faye Kozack to work offshore Ghana, Splash247 reports. The contract covers up to 10 wells.",
+      "who": "Operator: Tullow Oil. Drilling contractor: Noble Corporation.",
+      "angle": "The rig contract has been awarded, and a campaign of up to 10 wells offshore Ghana points to work for well service, supply and logistics providers. The mid-2027 start date gives them time to get in front of Tullow and Noble.",
+      "facts": [
+        "Work expected to start in mid-2027, after the rig finishes its current job",
+        "Tullow hired Noble Venturer in November 2025 under a $171m contract",
+        "Venturer deal covers an estimated 360 days in two phases plus a one-well option"
+      ],
+      "watch": "Start of operations in mid-2027, once Noble Faye Kozack wraps up its current work."
+    }
+  ],
+  "_generated": {
+    "at": "2026-10-05T00:55:13.778Z",
+    "model": "claude-opus-5-5 (Claude subscription)",
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 16855,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 3288,
+      "output_tokens_details": {
+        "thinking_tokens": 1879
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 16855,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "not_available",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 3288,
+          "cache_read_input_tokens": 0,
+          "cache_creation_input_tokens": 16855,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 16855
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  }
+}
