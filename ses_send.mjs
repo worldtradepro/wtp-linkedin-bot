@@ -22,6 +22,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash, createHmac } from 'node:crypto';
 import { assemble, document as doc } from './newsletter_assemble.mjs';
+import { siteFetch } from './common.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const cfg = JSON.parse(readFileSync(join(HERE, 'config.json'), 'utf8'));
@@ -134,7 +135,7 @@ const state = existsSync(STATE) ? JSON.parse(readFileSync(STATE, 'utf8')) : {};
 if (!ONLY && state[NAME]?.done) { console.log(`${NAME} already sent (${state[NAME].sent} messages) - nothing to do`); process.exit(0); }
 
 // Recipients + the footer's postal address come from the site (kept out of this public repo).
-const listRes = await fetch(`${SITE}/wp-json/wtp/v1/subscribers?edition=${EDITION}&secret=${encodeURIComponent(process.env.WTP_BOT_SECRET || '')}`, { headers: { 'user-agent': 'wtp-linkedin-bot/1.0' } });
+const listRes = await siteFetch(`${SITE}/wp-json/wtp/v1/subscribers?edition=${EDITION}&secret=${encodeURIComponent(process.env.WTP_BOT_SECRET || '')}`);
 if (!listRes.ok) throw new Error(`subscriber list -> HTTP ${listRes.status}`);
 const list = await listRes.json();
 const POSTAL = list.address || ses.postalAddress || '';
@@ -165,8 +166,8 @@ if (!ONLY) {
     console.log(`::warning::Could not read the SES suppression list (${why}) - bounces/complaints not synced this run.`);
   }
   if (blocked.size && !DRY) {
-    const r = await fetch(`${SITE}/wp-json/wtp/v1/suppress?secret=${encodeURIComponent(process.env.WTP_BOT_SECRET || '')}`, {
-      method: 'POST', headers: { 'Content-Type': 'application/json', 'user-agent': 'wtp-linkedin-bot/1.0' },
+    const r = await siteFetch(`${SITE}/wp-json/wtp/v1/suppress?secret=${encodeURIComponent(process.env.WTP_BOT_SECRET || '')}`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ items: [...blocked].map(([email, reason]) => ({ email, reason })) }),
     });
     console.log(r.ok ? `site: ${(await r.json()).changed} subscriber(s) marked bounced/complained` : `::warning::site /suppress -> HTTP ${r.status}`);

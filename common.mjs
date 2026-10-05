@@ -1,6 +1,22 @@
 // Shared data helpers for the WTP bots (LinkedIn daily queue, weekly newsletter).
 // Trade lanes: keep in sync with TRADE_LANES in the site's map snippet (id 51) and wtp_lane_defs() in snippet 38.
 
+// The site sits behind Cloudflare, which sometimes answers a datacentre IP (GitHub runner) with a 403/503 challenge page.
+// siteFetch retries those with backoff and adds the x-wtp-bot header when WTP_CF_BYPASS is set (the owner's Cloudflare custom rule "Allow LinkedIn bot"
+// skips the challenge for requests carrying it). Every bot call to worldtradepro.com should go through this.
+export async function siteFetch(url, init = {}, tries = 5) {
+  const headers = { 'user-agent': 'wtp-linkedin-bot/1.0 (+https://worldtradepro.com)', ...(process.env.WTP_CF_BYPASS ? { 'x-wtp-bot': process.env.WTP_CF_BYPASS } : {}), ...(init.headers || {}) };
+  let last;
+  for (let i = 1; i <= tries; i++) {
+    try {
+      const r = await fetch(url, { ...init, headers });
+      if (![403, 429, 503, 520, 521, 522, 523, 524].includes(r.status)) return r;
+      last = new Error(`HTTP ${r.status}`);
+    } catch (e) { last = e; }
+    if (i < tries) { const wait = 8000 * i; console.log(`site ${init.method || 'GET'} ${new URL(url).pathname}: ${last.message} - retry ${i}/${tries - 1} in ${wait / 1000}s`); await new Promise((r) => setTimeout(r, wait)); }
+  }
+  throw last;
+}
 export const dayShift = (iso, n) => new Date(new Date(iso + 'T00:00:00Z').getTime() + n * 864e5).toISOString().slice(0, 10);
 
 // The shared host sometimes answers with a transient 503 or an HTML error/challenge page instead of JSON

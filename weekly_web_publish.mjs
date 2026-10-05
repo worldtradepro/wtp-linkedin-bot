@@ -8,6 +8,7 @@
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { siteFetch } from './common.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const cfg = JSON.parse(readFileSync(join(HERE, 'config.json'), 'utf8'));
@@ -17,7 +18,7 @@ const KEY = process.env.WTP_PUBLISH_KEY;
 if (!KEY) { console.log('::warning::WTP_PUBLISH_KEY missing - web issue not published'); process.exit(0); }
 const wp = JSON.parse(readFileSync(join(HERE, 'newsletter', 'out', `${TODAY}-weekly.wp.json`), 'utf8'));
 const call = async (path, body) => {
-  const r = await fetch(`${cfg.site}/wp-json/wtp/v1/insights/${path}`, { method: 'POST', headers: { 'content-type': 'application/json', 'x-wtp-publish-key': KEY, 'user-agent': 'wtp-linkedin-bot/1.0' }, body: JSON.stringify(body) });
+  const r = await siteFetch(`${cfg.site}/wp-json/wtp/v1/insights/${path}`, { method: 'POST', headers: { 'content-type': 'application/json', 'x-wtp-publish-key': KEY }, body: JSON.stringify(body) });
   const j = await r.json().catch(() => ({ error: 'non-JSON reply, HTTP ' + r.status }));
   return { http: r.status, body: j };   // the API's own "status" field ("draft") must not shadow the HTTP status
 };
