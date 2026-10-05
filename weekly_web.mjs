@@ -51,7 +51,7 @@ const css = `
 .wtpw .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0 0}.wtpw .tile{background:var(--soft);border-top:3px solid var(--navy);padding:12px 8px 10px;text-align:center}
 .wtpw .tile b{display:block;font-size:30px;color:var(--navy);line-height:1}.wtpw .tile span{display:block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-top:4px;font-weight:700}.wtpw .tile i{display:block;font-style:normal;font-size:12px;font-weight:700;margin-top:3px}
 .wtpw .up{color:#15803d}.wtpw .dn{color:#b42318}.wtpw .eq{color:var(--muted)}
-.wtpw .toc{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}.wtpw .toc a{display:inline-block;border:1px solid var(--navy);color:var(--navy);border-radius:3px;padding:4px 10px;font-size:13px;font-weight:700;text-decoration:none}.wtpw .toc a span{color:var(--muted);font-weight:400}
+.wtpw .toc{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}.wtpw .toc a{display:inline-block;border:1px solid var(--navy);color:var(--navy);border-radius:3px;padding:4px 10px;font-size:13px;font-weight:700;text-decoration:none}.wtpw .toc a span{color:var(--muted);font-weight:400}.wtpw .toc a.pdf{background:var(--navy);color:#fff;margin-left:auto}
 .wtpw .note{background:#f4efe4;border-radius:10px;padding:18px 22px;margin:22px 0 0;font-size:17px;line-height:1.65;color:var(--ink)}.wtpw .note .k{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#8a6d1f;font-weight:700}.wtpw .note .s{color:var(--muted);font-size:14px;margin-top:8px}
 .wtpw h2{font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--navy);padding:10px 16px;margin:34px 0 10px;font-family:inherit!important}.wtpw h2 .n{color:rgba(255,255,255,.65);font-weight:400;margin-left:6px}
 .wtpw .em{margin:0}.wtpw .em td{font-family:inherit}
@@ -65,18 +65,18 @@ const body = `<style>${css}</style>
 <div class="wtpw">
 <div class="hero"><div class="k">${esc(b.head.kicker)}</div><h1>${esc(b.head.title)}</h1><div class="sub">${esc(b.head.sub)}</div>${b.promise ? `<div class="promise">${esc(b.promise)}</div>` : ''}</div>
 <div class="tiles"><div class="tile"><b>${st.epc ?? 0}</b><span>new projects</span><i>${delta(dl.epc)}</i></div><div class="tile"><b>${st.tenders ?? 0}</b><span>tenders</span><i>${delta(dl.tenders)}</i></div><div class="tile"><b>${st.awards ?? 0}</b><span>awards</span><i>${delta(dl.awards)}</i></div><div class="tile"><b>${st.flow ?? 0}</b><span>flow signals</span><i>${delta(dl.flow)}</i></div></div>
-<div class="toc">${toc}</div>
+<div class="toc">${toc}${b.pdfUrl ? `<a class="pdf" href="${esc(b.pdfUrl)}">Download the PDF report ↓</a>` : ''}</div>
 ${NOTES?.lede_html ? `<div class="note"><div class="k">This week</div><div>${NOTES.lede_html}</div>${NOTES.signoff ? `<div class="s">— ${esc(NOTES.signoff)}</div>` : ''}</div>` : ''}
 <h2>The week in one look</h2>
 ${b.chartTitle ? `<p style="font-size:18px;font-weight:700;color:var(--ink);margin:0 0 2px">${esc(b.chartTitle)}</p><p style="font-size:13px;color:var(--muted);margin:0">New projects by sector · tenders / awards / earlier stage · value where the notice names one</p>` : ''}
 ${b.chart ? emailTable(b.chart) : ''}${b.callout ? emailTable(b.callout) : ''}
 <h2>Deals of the week</h2>
 ${emailTable(b.calls.slice(0, 6).map((c, i) => `<tr><td style="padding:8px 0 0"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-left:4px solid #1F6FEB;background:#F3F4F6;"><tr><td style="padding:12px 16px 14px;"><div style="font-size:11px;color:#9CA3AF;font-weight:700;">${i + 1} / ${Math.min(6, b.calls.length)}</div>${c.html}${c.why ? '' : c.call || ''}</td></tr></table></td></tr>`).join(''))}
-${b.calendar ? `<h2>Bid deadlines, next 14 days</h2>${emailTable(b.calendar)}` : ''}
+${b.calendar ? `<h2 id="deadlines">Bid deadlines, next 14 days</h2>${emailTable(b.calendar)}` : ''}
 <h2>All ${st.epc ?? 0} new projects, by sector</h2>
 <p style="font-size:14px;color:var(--muted);margin:0 0 6px">First seen ${fmtDay(b.from)} – ${fmtDay(b.to)}. Each name links to the source notice or report.</p>
 ${sectorsOut}
-${b.flows?.items?.length ? `<h2>Flows that moved</h2>${emailTable(b.flows.items.map((f) => f.html).join('') + (b.flows.lanes || ''))}` : ''}
+${b.flows?.items?.length ? `<h2 id="flows">Flows that moved</h2>${emailTable(b.flows.items.map((f) => f.html).join('') + (b.flows.lanes || ''))}` : ''}
 <div class="foot"><a href="${esc(cfg.site + '/subscribe/')}">Get this by e-mail every Tuesday →</a><a href="${esc(cfg.site + '/project-sourcing/')}">Add your project or tender →</a><a href="${esc(cfg.site + '/blog/')}">Past issues →</a></div>
 </div>`;
 

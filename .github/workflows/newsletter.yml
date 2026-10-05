@@ -87,6 +87,20 @@ jobs:
         run: |
           npm install -g @anthropic-ai/claude-code
           node weekly_editor.mjs && node newsletter_weekly.mjs --preview
+      - name: PDF report (Playwright) -> images branch weekly/<slug>/ (served through jsDelivr; the e-mail's PDF button points there)
+        if: env.PAUSED != '1' && steps.ed.outputs.edition == 'weekly'
+        continue-on-error: true
+        run: |
+          set -e
+          npx playwright install --with-deps chromium
+          sudo apt-get install -y --no-install-recommends fonts-roboto
+          node weekly_pdf.mjs
+          DATE=$(date -u +%F); DIR="newsletter/out/$DATE-weekly"; SLUG=$(node -e "console.log(require('./newsletter/out/$DATE-weekly.blocks.json').slug)")
+          git config user.name "wtp-bot"; git config user.email "wtp-bot@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin images >/dev/null 2>&1; then git fetch origin images; git worktree add -B images ../_images origin/images; else git worktree add --orphan -b images ../_images; fi
+          mkdir -p "../_images/weekly/$SLUG"
+          cp "$DIR"/*.pdf "$DIR"/cover.jpg "../_images/weekly/$SLUG/"
+          cd ../_images && git add -A && (git diff --cached --quiet || git commit -m "weekly $SLUG pdf") && git push origin HEAD:images
       - name: Web version of the issue on the site (the e-mail's "All N projects" links land here)
         if: env.PAUSED != '1' && steps.ed.outputs.edition == 'weekly'
         env:

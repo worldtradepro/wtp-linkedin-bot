@@ -47,6 +47,8 @@ const [YEAR, WEEK] = isoWeek(FROM);
 const issueNo = Math.max(1, Math.round((Date.parse(TODAY) - Date.parse(W.firstIssue || TODAY)) / (7 * 864e5)) + 1);
 const SLUG = `world-trade-pro-weekly-${YEAR}-w${String(WEEK).padStart(2, '0')}`;
 const ISSUE_URL = `${cfg.site}/blog/${SLUG}/`;   // the web version (weekly_web.mjs + weekly_web_publish.mjs), published before the send
+// the PDF report (weekly_pdf.mjs) is served from the images branch through jsDelivr (application/pdf), so its URL is known before the send
+const PDF_URL = `https://cdn.jsdelivr.net/gh/${process.env.GITHUB_REPOSITORY || 'worldtradepro/wtp-linkedin-bot'}@images/weekly/${SLUG}/WorldTradePro-Weekly-${YEAR}-W${String(WEEK).padStart(2, '0')}.pdf`;
 
 // ---------------------------------------------------------------- data
 const [epcRes, flowRes, lw, pEpcRes, pFlowRes] = await Promise.all([
@@ -296,6 +298,19 @@ const callout = biggest && biggest.usd ? row(`<table role="presentation" width="
     <div style="font-size:12.5px;color:${C.text};padding-top:8px;line-height:1.6;">${topWinner ? `<b>Most awards:</b> ${esc(cut(topWinner[0], 40))} (${topWinner[1]})<br>` : ''}${topCountry ? `<b>Busiest country:</b> ${flagOf(topCountry[1][0].country)} ${esc(topCountry[0])} (${plural(topCountry[1].length, 'new project')})` : ''}</div></td>
 </tr></table>`, '14px 0 0') : superlatives;
 
+// dashboard numbers (PDF + web): the same merged set cut four ways, plus the largest contracts and lane pressure
+const countBy = (items, key) => Object.entries(items.reduce((m, it) => { const k = key(it); if (k) m[k] = (m[k] || 0) + 1; return m; }, {})).sort((a, b) => b[1] - a[1]);
+const REGION = (it) => { const r = clean(it.region); return r === 'Asia' ? 'Asia Pacific' : r === 'South America' ? 'Americas' : r || 'Other'; };
+const dash = {
+  countries: countBy(epc.filter((it) => countryName(it.country) && !isNA(countryName(it.country))), (it) => countryName(it.country)).slice(0, 10).map(([name, n]) => ({ name, n, flag: flagOf(epc.find((it) => countryName(it.country) === name)?.country), slug: COUNTRY_PAGES.has(slugOf(name)) ? `${cfg.site}/projects/${slugOf(name)}/` : '' })),
+  regions: countBy(epc, REGION).map(([name, n]) => ({ name, n })),
+  stages: ['S1', 'S2', 'S3', 'S4', 'S5'].map((k) => ({ key: k, label: (STAGE[k] || [k])[0], n: epc.filter((it) => stageKey(it.stage) === k).length })),
+  topDeals: [...dealsAll].filter((d) => d.usd).sort((a, b) => b.usd - a.usd).slice(0, 10).map((d) => ({ name: d.name, value: d.value, usd: d.usd, who: d.who, role: d.role, tender: d.tender, country: countryName(d.it.country), sector: SECTORS[d.it.key], url: d.url })),
+  lanes: lanes.map((x) => ({ name: x.l.name, flow: x.l.flow, n: x.n, crit: x.now.crit, p: x.p, pp: x.pp, status: status(x.p)[0], url: `${cfg.site}/trade-lanes/${x.l.id}/` })),
+  flowSectors: countBy(flow, (it) => SECTORS[it.key] || it.sector).map(([name, n]) => ({ name, n })),
+  totalUsd: dealsAll.reduce((n, d) => n + (d.usd || 0), 0),
+};
+
 // editor's note: the one place a person speaks. From the notes file (LLM-drafted, reviewed) - nothing is invented in code.
 const editor = NOTES?.lede_html ? row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.sand};border-radius:10px;"><tr><td style="padding:16px 18px;${font}">
   <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8a6d1f;">This week</div>
@@ -314,12 +329,13 @@ const blocks = {
   date: TODAY, edition: 'weekly', issue: issueNo, week: WEEK, year: YEAR, from: FROM, to: TO, subject, preview, slug: SLUG, issueUrl: ISSUE_URL, full,
   head: { kicker: `${W.name || 'World Trade Pro Weekly'} · Issue ${issueNo} · Week ${WEEK}`, title: W.subtitle || "Who's buying, who won, what moved", sub: `${fmtDay(FROM)} – ${fmtDay(TO)} ${YEAR} · ${plural(epc.length, 'new project')} in ${countries} countries (${epcRaw.length} reports) · ${tenders} tenders · ${awards} awards · ${plural(flow.length, 'trade-flow signal')}` },
   stats: { epc: epc.length, tenders, awards, flow: flow.length, critical: crit, deltas }, directory: '',
-  editor, chart, chartTitle, callout, superlatives, calendar,
+  editor, chart, chartTitle, callout, superlatives, calendar, dash, calendarCount: calItems.length,
   promise: `${plural(calls.slice(0, 3).length, 'deal')} · ${plural(calItems.length, 'deadline')} · ${plural(Math.min(3, flowItems.length), 'flow')} · about 5 minutes`,
   openThese: calls.slice(0, 3).map((c, i) => `<a href="#d${i + 1}" style="color:${C.accent};text-decoration:none;font-weight:700;">${esc(cut(c.name, 44))}</a>`).join(' &nbsp;·&nbsp; '),
   footer: { forward: `mailto:?subject=${encodeURIComponent((W.name || 'World Trade Pro Weekly') + ' - worth a look')}&body=${encodeURIComponent('Free Tuesday e-mail: tenders, awards, new projects and trade flows, filtered to your sectors. ' + cfg.site + '/subscribe/')}`, add: utm(cfg.site + '/project-sourcing/', 'footer-add'), archive: utm(cfg.site + '/blog/', 'footer-archive'), issue: utm(ISSUE_URL, 'footer-web') },
   sponsor, calls, projects, flows: { lanes: laneBoard, items: flowItems }, moves: movesHtml, tail,
-  links: { projects: utm(cfg.site + '/projects/', 'projects-hub'), map: utm(cfg.site + '/intelligence-map/', 'map'), manage: cfg.site + '/newsletter/unsubscribe/' },
+  links: { projects: utm(cfg.site + '/projects/', 'projects-hub'), map: utm(cfg.site + '/intelligence-map/', 'map'), manage: cfg.site + '/newsletter/unsubscribe/', issue: utm(ISSUE_URL, 'read-full'), pdf: PDF_URL + '?utm_source=newsletter&utm_medium=email&utm_campaign=weekly-' + TODAY + '&utm_content=pdf' },
+  pdfUrl: PDF_URL,
   skip: epc.length + flow.length < 5,
   counts: { epc: epc.length, tenders, awards, flow: flow.length, critical: crit, calls: calls.length, calendar: calItems.length, notes: !!NOTES, sectors: projects.map((p) => `${p.key}:${p.count}`) },
   // material for weekly_editor.mjs (names + urls the model may use; nothing else)
