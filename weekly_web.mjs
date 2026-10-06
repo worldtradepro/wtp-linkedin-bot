@@ -33,6 +33,14 @@ const delta = (d) => (d > 0 ? `<span class="up">▲ ${d}</span>` : d < 0 ? `<spa
 const full = b.full || {};
 const leadKey = Object.entries(full).sort((x, y) => y[1].length - x[1].length)[0]?.[0] || 'energy';
 const PHOTO = pickPhoto(leadKey, b.issue);   // hero photo from the licensed library, served from the repo
+// PDF report (weekly_pdf.mjs runs first and leaves pdf.json next to the PDF): three download entries on the page -
+// hero, section bar, and a card at the end with the cover thumbnail. The cover sits next to the PDF on the images branch.
+const PDF_META_FILE = join(HERE, 'newsletter', 'out', NAME, 'pdf.json');
+const PDF_META = existsSync(PDF_META_FILE) ? JSON.parse(readFileSync(PDF_META_FILE, 'utf8')) : null;
+const pdfLabel = PDF_META?.pages ? `PDF report · ${PDF_META.pages} pages` : 'PDF report';
+const pdfSize = PDF_META?.kb ? (PDF_META.kb >= 1000 ? `${(PDF_META.kb / 1024).toFixed(1)} MB` : `${PDF_META.kb} KB`) : '';
+const coverUrl = b.pdfUrl ? b.pdfUrl.replace(/[^/]+$/, 'cover.jpg') : '';
+const ARCHIVE = `${cfg.site}/blog/weekly/`;   // every issue, newest first (Blog hub snippet, category blog-weekly)
 const sectorsOut = SECTOR_ORDER.filter((k) => (full[k] || []).length).map((k) => {
   const items = full[k];
   return `<section class="sec" id="sec-${k}"><h2>${esc(SECTORS[k])} <span class="n">${items.length}</span></h2>
@@ -61,15 +69,17 @@ const css = `
 .wtpw table.list{width:100%;border-collapse:collapse;font-size:14.5px}.wtpw table.list th{text-align:left;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--navy);padding:6px 8px}
 .wtpw table.list td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}.wtpw table.list td a{color:var(--ink);font-weight:600;text-decoration:none}.wtpw table.list td a:hover{color:var(--accent)}.wtpw .sub{font-size:12.5px;color:var(--muted);margin-top:2px}
 .wtpw .st{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}.wtpw .st-S4{color:var(--accent)}.wtpw .st-S5{color:var(--navy)}.wtpw .st-S1,.wtpw .st-S2,.wtpw .st-S3{color:var(--muted)}
+.wtpw .hero .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.wtpw .hero .cta a{display:inline-block;border-radius:4px;padding:9px 16px;font-size:14px;font-weight:700;text-decoration:none}.wtpw .hero .cta a.pdf2{background:#fff;color:var(--navy)!important}.wtpw .hero .cta a.sub2{border:1px solid rgba(255,255,255,.7);color:#fff!important}
+.wtpw .pdfcard{display:flex;gap:22px;align-items:center;margin-top:40px;padding:22px 26px;background:var(--navy);border-radius:12px;color:#fff;text-decoration:none}.wtpw .pdfcard img{width:220px;flex:none;border-radius:4px;box-shadow:0 6px 18px rgba(0,0,0,.35)}.wtpw .pdfcard .k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}.wtpw .pdfcard b{display:block;font-size:22px;line-height:1.2;margin:6px 0 8px;color:#fff}.wtpw .pdfcard span{display:block;font-size:14px;line-height:1.5;color:rgba(255,255,255,.78)}.wtpw .pdfcard em{display:inline-block;font-style:normal;margin-top:14px;background:#fff;color:var(--navy);border-radius:4px;padding:9px 16px;font-size:14px;font-weight:700}
 .wtpw .foot{border-top:1px solid var(--line);margin-top:34px;padding-top:16px;font-size:14px;color:var(--muted)}.wtpw .foot a{font-weight:700;color:var(--navy);text-decoration:none;margin-right:18px}
-@media(max-width:640px){.wtpw .hero{padding:22px 18px}.wtpw .hero h1{font-size:28px}.wtpw .tiles{grid-template-columns:1fr 1fr}.wtpw table.list th:nth-child(4),.wtpw table.list td:nth-child(4),.wtpw table.list th:nth-child(5),.wtpw table.list td:nth-child(5){display:none}}`;
+@media(max-width:640px){.wtpw .pdfcard{flex-direction:column;align-items:flex-start}.wtpw .pdfcard img{width:100%}.wtpw .hero{padding:22px 18px}.wtpw .hero h1{font-size:28px}.wtpw .tiles{grid-template-columns:1fr 1fr}.wtpw table.list th:nth-child(4),.wtpw table.list td:nth-child(4),.wtpw table.list th:nth-child(5),.wtpw table.list td:nth-child(5){display:none}}`;
 
 // The CSS is NOT in the post body: the site strips <style> from API-inserted content (kses) - it lives in snippet 67
 // (WTP Insights URLs, byline & share tags) which prints it on every Insights post. The standalone preview adds it itself.
 const body = `<div class="wtpw">
-<div class="hero"${PHOTO ? ` style="background-image:linear-gradient(90deg, rgba(11,37,69,.96) 0%, rgba(11,37,69,.86) 55%, rgba(11,37,69,.5) 100%), url('${esc(PHOTO.publicUrl)}');background-size:cover;background-position:center;"` : ''}><div class="k">${esc(b.head.kicker)}</div><h1>${esc(b.head.title)}</h1><div class="sub">${esc(b.head.sub)}</div>${b.promise ? `<div class="promise">${esc(b.promise)}</div>` : ''}${PHOTO ? `<div class="credit">${esc(PHOTO.credit)}${PHOTO.illustrative ? ' · illustrative' : ''}</div>` : ''}</div>
+<div class="hero"${PHOTO ? ` style="background-image:linear-gradient(90deg, rgba(11,37,69,.96) 0%, rgba(11,37,69,.86) 55%, rgba(11,37,69,.5) 100%), url('${esc(PHOTO.publicUrl)}');background-size:cover;background-position:center;"` : ''}><div class="k">${esc(b.head.kicker)}</div><h1>${esc(b.head.title)}</h1><div class="sub">${esc(b.head.sub)}</div>${b.promise ? `<div class="promise">${esc(b.promise)}</div>` : ''}<div class="cta">${b.pdfUrl ? `<a class="pdf2" href="${esc(b.pdfUrl)}">${esc(pdfLabel)} ↓</a>` : ''}<a class="sub2" href="${esc(cfg.site + '/subscribe/')}">Get it by e-mail every Tuesday →</a></div>${PHOTO ? `<div class="credit">${esc(PHOTO.credit)}${PHOTO.illustrative ? ' · illustrative' : ''}</div>` : ''}</div>
 <div class="tiles"><div class="tile"><b>${st.epc ?? 0}</b><span>new projects</span><i>${delta(dl.epc)}</i></div><div class="tile"><b>${st.tenders ?? 0}</b><span>tenders</span><i>${delta(dl.tenders)}</i></div><div class="tile"><b>${st.awards ?? 0}</b><span>awards</span><i>${delta(dl.awards)}</i></div><div class="tile"><b>${st.flow ?? 0}</b><span>flow signals</span><i>${delta(dl.flow)}</i></div></div>
-<div class="toc">${toc}${b.pdfUrl ? `<a class="pdf" href="${esc(b.pdfUrl)}">Download the PDF report ↓</a>` : ''}</div>
+<div class="toc">${toc}${b.pdfUrl ? `<a class="pdf" href="${esc(b.pdfUrl)}">${esc(pdfLabel)} ↓</a>` : ''}</div>
 ${NOTES?.lede_html ? `<div class="note"><div class="k">This week</div><div>${NOTES.lede_html}</div>${NOTES.signoff ? `<div class="s">— ${esc(NOTES.signoff)}</div>` : ''}</div>` : ''}
 <h2>The week in one look</h2>
 ${b.chartTitle ? `<p style="font-size:18px;font-weight:700;color:var(--ink);margin:0 0 2px">${esc(b.chartTitle)}</p><p style="font-size:13px;color:var(--muted);margin:0">New projects by sector · tenders / awards / earlier stage · value where the notice names one</p>` : ''}
@@ -81,12 +91,17 @@ ${b.calendar ? `<h2 id="deadlines">Bid deadlines, next 14 days</h2>${emailTable(
 <p style="font-size:14px;color:var(--muted);margin:0 0 6px">First seen ${fmtDay(b.from)} – ${fmtDay(b.to)}. Each name links to the source notice or report.</p>
 ${sectorsOut}
 ${b.flows?.items?.length ? `<h2 id="flows">Flows that moved</h2>${emailTable(b.flows.items.map((f) => f.html).join('') + (b.flows.lanes || ''))}` : ''}
-<div class="foot"><a href="${esc(cfg.site + '/subscribe/')}">Get this by e-mail every Tuesday →</a><a href="${esc(cfg.site + '/project-sourcing/')}">Add your project or tender →</a><a href="${esc(cfg.site + '/blog/')}">Past issues →</a></div>
+${b.pdfUrl ? `<a class="pdfcard" href="${esc(b.pdfUrl)}">${coverUrl ? `<img src="${esc(coverUrl)}" alt="${esc(b.head.kicker)} - PDF report cover" loading="lazy">` : ''}<div><div class="k">The report</div><b>${esc(b.head.kicker)}</b><span>Everything on this page as an A4 report: dashboard, the ten largest contracts, deadlines, all projects by sector and the flows. ${esc(PDF_META?.pages ? `${PDF_META.pages} pages` : '')}${pdfSize ? ` · ${esc(pdfSize)}` : ''}</span><em>Download the PDF ↓</em></div></a>` : ''}
+<div class="foot"><a href="${esc(cfg.site + '/subscribe/')}">Get this by e-mail every Tuesday →</a><a href="${esc(cfg.site + '/project-sourcing/')}">Add your project or tender →</a><a href="${esc(ARCHIVE)}">All issues →</a></div>
 </div>`;
 
-const title = `${W.name || 'World Trade Pro Weekly'} · Issue ${b.issue}: ${b.subject}`;
+// Post title = the issue's name (report style, like a consulting series), not the e-mail subject: the theme and the Blog
+// hub truncate long titles, and the week's numbers are in the excerpt and the hero anyway.
+const title = `${W.name || 'World Trade Pro Weekly'} · Issue ${b.issue} · Week ${b.week}, ${b.year}`;
 const excerpt = `${b.preview}. Who's buying, who won, what moved — the week of ${fmtDay(b.from)} – ${fmtDay(b.to)}.`;
-writeFileSync(join(HERE, 'newsletter', 'out', `${NAME}.wp.json`), JSON.stringify({ slug, url, title, excerpt, content: `<!-- wp:html -->\n${body}\n<!-- /wp:html -->` }, null, 1));
+// cover: the PDF cover becomes the post's featured image (thumbnail on the Blog hub's Weekly cards); the theme's own
+// copy above the title is hidden on Insights posts by snippet 67, so it never doubles the hero.
+writeFileSync(join(HERE, 'newsletter', 'out', `${NAME}.wp.json`), JSON.stringify({ slug, url, title, excerpt, cover: coverUrl, content: `<!-- wp:html -->\n${body}\n<!-- /wp:html -->` }, null, 1));
 writeFileSync(join(HERE, 'newsletter', 'out', `${NAME}.web.html`), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title><style>${css}</style></head><body style="margin:0;background:#fff;padding:24px 16px">${body}</body></html>`);
 writeFileSync(join(HERE, 'newsletter', 'web.css'), css.trim() + '\n');   // the same CSS, for snippet 67 (site side)
 console.log(`web issue: ${slug} -> ${url} (${Object.values(full).reduce((n, a) => n + a.length, 0)} projects listed, ${(body.length / 1024).toFixed(0)} KB)`);

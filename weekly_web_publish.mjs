@@ -22,7 +22,9 @@ const call = async (path, body) => {
   const j = await r.json().catch(() => ({ error: 'non-JSON reply, HTTP ' + r.status }));
   return { http: r.status, body: j };   // the API's own "status" field ("draft") must not shadow the HTTP status
 };
-const s = await call('stage', { slug: wp.slug, title: wp.title, excerpt: wp.excerpt, content: wp.content, forum: { title: `${wp.title}`, html: `<p>${wp.excerpt}</p><p>Full issue: <a href="${wp.url}">${wp.url}</a></p>` } });
+// cover.jpg (PDF cover on the images branch) -> media library -> featured image, i.e. the thumbnail on the Blog hub's Weekly cards
+const assets = wp.cover ? { cover: { url: wp.cover, filename: `${wp.slug}-cover.jpg`, alt: `${wp.title} - report cover`, title: `${wp.title} cover` } } : {};
+const s = await call('stage', { slug: wp.slug, title: wp.title, excerpt: wp.excerpt, content: wp.content, assets, featured: wp.cover ? 'cover' : '', forum: { title: `${wp.title}`, html: `<p>${wp.excerpt}</p><p>Full issue: <a href="${wp.url}">${wp.url}</a></p>` } });
 if (s.http === 409) console.log(`already published: ${s.body.url}`);
 else if (s.http !== 200) { console.log(`::error::stage failed (HTTP ${s.http}): ${JSON.stringify(s.body).slice(0, 300)}`); process.exit(1); }
 else console.log(`staged draft ${s.body.id}`);

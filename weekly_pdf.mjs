@@ -179,7 +179,9 @@ await page.goto(pathToFileURL(join(OUT, 'report.html')).href, { waitUntil: 'load
 await page.waitForTimeout(300);
 await page.pdf({ path: join(OUT, `${PDFNAME}.pdf`), format: 'A4', landscape: true, printBackground: true, preferCSSPageSize: true, margin: { top: 0, right: 0, bottom: 0, left: 0 } });
 await page.locator('.cover').screenshot({ path: join(OUT, 'cover.jpg'), type: 'jpeg', quality: 88 });
+const pages = await page.locator('.page').count();   // every A4 sheet is one fixed-height .page div (cover and back page included)
 await browser.close();
 const kb = (readFileSync(join(OUT, `${PDFNAME}.pdf`)).length / 1024).toFixed(0);
-writeFileSync(join(OUT, 'pdf.json'), JSON.stringify({ file: `${PDFNAME}.pdf`, name: PDFNAME, cover: 'cover.jpg', slug: b.slug, kb: Number(kb) }, null, 2));
-console.log(`PDF report: newsletter/out/${NAME}/${PDFNAME}.pdf (${kb} KB), cover.jpg`);
+// pages + kb are read by weekly_web.mjs for the "PDF report · N pages" buttons on the web issue
+writeFileSync(join(OUT, 'pdf.json'), JSON.stringify({ file: `${PDFNAME}.pdf`, name: PDFNAME, cover: 'cover.jpg', slug: b.slug, kb: Number(kb), pages }, null, 2));
+console.log(`PDF report: newsletter/out/${NAME}/${PDFNAME}.pdf (${kb} KB, ${pages} pages), cover.jpg`);
