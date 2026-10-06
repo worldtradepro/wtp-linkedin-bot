@@ -1,8 +1,16 @@
 {
   "instagram": {
-    "paused": true,
+    "paused": false,
     "postUtc": "15:00",
-    "_note": "2026-10-05 paused by owner until the cover pages are fixed; set paused to false to release"
+    "_note": "2026-10-05 paused by owner until the cover pages are fixed; 2026-10-06 released by owner (end-card versions are in R2); set paused to true to stop"
+  },
+  "pinterest": {
+    "paused": false,
+    "slotUtc": "16:30",
+    "channel": "worldtradepro",
+    "boardServiceId": "832884593527622190",
+    "url": "https://worldtradepro.com/subscribe/",
+    "_note": "2026-10-06 owner: Commodity Decoded videos also go to Pinterest (board Commodity Decoded), pin link = free weekly newsletter page; one pin per UTC day via push_pinterest.mjs"
   },
   "site": "https://worldtradepro.com",
   "accounts": {

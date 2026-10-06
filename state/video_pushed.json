@@ -30,12 +30,6 @@
       "mode": "schedule",
       "at": "2026-10-05T18:37:47.495Z",
       "dueAt": "2026-10-06T15:00:00.000Z"
-    },
-    "cd_diesel_vs_petrol": {
-      "postId": "6ac4cd595786a94a0be6f80b",
-      "mode": "schedule",
-      "at": "2026-10-06T10:28:41.165Z",
-      "dueAt": "2026-10-07T15:00:00.000Z"
     }
   }
 }
