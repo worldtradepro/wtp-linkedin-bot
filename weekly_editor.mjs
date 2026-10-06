@@ -32,7 +32,7 @@ You write ONLY from the material. Hard rules:
 - lede_html: 60-110 words, 2-4 sentences, one judgement (what the week's pattern means for a bidder or buyer), plain HTML with at most 2 <a href="URL"> links to material urls, no other tags.
 - deals_why: for each deal name given, ONE sentence (max 28 words) a procurement lead would find useful: what the award or tender signals (who is now buying, what the price implies, who is booked). Keys = the exact deal names.
 - flows_why: for each flow url given, ONE sentence (max 28 words) on what it means for buyers or shippers of that commodity. Keys = the exact urls.
-- signoff: a short sign-off line, e.g. "Yi Huang, World Trade Pro" (keep exactly that).
+- signoff: exactly "World Trade Pro Research" (the desk signs, never a person's name).
 Return ONE JSON object only, no markdown fences, keys: lede_html, deals_why, flows_why, signoff.`;
 const material = { week: `${b.from} to ${b.to} (ISO week ${b.week} ${b.year}), issue ${b.issue}`, this_week: b.stats, last_week: M.prev, change: M.deltas, biggest_deal: M.biggest, most_awards: M.topWinner, busiest_country: M.topCountry, deals: M.deals, flows: M.flows };
 const USER = `MATERIAL (JSON):\n${JSON.stringify(material, null, 1)}\n\nWrite the editor's notes now.`;
