@@ -76,7 +76,17 @@ const css = `
 
 // The CSS is NOT in the post body: the site strips <style> from API-inserted content (kses) - it lives in snippet 67
 // (WTP Insights URLs, byline & share tags) which prints it on every Insights post. The standalone preview adds it itself.
-const body = `<div class="wtpw">
+// The blocks carry the e-mail's links (utm_source=newsletter, utm_medium=email). On the web page they would label every
+// reader and crawler of the post as an e-mail click (2026-10-06: 21 GA "Email" sessions, list of 2), so the web version
+// drops all utm_* parameters; only links clicked in the actual e-mail keep them.
+const noUtm = (html) => html.replace(/href="([^"]*)"/g, (m, href) => {
+  if (!/utm_/.test(href)) return m;
+  const [base, hash = ''] = href.split('#');
+  const [path, query = ''] = base.split('?');
+  const keep = query.split(/&amp;|&/).filter((kv) => kv && !/^utm_/i.test(kv));
+  return `href="${path}${keep.length ? '?' + keep.join('&amp;') : ''}${hash ? '#' + hash : ''}"`;
+});
+const bodyRaw = `<div class="wtpw">
 <div class="hero"${PHOTO ? ` style="background-image:linear-gradient(90deg, rgba(11,37,69,.96) 0%, rgba(11,37,69,.86) 55%, rgba(11,37,69,.5) 100%), url('${esc(PHOTO.publicUrl)}');background-size:cover;background-position:center;"` : ''}><div class="k">${esc(b.head.kicker)}</div><h1>${esc(b.head.title)}</h1><div class="sub">${esc(b.head.sub)}</div>${b.promise ? `<div class="promise">${esc(b.promise)}</div>` : ''}<div class="cta">${b.pdfUrl ? `<a class="pdf2" href="${esc(b.pdfUrl)}">${esc(pdfLabel)} ↓</a>` : ''}<a class="sub2" href="${esc(cfg.site + '/subscribe/')}">Get it by e-mail every Tuesday →</a></div>${PHOTO ? `<div class="credit">${esc(PHOTO.credit)}${PHOTO.illustrative ? ' · illustrative' : ''}</div>` : ''}</div>
 <div class="tiles"><div class="tile"><b>${st.epc ?? 0}</b><span>new projects</span><i>${delta(dl.epc)}</i></div><div class="tile"><b>${st.tenders ?? 0}</b><span>tenders</span><i>${delta(dl.tenders)}</i></div><div class="tile"><b>${st.awards ?? 0}</b><span>awards</span><i>${delta(dl.awards)}</i></div><div class="tile"><b>${st.flow ?? 0}</b><span>flow signals</span><i>${delta(dl.flow)}</i></div></div>
 <div class="toc">${toc}${b.pdfUrl ? `<a class="pdf" href="${esc(b.pdfUrl)}">${esc(pdfLabel)} ↓</a>` : ''}</div>
@@ -97,6 +107,7 @@ ${b.pdfUrl ? `<a class="pdfcard" href="${esc(b.pdfUrl)}">${coverUrl ? `<img src=
 
 // Post title = the issue's name (report style, like a consulting series), not the e-mail subject: the theme and the Blog
 // hub truncate long titles, and the week's numbers are in the excerpt and the hero anyway.
+const body = noUtm(bodyRaw);
 const title = `${W.name || 'World Trade Pro Weekly'} · Issue ${b.issue} · Week ${b.week}, ${b.year}`;
 const excerpt = `${b.preview}. Who's buying, who won, what moved — the week of ${fmtDay(b.from)} – ${fmtDay(b.to)}.`;
 // cover: the PDF cover becomes the post's featured image (thumbnail on the Blog hub's Weekly cards); the theme's own
