@@ -125,6 +125,24 @@
       "id": "infra-3",
       "url": "https://images.unsplash.com/photo-1671072947444-36f6446dff49",
       "hash": "70a303803e68fe6dbbf6b64e3abbc9989f3c5826"
+    },
+    {
+      "date": "2026-10-08",
+      "id": "infra-1",
+      "url": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA2dGBJ5.img",
+      "hash": "afea6768a55858443e5acaa7b74c5d7e941981e3"
+    },
+    {
+      "date": "2026-10-08",
+      "id": "infra-2",
+      "url": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA2dLP5D.img",
+      "hash": "8aa0ad7c4ef951d739501352698f4535ab8c3973"
+    },
+    {
+      "date": "2026-10-08",
+      "id": "infra-3",
+      "url": "https://assets.st-note.com/production/uploads/images/318069836/rectangle_large_type_2_54259f0b12a73472510674de21ea8f77.jpeg",
+      "hash": "c5481fb26395941a672123c34b726aa4861b8e4a"
     }
   ]
 }
