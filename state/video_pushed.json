@@ -48,6 +48,12 @@
       "mode": "schedule",
       "at": "2026-10-08T10:42:53.931Z",
       "dueAt": "2026-10-09T15:00:00.000Z"
+    },
+    "cd_coal_selfheating": {
+      "postId": "6ac8c4fa4cc914d0620b36bb",
+      "mode": "schedule",
+      "at": "2026-10-09T10:42:02.848Z",
+      "dueAt": "2026-10-10T15:00:00.000Z"
     }
   }
 }
