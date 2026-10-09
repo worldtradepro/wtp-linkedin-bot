@@ -23,7 +23,8 @@
         "13:00",
         "17:30"
       ],
-      "videoSlotUtc": "15:00",
+      "videoSlotUtc": "13:00",
+      "_videoSlotTest": "2026-10-09: owner test, 1 week - video slot back to 13:00 UTC (the slot of the Apr-Aug 2026 videos that got median ~61k impressions). Revert to 15:00 after 2026-10-16 if no change.",
       "_videoSlot": "2026-10-03: main page = max 2 posts/day: 07:30 carousel (Europe/Africa/Gulf morning) + 15:00 video (UK 16:00, US East 11:00, US West 08:00, Gulf 19:00, Africa 16-17). Owner: India followers are low quality - do not optimise for India. Without India: Americas ~41%, Africa ~19%, UK+Europe ~10%, Gulf ~7%.",
       "_videoTest": "2026-09-28: last daily slot (17:30 UTC) reserved for a Trade Flow Daily video instead of a 3rd news post, to A/B video vs text. Video isn't auto-generated/published yet - build+post manually until the pipeline is wired up. See linkedin_video/ and memory project_linkedin_daily_video.md.",
       "weekendNewsPerDay": 0,
