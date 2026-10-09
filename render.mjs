@@ -475,7 +475,7 @@ for (const f of files) {
     const old = p.sourceUrl;
     p.sourceUrl = realSource; p.sourceName = host;
     // sourceLink "body" (Buffer Free has no first-comment feature): the real URL goes straight into the post, like the friend's posts.
-    p.blocks = p.blocks.map((b) => (/^Source ➡️/.test(b) ? (cfg.sourceLink === 'body' ? `Source ➡️ ${realSource}` : `Source ➡️ ${host} (link in comments)`) : b));
+    p.blocks = p.blocks.map((b) => (/^Source: /.test(b) ? `Source: ${host}` : /^Source ➡️/.test(b) ? (cfg.sourceLink === 'body' ? `Source ➡️ ${realSource}` : `Source ➡️ ${host} (link in comments)`) : b));
     p.firstComment = (p.firstComment || '').split(old).join(realSource);
   }
   if (kind === 'card') {

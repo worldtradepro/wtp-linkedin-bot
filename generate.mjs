@@ -202,21 +202,23 @@ function projectPost(it, i, date, slot) {
     `${prefix} ${title}`,
     clean(descOf(it)).replace(/.$/, '') !== title ? summaryOf(descOf(it), cfg.maxSummaryChars) : '',
     snapshotOf(it),
-    sourceLine(it),
-    BODY_LINKS ? countryLine(it, date, i) : '',
+    // 2026-10-09 owner: Infrastructure page posts carry NO links (LinkedIn cuts reach for posts with external links); credit stays as plain text.
+    INFRA_LINKS ? sourceLine(it) : `Source: ${it.source_name || hostOf(it.source_url)}`,
+    BODY_LINKS && INFRA_LINKS ? countryLine(it, date, i) : '',
     hashtagsFor(it, ['Infrastructure', it.company_name && it.company_name.replace(/[^A-Za-z0-9]/g, ''), sub && sub.replace(/[^A-Za-z]/g, '')]),
   ];
   return {
     account: 'infra', type: 'project', id: `infra-${i}`, scheduledAtUtc: `${date}T${slot}:00Z`,
     headline: clean(it.project_name), headPrefix: prefix, blocks, descIndex: 1,
     text: blocks.filter(Boolean).join('\n\n'),
-    firstComment: commentFor(it, [`🗂️ All projects with filters: ${utm('infrastructure', 'proj', date, i)}`, BODY_LINKS ? '' : countryLine(it, date, i)].filter(Boolean).join('\n')),
+    firstComment: !INFRA_LINKS ? '' : commentFor(it, [`🗂️ All projects with filters: ${utm('infrastructure', 'proj', date, i)}`, BODY_LINKS ? '' : countryLine(it, date, i)].filter(Boolean).join('\n')),
     image: 'screenshot', sourceUrl: it.source_url, sourceName: it.source_name || hostOf(it.source_url),
     meta: { stage: it.stage, sector: it.sector, subsector: it.subsector, country: countryName(it.country), company: it.company_name || null, scale: it.scale || null, reportDate: it.report_date },
   };
 }
 
 const BODY_LINKS = cfg.sourceLink === 'body';
+const INFRA_LINKS = cfg.accounts?.infra?.links !== false;   // set accounts.infra.links=false to keep links out of Infrastructure posts
 // The site's per-country SEO pages (/projects/<slug>/). Only countries listed in the sitemap get a link
 // (the site lists a country once it has enough projects); an unreachable sitemap just means no link.
 const slugOf = (name) => name.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/['’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');

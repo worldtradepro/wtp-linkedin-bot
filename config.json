@@ -56,6 +56,8 @@
       "dailyCardSlotUtc": null,
       "weeklyCardSlotUtc": null,
       "weekend": false,
+      "links": false,
+      "_links": "2026-10-09 owner: no links in Infrastructure project posts (reach). Set true to restore source + country-page links. Backup: generate.BEFORE_nolinks.mjs",
       "_cards": "2026-10-05: the \"N new projects tracked\" daily card and the weekly pipeline card are off (median 18 impressions, 4 clicks in 2 weeks); null = not generated.",
       "_projects": "2026-10-05: Infra page = 3 single project posts/day, big named projects first (scale + company name). Data 9/20-10/4: single project posts were the only format that reached beyond followers (120/99/62 impressions on Morocco/SABIC/Ima)."
     }
