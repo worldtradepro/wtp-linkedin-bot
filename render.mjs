@@ -345,8 +345,8 @@ function photoCardHtml(jpeg, title, tagline) {
   const fs = n <= 60 ? 76 : n <= 90 ? 68 : n <= 120 ? 60 : 52;
   return `<html><body style="margin:0;width:1080px;height:1350px;position:relative;overflow:hidden;background:#050d24;font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif">
   <img src="data:image/jpeg;base64,${jpeg.toString('base64')}" style="position:absolute;left:0;top:0;width:1080px;height:800px;object-fit:cover">
-  <div style="position:absolute;left:0;top:0;width:1080px;height:150px;background:linear-gradient(to bottom,rgba(5,13,36,.55),transparent)"></div>
-  <div style="position:absolute;left:44px;top:38px;color:#fff;font-weight:800;font-size:34px;letter-spacing:.2px;text-shadow:0 1px 8px rgba(0,0,0,.45)"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#fff;margin-right:10px;vertical-align:middle"></span>World Trade Pro <span style="font-weight:500;opacity:.85">Infrastructure</span></div>
+  <div style="position:absolute;left:0;top:0;width:1080px;height:190px;background:linear-gradient(to bottom,rgba(5,13,36,.7),transparent)"></div>
+  <img src="${LOGO}" style="position:absolute;left:36px;top:26px;height:104px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.55))">
   <div style="position:absolute;left:0;top:800px;width:1080px;height:550px;background:#050d24;box-sizing:border-box;padding:52px 56px 0 56px">
     <div style="color:#fff;font-weight:800;font-size:${fs}px;line-height:1.14;letter-spacing:-.5px;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden">${esc2(title)}</div>
   </div>
