@@ -54,6 +54,9 @@ const RULES = [
   [/\bsolar\b/i, ['solar farm', 'solar power plant'], /solar/i],
   [/\bwind\b/i, ['wind turbines', 'offshore wind farm'], /wind/i],
   [/\b(renewable|hydrogen)\b/i, ['solar farm', 'wind turbines']],
+  // a power PLANT story (capacity in MW / GW, thermal, boilers...) that names no fuel above: a plant, not pylons. Kept after solar / wind / hydro /
+  // battery so "500 MW solar" still gets a solar farm (2026-10-10: a 1,600 MW thermal plant got transmission lines via its "Power & Transmission" bucket).
+  [/\b(\d[\d,.]*\s?(mw|gw)|thermal|coal-fired|gas-fired|power (plant|station|project)|boilers?|steam turbines?)\b/i, ['thermal power plant', 'power station', 'power plant cooling towers'], /power (plant|station)|cooling tower|thermal|smokestack|chimney/i],
   [/\b(rail|train|truck|logistic\w*|freight|warehouse)\b/i, ['freight train', 'logistics warehouse']],
   [/\b(tariff|sanction\w*|customs|trade war)\b/i, ['cargo containers customs', 'international trade cargo']],
 ];
@@ -81,7 +84,8 @@ function looseFilter(queries) {
 function plan({ headline = '', sector = '', subsector = '' }) {
   const hay = `${headline} ${subsector}`;
   const steps = [];
-  const topic = RULES.find(([re]) => re.test(hay));
+  // what the headline says first; the subsector is only a broad bucket ("Power & Transmission" also holds power plants) and decides when the headline names nothing
+  const topic = RULES.find(([re]) => re.test(headline)) || RULES.find(([re]) => re.test(hay));
   if (topic) {
     const [triggerRe, queries, confirmRe] = topic;
     steps.push({ queries, filter: confirmRe || triggerRe });

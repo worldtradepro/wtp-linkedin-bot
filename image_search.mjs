@@ -90,11 +90,11 @@ function rssItems(xml) {
 // (its links are news.google.com redirects, resolved by the browser in ogImageOf).
 export async function newsArticles(query, log = () => {}) {
   const q = encodeURIComponent(query);
-  for (let k = 0; k < (process.env.WTP_NEWS_SOURCE === 'google' ? 0 : 2); k++) {   // WTP_NEWS_SOURCE=google: test the fallback alone
+  for (let k = 0; k < (process.env.WTP_NEWS_SOURCE === 'google' ? 0 : 3); k++) {   // WTP_NEWS_SOURCE=google: test the fallback alone
     const rss = await getText('https://www.bing.com/news/search?q=' + q + '&format=rss&mkt=en-US');
     const items = rss ? rssItems(rss.text) : [];
     if (items.length) return items;
-    await new Promise((r) => setTimeout(r, 3000));
+    await new Promise((r) => setTimeout(r, 3000 * (k + 1)));
   }
   const g = await getText('https://news.google.com/rss/search?q=' + q + '+when:21d&hl=en-US&gl=US&ceid=US:en');
   const items = g ? rssItems(g.text) : [];
@@ -224,12 +224,17 @@ export async function bestImage(ctx, { headline, context = '', articleUrl, lead,
       .filter((m) => (!m.date || Date.parse(m.date) >= since) && ((m.r >= 0.35 && hasName(m.title)) || m.r >= 0.55) && !republish(m.title))   // same story: a shared name (East-West, Yanbu) + enough key words, or most key words
       .sort((a, b) => b.r - a.r || a.i - b.i).slice(0, 8);
     if (!rows.length) log('no matching news articles for "' + q + '"');
-    for (const m of rows.slice(0, 5)) {
+    // Many of the first hits have no usable picture (no og:image, a logo, an unresolved redirect): keep going down the list until
+    // 4 real candidates are in hand, so one bad batch of search results does not decide the picture (2026-10-10: same story, 3 runs, 2 different pictures).
+    let got = 0;
+    for (const m of rows) {
+      if (got >= 4) break;
       const og = await ogImageOf(ctx, m.link);
       if (!og) { log('  no og:image: ' + m.link.slice(0, 80)); continue; }
       const host = hostOf(og.page), ihost = hostOf(og.img);
       if (!host || host === own || SKIP_HOST.test(host) || SKIP_HOST.test(ihost) || DATA_HOST.test(host) || BAD_URL.test(og.img)) { log('  skipped host/url: ' + host + ' ' + og.img.slice(-50)); continue; }
       // another outlet's photo of the SAME story beats a caption-less file photo
+      got++;
       cands.push({ kind: 'search', score: 0.55 + 0.45 * m.r - 0.01 * m.i, url: og.img, page: og.page, host, site: og.site, title: m.title, note: `news photo "${q}" #${m.i + 1} match ${m.r.toFixed(2)} "${m.title.slice(0, 60)}"` });
     }
   }
