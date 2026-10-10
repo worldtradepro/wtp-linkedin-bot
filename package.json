@@ -10,6 +10,7 @@
     "daily": "node generate.mjs && node render.mjs && node push.mjs"
   },
   "dependencies": {
-    "playwright": "^1.49.0"
+    "playwright": "^1.49.0",
+    "tesseract.js": "^5.1.1"
   }
 }

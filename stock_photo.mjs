@@ -25,7 +25,9 @@ const UTM = 'utm_source=world_trade_pro&utm_medium=referral';
 const RULES = [
   [/\b(lng|liquefied natural gas|regasification)\b/i, ['lng tanker', 'lng carrier ship', 'natural gas terminal']],
   [/\bairports?\b/i, ['airport runway', 'airport terminal building']],   // before the port/terminal rule below ("airport terminal" would otherwise match "terminal")
-  [/\b(oil|crude|brent|wti|opec|petroleum|refiner\w*|barrel)\b/i, ['oil tanker', 'oil refinery', 'offshore oil platform']],
+  // a refinery story (oil OR alumina / sugar / metals) needs a process plant, not a tanker or a drilling rig (2026-10-10: Alcoa's Wagerup alumina refinery got a jack-up rig)
+  [/\brefiner\w*\b/i, ['oil refinery', 'refinery plant', 'petrochemical plant'], /refiner|petrochemical|chemical plant|industrial plant/i],
+  [/\b(oil|crude|brent|wti|opec|petroleum|barrel)\b/i, ['oil tanker', 'oil refinery', 'offshore oil platform']],
   [/\b(pipeline|gas)\b/i, ['gas pipeline', 'natural gas plant']],
   [/\bsuez\b/i, ['suez canal ship', 'cargo ship strait']],
   [/\bpanama\b/i, ['panama canal ship', 'cargo ship strait']],

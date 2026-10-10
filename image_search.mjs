@@ -119,7 +119,7 @@ async function ogImageOf(ctx, link) {
     await page.waitForTimeout(1200);
     const r = await page.evaluate(() => {
       const m = (n) => document.querySelector('meta[property="' + n + '"],meta[name="' + n + '"]')?.content || '';
-      return { img: m('og:image') || m('og:image:url') || m('twitter:image'), page: location.href };
+      return { img: m('og:image') || m('og:image:url') || m('twitter:image'), page: location.href, site: m('og:site_name') };
     });
     if (!r.img) return null;
     const img = new URL(r.img, r.page);
@@ -128,7 +128,7 @@ async function ogImageOf(ctx, link) {
       const w = +img.searchParams.get('w'), h = +img.searchParams.get('h') || 0;
       if (w && w < 1200) { img.searchParams.set('w', '1200'); if (h) img.searchParams.set('h', String(Math.round(h * 1200 / w))); }
     }
-    return { img: img.href, page: r.page };
+    return { img: img.href, page: r.page, site: r.site };
   } catch { return null; } finally { await page.close().catch(() => {}); }
 }
 
@@ -168,10 +168,35 @@ export async function loadPhoto(ctx, url, referer, { minR = 1.0, maxR = 2.4, min
       const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
       return { ok: true, w: c.width, h: c.height, data: c.toDataURL('image/jpeg', 0.9).split(',')[1] };
     }, { b64: body.toString('base64'), mime, minR, maxR, minW, minH });
-    if (!res || !res.ok) lastLoadFail = res?.why || 'decode failed';
-    return res && res.ok ? { url, w: res.w, h: res.h, jpeg: Buffer.from(res.data, 'base64'), mime } : null;
+    if (!res || !res.ok) { lastLoadFail = res?.why || 'decode failed'; return null; }
+    const jpeg = Buffer.from(res.data, 'base64');
+    const text = await overlayText(jpeg);
+    if (text) { lastLoadFail = 'text baked into the picture ("' + text.slice(0, 50) + '")'; return null; }
+    return { url, w: res.w, h: res.h, jpeg, mime };
   } finally { await tmp.close().catch(() => {}); }
 }
+
+// A "photo" with a caption baked into it (YouTube-style thumbnail, another outlet's headline card) is not a photo: our card would crop its
+// words and repeat the headline under it (2026-10-10, thedeepdive.ca thumbnail). OCR finds such lettering; signage inside a real photo
+// (a ship's name, a site board) gives 0-2 words and passes. OCR unavailable -> the picture passes (never block the run on this).
+let ocr = null;
+export async function overlayText(jpeg) {
+  try {
+    if (!ocr) ocr = (await import('tesseract.js')).createWorker('eng');
+    const { data } = await (await ocr).recognize(jpeg);
+    const words = (data.words || []).filter((x) => x.confidence >= 75 && /[A-Za-z]{3,}/.test(x.text)).map((x) => x.text);
+    return words.length >= 3 ? words.slice(0, 8).join(' ') : '';
+  } catch { ocr = null; return ''; }
+}
+export async function closeOcr() { try { if (ocr) await (await ocr).terminate(); } catch { /* already gone */ } ocr = null; }
+
+// "thedeepdive.ca" in a post becomes a clickable link on LinkedIn (owner: no links in posts): credit the site by name instead.
+export const siteLabel = (name, host) => {
+  const n = clean(name).replace(/\s*[|–—-]\s.*$/, '');
+  if (n && n.length <= 40 && !/\.[a-z]{2,}(\s|$)/i.test(n)) return n;
+  const h = (host || '').replace(/^www\./, '').replace(/\.(com?|org|net|gov|ac)\.[a-z]{2}$/i, '').replace(/\.[a-z]{2,}$/i, '');
+  return h.split('.').pop() || '';
+};
 
 export const sha1 = (buf) => createHash('sha1').update(buf).digest('hex');
 
@@ -205,18 +230,18 @@ export async function bestImage(ctx, { headline, context = '', articleUrl, lead,
       const host = hostOf(og.page), ihost = hostOf(og.img);
       if (!host || host === own || SKIP_HOST.test(host) || SKIP_HOST.test(ihost) || DATA_HOST.test(host) || BAD_URL.test(og.img)) { log('  skipped host/url: ' + host + ' ' + og.img.slice(-50)); continue; }
       // another outlet's photo of the SAME story beats a caption-less file photo
-      cands.push({ kind: 'search', score: 0.55 + 0.45 * m.r - 0.01 * m.i, url: og.img, page: og.page, host, title: m.title, note: `news photo "${q}" #${m.i + 1} match ${m.r.toFixed(2)} "${m.title.slice(0, 60)}"` });
+      cands.push({ kind: 'search', score: 0.55 + 0.45 * m.r - 0.01 * m.i, url: og.img, page: og.page, host, site: og.site, title: m.title, note: `news photo "${q}" #${m.i + 1} match ${m.r.toFixed(2)} "${m.title.slice(0, 60)}"` });
     }
   }
   cands.sort((a, b) => b.score - a.score);
   for (const c of cands.slice(0, 10)) {
     if (c.kind === 'search' && c.score < minScore) continue;   // a search result must be clearly on topic to replace the article's own photo
-    if (c.kind === 'article') return { ...c.photo, credit: c.host, source: 'article', score: c.score, note: c.note };
+    if (c.kind === 'article') return { ...c.photo, credit: siteLabel(lead.site, c.host), source: 'article', score: c.score, note: c.note };
     if (seen(c.url)) continue;
     const ph = await loadPhoto(ctx, c.url, c.page, { minR: 0.75, maxR: 2.1, minW: 700, minH: 450 });
     if (!ph) { log('  image skipped (' + lastLoadFail + '): ' + c.note + ' ' + c.url.slice(-60)); continue; }
     if (seen(c.url, ph.jpeg) || (leadHash && sha1(ph.jpeg) === leadHash)) continue;
-    return { ...ph, credit: c.host, pageUrl: c.page, source: 'search', score: c.score, note: c.note };
+    return { ...ph, credit: siteLabel(c.site, c.host), pageUrl: c.page, source: 'search', score: c.score, note: c.note };
   }
   return null;
 }

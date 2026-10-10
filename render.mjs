@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { stockPhoto } from './stock_photo.mjs';
 import { rewriteTitles } from './title_rewrite.mjs';
-import { bestImage, loadPhoto } from './image_search.mjs';
+import { bestImage, loadPhoto, siteLabel, closeOcr } from './image_search.mjs';
 import { createHash } from 'node:crypto';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -329,7 +329,7 @@ async function leadPhoto(page) {
     let path = ''; try { path = new URL(c.u).pathname; } catch { continue; }
     if (BAD_IMG.test(path) || (generic && c.u === generic)) continue;
     const photo = await loadPhoto(page.context(), c.u, page.url(), { minR: 1.0, maxR: 2.4 });
-    if (photo) return { photo, alt: clean(c.alt) };
+    if (photo) return { photo, alt: clean(c.alt), site: await page.evaluate(() => document.querySelector('meta[property="og:site_name"]')?.content || '').catch(() => '') };
   }
   return null;
 }
@@ -342,16 +342,19 @@ mkdirSync(IMG, { recursive: true });
 // ---------------------------------------------------------------- Infrastructure photo card (2026-10-09, style of Hydrogen Insight): real photo on top, dark navy block with big white headline below
 const esc2 = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 function photoCardHtml(jpeg, title, tagline) {
+  // The navy block is only as tall as the headline needs (a 2-line title used to leave a third of the card empty); the photo takes the rest.
   const n = title.length;
-  const fs = n <= 60 ? 76 : n <= 90 ? 68 : n <= 120 ? 60 : 52;
-  return `<html><body style="margin:0;width:1080px;height:1350px;position:relative;overflow:hidden;background:#050d24;font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif">
-  <img src="data:image/jpeg;base64,${jpeg.toString('base64')}" style="position:absolute;left:0;top:0;width:1080px;height:800px;object-fit:cover">
-  <div style="position:absolute;left:0;top:0;width:1080px;height:190px;background:linear-gradient(to bottom,rgba(5,13,36,.7),transparent)"></div>
-  <img src="${LOGO}" style="position:absolute;left:36px;top:26px;height:104px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.55))">
-  <div style="position:absolute;left:0;top:800px;width:1080px;height:550px;background:#050d24;box-sizing:border-box;padding:52px 56px 0 56px">
-    <div style="color:#fff;font-weight:800;font-size:${fs}px;line-height:1.14;letter-spacing:-.5px;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden">${esc2(title)}</div>
+  const fs = n <= 45 ? 84 : n <= 70 ? 76 : n <= 100 ? 68 : n <= 130 ? 60 : 52;
+  return `<html><body style="margin:0;width:1080px;height:1350px;display:flex;flex-direction:column;overflow:hidden;background:#050d24;font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif">
+  <div style="flex:1 1 0;min-height:0;position:relative">
+    <img src="data:image/jpeg;base64,${jpeg.toString('base64')}" style="position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover">
+    <div style="position:absolute;left:0;top:0;width:1080px;height:190px;background:linear-gradient(to bottom,rgba(5,13,36,.7),transparent)"></div>
+    <img src="${LOGO}" style="position:absolute;left:36px;top:26px;height:104px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.55))">
   </div>
-  ${tagline ? `<div style="position:absolute;left:56px;bottom:40px;color:#8fa2c8;font-size:28px;font-weight:600;letter-spacing:.3px">${esc2(tagline)}</div>` : ''}
+  <div style="flex:0 0 auto;background:#050d24;box-sizing:border-box;padding:48px 56px 44px 56px">
+    <div style="color:#fff;font-weight:800;font-size:${fs}px;line-height:1.14;letter-spacing:-.5px;text-wrap:balance;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden">${esc2(title)}</div>
+    ${tagline ? `<div style="margin-top:34px;color:#8fa2c8;font-size:28px;font-weight:600;letter-spacing:.3px">${esc2(tagline)}</div>` : ''}
+  </div>
   </body></html>`;
 }
 
@@ -424,7 +427,7 @@ for (const f of files) {
         try {
           photo = await bestImage(ctx, { headline: head, context: excerpt, articleUrl: realSource || p.sourceUrl, lead, seen: imgSeen, minScore: isCfg.minScore ?? 0.45 }, (m) => console.log('  ' + p.id + ': ' + m));
         } catch (e) { console.log('  ' + p.id + ': image search failed: ' + String(e.message || e).slice(0, 80)); }
-        if (!photo && lead?.photo && !imgSeen(lead.photo.url, lead.photo.jpeg)) photo = { ...lead.photo, credit: hostOf(realSource || p.sourceUrl), source: 'article', note: 'article photo (nothing more relevant found)' };
+        if (!photo && lead?.photo && !imgSeen(lead.photo.url, lead.photo.jpeg)) photo = { ...lead.photo, credit: siteLabel(lead.site, hostOf(realSource || p.sourceUrl)), source: 'article', note: 'article photo (nothing more relevant found)' };
         if (!photo && !why) why = 'no relevant photo found';
       } else if (lead?.photo) {
         const seen = imgSeen(lead.photo.url, lead.photo.jpeg);
@@ -550,6 +553,7 @@ for (const f of files) {
   report.push({ id: p.id, image: kind, note: why, excerptChars: excerpt.length });
   console.log(`${p.id}: ${kind} (${why}) · excerpt ${excerpt.length} chars`);
 }
+await closeOcr();
 await browser.close();
 if (!ONLY) writeFileSync(IMG_STATE, JSON.stringify({ items: imgUsed }, null, 2));
 
