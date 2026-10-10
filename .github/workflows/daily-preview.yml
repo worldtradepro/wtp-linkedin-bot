@@ -29,8 +29,13 @@ jobs:
           node-version: 20
       - run: npm install --no-audit --no-fund
       - run: npx playwright install --with-deps chromium
-      - run: npm install -g @anthropic-ai/claude-code
+      - name: Claude CLI (diagnostics go to preview/cli.log)
         continue-on-error: true
+        run: |
+          { echo "before:"; which -a claude || echo "(none)"; claude --version || true; } > cli.log 2>&1
+          npm install -g @anthropic-ai/claude-code@latest >> cli.log 2>&1 || echo "npm install failed" >> cli.log
+          BIN="$(npm prefix -g)/bin/claude"
+          { echo "after:"; which -a claude; claude --version; echo "npm global: $BIN"; "$BIN" --version; npm ls -g --depth=0; } >> cli.log 2>&1 || true
       - run: sudo apt-get install -y --no-install-recommends fonts-roboto
       - name: Generate + render tomorrow's queue
         run: |
@@ -48,7 +53,7 @@ jobs:
           git worktree add -B images ../_images origin/images
           rm -rf ../_images/preview && mkdir -p ../_images/preview
           cp queue/$DATE/images/* ../_images/preview/ 2>/dev/null || true
-          cp queue/$DATE/preview.md queue/$DATE/*.json gen.log render.log ../_images/preview/ 2>/dev/null || true
+          cp queue/$DATE/preview.md queue/$DATE/*.json gen.log render.log cli.log ../_images/preview/ 2>/dev/null || true
           cd ../_images
           git add -A
           git diff --cached --quiet || git commit -m "preview $DATE"
