@@ -338,6 +338,22 @@ const files = readdirSync(DIR).filter((f) => f.endsWith('.json')).sort();
 if (!files.length) { console.error('No queue files in ' + DIR + ' - run generate.mjs first'); process.exit(1); }
 mkdirSync(IMG, { recursive: true });
 
+// ---------------------------------------------------------------- Infrastructure photo card (2026-10-09, style of Hydrogen Insight): real photo on top, dark navy block with big white headline below
+const esc2 = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+function photoCardHtml(jpeg, title, tagline) {
+  const n = title.length;
+  const fs = n <= 60 ? 76 : n <= 90 ? 68 : n <= 120 ? 60 : 52;
+  return `<html><body style="margin:0;width:1080px;height:1350px;position:relative;overflow:hidden;background:#050d24;font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif">
+  <img src="data:image/jpeg;base64,${jpeg.toString('base64')}" style="position:absolute;left:0;top:0;width:1080px;height:800px;object-fit:cover">
+  <div style="position:absolute;left:0;top:0;width:1080px;height:150px;background:linear-gradient(to bottom,rgba(5,13,36,.55),transparent)"></div>
+  <div style="position:absolute;left:44px;top:38px;color:#fff;font-weight:800;font-size:34px;letter-spacing:.2px;text-shadow:0 1px 8px rgba(0,0,0,.45)"><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#fff;margin-right:10px;vertical-align:middle"></span>World Trade Pro <span style="font-weight:500;opacity:.85">Infrastructure</span></div>
+  <div style="position:absolute;left:0;top:800px;width:1080px;height:550px;background:#050d24;box-sizing:border-box;padding:52px 56px 0 56px">
+    <div style="color:#fff;font-weight:800;font-size:${fs}px;line-height:1.14;letter-spacing:-.5px;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden">${esc2(title)}</div>
+  </div>
+  ${tagline ? `<div style="position:absolute;left:56px;bottom:40px;color:#8fa2c8;font-size:28px;font-weight:600;letter-spacing:.3px">${esc2(tagline)}</div>` : ''}
+  </body></html>`;
+}
+
 const browser = await chromium.launch({ headless: true });
 const ctx = await browser.newContext({
   viewport: { width: W, height: 900 }, locale: 'en-US', deviceScaleFactor: 2,   // 2x so text in small crops stays sharp when enlarged
@@ -496,6 +512,19 @@ for (const f of files) {
       await page.screenshot({ path: out, clip: { x: 0, y: 0, width: W, height: H } });
     }
   }
+  let origHash = '';
+  if (kind === 'photo' && p.type === 'project' && cfg.accounts.infra.photoCard !== false && existsSync(outPhoto)) {
+    try {
+      const raw = readFileSync(outPhoto); origHash = sha1(raw);
+      const title = clean(articleHeadline || p.blocks[0].replace(p.headPrefix || '', '') || p.headline).replace(/^[\s🏗️]+/u, '');
+      const tagline = [p.meta?.country, p.meta?.subsector && p.meta.subsector !== '(unspecified)' ? p.meta.subsector : p.meta?.sector].filter(Boolean).join('  ·  ');
+      await page.setViewportSize({ width: 1080, height: 1350 });
+      await page.setContent(photoCardHtml(raw, title, tagline));
+      await page.screenshot({ path: outPhoto, type: 'jpeg', quality: 92, clip: { x: 0, y: 0, width: 1080, height: 1350 } });
+      rehost = true;   // the composed picture is ours: always serve our own copy
+      why += ' + photo card';
+    } catch (e) { console.log('  ' + p.id + ': photo card failed, using the raw photo: ' + String(e.message || e).slice(0, 80)); }
+  }
   await page.close();
 
   // Description: the article's own opening sentences when we got them, else the (short) pipeline summary already in the post.
@@ -510,7 +539,7 @@ for (const f of files) {
     imagePath: 'images/' + p.id + (kind === 'photo' ? '.jpg' : '.png'), imageKind: kind, imageUrl: photoUrl || null, imageRehost: kind === 'photo' && (rehost || !/jpeg|png|gif/i.test(photoMime)), imageCredit: stockCredit ? '' : imageCredit, stockPhoto: !!stockCredit || /^Unsplash/.test(why), excerptFromArticle: !!excerpt, renderNote: why,
   });
   writeFileSync(path, JSON.stringify(p, null, 2));
-  if (kind === 'photo' && existsSync(outPhoto)) imgUsed.push({ date: DATE, id: p.id, url: imgKey(photoUrl), hash: sha1(readFileSync(outPhoto)) });
+  if (kind === 'photo' && existsSync(outPhoto)) imgUsed.push({ date: DATE, id: p.id, url: imgKey(photoUrl), hash: origHash || sha1(readFileSync(outPhoto)) });
   report.push({ id: p.id, image: kind, note: why, excerptChars: excerpt.length });
   console.log(`${p.id}: ${kind} (${why}) · excerpt ${excerpt.length} chars`);
 }
