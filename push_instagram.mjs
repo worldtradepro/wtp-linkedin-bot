@@ -79,10 +79,22 @@ async function videoOk(url) {
   } catch { return false; }
 }
 
-async function postReel(videoUrl, caption) {
+// An optional separate cover image (entry.ig_cover_url): shown on the profile grid / Reels tab, so the video itself can start straight on the action
+// (no burned-in title card). cover_url wins over thumb_offset in Meta's API. Only used when the image URL is reachable.
+async function coverOk(url) {
+  if (!url) return false;
+  try {
+    const r = await fetch(url, { method: 'HEAD', headers: { 'user-agent': 'Mozilla/5.0 wtp-instagram-bot' } });
+    return r.ok && /^image\//i.test(r.headers.get('content-type') || '');
+  } catch { return false; }
+}
+
+async function postReel(videoUrl, caption, coverUrl = '') {
+  const params = { media_type: 'REELS', video_url: videoUrl, caption, share_to_feed: 'true', access_token: TOKEN };
+  if (coverUrl) params.cover_url = coverUrl; else params.thumb_offset = '100';
   const c = await json(await fetch(`${API}/${IG}/media`, {
     method: 'POST',
-    body: new URLSearchParams({ media_type: 'REELS', video_url: videoUrl, caption, share_to_feed: 'true', thumb_offset: '100', access_token: TOKEN }),
+    body: new URLSearchParams(params),
   }), 'create container');
   for (let i = 0; i < 15; i++) {
     await sleep(i ? 60000 : 20000);
@@ -119,13 +131,17 @@ if (!DRY && now < new Date(`${today}T${POST_UTC}:00Z`)) { log(`Before today's ${
 let caption = String(next.caption || '');
 if (caption.length > 2200) caption = caption.slice(0, 2190).replace(/\s+\S*$/, '') + '…';
 
-log(`- ${next.name} · ${next.video_url} · ${caption.length} chars`);
+// Entries made for Instagram's full-screen format carry their own file + cover (ig_video_url / ig_cover_url); LinkedIn/Pinterest keep using video_url.
+const igVideo = next.ig_video_url || next.video_url;
+log(`- ${next.name} · ${igVideo}${next.ig_cover_url ? ' · cover ' + next.ig_cover_url : ''} · ${caption.length} chars`);
 if (DRY) { log(caption.slice(0, 160).replace(/\n/g, ' ') + '…'); process.exit(0); }
 
-if (!(await videoOk(next.video_url))) fail(`Video URL is not a reachable video: ${next.video_url}`);
+if (!(await videoOk(igVideo))) fail(`Video URL is not a reachable video: ${igVideo}`);
+const cover = (await coverOk(next.ig_cover_url)) ? next.ig_cover_url : '';
+if (next.ig_cover_url && !cover) log('  cover image not reachable - posting without cover_url');
 await refreshToken();
 log('  ' + await check());
-const id = await postReel(next.video_url, caption);
+const id = await postReel(igVideo, caption, cover);
 state.pushed[next.name] = { mediaId: id, at: new Date().toISOString() };
 saveState();
 log(`OK -> Instagram media ${id}`);
