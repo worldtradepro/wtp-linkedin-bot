@@ -343,7 +343,7 @@ const esc2 = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').repla
 function photoCardHtml(jpeg, title, tagline) {
   const n = title.length;
   const fs = n <= 60 ? 76 : n <= 90 ? 68 : n <= 120 ? 60 : 52;
-  return `<html><body style="margin:0;width:1080px;height:1350px;position:relative;overflow:hidden;background:#050d24;font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif">
+  return `<html><body style="margin:0;width:1080px;height:1350px;position:relative;overflow:hidden;background:#050d24;font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif">
   <img src="data:image/jpeg;base64,${jpeg.toString('base64')}" style="position:absolute;left:0;top:0;width:1080px;height:800px;object-fit:cover">
   <div style="position:absolute;left:0;top:0;width:1080px;height:190px;background:linear-gradient(to bottom,rgba(5,13,36,.7),transparent)"></div>
   <img src="${LOGO}" style="position:absolute;left:36px;top:26px;height:104px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.55))">
