@@ -84,7 +84,10 @@
   },
   "stockPhoto": {
     "enabled": true,
-    "types": ["news"],
+    "types": [
+      "news",
+      "project"
+    ],
     "credit": true
   },
   "buffer": {
