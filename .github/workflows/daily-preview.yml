@@ -26,16 +26,15 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - run: npm install --no-audit --no-fund
       - run: npx playwright install --with-deps chromium
-      - name: Claude CLI (diagnostics go to preview/cli.log)
+      - name: Claude CLI (version goes to preview/cli.log)
         continue-on-error: true
+        # needs Node 22+: on older Node npm silently installs CLI 2.1.197 (the last release that allowed it), which the API rejects for current models
         run: |
-          { echo "before:"; which -a claude || echo "(none)"; claude --version || true; } > cli.log 2>&1
-          npm install -g @anthropic-ai/claude-code@latest >> cli.log 2>&1 || echo "npm install failed" >> cli.log
-          BIN="$(npm prefix -g)/bin/claude"
-          { echo "after:"; which -a claude; claude --version; echo "npm global: $BIN"; "$BIN" --version; npm ls -g --depth=0; } >> cli.log 2>&1 || true
+          npm install -g @anthropic-ai/claude-code@latest 2>&1 | tee cli.log
+          { which -a claude; claude --version; } 2>&1 | tee -a cli.log
       - run: sudo apt-get install -y --no-install-recommends fonts-roboto
       - name: Generate + render tomorrow's queue
         run: |

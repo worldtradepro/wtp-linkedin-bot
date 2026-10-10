@@ -60,12 +60,13 @@ jobs:
       - uses: actions/setup-node@v4
         if: ${{ steps.guard.outputs.skip != 'true' }}
         with:
-          node-version: 20
+          node-version: 22   # the Claude CLI needs 22+ (see the install step below)
       - run: npm install --no-audit --no-fund
         if: ${{ steps.guard.outputs.skip != 'true' }}
       - run: npx playwright install --with-deps chromium
         if: ${{ steps.guard.outputs.skip != 'true' }}
-      - run: npm install -g @anthropic-ai/claude-code   # model calls on the Claude subscription (llm.mjs); a failure here only means headlines stay as they are
+      - run: npm install -g @anthropic-ai/claude-code@latest && claude --version   # model calls on the Claude subscription (llm.mjs); a failure here only means headlines stay as they are
+        # needs Node 22+: on older Node npm silently installs CLI 2.1.197 (the last release that allowed it), which the API rejects for current models
         if: ${{ steps.guard.outputs.skip != 'true' }}
         continue-on-error: true
       - run: sudo apt-get install -y --no-install-recommends fonts-roboto   # card font (Linux has no Segoe UI)

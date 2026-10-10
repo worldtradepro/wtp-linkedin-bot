@@ -95,7 +95,8 @@ jobs:
           npm install --no-audit --no-fund
           npx playwright install --with-deps chromium
           sudo apt-get install -y --no-install-recommends python3-pil
-          npm install -g @anthropic-ai/claude-code   # editorial note on the Claude subscription (llm.mjs)
+          # needs Node 22+: on older Node npm silently installs CLI 2.1.197 (the last release that allowed it), which the API rejects for current models
+          npm install -g @anthropic-ai/claude-code@latest && claude --version   # editorial note on the Claude subscription (llm.mjs)
       - name: Data for the week
         if: ${{ steps.w.outputs.step == 'stage' }}
         run: node weekly_report.mjs --date ${{ steps.w.outputs.date }} --data-only
