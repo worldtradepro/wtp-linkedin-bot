@@ -1,10 +1,11 @@
-  infra-1:   no og:image: https://www.businessworld.in/article/lt-energy-carbonlite-secures-1600-mw-therma
-  infra-1:   no og:image: https://www.constructionweekonline.in/business/lt-energy-carbonlite-secures-1600
-  infra-1:   skipped host/url: equitybulls.com uploads/Larsen%20and%20Toubro%20Limited%20Logo.jpg
-  infra-1:   no og:image: https://www.moneycontrol.com/news/business/l-t-gets-initial-nod-for-1-600-mw-cha
+  infra-1: no matching news articles for "us$1.21 tokyo airtrunk"
 Claude token: 108 chars, starts sk-ant-oat: true, whitespace removed: 1
-  infra-1: title "L&T Energy CarbonLite Gets Rs 5,000 Cr Plus Order For 1,600 MW Chandrapura Project" -> "L&T Energy CarbonLite wins Rs 5,000 Cr plus order for 1,600 MW Chandrapura project"
-infra-1: photo (news photo "l&t energy carbonlite" #1 match 0.35 "L&T receives LNTP for 1.6GW Chandrapura thermal project in I" 1200x674 + photo card) · excerpt 604 chars
-  infra-2:   no og:image: https://www.marketscreener.com/news/misc-berhad-bags-lng-project-from-petronas-l
+infra-1: photo (article photo (caption match 0.00) 1198x627 + photo card) · excerpt 104 chars
+  infra-2:   no og:image: https://www.businessworld.in/article/lt-energy-carbonlite-secures-1600-mw-therma
+  infra-2:   no og:image: https://www.constructionweekonline.in/business/lt-energy-carbonlite-secures-1600
+  infra-2:   skipped host/url: equitybulls.com uploads/Larsen%20and%20Toubro%20Limited%20Logo.jpg
+  infra-2:   no og:image: https://www.moneycontrol.com/news/business/l-t-gets-initial-nod-for-1-600-mw-cha
+  infra-2:   no og:image: https://www.business-standard.com/companies/news/l-t-arm-bags-order-worth-over-5
 Claude token: 108 chars, starts sk-ant-oat: true, whitespace removed: 1
-infra-2: photo (article photo (caption match 1.00) 1500x1000 + photo card) · excerpt 222 chars
+  infra-2: title "L&T Energy CarbonLite Gets Rs 5,000 Cr Plus Order For 1,600 MW Chandrapura Project" -> "L&T Energy CarbonLite wins Rs 5,000 Cr plus order for 1,600 MW Chandrapura project"
+infra-2: photo (news photo "l&t energy carbonlite" #1 match 0.35 "L&T receives LNTP for 1.6GW Chandrapura thermal project in I" 1200x674 + photo card) · excerpt 604 chars

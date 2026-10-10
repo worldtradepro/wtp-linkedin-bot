@@ -7,6 +7,26 @@
 ### infra-1 · 09:00 UTC · image: photo (images/infra-1.jpg)
 
 ```
+🇺🇸 🏗️ AirTrunk secures US$1.21 billion green loan for Tokyo data center
+
+This financing supports the expansion of the campus to meet increasing demand for AI and cloud services.
+
+Project snapshot
+📍 Japan · Data Centers
+🔧 Stage: Development, before tender
+📊 Scale: Large
+🎯 Worth a look for: EPC contractors, developers and equipment suppliers
+
+Source: ET Datacenters
+
+📷 Image: indiatimes
+
+#Infrastructure #AirTrunk #DataCenters #Japan
+```
+
+### infra-2 · 14:00 UTC · image: photo (images/infra-2.jpg)
+
+```
 🇮🇳 🏗️ L&T Energy CarbonLite wins Rs 5,000 Cr plus order for 1,600 MW Chandrapura project
 
 DVCCIL is a joint venture between Damodar Valley Corporation and Coal India. L&T classifies orders valued at more than Rs 5,000 crore as major orders. DVCCIL will issue the notice to proceed once the project receives the required environmental clearances and the LNTP period is completed, L&T said.
@@ -24,24 +44,4 @@ Source: tradingview
 📷 Image: msn
 
 #Infrastructure #LT #PowerTransmission #India
-```
-
-### infra-2 · 14:00 UTC · image: photo (images/infra-2.jpg)
-
-```
-🇨🇳 🏗️ MISC to order five more LNG carriers for Petronas charter
-
-Malaysian shipping firm MISC will order five additional newbuild 174,000-cbm liquefied natural gas (LNG) carriers at China's Hudong-Zhonghua. The vessels will serve a 20-year charter with a unit of MISC's parent, Petronas.
-
-Project snapshot
-📍 China · Shipyard & Fleet
-🔧 Stage: Awarded
-📊 Scale: Large
-🎯 Worth a look for: shipyards, marine equipment and propulsion suppliers, ship finance
-
-Source: Offshore Energy
-
-📷 Image: LNG Prime
-
-#LNG #Infrastructure #MISC #ShipyardFleet #China
 ```

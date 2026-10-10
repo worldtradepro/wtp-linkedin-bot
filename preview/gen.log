@@ -1,9 +1,7 @@
-fetchJson: HTTP 503 - retry 1/4 in 5s
-fetchJson: HTTP 403 - retry 2/4 in 15s
 Flash card stories kept out of the news posts: 0 of 0 named
 # LinkedIn queue — 2026-10-11
 
-Trade Flow items last 3 days: 103 · Infrastructure fresh (last 7d) items: 94
+Trade Flow items last 3 days: 103 · Infrastructure fresh (last 7d) items: 107
 
 ## World Trade Pro
 
@@ -12,6 +10,24 @@ _Nothing qualified today._
 ## World Trade Pro · Infrastructure & Supply Chain
 
 ### infra-1 · 09:00 UTC · image: screenshot
+
+```
+🇺🇸 🏗️ AirTrunk has secured a US$1.21 billion green loan for its Tokyo data center
+
+Project snapshot
+📍 Japan · Data Centers
+🔧 Stage: Development, before tender
+📊 Scale: Large
+🎯 Worth a look for: EPC contractors, developers and equipment suppliers
+
+Source: ET Datacenters
+
+#Infrastructure #AirTrunk #DataCenters #Japan
+```
+
+First comment: 
+
+### infra-2 · 14:00 UTC · image: screenshot
 
 ```
 🇮🇳 🏗️ L&T Energy CarbonLite Gets Rs 5,000 Cr Plus Order For 1,600 MW Chandrapura Project
@@ -25,24 +41,6 @@ Project snapshot
 Source: news.google.com
 
 #Infrastructure #LT #PowerTransmission #India
-```
-
-First comment: 
-
-### infra-2 · 14:00 UTC · image: screenshot
-
-```
-🇨🇳 🏗️ MISC to order five more LNG carriers for Petronas charter
-
-Project snapshot
-📍 China · Shipyard & Fleet
-🔧 Stage: Awarded
-📊 Scale: Large
-🎯 Worth a look for: shipyards, marine equipment and propulsion suppliers, ship finance
-
-Source: Offshore Energy
-
-#LNG #Infrastructure #MISC #ShipyardFleet #China
 ```
 
 First comment: 
