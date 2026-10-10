@@ -12,6 +12,13 @@ A row joins a project when, within the same country:
   - TF-IDF similarity of name + company + description clears the bar (stricter for reports more
     than 7 days apart, for rows without a country, and for ship orders, which look alike but differ).
 
+A second rule catches the long-running project that similarity misses: months of reports about
+different events (financing, an award, an equipment order) under the same project name, e.g.
+"Dangote Refinery" x17. Rows in one country whose NAMES have the same distinctive words, the same
+sector words and the same numbers are one project - unless the name has no proper noun ("Wind
+Farm", "LNG Carriers"), it is a ship order, or the stated capacities differ ("Oklahoma Solar Farm"
+278 MW vs 200 MW are two farms).
+
 Usage:
   python dedupe_projects.py [--dry] [--input rows.json] [--site URL]
 Env: WTP_BOT_SECRET (required unless --input and --dry)
@@ -68,6 +75,23 @@ finnish greek turkish russian ukrainian romanian hungarian czech british scottis
 africa asia europe america mena gcc region regional national'''.split())
 UNITS = set('mw gw kw mwh gwh km bn mn us usd eur aud cad gbp sar aed krw inr cny rmb phase stage train unit units line lines block blocks '
             'ship ships vessel vessels mtpa bcf tcf ktpa kv'.split())
+# Only used by the same-name rule. NAME_GENERIC: descriptive words that are never a project's proper noun.
+# NAME_REGIONS: states / provinces - not a proper noun either (a "Rajasthan Solar Project" is any solar project in
+# Rajasthan), but two different regions in two names mean two projects ("Graphite One Alaska" / "Graphite One Ohio").
+NAME_GENERIC = set('''subsea tender tenders repair import export floating unit units program programme portfolio order orders supply
+repowering gas-to-power lng-to-power waste-to-energy ipp iwpp aussie community utility-scale hybrid pilot giga gigafactory green blue
+fpso fso flng fsru gtl lower upper greater new one facility
+gulf sea north south east west central northern southern eastern western'''.split())
+NAME_REGIONS = set('''rajasthan gujarat maharashtra karnataka tamil nadu andhra pradesh odisha telangana uttar madhya punjab kerala assam bihar
+texas louisiana oklahoma california massachusetts alaska arizona nevada florida ohio michigan indiana kentucky virginia georgia
+carolina dakota wyoming montana colorado utah oregon washington york jersey mexico pennsylvania illinois iowa kansas alabama
+queensland victoria tasmania nsw wales territory alberta ontario quebec québec columbia saskatchewan manitoba newfoundland
+scotland england ireland bavaria saxony sicily sardinia andalusia catalonia galicia siberia anatolia sumatra java borneo
+sindh balochistan xinjiang xizang guangdong shandong jiangsu zhejiang mongolia hokkaido kyushu'''.split())
+# what kind of asset the name says: "Petrobras FPSO" and "Petrobras Subsea Tender" share only the company
+NAME_KIND = set('fpso fso flng fsru gtl subsea tender repair repowering import export'.split())
+SAME_NAME_DAYS = 14       # identical name + country this close together = one event, proper noun or not
+CAPACITY_RE = re.compile(r"(\d+(?:\.\d+)?)[\s-]*(gw|mw)p?\b", re.I)   # "230-MW", "235-MWp", "1 GW"
 CODE_RE = re.compile(r"\b([a-z]{2,6})[- ]?(\d{1,2})\b(?![.,]?\d)")   # "SAN-7" / "SAN 7" / "JHB2" -> "san7"
 TOKEN_RE = re.compile(r"[a-z0-9][a-z0-9&\-]+")
 AMOUNT_RE = re.compile(r"(\d+(?:\.\d+)?)\s*(bn|billion|mn|million|m\b|gw|mw|mtpa)", re.I)
@@ -188,6 +212,65 @@ def cluster(rows):
                         del groups[drop]
                         roots.remove(drop)
                         changed = True
+    # pass 3: one named project reported again and again (see the module docstring)
+    def name_key(i):
+        r = rows[i]
+        name = (r.get('project_name') or '').lower().replace('e&a', 'ena')
+        if no_ctry[i] or ship[i]:
+            return None
+        nums = sorted(set(re.findall(r"\b(\d{1,4}|i{2,3}|iv|vi{0,3})\b", name)))        # "Hornsea 3" is not "Hornsea 2"
+        codes = [a + b for a, b in CODE_RE.findall(name) if a not in UNITS]
+        words = [t for t in TOKEN_RE.findall(CODE_RE.sub(' ', name)) if not t.isdigit() and len(t) > 2]
+        common = GENERIC | DOMAIN | place | NAME_GENERIC | NAME_REGIONS
+
+        def is_proper(t):
+            if t in common or re.fullmatch(r"i{2,3}|iv|vi{0,3}", t):
+                return False
+            return not all(part in common or part.rstrip('s') in common for part in t.split('-'))   # "solar-storage"
+        proper = frozenset(codes + [t for t in words if is_proper(t)])
+        if not proper:
+            return None
+        kind = frozenset(t.rstrip('s') for t in words if (t in DOMAIN and t not in ('offshore', 'onshore')) or t.rstrip('s') in NAME_KIND)
+        return ctry[i], proper, kind, tuple(nums), frozenset(t for t in words if t in NAME_REGIONS)
+
+    def exact_key(i):
+        if no_ctry[i] or ship[i]:
+            return None
+        name = re.sub(r"[^a-z0-9]+", ' ', (rows[i].get('project_name') or '').lower()).strip()
+        return (ctry[i], name) if len(name) > 5 else None
+
+    def capacity(group):
+        out = set()
+        for i in group:
+            text = (rows[i].get('project_name') or '') + ' ' + (rows[i].get('description') or '')
+            out |= {round(float(v) * (1000 if u.lower() == 'gw' else 1)) for v, u in CAPACITY_RE.findall(text)}
+        return out
+
+    def capacity_conflict(A, B):
+        a, b = capacity(A), capacity(B)
+        return bool(a and b) and not any(abs(x - y) <= 0.3 * max(x, y) for x in a for y in b)
+
+    root_of = {i: root for root, g in groups.items() for i in g}
+    by_name = defaultdict(list)
+    for i in sorted(range(n), key=lambda i: (day[i], int(rows[i]['id']))):
+        k = name_key(i)
+        if k:
+            by_name[k].append(i)
+    by_exact = defaultdict(list)
+    for i in sorted(range(n), key=lambda i: (day[i], int(rows[i]['id']))):
+        k = exact_key(i)
+        if k:
+            by_exact[k].append(i)
+    for max_gap, table in ((WINDOW_DAYS, by_name), (SAME_NAME_DAYS, by_exact)):
+        for members in table.values():
+            for prev, cur in zip(members, members[1:]):
+                a, b = root_of[prev], root_of[cur]
+                if a == b or day[cur] - day[prev] > max_gap or capacity_conflict(groups[a], groups[b]):
+                    continue
+                keep, drop = (a, b) if (day[groups[a][0]], a) <= (day[groups[b][0]], b) else (b, a)
+                groups[keep] = sorted(groups[keep] + groups[drop], key=lambda i: (day[i], int(rows[i]['id'])))
+                for i in groups.pop(drop):
+                    root_of[i] = keep
     return [g for g in groups.values() if len(g) > 1]
 
 
