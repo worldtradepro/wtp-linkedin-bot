@@ -11,6 +11,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { stockPhoto } from './stock_photo.mjs';
+import { rewriteTitles } from './title_rewrite.mjs';
 import { bestImage, loadPhoto } from './image_search.mjs';
 import { createHash } from 'node:crypto';
 
@@ -493,6 +494,12 @@ for (const f of files) {
     // sourceLink "body" (Buffer Free has no first-comment feature): the real URL goes straight into the post, like the friend's posts.
     p.blocks = p.blocks.map((b) => (/^Source: /.test(b) ? `Source: ${host}` : /^Source ➡️/.test(b) ? (cfg.sourceLink === 'body' ? `Source ➡️ ${realSource}` : `Source ➡️ ${host} (link in comments)`) : b));
     p.firstComment = (p.firstComment || '').split(old).join(realSource);
+  }
+  // Infrastructure project headline -> short news-style title (Claude subscription via llm.mjs; falls back to the original on any failure or guard rejection)
+  if (p.type === 'project' && cfg.accounts.infra.aiTitle !== false) {
+    const base = clean(articleHeadline || p.blocks[0].replace(p.headPrefix || '', '') || p.headline).replace(/^[\s🏗️]+/u, '');
+    const [better] = await rewriteTitles([base], (m) => console.log('  ' + p.id + ':' + m));
+    if (better && better !== base) { console.log(`  ${p.id}: title "${base}" -> "${better}"`); articleHeadline = better; }
   }
   if (kind === 'card') {
     if (p.type === 'news') {   // main-account news without a good article picture: own portrait card, same family as the Infrastructure cards

@@ -28,6 +28,7 @@ jobs:
       BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
       UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}   # optional: stock photo when an article has no lead picture
       IMAGE_BASE_URL: https://raw.githubusercontent.com/${{ github.repository }}/images
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}   # owner's Claude Max subscription: Infrastructure headline rewrite (title_rewrite.mjs, optional)
       SCAN_MODEL: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN || secrets.OPENROUTER_API_KEY }}   # only tested for presence (see the guard step)
     steps:
       - uses: actions/checkout@v4
@@ -64,6 +65,9 @@ jobs:
         if: ${{ steps.guard.outputs.skip != 'true' }}
       - run: npx playwright install --with-deps chromium
         if: ${{ steps.guard.outputs.skip != 'true' }}
+      - run: npm install -g @anthropic-ai/claude-code   # model calls on the Claude subscription (llm.mjs); a failure here only means headlines stay as they are
+        if: ${{ steps.guard.outputs.skip != 'true' }}
+        continue-on-error: true
       - run: sudo apt-get install -y --no-install-recommends fonts-roboto   # card font (Linux has no Segoe UI)
         if: ${{ steps.guard.outputs.skip != 'true' }}
       - name: Trade Flow flash card first (the news posts avoid the stories it names)
