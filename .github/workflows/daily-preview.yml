@@ -1,0 +1,55 @@
+name: daily-preview
+
+# Preview only: builds TOMORROW's Infrastructure / news posts (same generate + render code as linkedin-daily) and publishes the
+# pictures + texts to branch images/preview/. Nothing goes to Buffer and no state is saved, so the real run is not affected.
+# Run it from the Actions tab, or by pushing a change to preview.trigger.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - preview.trigger
+      - .github/workflows/daily-preview.yml
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
+      UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - run: npm install -g @anthropic-ai/claude-code
+        continue-on-error: true
+      - run: sudo apt-get install -y --no-install-recommends fonts-roboto
+      - name: Generate + render tomorrow's queue
+        run: |
+          DATE=$(date -u -d tomorrow +%F)
+          echo "DATE=$DATE" >> "$GITHUB_ENV"
+          node generate.mjs --date "$DATE" 2>&1 | tee gen.log
+          node render.mjs --date "$DATE" 2>&1 | tee render.log
+      - name: Publish the preview (branch images/preview)
+        if: always()
+        run: |
+          set -e
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          git fetch origin images
+          git worktree add -B images ../_images origin/images
+          rm -rf ../_images/preview && mkdir -p ../_images/preview
+          cp queue/$DATE/images/* ../_images/preview/ 2>/dev/null || true
+          cp queue/$DATE/preview.md queue/$DATE/*.json gen.log render.log ../_images/preview/ 2>/dev/null || true
+          cd ../_images
+          git add -A
+          git diff --cached --quiet || git commit -m "preview $DATE"
+          git push origin HEAD:images
