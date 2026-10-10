@@ -541,6 +541,8 @@ for (const f of files) {
   const blocks = [...p.blocks];
   if (excerpt) blocks[p.descIndex] = excerpt;
   if (articleHeadline) blocks[0] = `${p.headPrefix || ''} ${clean(articleHeadline)}`.trim();
+  // "Source: tradingview.com" turns into a clickable link on LinkedIn (owner: no links in Infrastructure posts): name the site instead
+  for (let k = 0; k < blocks.length; k++) { const m = /^Source: ((?:[a-z0-9-]+\.)+[a-z]{2,})$/i.exec(blocks[k] || ''); if (m) blocks[k] = 'Source: ' + (siteLabel('', m[1]) || m[1]); }
   for (let k = blocks.length - 1; k >= 0; k--) if (/^📷 /.test(blocks[k] || '')) blocks.splice(k, 1);   // a re-render must not stack credit lines
   if (imageCredit && !stockCredit) blocks.splice(/^#/.test(blocks[blocks.length - 1] || '') ? blocks.length - 1 : blocks.length, 0, imageCredit);   // where the picture comes from
   if (stockCredit) blocks.splice(/^#/.test(blocks[blocks.length - 1] || '') ? blocks.length - 1 : blocks.length, 0, stockCredit);   // photographer credit sits just above the hashtags
