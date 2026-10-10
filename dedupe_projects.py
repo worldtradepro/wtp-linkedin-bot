@@ -168,6 +168,30 @@ def cluster(rows):
         a, b = usd(i), usd(j)
         return bool(a and b) and not any(abs(x - y) <= 0.3 * max(x, y) for x in a for y in b)
 
+    # the city field, when the source gives one ("El Paso, Texas"): (words of the first part, all words)
+    PLACE_FILLER = {'county', 'city', 'township', 'parish', 'district', 'province', 'state', 'north', 'south', 'east', 'west', 'northern',
+                    'southern', 'eastern', 'western', 'central', 'greater', 'near', 'outside', 'the', 'of', 'and', 'new', 'port', 'san', 'saint', 'st'}
+
+    def place_of(r):
+        parts = [x for x in (r.get('city') or '').lower().split(',') if x.strip()]
+        words = [set(re.findall(r"[a-z]{3,}", x)) - PLACE_FILLER for x in parts]
+        return (words[0] if len(words) > 1 else set(), set().union(*words)) if words else (set(), set())
+    places = [place_of(r) for r in rows]
+
+    def place_conflict(A, B):
+        # "Meta data centre, El Paso, Texas" is not "Meta data centre, Lebanon, Indiana"; "..., San Jose, California" is not
+        # "..., Kern County, California". Only rows that both carry a city can disagree; one agreeing pair is enough to allow the merge.
+        seen = False
+        for i in A:
+            for j in B:
+                (ci, ai), (cj, aj) = places[i], places[j]
+                if not ai or not aj:
+                    continue
+                seen = True
+                if ai & aj and not (ci and cj and not ci & cj):
+                    return False
+        return seen
+
     def bar(group):
         return TH + (TH_NO_COUNTRY if any(no_ctry[i] for i in group) else 0) + (TH_SHIP if any(ship[i] for i in group) else 0)
 
@@ -176,7 +200,7 @@ def cluster(rows):
             return None
         if not any(anc[i] & anc[j] for i in A for j in B):
             return None
-        if any(conflict(i, j) for i in A for j in B):
+        if any(conflict(i, j) for i in A for j in B) or place_conflict(A, B):
             return None
         return max(sim(i, j) for i in A for j in B)
 
@@ -265,7 +289,7 @@ def cluster(rows):
         for members in table.values():
             for prev, cur in zip(members, members[1:]):
                 a, b = root_of[prev], root_of[cur]
-                if a == b or day[cur] - day[prev] > max_gap or capacity_conflict(groups[a], groups[b]):
+                if a == b or day[cur] - day[prev] > max_gap or capacity_conflict(groups[a], groups[b]) or place_conflict(groups[a], groups[b]):
                     continue
                 keep, drop = (a, b) if (day[groups[a][0]], a) <= (day[groups[b][0]], b) else (b, a)
                 groups[keep] = sorted(groups[keep] + groups[drop], key=lambda i: (day[i], int(rows[i]['id'])))
