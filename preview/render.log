@@ -1,11 +1,17 @@
-  infra-1: no matching news articles for "us$1.21 tokyo airtrunk"
-Claude token: 108 chars, starts sk-ant-oat: true, whitespace removed: 1
-infra-1: photo (article photo (caption match 0.00) 1198x627 + photo card) · excerpt 104 chars
-  infra-2:   no og:image: https://www.businessworld.in/article/lt-energy-carbonlite-secures-1600-mw-therma
-  infra-2:   no og:image: https://www.constructionweekonline.in/business/lt-energy-carbonlite-secures-1600
-  infra-2:   skipped host/url: equitybulls.com uploads/Larsen%20and%20Toubro%20Limited%20Logo.jpg
-  infra-2:   no og:image: https://www.moneycontrol.com/news/business/l-t-gets-initial-nod-for-1-600-mw-cha
-  infra-2:   no og:image: https://www.business-standard.com/companies/news/l-t-arm-bags-order-worth-over-5
-Claude token: 108 chars, starts sk-ant-oat: true, whitespace removed: 1
-  infra-2: title "L&T Energy CarbonLite Gets Rs 5,000 Cr Plus Order For 1,600 MW Chandrapura Project" -> "L&T Energy CarbonLite wins Rs 5,000 Cr plus order for 1,600 MW Chandrapura project"
-infra-2: photo (news photo "l&t energy carbonlite" #1 match 0.35 "L&T receives LNTP for 1.6GW Chandrapura thermal project in I" 1200x674 + photo card) · excerpt 604 chars
+node:fs:1590
+  const result = binding.readdir(
+                         ^
+
+Error: ENOENT: no such file or directory, scandir '/home/runner/work/wtp-linkedin-bot/wtp-linkedin-bot/queue/2026-10-11'
+    at readdirSync (node:fs:1590:26)
+    at file:///home/runner/work/wtp-linkedin-bot/wtp-linkedin-bot/render.mjs:338:15
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/home/runner/work/wtp-linkedin-bot/wtp-linkedin-bot/queue/2026-10-11'
+}
+
+Node.js v22.23.3
