@@ -21,7 +21,7 @@ Project snapshot
 
 Source: tradingview
 
-📷 Image: msn
+📷 Photo: Evgeniy Alyoshin / Unsplash
 
 #Infrastructure #LT #PowerTransmission #India
 ```
