@@ -1,0 +1,11 @@
+  infra-1:   no og:image: https://www.businessworld.in/article/lt-energy-carbonlite-secures-1600-mw-therma
+  infra-1:   no og:image: https://www.constructionweekonline.in/business/lt-energy-carbonlite-secures-1600
+  infra-1:   skipped host/url: equitybulls.com uploads/Larsen%20and%20Toubro%20Limited%20Logo.jpg
+  infra-1:   no og:image: https://www.moneycontrol.com/news/business/l-t-gets-initial-nod-for-1-600-mw-cha
+Claude token: 108 chars, starts sk-ant-oat: true, whitespace removed: 1
+  infra-1:  title rewrite skipped: Claude CLI failed (exit 1): success API Error: 400 Claude Code 2.1.197 does not support this model; version 2.1.280 or newer is required. Run 'claude update', o
+infra-1: photo (news photo "l&t energy carbonlite" #1 match 0.35 "L&T receives LNTP for 1.6GW Chandrapura thermal project in I" 1200x674 + photo card) · excerpt 604 chars
+  infra-2:   no og:image: https://www.marketscreener.com/news/misc-berhad-bags-lng-project-from-petronas-l
+Claude token: 108 chars, starts sk-ant-oat: true, whitespace removed: 1
+  infra-2:  title rewrite skipped: Claude CLI failed (exit 1): success API Error: 400 Claude Code 2.1.197 does not support this model; version 2.1.280 or newer is required. Run 'claude update', o
+infra-2: photo (article photo (caption match 1.00) 1500x1000 + photo card) · excerpt 222 chars

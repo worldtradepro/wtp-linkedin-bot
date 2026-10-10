@@ -1,0 +1,40 @@
+{
+  "account": "infra",
+  "type": "project",
+  "id": "infra-1",
+  "scheduledAtUtc": "2026-10-11T09:00:00Z",
+  "headline": "Chandrapura Project",
+  "headPrefix": "🇮🇳 🏗️",
+  "blocks": [
+    "🇮🇳 🏗️ L&T Energy CarbonLite Gets Rs 5,000 Cr Plus Order For 1,600 MW Chandrapura Project",
+    "DVCCIL is a joint venture between Damodar Valley Corporation and Coal India. L&T classifies orders valued at more than Rs 5,000 crore as major orders. DVCCIL will issue the notice to proceed once the project receives the required environmental clearances and the LNTP period is completed, L&T said.\n\nL&T Energy CarbonLite’s scope covers the design, engineering, manufacturing, supply, erection, testing and commissioning of boilers, steam turbines, generators and electrostatic precipitators (ESPs). The scope also includes associated mechanical, electrical, control and instrumentation, and civil works.",
+    "Project snapshot\n📍 India · Power & Transmission\n🔧 Stage: Awarded\n📊 Scale: Large\n🎯 Worth a look for: transmission EPC, transformer and cable suppliers, substation contractors",
+    "Source: tradingview.com",
+    "",
+    "📷 Image: msn",
+    "#Infrastructure #LT #PowerTransmission #India"
+  ],
+  "descIndex": 1,
+  "text": "🇮🇳 🏗️ L&T Energy CarbonLite Gets Rs 5,000 Cr Plus Order For 1,600 MW Chandrapura Project\n\nDVCCIL is a joint venture between Damodar Valley Corporation and Coal India. L&T classifies orders valued at more than Rs 5,000 crore as major orders. DVCCIL will issue the notice to proceed once the project receives the required environmental clearances and the LNTP period is completed, L&T said.\n\nL&T Energy CarbonLite’s scope covers the design, engineering, manufacturing, supply, erection, testing and commissioning of boilers, steam turbines, generators and electrostatic precipitators (ESPs). The scope also includes associated mechanical, electrical, control and instrumentation, and civil works.\n\nProject snapshot\n📍 India · Power & Transmission\n🔧 Stage: Awarded\n📊 Scale: Large\n🎯 Worth a look for: transmission EPC, transformer and cable suppliers, substation contractors\n\nSource: tradingview.com\n\n📷 Image: msn\n\n#Infrastructure #LT #PowerTransmission #India",
+  "firstComment": "",
+  "image": "screenshot",
+  "sourceUrl": "https://www.tradingview.com/news/moodys:df78cb04a7127:0-l-t-energy-carbonlite-gets-rs-5-000-cr-plus-order-for-1-600-mw-chandrapura-project/",
+  "sourceName": "tradingview.com",
+  "meta": {
+    "stage": "S5-Awarded",
+    "sector": "Energy",
+    "subsector": "Power & Transmission",
+    "country": "India",
+    "company": "L&T",
+    "scale": "Large",
+    "reportDate": "2026-10-08"
+  },
+  "imagePath": "images/infra-1.jpg",
+  "imageKind": "photo",
+  "imageUrl": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA2dQH6B.img?w=1200&h=674&m=4&q=79",
+  "imageRehost": true,
+  "imageCredit": "📷 Image: msn",
+  "stockPhoto": false,
+  "excerptFromArticle": true,
+  "renderNote": "news photo \"l&t energy carbonlite\" #1 match 0.35 \"L&T receives LNTP for 1.6GW Chandrapura thermal project in I\" 1200x674 + photo card"
+}

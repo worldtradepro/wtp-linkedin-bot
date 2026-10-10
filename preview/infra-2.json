@@ -1,0 +1,40 @@
+{
+  "account": "infra",
+  "type": "project",
+  "id": "infra-2",
+  "scheduledAtUtc": "2026-10-11T14:00:00Z",
+  "headline": "LNG Carriers for Petronas Charter",
+  "headPrefix": "🇨🇳 🏗️",
+  "blocks": [
+    "🇨🇳 🏗️ MISC to order five more LNG carriers for Petronas charter",
+    "Malaysian shipping firm MISC will order five additional newbuild 174,000-cbm liquefied natural gas (LNG) carriers at China's Hudong-Zhonghua. The vessels will serve a 20-year charter with a unit of MISC's parent, Petronas.",
+    "Project snapshot\n📍 China · Shipyard & Fleet\n🔧 Stage: Awarded\n📊 Scale: Large\n🎯 Worth a look for: shipyards, marine equipment and propulsion suppliers, ship finance",
+    "Source: Offshore Energy",
+    "",
+    "📷 Image: LNG Prime",
+    "#LNG #Infrastructure #MISC #ShipyardFleet #China"
+  ],
+  "descIndex": 1,
+  "text": "🇨🇳 🏗️ MISC to order five more LNG carriers for Petronas charter\n\nMalaysian shipping firm MISC will order five additional newbuild 174,000-cbm liquefied natural gas (LNG) carriers at China's Hudong-Zhonghua. The vessels will serve a 20-year charter with a unit of MISC's parent, Petronas.\n\nProject snapshot\n📍 China · Shipyard & Fleet\n🔧 Stage: Awarded\n📊 Scale: Large\n🎯 Worth a look for: shipyards, marine equipment and propulsion suppliers, ship finance\n\nSource: Offshore Energy\n\n📷 Image: LNG Prime\n\n#LNG #Infrastructure #MISC #ShipyardFleet #China",
+  "firstComment": "",
+  "image": "screenshot",
+  "sourceUrl": "https://lngprime.com/asia/misc-to-order-five-more-lng-carriers-for-petronas-charter/198123/",
+  "sourceName": "Offshore Energy",
+  "meta": {
+    "stage": "S5-Awarded",
+    "sector": "Logistics & Infrastructure",
+    "subsector": "Shipyard & Fleet",
+    "country": "China",
+    "company": "MISC",
+    "scale": "Large",
+    "reportDate": "2026-10-08"
+  },
+  "imagePath": "images/infra-2.jpg",
+  "imageKind": "photo",
+  "imageUrl": "https://lngprime.com/wp-content/uploads/2026/10/MISC-to-order-five-more-LNG-carriers-for-Petronas-charter.jpg",
+  "imageRehost": true,
+  "imageCredit": "📷 Image: LNG Prime",
+  "stockPhoto": false,
+  "excerptFromArticle": true,
+  "renderNote": "article photo (caption match 1.00) 1500x1000 + photo card"
+}
