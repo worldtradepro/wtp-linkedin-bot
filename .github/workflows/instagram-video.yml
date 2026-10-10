@@ -10,8 +10,8 @@ name: instagram-video
 
 on:
   schedule:
-    - cron: '7 15 * * *'
-    - cron: '37 17 * * *'
+    - cron: '7 10 * * *'
+    - cron: '37 11 * * *'
   workflow_dispatch:
     inputs:
       check_only:

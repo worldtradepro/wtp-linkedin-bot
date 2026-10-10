@@ -1,8 +1,8 @@
 {
   "instagram": {
     "paused": false,
-    "postUtc": "15:00",
-    "_note": "2026-10-05 paused by owner until the cover pages are fixed; 2026-10-06 released by owner (end-card versions are in R2); set paused to true to stop"
+    "postUtc": "10:00",
+    "_note": "2026-10-10 owner: runs moved earlier (cron 10:07 + 11:37 UTC, postUtc 10:00) because GitHub starts them ~4-5 h late, so posts land ~15:00 UTC; 2026-10-05 paused by owner until the cover pages are fixed; 2026-10-06 released by owner (end-card versions are in R2); set paused to true to stop"
   },
   "pinterest": {
     "paused": false,
