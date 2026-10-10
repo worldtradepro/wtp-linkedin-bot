@@ -137,12 +137,16 @@ export async function stockPhoto(post, log = () => {}) {
     // Prefer a portrait shot (LinkedIn favours vertical, and it matches the map cards' own 1080x1350 shape); fall back to
     // a landscape one (still shape-capped above) rather than lose the topic match for the sake of orientation (real
     // photos of a niche subject skew landscape - portrait candidates can be thin or empty).
+    // post.forCard: the photo goes into the top ~1080x930 of our photo card, so a tall 2:3 shot loses its top and bottom there
+    // (2026-10-10: a jack-up rig cut off at the legs). For cards prefer near-square / landscape (w:h 1.0-1.6), then anything not taller than 4:5.
     const isPortrait = (p) => p.height >= p.width;
-    const portrait = fresh.filter(isPortrait);
+    const r = (p) => p.width / p.height;
+    const cardFit = fresh.filter((p) => r(p) >= 1.0 && r(p) <= 1.6), cardOk = fresh.filter((p) => r(p) >= 0.8);
+    const portrait = post.forCard ? (cardFit.length ? cardFit : cardOk) : fresh.filter(isPortrait);
     const pool = portrait.length ? portrait : fresh;
     const top = pool.slice(0, 12);
     const pick = top[hash(post.id + new Date().toISOString().slice(0, 10)) % top.length];
-    log((step.filter ? 'caption-matched' : 'unfiltered fallback') + (portrait.length ? ' portrait' : ' landscape (no on-topic portrait)') + ' pick for "' + pick.__query + '": ' + (captionOf(pick).trim() || '(no caption)'));
+    log((step.filter ? 'caption-matched' : 'unfiltered fallback') + (post.forCard ? (portrait.length ? ' card-shaped' : ' tall (no card-shaped shot)') : portrait.length ? ' portrait' : ' landscape (no on-topic portrait)') + ' pick for "' + pick.__query + '": ' + (captionOf(pick).trim() || '(no caption)'));
     // Sized by the LONG side (1600px, capped) so a portrait shot isn't stretched wide - served by Unsplash's own CDN.
     const wide = pick.width >= pick.height;
     const url = pick.urls.raw + (pick.urls.raw.includes('?') ? '&' : '?') + (wide ? 'w=1600' : 'h=1600') + '&fit=max&fm=jpg&q=85';

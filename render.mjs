@@ -485,7 +485,7 @@ for (const f of files) {
   const sp = cfg.stockPhoto || {};
   if (kind === 'card' && (cfg.imageMode || 'photo') === 'photo' && sp.enabled !== false && (sp.types || ['news']).includes(p.type)) {
     try {
-      const s = await stockPhoto({ id: p.id, headline: articleHeadline || p.headline, sector: p.meta?.sector, subsector: p.meta?.subsector }, (m) => console.log('  ' + p.id + ': ' + m));
+      const s = await stockPhoto({ id: p.id, headline: articleHeadline || p.headline, sector: p.meta?.sector, subsector: p.meta?.subsector, forCard: p.type === 'project' && cfg.accounts.infra.photoCard !== false }, (m) => console.log('  ' + p.id + ': ' + m));
       if (s) { writeFileSync(outPhoto, s.jpeg); kind = 'photo'; photoUrl = s.url; photoMime = 'image/jpeg'; stockCredit = sp.credit === false ? '' : s.credit; why = 'Unsplash stock photo (query "' + s.query + '", ' + s.photoId + ')'; }
     } catch (e) { console.log('  ' + p.id + ': stock photo failed: ' + String(e.message || e).slice(0, 80)); }
   }
