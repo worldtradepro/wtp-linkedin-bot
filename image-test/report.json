@@ -3,22 +3,30 @@
     "headline": "Aramco Restores East-West Pipeline as War Risk Closes In on Yanbu",
     "query": "aramco east-west yanbu pipeline",
     "pick": {
-      "url": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA2cJGjl.img?w=1200&h=872&m=4&q=93",
-      "credit": "msn.com",
-      "note": "news photo \"aramco east-west yanbu pipeline\" #2 match 0.65 \"Saudi Arabia restarts East-West oil pipeline, to resume expo\"",
-      "w": 1200,
-      "h": 872
+      "url": "https://mdb.ad-hoc-news.de/bild/bild-2404985_1920_1080.webp",
+      "credit": "ad-hoc-news",
+      "note": "news photo \"aramco east-west yanbu pipeline\" #2 match 0.65 \"Saudi Aramco stock: Yanbu oil loadings resume after pipeline\"",
+      "w": 1600,
+      "h": 900
     },
     "logs": [
-      "  skipped host/url: finance.yahoo.com apiv2/social/images/yahoo-finance-default-logo.png"
+      "  no og:image: https://www.moneycontrol.com/world/saudi-east-west-pipeline-halted-again-as-hout",
+      "  no og:image: https://www.firstpost.com/business/saudi-arabia-restarts-east-west-oil-pipeline-"
     ]
   },
   {
     "headline": "India expected to double pulse imports",
     "query": "india pulse imports",
-    "pick": null,
+    "pick": {
+      "url": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA2dDWFl.img?w=1200&h=900&m=4&q=65",
+      "credit": "msn",
+      "note": "news photo \"india pulse imports\" #1 match 0.60 \"Pulses prices surge: Will cheaper imports bring relief to co\"",
+      "w": 1200,
+      "h": 900
+    },
     "logs": [
-      "  no og:image: https://www.financialexpress.com/policy/economy-pulse-imports-surge-62-in-apr-ju"
+      "  no og:image: https://www.financialexpress.com/policy/economy-pulse-imports-surge-62-in-apr-ju",
+      "  image skipped (shape 640x376): news photo \"india pulse imports\" #5 match 0.70 \"India weighs lower import duties on pulses amid inflation co\" linodeobjects.com/Linode/images3/ASM_concerns_01102026_1.jpg"
     ]
   }
 ]
