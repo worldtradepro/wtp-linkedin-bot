@@ -9,7 +9,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { dayShift, fetchJson, flagOf, countryName, LANES, laneOf, clean, hostOf, similar, score, summaryOf, tokens, NOT_EPC, dealOf } from './common.mjs';
+import { dayShift, fetchJson, flagOf, countryName, LANES, laneOf, clean, hostOf, similar, score, summaryOf, tokens, NOT_EPC, dealOf, laneSlug } from './common.mjs';
 import { existsSync } from 'node:fs';
 import { SECTORS, SECTOR_ORDER, sectorKeyOf, C, font, esc, row, para, link, box, pill, sectorPill, badge, colorOf, assemble, document as doc } from './newsletter_assemble.mjs';
 
@@ -225,7 +225,7 @@ for (const c of clusters.slice(0, 14)) {
 }
 const hot = lanes.filter((x) => x.n > 0);
 const laneBoard = hot.length ? row(`<div style="font-size:13px;font-weight:700;color:${C.ink};padding-bottom:4px;">Lane pressure this week</div>
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${hot.slice(0, 4).map((x) => { const [s, col] = status(x.p); return `<tr><td style="${font}font-size:14px;color:${C.text};padding:6px 0;border-top:1px solid ${C.line};"><a href="${esc(utm(`${cfg.site}/trade-lanes/${x.l.id}/`, 'lane-' + x.l.id))}" style="color:${C.ink};text-decoration:none;font-weight:600;">${esc(x.l.name)}</a> <span style="color:${C.muted};font-size:12px;">· ${plural(x.n, 'signal')}</span></td><td style="${font}font-size:13px;padding:6px 0;border-top:1px solid ${C.line};text-align:right;white-space:nowrap;"><span style="color:${col};font-weight:700;">●</span> ${s} &nbsp; ${change(x.p, x.pp)}</td></tr>`; }).join('')}</table>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${hot.slice(0, 4).map((x) => { const [s, col] = status(x.p); return `<tr><td style="${font}font-size:14px;color:${C.text};padding:6px 0;border-top:1px solid ${C.line};"><a href="${esc(utm(`${cfg.site}/trade-lanes/${laneSlug(x.l.id)}/`, 'lane-' + x.l.id))}" style="color:${C.ink};text-decoration:none;font-weight:600;">${esc(x.l.name)}</a> <span style="color:${C.muted};font-size:12px;">· ${plural(x.n, 'signal')}</span></td><td style="${font}font-size:13px;padding:6px 0;border-top:1px solid ${C.line};text-align:right;white-space:nowrap;"><span style="color:${col};font-weight:700;">●</span> ${s} &nbsp; ${change(x.p, x.pp)}</td></tr>`; }).join('')}</table>
   <div style="font-size:12px;color:${C.muted};padding-top:6px;">${link('All 9 lanes, week by week →', utm(cfg.site + '/trade-lanes/', 'lanes-hub'), C.muted)}</div>`, '14px 0 0') : '';
 
 // ---------------------------------------------------------------- 4. stage moves (short), tail
@@ -306,7 +306,7 @@ const dash = {
   regions: countBy(epc, REGION).map(([name, n]) => ({ name, n })),
   stages: ['S1', 'S2', 'S3', 'S4', 'S5'].map((k) => ({ key: k, label: (STAGE[k] || [k])[0], n: epc.filter((it) => stageKey(it.stage) === k).length })),
   topDeals: [...dealsAll].filter((d) => d.usd).sort((a, b) => b.usd - a.usd).slice(0, 10).map((d) => ({ name: d.name, value: d.value, usd: d.usd, who: d.who, role: d.role, tender: d.tender, country: countryName(d.it.country), sector: SECTORS[d.it.key], url: d.url })),
-  lanes: lanes.map((x) => ({ name: x.l.name, flow: x.l.flow, n: x.n, crit: x.now.crit, p: x.p, pp: x.pp, status: status(x.p)[0], url: `${cfg.site}/trade-lanes/${x.l.id}/` })),
+  lanes: lanes.map((x) => ({ name: x.l.name, flow: x.l.flow, n: x.n, crit: x.now.crit, p: x.p, pp: x.pp, status: status(x.p)[0], url: `${cfg.site}/trade-lanes/${laneSlug(x.l.id)}/` })),
   flowSectors: countBy(flow, (it) => SECTORS[it.key] || it.sector).map(([name, n]) => ({ name, n })),
   totalUsd: dealsAll.reduce((n, d) => n + (d.usd || 0), 0),
 };

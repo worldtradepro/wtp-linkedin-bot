@@ -16,7 +16,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { dayShift, fetchJson, flagOf, countryName, LANES, laneOf, clean, hostOf, similar, score, summaryOf, tokens, INDUSTRIES, NOT_EPC, dealOf } from './common.mjs';
+import { dayShift, fetchJson, flagOf, countryName, LANES, laneOf, clean, hostOf, similar, score, summaryOf, tokens, INDUSTRIES, NOT_EPC, dealOf, laneSlug } from './common.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const cfg = JSON.parse(readFileSync(join(HERE, 'config.json'), 'utf8'));
@@ -128,7 +128,7 @@ async function buildFlow() {
 
   const map = utm(cfg.site + '/intelligence-map/?view=flows', 'map-flows');
   const lanesHub = utm(cfg.site + '/trade-lanes/', 'lanes-hub');
-  const laneLink = (l) => utm(`${cfg.site}/trade-lanes/${l.id}/`, 'lane-' + l.id);
+  const laneLink = (l) => utm(`${cfg.site}/trade-lanes/${laneSlug(l.id)}/`, 'lane-' + l.id);
 
   const body = [];
   // 1. the one big thing

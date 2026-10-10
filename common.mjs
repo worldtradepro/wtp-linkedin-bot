@@ -51,17 +51,20 @@ export const SECTOR_EMOJI = { Shipping: '\u{1F6A2}', Energy: '⚡', Metals: '⛏
 export const emojiOf = (s) => SECTOR_EMOJI[s] || '\u{1F4CC}';
 
 // Trade lanes: keep in sync with TRADE_LANES in the site's map snippet (id 51) and wtp_lane_defs() in snippet 38.
+// slug = the lane page's address (/trade-lanes/<slug>/, wtp_seo_lanes() in snippet 63). Links must use it, not the id:
+// /trade-lanes/hormuz/ was a 404 in every issue until 2026-10-10 (the site now redirects the ids as well).
 export const LANES = [
-  { id: 'hormuz', name: 'Strait of Hormuz', flow: 'Gulf crude, LNG & products → Asia', tag: 'Hormuz', re: /\b(strait of hormuz|hormuz|persian gulf|arabian gulf|gulf of oman)\b/i },
-  { id: 'malacca', name: 'Strait of Malacca', flow: 'Indian Ocean → East Asia', tag: 'Malacca', re: /\b(malacca|strait of singapore|singapore strait)\b/i },
-  { id: 'scs', name: 'South China Sea / Taiwan Strait', flow: 'Singapore → China, Japan & Korea', tag: 'SouthChinaSea', re: /\b(south china sea|taiwan strait|spratly|paracel)\b/i },
-  { id: 'adenbab', name: 'Gulf of Aden / Bab el-Mandeb', flow: 'Arabian Sea → Red Sea (Asia → Europe)', tag: 'RedSea', re: /\b(bab[ -]el[ -]mandeb|bab al[ -]mandab|gulf of aden|perim|houthis?)\b/i },
-  { id: 'redsuez', name: 'Red Sea & Suez Canal', flow: 'Asia → Mediterranean & Europe', tag: 'SuezCanal', re: /\b(red sea|suez( canal)?)\b/i },
-  { id: 'med', name: 'Mediterranean, Gibraltar & N. Europe', flow: 'Suez → Rotterdam', tag: 'Mediterranean', re: /\b(mediterranean|gibraltar|strait of sicily|english channel|dover strait)\b/i },
-  { id: 'blacksea', name: 'Black Sea & Turkish Straits', flow: 'Black Sea grain, oil & metals → Mediterranean', tag: 'BlackSea', re: /\b(black sea|bosphorus|bosporus|dardanelles|turkish straits|odesa|odessa|novorossiysk)\b/i },
-  { id: 'panama', name: 'Panama Canal', flow: 'Atlantic → Pacific (US Gulf LNG & grain → Asia)', tag: 'PanamaCanal', re: /\b(panama canal|panama)\b/i },
-  { id: 'cape', name: 'Cape of Good Hope route', flow: 'Indian Ocean → Atlantic (Suez / Red Sea diversion)', tag: 'CapeRoute', re: /\b(cape of good hope|cape route|around the cape)\b/i },
+  { id: 'hormuz', slug: 'strait-of-hormuz', name: 'Strait of Hormuz', flow: 'Gulf crude, LNG & products → Asia', tag: 'Hormuz', re: /\b(strait of hormuz|hormuz|persian gulf|arabian gulf|gulf of oman)\b/i },
+  { id: 'malacca', slug: 'strait-of-malacca', name: 'Strait of Malacca', flow: 'Indian Ocean → East Asia', tag: 'Malacca', re: /\b(malacca|strait of singapore|singapore strait)\b/i },
+  { id: 'scs', slug: 'south-china-sea-taiwan-strait', name: 'South China Sea / Taiwan Strait', flow: 'Singapore → China, Japan & Korea', tag: 'SouthChinaSea', re: /\b(south china sea|taiwan strait|spratly|paracel)\b/i },
+  { id: 'adenbab', slug: 'gulf-of-aden-bab-el-mandeb', name: 'Gulf of Aden / Bab el-Mandeb', flow: 'Arabian Sea → Red Sea (Asia → Europe)', tag: 'RedSea', re: /\b(bab[ -]el[ -]mandeb|bab al[ -]mandab|gulf of aden|perim|houthis?)\b/i },
+  { id: 'redsuez', slug: 'red-sea-suez-canal', name: 'Red Sea & Suez Canal', flow: 'Asia → Mediterranean & Europe', tag: 'SuezCanal', re: /\b(red sea|suez( canal)?)\b/i },
+  { id: 'med', slug: 'mediterranean-gibraltar', name: 'Mediterranean, Gibraltar & N. Europe', flow: 'Suez → Rotterdam', tag: 'Mediterranean', re: /\b(mediterranean|gibraltar|strait of sicily|english channel|dover strait)\b/i },
+  { id: 'blacksea', slug: 'black-sea-turkish-straits', name: 'Black Sea & Turkish Straits', flow: 'Black Sea grain, oil & metals → Mediterranean', tag: 'BlackSea', re: /\b(black sea|bosphorus|bosporus|dardanelles|turkish straits|odesa|odessa|novorossiysk)\b/i },
+  { id: 'panama', slug: 'panama-canal', name: 'Panama Canal', flow: 'Atlantic → Pacific (US Gulf LNG & grain → Asia)', tag: 'PanamaCanal', re: /\b(panama canal|panama)\b/i },
+  { id: 'cape', slug: 'cape-of-good-hope', name: 'Cape of Good Hope route', flow: 'Indian Ocean → Atlantic (Suez / Red Sea diversion)', tag: 'CapeRoute', re: /\b(cape of good hope|cape route|around the cape)\b/i },
 ];
+export const laneSlug = (id) => (LANES.find((l) => l.id === id) || {}).slug || id;
 // A signal is on a lane when the headline matches, or when headline + description mention it 2+ times.
 export function laneOf(it) {
   for (const l of LANES) {

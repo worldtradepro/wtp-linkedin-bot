@@ -16,7 +16,7 @@ import { execFileSync } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
-import { dayShift, fetchJson, flagOf, countryName, LANES, laneOf, clean, hostOf, similar, score, summaryOf, tokens } from './common.mjs';
+import { dayShift, fetchJson, flagOf, countryName, LANES, laneOf, clean, hostOf, similar, score, summaryOf, tokens, laneSlug } from './common.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const cfg = JSON.parse(readFileSync(join(HERE, 'config.json'), 'utf8'));
@@ -136,7 +136,7 @@ const maxP = Math.max(...lanes.map((x) => Math.max(x.p, x.pp)), 1);
 // paired horizontal bars: this week (navy) vs last week (grey), one row per active lane
 const laneBars = (rows) => rows.map((x) => `
   <div class="lb" title="${esc(x.name)}: pressure ${x.p} this week, ${x.pp} last week">
-    <div class="lb-name"><a href="${esc(utm(`${cfg.site}/trade-lanes/${x.id}/`, 'insights', 'lane-' + x.id))}">${esc(x.name)}</a><span>${esc(x.flow)}</span></div>
+    <div class="lb-name"><a href="${esc(utm(`${cfg.site}/trade-lanes/${laneSlug(x.id)}/`, 'insights', 'lane-' + x.id))}">${esc(x.name)}</a><span>${esc(x.flow)}</span></div>
     <div class="lb-bars"><i class="now" style="width:${(x.p / maxP * 100).toFixed(1)}%"></i><i class="prev" style="width:${(x.pp / maxP * 100).toFixed(1)}%"></i></div>
     <div class="lb-val"><b>${x.p}</b> ${chg(x.p, x.pp)}</div>
     <div class="lb-st st-${status(x.p).toLowerCase()}">${STATUS_ICON[status(x.p)]} ${status(x.p)}</div>
