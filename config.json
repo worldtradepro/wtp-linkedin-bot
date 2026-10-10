@@ -100,8 +100,8 @@
       "main": 5,
       "infra": 5
     },
-    "minGapMinutes": 180,
-    "latestSlotUtc": "19:30"
+    "minGapMinutes": 45,
+    "latestSlotUtc": "21:30"
   },
   "automation": {
     "paused": false
