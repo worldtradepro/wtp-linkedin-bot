@@ -142,17 +142,19 @@ const utm = (view, kind, date, i) => `${cfg.site}/?view=${view}&utm_source=linke
 // ---- friend-style post: flags + emoji + headline / 2-3 sentence description / "Source ➡️ link" / hashtags ----
 const isoFlag = (i) => String.fromCodePoint(0x1F1E6 + i.charCodeAt(0) - 65, 0x1F1E6 + i.charCodeAt(1) - 65);
 // Up to two flags, in the order the countries appear in the headline (e.g. "US, China discuss ..." -> US CN); falls back to the item's own country.
-function flagsFor(it) {
+// projectFirst: a project post leads with the flag of the country the project is IN; a country named in the headline (the investor's) comes second.
+function flagsFor(it, projectFirst = false) {
   const text = clean(it.project_name);
   const found = [];
   for (const [name, iso] of Object.entries(ISO)) {
-    const re = new RegExp('\\b' + name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', name.length <= 3 ? '' : 'i');   // "US", "UK", "UAE": case-sensitive
+    const re = new RegExp('\\b' + name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b(?!\\s?\\$)', name.length <= 3 ? '' : 'i');   // "US", "UK", "UAE": case-sensitive; "US$1.21 billion" is a currency, not a country (2026-10-10: a Tokyo project got the US flag)
     const m = re.exec(text);
     if (m && !found.some((f) => f.iso === iso)) found.push({ iso, pos: m.index });
   }
   found.sort((x, y) => x.pos - y.pos);
   const isos = found.map((f) => f.iso);
   const prim = isoOf(it.country);
+  if (projectFirst && prim) { const k = isos.indexOf(prim); if (k >= 0) isos.splice(k, 1); isos.unshift(prim); }
   if (!isos.length && prim) isos.push(prim);
   return isos.slice(0, 2).map(isoFlag).join(' ');
 }
@@ -197,7 +199,7 @@ function snapshotOf(it) {
 function projectPost(it, i, date, slot) {
   const sub = subOf(it);   // skips "(unspecified)" / "Unknown" so no #Unknown hashtag
   const title = clean(descOf(it)) && /[.!?]$/.test(clean(descOf(it))) && clean(descOf(it)).length <= 140 ? clean(descOf(it)).replace(/.$/, '') : clean(it.project_name);
-  const prefix = `${flagsFor({ ...it, project_name: title })} 🏗️`.trim();
+  const prefix = `${flagsFor({ ...it, project_name: title }, true)} 🏗️`.trim();
   const blocks = [
     `${prefix} ${title}`,
     clean(descOf(it)).replace(/.$/, '') !== title ? summaryOf(descOf(it), cfg.maxSummaryChars) : '',
