@@ -19,7 +19,7 @@ Project snapshot
 📊 Scale: Large
 🎯 Worth a look for: transmission EPC, transformer and cable suppliers, substation contractors
 
-Source: tradingview.com
+Source: tradingview
 
 📷 Image: msn
 

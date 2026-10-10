@@ -1,0 +1,20 @@
+before:
+(none)
+/home/runner/work/_temp/8c7dc787-6a78-4ca3-a291-51d6dae5839e.sh: line 1: claude: command not found
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@anthropic-ai/claude-code@2.1.296',
+npm warn EBADENGINE   required: { node: '>=22.0.0' },
+npm warn EBADENGINE   current: { node: 'v20.20.2', npm: '10.8.2' }
+npm warn EBADENGINE }
+
+added 2 packages in 3s
+after:
+/opt/hostedtoolcache/node/20.20.2/x64/bin/claude
+2.1.296 (Claude Code)
+npm global: /opt/hostedtoolcache/node/20.20.2/x64/bin/claude
+2.1.296 (Claude Code)
+/opt/hostedtoolcache/node/20.20.2/x64/lib
+├── @anthropic-ai/claude-code@2.1.296
+├── corepack@0.34.6
+└── npm@10.8.2
+
