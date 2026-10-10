@@ -54,6 +54,12 @@
       "mode": "schedule",
       "at": "2026-10-09T10:42:02.848Z",
       "dueAt": "2026-10-10T15:00:00.000Z"
+    },
+    "cd_cargo_resold": {
+      "postId": "6aca0c2bbba9419ccbf91941",
+      "mode": "schedule",
+      "at": "2026-10-10T09:58:03.529Z",
+      "dueAt": "2026-10-11T13:00:00.000Z"
     }
   }
 }
