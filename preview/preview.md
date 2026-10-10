@@ -7,7 +7,7 @@
 ### infra-1 · 09:00 UTC · image: photo (images/infra-1.jpg)
 
 ```
-🇮🇳 🏗️ L&T Energy CarbonLite Gets Rs 5,000 Cr Plus Order For 1,600 MW Chandrapura Project
+🇮🇳 🏗️ L&T Energy CarbonLite wins Rs 5,000 Cr plus order for 1,600 MW Chandrapura project
 
 DVCCIL is a joint venture between Damodar Valley Corporation and Coal India. L&T classifies orders valued at more than Rs 5,000 crore as major orders. DVCCIL will issue the notice to proceed once the project receives the required environmental clearances and the LNTP period is completed, L&T said.
 
@@ -21,7 +21,7 @@ Project snapshot
 
 Source: tradingview
 
-📷 Photo: Evgeniy Alyoshin / Unsplash
+📷 Image: msn
 
 #Infrastructure #LT #PowerTransmission #India
 ```

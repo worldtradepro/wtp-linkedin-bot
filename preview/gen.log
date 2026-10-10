@@ -1,3 +1,5 @@
+fetchJson: HTTP 503 - retry 1/4 in 5s
+fetchJson: HTTP 403 - retry 2/4 in 15s
 Flash card stories kept out of the news posts: 0 of 0 named
 # LinkedIn queue — 2026-10-11
 
