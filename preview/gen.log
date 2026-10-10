@@ -1,14 +1,49 @@
-fetchJson: HTTP 403 - retry 1/4 in 5s
-fetchJson: HTTP 403 - retry 2/4 in 15s
-fetchJson: HTTP 403 - retry 3/4 in 45s
-fetchJson: HTTP 403 - retry 4/4 in 90s
-file:///home/runner/work/wtp-linkedin-bot/wtp-linkedin-bot/common.mjs:28
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-                       ^
+Flash card stories kept out of the news posts: 0 of 0 named
+# LinkedIn queue — 2026-10-11
 
-Error: HTTP 403
-    at fetchJson (file:///home/runner/work/wtp-linkedin-bot/wtp-linkedin-bot/common.mjs:28:24)
-    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
-    at async file:///home/runner/work/wtp-linkedin-bot/wtp-linkedin-bot/generate.mjs:302:14
+Trade Flow items last 3 days: 103 · Infrastructure fresh (last 7d) items: 107
 
-Node.js v22.23.3
+## World Trade Pro
+
+_Nothing qualified today._
+
+## World Trade Pro · Infrastructure & Supply Chain
+
+### infra-1 · 09:00 UTC · image: screenshot
+
+```
+🇯🇵 🏗️ AirTrunk has secured a US$1.21 billion green loan for its Tokyo data center
+
+Project snapshot
+📍 Japan · Data Centers
+🔧 Stage: Development, before tender
+📊 Scale: Large
+🎯 Worth a look for: EPC contractors, developers and equipment suppliers
+
+Source: ET Datacenters
+
+#Infrastructure #AirTrunk #DataCenters #Japan
+```
+
+First comment: 
+
+### infra-2 · 14:00 UTC · image: screenshot
+
+```
+🇮🇳 🏗️ L&T Energy CarbonLite Gets Rs 5,000 Cr Plus Order For 1,600 MW Chandrapura Project
+
+Project snapshot
+📍 India · Power & Transmission
+🔧 Stage: Awarded
+📊 Scale: Large
+🎯 Worth a look for: transmission EPC, transformer and cable suppliers, substation contractors
+
+Source: news.google.com
+
+#Infrastructure #LT #PowerTransmission #India
+```
+
+First comment: 
+
+
+Wrote 2 posts to /home/runner/work/wtp-linkedin-bot/wtp-linkedin-bot/queue/2026-10-11
