@@ -88,7 +88,9 @@
       "news",
       "project"
     ],
-    "credit": true
+    "credit": true,
+    "creditLink": false,
+    "_creditLink": "2026-10-10 owner: no URL in posts. Credit stays as text (photographer / Unsplash). Unsplash API guidelines ask for a linked credit; true restores the link."
   },
   "buffer": {
     "pushMode": "schedule",
