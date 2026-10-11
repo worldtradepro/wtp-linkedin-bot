@@ -118,6 +118,8 @@ const qres = await fetch(`${BASE}/wtp/video_queue.json?t=${Date.now()}`, { heade
 if (!qres.ok) fail(`Cannot read the video queue (${qres.status}).`);
 const queue = await qres.json();
 const waiting = queue.filter((e) => e.status === 'queued' && !state.pushed[e.name]);
+// Optional per-entry order for Instagram only (owner 2026-10-11: finish the old-format batches without raw footage first): lower ig_priority posts first, the rest keep queue order.
+waiting.sort((a, b) => (a.ig_priority ?? 1e6) - (b.ig_priority ?? 1e6));
 log(`Video queue: ${queue.length} item(s) · ${waiting.length} waiting for Instagram${DRY ? ' · DRY RUN' : ''}`);
 const next = waiting[0];
 if (!next) { log('Nothing to post.'); process.exit(0); }
