@@ -173,6 +173,18 @@
       "id": "infra-2",
       "url": "https://images.unsplash.com/photo-1784915468280-7e85cf29002c",
       "hash": "8b8eacc308f4e6361954dee120ffd441618a0d06"
+    },
+    {
+      "date": "2026-10-11",
+      "id": "infra-1",
+      "url": "https://s49634.pcdn.co/wp-content/uploads/2026/07/AirTrunk-CEO-Robin-Khuda.jpg",
+      "hash": "115830775eabb6aac4af45fe975cc17665f60d8c"
+    },
+    {
+      "date": "2026-10-11",
+      "id": "infra-2",
+      "url": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA2dQH6B.img",
+      "hash": "884641b672b558e71fce415134f70aef8a8be70e"
     }
   ]
 }
