@@ -60,6 +60,12 @@
       "mode": "schedule",
       "at": "2026-10-10T09:58:03.529Z",
       "dueAt": "2026-10-11T13:00:00.000Z"
+    },
+    "cd_draft_survey": {
+      "postId": "6acb5fd0ed92ed8fa5fbe8e4",
+      "mode": "schedule",
+      "at": "2026-10-11T10:07:13.436Z",
+      "dueAt": "2026-10-12T13:00:00.000Z"
     }
   }
 }
