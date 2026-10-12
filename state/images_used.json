@@ -185,6 +185,18 @@
       "id": "infra-2",
       "url": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA2dQH6B.img",
       "hash": "884641b672b558e71fce415134f70aef8a8be70e"
+    },
+    {
+      "date": "2026-10-12",
+      "id": "infra-1",
+      "url": "https://images.tmcnet.com/tmc/world.jpg",
+      "hash": "9b0a7827d75202eb5a268dcef6ac2622dab81e70"
+    },
+    {
+      "date": "2026-10-12",
+      "id": "infra-2",
+      "url": "https://www.power-eng.com/wp-content/uploads/2026/10/image-1.png",
+      "hash": "99beaf5785395f7b8b956307a8da3dd3abaede77"
     }
   ]
 }
