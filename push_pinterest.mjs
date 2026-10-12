@@ -122,13 +122,15 @@ for (let k = 0; k <= 1 && wanted === null; k++) {
 }
 if (wanted === null) { log(`Today's and tomorrow's ${SLOT} UTC pin slots are already booked (or gone) - nothing to do.`); process.exit(0); }
 
-if (!DRY && !(await videoOk(next.video_url))) fail(`Video URL is not a reachable video: ${next.video_url}`);
+// Owner 2026-10-12: Pinterest posts the native 9:16 file too; entries without one keep the 4:5 video_url.
+const videoUrl = next.ig_video_url || next.video_url;
+if (!DRY && !(await videoOk(videoUrl))) fail(`Video URL is not a reachable video: ${videoUrl}`);
 const channel = await pinterestChannel();
 const dues = await duesFor(channel);
 const placed = placeAt(dues, wanted);
 const input = {
   text: pinText(next.caption), channelId: channel, schedulingType: 'automatic', mode: 'customScheduled', dueAt: new Date(placed).toISOString(),
-  assets: [{ video: { url: next.video_url, metadata: { thumbnailOffset: 100 } } }],
+  assets: [{ video: { url: videoUrl, metadata: { thumbnailOffset: 100 } } }],
   metadata: { pinterest: { boardServiceId: BOARD, title: String(next.title || next.name).slice(0, 100), url: LINK } },
 };
 log(`- ${next.name} -> Pinterest board ${BOARD} · link ${LINK} · placed ${input.dueAt}`);
