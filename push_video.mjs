@@ -99,12 +99,14 @@ for (let k = 0; k <= 1 && wanted === null; k++) {
 }
 if (wanted === null) { log(`Today's and tomorrow's ${slot} UTC video slots are already booked (or gone) - nothing to do.`); process.exit(0); }
 
-if (!DRY && !(await videoOk(next.video_url))) fail(`Video URL is not a reachable video: ${next.video_url}`);
+// Owner 2026-10-12: LinkedIn posts the native 9:16 file too (the page's best videos were 9:16); entries without one keep the 4:5 video_url.
+const videoUrl = next.ig_video_url || next.video_url;
+if (!DRY && !(await videoOk(videoUrl))) fail(`Video URL is not a reachable video: ${videoUrl}`);
 const channel = await channelFor(acct);
 const dues = await duesFor(channel);
 const placed = placeAt(dues, wanted);
 const input = { text: next.caption, channelId: channel, schedulingType: 'automatic',
-  assets: [{ video: { url: next.video_url, metadata: { thumbnailOffset: 100 } } }] };
+  assets: [{ video: { url: videoUrl, metadata: { thumbnailOffset: 100 } } }] };
 if (MODE === 'draft') { input.mode = 'addToQueue'; input.saveToDraft = true; }
 else { input.mode = 'customScheduled'; input.dueAt = new Date(placed).toISOString(); }
 
