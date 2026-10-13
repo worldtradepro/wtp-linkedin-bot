@@ -72,6 +72,12 @@
       "mode": "schedule",
       "at": "2026-10-12T11:01:29.775Z",
       "dueAt": "2026-10-13T13:00:00.000Z"
+    },
+    "cd_brent_benchmark": {
+      "postId": "6ace0baf2e1ced41dd5f745c",
+      "mode": "schedule",
+      "at": "2026-10-13T10:45:03.526Z",
+      "dueAt": "2026-10-14T13:00:00.000Z"
     }
   }
 }
