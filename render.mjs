@@ -339,6 +339,17 @@ const files = readdirSync(DIR).filter((f) => f.endsWith('.json')).sort();
 if (!files.length) { console.error('No queue files in ' + DIR + ' - run generate.mjs first'); process.exit(1); }
 mkdirSync(IMG, { recursive: true });
 
+// Draw our own HTML on a page. The page may still belong to a news site (it was used to open the article), and a document written with
+// setContent() keeps that site's Content-Security-Policy: one that forbids data: images left the photo AND the logo blank (2026-10-13,
+// Collgar wind farm card). So: leave the site first, then check that every picture really loaded.
+async function drawOwn(page, html, strict = false) {
+  await page.goto('about:blank');
+  await page.setContent(html, { waitUntil: 'load' });
+  const ok = await page.evaluate(async () => { await Promise.all([...document.images].map((i) => i.decode().catch(() => {}))); return [...document.images].every((i) => i.naturalWidth > 0); });
+  if (!ok && strict) throw new Error('a picture did not load in the card');
+  return ok;
+}
+
 // ---------------------------------------------------------------- Infrastructure photo card (2026-10-09, style of Hydrogen Insight): real photo on top, dark navy block with big white headline below
 const esc2 = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 function photoCardHtml(jpeg, title, tagline) {
@@ -507,18 +518,18 @@ for (const f of files) {
   if (kind === 'card') {
     if (p.type === 'news') {   // main-account news without a good article picture: own portrait card, same family as the Infrastructure cards
       await page.setViewportSize({ width: 1080, height: 1350 });
-      await page.setContent(infraCardHtml({ kind: 'news', scene: sceneKey(p.meta?.sector, p.meta?.subsector), tag: 'TRADE FLOW', title: 'Trade Flow Signal', sub: [p.meta?.sector, p.meta?.country].filter(Boolean).join('  ·  '), label: 'LATEST SIGNAL',
+      await drawOwn(page, infraCardHtml({ kind: 'news', scene: sceneKey(p.meta?.sector, p.meta?.subsector), tag: 'TRADE FLOW', title: 'Trade Flow Signal', sub: [p.meta?.sector, p.meta?.country].filter(Boolean).join('  ·  '), label: 'LATEST SIGNAL',
         footer: 'Live trade-flow signals', name: p.headline, chips: [p.meta?.country, p.meta?.sector, p.meta?.lane && `Lane: ${p.meta.lane}`].filter(Boolean), source: p.sourceName || '' }));
       await page.screenshot({ path: out, clip: { x: 0, y: 0, width: 1080, height: 1350 } });
     } else if (p.type === 'project') {   // no usable article screenshot: own-design project card in the same style as the daily / weekly cards
       const stage = clean(p.meta?.stage || '').replace(/^S\d[-\s]*/, '');
       await page.setViewportSize({ width: 1080, height: 1350 });
-      await page.setContent(infraCardHtml({ kind: 'project', scene: sceneKey(p.meta?.sector, p.meta?.subsector), title: 'New Infrastructure Project', sub: [p.meta?.country, p.meta?.sector].filter(Boolean).join('  ·  '), name: articleHeadline || p.headline,
+      await drawOwn(page, infraCardHtml({ kind: 'project', scene: sceneKey(p.meta?.sector, p.meta?.subsector), title: 'New Infrastructure Project', sub: [p.meta?.country, p.meta?.sector].filter(Boolean).join('  ·  '), name: articleHeadline || p.headline,
         chips: [p.meta?.country, p.meta?.subsector && p.meta.subsector !== '(unspecified)' ? p.meta.subsector : '', stage && `${stage} stage`, p.meta?.scale && `${p.meta.scale} scale`].filter(Boolean), source: p.sourceName || '' }));
       await page.screenshot({ path: out, clip: { x: 0, y: 0, width: 1080, height: 1350 } });
     } else {
       await page.setViewportSize({ width: W, height: H });
-      await page.setContent(cardHtml(p));
+      await drawOwn(page, cardHtml(p));
       await page.screenshot({ path: out, clip: { x: 0, y: 0, width: W, height: H } });
     }
   }
@@ -529,7 +540,7 @@ for (const f of files) {
       const title = clean(articleHeadline || p.blocks[0].replace(p.headPrefix || '', '') || p.headline).replace(/^[\s🏗️]+/u, '');
       const tagline = [p.meta?.country, p.meta?.subsector && p.meta.subsector !== '(unspecified)' ? p.meta.subsector : p.meta?.sector].filter(Boolean).join('  ·  ');
       await page.setViewportSize({ width: 1080, height: 1350 });
-      await page.setContent(photoCardHtml(raw, title, tagline));
+      await drawOwn(page, photoCardHtml(raw, title, tagline), true);
       await page.screenshot({ path: outPhoto, type: 'jpeg', quality: 92, clip: { x: 0, y: 0, width: 1080, height: 1350 } });
       rehost = true;   // the composed picture is ours: always serve our own copy
       why += ' + photo card';
