@@ -197,6 +197,18 @@
       "id": "infra-2",
       "url": "https://www.power-eng.com/wp-content/uploads/2026/10/image-1.png",
       "hash": "99beaf5785395f7b8b956307a8da3dd3abaede77"
+    },
+    {
+      "date": "2026-10-13",
+      "id": "infra-1",
+      "url": "https://images.unsplash.com/photo-1696998302294-b21fb356e1a4",
+      "hash": "6526ea48ea6851b864a3ba9232938dc8fc5dcda2"
+    },
+    {
+      "date": "2026-10-13",
+      "id": "infra-2",
+      "url": "https://cdn.insideindianabusiness.com/wp-content/uploads/2022/03/AES-Indiana-Building-Sign-2.jpg",
+      "hash": "eb9079aab68600cbdf539b4ede87af317f25088b"
     }
   ]
 }
