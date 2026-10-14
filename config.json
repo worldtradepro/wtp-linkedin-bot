@@ -138,8 +138,8 @@
       "firstIssue": "2026-10-06",
       "sendDayUtc": 2,
       "slotUtc": "04:15",
-      "paused": true,
-    "_paused": "2026-10-05: scheduled Tuesday runs do nothing while true (owner reviews issue 1 first). Manual Run workflow still works. Set false to let the schedule send.",
+      "paused": false,
+    "_paused": "2026-10-05: paused until the owner reviewed issue 1. 2026-10-14: owner reviewed issue 1 and approved, schedule resumed (first scheduled send Tue 2026-10-20). true = scheduled Tuesday runs do nothing; manual Run workflow still works.",
     "audienceLine": "the people who build and move commodities",
       "sponsor": {
         "enabled": false,
