@@ -152,7 +152,7 @@ function assembleTeaser(b, readerLike = {}) {
 }
 const sectorKey = (label) => Object.keys(SECTORS).find((k) => SECTORS[k] === label) || '';
 const footerRow = (b) => row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid ${C.line};"><tr>
-    <td width="50%" valign="top" style="padding:14px 8px 0 0;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.footer.forward)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Forward to a colleague →</a><br><a href="${esc(b.footer.add)}" style="color:${C.navy};font-weight:700;text-decoration:none;">List your company, free →</a></td>
+    <td width="50%" valign="top" style="padding:14px 8px 0 0;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.footer.forward)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Forward to a colleague →</a><br><a href="${esc(b.footer.add)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Sell to these projects? Free Project Leads preview →</a></td>
     <td width="50%" valign="top" style="padding:14px 0 0 8px;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.links.manage)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Choose your sectors →</a><br><a href="${esc(b.footer.archive)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Past issues →</a></td>
   </tr></table>`, '20px 0 0');
 
@@ -238,7 +238,7 @@ function assembleFull(b, readerLike = {}, opts = {}) {
   for (const t of b.tail) out.push(t);
   // footer four-piece (forward / add your project / sectors / past issues); "sectors" is this reader's own preferences link
   if (b.footer) out.push(row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid ${C.line};"><tr>
-    <td width="50%" valign="top" style="padding:14px 8px 0 0;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.footer.forward)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Forward to a colleague →</a><br><a href="${esc(b.footer.add)}" style="color:${C.navy};font-weight:700;text-decoration:none;">List your company, free →</a></td>
+    <td width="50%" valign="top" style="padding:14px 8px 0 0;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.footer.forward)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Forward to a colleague →</a><br><a href="${esc(b.footer.add)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Sell to these projects? Free Project Leads preview →</a></td>
     <td width="50%" valign="top" style="padding:14px 0 0 8px;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.links.manage)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Choose your sectors →</a><br><a href="${esc(b.footer.archive)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Past issues →</a></td>
   </tr></table>`, '20px 0 0'));
   return out.join('\n');
