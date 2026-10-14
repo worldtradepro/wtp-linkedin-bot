@@ -9,15 +9,8 @@ name: weekly-report
 #          AWS_ACCESS_KEY_ID + AWS_SECRET_ACCESS_KEY (SES, review mail)
 
 on:
-  schedule:
-    # GitHub starts this repo's scheduled runs ~6 hours late (2026-09-28: 06:07 -> 13:42), so the triggers are early and
-    # repeated; a stage run for a week already staged, or a publish run for a week already queued, stops at the first step.
-    - cron: '17 10 * * 0'    # Sunday: stage + review mail (lands ~16:30 UTC)
-    - cron: '17 14 * * 0'    # Sunday: stage retry
-    - cron: '7 0 * * 1'      # Monday: publish (lands ~06:30 UTC; LinkedIn slot 07:30)
-    - cron: '7 2 * * 1'      # Monday: retries - also publish an issue approved late (idempotent)
-    - cron: '7 5 * * 1'
-    - cron: '7 9 * * 1'
+  # RETIRED 2026-10-14 (owner): the Tuesday World Trade Pro Weekly (newsletter.yml) has its own web issue + PDF, so the
+  # Sunday/Monday Trade Flow Weekly Blog article is no longer made. Schedule removed; manual Run workflow still works.
   workflow_dispatch:
     inputs:
       step:
