@@ -209,6 +209,18 @@
       "id": "infra-2",
       "url": "https://cdn.insideindianabusiness.com/wp-content/uploads/2022/03/AES-Indiana-Building-Sign-2.jpg",
       "hash": "eb9079aab68600cbdf539b4ede87af317f25088b"
+    },
+    {
+      "date": "2026-10-14",
+      "id": "infra-1",
+      "url": "https://washingtonstatestandard.com/wp-content/uploads/2026/10/looking-downstream-of-blue-owl-capitals-data-center-location-2048x1356.jpg",
+      "hash": "18d68cdf7419004729f1cbc444c861040d0da1f8"
+    },
+    {
+      "date": "2026-10-14",
+      "id": "infra-2",
+      "url": "https://images.unsplash.com/photo-1780445392417-68b9dccc45f2",
+      "hash": "22a26c7f9cf287e7c5a3479813bc53dee6751e6b"
     }
   ]
 }
