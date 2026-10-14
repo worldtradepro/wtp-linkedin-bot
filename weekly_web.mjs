@@ -15,6 +15,8 @@ import { pickPhoto } from './weekly_photo.mjs';
 const HERE = dirname(fileURLToPath(import.meta.url));
 const cfg = JSON.parse(readFileSync(join(HERE, 'config.json'), 'utf8'));
 const W = cfg.newsletter.weekly || {};
+// 2026-10-14 (owner): a Weekly sponsor buys ONE package - the e-mail, this web issue and the PDF all show the same sponsor line
+const SP = W.sponsor?.enabled && W.sponsor.name ? W.sponsor : null;
 const args = process.argv.slice(2);
 const TODAY = args.includes('--date') ? args[args.indexOf('--date') + 1] : new Date().toISOString().slice(0, 10);
 const NAME = `${TODAY}-weekly`;
@@ -90,6 +92,7 @@ const bodyRaw = `<div class="wtpw">
 <div class="hero"${PHOTO ? ` style="background-image:linear-gradient(90deg, rgba(11,37,69,.96) 0%, rgba(11,37,69,.86) 55%, rgba(11,37,69,.5) 100%), url('${esc(PHOTO.publicUrl)}');background-size:cover;background-position:center;"` : ''}><div class="k">${esc(b.head.kicker)}</div><h1>${esc(b.head.title)}</h1><div class="sub">${esc(b.head.sub)}</div>${b.promise ? `<div class="promise">${esc(b.promise)}</div>` : ''}<div class="cta">${b.pdfUrl ? `<a class="pdf2" href="${esc(b.pdfUrl)}">${esc(pdfLabel)} ↓</a>` : ''}<a class="sub2" href="${esc(cfg.site + '/subscribe/')}">Get it by e-mail every Tuesday →</a></div>${PHOTO ? `<div class="credit">${esc(PHOTO.credit)}${PHOTO.illustrative ? ' · illustrative' : ''}</div>` : ''}</div>
 <div class="tiles"><div class="tile"><b>${st.epc ?? 0}</b><span>new projects</span><i>${delta(dl.epc)}</i></div><div class="tile"><b>${st.tenders ?? 0}</b><span>tenders</span><i>${delta(dl.tenders)}</i></div><div class="tile"><b>${st.awards ?? 0}</b><span>awards</span><i>${delta(dl.awards)}</i></div><div class="tile"><b>${st.flow ?? 0}</b><span>flow signals</span><i>${delta(dl.flow)}</i></div></div>
 <div class="toc">${toc}${b.pdfUrl ? `<a class="pdf" href="${esc(b.pdfUrl)}">${esc(pdfLabel)} ↓</a>` : ''}</div>
+${SP ? `<div class="spon" style="background:#f4efe4;border-radius:8px;padding:10px 14px;margin:14px 0;font-size:14px;color:#374151"><span style="display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6b7280">This issue is brought to you by</span><b style="color:#111827">${esc(SP.name)}</b>${SP.text ? ` — ${esc(SP.text)}` : ''}${SP.url ? ` <a href="${esc(SP.url)}" rel="sponsored noopener" target="_blank">Learn more →</a>` : ''}</div>` : ''}
 ${NOTES?.lede_html ? `<div class="note"><div class="k">This week</div><div>${NOTES.lede_html}</div>${NOTES.signoff ? `<div class="s">— ${esc(NOTES.signoff)}</div>` : ''}</div>` : ''}
 <h2>The week in one look</h2>
 ${b.chartTitle ? `<p style="font-size:18px;font-weight:700;color:var(--ink);margin:0 0 2px">${esc(b.chartTitle)}</p><p style="font-size:13px;color:var(--muted);margin:0">New projects by sector · tenders / awards / earlier stage · value where the notice names one</p>` : ''}

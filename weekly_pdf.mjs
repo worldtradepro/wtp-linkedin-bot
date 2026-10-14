@@ -14,6 +14,8 @@ import { pickPhoto } from './weekly_photo.mjs';
 const HERE = dirname(fileURLToPath(import.meta.url));
 const cfg = JSON.parse(readFileSync(join(HERE, 'config.json'), 'utf8'));
 const W = cfg.newsletter.weekly || {};
+// 2026-10-14 (owner): one Weekly sponsor package = e-mail + web issue + PDF; the PDF names the sponsor on the cover
+const SP = W.sponsor?.enabled && W.sponsor.name ? W.sponsor : null;
 const args = process.argv.slice(2);
 const TODAY = args.includes('--date') ? args[args.indexOf('--date') + 1] : new Date().toISOString().slice(0, 10);
 const NAME = `${TODAY}-weekly`;
@@ -42,6 +44,7 @@ const cover = `<section class="page cover"${PHOTO ? ` style="background-image:li
   <h1>Who's buying,<br>who won,<br>what moved</h1>
   <div class="cv-sub">${fmtDay(b.from)} – ${fmtDay(b.to)} · ${plural(st.epc ?? 0, 'new project')} in ${esc(String(b.head.sub).match(/in (\d+) countries/)?.[1] || '')} countries · ${st.tenders} tenders · ${st.awards} awards · ${plural(st.flow ?? 0, 'trade-flow signal')}</div>
   ${M.biggest?.value ? `<div class="cv-big"><div class="n">${esc(M.biggest.value)}</div><div class="l">biggest contract of the week — ${esc(M.biggest.name)}${M.biggest.who ? `, ${esc(M.biggest.who)}` : ''}</div></div>` : ''}
+  ${SP ? `<div class="cv-spon" style="margin:4mm 0 2mm;font-size:10.5pt;color:#e5e7eb"><span style="letter-spacing:.12em;text-transform:uppercase;font-size:8.5pt;color:#c8a94a">Brought to you by</span> <b style="color:#fff">${esc(SP.name)}</b>${SP.url ? ` · ${esc(String(SP.url).replace(/^https?:\/\//, '').replace(/\/$/, ''))}` : ''}</div>` : ''}
   <div class="cv-stats">
     <div><b>${st.epc ?? 0}</b><span>new projects</span><i>${delta(dl.epc)}</i></div>
     <div><b>${st.tenders ?? 0}</b><span>tenders</span><i>${delta(dl.tenders)}</i></div>
