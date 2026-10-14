@@ -118,7 +118,7 @@ const back = `<section class="page back">
     <div><div class="k">3 · This PDF report</div><p>The issue as a report: one exhibit per page, sources under every chart. Forward it, print it, bring it to Monday's meeting.</p></div>
   </div>
   <div class="cta"><b>${esc(cfg.site.replace(/^https?:\/\//, ''))}/subscribe/</b> — free, pick your sectors, one e-mail a week.</div>
-  <div class="cta2">Need equipment, spares or services for a project, or want your company in the supplier directory? <b>${esc(cfg.site.replace(/^https?:\/\//, ''))}/project-sourcing/</b></div>
+  <div class="cta2">Supply equipment, materials or services to projects? List your company, free: <b>${esc(cfg.site.replace(/^https?:\/\//, ''))}/partner/?side=supply</b></div>
   <div class="src">© ${b.year} World Trade Pro. Data from public notices and trade press, linked in each entry; no guarantee of completeness. Sponsorship: contact@worldtradepro.com</div>
 </section>`;
 

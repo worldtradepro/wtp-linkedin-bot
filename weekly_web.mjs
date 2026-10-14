@@ -102,7 +102,7 @@ ${b.calendar ? `<h2 id="deadlines">Bid deadlines, next 14 days</h2>${emailTable(
 ${sectorsOut}
 ${b.flows?.items?.length ? `<h2 id="flows">Flows that moved</h2>${emailTable(b.flows.items.map((f) => f.html).join('') + (b.flows.lanes || ''))}` : ''}
 ${b.pdfUrl ? `<a class="pdfcard" href="${esc(b.pdfUrl)}">${coverUrl ? `<img src="${esc(coverUrl)}" alt="${esc(b.head.kicker)} - PDF report cover" loading="lazy">` : ''}<div><div class="k">The report</div><b>${esc(b.head.kicker)}</b><span>Everything on this page as an A4 report: dashboard, the ten largest contracts, deadlines, all projects by sector and the flows. ${esc(PDF_META?.pages ? `${PDF_META.pages} pages` : '')}${pdfSize ? ` · ${esc(pdfSize)}` : ''}</span><em>Download the PDF ↓</em></div></a>` : ''}
-<div class="foot"><a href="${esc(cfg.site + '/subscribe/')}">Get this by e-mail every Tuesday →</a><a href="${esc(cfg.site + '/project-sourcing/')}">Add your project or tender →</a><a href="${esc(ARCHIVE)}">All issues →</a></div>
+<div class="foot"><a href="${esc(cfg.site + '/subscribe/')}">Get this by e-mail every Tuesday →</a><a href="${esc(cfg.site + '/partner/?side=supply#csr-apply')}">List your company, free →</a><a href="${esc(ARCHIVE)}">All issues →</a></div>
 </div>`;
 
 // Post title = the issue's name (report style, like a consulting series), not the e-mail subject: the theme and the Blog
