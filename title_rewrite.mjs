@@ -42,3 +42,45 @@ export async function rewriteTitles(titles, log = console.log) {
     return titles;
   }
 }
+
+// ---- generic names (2026-10-14) ----
+// Some project names from the pipeline are only a type ("Data Center", "Solar Power Plant"): the post then went out with a
+// two-word title, because rewriteTitles() may not add names. For those, write the title from the post's own description
+// instead; guard: every name and number in the new title must appear in that description (or the old title).
+const TYPE_WORDS = new Set(('data center centre centers centres campus solar wind power plant plants farm park project projects expansion new ' +
+  'terminal port mine mining refinery pipeline lng gas oil hydrogen ammonia battery storage bess hub facility facilities complex station ' +
+  'substation transmission line grid hydro hydropower nuclear desalination water fertilizer fertiliser smelter offshore onshore field ' +
+  'development phase upgrade construction rail railway metro shipyard vessel vessels fleet order orders contract green blue').split(' '));
+export function isGenericTitle(t) {
+  const s = String(t || '').trim();
+  if (s.length < 18) return true;
+  const words = s.split(/[^A-Za-z0-9$%.]+/).filter(Boolean);
+  const names = words.filter((w) => /\d/.test(w) || (/^[A-Z]/.test(w) && !TYPE_WORDS.has(w.toLowerCase())));
+  return names.length === 0;
+}
+const SYSTEM_CTX = `You write headlines for an infrastructure and project-finance news feed read by industry professionals.
+You get a vague project name and the short description of the news. Write ONE clear news headline, 45-95 characters, sentence case,
+no trailing period, no emoji, no hashtags. Use ONLY facts in the description: the developer or company, the place, the size if given.
+Do not invent anything. Reply with the headline only.`;
+export function guardCtxOk(orig, context, next) {
+  if (typeof next !== 'string') return false;
+  const n = next.trim().replace(/^["']|["']$/g, '');
+  if (n.length < 35 || n.length > 115 || /[#\n]/u.test(n)) return false;
+  const src = (String(orig) + ' ' + String(context)).toLowerCase().replace(/[\s,]/g, '');
+  const names = (n.match(/\$?\d[\d,.]*\s?(?:bn|m|b|k|%|GW|MW|MTPA)?|\b[A-Z][A-Za-z&.-]{1,}\b/g) || []).slice(0);
+  // the first word is capitalised by sentence case: it is exempt only if it is an ordinary word, never a name
+  const COMMON = /^(the|a|an|new|plans?|planned|proposed|joint|work|construction|developer|developers|us|uk|eu|first|second|largest|major|state|government|private|consortium|partners?)$/i;
+  return names.every((w, i) => (i === 0 && n.startsWith(w) && COMMON.test(w)) || src.includes(w.toLowerCase().replace(/[\s,]/g, '')));
+}
+export async function rewriteGenericTitle(base, context, log = console.log) {
+  if (!engine() || !String(context || '').trim()) return base;
+  try {
+    const { text } = await ask(SYSTEM_CTX, [{ role: 'user', content: JSON.stringify({ name: base, description: String(context).slice(0, 1200) }) }], { maxTokens: 300 });
+    const t = String(text || '').trim().split('\n')[0].replace(/^["']|["']$/g, '').trim();
+    if (guardCtxOk(base, context, t)) return t;
+    log(`  generic title kept (guard rejected "${t.slice(0, 120)}"): ${base}`);
+  } catch (e) {
+    log('  generic title rewrite skipped: ' + String(e.message || e).slice(0, 160));
+  }
+  return base;
+}

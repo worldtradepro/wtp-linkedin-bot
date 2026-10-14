@@ -11,7 +11,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { stockPhoto } from './stock_photo.mjs';
-import { rewriteTitles } from './title_rewrite.mjs';
+import { rewriteTitles, isGenericTitle, rewriteGenericTitle } from './title_rewrite.mjs';
 import { bestImage, loadPhoto, siteLabel, closeOcr } from './image_search.mjs';
 import { createHash } from 'node:crypto';
 
@@ -512,7 +512,10 @@ for (const f of files) {
   // Infrastructure project headline -> short news-style title (Claude subscription via llm.mjs; falls back to the original on any failure or guard rejection)
   if (p.type === 'project' && cfg.accounts.infra.aiTitle !== false) {
     const base = clean(articleHeadline || p.blocks[0].replace(p.headPrefix || '', '') || p.headline).replace(/^[\s🏗️]+/u, '');
-    const [better] = await rewriteTitles([base], (m) => console.log('  ' + p.id + ':' + m));
+    // a bare type ("Data Center") has nothing to reword: write the title from the post's description instead (2026-10-14)
+    const ctx = (p.blocks || []).slice(1).filter((x) => !/^(Source|#)/.test(x)).join(' ');
+    const [better] = isGenericTitle(base) ? [await rewriteGenericTitle(base, ctx, (m) => console.log('  ' + p.id + ':' + m))]
+      : await rewriteTitles([base], (m) => console.log('  ' + p.id + ':' + m));
     if (better && better !== base) { console.log(`  ${p.id}: title "${base}" -> "${better}"`); articleHeadline = better; }
   }
   if (kind === 'card') {
