@@ -107,7 +107,7 @@ jobs:
           cp "$DIR"/*.pdf "$DIR"/cover.jpg "../_images/weekly/$SLUG/"
           cd ../_images && git add -A && (git diff --cached --quiet || git commit -m "weekly $SLUG pdf") && git push origin HEAD:images
       - name: Web version of the issue on the site (the e-mail's "All N projects" links land here)
-        if: env.PAUSED != '1' && steps.ed.outputs.edition == 'weekly'
+        if: env.PAUSED != '1' && steps.ed.outputs.edition == 'weekly' && steps.ed.outputs.test == ''   # a --to test send never publishes the web issue
         env:
           WTP_PUBLISH_KEY: ${{ secrets.WTP_PUBLISH_KEY }}
         run: |
