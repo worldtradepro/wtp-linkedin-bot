@@ -84,6 +84,12 @@
       "mode": "schedule",
       "at": "2026-10-14T08:50:02.058Z",
       "dueAt": "2026-10-15T13:00:00.000Z"
+    },
+    "cd_heated_cargo": {
+      "postId": "6ad08dde6295ecc932f5b97d",
+      "mode": "schedule",
+      "at": "2026-10-15T08:25:03.027Z",
+      "dueAt": "2026-10-16T13:00:00.000Z"
     }
   }
 }
