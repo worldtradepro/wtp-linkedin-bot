@@ -221,6 +221,18 @@
       "id": "infra-2",
       "url": "https://images.unsplash.com/photo-1780445392417-68b9dccc45f2",
       "hash": "22a26c7f9cf287e7c5a3479813bc53dee6751e6b"
+    },
+    {
+      "date": "2026-10-15",
+      "id": "infra-1",
+      "url": "https://images.unsplash.com/photo-1491677533189-49af044391ed",
+      "hash": "28c8b60af5f0d97d92d7fc015b80c86b2f43faf2"
+    },
+    {
+      "date": "2026-10-15",
+      "id": "infra-2",
+      "url": "https://assets.bizclikmedia.net/1200/25d62ab9a20d0cb737809e1368aaedea:16c968aa5bad45607bc2e1e3f1151099/bihar-s-first-ai-ready-dc-inauguration-by-chief-minister-of-bihar.jpg.jpg",
+      "hash": "5ef9dc538ca416aa9715a8335ce84487420d7f50"
     }
   ]
 }
