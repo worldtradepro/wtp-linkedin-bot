@@ -40,18 +40,43 @@ export function sectorKeyOf(it) {
 }
 
 // ---------------------------------------------------------------- html helpers (inline styles: e-mail clients)
-export const C = { ink: '#111827', text: '#374151', muted: '#6B7280', faint: '#9CA3AF', line: '#E5E7EB', soft: '#F3F4F6', bg: '#f5f6f8', card: '#ffffff', accent: '#1F6FEB', accent2: '#9DB4D6', navy: '#0B2545', gold: '#c8a94a', sand: '#f4efe4' };
-export const font = 'font-family:Segoe UI,Helvetica,Arial,sans-serif;';
+// 2026-10-15: DESIGN.md direction C (editorial): white page, black ink, hairline rules, Newsreader for headlines and numbers,
+// IBM Plex Sans for UI, Plex Mono for dates; square black buttons; no gold, pills, shadows, rounded boxes or all-caps labels.
+// The old keys stay (newsletter_weekly.mjs uses them) but point at the DESIGN.md tokens: navy = ink, accent = link navy.
+export const C = { ink: '#000000', text: '#1A1A1A', muted: '#555555', faint: '#555555', line: '#CCCCCC', soft: '#F5F5F3', bg: '#FFFFFF', card: '#FFFFFF', accent: '#0F2D5E', accent2: '#999999', navy: '#000000', gold: '#000000', sand: '#F5F5F3',
+  link: '#0F2D5E', up: '#2E6B4F', down: '#B4412E', tender: '#B26B00', awarded: '#2E6B4F', planned: '#999999' };
+// web fonts load where the client allows (Apple Mail, iOS); Gmail falls back to Helvetica/Arial + Georgia; Outlook gets the
+// mso <style> in document() (it would otherwise drop to Times New Roman on an unknown first font). Serif elements carry class="s".
+export const font = "font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;";
+export const serif = "font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;";
+export const mono = "font-family:'IBM Plex Mono',Consolas,'Courier New',monospace;";
 export const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 export const row = (inner, pad = '0') => `<tr><td style="padding:${pad};${font}">${inner}</td></tr>`;
-export const h2 = (t, sub) => row(`<div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:${C.accent};">${t}</div>${sub ? `<div style="font-size:13px;color:${C.muted};padding-top:2px;">${sub}</div>` : ''}`, '26px 0 8px');
+// the one ornament: a 28x2px black rule above a 13px sentence-case kicker (a table cell, so Outlook draws it too)
+export const rule28 = `<table role="presentation" cellpadding="0" cellspacing="0"><tr><td width="28" height="2" style="background:#000000;font-size:0;line-height:2px;mso-line-height-rule:exactly;">&nbsp;</td></tr></table>`;
+export const kicker = (t) => `${rule28}<div style="${font}font-size:13px;font-weight:600;color:${C.ink};padding-top:8px;">${t}</div>`;
+// section opening: kicker, then (optional) a Newsreader line that states the point, then a muted dek
+export const h2 = (t, sub) => section(t, '', sub);
+export const section = (t, title, sub) => row(`${kicker(t)}${title ? `<div class="s" style="${serif}font-size:21px;line-height:1.25;color:${C.ink};padding-top:8px;">${title}</div>` : ''}${sub ? `<div style="font-size:13px;line-height:1.5;color:${C.muted};padding-top:4px;">${sub}</div>` : ''}`, '40px 0 12px');
 export const para = (html, pad = '0 0 8px') => row(`<div style="font-size:15px;line-height:1.55;color:${C.text};">${html}</div>`, pad);
-export const link = (label, href, color = C.accent) => `<a href="${esc(href)}" style="color:${color};font-weight:700;text-decoration:none;">${label}</a>`;
-export const button = (label, href) => row(`<table role="presentation" cellpadding="0" cellspacing="0"><tr><td style="background:${C.navy};border-radius:6px;"><a href="${esc(href)}" style="display:inline-block;padding:13px 22px;${font}font-size:15px;font-weight:700;color:#ffffff;text-decoration:none;">${label}</a></td></tr></table>`, '14px 0 4px');
-export const box = (html, bg, border) => row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${bg};${border ? `border:1px solid ${border};` : ''}border-radius:8px;"><tr><td style="padding:14px 18px;${font}font-size:14px;line-height:1.55;">${html}</td></tr></table>`, '18px 0 0');
-export const pill = (label, color = C.navy, filled = false) => `<span style="display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:${filled ? '#ffffff' : color};background:${filled ? color : 'transparent'};border:1px solid ${color};border-radius:3px;padding:1px 7px;">${esc(label)}</span>`;
+// text action: underlined; black by default (navy only for links inside running text)
+export const link = (label, href, color = C.ink) => `<a href="${esc(href)}" style="color:${color};font-weight:600;text-decoration:underline;">${label}</a>`;
+// square button; the table floats left so a second button wraps under the first on phones instead of widening the page
+export const btn = (label, href, primary = true) => `<table role="presentation" align="left" cellpadding="0" cellspacing="0" style="margin:0 8px 8px 0;"><tr><td style="background:${primary ? '#000000' : '#FFFFFF'};border:1px solid #000000;"><a href="${esc(href)}" style="display:inline-block;padding:13px 20px;${font}font-size:15px;line-height:18px;font-weight:600;color:${primary ? '#FFFFFF' : '#000000'};text-decoration:none;">${label}</a></td></tr></table>`;
+export const button = (label, href) => row(btn(label, href), '16px 0 4px');
+// quiet panel: soft fill with a 2px black top rule, square
+export const box = (html) => row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.soft};border-top:2px solid #000000;"><tr><td style="padding:16px 18px;${font}font-size:15px;line-height:1.55;color:${C.text};">${html}</td></tr></table>`, '24px 0 0');
+// no pills: an attribute is written as text (DESIGN.md section 4 "Tags/chips")
+export const pill = (label, color = C.muted, strong = false) => `<span style="font-size:13px;font-weight:600;color:${strong ? C.ink : color};">${esc(label)}</span>`;
 export const sectorPill = (k) => pill(SECTORS[k] || k, C.muted);
-export const badge = (label, color) => `<span style="display:inline-block;font-size:12px;font-weight:700;color:${color};white-space:nowrap;">${label}</span>`;
+export const badge = (label, color = C.text) => `<span style="font-size:13px;font-weight:600;color:${color};white-space:nowrap;">${label}</span>`;
+// a stage written as a word with a small square marker (tender / awarded / planned colours from DESIGN.md section 2)
+export const stageMark = (label) => { const c = { Tender: C.tender, Awarded: C.awarded }[label] || C.planned; return `<span style="white-space:nowrap;"><span style="color:${c};font-size:11px;">■</span>&nbsp;${esc(label)}</span>`; };   // a text glyph: Outlook ignores sized inline-blocks
+// change as text: ▲ +36 (green) / ▼ -66 (red) / 0 (muted); invert = true where a rise is bad news (lane pressure)
+export const chg = (d, invert = false, suffix = '') => (d === undefined || d === null ? '' : d === 0 ? `<span style="color:${C.muted};">0${suffix}</span>`
+  : `<span style="color:${(d > 0) !== invert ? C.up : C.down};white-space:nowrap;">${d > 0 ? '▲ +' : '▼ -'}${Math.abs(d)}${suffix}</span>`);
+// links inside model/editor HTML get the inline-link style (navy, underlined)
+export const styleLinks = (html) => String(html || '').replace(/<a (?![^>]*style=)/g, `<a style="color:${C.link};text-decoration:underline;" `);
 
 // ---------------------------------------------------------------- the reader
 // reader = { sectors: 'metals,energy' | ['metals'], role: 'epc' | ... } (both optional, as the subscriber export returns them)
@@ -96,63 +121,65 @@ function assembleTeaser(b) {
   const mine = new Set(reader.sectors);
   const st = b.stats || {}, dl = st.deltas || {}, D = b.dash || {};
   const out = [];
-  const delta = (d) => (d === undefined || d === null ? '' : d > 0 ? `<span style="color:#15803d;">▲ ${d}</span>` : d < 0 ? `<span style="color:#b42318;">▼ ${-d}</span>` : `<span style="color:${C.muted};">=</span>`);
-  const tile = (n, label, color, d) => `<td width="25%" style="padding:0 3px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.soft};border-top:3px solid ${color};"><tr><td style="padding:10px 6px 8px;text-align:center;${font}"><div style="font-size:26px;font-weight:800;color:${C.navy};line-height:1.1;">${n}</div><div style="font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:${C.muted};padding-top:2px;">${label}</div><div style="font-size:11.5px;font-weight:700;padding-top:3px;">${delta(d)}</div></td></tr></table></td>`;
-  const rl = '';   // 2026-10-15: one issue for every reader (owner) - no role line, no sector chooser
-  // masthead
-  out.push(`<tr><td style="padding:0;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.navy};border-radius:10px 10px 0 0;"><tr><td style="padding:26px 24px 22px;${font}">
-      <div style="font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:${C.gold};font-weight:700;">${esc(b.head.kicker)}</div>
-      <div style="font-size:30px;font-weight:800;color:#ffffff;padding-top:8px;line-height:1.12;letter-spacing:-.01em;">${esc(b.head.title)}</div>
-      <div style="font-size:13.5px;color:rgba(255,255,255,.72);padding-top:10px;line-height:1.5;">${esc(b.head.sub)}</div>
-      ${rl ? `<div style="font-size:13.5px;color:#ffffff;padding-top:10px;line-height:1.5;border-top:1px solid rgba(255,255,255,.18);margin-top:12px;"><span style="color:${C.gold};font-weight:700;">▸</span> ${esc(rl)}</div>` : ''}
-    </td></tr></table>
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:14px 0 0;${font}">
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 -3px;"><tr>${tile(st.epc ?? 0, 'new projects', C.navy, dl.epc)}${tile(st.tenders ?? 0, 'tenders', C.accent, dl.tenders)}${tile(st.awards ?? 0, 'awards', C.navy, dl.awards)}${tile(st.flow ?? 0, 'flow signals', C.accent2, dl.flow)}</tr></table>
-    </td></tr></table>
+  const hair = `border-top:1px solid ${C.line};`;
+  // masthead (DESIGN.md: logo, kicker, Newsreader headline, dek, date in Plex Mono), then the key numbers row:
+  // label ABOVE the figure, Newsreader 40px (30px on phones), 1px hair between, 1px black rule above and below
+  const num = (n, label, d, first) => `<td class="kc" width="25%" valign="top" style="padding:12px 0 12px ${first ? '0' : '12px'};${first ? '' : `border-left:1px solid ${C.line};`}${font}"><div style="font-size:13px;line-height:1.3;color:${C.muted};">${label}</div><div class="s kn" style="${serif}font-size:40px;line-height:1.1;color:${C.ink};white-space:nowrap;padding-top:4px;">${n}</div><div style="font-size:13px;line-height:1.3;padding-top:2px;">${chg(d)}</div></td>`;
+  out.push(`<tr><td style="padding:0;${font}">
+    <a href="${esc(b.links.home || 'https://worldtradepro.com/')}" style="text-decoration:none;"><img src="${esc(b.links.logo || 'https://worldtradepro.com/wp-content/themes/basic-child/img/brand/wtp-logo-horizontal-color-240.png')}" width="165" height="24" alt="World Trade Pro" style="display:block;border:0;width:165px;height:24px;"></a>
+    <div style="padding-top:32px;">${kicker(esc(b.head.kicker))}</div>
+    <div class="s kh" style="${serif}font-size:40px;line-height:1.1;letter-spacing:-0.5px;color:${C.ink};padding-top:8px;">${esc(b.head.title)}</div>
+    <div style="font-size:15px;line-height:1.5;color:${C.muted};padding-top:16px;">${esc(String(b.head.sub).replace(/^[^·]*·\s*/, ''))}</div>
+    <div style="${mono}font-size:13px;color:${C.muted};padding-top:8px;">${esc(String(b.head.sub).split(' · ')[0])}</div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:24px;border-top:1px solid #000000;border-bottom:1px solid #000000;"><tr>${num(st.epc ?? 0, 'New projects', dl.epc, true)}${num(st.tenders ?? 0, 'Tenders', dl.tenders)}${num(st.awards ?? 0, 'Awards', dl.awards)}${num(st.flow ?? 0, 'Flow signals', dl.flow)}</tr></table>
+    <div style="font-size:12px;color:${C.muted};padding-top:6px;">Change vs the week before</div>
   </td></tr>`);
-  if (b.sponsor?.html) out.push(row(b.sponsor.html, '12px 0 0'));
+  if (b.sponsor?.html) out.push(row(b.sponsor.html, '16px 0 0'));
   if (b.editor) out.push(b.editor);
   // the two main buttons right after the judgement: this is what the e-mail is for
-  const btn = (label, href, bg, fg = '#ffffff') => `<td style="padding:0 4px 8px 0;"><a href="${esc(href)}" style="display:inline-block;padding:12px 18px;${font}font-size:14px;font-weight:700;color:${fg};background:${bg};border:1px solid ${bg === '#ffffff' ? C.navy : bg};border-radius:6px;text-decoration:none;white-space:nowrap;">${label}</a></td>`;
-  out.push(row(`<table role="presentation" cellpadding="0" cellspacing="0"><tr>${btn('Read the full issue →', b.links.issue, C.navy)}${b.links.pdf ? btn('Download the PDF report', b.links.pdf, '#ffffff', C.navy) : ''}</tr></table>`, '16px 0 0'));
+  const buttons = (pad) => row(`${btn('Read the full issue →', b.links.issue)}${b.links.pdf ? btn('Download the PDF report', b.links.pdf, false) : ''}`, pad);
+  out.push(buttons('24px 0 0'));
 
-  const head = (t, sub) => row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="background:${C.navy};padding:8px 14px;${font}font-size:12.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#ffffff;">${t}</td></tr></table>${sub ? `<div style="font-size:12.5px;color:${C.muted};padding:6px 2px 0;">${sub}</div>` : ''}`, '26px 0 6px');
-  // dashboard 1: by sector (the reader's own sectors in bold navy), with the web anchor on each row
+  // dashboard 1: by sector, then region and stage as two hairline lists
   if (b.chart) {
-    out.push(head('New projects by sector', b.chartTitle ? esc(b.chartTitle) : ''));
+    out.push(section('New projects by sector', b.chartTitle ? esc(b.chartTitle) : ''));
     out.push(b.chart);
     const reg = (D.regions || []).filter((r) => r.name !== 'Unknown').slice(0, 4), stg = (D.stages || []).filter((r) => r.n);
+    const list = (title, rows) => `<div style="font-size:13px;font-weight:600;color:${C.ink};padding-bottom:6px;border-bottom:2px solid #000000;">${title}</div><table role="presentation" width="100%" cellpadding="0" cellspacing="0">${rows.map(([l, n], i) => `<tr><td style="${font}font-size:15px;color:${C.text};padding:6px 0;${i ? hair : ''}">${l}</td><td align="right" style="${font}font-size:15px;color:${C.ink};padding:6px 0;${i ? hair : ''}font-variant-numeric:tabular-nums;">${n}</td></tr>`).join('')}</table>`;
     if (reg.length || stg.length) out.push(row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
-      <td width="50%" valign="top" style="padding:6px 8px 0 0;${font}font-size:13px;color:${C.text};"><div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:${C.muted};padding-bottom:4px;">By region</div>${reg.map((r) => `<div style="padding:2px 0;border-top:1px solid ${C.line};">${esc(r.name)} <b style="float:right;color:${C.ink};">${r.n}</b></div>`).join('')}</td>
-      <td width="50%" valign="top" style="padding:6px 0 0 8px;${font}font-size:13px;color:${C.text};"><div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:${C.muted};padding-bottom:4px;">By stage</div>${stg.map((r) => `<div style="padding:2px 0;border-top:1px solid ${C.line};">${esc(r.label)} <b style="float:right;color:${C.ink};">${r.n}</b></div>`).join('')}</td>
-    </tr></table>`, '10px 0 0'));
+      <td class="col" width="50%" valign="top" style="padding:24px 12px 0 0;${font}">${list('By region', reg.map((r) => [esc(r.name), r.n]))}</td>
+      <td class="col" width="50%" valign="top" style="padding:24px 0 0 12px;${font}">${list('By stage', stg.map((r) => [stageMark(r.label), r.n]))}</td>
+    </tr></table>`));
   }
-  // dashboard 2: the largest contracts as one-liners, the reader's sectors first
+  // dashboard 2: the largest contracts, as the signature table (2px black header rule, hairline rows)
   const top = [...(D.topDeals || [])].sort((x, y) => ((mine.size && !mine.has(sectorKey(x.sector))) ? 1 : 0) - ((mine.size && !mine.has(sectorKey(y.sector))) ? 1 : 0)).slice(0, 5);
   if (top.length) {
-    out.push(head('Largest contracts of the week', `${money(D.totalUsd) ? money(D.totalUsd) + ' of named contract value in total · ' : ''}awards = reference prices and who is now buying; tenders = open windows`));
-    out.push(row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0">${top.map((d, i) => `<tr><td valign="top" width="18" style="${font}font-size:12px;color:${C.faint};font-weight:700;padding:7px 0;border-top:1px solid ${C.line};">${i + 1}</td><td valign="top" style="${font}padding:7px 0;border-top:1px solid ${C.line};"><a href="${esc(d.url)}" style="color:${C.ink};text-decoration:none;font-weight:600;font-size:14px;line-height:1.35;">${esc(d.name.length > 64 ? d.name.slice(0, 62).replace(/\s+\S*$/, '') + '…' : d.name)}</a><div style="font-size:12px;color:${C.muted};padding-top:2px;">${esc(d.sector)} · ${esc(d.country)}${d.who ? ` · ${d.tender ? 'buyer' : 'won by'} ${esc(d.who.length > 40 ? d.who.slice(0, 38).replace(/\s+\S*$/, '') + '…' : d.who)}` : ''}</div></td><td valign="top" align="right" style="${font}padding:7px 0 7px 10px;border-top:1px solid ${C.line};white-space:nowrap;"><div style="font-size:15px;font-weight:800;color:${C.navy};">${esc(d.value)}</div><div style="font-size:11px;font-weight:700;color:${d.tender ? C.accent : '#15803d'};">${d.tender ? 'TENDER' : 'AWARDED'}</div></td></tr>`).join('')}</table>`));
-    out.push(para(`<span style="font-size:13px;">${link('All ten, plus every new project by sector ›', b.links.issue)}${b.calendarCount ? ` &nbsp;·&nbsp; ${link(`${b.calendarCount} bid deadline${b.calendarCount === 1 ? '' : 's'} in the next 14 days ›`, b.links.issue + '#deadlines')}` : ''}</span>`, '8px 0 0'));
+    out.push(section('Largest contracts of the week', money(D.totalUsd) ? `${money(D.totalUsd)} of named contract value in total` : '', 'Awards are reference prices and show who is now buying; tenders are open windows.'));
+    const cut = (s, n) => (s.length > n ? s.slice(0, n - 2).replace(/\s+\S*$/, '') + '…' : s);
+    out.push(row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+      <tr><td colspan="2" style="${font}font-size:13px;font-weight:600;color:${C.ink};padding:0 0 6px;border-bottom:2px solid #000000;">Contract</td><td align="right" style="${font}font-size:13px;font-weight:600;color:${C.ink};padding:0 0 6px;border-bottom:2px solid #000000;">Value</td></tr>
+      ${top.map((d, i) => `<tr><td valign="top" width="22" style="${mono}font-size:13px;color:${C.muted};padding:10px 0;${i ? hair : ''}">${i + 1}</td><td valign="top" style="${font}padding:10px 0;${i ? hair : ''}"><a href="${esc(d.url)}" class="s" style="${serif}color:${C.ink};text-decoration:none;font-size:17px;line-height:1.3;">${esc(cut(d.name, 64))}</a><div style="font-size:13px;line-height:1.45;color:${C.muted};padding-top:4px;">${esc(d.sector)} · ${esc(d.country)}${d.who ? ` · ${d.tender ? 'buyer' : 'won by'} ${esc(cut(d.who, 40))}` : ''}</div></td><td valign="top" align="right" style="${font}padding:10px 0 10px 12px;${i ? hair : ''}white-space:nowrap;"><div class="s" style="${serif}font-size:21px;line-height:1.1;color:${C.ink};">${esc(d.value)}</div><div style="font-size:13px;color:${C.text};padding-top:4px;">${stageMark(d.tender ? 'Tender' : 'Awarded')}</div></td></tr>`).join('')}</table>`));
+    out.push(para(`<span style="font-size:15px;">${link('All ten, plus every new project by sector →', b.links.issue)}${b.calendarCount ? `<br>${link(`${b.calendarCount} bid deadline${b.calendarCount === 1 ? '' : 's'} in the next 14 days →`, b.links.issue + '#deadlines')}` : ''}</span>`, '12px 0 0'));
   }
-  // dashboard 3: lane pressure (traders / charterers) - compact
+  // dashboard 3: lane pressure (traders / charterers) - compact; a rise in pressure is bad news, so ▲ is red here
   const lanes = (D.lanes || []).filter((l) => l.n).slice(0, 4);
   if (lanes.length) {
-    out.push(head('Trade flows', `${st.flow ?? 0} signals, ${st.critical ?? 0} critical · lane pressure from this week's signals`));
-    out.push(row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0">${lanes.map((l) => { const col = l.status === 'High' ? '#b42318' : l.status === 'Elevated' ? '#b45309' : C.muted; return `<tr><td style="${font}font-size:14px;color:${C.text};padding:6px 0;border-top:1px solid ${C.line};"><a href="${esc(l.url)}" style="color:${C.ink};text-decoration:none;font-weight:600;">${esc(l.name)}</a> <span style="color:${C.muted};font-size:12px;">· ${l.n} signal${l.n === 1 ? '' : 's'}</span></td><td style="${font}font-size:13px;padding:6px 0;border-top:1px solid ${C.line};text-align:right;white-space:nowrap;"><span style="color:${col};font-weight:700;">●</span> ${esc(l.status)} ${l.p > l.pp ? `<span style="color:#b42318;font-weight:700;">▲</span>` : l.p < l.pp ? `<span style="color:#027a48;font-weight:700;">▼</span>` : ''}</td></tr>`; }).join('')}</table>`));
-    out.push(para(`<span style="font-size:13px;">${link('What moved and what it means ›', b.links.issue + '#flows')}</span>`, '8px 0 0'));
+    out.push(section('Trade flows', `${st.flow ?? 0} signals this week, ${st.critical ?? 0} of them critical`, 'Lane pressure from this week\'s signals, against the week before.'));
+    out.push(row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+      <tr><td style="${font}font-size:13px;font-weight:600;color:${C.ink};padding:0 0 6px;border-bottom:2px solid #000000;">Lane</td><td align="right" style="${font}font-size:13px;font-weight:600;color:${C.ink};padding:0 0 6px;border-bottom:2px solid #000000;">Pressure</td></tr>
+      ${lanes.map((l, i) => `<tr><td style="${font}font-size:15px;color:${C.text};padding:8px 0;${i ? hair : ''}"><a href="${esc(l.url)}" style="color:${C.ink};text-decoration:none;font-weight:600;">${esc(l.name)}</a><br><span style="color:${C.muted};font-size:13px;">${l.n} signal${l.n === 1 ? '' : 's'}</span></td><td align="right" valign="top" style="${font}font-size:15px;padding:8px 0;${i ? hair : ''}white-space:nowrap;color:${l.status === 'High' ? C.down : C.text};">${esc(l.status)}<br><span style="font-size:13px;">${l.p > l.pp ? `<span style="color:${C.down};">▲ rising</span>` : l.p < l.pp ? `<span style="color:${C.up};">▼ easing</span>` : `<span style="color:${C.muted};">unchanged</span>`}</span></td></tr>`).join('')}</table>`));
+    out.push(para(`<span style="font-size:15px;">${link('What moved and what it means →', b.links.issue + '#flows')}</span>`, '12px 0 0'));
   }
   // close: the same two buttons + tail + footer
-  out.push(row(`<table role="presentation" cellpadding="0" cellspacing="0"><tr>${btn('Read the full issue →', b.links.issue, C.navy)}${b.links.pdf ? btn('Download the PDF report', b.links.pdf, '#ffffff', C.navy) : ''}</tr></table>`, '22px 0 0'));
+  out.push(buttons('32px 0 0'));
   for (const t of b.tail) out.push(t);
   if (b.footer) out.push(footerRow(b));
   return out.join('\n');
 }
 const sectorKey = (label) => Object.keys(SECTORS).find((k) => SECTORS[k] === label) || '';
-const footerRow = (b) => row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid ${C.line};"><tr>
-    <td width="50%" valign="top" style="padding:14px 8px 0 0;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.footer.forward)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Forward to a colleague →</a><br><a href="${esc(b.footer.add)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Sell to these projects? Free Project Leads preview →</a></td>
-    <td width="50%" valign="top" style="padding:14px 0 0 8px;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.footer.archive)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Past issues →</a></td>
-  </tr></table>`, '20px 0 0');
+const footerRow = (b) => row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:2px solid #000000;"><tr>
+    <td style="padding:16px 0 0;${font}font-size:13px;line-height:1.9;color:${C.text};"><a href="${esc(b.footer.forward)}" style="color:${C.ink};font-weight:600;text-decoration:underline;">Forward to a colleague</a> &nbsp;·&nbsp; <a href="${esc(b.footer.archive)}" style="color:${C.ink};font-weight:600;text-decoration:underline;">Past issues</a><br><a href="${esc(b.footer.add)}" style="color:${C.ink};font-weight:600;text-decoration:underline;">Sell to these projects? Free Project Leads preview</a></td>
+  </tr></table>`, '32px 0 0');
 
 // ---------------------------------------------------------------- full (the web page / previews)
 function assembleFull(b, readerLike = {}, opts = {}) {
@@ -167,32 +194,32 @@ function assembleFull(b, readerLike = {}, opts = {}) {
   // masthead: kicker, role-specific title, four stat tiles, the reader's sectors
   const st = b.stats || {}, dl = st.deltas || {};
   const delta = (d) => (d === undefined || d === null ? '' : d > 0 ? `<span style="color:#15803d;">▲ ${d}</span>` : d < 0 ? `<span style="color:#b42318;">▼ ${-d}</span>` : `<span style="color:${C.muted};">= last week</span>`);
-  const tile = (n, label, color, d) => `<td width="25%" style="padding:0 3px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.soft};border-top:3px solid ${color};"><tr><td style="padding:10px 6px 8px;text-align:center;${font}"><div style="font-size:26px;font-weight:800;color:${C.navy};line-height:1.1;">${n}</div><div style="font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:${C.muted};padding-top:2px;">${label}</div><div style="font-size:11.5px;font-weight:700;padding-top:3px;">${delta(d)}</div></td></tr></table></td>`;
+  const tile = (n, label, color, d) => `<td width="25%" valign="top" style="padding:12px 8px 12px 0;${font}"><div style="font-size:13px;color:${C.muted};">${label}</div><div class="s" style="${serif}font-size:40px;color:${C.ink};line-height:1.1;white-space:nowrap;">${n}</div><div style="font-size:13px;">${chg(d)}</div></td>`;
   const sectorsLine = `<span style="font-size:12px;color:${C.muted};">Your sectors:</span> ${reader.sectors.length ? reader.sectors.map((k) => pill(SECTORS[k], C.navy, true)).join(' ') : pill('All sectors', C.navy, true)} <a href="${esc(b.links.manage)}" style="color:${C.accent};font-size:12px;font-weight:700;text-decoration:none;">&nbsp;change ›</a>`;
   const rl = roleLine(reader.role);
   out.push(`<tr><td style="padding:0;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.navy};border-radius:10px 10px 0 0;"><tr><td style="padding:26px 24px 22px;${font}">
-      <div style="font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:${C.gold};font-weight:700;">${esc(b.head.kicker)}</div>
-      <div style="font-size:30px;font-weight:800;color:#ffffff;padding-top:8px;line-height:1.12;letter-spacing:-.01em;">${esc(titleFor(reader.role, b.head.title))}</div>
-      <div style="font-size:13.5px;color:rgba(255,255,255,.72);padding-top:10px;line-height:1.5;">${esc(b.head.sub)}</div>
-      ${b.promise ? `<div style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:${C.gold};font-weight:700;padding-top:12px;">${esc(b.promise)}</div>` : ''}
-      ${rl ? `<div style="font-size:13.5px;color:#ffffff;padding-top:10px;line-height:1.5;border-top:1px solid rgba(255,255,255,.18);margin-top:12px;"><span style="color:${C.gold};font-weight:700;">▸</span> ${esc(rl)}</div>` : ''}
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" ><tr><td style="padding:0 0 16px;${font}">
+      ${kicker(esc(b.head.kicker))}
+      <div class="s" style="${serif}font-size:40px;color:${C.ink};padding-top:8px;line-height:1.1;letter-spacing:-0.5px;">${esc(titleFor(reader.role, b.head.title))}</div>
+      <div style="font-size:15px;color:${C.muted};padding-top:16px;line-height:1.5;">${esc(b.head.sub)}</div>
+      ${b.promise ? `<div style="font-size:12px;font-size:13px;color:${C.muted};font-weight:600;padding-top:12px;">${esc(b.promise)}</div>` : ''}
+      ${rl ? `<div style="font-size:15px;color:${C.text};padding-top:12px;line-height:1.5;border-top:1px solid ${C.line};margin-top:12px;">${esc(rl)}</div>` : ''}
     </td></tr></table>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:14px 0 0;${font}">
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 -3px;"><tr>${tile(st.epc ?? 0, 'new projects', C.navy, dl.epc)}${tile(st.tenders ?? 0, 'tenders', C.accent, dl.tenders)}${tile(st.awards ?? 0, 'awards', C.navy, dl.awards)}${tile(st.flow ?? 0, 'flow signals', C.accent2, dl.flow)}</tr></table>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid #000000;border-bottom:1px solid #000000;"><tr>${tile(st.epc ?? 0, 'new projects', C.navy, dl.epc)}${tile(st.tenders ?? 0, 'tenders', C.accent, dl.tenders)}${tile(st.awards ?? 0, 'awards', C.navy, dl.awards)}${tile(st.flow ?? 0, 'flow signals', C.accent2, dl.flow)}</tr></table>
       <div style="padding:12px 0 4px;border-bottom:1px solid ${C.line};">${sectorsLine}</div>
-      ${b.openThese ? `<div style="font-size:13.5px;color:${C.text};padding:10px 0 0;line-height:1.6;"><b style="color:${C.navy};">Open these three:</b> ${b.openThese}</div>` : ''}
+      ${b.openThese ? `<div style="font-size:13.5px;color:${C.text};padding:10px 0 0;line-height:1.6;"><b style="color:${C.ink};">Open these three:</b> ${b.openThese}</div>` : ''}
     </td></tr></table>
   </td></tr>`);
   if (b.sponsor?.html) out.push(row(b.sponsor.html, '12px 0 0'));
   if (b.editor) out.push(b.editor);
 
-  const sectionHead = (t, sub) => row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="background:${C.navy};padding:9px 14px;${font}font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#ffffff;">${t}</td></tr></table>${sub ? `<div style="font-size:12.5px;color:${C.muted};padding:6px 2px 0;">${sub}</div>` : ''}`, '30px 0 6px');
+  const sectionHead = (t, sub) => section(t, '', sub);
   const callsSec = () => {
     const picked = [...b.calls].sort((x, y) => (rank(x.key) + (x.strong ? 0 : 1)) - (rank(y.key) + (y.strong ? 0 : 1))).slice(0, callsN);
     if (!picked.length) return;
     out.push(sectionHead('Deals of the week', buyer ? 'Awards = reference prices and who is now booked. Tenders = what your peers are buying.' : 'Tenders and awards with a counterparty, a value or a deadline.'));
-    picked.forEach((c, i) => out.push(row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" id="d${i + 1}" style="border-left:4px solid ${C.accent};background:${C.soft};"><tr><td style="padding:12px 16px 14px;${font}">
+    picked.forEach((c, i) => out.push(row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" id="d${i + 1}" style="border-top:1px solid ${C.line};"><tr><td style="padding:12px 0 14px;${font}">
       <div><span style="font-size:11px;color:${C.faint};font-weight:700;">${i + 1} / ${picked.length}</span> &nbsp;${sectorPill(c.key)}</div>${c.html}${c.why ? '' : (buyer ? c.buyer || '' : c.call || '')}</td></tr></table>`, '8px 0 0')));
   };
   const projectsSec = () => {
@@ -203,11 +230,11 @@ function assembleFull(b, readerLike = {}, opts = {}) {
     const folded = [];
     for (const g of groups) {
       if (!follows(g.key)) { folded.push(g); continue; }
-      out.push(row(`<div style="border-bottom:2px solid ${C.navy};padding-bottom:4px;font-size:13px;font-weight:800;color:${C.navy};">${esc(SECTORS[g.key])} <span style="color:${C.muted};font-weight:400;">· ${g.count}</span></div>`, '14px 0 2px'));
+      out.push(row(`<div style="border-bottom:2px solid ${C.navy};padding-bottom:4px;font-size:13px;font-weight:600;color:${C.ink};">${esc(SECTORS[g.key])} <span style="color:${C.muted};font-weight:400;">· ${g.count}</span></div>`, '14px 0 2px'));
       g.rows.slice(0, perSector).forEach((h) => out.push(h));
       if (g.count > perSector) out.push(para(`<span style="font-size:13px;">${link(`All ${g.count} ${esc(SECTORS[g.key].toLowerCase())} projects ›`, g.moreUrl, colorOf(g.key))}</span>`, '6px 0 0'));
     }
-    if (folded.length) out.push(row(`<div style="font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:${C.muted};padding-bottom:6px;">Also this week</div>${folded.map((g) => `<a href="${esc(g.moreUrl)}" style="text-decoration:none;display:inline-block;margin:0 6px 6px 0;">${pill(`${SECTORS[g.key]} · ${g.count}`, C.navy)}</a>`).join('')}`, '16px 0 0'));
+    if (folded.length) out.push(row(`<div style="font-size:13px;font-weight:600;color:${C.ink};padding-bottom:6px;">Also this week</div>${folded.map((g) => `<a href="${esc(g.moreUrl)}" style="text-decoration:none;display:inline-block;margin:0 6px 6px 0;">${pill(`${SECTORS[g.key]} · ${g.count}`, C.navy)}</a>`).join('')}`, '16px 0 0'));
   };
   const flowsSec = () => {
     if (!b.flows || (!b.flows.items.length && !b.flows.lanes)) return;
@@ -236,8 +263,8 @@ function assembleFull(b, readerLike = {}, opts = {}) {
   for (const t of b.tail) out.push(t);
   // footer four-piece (forward / add your project / sectors / past issues); "sectors" is this reader's own preferences link
   if (b.footer) out.push(row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid ${C.line};"><tr>
-    <td width="50%" valign="top" style="padding:14px 8px 0 0;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.footer.forward)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Forward to a colleague →</a><br><a href="${esc(b.footer.add)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Sell to these projects? Free Project Leads preview →</a></td>
-    <td width="50%" valign="top" style="padding:14px 0 0 8px;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.footer.archive)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Past issues →</a></td>
+    <td width="50%" valign="top" style="padding:14px 8px 0 0;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.footer.forward)}" style="color:${C.navy};font-weight:600;text-decoration:underline;">Forward to a colleague →</a><br><a href="${esc(b.footer.add)}" style="color:${C.navy};font-weight:600;text-decoration:underline;">Sell to these projects? Free Project Leads preview →</a></td>
+    <td width="50%" valign="top" style="padding:14px 0 0 8px;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.footer.archive)}" style="color:${C.navy};font-weight:600;text-decoration:underline;">Past issues →</a></td>
   </tr></table>`, '20px 0 0'));
   return out.join('\n');
 }
@@ -245,15 +272,22 @@ function assembleFull(b, readerLike = {}, opts = {}) {
 // Full document around the assembled body. preview = hidden preheader text.
 export function document(b, bodyHtml) {
   const pre = esc(b.preview) + '&#8199;&#65279;&#847;'.repeat(40);
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light only"><title>${esc(b.head.kicker)}</title></head>
-<body style="margin:0;padding:0;background:${C.bg};">
+  // head: web fonts for clients that load them (not Outlook), phone sizes for clients that read <style>, and Outlook's
+  // fallbacks (Arial for UI, Georgia for class="s"). The body works without any of it: everything is inline.
+  return `<!doctype html><html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light only"><meta name="supported-color-schemes" content="light"><title>${esc(b.head.kicker)}</title>
+<!--[if !mso]><!--><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;600&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet"><!--<![endif]-->
+<style>a:focus{outline:2px solid #000;outline-offset:2px}@media (max-width:480px){.kh{font-size:30px!important}.kn{font-size:30px!important}.kc{padding-left:8px!important}.col{display:block!important;width:100%!important;padding-left:0!important;padding-right:0!important}}</style>
+<!--[if mso]><style>body,table,td,div,a,span{font-family:Arial,Helvetica,sans-serif!important}.s{font-family:Georgia,'Times New Roman',serif!important}</style><![endif]--></head>
+<body style="margin:0;padding:0;background:#FFFFFF;-webkit-text-size-adjust:100%;">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;">${pre}</div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.bg};"><tr><td align="center" style="padding:16px 8px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:620px;background:${C.card};border-radius:10px;"><tr><td style="padding:0 18px 26px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FFFFFF;"><tr><td align="center" style="padding:24px 16px 32px;">
+<!--[if mso]><table role="presentation" width="600" cellpadding="0" cellspacing="0"><tr><td><![endif]-->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#FFFFFF;"><tr><td style="padding:0;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
 ${bodyHtml}
 </table>
 </td></tr></table>
+<!--[if mso]></td></tr></table><![endif]-->
 </td></tr></table>
 </body></html>`;
 }

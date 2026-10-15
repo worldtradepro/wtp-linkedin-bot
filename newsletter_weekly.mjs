@@ -11,7 +11,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { dayShift, fetchJson, flagOf, countryName, LANES, laneOf, clean, hostOf, similar, score, summaryOf, tokens, NOT_EPC, dealOf, laneSlug } from './common.mjs';
 import { existsSync } from 'node:fs';
-import { SECTORS, SECTOR_ORDER, sectorKeyOf, C, font, esc, row, para, link, box, pill, sectorPill, badge, colorOf, assemble, document as doc } from './newsletter_assemble.mjs';
+import { SECTORS, SECTOR_ORDER, sectorKeyOf, C, font, serif, mono, esc, row, para, link, box, pill, sectorPill, badge, colorOf, stageMark, kicker, styleLinks, assemble, document as doc } from './newsletter_assemble.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const cfg = JSON.parse(readFileSync(join(HERE, 'config.json'), 'utf8'));
@@ -103,7 +103,7 @@ dealsAll.sort((a, b) => b.substance - a.substance || (b.usd || 0) - (a.usd || 0)
 const callCard = (d) => {
   const it = d.it, [st] = STAGE[stageKey(it.stage)] || [''];
   const who = d.who ? `<b style="color:${C.ink};">${esc(d.who)}</b>` : (isNA(it.company_name) ? '' : `<b style="color:${C.ink};">${esc(clean(it.company_name))}</b>`);
-  const facts = [badge(esc(st), d.tender ? '#b45309' : '#15803d'), countryLink(it, true), d.value ? badge(esc(d.value), C.navy) : '', d.tender && d.deadline ? badge(`bids due ${esc(d.deadline)}`, '#b42318') : '',
+  const facts = [st ? stageMark(st) : '', countryLink(it, true), d.value ? badge(esc(d.value), C.ink) : '', d.tender && d.deadline ? badge(`bids due ${esc(d.deadline)}`, C.down) : '',
     who ? ({ winner: 'won by ', buyer: 'buyer ' }[d.role] || '') + who : ''].filter(Boolean);
   const name = d.who || clean(it.company_name);
   const call = d.tender
@@ -112,11 +112,11 @@ const callCard = (d) => {
   const buyer = d.tender
     ? `A peer is buying this scope${d.value ? ` at an estimated ${esc(d.value)}` : ''}; a live comparison for your own package${d.deadline ? ` (their bids close ${esc(d.deadline)})` : ''}.`
     : `${d.value ? `Reference price: ${esc(d.value)} for this scope in ${esc(countryName(it.country) || 'this market')}. ` : ''}${name && !isNA(name) ? `${esc(name)} is now booked on this job.` : 'The winner\'s team is now committed.'}`;
-  const line = (label, text, color) => `<div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:8px;border-top:1px dashed ${C.line};margin-top:8px;"><b style="color:${color};">${label}</b> ${text}</div>`;
+  const line = (label, text, color) => `<div style="font-size:15px;line-height:1.5;color:${C.text};padding-top:8px;border-top:1px solid ${C.line};margin-top:8px;"><b style="color:${color};">${label}</b> ${text}</div>`;
   const why = NOTES?.deals_why?.[d.name];
   return {
-    html: `<a href="${esc(d.url)}" style="display:block;color:${C.ink};text-decoration:none;font-size:17px;font-weight:700;line-height:1.3;padding:6px 0 6px;">${esc(d.name)}</a>
-    <div style="font-size:13px;color:${C.muted};line-height:1.9;">${facts.join(' &nbsp;·&nbsp; ')}</div>${why ? `<div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:8px;">${esc(why)}</div>` : ''}`,
+    html: `<a href="${esc(d.url)}" class="s" style="display:block;${serif}color:${C.ink};text-decoration:none;font-size:21px;line-height:1.25;padding:6px 0 6px;">${esc(d.name)}</a>
+    <div style="font-size:13px;color:${C.muted};line-height:1.9;">${facts.join(' &nbsp;·&nbsp; ')}</div>${why ? `<div style="font-size:15px;line-height:1.5;color:${C.text};padding-top:8px;">${esc(why)}</div>` : ''}`,
     call: line('The call:', call, C.navy),
     buyer: line('For buyers:', buyer, C.navy),
     why: !!why,
@@ -143,9 +143,8 @@ for (const k of SECTOR_ORDER) {
 
 const projRow = (it) => {
   const [st] = STAGE[stageKey(it.stage)] || [''];
-  const stColor = { Tender: '#b45309', Awarded: '#15803d', 'Pre-FID': '#7c3aed' }[st] || C.muted;
-  const bits = [st ? `<b style="color:${stColor};">${esc(st)}</b>` : '', countryLink(it), esc(sectorOf(it)), it.scale && it.scale !== 'Unknown' ? esc(it.scale) : '', isNA(it.company_name) ? '' : esc(clean(it.company_name))].filter(Boolean);
-  return row(`<a href="${esc(it.source_url)}" style="color:${C.ink};text-decoration:none;font-weight:600;font-size:15px;line-height:1.4;">${esc(clean(it.project_name))}</a><br><span style="color:${C.muted};font-size:12.5px;line-height:1.5;">${bits.join(' · ')}</span>`, `7px 0;border-top:1px solid ${C.line}`);
+  const bits = [st ? stageMark(st) : '', countryLink(it), esc(sectorOf(it)), it.scale && it.scale !== 'Unknown' ? esc(it.scale) : '', isNA(it.company_name) ? '' : esc(clean(it.company_name))].filter(Boolean);
+  return row(`<a href="${esc(it.source_url)}" class="s" style="${serif}color:${C.ink};text-decoration:none;font-size:17px;line-height:1.3;">${esc(clean(it.project_name))}</a><br><span style="color:${C.muted};font-size:13px;line-height:1.5;">${bits.join(' · ')}</span>`, `7px 0;border-top:1px solid ${C.line}`);
 };
 const usedInCalls = new Set(calls.map((c) => c.html));
 const projects = [];
@@ -167,8 +166,8 @@ for (const k of SECTOR_ORDER) {
 // ---------------------------------------------------------------- 3. flows that changed
 const idx = (c) => (c ? c.crit * 3 + c.elev * 2 + c.watch : 0);
 const lanes = LANES.map((l) => { const hist = weeks.map((w) => w.lanes?.[l.id] || null); const now = hist[0] || { crit: 0, elev: 0, watch: 0 }, prev = hist[1] || { crit: 0, elev: 0, watch: 0 }; return { l, now, prev, n: now.crit + now.elev + now.watch, p: idx(now), pp: idx(prev) }; }).sort((a, b) => b.p - a.p || b.n - a.n);
-const status = (p) => (p >= 30 ? ['High', '#b42318'] : p >= 10 ? ['Elevated', '#b54708'] : p > 0 ? ['Watch', '#475467'] : ['Quiet', '#98a2b3']);
-const change = (a, b) => (a > b ? `<span style="color:#b42318;font-weight:700;">▲ more pressure</span>` : a < b ? `<span style="color:#027a48;font-weight:700;">▼ easing</span>` : `<span style="color:${C.muted};">— unchanged</span>`);
+const status = (p) => (p >= 30 ? ['High', C.down] : p >= 10 ? ['Elevated', C.text] : p > 0 ? ['Watch', C.muted] : ['Quiet', C.muted]);
+const change = (a, b) => (a > b ? `<span style="color:${C.down};">▲ rising</span>` : a < b ? `<span style="color:${C.up};">▼ easing</span>` : `<span style="color:${C.muted};">unchanged</span>`);
 // cluster the week's signals (same story from several outlets), strongest first
 function related(a, b) { if (similar(a, b)) return true; const A = tokens(a), B = tokens(b); let s = 0; for (const w of A) if (B.has(w)) s++; return s >= 2 && s / Math.min(A.size, B.size) >= 0.33; }
 const clusters = [];
@@ -217,27 +216,27 @@ for (const c of clusters.slice(0, 14)) {
   const lr = l && lanes.find((x) => x.l.id === l.id);
   const what = snippet(it.description, 150);
   const means = NOTES?.flows_why?.[it.source_url] ? esc(NOTES.flows_why[it.source_url]) : meansFor(it, l, lr);
-  flowItems.push({ key: it.key, url: it.source_url, title: title(it), source: source(it).replace(/&amp;/g, '&'), summary: what, html: row(`<div style="font-size:11px;font-weight:700;color:${C.muted};">${sectorPill(it.key)} ${l ? `&nbsp;${badge(esc(l.name), '#0369a1')}` : ''}</div>
-    <a href="${esc(it.source_url)}" style="display:block;color:${C.ink};text-decoration:none;font-size:16px;font-weight:700;line-height:1.35;padding:4px 0 2px;">${flagOf(it.country)} ${esc(title(it))}</a>
-    <div style="font-size:12px;color:${C.muted};">${source(it)}${c.more.length ? ` · ${c.more.length + 1} reports this week` : ''}</div>
-    ${what && !NOTES?.flows_why?.[it.source_url] ? `<div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:6px;">${esc(what)}</div>` : ''}
-    <div style="font-size:14px;line-height:1.5;color:${C.text};padding-top:6px;"><b style="color:${C.ink};">What it means:</b> ${means}</div>`, `12px 0;border-top:1px solid ${C.line}`) });
+  flowItems.push({ key: it.key, url: it.source_url, title: title(it), source: source(it).replace(/&amp;/g, '&'), summary: what, html: row(`<div style="font-size:13px;font-weight:600;color:${C.muted};">${esc(SECTORS[it.key] || '')}${l ? ` · ${esc(l.name)}` : ''}</div>
+    <a href="${esc(it.source_url)}" class="s" style="display:block;${serif}color:${C.ink};text-decoration:none;font-size:21px;line-height:1.25;padding:4px 0 4px;">${esc(title(it))}</a>
+    <div style="font-size:13px;color:${C.muted};">${source(it)}${c.more.length ? ` · ${c.more.length + 1} reports this week` : ''}</div>
+    ${what && !NOTES?.flows_why?.[it.source_url] ? `<div style="font-size:15px;line-height:1.55;color:${C.text};padding-top:8px;">${esc(what)}</div>` : ''}
+    <div style="font-size:15px;line-height:1.55;color:${C.text};padding-top:8px;"><b style="color:${C.ink};">What it means:</b> ${means}</div>`, `16px 0;border-top:1px solid ${C.line}`) });
 }
 const hot = lanes.filter((x) => x.n > 0);
-const laneBoard = hot.length ? row(`<div style="font-size:13px;font-weight:700;color:${C.ink};padding-bottom:4px;">Lane pressure this week</div>
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${hot.slice(0, 4).map((x) => { const [s, col] = status(x.p); return `<tr><td style="${font}font-size:14px;color:${C.text};padding:6px 0;border-top:1px solid ${C.line};"><a href="${esc(utm(`${cfg.site}/trade-lanes/${laneSlug(x.l.id)}/`, 'lane-' + x.l.id))}" style="color:${C.ink};text-decoration:none;font-weight:600;">${esc(x.l.name)}</a> <span style="color:${C.muted};font-size:12px;">· ${plural(x.n, 'signal')}</span></td><td style="${font}font-size:13px;padding:6px 0;border-top:1px solid ${C.line};text-align:right;white-space:nowrap;"><span style="color:${col};font-weight:700;">●</span> ${s} &nbsp; ${change(x.p, x.pp)}</td></tr>`; }).join('')}</table>
-  <div style="font-size:12px;color:${C.muted};padding-top:6px;">${link('All 9 lanes, week by week →', utm(cfg.site + '/trade-lanes/', 'lanes-hub'), C.muted)}</div>`, '14px 0 0') : '';
+const laneBoard = hot.length ? row(`<div style="font-size:13px;font-weight:600;color:${C.ink};padding-bottom:6px;border-bottom:2px solid #000000;">Lane pressure this week</div>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${hot.slice(0, 4).map((x) => { const [s, col] = status(x.p); return `<tr><td style="${font}font-size:14px;color:${C.text};padding:6px 0;border-top:1px solid ${C.line};"><a href="${esc(utm(`${cfg.site}/trade-lanes/${laneSlug(x.l.id)}/`, 'lane-' + x.l.id))}" style="color:${C.ink};text-decoration:none;font-weight:600;">${esc(x.l.name)}</a> <span style="color:${C.muted};font-size:12px;">· ${plural(x.n, 'signal')}</span></td><td style="${font}font-size:13px;padding:6px 0;border-top:1px solid ${C.line};text-align:right;white-space:nowrap;"><span style="color:${col};">${s}</span> &nbsp; ${change(x.p, x.pp)}</td></tr>`; }).join('')}</table>
+  <div style="font-size:12px;color:${C.muted};padding-top:6px;">${link('All 9 lanes, week by week →', utm(cfg.site + '/trade-lanes/', 'lanes-hub'))}</div>`, '14px 0 0') : '';
 
 // ---------------------------------------------------------------- 4. stage moves (short), tail
 const moved = epc.filter((it) => it.moved);
 const movesHtml = moved.length ? row(`<div style="font-size:13px;color:${C.muted};"><b style="color:${C.ink};">Stage moves:</b> ${moved.slice(0, 4).map((it) => `${esc(clean(it.project_name))} <span style="white-space:nowrap;">${esc((STAGE[stageKey(it.moved)] || [clean(it.moved)])[0])} → <b>${esc((STAGE[stageKey(it.stage)] || [clean(it.stage)])[0])}</b></span>`).join(' · ')}${moved.length > 4 ? ` · +${moved.length - 4} more` : ''}</div>`, '18px 0 0') : '';
 const sponsorMail = `mailto:${nl.ses?.replyTo || 'contact@worldtradepro.com'}?subject=${encodeURIComponent('Sponsor World Trade Pro Weekly')}`;
 const sponsor = W.sponsor?.enabled && W.sponsor.name
-  ? { html: `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.sand};border-radius:8px;"><tr><td style="padding:10px 14px;${font}font-size:13px;line-height:1.5;color:${C.text};"><span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:${C.muted};">This issue is brought to you by</span><br><b style="color:${C.ink};font-size:14px;">${esc(W.sponsor.name)}</b> — ${esc(W.sponsor.text || '')} ${W.sponsor.url ? link('Learn more →', utm(W.sponsor.url, 'sponsor')) : ''}</td></tr></table>` }
+  ? { html: `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid ${C.line};border-bottom:1px solid ${C.line};"><tr><td style="padding:12px 0;${font}font-size:15px;line-height:1.5;color:${C.text};"><span style="font-size:13px;font-weight:600;color:${C.muted};">This issue is brought to you by</span><br><b style="color:${C.ink};font-weight:600;">${esc(W.sponsor.name)}</b> — ${esc(W.sponsor.text || '')} ${W.sponsor.url ? link('Learn more →', utm(W.sponsor.url, 'sponsor')) : ''}</td></tr></table>` }
   : null;
 const tail = [
-  box(`<b style="color:${C.ink};font-size:15px;">Sourcing equipment, materials or spares from China?</b><br><span style="color:${C.text};">Tell us what you need; we pass the request to partner trading companies in China so they can quote.</span> ${link('China Sourcing request →', utm(cfg.site + '/project-sourcing/#csr-apply', 'sourcing-demand'))}<br><span style="color:${C.text};">Supplier or service provider? </span>${link('See which projects need your product, free preview →', utm(cfg.site + '/project-leads/', 'sourcing-supply'))}`, '#fdf6e3', '#ecd9a3'),
-  para(`<span style="font-size:13px;color:${C.muted};">${sponsor ? 'Reach the people who build and move commodities: ' : 'Reach ' + (W.audienceLine || 'the people who build and move commodities') + ': '}<a href="${sponsorMail}" style="color:${C.muted};font-weight:700;text-decoration:none;">sponsor this newsletter →</a></span>`, '14px 0 0'),
+  box(`<div class="s" style="${serif}color:${C.ink};font-size:21px;line-height:1.25;padding-bottom:8px;">Sourcing equipment, materials or spares from China?</div><span style="color:${C.text};">Tell us what you need; we pass the request to partner trading companies in China so they can quote.</span> ${link('China Sourcing request →', utm(cfg.site + '/project-sourcing/#csr-apply', 'sourcing-demand'))}<br><span style="color:${C.text};">Supplier or service provider? </span>${link('See which projects need your product, free preview →', utm(cfg.site + '/project-leads/', 'sourcing-supply'))}`),
+  para(`<span style="font-size:13px;color:${C.muted};">${sponsor ? 'Reach the people who build and move commodities: ' : 'Reach ' + (W.audienceLine || 'the people who build and move commodities') + ': '}<a href="${sponsorMail}" style="color:${C.muted};font-weight:600;text-decoration:underline;">sponsor this newsletter →</a></span>`, '14px 0 0'),
   nl.promo?.enabled ? para(`<span style="font-size:13px;color:${C.muted};"><b>P.S.</b> New to physical deals? ${esc(nl.promo.title)} walks through one end to end. ${link('Watch the free prologue →', utm(nl.promo.url, 'course'), C.muted)}</span>`, '12px 0 0') : '',
 ].filter(Boolean);
 
@@ -255,7 +254,7 @@ const byCountry = {};
 for (const it of epc) { const c = countryName(it.country); if (c && !isNA(c)) byCountry[c] = (byCountry[c] || []).concat(it); }
 const topCountry = Object.entries(byCountry).sort((a, b) => b[1].length - a[1].length)[0];
 const biggest = [...dealsAll].sort((a, b) => (b.usd || 0) - (a.usd || 0))[0];
-const supTile = (k, v, sub, href, color) => `<td width="33%" valign="top" style="padding:0 4px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:3px solid ${color};"><tr><td style="padding:8px 2px 0;${font}"><div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:${C.muted};">${k}</div><div style="font-size:15px;font-weight:700;color:${C.ink};line-height:1.3;padding-top:3px;">${href ? `<a href="${esc(href)}" style="color:${C.ink};text-decoration:none;">${v}</a>` : v}</div><div style="font-size:12px;color:${C.muted};padding-top:2px;">${sub}</div></td></tr></table></td>`;
+const supTile = (k, v, sub, href, color) => `<td width="33%" valign="top" style="padding:0 4px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:2px solid #000000;"><tr><td style="padding:8px 2px 0;${font}"><div style="font-size:13px;font-weight:600;color:${C.muted};">${k}</div><div class="s" style="${serif}font-size:17px;color:${C.ink};line-height:1.3;padding-top:3px;">${href ? `<a href="${esc(href)}" style="color:${C.ink};text-decoration:none;">${v}</a>` : v}</div><div style="font-size:12px;color:${C.muted};padding-top:2px;">${sub}</div></td></tr></table></td>`;
 const superlatives = (biggest || topWinner || topCountry) ? row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 -4px;"><tr>
   ${biggest && biggest.usd ? supTile('Biggest deal', esc(biggest.value), esc(cut(biggest.name, 48)), biggest.url, C.navy) : ''}
   ${topWinner ? supTile('Most awards', esc(cut(topWinner[0], 36)), `${plural(topWinner[1], 'contract')} this week${winnerUsd[topWinner[0]] ? ' · ' + esc(moneyOf(winnerUsd[topWinner[0]])) : ''}`, '', '#15803d') : ''}
@@ -274,28 +273,28 @@ for (const it of epc.filter((x) => stageKey(x.stage) === 'S4')) {
 calItems.sort((a, b) => a.iso.localeCompare(b.iso));
 const calDay = (iso) => new Date(iso + 'T00:00:00Z').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' });
 const calendar = calItems.length ? calItems.slice(0, 8).map((c, i, arr) => row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
-  <td width="76" valign="top" style="${font}padding:9px 10px 9px 0;border-top:1px solid ${C.line};"><div style="font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:${c.iso <= dayShift(TODAY, 3) ? '#b42318' : C.muted};">${calDay(c.iso).split(' ')[0]}</div><div style="font-size:18px;font-weight:800;color:${c.iso <= dayShift(TODAY, 3) ? '#b42318' : C.ink};line-height:1.1;">${calDay(c.iso).split(' ')[1]} <span style="font-size:12px;font-weight:700;color:${C.muted};">${calDay(c.iso).split(' ')[2]}</span></div></td>
-  <td valign="top" style="${font}padding:9px 0;border-top:1px solid ${C.line};">${sectorPill(c.key)}<br><a href="${esc(c.url)}" style="color:${C.ink};text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.35;">${esc(cut(c.name, 90))}</a><div style="font-size:12.5px;color:${C.muted};padding-top:2px;">${[c.country ? esc(c.country) : '', c.value ? `<b style="color:${C.ink};">${esc(c.value)}</b>` : '', c.who ? esc(c.who) : ''].filter(Boolean).join(' · ')}</div></td>
+  <td width="96" valign="top" style="${mono}padding:10px 12px 10px 0;border-top:1px solid ${C.line};font-size:13px;line-height:1.5;color:${c.iso <= dayShift(TODAY, 3) ? C.down : C.muted};">${calDay(c.iso)}${c.iso <= dayShift(TODAY, 3) ? '<br>closes soon' : ''}</td>
+  <td valign="top" style="${font}padding:10px 0;border-top:1px solid ${C.line};">${sectorPill(c.key)}<br><a href="${esc(c.url)}" class="s" style="${serif}color:${C.ink};text-decoration:none;font-size:17px;line-height:1.3;">${esc(cut(c.name, 90))}</a><div style="font-size:13px;color:${C.muted};padding-top:2px;">${[c.country ? esc(c.country) : '', c.value ? `<b style="color:${C.ink};">${esc(c.value)}</b>` : '', c.who ? esc(c.who) : ''].filter(Boolean).join(' · ')}</div></td>
 </tr></table>`)).join('\n') : '';
 
 // sector chart: one horizontal bar per sector (tenders + awards + other), drawn with table cells so it renders in every mail client
 const chartRows = SECTOR_ORDER.map((k) => { const items = epc.filter((it) => it.key === k); return { k, t: items.filter((it) => stageKey(it.stage) === 'S4').length, a: items.filter((it) => stageKey(it.stage) === 'S5').length, o: items.filter((it) => !['S4', 'S5'].includes(stageKey(it.stage))).length, usd: items.reduce((n, it) => n + (dealOf(it).usd || 0), 0) }; })
   .filter((r) => r.t + r.a + r.o > 0).sort((a, b) => (b.t + b.a + b.o) - (a.t + a.a + a.o));
 const chartMax = Math.max(1, ...chartRows.map((r) => r.t + r.a + r.o));
-const seg = (n, color, title) => (n ? `<td width="${Math.round((n / chartMax) * 100)}%" title="${title}" style="background:${color};height:16px;font-size:1px;line-height:16px;">&nbsp;</td>` : '');
+const seg = (n, color, title) => (n ? `<td width="${Math.round((n / chartMax) * 100)}%" title="${title}" style="background:${color};height:12px;font-size:1px;line-height:12px;">&nbsp;</td>` : '');
 const chart = chartRows.length ? row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-  ${chartRows.map((r) => `<tr><td width="150" style="${font}font-size:12.5px;font-weight:700;color:${C.ink};padding:5px 8px 5px 0;white-space:nowrap;">${esc(SECTORS[r.k])}</td>
-    <td style="padding:5px 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>${seg(r.t, C.accent, 'tenders')}${seg(r.a, C.navy, 'awards')}${seg(r.o, '#D1D5DB', 'earlier stage')}<td style="${font}font-size:12px;color:${C.text};padding-left:8px;white-space:nowrap;"><b>${r.t + r.a + r.o}</b>${r.usd ? ` <span style="color:${C.muted};">· ${esc(moneyOf(r.usd))}</span>` : ''}</td><td width="100%"></td></tr></table></td></tr>`).join('')}
+  ${chartRows.map((r, i) => `<tr><td width="38%" style="${font}font-size:13px;line-height:1.3;color:${C.ink};padding:6px 8px 6px 0;${i ? `border-top:1px solid ${C.line};` : ''}">${esc(SECTORS[r.k])}</td>
+    <td style="padding:6px 0;${i ? `border-top:1px solid ${C.line};` : ''}"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>${seg(r.t, C.tender, 'tenders')}${seg(r.a, C.awarded, 'awards')}${seg(r.o, C.planned, 'earlier stage')}<td style="${font}font-size:13px;color:${C.text};padding-left:8px;white-space:nowrap;"><b style="font-weight:600;color:${C.ink};">${r.t + r.a + r.o}</b>${r.usd ? ` <span style="color:${C.muted};">· ${esc(moneyOf(r.usd))}</span>` : ''}</td><td width="100%"></td></tr></table></td></tr>`).join('')}
 </table>
-<div style="font-size:12px;color:${C.muted};padding-top:6px;"><span style="display:inline-block;width:10px;height:10px;background:${C.accent};vertical-align:middle;"></span> tenders &nbsp; <span style="display:inline-block;width:10px;height:10px;background:${C.navy};vertical-align:middle;"></span> awards &nbsp; <span style="display:inline-block;width:10px;height:10px;background:#D1D5DB;vertical-align:middle;"></span> earlier stage &nbsp;·&nbsp; Source: World Trade Pro project radar, ${fmtDay(FROM)} – ${fmtDay(TO)}</div>`, '10px 0 0') : '';
+<div style="font-size:12px;line-height:1.6;color:${C.muted};padding-top:8px;border-top:1px solid ${C.line};">${stageMark('Tender')} &nbsp; ${stageMark('Awarded')} &nbsp; ${stageMark('Earlier stage')}<br>Source: World Trade Pro project radar, ${fmtDay(FROM)} – ${fmtDay(TO)}</div>`, '10px 0 0') : '';
 // the chart's title is its conclusion (BP / MGI): the leading sector, its count, and its money if the notices named any
 const lead = chartRows[0];
 const chartTitle = lead ? `${SECTORS[lead.k]} led the week with ${plural(lead.t + lead.a + lead.o, 'new project')}${lead.usd ? ` and ${moneyOf(lead.usd)} of named contract value` : ''}${chartRows[1] ? `; ${SECTORS[chartRows[1].k].toLowerCase()} next with ${chartRows[1].t + chartRows[1].a + chartRows[1].o}` : ''}.` : '';
 // ONE big number (MGI): the biggest deal, with the two other records as small print
-const callout = biggest && biggest.usd ? row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.soft};border:1px solid ${C.line};"><tr>
-  <td width="42%" valign="top" style="padding:16px 18px;${font}border-right:1px solid ${C.line};"><div style="font-size:38px;font-weight:800;color:${C.navy};line-height:1;letter-spacing:-.02em;">${esc(biggest.value)}</div><div style="font-size:12.5px;color:${C.muted};padding-top:6px;line-height:1.4;">biggest contract of the week</div></td>
-  <td valign="top" style="padding:16px 18px;${font}"><a href="${esc(biggest.url)}" style="color:${C.ink};text-decoration:none;font-weight:700;font-size:14.5px;line-height:1.4;">${esc(cut(biggest.name, 70))}</a><div style="font-size:12.5px;color:${C.muted};padding-top:4px;line-height:1.5;">${esc(countryName(biggest.it.country) || '')}${biggest.who ? ` · ${biggest.tender ? 'buyer' : 'won by'} ${esc(cut(biggest.who, 60))}` : ''}</div>
-    <div style="font-size:12.5px;color:${C.text};padding-top:8px;line-height:1.6;">${topWinner ? `<b>Most awards:</b> ${esc(cut(topWinner[0], 40))} (${topWinner[1]})<br>` : ''}${topCountry ? `<b>Busiest country:</b> ${flagOf(topCountry[1][0].country)} ${esc(topCountry[0])} (${plural(topCountry[1].length, 'new project')})` : ''}</div></td>
+const callout = biggest && biggest.usd ? row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid #000000;border-bottom:1px solid #000000;"><tr>
+  <td width="42%" valign="top" style="padding:16px 16px 16px 0;${font}border-right:1px solid ${C.line};"><div style="font-size:13px;color:${C.muted};padding-bottom:4px;">Biggest contract of the week</div><div class="s" style="${serif}font-size:40px;color:${C.ink};line-height:1.1;white-space:nowrap;">${esc(biggest.value)}</div></td>
+  <td valign="top" style="padding:16px 0 16px 16px;${font}"><a href="${esc(biggest.url)}" class="s" style="${serif}color:${C.ink};text-decoration:none;font-size:17px;line-height:1.3;">${esc(cut(biggest.name, 70))}</a><div style="font-size:13px;color:${C.muted};padding-top:4px;line-height:1.5;">${esc(countryName(biggest.it.country) || '')}${biggest.who ? ` · ${biggest.tender ? 'buyer' : 'won by'} ${esc(cut(biggest.who, 60))}` : ''}</div>
+    <div style="font-size:13px;color:${C.text};padding-top:8px;line-height:1.6;">${topWinner ? `<b style="font-weight:600;">Most awards:</b> ${esc(cut(topWinner[0], 40))} (${topWinner[1]})<br>` : ''}${topCountry ? `<b style="font-weight:600;">Busiest country:</b> ${esc(topCountry[0])} (${plural(topCountry[1].length, 'new project')})` : ''}</div></td>
 </tr></table>`, '14px 0 0') : superlatives;
 
 // dashboard numbers (PDF + web): the same merged set cut four ways, plus the largest contracts and lane pressure
@@ -312,11 +311,9 @@ const dash = {
 };
 
 // editor's note: the one place a person speaks. From the notes file (LLM-drafted, reviewed) - nothing is invented in code.
-const editor = NOTES?.lede_html ? row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.sand};border-radius:10px;"><tr><td style="padding:16px 18px;${font}">
-  <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8a6d1f;">This week</div>
-  <div style="font-size:15.5px;line-height:1.6;color:${C.ink};padding-top:6px;">${NOTES.lede_html}</div>
-  ${NOTES.signoff ? `<div style="font-size:13px;color:${C.muted};padding-top:8px;">— ${esc(NOTES.signoff)}</div>` : ''}
-</td></tr></table>`, '16px 0 0') : '';
+const editor = NOTES?.lede_html ? row(`${kicker('This week')}
+  <div class="s" style="${serif}font-size:17px;line-height:1.6;color:${C.text};padding-top:12px;">${styleLinks(NOTES.lede_html)}</div>
+  ${NOTES.signoff ? `<div style="font-size:13px;color:${C.muted};padding-top:8px;">${esc(NOTES.signoff)}</div>` : ''}`, '32px 0 0') : '';
 
 // ---------------------------------------------------------------- head, subject, blocks
 const tenders = epc.filter((it) => stageKey(it.stage) === 'S4').length, awards = epc.filter((it) => stageKey(it.stage) === 'S5').length;
@@ -331,7 +328,7 @@ const blocks = {
   stats: { epc: epc.length, tenders, awards, flow: flow.length, critical: crit, deltas }, directory: '',
   editor, chart, chartTitle, callout, superlatives, calendar, dash, calendarCount: calItems.length,
   promise: `${plural(epc.length, 'project')} · ${plural(tenders, 'tender')} · ${plural(awards, 'award')}${calItems.length ? ` · ${plural(calItems.length, 'deadline')}` : ''} · five minutes, then the full issue online`,
-  openThese: calls.slice(0, 3).map((c, i) => `<a href="#d${i + 1}" style="color:${C.accent};text-decoration:none;font-weight:700;">${esc(cut(c.name, 44))}</a>`).join(' &nbsp;·&nbsp; '),
+  openThese: calls.slice(0, 3).map((c, i) => `<a href="#d${i + 1}" style="color:${C.ink};text-decoration:underline;font-weight:600;">${esc(cut(c.name, 44))}</a>`).join(' &nbsp;·&nbsp; '),
   footer: { forward: `mailto:?subject=${encodeURIComponent((W.name || 'World Trade Pro Weekly') + ' - worth a look')}&body=${encodeURIComponent('Free Tuesday e-mail: tenders, awards, new projects and trade flows, filtered to your sectors. ' + cfg.site + '/subscribe/')}`, add: utm(cfg.site + '/project-leads/', 'footer-add'), archive: utm(cfg.site + '/blog/weekly/', 'footer-archive'), issue: utm(ISSUE_URL, 'footer-web') },
   sponsor, calls, projects, flows: { lanes: laneBoard, items: flowItems }, moves: movesHtml, tail,
   links: { projects: utm(cfg.site + '/projects/', 'projects-hub'), map: utm(cfg.site + '/intelligence-map/', 'map'), manage: cfg.site + '/newsletter/unsubscribe/', issue: utm(ISSUE_URL, 'read-full'), pdf: PDF_URL + '?utm_source=newsletter&utm_medium=email&utm_campaign=weekly-' + TODAY + '&utm_content=pdf' },

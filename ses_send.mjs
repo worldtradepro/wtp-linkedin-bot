@@ -78,9 +78,11 @@ const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').
 function footer(token) {
   const manage = `${SITE}/newsletter/unsubscribe/?t=${token}`;
   const why = EDITION === 'weekly' ? (nl.weekly?.name || 'World Trade Pro Weekly') : EDITION === 'flow' ? 'Trade Flow Weekly' : 'EPC Project Leads Weekly';
-  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:14px 12px 28px;font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#98a2b3;">
+  // DESIGN.md tokens (2026-10-15): muted #555 is the lightest allowed text colour
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:0 16px 32px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;"><tr><td style="padding:16px 0 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#555555;">
     You get ${why} because you subscribed at worldtradepro.com.<br>
-    <a href="${esc(manage)}" style="color:#667085;">Unsubscribe</a> · World Trade Pro · ${esc(POSTAL)}
+    <a href="${esc(manage)}" style="color:#555555;text-decoration:underline;">Unsubscribe</a> · World Trade Pro · ${esc(POSTAL)}
+  </td></tr></table>
   </td></tr></table>`;
 }
 function toText(html) {
