@@ -14,7 +14,7 @@
 //
 // Usage:  node ses_send.mjs [--edition weekly|flow|projects] [--date YYYY-MM-DD] [--dry] [--to me@example.com]
 //   weekly (default, from 2026-10-06): World Trade Pro Weekly, assembled PER SUBSCRIBER from <date>-weekly.blocks.json
-//   (newsletter_assemble.mjs: the reader's sectors first and in full, the rest folded; section order by role).
+//   (newsletter_assemble.mjs; since 2026-10-15 one issue for every reader, no per-sector/role versions).
 //   --dry  list what would be sent        --to  send only to this one address (test; no state written)
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
@@ -80,7 +80,7 @@ function footer(token) {
   const why = EDITION === 'weekly' ? (nl.weekly?.name || 'World Trade Pro Weekly') : EDITION === 'flow' ? 'Trade Flow Weekly' : 'EPC Project Leads Weekly';
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:14px 12px 28px;font-family:Segoe UI,Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#98a2b3;">
     You get ${why} because you subscribed at worldtradepro.com.<br>
-    <a href="${esc(manage)}" style="color:#667085;">Unsubscribe${EDITION === 'weekly' ? ' or change your sectors' : ' or change e-mails'}</a> · World Trade Pro · ${esc(POSTAL)}
+    <a href="${esc(manage)}" style="color:#667085;">Unsubscribe</a> · World Trade Pro · ${esc(POSTAL)}
   </td></tr></table>`;
 }
 function toText(html) {
@@ -89,8 +89,8 @@ function toText(html) {
     .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/[ \t]+/g, ' ').replace(/\n\s*\n+/g, '\n\n').trim();
 }
 function message(meta, page, rcpt) {
-  // weekly: each subscriber gets the issue assembled for their sectors and role; the manage link carries their token
-  const body = blocks ? doc(blocks, assemble({ ...blocks, links: { ...blocks.links, manage: `${SITE}/newsletter/unsubscribe/?t=${rcpt.token}` } }, rcpt)) : page;
+  // weekly: one issue for every subscriber (2026-10-15, no per-sector/role versions); only the manage link carries their token
+  const body = blocks ? doc(blocks, assemble({ ...blocks, links: { ...blocks.links, manage: `${SITE}/newsletter/unsubscribe/?t=${rcpt.token}` } })) : page;
   const html = body.replace(/<\/body>/i, footer(rcpt.token) + '</body>');
   const oneClick = `${SITE}/wp-json/wtp/v1/unsubscribe?t=${rcpt.token}`;
   return {

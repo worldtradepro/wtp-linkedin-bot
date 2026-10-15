@@ -2,7 +2,7 @@
 //   "The 10 things worth a call this week": tenders and awards with a name / value / deadline, new projects by sector,
 //   the trade flows that changed and what they mean for buyers and shippers. One build per week -> tagged blocks
 //   (newsletter/out/<date>-weekly.blocks.json); ses_send.mjs assembles a personal version per subscriber
-//   (newsletter_assemble.mjs: the reader's sectors first and in full, the rest folded; section order by role).
+//   (newsletter_assemble.mjs; since 2026-10-15 one issue for every reader, no per-sector/role versions).
 // Also writes the default HTML (no preferences) + .json meta, and preview HTML for a few reader profiles when --preview.
 // Usage:  node newsletter_weekly.mjs [--date YYYY-MM-DD] [--preview]      (date = the Tuesday of sending; covers the 7 days before)
 

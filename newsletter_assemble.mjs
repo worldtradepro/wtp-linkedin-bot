@@ -91,15 +91,14 @@ export function assemble(b, readerLike = {}, opts = {}) {
 
 // ---------------------------------------------------------------- teaser (the e-mail since 2026-10-06)
 const money = (usd) => (!usd ? '' : usd >= 1e9 ? `US$${(usd / 1e9).toFixed(1)}bn` : `US$${Math.round(usd / 1e6)}m`);
-function assembleTeaser(b, readerLike = {}) {
-  const reader = readerOf(readerLike);
+function assembleTeaser(b) {
+  const reader = readerOf({});   // same issue for everyone
   const mine = new Set(reader.sectors);
   const st = b.stats || {}, dl = st.deltas || {}, D = b.dash || {};
   const out = [];
   const delta = (d) => (d === undefined || d === null ? '' : d > 0 ? `<span style="color:#15803d;">▲ ${d}</span>` : d < 0 ? `<span style="color:#b42318;">▼ ${-d}</span>` : `<span style="color:${C.muted};">=</span>`);
   const tile = (n, label, color, d) => `<td width="25%" style="padding:0 3px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.soft};border-top:3px solid ${color};"><tr><td style="padding:10px 6px 8px;text-align:center;${font}"><div style="font-size:26px;font-weight:800;color:${C.navy};line-height:1.1;">${n}</div><div style="font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:${C.muted};padding-top:2px;">${label}</div><div style="font-size:11.5px;font-weight:700;padding-top:3px;">${delta(d)}</div></td></tr></table></td>`;
-  const sectorsLine = `<span style="font-size:12px;color:${C.muted};">Your sectors:</span> ${reader.sectors.length ? reader.sectors.map((k) => pill(SECTORS[k], C.navy, true)).join(' ') : pill('All sectors', C.navy, true)} <a href="${esc(b.links.manage)}" style="color:${C.accent};font-size:12px;font-weight:700;text-decoration:none;">&nbsp;change ›</a>`;
-  const rl = roleLine(reader.role);
+  const rl = '';   // 2026-10-15: one issue for every reader (owner) - no role line, no sector chooser
   // masthead
   out.push(`<tr><td style="padding:0;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.navy};border-radius:10px 10px 0 0;"><tr><td style="padding:26px 24px 22px;${font}">
@@ -110,7 +109,6 @@ function assembleTeaser(b, readerLike = {}) {
     </td></tr></table>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:14px 0 0;${font}">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 -3px;"><tr>${tile(st.epc ?? 0, 'new projects', C.navy, dl.epc)}${tile(st.tenders ?? 0, 'tenders', C.accent, dl.tenders)}${tile(st.awards ?? 0, 'awards', C.navy, dl.awards)}${tile(st.flow ?? 0, 'flow signals', C.accent2, dl.flow)}</tr></table>
-      <div style="padding:12px 0 4px;border-bottom:1px solid ${C.line};">${sectorsLine}</div>
     </td></tr></table>
   </td></tr>`);
   if (b.sponsor?.html) out.push(row(b.sponsor.html, '12px 0 0'));
@@ -153,7 +151,7 @@ function assembleTeaser(b, readerLike = {}) {
 const sectorKey = (label) => Object.keys(SECTORS).find((k) => SECTORS[k] === label) || '';
 const footerRow = (b) => row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid ${C.line};"><tr>
     <td width="50%" valign="top" style="padding:14px 8px 0 0;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.footer.forward)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Forward to a colleague →</a><br><a href="${esc(b.footer.add)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Sell to these projects? Free Project Leads preview →</a></td>
-    <td width="50%" valign="top" style="padding:14px 0 0 8px;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.links.manage)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Choose your sectors →</a><br><a href="${esc(b.footer.archive)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Past issues →</a></td>
+    <td width="50%" valign="top" style="padding:14px 0 0 8px;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.footer.archive)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Past issues →</a></td>
   </tr></table>`, '20px 0 0');
 
 // ---------------------------------------------------------------- full (the web page / previews)
@@ -239,7 +237,7 @@ function assembleFull(b, readerLike = {}, opts = {}) {
   // footer four-piece (forward / add your project / sectors / past issues); "sectors" is this reader's own preferences link
   if (b.footer) out.push(row(`<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid ${C.line};"><tr>
     <td width="50%" valign="top" style="padding:14px 8px 0 0;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.footer.forward)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Forward to a colleague →</a><br><a href="${esc(b.footer.add)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Sell to these projects? Free Project Leads preview →</a></td>
-    <td width="50%" valign="top" style="padding:14px 0 0 8px;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.links.manage)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Choose your sectors →</a><br><a href="${esc(b.footer.archive)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Past issues →</a></td>
+    <td width="50%" valign="top" style="padding:14px 0 0 8px;${font}font-size:13px;line-height:1.7;color:${C.text};"><a href="${esc(b.footer.archive)}" style="color:${C.navy};font-weight:700;text-decoration:none;">Past issues →</a></td>
   </tr></table>`, '20px 0 0'));
   return out.join('\n');
 }
