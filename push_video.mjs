@@ -86,7 +86,12 @@ log(`Video queue: ${queue.length} item(s) · ${queue.filter((e) => e.status === 
 if (!next) { log('Nothing to push.'); process.exit(0); }
 
 const acct = next.account || 'main';
-const slot = (cfg.accounts?.[acct] || {}).videoSlotUtc || '17:30';
+const acfg = cfg.accounts?.[acct] || {};
+// videoSlotUK (owner 2026-10-16: "UK 1 pm") = UK wall-clock time, so the post stays at 13:00 in London across the BST/GMT change;
+// otherwise the old fixed videoSlotUtc.
+const ukOffsetMin = (day) => { const d = new Date(`${day}T12:00:00Z`); const p = Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(d).map((x) => [x.type, x.value])); return (+p.hour * 60 + +p.minute) - 12 * 60; };
+const slotAt = (day) => acfg.videoSlotUK ? Date.parse(`${day}T${acfg.videoSlotUK}:00Z`) - ukOffsetMin(day) * 60000 : Date.parse(`${day}T${acfg.videoSlotUtc || '17:30'}:00Z`);
+const slot = acfg.videoSlotUK ? `${acfg.videoSlotUK} UK` : `${acfg.videoSlotUtc || '17:30'} UTC`;
 // Book one day ahead: the earliest of today/tomorrow whose slot is still >= 15 min away and has no video yet (state dueAt).
 // GitHub's scheduled runs can start hours late (2026-10-03: 09:23 cron ran at 14:21 and today's slot was lost), so
 // tomorrow is always already booked by the time its slot comes; several runs a day are safe (a covered day is skipped).
@@ -94,10 +99,10 @@ const booked = new Set(Object.values(state.pushed).map((p) => String(p.dueAt || 
 let wanted = null;
 for (let k = 0; k <= 1 && wanted === null; k++) {
   const day = new Date(Date.now() + k * 86400000).toISOString().slice(0, 10);
-  const t = Date.parse(`${day}T${slot}:00Z`);
+  const t = slotAt(day);
   if (t >= Date.now() + 15 * 60000 && !booked.has(day)) wanted = t;
 }
-if (wanted === null) { log(`Today's and tomorrow's ${slot} UTC video slots are already booked (or gone) - nothing to do.`); process.exit(0); }
+if (wanted === null) { log(`Today's and tomorrow's ${slot} video slots are already booked (or gone) - nothing to do.`); process.exit(0); }
 
 // Owner 2026-10-12: LinkedIn posts the native 9:16 file too (the page's best videos were 9:16); entries without one keep the 4:5 video_url.
 const videoUrl = next.ig_video_url || next.video_url;
@@ -110,7 +115,7 @@ const input = { text: next.caption, channelId: channel, schedulingType: 'automat
 if (MODE === 'draft') { input.mode = 'addToQueue'; input.saveToDraft = true; }
 else { input.mode = 'customScheduled'; input.dueAt = new Date(placed).toISOString(); }
 
-log(`- ${next.name} -> ${acct} · slot ${slot} UTC · placed ${new Date(placed).toISOString()} · ${MODE}`);
+log(`- ${next.name} -> ${acct} · slot ${slot} · placed ${new Date(placed).toISOString()} · ${MODE}`);
 if (DRY) { log(JSON.stringify({ ...input, text: input.text.slice(0, 70).replace(/\n/g, ' ') + '…' }, null, 1)); process.exit(0); }
 
 const MUT = `mutation($input: CreatePostInput!) { createPost(input: $input) { __typename ... on PostActionSuccess { post { id dueAt } } ... on MutationError { message } } }`;
