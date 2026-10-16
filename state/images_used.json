@@ -233,6 +233,18 @@
       "id": "infra-2",
       "url": "https://assets.bizclikmedia.net/1200/25d62ab9a20d0cb737809e1368aaedea:16c968aa5bad45607bc2e1e3f1151099/bihar-s-first-ai-ready-dc-inauguration-by-chief-minister-of-bihar.jpg.jpg",
       "hash": "5ef9dc538ca416aa9715a8335ce84487420d7f50"
+    },
+    {
+      "date": "2026-10-16",
+      "id": "infra-1",
+      "url": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e",
+      "hash": "d4ebb874dc1a11c313fb23019825be43cc3908ba"
+    },
+    {
+      "date": "2026-10-16",
+      "id": "infra-2",
+      "url": "https://assets.newsweek.com/wp-content/uploads/2026/10/GettyImages-2287219474.jpg",
+      "hash": "cb00426f4c18e02f0c270d0852ad8f162958e60f"
     }
   ]
 }
