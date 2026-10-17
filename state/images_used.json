@@ -245,6 +245,18 @@
       "id": "infra-2",
       "url": "https://assets.newsweek.com/wp-content/uploads/2026/10/GettyImages-2287219474.jpg",
       "hash": "cb00426f4c18e02f0c270d0852ad8f162958e60f"
+    },
+    {
+      "date": "2026-10-17",
+      "id": "infra-1",
+      "url": "https://www.pv-magazine.com/wp-content/uploads/2026/06/1280px-BalticServers_data_center-1024x680-1.jpg",
+      "hash": "3a5d1944d40aa77c50d7f3cf970d5bc6a1ed2922"
+    },
+    {
+      "date": "2026-10-17",
+      "id": "infra-2",
+      "url": "https://www.powermag.com/wp-content/uploads/2016/07/stock_ap1000-nuclear-plant-model_westinghouse.jpg",
+      "hash": "43c88c41863e3a63b2c571d90fb228eb577809fb"
     }
   ]
 }
