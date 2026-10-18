@@ -257,6 +257,18 @@
       "id": "infra-2",
       "url": "https://www.powermag.com/wp-content/uploads/2016/07/stock_ap1000-nuclear-plant-model_westinghouse.jpg",
       "hash": "43c88c41863e3a63b2c571d90fb228eb577809fb"
+    },
+    {
+      "date": "2026-10-18",
+      "id": "infra-1",
+      "url": "https://img-cdn.publive.online/fit-in/1200x675/solarbytes/media/media_files/2026/10/16/2026-10-16-sepco-gks-1200w-2026-10-16-14-06-29.jpg",
+      "hash": "04d595414d49c373e84ff9c4f90b9515009d1925"
+    },
+    {
+      "date": "2026-10-18",
+      "id": "infra-2",
+      "url": "https://lngprime.com/wp-content/uploads/2026/10/MISC-orders-five-more-LNG-carriers-in-China.jpg",
+      "hash": "2763673471cc8f47dab784f1fc3bd08346a373f5"
     }
   ]
 }
