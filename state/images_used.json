@@ -269,6 +269,18 @@
       "id": "infra-2",
       "url": "https://lngprime.com/wp-content/uploads/2026/10/MISC-orders-five-more-LNG-carriers-in-China.jpg",
       "hash": "2763673471cc8f47dab784f1fc3bd08346a373f5"
+    },
+    {
+      "date": "2026-10-19",
+      "id": "infra-1",
+      "url": "https://images.unsplash.com/photo-1678984239420-43cdc183bce6",
+      "hash": "a531c75e0f8d2b579e6f8ebe65a2a163a7e148c6"
+    },
+    {
+      "date": "2026-10-19",
+      "id": "infra-2",
+      "url": "https://www.africa-energy.com/storage/91676/Kafue-Lower-HEP.png",
+      "hash": "aa8885ae1c92135ee13ccd0cd5f77f1a77632ae3"
     }
   ]
 }
