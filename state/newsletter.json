@@ -41,5 +41,12 @@
     "failed": 0,
     "at": "2026-10-05T05:56:13.907Z",
     "subject": "Strait of Hormuz pressure rises: 5 critical signals"
+  },
+  "2026-10-20-weekly": {
+    "done": true,
+    "sent": 4,
+    "failed": 0,
+    "at": "2026-10-20T04:54:43.373Z",
+    "subject": "US$864m tender: Railway maintenance works - Replacement of…"
   }
 }

@@ -1,0 +1,2136 @@
+{
+ "date": "2026-10-20",
+ "edition": "weekly",
+ "issue": 3,
+ "week": 42,
+ "year": 2026,
+ "from": "2026-10-13",
+ "to": "2026-10-19",
+ "subject": "US$864m tender: Railway maintenance works - Replacement of…",
+ "preview": "98 new projects in 44 countries · 29 tenders · 52 awards · 231 trade-flow signals, 29 critical",
+ "slug": "world-trade-pro-weekly-2026-w42",
+ "issueUrl": "https://worldtradepro.com/blog/world-trade-pro-weekly-2026-w42/",
+ "full": {
+  "energy": [
+   {
+    "name": "LR2 Product and Crude Tankers",
+    "url": "https://splash247.com/nanjing-tanker-picks-dalian-for-lr2-quartet/",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇨🇳 China",
+    "scale": "Large",
+    "company": "Nanjing Tanker",
+    "sub": "Shipyard & Fleet",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "LNG Dual-Fuel Car Carriers",
+    "url": "https://splash247.com/msc-backed-gcc-expands-car-carrier-spree-with-two-more-newbuilds/",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇨🇳 China",
+    "scale": "Large",
+    "company": "Global Car Carriers",
+    "sub": "Shipyard & Fleet",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Transocean Drillship Contracts",
+    "url": "https://offshore-energy.biz/2026/10/19/transoceans-drillship-pair-bags-dollar550-million-in-new-us-gulf-deals",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇺🇸 United States",
+    "scale": "Large",
+    "company": "Transocean",
+    "sub": "",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Brunei Refinery Phase II",
+    "url": "https://www.oilandgasmiddleeast.com/news/hengyi-honeywell-brunei",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇧🇳 Brunei",
+    "scale": "Large",
+    "company": "Hengyi",
+    "sub": "Refining & Petrochemicals",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "LNG Carrier Order",
+    "url": "https://lngprime.com/asia/misc-orders-five-more-lng-carriers-in-china/198537/",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇨🇳 China",
+    "scale": "Large",
+    "company": "MISC",
+    "sub": "Shipyard & Fleet",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Long-Term Charter for LNG Carrier",
+    "url": "https://www.marinelink.com/news/nykmisc-joint-venture-inks-longterm-543637",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇲🇾 Malaysia",
+    "scale": "Large",
+    "company": "Asia LNG Transport",
+    "sub": "Shipyard & Fleet",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "New Tanker Newbuildings",
+    "url": "https://splash247.com/emarat-maritime-piles-six-more-tankers-onto-china-orderbook/",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇨🇳 China",
+    "scale": "Large",
+    "company": "Emarat Maritime",
+    "sub": "Shipyard & Fleet",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "US Hydrogen, Heavy Water Project",
+    "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNNG5yemFYQVdXZTFLQXo0d0pFXzdHQkwxSDFpVzl0ck9wV2dJLW1TMzRXLUt1ejBqWnN2aEtjbVE4OF9oTURiaVFGV2Q0QktZYktaSGpIQzZfSEVRdDhHXzZCRmFOYXVQTXlGZk1UY2oxVzRiRlhRcmtGZ1MtbWlheWNZNEh2cGFNbVVNaWlQOV96M3FvY2FxUU5nX2ZRbWljTHZPXzlQQTVabWM?oc=5",
+    "stageKey": "S2",
+    "usd": 0,
+    "stage": "Development",
+    "country": "🇺🇸 United States",
+    "scale": "Medium",
+    "company": "",
+    "sub": "Hydrogen & Ammonia",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Offshore Exploration Survey in Pakistan",
+    "url": "https://splash247.com/emgs-lands-offshore-exploration-survey-award-in-pakistan/",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇵🇰 Pakistan",
+    "scale": "Medium",
+    "company": "Electromagnetic Geoservices",
+    "sub": "Oil & Gas",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "LNG Canada Contract Award",
+    "url": "https://www.tecnicasreunidas.es/tr-strengthens-presence-north-america-with-lng-canada/",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇨🇦 Canada",
+    "scale": "Medium",
+    "company": "Tecnicas Reunidas",
+    "sub": "Pipelines & Storage",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Qalaa Holdings Refinery Acquisition",
+    "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPeHBqbFRDdFJjTnpQZGJqVnN0TE5nbVNGVWEtWjJxanluWDlMdjBBRDZvdU81b3IzSEFObUxaTmZDZW84TEVwdFBtM2FKZkJxd3dRT3ByRnRhSVFnVDh1QXNmd2tEeTl5bV9OeDdUUlY2UTBGNm5zSDRBa29pMERoOVF4eVdsT2lkc01NM3VXd1RFVTZGZU1kcFpacFpyaHYwU2c?oc=5",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇪🇬 Egypt",
+    "scale": "Medium",
+    "company": "Qalaa Holdings",
+    "sub": "Refining & Petrochemicals",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Texas Refinery Expansion",
+    "url": "https://www.rigzone.com/news/wire/usa_to_use_cold_war_era_law_to_expand_texas_refinery-15-oct-2026-184857-article/?rss=true",
+    "stageKey": "S2",
+    "usd": 0,
+    "stage": "Development",
+    "country": "🇺🇸 United States",
+    "scale": "Medium",
+    "company": "Delek U.S. Holdings Inc.",
+    "sub": "Refining & Petrochemicals",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Gas Pipeline Construction",
+    "url": "https://www.africa-energy.com/news-centre/article/senegal-works-starts-gas-pipeline",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇸🇳 Senegal",
+    "scale": "Medium",
+    "company": "",
+    "sub": "Pipelines & Storage",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "LNG Terminal Contract",
+    "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOUUl1Zmw0YzhIa19DallpTzMyV3ZvMFdOMmVZR09ZS0dVbE1kU240WjdGb1YyQWpSTkVSeC1Sd3J0VG13aDBqTVVoaGU0X0FvR1QwVFJjb05HLXV6b2dFcG1ibmljdGpQVWxBRVU1RDRFd3FOMS1qR01DNE90Rk10d2lZOVpkUGxkVThwZzMtSml6MXMtV3dZVFdxQzBvRTJCMjM5RC0yTllnbW9DODB3?oc=5",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇧🇸 Bahamas",
+    "scale": "Medium",
+    "company": "ECOnnect Energy",
+    "sub": "LNG",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "FPSO Compressed Air System",
+    "url": "https://offshore-energy.biz/2026/10/15/tmc-compressors-returns-20-years-later-to-equip-fpso-for-new-life-in-brazil",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇧🇷 Brazil",
+    "scale": "Medium",
+    "company": "TMC Compressors",
+    "sub": "Oil & Gas",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Ontario Cobalt Refinery Financing",
+    "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOOXV2eGlWNEc3eGJhX2FFcWpXTmNEVG0xWFgxQkRKSXJUaXZMeG4weHZ1TE1naEt3bHdUMEViWVBzT21WdmNTS1lES1lqcjNtRllyTlJtZEZfVFhpMHR4QkhlSFJaWWNKTnVhT1A0ZnRmS0pVTVg3VXgyQjRmdjBydmVmWW1rOXNWQVM1MGlxNlR6ZU9NZTlMVXJVV0dZa28tNzlBUw?oc=5",
+    "stageKey": "S2",
+    "usd": 0,
+    "stage": "Development",
+    "country": "🇨🇦 Canada",
+    "scale": "Medium",
+    "company": "Electra Battery Materials",
+    "sub": "Processing & Smelting",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Subsea Decommissioning Campaign",
+    "url": "https://offshore-energy.biz/2026/10/13/north-sea-operator-appoints-dof-for-subsea-decommissioning",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇳🇴 Norway",
+    "scale": "Medium",
+    "company": "DOF Group",
+    "sub": "Oil & Gas",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Technical and financial support services for offshore project proposals",
+    "url": "https://ted.europa.eu/en/notice/-/detail/721845-2026",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇧🇪 Belgium",
+    "scale": "",
+    "company": "",
+    "sub": "Oil & Gas",
+    "value": "",
+    "deadline": "18 Nov"
+   },
+   {
+    "name": "Gas pipeline diagnostics using measurement pistons (divided into 12 parts)",
+    "url": "https://ted.europa.eu/en/notice/-/detail/720145-2026",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇵🇱 Poland",
+    "scale": "",
+    "company": "",
+    "sub": "Oil & Gas",
+    "value": "",
+    "deadline": "23 Oct"
+   },
+   {
+    "name": "Construction of high-pressure gas pipeline DN700 MOP 8.4MPa Racibórz – Oświęcim Stage II Rybnik – Orzesze",
+    "url": "https://ted.europa.eu/en/notice/-/detail/719993-2026",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇵🇱 Poland",
+    "scale": "",
+    "company": "",
+    "sub": "Pipelines & Storage",
+    "value": "",
+    "deadline": "8 Dec"
+   },
+   {
+    "name": "LNG Supply Agreement with Marubeni Corp.",
+    "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOSFVoczJlTVZMZHRwcFEzODVzMm5ZTHV5a0xCODN6RkYtS1lXRmVZNGhKekNtZS1ScFJ4UXJYeTViSkhmeGpUZDZTQlhIVjFGTWM2UkJ5TmFtbTNBR0dTVGhaekNUcXB6TlhvakwtM2NOdGZEbjdPZ3JUU0lUb3B0dnl0UUl6ZTRGemNPaHRvb1FrclBQWHpfcWFlUkFGSTNyVjNNa2o5VDhha01kUGJ3SQ?oc=5",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "",
+    "scale": "",
+    "company": "INEOS Energy",
+    "sub": "LNG",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Golar FLNG Facility Compressor Selection",
+    "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQT2U0a0lYYWltQ0txVXhjSUxKQXRoTWtKck1QcndXZ1QyTHRhN0xhamJVZkJYM1ZuZ2N3VU9QcTk4YmNpeWMzQlMxUUdyRDlQV2NkZVhid0hnMHhadFdmZ3hkQThQbFg5LS1zRGRHTFpQR3hJYWFOSXNUSlcyMUFpOTd3bXlnbG1kZ2ZJZlRFZmY4QlR2bkhiV1ZqdjVBMjVi?oc=5",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "",
+    "scale": "",
+    "company": "CIMC",
+    "sub": "LNG",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "FSRU Hoegh Galleon for Egypt",
+    "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPenM5WlNwdHk3R3pqdnJxeUdwMF9LZDVQTVhQRk5uejY1TVhtQnRHYjVfV1Yzc2ViN0xfa0tlT1IwZDhsOG1kb0xFdjdjVGZxTVhVTTNfRnRPZFMwV3dVYk5Pa0cteGNDNzltMGpaY0tPVVFEQ0MzYVR6RjRFVDJPUnQtQWduSnR4WW1lQlcwVHExaHRaR05MSUR2QjRXU1ExQi1N?oc=5",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇪🇬 Egypt",
+    "scale": "",
+    "company": "Hoegh LNG",
+    "sub": "LNG",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Subsea Tie-in Pipeline Installation",
+    "url": "https://www.ogj.com/general-interest/news/55412196/shell-hydra-subsea-sign-agreement-for-subsea-tie-in-pipeline-installation",
+    "stageKey": "S1",
+    "usd": 0,
+    "stage": "Feasibility",
+    "country": "🇺🇸 United States",
+    "scale": "",
+    "company": "Shell",
+    "sub": "Oil & Gas",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "International Trade Opportunities Expansion",
+    "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9QX0hUdTJhNFFjY3pXQ2pfWnFia0EyeUp3MGwxLWtkSWlLOWplR3ppNER4RTVwaEpvUlNmUHRqbXFRbEF2VlRCVXkxZHc3UVNwNUFJ?oc=5",
+    "stageKey": "S2",
+    "usd": 0,
+    "stage": "Development",
+    "country": "🇦🇿 Azerbaijan",
+    "scale": "",
+    "company": "AccessBank",
+    "sub": "Pipelines & Storage",
+    "value": "",
+    "deadline": ""
+   }
+  ],
+  "power": [
+   {
+    "name": "350 MW Solar Projects in Morocco",
+    "url": "https://www.mercomindia.com/morocco-floats-epc-tender-for-350-mw-solar-projects",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇲🇦 Morocco",
+    "scale": "Large",
+    "company": "Moroccan Agency for Sustainable Energy (MASEN)",
+    "sub": "Solar",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Rabigh 2 Gas Plant",
+    "url": "https://www.utilities-me.com/news/rabigh-2-elsewedy-signs-2-3gw-epc",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇸🇦 Saudi Arabia",
+    "scale": "Large",
+    "company": "Elsewedy Electric PSP and Sinohydro",
+    "sub": "Power & Transmission",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Solar-powered 500-MW data center campus",
+    "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNMmJmY2pwRDVmcjRXVHZXZ3h2bzY1RHBwMG8yN3kyV2tjQkhBZXlPU05mNEh4MjBTWHNBSlltcWNCeW5SeXNIYjM0dTNwQW11dkxNb29TeS1BZW9PQ29POF9UamFIOVBpMmZVdFJEVGxxRTNyalhNSnBwTDB2MnhVYjZWVk53YWtTZl9kcGdsSm1zTDdEOExJR0l5d0FmdndaaFUxYXR2SQ?oc=5",
+    "stageKey": "S2",
+    "usd": 0,
+    "stage": "Development",
+    "country": "🇺🇾 Uruguay",
+    "scale": "Large",
+    "company": "Solaria",
+    "sub": "Data Centers",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Australia Solar Investment Decisions",
+    "url": "https://www.pv-tech.org/australia-solar-investment-decisions-reach-record-3-5gw-in-2026/",
+    "stageKey": "S2",
+    "usd": 0,
+    "stage": "Development",
+    "country": "🇦🇺 Australia",
+    "scale": "Large",
+    "company": "",
+    "sub": "Solar",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Al Khushaybi BESS",
+    "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNQjNITkNEdVNkZ3c5NEV2eDIwWnRvcGFLMncwbkE4emtscnlnN3VXREpBZjR4Y3JDeDZLNVNPN3pObURQTDQ5Q2I0QjFhUXhpVlJ3TEE2bk53ZTNNWUVmeG5feWotNE1rdGtFQ0MzR3FoV29BLUlzOU5vbmpCQ2N2cVhJRTFIT3JZa0t6aC1RU0N4M0ZPZ2h6NGdpSFFQMGU2MjFhTDVfLUlpczdKWmpzTUcwZ0M0Mkh3VVVKZDZrNWdCYmxxM182UWdrMTkzU2xZ?oc=5",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇸🇦 Saudi Arabia",
+    "scale": "Large",
+    "company": "SEPCO",
+    "sub": "Battery Storage",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Power Island Units Expansion",
+    "url": "https://lngprime.com/contracts-and-tenders/venture-global-seals-new-deals-to-support-expansion-of-its-power-network/198467/",
+    "stageKey": "S2",
+    "usd": 0,
+    "stage": "Development",
+    "country": "🇺🇸 United States",
+    "scale": "Large",
+    "company": "Venture Global",
+    "sub": "Power & Transmission",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Hornsea 3 Offshore Transmission Assets",
+    "url": "https://offshore-energy.biz/2026/10/15/ofgem-to-launch-record-tender-looking-for-owner-of-hornsea-3-offshore-transmission-assets",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇬🇧 United Kingdom",
+    "scale": "Large",
+    "company": "",
+    "sub": "Renewables",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Wind IPP Construction",
+    "url": "https://www.africa-energy.com/live-data/article/egypt-construction-starts-multi-hundred-megawatt-wind-ipp",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇪🇬 Egypt",
+    "scale": "Large",
+    "company": "",
+    "sub": "Wind",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "200-MW Solar Project",
+    "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQWm9wNjJfUUdyNVk1UWhpeVFfT2NkeGZxQUxoaC16ekUwSHMzV0xDN3JMbVFaeFl4VmpjWXM0RHM3cHRqdmhtdDZzMmtPMVdHclBHYjhvOEN0c1VKaDZySnczWkRPOGE4RzBPdmRWNVl5dG5Da1FEdmlmOEZ2OTVscVV5UWpUcXRYSUNvR2prUTk0bnFXdGZWSnhFQXJOS2x5aV96UHY1LXVKUQ?oc=5",
+    "stageKey": "S2",
+    "usd": 0,
+    "stage": "Development",
+    "country": "🇺🇸 United States",
+    "scale": "Large",
+    "company": "Arevon",
+    "sub": "Solar",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "France Solar Tenders",
+    "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQcXZsRV9XejdnM09lZkI0WDdTZ05IYU9RYVFueXlKem9yRlhINVVKeHMwWHJHZnQyT0EtNk90VGJpRkp1NHh5Z2RudW8yYVVrRElZSFl2WGhsOUQ1d01Wa0s5Y3lFWlBwOVN1Q2ZNVENMUVprQ2RZbTRJMm1PZjFXd2F5SEF5bmpZWjNVVzIyeF8?oc=5",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇫🇷 France",
+    "scale": "Large",
+    "company": "",
+    "sub": "Solar",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "200-MW Floating Solar-BESS Project",
+    "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNLTdrdi1qd1ZmYjZDTXlLVnd4YlFJR21KSEtFa3RsWTZLdGw1R0g3QS1NdVJkeW5La0hYQUhwd0NySV9QSW8xMTQ3aWU3ZlY2ZFZGSjl3UXRieXo0NFhERFE1cmRQVnBmb3RGbHZNRWRwOU5rVHJVc0gwT1kweGdpeTlTV2Y2VVhNZnVWMXBwclBTMTRNaDRjU3RBOUxSRTFjMzBibA?oc=5",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇷🇼 Rwanda",
+    "scale": "Medium",
+    "company": "",
+    "sub": "Battery Storage",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Construction work for dams and similar structures - AM MULTISERVICIO OBRA CIVIL HYDRO IBERIA (2026 - 2031)",
+    "url": "https://ted.europa.eu/en/notice/-/detail/721545-2026",
+    "stageKey": "S5",
+    "usd": 98300000,
+    "stage": "Awarded",
+    "country": "🇪🇸 Spain",
+    "scale": "Medium",
+    "company": "J. VILELLA CONSTRUCCIONS, S.L. / HIGHEST PRIORITY, S.L. / CONSTRUCCIONS ESPOT CARDÓS, S.L. / CERVÓS, S.A. / CONSTRUCCIONES Y EXCAVACIONES RIBAGORZA, S",
+    "sub": "Renewables",
+    "value": "US$98m",
+    "deadline": ""
+   },
+   {
+    "name": "Microsoft-Contracted Wind Farm",
+    "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPRkJwTUozUUhMSDZ0MlJ6QzVPVXdCMk9QS2hkd3FqTnVycWNJcWhHU2VhcVJiVEtkdGdEYzVKMC03ZGEwNm1CWWh0bUowV0JxMUt4U2dDd3FFYzFnOGZRa2JtYnJOcUZ2cWRZZWZTMWJJVG5VdTFmRVE4RENUT18wZi0zb2xlZ0JKWlhKRDd5UmhIMHdRb29JNQ?oc=5",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇮🇹 Italy",
+    "scale": "Medium",
+    "company": "",
+    "sub": "Wind",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Wärtsilä Power Plant Projects",
+    "url": "https://www.wartsila.com/media/news/19-10-2026-wartsila-expands-its-role-in-major-brazilian-power-plant-projects-to-full-engineering-and-construction-delivery-3803021",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇧🇷 Brazil",
+    "scale": "Medium",
+    "company": "Wärtsilä",
+    "sub": "Power & Transmission",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "NOOR PV Multisites Solar Programme",
+    "url": "https://www.utilities-me.com/news/morocco-seeks-solar-contractors",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇲🇦 Morocco",
+    "scale": "Medium",
+    "company": "",
+    "sub": "Solar",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Al-Mujib Pumped Storage",
+    "url": "https://www.utilities-me.com/news/jordan-seeks-pumped-storage-developers",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇯🇴 Jordan",
+    "scale": "Medium",
+    "company": "",
+    "sub": "Power & Transmission",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Kafue Solar PV IPP",
+    "url": "https://www.africa-energy.com/news-centre/article/zambia-solarcentury-africa-and-alensy-win-epc-deal-globeleqs",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇿🇲 Zambia",
+    "scale": "Medium",
+    "company": "Globeleq",
+    "sub": "Solar",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Power and Grid Frame Agreements",
+    "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxNTFZuLUFXQVZDWFMxVzdSMWprTlNhbjBMSzluTzNIakdaQ1FXemI5SFZTMlNGN2pYZXgtR010UnpEREROOFltbEJtaWtBSmhnUkt6QVB4QmVyWEEzdTlieHp3VXlGSm1WMVBPUkZVYmFnd09XOHFrNmZ6NkRuMkhvM3Q0R2pkQ2pFdkZnemhHYlBJOW8tbUlqMHRZM2lmNC1PNlUxRzFkLXQ2d0FyR21wVG5BcHNtb1dLelhuNmtvNkpLZ0tEblNCVDhGRmxUZ19TeHg5TTZjT2Fsc0xMbUdwcnpLb2JNZw?oc=5",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇺🇸 United States",
+    "scale": "Medium",
+    "company": "Venture Global, Inc.",
+    "sub": "Power & Transmission",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "On-Site Power Plants for Data Centers",
+    "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNbTRBS3JRXzlfQ000TzVCOFNUX2M1V2dicTM3emR4WlNDUWJFWmFSWDVobVNnYWdwaUdIR3huQlVUdGtjYy1XSktrMHZWU1RwTUFDeVNxNFhzdWVSVS1fNDhuRW1iMWdXb01ISERxeHItSHFCUUY3UFptMUZQb19oMnNVR2VzakVCY1RfT1BYUkZpRGJhdTlxNWRGLURVYkt2aUVNM1pvNGMwWmdzOFVrUUFR?oc=5",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇺🇸 United States",
+    "scale": "Medium",
+    "company": "Venture Global LNG",
+    "sub": "Power & Transmission",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "150-MW Solar Farm at New Zealand Airport",
+    "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPdm5LTkRnUm5sUlBzN3JGVi1zU29lRG5jR09pa3J1RHF5azdxNGE5bk4zN3lKQkJIcnhjb1RfNTdRdzJ6anBTTkMyX2FueXU2NDBWazAzUlhwZUFKYXkyU1pKUTQtMDdlNjZmWVVnUzhacGxTR0JCZ0lBRWFMd2tjNDJSU3BudnhLbWFpMm5OWHdKaGFNUG0yZFowZElidFRlc3RVTnJDRzlCZWk1?oc=5",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇳🇿 New Zealand",
+    "scale": "Medium",
+    "company": "Lightsource bp",
+    "sub": "Solar",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Breizh Big Battery",
+    "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNNm1CNWVmdEFMS2stNUh1elhuSlhHQnNveDJpMHNTNWRNNlo2TF9BX1hseXFiRWdsRmRUM2pLeVdTdTJUdDhyd2didV92dzZZUm5iZThzSkJqYzQwZzhURHVsQ0d5OWRyNGt3SVNMRDJqUXBPUUw0X012UlA3RWQtWE5IdmlYbzZqZUtnVw?oc=5",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇫🇷 France",
+    "scale": "Medium",
+    "company": "Neoen",
+    "sub": "Battery Storage",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Tunisia Solar-Plus-Storage Tender",
+    "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPeld5M3BZcEVLN3RsbHFaNEZWM3F2aTRPRjRBVV9YdUllbGM3djlXZ2Z5MV9FcVY5VXBUeC1lMnh3Z1pfWVg3X1JQb21BSFFMOEZ2TVJJMUhfalVOaTNfMEFDU1hVOVhIMk5YVkkyV2Q1V1JsWTduX0ZySkQ4cDh6UmRQUERoSnJlLTNzcmNCNnE3bHlSYi1Ucw?oc=5",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇹🇳 Tunisia",
+    "scale": "Medium",
+    "company": "",
+    "sub": "Solar",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "200MW Wind Tender",
+    "url": "https://www.africa-energy.com/news-centre/article/algeria-launches-200mw-wind-tender-and-plans-more-grid-solar",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇩🇿 Algeria",
+    "scale": "Medium",
+    "company": "Sonelgaz",
+    "sub": "Wind",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "ROV Order for Offshore Wind Operations",
+    "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOZW5jLXA4SjQ3eFpxYXY0NVFLXzdzTW5jMjd3Wm5TQ0VvSndtVGMzQzNSeEtPZmxrU291NTRGWGJzQ2IxNmtlVjlhOE5FeThHSFdqYk5meG9mTk5UOWk1NUpMTndleFQ2R3d3ejFRNzJydFV6YzFLWk1WcEtpS2JmTWJ0NFZCMW1rSXdxMXhFakQ2UGlVUWpJOWx1S1NILVBHUkh4ODFsR0hqNHJCZ254VA?oc=5",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇸🇪 Sweden",
+    "scale": "Medium",
+    "company": "Saab",
+    "sub": "Wind",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Tidal Energy Array in Scotland",
+    "url": "https://offshore-energy.biz/2026/10/13/tidal-energy-array-in-scotland-cleared-for-construction-start",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇬🇧 United Kingdom",
+    "scale": "Medium",
+    "company": "Orbital Marine Power",
+    "sub": "Renewables",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Small-scale electricity generation with ORC system",
+    "url": "https://ted.europa.eu/en/notice/-/detail/714655-2026",
+    "stageKey": "S4",
+    "usd": 30000000,
+    "stage": "Tender",
+    "country": "🇸🇪 Sweden",
+    "scale": "Small",
+    "company": "",
+    "sub": "Power & Transmission",
+    "value": "US$30m",
+    "deadline": ""
+   },
+   {
+    "name": "Design, Supply and Installation of the Mpika-Kasama Transmission Lines Complete with Associated Substation Extensions",
+    "url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00475127",
+    "stageKey": "S5",
+    "usd": 7800000,
+    "stage": "Awarded",
+    "country": "🇿🇲 Zambia",
+    "scale": "Small",
+    "company": "SINOTEC CONSORTIUM",
+    "sub": "Power & Transmission",
+    "value": "US$8m",
+    "deadline": ""
+   },
+   {
+    "name": "Transformers – Delivery of Four Autotransformers 350,000 kVA, 400/121/31.5 kV",
+    "url": "https://ted.europa.eu/en/notice/-/detail/711220-2026",
+    "stageKey": "S5",
+    "usd": 29600000,
+    "stage": "Awarded",
+    "country": "🇧🇬 Bulgaria",
+    "scale": "Small",
+    "company": "",
+    "sub": "Power & Transmission",
+    "value": "US$30m",
+    "deadline": ""
+   },
+   {
+    "name": "Solar installation – Kauno rajono PEB solar power acquisition system",
+    "url": "https://ted.europa.eu/en/notice/-/detail/706930-2026",
+    "stageKey": "S4",
+    "usd": 25400000,
+    "stage": "Tender",
+    "country": "🇱🇹 Lithuania",
+    "scale": "Small",
+    "company": "",
+    "sub": "Solar",
+    "value": "US$25m",
+    "deadline": ""
+   },
+   {
+    "name": "Construction for electricity power lines – Electrification Rurale 2027-2030",
+    "url": "https://ted.europa.eu/en/notice/-/detail/705719-2026",
+    "stageKey": "S4",
+    "usd": 20100000,
+    "stage": "Tender",
+    "country": "🇫🇷 France",
+    "scale": "Small",
+    "company": "",
+    "sub": "Power & Transmission",
+    "value": "US$20m",
+    "deadline": "12 Nov"
+   },
+   {
+    "name": "Construction of landfill-gas electricity generating plant for KOGENERACJA S.A. in Wrocław",
+    "url": "https://ted.europa.eu/en/notice/-/detail/720197-2026",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇵🇱 Poland",
+    "scale": "",
+    "company": "",
+    "sub": "Power & Transmission",
+    "value": "",
+    "deadline": "3 Nov"
+   },
+   {
+    "name": "Zambia PV Capacity Addition",
+    "url": "https://www.africa-energy.com/live-data/article/zambia-state-owned-firm-add-pv-capacity-hydro-plant",
+    "stageKey": "S2",
+    "usd": 0,
+    "stage": "Development",
+    "country": "🇿🇲 Zambia",
+    "scale": "",
+    "company": "State-owned firm",
+    "sub": "Renewables",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Saudi Energy Storage Pilot",
+    "url": "https://www.utilities-me.com/news/desert-technologies-enervenue-storage-mou",
+    "stageKey": "S1",
+    "usd": 0,
+    "stage": "Feasibility",
+    "country": "🇸🇦 Saudi Arabia",
+    "scale": "",
+    "company": "Desert Technologies",
+    "sub": "Battery Storage",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Acquisition of BESS test bench for MASEN - MOROCCO.",
+    "url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00475205",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇲🇦 Morocco",
+    "scale": "",
+    "company": "",
+    "sub": "Battery Storage",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "EPC Contract for the supply, installation, testing and commissioning of the 400kV transmission line and associated works between Songo, Cataxa and Matambo Substations",
+    "url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00474699",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇲🇿 Mozambique",
+    "scale": "",
+    "company": "",
+    "sub": "Power & Transmission",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Heating plant construction – Modernizacja źródła ciepła w Elbląskim Przedsiębiorstwie Energetyki Cieplnej",
+    "url": "https://ted.europa.eu/en/notice/-/detail/706292-2026",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇵🇱 Poland",
+    "scale": "",
+    "company": "",
+    "sub": "Power & Transmission",
+    "value": "",
+    "deadline": "13 Nov"
+   },
+   {
+    "name": "Hydro-electric plant construction – MVE Libštejnský mlýn",
+    "url": "https://ted.europa.eu/en/notice/-/detail/704871-2026",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇨🇿 Czechia",
+    "scale": "",
+    "company": "",
+    "sub": "Renewables",
+    "value": "",
+    "deadline": "27 Oct"
+   },
+   {
+    "name": "Procurement of 5 KVA Transformer for LLP Scheme",
+    "url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00474453",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇧🇩 Bangladesh",
+    "scale": "",
+    "company": "",
+    "sub": "Power & Transmission",
+    "value": "",
+    "deadline": ""
+   }
+  ],
+  "metals": [
+   {
+    "name": "Ruyang County Yude Mining limestone mining for cement project",
+    "url": "http://static.cninfo.com.cn/finalpage/2026-10-15/1225605188.PDF",
+    "stageKey": "S5",
+    "usd": 143100000,
+    "stage": "Awarded",
+    "country": "🇨🇳 China",
+    "scale": "Medium",
+    "company": "Metallurgical Corporation of China (MCC)",
+    "sub": "Mine Development",
+    "value": "US$143m",
+    "deadline": ""
+   },
+   {
+    "name": "Fujian Dadonghai high-end steel industry project 2×1200m³ blast furnace construction",
+    "url": "http://static.cninfo.com.cn/finalpage/2026-10-15/1225605188.PDF",
+    "stageKey": "S5",
+    "usd": 174500000,
+    "stage": "Awarded",
+    "country": "🇨🇳 China",
+    "scale": "Medium",
+    "company": "Metallurgical Corporation of China (MCC)",
+    "sub": "Processing & Smelting",
+    "value": "US$175m",
+    "deadline": ""
+   },
+   {
+    "name": "Nchanga Tailings Leach Plant",
+    "url": "https://www.bcinsight.crugroup.com/2026/10/14/kcm-awards-us498-million-nchanga-tailings-leach-plant-contract/",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇿🇲 Zambia",
+    "scale": "Medium",
+    "company": "Konkola Copper Mines Plc",
+    "sub": "Processing & Smelting",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Explosives Supply Contract for Sabodala Mine",
+    "url": "https://im-mining.com/2026/10/13/epc-groupe-expands-activities-in-senegal-via-major-contract-with-sabodala-mine/",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇸🇳 Senegal",
+    "scale": "Medium",
+    "company": "EPC Groupe",
+    "sub": "Mine Development",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Mining equipment lease with warranty service for Polska Grupa Górnicza S.A.",
+    "url": "https://ted.europa.eu/en/notice/-/detail/715818-2026",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇵🇱 Poland",
+    "scale": "",
+    "company": "",
+    "sub": "Mine Development",
+    "value": "",
+    "deadline": "19 Nov"
+   }
+  ],
+  "agri": [
+   {
+    "name": "Requalification and Recovery Works of Camalaú-PB Dam",
+    "url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00475605",
+    "stageKey": "S5",
+    "usd": 1700000,
+    "stage": "Awarded",
+    "country": "🇧🇷 Brazil",
+    "scale": "Small",
+    "company": "RCA CONSTRUES",
+    "sub": "Irrigation & Water",
+    "value": "US$2m",
+    "deadline": ""
+   },
+   {
+    "name": "Carry out dam body grouting up to 65 mt. in power dam (ch.6111 to 6356 ft.) and below 30 mt. to 51 mt. of previously grouted holes of LT dam at Ukai",
+    "url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00475383",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇮🇳 India",
+    "scale": "",
+    "company": "",
+    "sub": "Irrigation & Water",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Ukai - D/S side Protection work near apron of tail channel at Ukai dam Ta.Songadh Dist.Tapi",
+    "url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00475038",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇮🇳 India",
+    "scale": "",
+    "company": "",
+    "sub": "Irrigation & Water",
+    "value": "",
+    "deadline": ""
+   }
+  ],
+  "chem": [
+   {
+    "name": "Green Ammonia Project",
+    "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPMDMzbUx1YUJFbEZoeklsY3JpRHFSbXNDMVdDc3V3LVFKMU03TDhKaENaN1J0MjFrNmlSU1RHektwYkt0eHNFNGhqUjFDaWtBSVh4VmlNSEJhSjE5TDQ3VXhIekgxd3hsV3A5aUhxbFgyc2djLV9hUEJSX3dqSW5BbWJnd2lORkF2OUFNOTVGVXZoOThvZFhCMk53eVktUmVka3FoSk1uN0J1Z3ZIcDNaTjE0cTM?oc=5",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇮🇳 India",
+    "scale": "",
+    "company": "Everllence",
+    "sub": "Fertilizer Plants",
+    "value": "",
+    "deadline": ""
+   }
+  ],
+  "infra": [
+   {
+    "name": "90MW Brent Cross data center",
+    "url": "https://www.datacenterdynamics.com/en/news/pure-dc-completes-installation-of-final-transformer-at-90mw-brent-cross-data-center/",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇬🇧 United Kingdom",
+    "scale": "Large",
+    "company": "Pure DC",
+    "sub": "Data Centers",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Saudi Seawater Desalination Plant",
+    "url": "https://www.utilities-me.com/news/energy-recovery-wins-saudi-contract",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇸🇦 Saudi Arabia",
+    "scale": "Large",
+    "company": "Energy Recovery",
+    "sub": "Water & Desalination",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Hyperscale AI Infrastructure",
+    "url": "https://w.media/ctrls-to-invest-us1-billion-in-bihar-to-set-up-hyperscale-ai-infrastructure/",
+    "stageKey": "S2",
+    "usd": 1000000000,
+    "stage": "Development",
+    "country": "🇮🇳 India",
+    "scale": "Large",
+    "company": "CtrlS Datacenters Ltd.",
+    "sub": "Data Centers",
+    "value": "US$1.0bn",
+    "deadline": ""
+   },
+   {
+    "name": "Greece proposes new rules for data center electricity connections",
+    "url": "https://w.media/greece-proposes-new-rules-for-data-center-electricity-connections/",
+    "stageKey": "S1",
+    "usd": 0,
+    "stage": "Feasibility",
+    "country": "🇬🇷 Greece",
+    "scale": "",
+    "company": "",
+    "sub": "Data Centers",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "MoU for energy infrastructure solutions",
+    "url": "https://www.datacenterdynamics.com/en/news/mitsubishi-hi-and-ingeteam-partner-on-energy-infrastructure-solutions-for-us-data-center-market/",
+    "stageKey": "S1",
+    "usd": 0,
+    "stage": "Feasibility",
+    "country": "🇺🇸 United States",
+    "scale": "",
+    "company": "Mitsubishi HI",
+    "sub": "Data Centers",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "AI Infrastructure Development",
+    "url": "https://w.media/submer-partners-with-btcl-for-ai-infrastructure-development-in-india/",
+    "stageKey": "S1",
+    "usd": 0,
+    "stage": "Feasibility",
+    "country": "🇮🇳 India",
+    "scale": "",
+    "company": "BSNL Tower Corporation Limited",
+    "sub": "Data Centers",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Digital Infrastructure Development",
+    "url": "https://w.media/cmc-and-lotte-innovate-partner-to-develop-digital-infrastructure-in-vietnam/",
+    "stageKey": "S1",
+    "usd": 0,
+    "stage": "Feasibility",
+    "country": "🇻🇳 Vietnam",
+    "scale": "",
+    "company": "CMC",
+    "sub": "Data Centers",
+    "value": "",
+    "deadline": ""
+   }
+  ],
+  "shipping": [
+   {
+    "name": "Railway maintenance works - Replacement of components of the track superstructure - 7 lots",
+    "url": "https://ted.europa.eu/en/notice/-/detail/722028-2026",
+    "stageKey": "S4",
+    "usd": 863500000,
+    "stage": "Tender",
+    "country": "🇷🇴 Romania",
+    "scale": "Large",
+    "company": "",
+    "sub": "Rail & Inland Transport",
+    "value": "US$864m",
+    "deadline": "23 Nov"
+   },
+   {
+    "name": "Containership Order",
+    "url": "https://splash247.com/hmm-commits-1-6bn-to-12-more-containerships/",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇰🇷 South Korea",
+    "scale": "Large",
+    "company": "HMM",
+    "sub": "Shipyard & Fleet",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Riyadh Metro Rolling Stock Contracts",
+    "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5PaG1qXzZIT3Q3OGZVa3RzYnpGMTlHOHhmME5TNTlzcEJjbUhicDZEVFE0a3M3VWtrR043SmNIVERvanVObU1fc3UwQmZPTU5zamNyd2R2UUhMRXdFQ1JvYWFmUlU4TmctNm1ONkxCdFFaaUtvazFCVw?oc=5",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇸🇦 Saudi Arabia",
+    "scale": "Large",
+    "company": "",
+    "sub": "Rail & Inland Transport",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "PhilaPort Expansion",
+    "url": "https://constructionreviewonline.com/837m-philaport-expansion-pennsylvania-commits-371-5m-for-new-southport-berth-in-philadelphia/",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇺🇸 United States",
+    "scale": "Large",
+    "company": "Pennsylvania State Government",
+    "sub": "Ports & Terminals",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Feeder Containerships",
+    "url": "https://splash247.com/hai-an-lines-up-70m-feeder-newbuild-investment/",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇨🇳 China",
+    "scale": "Medium",
+    "company": "Hai An Transport and Stevedoring",
+    "sub": "Shipyard & Fleet",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Construction work – Multi-Party Framework Agreement for Civil Engineering Works at Dublin Port",
+    "url": "https://ted.europa.eu/en/notice/-/detail/716647-2026",
+    "stageKey": "S4",
+    "usd": 280400000,
+    "stage": "Tender",
+    "country": "🇮🇪 Ireland",
+    "scale": "Medium",
+    "company": "",
+    "sub": "Ports & Terminals",
+    "value": "US$280m",
+    "deadline": ""
+   },
+   {
+    "name": "Suezmax Newbuild Order",
+    "url": "https://splash247.com/chemnav-steps-up-suezmax-bet-with-jinglu-pair/",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇨🇳 China",
+    "scale": "Medium",
+    "company": "Chemnav Shipmanagement",
+    "sub": "Shipyard & Fleet",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Time Charter Contract for m/v Coronis",
+    "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNOFJUb2FuMk9CdFdJM3lLUW9Zd1cwZDlHU0JhdDdocWZkajNTc1Z0NllOYlFKWmlLSmtURm92LTJldWJBblEtaWlCWldpNmNaTk9zRUV0ZXdQYzVYUEZxTnVBaE1kOG91dVlXalhzMVlBUUJHSm9Xd1lvNFVJcHBtZFpzMDFzcHdqYktjTGRpbnZZY0RsM2pxd01HS0JMRXBWWW05b1VuSjk?oc=5",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "",
+    "scale": "Medium",
+    "company": "Diana Shipping",
+    "sub": "Shipyard & Fleet",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Design and construction of two rescue and maritime assistance vessels",
+    "url": "https://ted.europa.eu/en/notice/-/detail/714408-2026",
+    "stageKey": "S5",
+    "usd": 89400000,
+    "stage": "Awarded",
+    "country": "🇪🇸 Spain",
+    "scale": "Medium",
+    "company": "ASTILLEROS ARMON VIGO, S.A.",
+    "sub": "Shipyard & Fleet",
+    "value": "US$89m",
+    "deadline": ""
+   },
+   {
+    "name": "Diesel-to-Battery Train Conversion",
+    "url": "https://www.railwaygazette.com/france/2026/10/15/converted-diesel-to-battery-regional-trains-enter-service-in-southern-france-in-e41m-agc-retrofitting-trial/",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇫🇷 France",
+    "scale": "Medium",
+    "company": "",
+    "sub": "Rail & Inland Transport",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Containerized PEM Solutions Order",
+    "url": "https://nelhydrogen.com/press-release/nel-asa-receives-purchase-order-for-multiple-containerized-pem-solutions-from-a-leading-u-s-technology-customer",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "🇺🇸 United States",
+    "scale": "Medium",
+    "company": "Nel Hydrogen",
+    "sub": "Hydrogen & Ammonia",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Chittagong Container Terminal Operation",
+    "url": "https://www.hellenicshippingnews.com/rsgt-set-to-operate-another-ctg-port-terminal/",
+    "stageKey": "S2",
+    "usd": 0,
+    "stage": "Development",
+    "country": "🇧🇩 Bangladesh",
+    "scale": "Medium",
+    "company": "Red Sea Gateway Terminal",
+    "sub": "Ports & Terminals",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "IWS Fleet CSOV Newbuilds",
+    "url": "https://www.marinelink.com/news/iws-fleet-hires-kongsberg-maritime-equip-543636",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": "",
+    "scale": "Medium",
+    "company": "Integrated Wind Solutions",
+    "sub": "Shipyard & Fleet",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Harbour construction for passenger shipping at Hafen Steinmole - Lot 02: Engineering structures",
+    "url": "https://ted.europa.eu/en/notice/-/detail/718851-2026",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇩🇪 Germany",
+    "scale": "",
+    "company": "",
+    "sub": "Ports & Terminals",
+    "value": "",
+    "deadline": "28 Oct"
+   },
+   {
+    "name": "Ferry boats – Land revision of Elbfähre Pretzsch",
+    "url": "https://ted.europa.eu/en/notice/-/detail/717987-2026",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇩🇪 Germany",
+    "scale": "",
+    "company": "",
+    "sub": "Shipyard & Fleet",
+    "value": "",
+    "deadline": "18 Nov"
+   },
+   {
+    "name": "Wharf construction work for Liepāja port pier No. 46 reconstruction",
+    "url": "https://ted.europa.eu/en/notice/-/detail/717743-2026",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇱🇻 Latvia",
+    "scale": "",
+    "company": "",
+    "sub": "Ports & Terminals",
+    "value": "",
+    "deadline": "3 Nov"
+   },
+   {
+    "name": "Dredgers – Acquisition of suction dredger for pit size 3,700M³",
+    "url": "https://ted.europa.eu/en/notice/-/detail/716042-2026",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇫🇷 France",
+    "scale": "",
+    "company": "",
+    "sub": "Shipyard & Fleet",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "Quay construction for Klaipėda State Seaport southern port expansion",
+    "url": "https://ted.europa.eu/en/notice/-/detail/712188-2026",
+    "stageKey": "S4",
+    "usd": 0,
+    "stage": "Tender",
+    "country": "🇱🇹 Lithuania",
+    "scale": "",
+    "company": "",
+    "sub": "Ports & Terminals",
+    "value": "",
+    "deadline": ""
+   },
+   {
+    "name": "VLCC Replacement Orders",
+    "url": "https://www.hellenicshippingnews.com/middle-east-war-lifts-vlcc-rates-spurs-global-replacement-orders/",
+    "stageKey": "S5",
+    "usd": 0,
+    "stage": "Awarded",
+    "country": " Global",
+    "scale": "",
+    "company": "",
+    "sub": "Shipyard & Fleet",
+    "value": "",
+    "deadline": ""
+   }
+  ]
+ },
+ "head": {
+  "kicker": "World Trade Pro Weekly · Issue 3 · Week 42",
+  "title": "Who's buying, who won, what moved",
+  "sub": "13 Oct – 19 Oct 2026 · 98 new projects in 44 countries (122 reports) · 29 tenders · 52 awards · 231 trade-flow signals"
+ },
+ "stats": {
+  "epc": 98,
+  "tenders": 29,
+  "awards": 52,
+  "flow": 231,
+  "critical": 29,
+  "deltas": {
+   "epc": 20,
+   "tenders": 6,
+   "awards": 17,
+   "flow": -80
+  }
+ },
+ "directory": "",
+ "editor": "<tr><td style=\"padding:32px 0 0;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\"><tr><td width=\"28\" height=\"2\" style=\"background:#000000;font-size:0;line-height:2px;mso-line-height-rule:exactly;\">&nbsp;</td></tr></table><div style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;color:#000000;padding-top:8px;\">This week</div>\n  <div class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;font-size:17px;line-height:1.6;color:#1A1A1A;padding-top:12px;\">Awards rose to 52 this week from 35, and EPC items rose to 98 from 78. The largest open tickets are in European rail and ports: Romania's CFR wants bids by 23 Nov on a US$864m, 7-lot <a style=\"color:#0F2D5E;text-decoration:underline;\" href=\"https://ted.europa.eu/en/notice/-/detail/722028-2026\">track superstructure tender</a>, and Dublin Port has put out a US$280m <a style=\"color:#0F2D5E;text-decoration:underline;\" href=\"https://ted.europa.eu/en/notice/-/detail/716647-2026\">civil works framework</a>. MCC took two Chinese EPC awards, a US$175m blast furnace and a US$143m limestone mine. For bidders, the pattern is public owners in Europe bundling maintenance and civil work into lots and frameworks, so line up partners and suppliers before the deadlines, not after.</div>\n  <div style=\"font-size:13px;color:#555555;padding-top:8px;\">World Trade Pro Research</div></td></tr>",
+ "chart": "<tr><td style=\"padding:10px 0 0;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">\n  <tr><td width=\"38%\" style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:13px;line-height:1.3;color:#000000;padding:6px 8px 6px 0;\">Power &amp; renewables</td>\n    <td style=\"padding:6px 0;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td width=\"42%\" title=\"tenders\" style=\"background:#B26B00;height:12px;font-size:1px;line-height:12px;\">&nbsp;</td><td width=\"42%\" title=\"awards\" style=\"background:#2E6B4F;height:12px;font-size:1px;line-height:12px;\">&nbsp;</td><td width=\"16%\" title=\"earlier stage\" style=\"background:#999999;height:12px;font-size:1px;line-height:12px;\">&nbsp;</td><td style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:13px;color:#1A1A1A;padding-left:8px;white-space:nowrap;\"><b style=\"font-weight:600;color:#000000;\">38</b> <span style=\"color:#555555;\">· US$211m</span></td><td width=\"100%\"></td></tr></table></td></tr><tr><td width=\"38%\" style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:13px;line-height:1.3;color:#000000;padding:6px 8px 6px 0;border-top:1px solid #CCCCCC;\">Oil, gas &amp; LNG</td>\n    <td style=\"padding:6px 0;border-top:1px solid #CCCCCC;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td width=\"8%\" title=\"tenders\" style=\"background:#B26B00;height:12px;font-size:1px;line-height:12px;\">&nbsp;</td><td width=\"45%\" title=\"awards\" style=\"background:#2E6B4F;height:12px;font-size:1px;line-height:12px;\">&nbsp;</td><td width=\"13%\" title=\"earlier stage\" style=\"background:#999999;height:12px;font-size:1px;line-height:12px;\">&nbsp;</td><td style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:13px;color:#1A1A1A;padding-left:8px;white-space:nowrap;\"><b style=\"font-weight:600;color:#000000;\">25</b></td><td width=\"100%\"></td></tr></table></td></tr><tr><td width=\"38%\" style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:13px;line-height:1.3;color:#000000;padding:6px 8px 6px 0;border-top:1px solid #CCCCCC;\">Shipping, ports &amp; logistics</td>\n    <td style=\"padding:6px 0;border-top:1px solid #CCCCCC;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td width=\"18%\" title=\"tenders\" style=\"background:#B26B00;height:12px;font-size:1px;line-height:12px;\">&nbsp;</td><td width=\"29%\" title=\"awards\" style=\"background:#2E6B4F;height:12px;font-size:1px;line-height:12px;\">&nbsp;</td><td width=\"3%\" title=\"earlier stage\" style=\"background:#999999;height:12px;font-size:1px;line-height:12px;\">&nbsp;</td><td style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:13px;color:#1A1A1A;padding-left:8px;white-space:nowrap;\"><b style=\"font-weight:600;color:#000000;\">19</b> <span style=\"color:#555555;\">· US$1.2bn</span></td><td width=\"100%\"></td></tr></table></td></tr><tr><td width=\"38%\" style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:13px;line-height:1.3;color:#000000;padding:6px 8px 6px 0;border-top:1px solid #CCCCCC;\">Infrastructure &amp; construction</td>\n    <td style=\"padding:6px 0;border-top:1px solid #CCCCCC;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td width=\"5%\" title=\"awards\" style=\"background:#2E6B4F;height:12px;font-size:1px;line-height:12px;\">&nbsp;</td><td width=\"13%\" title=\"earlier stage\" style=\"background:#999999;height:12px;font-size:1px;line-height:12px;\">&nbsp;</td><td style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:13px;color:#1A1A1A;padding-left:8px;white-space:nowrap;\"><b style=\"font-weight:600;color:#000000;\">7</b> <span style=\"color:#555555;\">· US$1.0bn</span></td><td width=\"100%\"></td></tr></table></td></tr><tr><td width=\"38%\" style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:13px;line-height:1.3;color:#000000;padding:6px 8px 6px 0;border-top:1px solid #CCCCCC;\">Metals &amp; mining</td>\n    <td style=\"padding:6px 0;border-top:1px solid #CCCCCC;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td width=\"3%\" title=\"tenders\" style=\"background:#B26B00;height:12px;font-size:1px;line-height:12px;\">&nbsp;</td><td width=\"11%\" title=\"awards\" style=\"background:#2E6B4F;height:12px;font-size:1px;line-height:12px;\">&nbsp;</td><td style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:13px;color:#1A1A1A;padding-left:8px;white-space:nowrap;\"><b style=\"font-weight:600;color:#000000;\">5</b> <span style=\"color:#555555;\">· US$318m</span></td><td width=\"100%\"></td></tr></table></td></tr><tr><td width=\"38%\" style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:13px;line-height:1.3;color:#000000;padding:6px 8px 6px 0;border-top:1px solid #CCCCCC;\">Agriculture &amp; food</td>\n    <td style=\"padding:6px 0;border-top:1px solid #CCCCCC;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td width=\"5%\" title=\"tenders\" style=\"background:#B26B00;height:12px;font-size:1px;line-height:12px;\">&nbsp;</td><td width=\"3%\" title=\"awards\" style=\"background:#2E6B4F;height:12px;font-size:1px;line-height:12px;\">&nbsp;</td><td style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:13px;color:#1A1A1A;padding-left:8px;white-space:nowrap;\"><b style=\"font-weight:600;color:#000000;\">3</b> <span style=\"color:#555555;\">· US$2m</span></td><td width=\"100%\"></td></tr></table></td></tr><tr><td width=\"38%\" style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:13px;line-height:1.3;color:#000000;padding:6px 8px 6px 0;border-top:1px solid #CCCCCC;\">Chemicals &amp; fertilizers</td>\n    <td style=\"padding:6px 0;border-top:1px solid #CCCCCC;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td width=\"3%\" title=\"awards\" style=\"background:#2E6B4F;height:12px;font-size:1px;line-height:12px;\">&nbsp;</td><td style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:13px;color:#1A1A1A;padding-left:8px;white-space:nowrap;\"><b style=\"font-weight:600;color:#000000;\">1</b></td><td width=\"100%\"></td></tr></table></td></tr>\n</table>\n<div style=\"font-size:12px;line-height:1.6;color:#555555;padding-top:8px;border-top:1px solid #CCCCCC;\"><span style=\"white-space:nowrap;\"><span style=\"color:#B26B00;font-size:11px;\">■</span>&nbsp;Tender</span> &nbsp; <span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> &nbsp; <span style=\"white-space:nowrap;\"><span style=\"color:#999999;font-size:11px;\">■</span>&nbsp;Earlier stage</span><br>Source: World Trade Pro project radar, 13 Oct – 19 Oct</div></td></tr>",
+ "chartTitle": "Power & renewables led the week with 38 new projects and US$211m of named contract value; oil, gas & lng next with 25.",
+ "callout": "<tr><td style=\"padding:14px 0 0;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-top:1px solid #000000;border-bottom:1px solid #000000;\"><tr>\n  <td width=\"42%\" valign=\"top\" style=\"padding:16px 16px 16px 0;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;border-right:1px solid #CCCCCC;\"><div style=\"font-size:13px;color:#555555;padding-bottom:4px;\">Biggest contract of the week</div><div class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;font-size:40px;color:#000000;line-height:1.1;white-space:nowrap;\">US$864m</div></td>\n  <td valign=\"top\" style=\"padding:16px 0 16px 16px;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://ted.europa.eu/en/notice/-/detail/722028-2026\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Railway maintenance works - Replacement of components of the track…</a><div style=\"font-size:13px;color:#555555;padding-top:4px;line-height:1.5;\">Romania · buyer Compania Nationala de Cai Ferate &quot;CFR&quot; - SA</div>\n    <div style=\"font-size:13px;color:#1A1A1A;padding-top:8px;line-height:1.6;\"><b style=\"font-weight:600;\">Most awards:</b> Metallurgical Corporation of China (MCC) (2)<br><b style=\"font-weight:600;\">Busiest country:</b> United States (11 new projects)</div></td>\n</tr></table></td></tr>",
+ "superlatives": "<tr><td style=\"padding:22px 0 0;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"margin:0 -4px;\"><tr>\n  <td width=\"33%\" valign=\"top\" style=\"padding:0 4px;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-top:2px solid #000000;\"><tr><td style=\"padding:8px 2px 0;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><div style=\"font-size:13px;font-weight:600;color:#555555;\">Biggest deal</div><div class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;font-size:17px;color:#000000;line-height:1.3;padding-top:3px;\"><a href=\"https://ted.europa.eu/en/notice/-/detail/722028-2026\" style=\"color:#000000;text-decoration:none;\">US$864m</a></div><div style=\"font-size:12px;color:#555555;padding-top:2px;\">Railway maintenance works - Replacement of…</div></td></tr></table></td>\n  <td width=\"33%\" valign=\"top\" style=\"padding:0 4px;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-top:2px solid #000000;\"><tr><td style=\"padding:8px 2px 0;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><div style=\"font-size:13px;font-weight:600;color:#555555;\">Most awards</div><div class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;font-size:17px;color:#000000;line-height:1.3;padding-top:3px;\">Metallurgical Corporation of China…</div><div style=\"font-size:12px;color:#555555;padding-top:2px;\">2 contracts this week · US$318m</div></td></tr></table></td>\n  <td width=\"33%\" valign=\"top\" style=\"padding:0 4px;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-top:2px solid #000000;\"><tr><td style=\"padding:8px 2px 0;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><div style=\"font-size:13px;font-weight:600;color:#555555;\">Busiest country</div><div class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;font-size:17px;color:#000000;line-height:1.3;padding-top:3px;\"><a href=\"https://worldtradepro.com/projects/united-states/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=top-country\" style=\"color:#000000;text-decoration:none;\">🇺🇸 United States</a></div><div style=\"font-size:12px;color:#555555;padding-top:2px;\">11 new projects</div></td></tr></table></td>\n</tr></table></td></tr>",
+ "calendar": "<tr><td style=\"padding:0;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n  <td width=\"96\" valign=\"top\" style=\"font-family:'IBM Plex Mono',Consolas,'Courier New',monospace;padding:10px 12px 10px 0;border-top:1px solid #CCCCCC;font-size:13px;line-height:1.5;color:#B4412E;\">Fri 23 Oct<br>closes soon</td>\n  <td valign=\"top\" style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;padding:10px 0;border-top:1px solid #CCCCCC;\"><span style=\"font-size:13px;font-weight:600;color:#555555;\">Oil, gas &amp; LNG</span><br><a href=\"https://ted.europa.eu/en/notice/-/detail/720145-2026\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Gas pipeline diagnostics using measurement pistons (divided into 12 parts)</a><div style=\"font-size:13px;color:#555555;padding-top:2px;\">Poland · Operator Gazociągów Przesyłowych GAZ-SYSTEM S.A.</div></td>\n</tr></table></td></tr>\n<tr><td style=\"padding:0;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n  <td width=\"96\" valign=\"top\" style=\"font-family:'IBM Plex Mono',Consolas,'Courier New',monospace;padding:10px 12px 10px 0;border-top:1px solid #CCCCCC;font-size:13px;line-height:1.5;color:#555555;\">Tue 27 Oct</td>\n  <td valign=\"top\" style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;padding:10px 0;border-top:1px solid #CCCCCC;\"><span style=\"font-size:13px;font-weight:600;color:#555555;\">Power &amp; renewables</span><br><a href=\"https://ted.europa.eu/en/notice/-/detail/704871-2026\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">MVE Libštejnský mlýn</a><div style=\"font-size:13px;color:#555555;padding-top:2px;\">Czechia · MVE Libštejnský mlýn, s.r.o.</div></td>\n</tr></table></td></tr>\n<tr><td style=\"padding:0;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n  <td width=\"96\" valign=\"top\" style=\"font-family:'IBM Plex Mono',Consolas,'Courier New',monospace;padding:10px 12px 10px 0;border-top:1px solid #CCCCCC;font-size:13px;line-height:1.5;color:#555555;\">Wed 28 Oct</td>\n  <td valign=\"top\" style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;padding:10px 0;border-top:1px solid #CCCCCC;\"><span style=\"font-size:13px;font-weight:600;color:#555555;\">Shipping, ports &amp; logistics</span><br><a href=\"https://ted.europa.eu/en/notice/-/detail/718851-2026\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Harbour construction for passenger shipping at Hafen Steinmole - Lot 02: Engineering…</a><div style=\"font-size:13px;color:#555555;padding-top:2px;\">Germany · Stadt Waren (Müritz)</div></td>\n</tr></table></td></tr>\n<tr><td style=\"padding:0;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n  <td width=\"96\" valign=\"top\" style=\"font-family:'IBM Plex Mono',Consolas,'Courier New',monospace;padding:10px 12px 10px 0;border-top:1px solid #CCCCCC;font-size:13px;line-height:1.5;color:#555555;\">Tue 3 Nov</td>\n  <td valign=\"top\" style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;padding:10px 0;border-top:1px solid #CCCCCC;\"><span style=\"font-size:13px;font-weight:600;color:#555555;\">Power &amp; renewables</span><br><a href=\"https://ted.europa.eu/en/notice/-/detail/720197-2026\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Construction of landfill-gas electricity generating plant for KOGENERACJA S.A. in Wrocław</a><div style=\"font-size:13px;color:#555555;padding-top:2px;\">Poland · Zespół Elektrociepłowni Wrocławskich KOGENERACJA S.A.</div></td>\n</tr></table></td></tr>\n<tr><td style=\"padding:0;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n  <td width=\"96\" valign=\"top\" style=\"font-family:'IBM Plex Mono',Consolas,'Courier New',monospace;padding:10px 12px 10px 0;border-top:1px solid #CCCCCC;font-size:13px;line-height:1.5;color:#555555;\">Tue 3 Nov</td>\n  <td valign=\"top\" style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;padding:10px 0;border-top:1px solid #CCCCCC;\"><span style=\"font-size:13px;font-weight:600;color:#555555;\">Shipping, ports &amp; logistics</span><br><a href=\"https://ted.europa.eu/en/notice/-/detail/717743-2026\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Wharf construction work for Liepāja port pier No. 46 reconstruction</a><div style=\"font-size:13px;color:#555555;padding-top:2px;\">Latvia · Liepājas speciālās ekonomiskās zonas pārvalde</div></td>\n</tr></table></td></tr>",
+ "dash": {
+  "countries": [
+   {
+    "name": "United States",
+    "n": 11,
+    "flag": "🇺🇸",
+    "slug": "https://worldtradepro.com/projects/united-states/"
+   },
+   {
+    "name": "China",
+    "n": 8,
+    "flag": "🇨🇳",
+    "slug": "https://worldtradepro.com/projects/china/"
+   },
+   {
+    "name": "Saudi Arabia",
+    "n": 5,
+    "flag": "🇸🇦",
+    "slug": "https://worldtradepro.com/projects/saudi-arabia/"
+   },
+   {
+    "name": "France",
+    "n": 5,
+    "flag": "🇫🇷",
+    "slug": "https://worldtradepro.com/projects/france/"
+   },
+   {
+    "name": "India",
+    "n": 5,
+    "flag": "🇮🇳",
+    "slug": "https://worldtradepro.com/projects/india/"
+   },
+   {
+    "name": "Poland",
+    "n": 5,
+    "flag": "🇵🇱",
+    "slug": "https://worldtradepro.com/projects/poland/"
+   },
+   {
+    "name": "Zambia",
+    "n": 4,
+    "flag": "🇿🇲",
+    "slug": "https://worldtradepro.com/projects/zambia/"
+   },
+   {
+    "name": "Brazil",
+    "n": 3,
+    "flag": "🇧🇷",
+    "slug": "https://worldtradepro.com/projects/brazil/"
+   },
+   {
+    "name": "Egypt",
+    "n": 3,
+    "flag": "🇪🇬",
+    "slug": "https://worldtradepro.com/projects/egypt/"
+   },
+   {
+    "name": "United Kingdom",
+    "n": 3,
+    "flag": "🇬🇧",
+    "slug": "https://worldtradepro.com/projects/united-kingdom/"
+   }
+  ],
+  "regions": [
+   {
+    "name": "Europe",
+    "n": 30
+   },
+   {
+    "name": "Asia Pacific",
+    "n": 23
+   },
+   {
+    "name": "Americas",
+    "n": 18
+   },
+   {
+    "name": "Africa",
+    "n": 16
+   },
+   {
+    "name": "Middle East",
+    "n": 6
+   },
+   {
+    "name": "Unknown",
+    "n": 4
+   },
+   {
+    "name": "Global",
+    "n": 1
+   }
+  ],
+  "stages": [
+   {
+    "key": "S1",
+    "label": "Feasibility",
+    "n": 6
+   },
+   {
+    "key": "S2",
+    "label": "Development",
+    "n": 11
+   },
+   {
+    "key": "S3",
+    "label": "Pre-FID",
+    "n": 0
+   },
+   {
+    "key": "S4",
+    "label": "Tender",
+    "n": 29
+   },
+   {
+    "key": "S5",
+    "label": "Awarded",
+    "n": 52
+   }
+  ],
+  "topDeals": [
+   {
+    "name": "Railway maintenance works - Replacement of components of the track superstructure - 7 lots",
+    "value": "US$864m",
+    "usd": 863500000,
+    "who": "Compania Nationala de Cai Ferate \"CFR\" - SA",
+    "role": "buyer",
+    "tender": true,
+    "country": "Romania",
+    "sector": "Shipping, ports & logistics",
+    "url": "https://ted.europa.eu/en/notice/-/detail/722028-2026"
+   },
+   {
+    "name": "Multi-Party Framework Agreement for Civil Engineering Works at Dublin Port",
+    "value": "US$280m",
+    "usd": 280400000,
+    "who": "Dublin Port Company_411",
+    "role": "buyer",
+    "tender": true,
+    "country": "Ireland",
+    "sector": "Shipping, ports & logistics",
+    "url": "https://ted.europa.eu/en/notice/-/detail/716647-2026"
+   },
+   {
+    "name": "Fujian Dadonghai high-end steel industry project 2×1200m³ blast furnace construction",
+    "value": "US$175m",
+    "usd": 174500000,
+    "who": "Metallurgical Corporation of China (MCC)",
+    "role": "",
+    "tender": false,
+    "country": "China",
+    "sector": "Metals & mining",
+    "url": "http://static.cninfo.com.cn/finalpage/2026-10-15/1225605188.PDF"
+   },
+   {
+    "name": "Ruyang County Yude Mining limestone mining for cement project",
+    "value": "US$143m",
+    "usd": 143100000,
+    "who": "Metallurgical Corporation of China (MCC)",
+    "role": "",
+    "tender": false,
+    "country": "China",
+    "sector": "Metals & mining",
+    "url": "http://static.cninfo.com.cn/finalpage/2026-10-15/1225605188.PDF"
+   },
+   {
+    "name": "Dams and similar structures - AM MULTISERVICIO OBRA CIVIL HYDRO IBERIA (2026 - 2031)",
+    "value": "US$98m",
+    "usd": 98300000,
+    "who": "J. Vilella Construccions, S.l. / Highest Priority, S.l. / Construccion",
+    "role": "winner",
+    "tender": false,
+    "country": "Spain",
+    "sector": "Power & renewables",
+    "url": "https://ted.europa.eu/en/notice/-/detail/721545-2026"
+   },
+   {
+    "name": "Design and construction of two rescue and maritime assistance vessels",
+    "value": "US$89m",
+    "usd": 89400000,
+    "who": "Astilleros Armon Vigo, S.a.",
+    "role": "winner",
+    "tender": false,
+    "country": "Spain",
+    "sector": "Shipping, ports & logistics",
+    "url": "https://ted.europa.eu/en/notice/-/detail/714408-2026"
+   },
+   {
+    "name": "Small-scale electricity generation with ORC system",
+    "value": "US$30m",
+    "usd": 30000000,
+    "who": "Sinfra",
+    "role": "buyer",
+    "tender": true,
+    "country": "Sweden",
+    "sector": "Power & renewables",
+    "url": "https://ted.europa.eu/en/notice/-/detail/714655-2026"
+   },
+   {
+    "name": "Delivery of Four Autotransformers 350,000 kVA, 400/121/31.5 kV",
+    "value": "US$30m",
+    "usd": 29600000,
+    "who": "",
+    "role": "winner",
+    "tender": false,
+    "country": "Bulgaria",
+    "sector": "Power & renewables",
+    "url": "https://ted.europa.eu/en/notice/-/detail/711220-2026"
+   },
+   {
+    "name": "Kauno rajono PEB solar power acquisition system",
+    "value": "US$25m",
+    "usd": 25400000,
+    "who": "Kauno rajono savivaldybės administracija",
+    "role": "buyer",
+    "tender": true,
+    "country": "Lithuania",
+    "sector": "Power & renewables",
+    "url": "https://ted.europa.eu/en/notice/-/detail/706930-2026"
+   },
+   {
+    "name": "Electrification Rurale 2027-2030",
+    "value": "US$20m",
+    "usd": 20100000,
+    "who": "SDEE de la Lozère",
+    "role": "buyer",
+    "tender": true,
+    "country": "France",
+    "sector": "Power & renewables",
+    "url": "https://ted.europa.eu/en/notice/-/detail/705719-2026"
+   }
+  ],
+  "lanes": [
+   {
+    "name": "Strait of Hormuz",
+    "flow": "Gulf crude, LNG & products → Asia",
+    "n": 20,
+    "crit": 4,
+    "p": 35,
+    "pp": 53,
+    "status": "High",
+    "url": "https://worldtradepro.com/trade-lanes/strait-of-hormuz/"
+   },
+   {
+    "name": "Red Sea & Suez Canal",
+    "flow": "Asia → Mediterranean & Europe",
+    "n": 6,
+    "crit": 2,
+    "p": 12,
+    "pp": 7,
+    "status": "Elevated",
+    "url": "https://worldtradepro.com/trade-lanes/red-sea-suez-canal/"
+   },
+   {
+    "name": "Black Sea & Turkish Straits",
+    "flow": "Black Sea grain, oil & metals → Mediterranean",
+    "n": 6,
+    "crit": 0,
+    "p": 8,
+    "pp": 8,
+    "status": "Watch",
+    "url": "https://worldtradepro.com/trade-lanes/black-sea-turkish-straits/"
+   },
+   {
+    "name": "Gulf of Aden / Bab el-Mandeb",
+    "flow": "Arabian Sea → Red Sea (Asia → Europe)",
+    "n": 2,
+    "crit": 1,
+    "p": 5,
+    "pp": 0,
+    "status": "Watch",
+    "url": "https://worldtradepro.com/trade-lanes/gulf-of-aden-bab-el-mandeb/"
+   },
+   {
+    "name": "Strait of Malacca",
+    "flow": "Indian Ocean → East Asia",
+    "n": 0,
+    "crit": 0,
+    "p": 0,
+    "pp": 0,
+    "status": "Quiet",
+    "url": "https://worldtradepro.com/trade-lanes/strait-of-malacca/"
+   },
+   {
+    "name": "South China Sea / Taiwan Strait",
+    "flow": "Singapore → China, Japan & Korea",
+    "n": 0,
+    "crit": 0,
+    "p": 0,
+    "pp": 0,
+    "status": "Quiet",
+    "url": "https://worldtradepro.com/trade-lanes/south-china-sea-taiwan-strait/"
+   },
+   {
+    "name": "Mediterranean, Gibraltar & N. Europe",
+    "flow": "Suez → Rotterdam",
+    "n": 0,
+    "crit": 0,
+    "p": 0,
+    "pp": 5,
+    "status": "Quiet",
+    "url": "https://worldtradepro.com/trade-lanes/mediterranean-gibraltar/"
+   },
+   {
+    "name": "Panama Canal",
+    "flow": "Atlantic → Pacific (US Gulf LNG & grain → Asia)",
+    "n": 0,
+    "crit": 0,
+    "p": 0,
+    "pp": 8,
+    "status": "Quiet",
+    "url": "https://worldtradepro.com/trade-lanes/panama-canal/"
+   },
+   {
+    "name": "Cape of Good Hope route",
+    "flow": "Indian Ocean → Atlantic (Suez / Red Sea diversion)",
+    "n": 0,
+    "crit": 0,
+    "p": 0,
+    "pp": 0,
+    "status": "Quiet",
+    "url": "https://worldtradepro.com/trade-lanes/cape-of-good-hope/"
+   }
+  ],
+  "flowSectors": [
+   {
+    "name": "Shipping, ports & logistics",
+    "n": 145
+   },
+   {
+    "name": "Oil, gas & LNG",
+    "n": 58
+   },
+   {
+    "name": "Agriculture & food",
+    "n": 18
+   },
+   {
+    "name": "Infrastructure & construction",
+    "n": 5
+   },
+   {
+    "name": "Metals & mining",
+    "n": 4
+   },
+   {
+    "name": "Scrap & recycled materials",
+    "n": 1
+   }
+  ],
+  "totalUsd": 1763800000
+ },
+ "calendarCount": 5,
+ "promise": "98 projects · 29 tenders · 52 awards · 5 deadlines · five minutes, then the full issue online",
+ "openThese": "<a href=\"#d1\" style=\"color:#000000;text-decoration:underline;font-weight:600;\">Railway maintenance works - Replacement of…</a> &nbsp;·&nbsp; <a href=\"#d2\" style=\"color:#000000;text-decoration:underline;font-weight:600;\">Electrification Rurale 2027-2030</a> &nbsp;·&nbsp; <a href=\"#d3\" style=\"color:#000000;text-decoration:underline;font-weight:600;\">Multi-Party Framework Agreement for Civil…</a>",
+ "footer": {
+  "forward": "mailto:?subject=World%20Trade%20Pro%20Weekly%20-%20worth%20a%20look&body=Free%20Tuesday%20e-mail%3A%20tenders%2C%20awards%2C%20new%20projects%20and%20trade%20flows%2C%20filtered%20to%20your%20sectors.%20https%3A%2F%2Fworldtradepro.com%2Fsubscribe%2F",
+  "add": "https://worldtradepro.com/project-leads/?utm_source=newsletter&utm_medium=email&utm_campaign=weekly-2026-10-20&utm_content=footer-add",
+  "archive": "https://worldtradepro.com/blog/weekly/?utm_source=newsletter&utm_medium=email&utm_campaign=weekly-2026-10-20&utm_content=footer-archive",
+  "issue": "https://worldtradepro.com/blog/world-trade-pro-weekly-2026-w42/?utm_source=newsletter&utm_medium=email&utm_campaign=weekly-2026-10-20&utm_content=footer-web"
+ },
+ "sponsor": null,
+ "calls": [
+  {
+   "key": "shipping",
+   "sector": "Shipping, ports & logistics",
+   "strong": true,
+   "name": "Railway maintenance works - Replacement of components of the track superstructure - 7 lots",
+   "html": "<a href=\"https://ted.europa.eu/en/notice/-/detail/722028-2026\" class=\"s\" style=\"display:block;font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:21px;line-height:1.25;padding:6px 0 6px;\">Railway maintenance works - Replacement of components of the track superstructure - 7 lots</a>\n    <div style=\"font-size:13px;color:#555555;line-height:1.9;\"><span style=\"white-space:nowrap;\"><span style=\"color:#B26B00;font-size:11px;\">■</span>&nbsp;Tender</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/romania/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-romania\" style=\"color:#000000;text-decoration:none;font-weight:700;\">🇷🇴 Romania</a> &nbsp;·&nbsp; <span style=\"font-size:13px;font-weight:600;color:#000000;white-space:nowrap;\">US$864m</span> &nbsp;·&nbsp; <span style=\"font-size:13px;font-weight:600;color:#B4412E;white-space:nowrap;\">bids due 23 Nov</span> &nbsp;·&nbsp; buyer <b style=\"color:#000000;\">Compania Nationala de Cai Ferate &quot;CFR&quot; - SA</b></div><div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;\">Seven lots let mid-sized track contractors and rail component suppliers bid for a share of US$864m, and the 23 Nov deadline leaves about five weeks to price.</div>",
+   "call": "<div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;border-top:1px solid #CCCCCC;margin-top:8px;\"><b style=\"color:#000000;\">The call:</b> Ask Compania Nationala de Cai Ferate &quot;CFR&quot; - SA for the bid documents before 23 Nov.</div>",
+   "buyer": "<div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;border-top:1px solid #CCCCCC;margin-top:8px;\"><b style=\"color:#000000;\">For buyers:</b> A peer is buying this scope at an estimated US$864m; a live comparison for your own package (their bids close 23 Nov).</div>",
+   "why": true
+  },
+  {
+   "key": "power",
+   "sector": "Power & renewables",
+   "strong": true,
+   "name": "Electrification Rurale 2027-2030",
+   "html": "<a href=\"https://ted.europa.eu/en/notice/-/detail/705719-2026\" class=\"s\" style=\"display:block;font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:21px;line-height:1.25;padding:6px 0 6px;\">Electrification Rurale 2027-2030</a>\n    <div style=\"font-size:13px;color:#555555;line-height:1.9;\"><span style=\"white-space:nowrap;\"><span style=\"color:#B26B00;font-size:11px;\">■</span>&nbsp;Tender</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/france/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-france\" style=\"color:#000000;text-decoration:none;font-weight:700;\">🇫🇷 France</a> &nbsp;·&nbsp; <span style=\"font-size:13px;font-weight:600;color:#000000;white-space:nowrap;\">US$20m</span> &nbsp;·&nbsp; <span style=\"font-size:13px;font-weight:600;color:#B4412E;white-space:nowrap;\">bids due 12 Nov</span> &nbsp;·&nbsp; buyer <b style=\"color:#000000;\">SDEE de la Lozère</b></div><div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;\">A local syndicate is buying four years of rural electrification for US$20m: steady, small-ticket work for regional line contractors and network equipment suppliers until 2030.</div>",
+   "call": "<div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;border-top:1px solid #CCCCCC;margin-top:8px;\"><b style=\"color:#000000;\">The call:</b> Ask SDEE de la Lozère for the bid documents before 12 Nov.</div>",
+   "buyer": "<div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;border-top:1px solid #CCCCCC;margin-top:8px;\"><b style=\"color:#000000;\">For buyers:</b> A peer is buying this scope at an estimated US$20m; a live comparison for your own package (their bids close 12 Nov).</div>",
+   "why": true
+  },
+  {
+   "key": "shipping",
+   "sector": "Shipping, ports & logistics",
+   "strong": true,
+   "name": "Multi-Party Framework Agreement for Civil Engineering Works at Dublin Port",
+   "html": "<a href=\"https://ted.europa.eu/en/notice/-/detail/716647-2026\" class=\"s\" style=\"display:block;font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:21px;line-height:1.25;padding:6px 0 6px;\">Multi-Party Framework Agreement for Civil Engineering Works at Dublin Port</a>\n    <div style=\"font-size:13px;color:#555555;line-height:1.9;\"><span style=\"white-space:nowrap;\"><span style=\"color:#B26B00;font-size:11px;\">■</span>&nbsp;Tender</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/ireland/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-ireland\" style=\"color:#000000;text-decoration:none;font-weight:700;\">🇮🇪 Ireland</a> &nbsp;·&nbsp; <span style=\"font-size:13px;font-weight:600;color:#000000;white-space:nowrap;\">US$280m</span> &nbsp;·&nbsp; buyer <b style=\"color:#000000;\">Dublin Port Company_411</b></div><div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;\">A multi-party framework means several contractors will share US$280m of port civil works, so getting onto the panel matters more than winning any single job.</div>",
+   "call": "<div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;border-top:1px solid #CCCCCC;margin-top:8px;\"><b style=\"color:#000000;\">The call:</b> Ask Dublin Port Company_411 for the bid documents.</div>",
+   "buyer": "<div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;border-top:1px solid #CCCCCC;margin-top:8px;\"><b style=\"color:#000000;\">For buyers:</b> A peer is buying this scope at an estimated US$280m; a live comparison for your own package.</div>",
+   "why": true
+  },
+  {
+   "key": "metals",
+   "sector": "Metals & mining",
+   "strong": true,
+   "name": "Fujian Dadonghai high-end steel industry project 2×1200m³ blast furnace construction",
+   "html": "<a href=\"http://static.cninfo.com.cn/finalpage/2026-10-15/1225605188.PDF\" class=\"s\" style=\"display:block;font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:21px;line-height:1.25;padding:6px 0 6px;\">Fujian Dadonghai high-end steel industry project 2×1200m³ blast furnace construction</a>\n    <div style=\"font-size:13px;color:#555555;line-height:1.9;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/china/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-china\" style=\"color:#000000;text-decoration:none;font-weight:700;\">🇨🇳 China</a> &nbsp;·&nbsp; <span style=\"font-size:13px;font-weight:600;color:#000000;white-space:nowrap;\">US$175m</span> &nbsp;·&nbsp; <b style=\"color:#000000;\">Metallurgical Corporation of China (MCC)</b></div><div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;\">Fujian Dadonghai is adding blast furnace capacity and has booked MCC as EPC, so furnace equipment and refractory suppliers should pitch to MCC, not the owner.</div>",
+   "call": "<div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;border-top:1px solid #CCCCCC;margin-top:8px;\"><b style=\"color:#000000;\">The call:</b> Metallurgical Corporation of China (MCC) is now buying equipment and placing subcontracts. Get on their vendor list.</div>",
+   "buyer": "<div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;border-top:1px solid #CCCCCC;margin-top:8px;\"><b style=\"color:#000000;\">For buyers:</b> Reference price: US$175m for this scope in China. Metallurgical Corporation of China (MCC) is now booked on this job.</div>",
+   "why": true
+  },
+  {
+   "key": "metals",
+   "sector": "Metals & mining",
+   "strong": true,
+   "name": "Ruyang County Yude Mining limestone mining for cement project",
+   "html": "<a href=\"http://static.cninfo.com.cn/finalpage/2026-10-15/1225605188.PDF\" class=\"s\" style=\"display:block;font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:21px;line-height:1.25;padding:6px 0 6px;\">Ruyang County Yude Mining limestone mining for cement project</a>\n    <div style=\"font-size:13px;color:#555555;line-height:1.9;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/china/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-china\" style=\"color:#000000;text-decoration:none;font-weight:700;\">🇨🇳 China</a> &nbsp;·&nbsp; <span style=\"font-size:13px;font-weight:600;color:#000000;white-space:nowrap;\">US$143m</span> &nbsp;·&nbsp; <b style=\"color:#000000;\">Metallurgical Corporation of China (MCC)</b></div><div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;\">A US$143m EPC for a limestone mine that feeds cement shows MCC taking mining work outside steel, so equipment vendors should treat MCC as the buyer.</div>",
+   "call": "<div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;border-top:1px solid #CCCCCC;margin-top:8px;\"><b style=\"color:#000000;\">The call:</b> Metallurgical Corporation of China (MCC) is now buying equipment and placing subcontracts. Get on their vendor list.</div>",
+   "buyer": "<div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;border-top:1px solid #CCCCCC;margin-top:8px;\"><b style=\"color:#000000;\">For buyers:</b> Reference price: US$143m for this scope in China. Metallurgical Corporation of China (MCC) is now booked on this job.</div>",
+   "why": true
+  },
+  {
+   "key": "power",
+   "sector": "Power & renewables",
+   "strong": true,
+   "name": "Dams and similar structures - AM MULTISERVICIO OBRA CIVIL HYDRO IBERIA (2026 - 2031)",
+   "html": "<a href=\"https://ted.europa.eu/en/notice/-/detail/721545-2026\" class=\"s\" style=\"display:block;font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:21px;line-height:1.25;padding:6px 0 6px;\">Dams and similar structures - AM MULTISERVICIO OBRA CIVIL HYDRO IBERIA (2026 - 2031)</a>\n    <div style=\"font-size:13px;color:#555555;line-height:1.9;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/spain/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-spain\" style=\"color:#000000;text-decoration:none;font-weight:700;\">🇪🇸 Spain</a> &nbsp;·&nbsp; <span style=\"font-size:13px;font-weight:600;color:#000000;white-space:nowrap;\">US$98m</span> &nbsp;·&nbsp; won by <b style=\"color:#000000;\">J. Vilella Construccions, S.l. / Highest Priority, S.l. / Construccion</b></div><div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;\">This US$98m framework books the Spanish contractor group for dam civil works until 2031, which leaves outsiders little room until the work is re-tendered.</div>",
+   "call": "<div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;border-top:1px solid #CCCCCC;margin-top:8px;\"><b style=\"color:#000000;\">The call:</b> J. Vilella Construccions, S.l. / Highest Priority, S.l. / Construccion is now buying equipment and placing subcontracts. Get on their vendor list.</div>",
+   "buyer": "<div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;border-top:1px solid #CCCCCC;margin-top:8px;\"><b style=\"color:#000000;\">For buyers:</b> Reference price: US$98m for this scope in Spain. J. Vilella Construccions, S.l. / Highest Priority, S.l. / Construccion is now booked on this job.</div>",
+   "why": true
+  },
+  {
+   "key": "agri",
+   "sector": "Agriculture & food",
+   "strong": true,
+   "name": "Requalification and Recovery Works of Camalaú-PB Dam",
+   "html": "<a href=\"https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00475605\" class=\"s\" style=\"display:block;font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:21px;line-height:1.25;padding:6px 0 6px;\">Requalification and Recovery Works of Camalaú-PB Dam</a>\n    <div style=\"font-size:13px;color:#555555;line-height:1.9;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/brazil/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-brazil\" style=\"color:#000000;text-decoration:none;font-weight:700;\">🇧🇷 Brazil</a> &nbsp;·&nbsp; <span style=\"font-size:13px;font-weight:600;color:#000000;white-space:nowrap;\">US$2m</span> &nbsp;·&nbsp; won by <b style=\"color:#000000;\">Rca Construes</b></div><div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;\">A Brazilian contractor won this World Bank-financed dam rehabilitation at US$1.7m, which shows local firms take work of this size.</div>",
+   "call": "<div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;border-top:1px solid #CCCCCC;margin-top:8px;\"><b style=\"color:#000000;\">The call:</b> Rca Construes is now buying equipment and placing subcontracts. Get on their vendor list.</div>",
+   "buyer": "<div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;border-top:1px solid #CCCCCC;margin-top:8px;\"><b style=\"color:#000000;\">For buyers:</b> Reference price: US$2m for this scope in Brazil. Rca Construes is now booked on this job.</div>",
+   "why": true
+  },
+  {
+   "key": "energy",
+   "sector": "Oil, gas & LNG",
+   "strong": false,
+   "name": "Transocean Drillship Contracts",
+   "html": "<a href=\"https://offshore-energy.biz/2026/10/19/transoceans-drillship-pair-bags-dollar550-million-in-new-us-gulf-deals\" class=\"s\" style=\"display:block;font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:21px;line-height:1.25;padding:6px 0 6px;\">Transocean Drillship Contracts</a>\n    <div style=\"font-size:13px;color:#555555;line-height:1.9;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/united-states/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-united-states\" style=\"color:#000000;text-decoration:none;font-weight:700;\">🇺🇸 United States</a> &nbsp;·&nbsp; <b style=\"color:#000000;\">Transocean</b></div>",
+   "call": "<div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;border-top:1px solid #CCCCCC;margin-top:8px;\"><b style=\"color:#000000;\">The call:</b> Transocean is now buying equipment and placing subcontracts. Get on their vendor list.</div>",
+   "buyer": "<div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;border-top:1px solid #CCCCCC;margin-top:8px;\"><b style=\"color:#000000;\">For buyers:</b> Transocean is now booked on this job.</div>",
+   "why": false
+  },
+  {
+   "key": "energy",
+   "sector": "Oil, gas & LNG",
+   "strong": false,
+   "name": "LNG Dual-Fuel Car Carriers",
+   "html": "<a href=\"https://splash247.com/msc-backed-gcc-expands-car-carrier-spree-with-two-more-newbuilds/\" class=\"s\" style=\"display:block;font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:21px;line-height:1.25;padding:6px 0 6px;\">LNG Dual-Fuel Car Carriers</a>\n    <div style=\"font-size:13px;color:#555555;line-height:1.9;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> &nbsp;·&nbsp; <a href=\"https://worldtradepro.com/projects/china/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-china\" style=\"color:#000000;text-decoration:none;font-weight:700;\">🇨🇳 China</a> &nbsp;·&nbsp; <b style=\"color:#000000;\">Global Car Carriers</b></div>",
+   "call": "<div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;border-top:1px solid #CCCCCC;margin-top:8px;\"><b style=\"color:#000000;\">The call:</b> Global Car Carriers is now buying equipment and placing subcontracts. Get on their vendor list.</div>",
+   "buyer": "<div style=\"font-size:15px;line-height:1.5;color:#1A1A1A;padding-top:8px;border-top:1px solid #CCCCCC;margin-top:8px;\"><b style=\"color:#000000;\">For buyers:</b> Global Car Carriers is now booked on this job.</div>",
+   "why": false
+  }
+ ],
+ "projects": [
+  {
+   "key": "energy",
+   "count": 25,
+   "rows": [
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://splash247.com/nanjing-tanker-picks-dalian-for-lr2-quartet/\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">LR2 Product and Crude Tankers</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/china/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-china\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇨🇳 China</a> · Shipyard &amp; Fleet · Large · Nanjing Tanker</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://splash247.com/msc-backed-gcc-expands-car-carrier-spree-with-two-more-newbuilds/\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">LNG Dual-Fuel Car Carriers</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/china/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-china\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇨🇳 China</a> · Shipyard &amp; Fleet · Large · Global Car Carriers</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://offshore-energy.biz/2026/10/19/transoceans-drillship-pair-bags-dollar550-million-in-new-us-gulf-deals\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Transocean Drillship Contracts</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/united-states/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-united-states\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇺🇸 United States</a> · Large · Transocean</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://www.oilandgasmiddleeast.com/news/hengyi-honeywell-brunei\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Brunei Refinery Phase II</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · 🇧🇳 Brunei · Refining &amp; Petrochemicals · Large · Hengyi</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://www.marinelink.com/news/nykmisc-joint-venture-inks-longterm-543637\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Long-Term Charter for LNG Carrier</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/malaysia/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-malaysia\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇲🇾 Malaysia</a> · Shipyard &amp; Fleet · Large · Asia LNG Transport</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://news.google.com/rss/articles/CBMiqwFBVV95cUxNNG5yemFYQVdXZTFLQXo0d0pFXzdHQkwxSDFpVzl0ck9wV2dJLW1TMzRXLUt1ejBqWnN2aEtjbVE4OF9oTURiaVFGV2Q0QktZYktaSGpIQzZfSEVRdDhHXzZCRmFOYXVQTXlGZk1UY2oxVzRiRlhRcmtGZ1MtbWlheWNZNEh2cGFNbVVNaWlQOV96M3FvY2FxUU5nX2ZRbWljTHZPXzlQQTVabWM?oc=5\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">US Hydrogen, Heavy Water Project</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#999999;font-size:11px;\">■</span>&nbsp;Development</span> · <a href=\"https://worldtradepro.com/projects/united-states/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-united-states\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇺🇸 United States</a> · Hydrogen &amp; Ammonia · Medium</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://splash247.com/emgs-lands-offshore-exploration-survey-award-in-pakistan/\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Offshore Exploration Survey in Pakistan</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/pakistan/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-pakistan\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇵🇰 Pakistan</a> · Oil &amp; Gas · Medium · Electromagnetic Geoservices</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://www.tecnicasreunidas.es/tr-strengthens-presence-north-america-with-lng-canada/\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">LNG Canada Contract Award</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/canada/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-canada\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇨🇦 Canada</a> · Pipelines &amp; Storage · Medium · Tecnicas Reunidas</span></td></tr>"
+   ],
+   "moreUrl": "https://worldtradepro.com/blog/world-trade-pro-weekly-2026-w42/?utm_source=newsletter&utm_medium=email&utm_campaign=weekly-2026-10-20&utm_content=more-energy#sec-energy"
+  },
+  {
+   "key": "power",
+   "count": 38,
+   "rows": [
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://www.mercomindia.com/morocco-floats-epc-tender-for-350-mw-solar-projects\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">350 MW Solar Projects in Morocco</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#B26B00;font-size:11px;\">■</span>&nbsp;Tender</span> · <a href=\"https://worldtradepro.com/projects/morocco/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-morocco\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇲🇦 Morocco</a> · Solar · Large · Moroccan Agency for Sustainable Energy (MASEN)</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://www.utilities-me.com/news/rabigh-2-elsewedy-signs-2-3gw-epc\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Rabigh 2 Gas Plant</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/saudi-arabia/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-saudi-arabia\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇸🇦 Saudi Arabia</a> · Power &amp; Transmission · Large · Elsewedy Electric PSP and Sinohydro</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://news.google.com/rss/articles/CBMipwFBVV95cUxNMmJmY2pwRDVmcjRXVHZXZ3h2bzY1RHBwMG8yN3kyV2tjQkhBZXlPU05mNEh4MjBTWHNBSlltcWNCeW5SeXNIYjM0dTNwQW11dkxNb29TeS1BZW9PQ29POF9UamFIOVBpMmZVdFJEVGxxRTNyalhNSnBwTDB2MnhVYjZWVk53YWtTZl9kcGdsSm1zTDdEOExJR0l5d0FmdndaaFUxYXR2SQ?oc=5\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Solar-powered 500-MW data center campus</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#999999;font-size:11px;\">■</span>&nbsp;Development</span> · 🇺🇾 Uruguay · Data Centers · Large · Solaria</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://www.pv-tech.org/australia-solar-investment-decisions-reach-record-3-5gw-in-2026/\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Australia Solar Investment Decisions</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#999999;font-size:11px;\">■</span>&nbsp;Development</span> · <a href=\"https://worldtradepro.com/projects/australia/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-australia\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇦🇺 Australia</a> · Solar · Large</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://news.google.com/rss/articles/CBMi0AFBVV95cUxNQjNITkNEdVNkZ3c5NEV2eDIwWnRvcGFLMncwbkE4emtscnlnN3VXREpBZjR4Y3JDeDZLNVNPN3pObURQTDQ5Q2I0QjFhUXhpVlJ3TEE2bk53ZTNNWUVmeG5feWotNE1rdGtFQ0MzR3FoV29BLUlzOU5vbmpCQ2N2cVhJRTFIT3JZa0t6aC1RU0N4M0ZPZ2h6NGdpSFFQMGU2MjFhTDVfLUlpczdKWmpzTUcwZ0M0Mkh3VVVKZDZrNWdCYmxxM182UWdrMTkzU2xZ?oc=5\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Al Khushaybi BESS</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/saudi-arabia/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-saudi-arabia\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇸🇦 Saudi Arabia</a> · Battery Storage · Large · SEPCO</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://lngprime.com/contracts-and-tenders/venture-global-seals-new-deals-to-support-expansion-of-its-power-network/198467/\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Power Island Units Expansion</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#999999;font-size:11px;\">■</span>&nbsp;Development</span> · <a href=\"https://worldtradepro.com/projects/united-states/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-united-states\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇺🇸 United States</a> · Power &amp; Transmission · Large · Venture Global</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://offshore-energy.biz/2026/10/15/ofgem-to-launch-record-tender-looking-for-owner-of-hornsea-3-offshore-transmission-assets\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Hornsea 3 Offshore Transmission Assets</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#B26B00;font-size:11px;\">■</span>&nbsp;Tender</span> · <a href=\"https://worldtradepro.com/projects/united-kingdom/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-united-kingdom\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇬🇧 United Kingdom</a> · Renewables · Large</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://www.africa-energy.com/live-data/article/egypt-construction-starts-multi-hundred-megawatt-wind-ipp\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Wind IPP Construction</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/egypt/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-egypt\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇪🇬 Egypt</a> · Wind · Large</span></td></tr>"
+   ],
+   "moreUrl": "https://worldtradepro.com/blog/world-trade-pro-weekly-2026-w42/?utm_source=newsletter&utm_medium=email&utm_campaign=weekly-2026-10-20&utm_content=more-power#sec-power"
+  },
+  {
+   "key": "metals",
+   "count": 5,
+   "rows": [
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"http://static.cninfo.com.cn/finalpage/2026-10-15/1225605188.PDF\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Ruyang County Yude Mining limestone mining for cement project</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/china/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-china\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇨🇳 China</a> · Mine Development · Medium · Metallurgical Corporation of China (MCC)</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"http://static.cninfo.com.cn/finalpage/2026-10-15/1225605188.PDF\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Fujian Dadonghai high-end steel industry project 2×1200m³ blast furnace construction</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/china/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-china\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇨🇳 China</a> · Processing &amp; Smelting · Medium · Metallurgical Corporation of China (MCC)</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://www.bcinsight.crugroup.com/2026/10/14/kcm-awards-us498-million-nchanga-tailings-leach-plant-contract/\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Nchanga Tailings Leach Plant</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/zambia/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-zambia\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇿🇲 Zambia</a> · Processing &amp; Smelting · Medium · Konkola Copper Mines Plc</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://im-mining.com/2026/10/13/epc-groupe-expands-activities-in-senegal-via-major-contract-with-sabodala-mine/\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Explosives Supply Contract for Sabodala Mine</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/senegal/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-senegal\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇸🇳 Senegal</a> · Mine Development · Medium · EPC Groupe</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://ted.europa.eu/en/notice/-/detail/715818-2026\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Mining equipment lease with warranty service for Polska Grupa Górnicza S.A.</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#B26B00;font-size:11px;\">■</span>&nbsp;Tender</span> · <a href=\"https://worldtradepro.com/projects/poland/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-poland\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇵🇱 Poland</a> · Mine Development</span></td></tr>"
+   ],
+   "moreUrl": "https://worldtradepro.com/blog/world-trade-pro-weekly-2026-w42/?utm_source=newsletter&utm_medium=email&utm_campaign=weekly-2026-10-20&utm_content=more-metals#sec-metals"
+  },
+  {
+   "key": "agri",
+   "count": 3,
+   "rows": [
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00475605\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Requalification and Recovery Works of Camalaú-PB Dam</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/brazil/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-brazil\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇧🇷 Brazil</a> · Irrigation &amp; Water · Small · RCA CONSTRUES</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00475383\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Carry out dam body grouting up to 65 mt. in power dam (ch.6111 to 6356 ft.) and below 30 mt. to 51 mt. of previously grouted holes of LT dam at Ukai</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#B26B00;font-size:11px;\">■</span>&nbsp;Tender</span> · <a href=\"https://worldtradepro.com/projects/india/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-india\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇮🇳 India</a> · Irrigation &amp; Water</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00475038\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Ukai - D/S side Protection work near apron of tail channel at Ukai dam Ta.Songadh Dist.Tapi</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#B26B00;font-size:11px;\">■</span>&nbsp;Tender</span> · <a href=\"https://worldtradepro.com/projects/india/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-india\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇮🇳 India</a> · Irrigation &amp; Water</span></td></tr>"
+   ],
+   "moreUrl": "https://worldtradepro.com/blog/world-trade-pro-weekly-2026-w42/?utm_source=newsletter&utm_medium=email&utm_campaign=weekly-2026-10-20&utm_content=more-agri#sec-agri"
+  },
+  {
+   "key": "chem",
+   "count": 1,
+   "rows": [
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://news.google.com/rss/articles/CBMitAFBVV95cUxPMDMzbUx1YUJFbEZoeklsY3JpRHFSbXNDMVdDc3V3LVFKMU03TDhKaENaN1J0MjFrNmlSU1RHektwYkt0eHNFNGhqUjFDaWtBSVh4VmlNSEJhSjE5TDQ3VXhIekgxd3hsV3A5aUhxbFgyc2djLV9hUEJSX3dqSW5BbWJnd2lORkF2OUFNOTVGVXZoOThvZFhCMk53eVktUmVka3FoSk1uN0J1Z3ZIcDNaTjE0cTM?oc=5\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Green Ammonia Project</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/india/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-india\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇮🇳 India</a> · Fertilizer Plants · Everllence</span></td></tr>"
+   ],
+   "moreUrl": "https://worldtradepro.com/blog/world-trade-pro-weekly-2026-w42/?utm_source=newsletter&utm_medium=email&utm_campaign=weekly-2026-10-20&utm_content=more-chem#sec-chem"
+  },
+  {
+   "key": "infra",
+   "count": 7,
+   "rows": [
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://www.datacenterdynamics.com/en/news/pure-dc-completes-installation-of-final-transformer-at-90mw-brent-cross-data-center/\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">90MW Brent Cross data center</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/united-kingdom/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-united-kingdom\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇬🇧 United Kingdom</a> · Data Centers · Large · Pure DC</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://www.utilities-me.com/news/energy-recovery-wins-saudi-contract\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Saudi Seawater Desalination Plant</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/saudi-arabia/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-saudi-arabia\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇸🇦 Saudi Arabia</a> · Water &amp; Desalination · Large · Energy Recovery</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://w.media/ctrls-to-invest-us1-billion-in-bihar-to-set-up-hyperscale-ai-infrastructure/\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Hyperscale AI Infrastructure</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#999999;font-size:11px;\">■</span>&nbsp;Development</span> · <a href=\"https://worldtradepro.com/projects/india/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-india\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇮🇳 India</a> · Data Centers · Large · CtrlS Datacenters Ltd.</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://w.media/greece-proposes-new-rules-for-data-center-electricity-connections/\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Greece proposes new rules for data center electricity connections</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#999999;font-size:11px;\">■</span>&nbsp;Feasibility</span> · <a href=\"https://worldtradepro.com/projects/greece/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-greece\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇬🇷 Greece</a> · Data Centers</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://www.datacenterdynamics.com/en/news/mitsubishi-hi-and-ingeteam-partner-on-energy-infrastructure-solutions-for-us-data-center-market/\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">MoU for energy infrastructure solutions</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#999999;font-size:11px;\">■</span>&nbsp;Feasibility</span> · <a href=\"https://worldtradepro.com/projects/united-states/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-united-states\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇺🇸 United States</a> · Data Centers · Mitsubishi HI</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://w.media/submer-partners-with-btcl-for-ai-infrastructure-development-in-india/\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">AI Infrastructure Development</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#999999;font-size:11px;\">■</span>&nbsp;Feasibility</span> · <a href=\"https://worldtradepro.com/projects/india/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-india\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇮🇳 India</a> · Data Centers · BSNL Tower Corporation Limited</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://w.media/cmc-and-lotte-innovate-partner-to-develop-digital-infrastructure-in-vietnam/\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Digital Infrastructure Development</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#999999;font-size:11px;\">■</span>&nbsp;Feasibility</span> · <a href=\"https://worldtradepro.com/projects/vietnam/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-vietnam\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇻🇳 Vietnam</a> · Data Centers · CMC</span></td></tr>"
+   ],
+   "moreUrl": "https://worldtradepro.com/blog/world-trade-pro-weekly-2026-w42/?utm_source=newsletter&utm_medium=email&utm_campaign=weekly-2026-10-20&utm_content=more-infra#sec-infra"
+  },
+  {
+   "key": "shipping",
+   "count": 19,
+   "rows": [
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://ted.europa.eu/en/notice/-/detail/722028-2026\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Railway maintenance works - Replacement of components of the track superstructure - 7 lots</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#B26B00;font-size:11px;\">■</span>&nbsp;Tender</span> · <a href=\"https://worldtradepro.com/projects/romania/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-romania\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇷🇴 Romania</a> · Rail &amp; Inland Transport · Large</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://splash247.com/hmm-commits-1-6bn-to-12-more-containerships/\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Containership Order</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/south-korea/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-south-korea\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇰🇷 South Korea</a> · Shipyard &amp; Fleet · Large · HMM</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://news.google.com/rss/articles/CBMieEFVX3lxTE5PaG1qXzZIT3Q3OGZVa3RzYnpGMTlHOHhmME5TNTlzcEJjbUhicDZEVFE0a3M3VWtrR043SmNIVERvanVObU1fc3UwQmZPTU5zamNyd2R2UUhMRXdFQ1JvYWFmUlU4TmctNm1ONkxCdFFaaUtvazFCVw?oc=5\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Riyadh Metro Rolling Stock Contracts</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/saudi-arabia/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-saudi-arabia\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇸🇦 Saudi Arabia</a> · Rail &amp; Inland Transport · Large</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://constructionreviewonline.com/837m-philaport-expansion-pennsylvania-commits-371-5m-for-new-southport-berth-in-philadelphia/\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">PhilaPort Expansion</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/united-states/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-united-states\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇺🇸 United States</a> · Ports &amp; Terminals · Large · Pennsylvania State Government</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://splash247.com/hai-an-lines-up-70m-feeder-newbuild-investment/\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Feeder Containerships</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/china/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-china\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇨🇳 China</a> · Shipyard &amp; Fleet · Medium · Hai An Transport and Stevedoring</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://ted.europa.eu/en/notice/-/detail/716647-2026\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Construction work – Multi-Party Framework Agreement for Civil Engineering Works at Dublin Port</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#B26B00;font-size:11px;\">■</span>&nbsp;Tender</span> · <a href=\"https://worldtradepro.com/projects/ireland/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-ireland\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇮🇪 Ireland</a> · Ports &amp; Terminals · Medium</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://splash247.com/chemnav-steps-up-suezmax-bet-with-jinglu-pair/\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Suezmax Newbuild Order</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · <a href=\"https://worldtradepro.com/projects/china/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=country-china\" style=\"color:#555555;text-decoration:none;font-weight:400;\">🇨🇳 China</a> · Shipyard &amp; Fleet · Medium · Chemnav Shipmanagement</span></td></tr>",
+    "<tr><td style=\"padding:7px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><a href=\"https://news.google.com/rss/articles/CBMiqAFBVV95cUxNOFJUb2FuMk9CdFdJM3lLUW9Zd1cwZDlHU0JhdDdocWZkajNTc1Z0NllOYlFKWmlLSmtURm92LTJldWJBblEtaWlCWldpNmNaTk9zRUV0ZXdQYzVYUEZxTnVBaE1kOG91dVlXalhzMVlBUUJHSm9Xd1lvNFVJcHBtZFpzMDFzcHdqYktjTGRpbnZZY0RsM2pxd01HS0JMRXBWWW05b1VuSjk?oc=5\" class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:17px;line-height:1.3;\">Time Charter Contract for m/v Coronis</a><br><span style=\"color:#555555;font-size:13px;line-height:1.5;\"><span style=\"white-space:nowrap;\"><span style=\"color:#2E6B4F;font-size:11px;\">■</span>&nbsp;Awarded</span> · Shipyard &amp; Fleet · Medium · Diana Shipping</span></td></tr>"
+   ],
+   "moreUrl": "https://worldtradepro.com/blog/world-trade-pro-weekly-2026-w42/?utm_source=newsletter&utm_medium=email&utm_campaign=weekly-2026-10-20&utm_content=more-shipping#sec-shipping"
+  }
+ ],
+ "flows": {
+  "lanes": "<tr><td style=\"padding:14px 0 0;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><div style=\"font-size:13px;font-weight:600;color:#000000;padding-bottom:6px;border-bottom:2px solid #000000;\">Lane pressure this week</div>\n  <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:14px;color:#1A1A1A;padding:6px 0;border-top:1px solid #CCCCCC;\"><a href=\"https://worldtradepro.com/trade-lanes/strait-of-hormuz/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=lane-hormuz\" style=\"color:#000000;text-decoration:none;font-weight:600;\">Strait of Hormuz</a> <span style=\"color:#555555;font-size:12px;\">· 20 signals</span></td><td style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:13px;padding:6px 0;border-top:1px solid #CCCCCC;text-align:right;white-space:nowrap;\"><span style=\"color:#B4412E;\">High</span> &nbsp; <span style=\"color:#2E6B4F;\">▼ easing</span></td></tr><tr><td style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:14px;color:#1A1A1A;padding:6px 0;border-top:1px solid #CCCCCC;\"><a href=\"https://worldtradepro.com/trade-lanes/red-sea-suez-canal/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=lane-redsuez\" style=\"color:#000000;text-decoration:none;font-weight:600;\">Red Sea &amp; Suez Canal</a> <span style=\"color:#555555;font-size:12px;\">· 6 signals</span></td><td style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:13px;padding:6px 0;border-top:1px solid #CCCCCC;text-align:right;white-space:nowrap;\"><span style=\"color:#1A1A1A;\">Elevated</span> &nbsp; <span style=\"color:#B4412E;\">▲ rising</span></td></tr><tr><td style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:14px;color:#1A1A1A;padding:6px 0;border-top:1px solid #CCCCCC;\"><a href=\"https://worldtradepro.com/trade-lanes/black-sea-turkish-straits/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=lane-blacksea\" style=\"color:#000000;text-decoration:none;font-weight:600;\">Black Sea &amp; Turkish Straits</a> <span style=\"color:#555555;font-size:12px;\">· 6 signals</span></td><td style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:13px;padding:6px 0;border-top:1px solid #CCCCCC;text-align:right;white-space:nowrap;\"><span style=\"color:#555555;\">Watch</span> &nbsp; <span style=\"color:#555555;\">unchanged</span></td></tr><tr><td style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:14px;color:#1A1A1A;padding:6px 0;border-top:1px solid #CCCCCC;\"><a href=\"https://worldtradepro.com/trade-lanes/gulf-of-aden-bab-el-mandeb/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=lane-adenbab\" style=\"color:#000000;text-decoration:none;font-weight:600;\">Gulf of Aden / Bab el-Mandeb</a> <span style=\"color:#555555;font-size:12px;\">· 2 signals</span></td><td style=\"font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:13px;padding:6px 0;border-top:1px solid #CCCCCC;text-align:right;white-space:nowrap;\"><span style=\"color:#555555;\">Watch</span> &nbsp; <span style=\"color:#B4412E;\">▲ rising</span></td></tr></table>\n  <div style=\"font-size:12px;color:#555555;padding-top:6px;\"><a href=\"https://worldtradepro.com/trade-lanes/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=lanes-hub\" style=\"color:#000000;font-weight:600;text-decoration:underline;\">All 9 lanes, week by week →</a></div></td></tr>",
+  "items": [
+   {
+    "key": "shipping",
+    "url": "https://www.hellenicshippingnews.com/container-carriers-adjust-rates-add-services-to-americas-continue-gradual-return-to-suez/",
+    "title": "Container carriers adjust rates, add services to Americas, continue gradual return to Suez",
+    "source": "hellenicshippingnews.com",
+    "summary": "Global container shipping companies are increasing rates along some trade lanes, adding stops to existing services to the Americas, and improving…",
+    "html": "<tr><td style=\"padding:16px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><div style=\"font-size:13px;font-weight:600;color:#555555;\">Shipping, ports &amp; logistics · Red Sea &amp; Suez Canal</div>\n    <a href=\"https://www.hellenicshippingnews.com/container-carriers-adjust-rates-add-services-to-americas-continue-gradual-return-to-suez/\" class=\"s\" style=\"display:block;font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:21px;line-height:1.25;padding:4px 0 4px;\">Container carriers adjust rates, add services to Americas, continue gradual return to Suez</a>\n    <div style=\"font-size:13px;color:#555555;\">hellenicshippingnews.com · 2 reports this week</div>\n    \n    <div style=\"font-size:15px;line-height:1.55;color:#1A1A1A;padding-top:8px;\"><b style=\"color:#000000;\">What it means:</b> Carriers are raising rates on some lanes, adding Americas calls and slowly returning to Suez, so shippers should recheck contract rates and routings.</div></td></tr>"
+   },
+   {
+    "key": "energy",
+    "url": "https://www.rigzone.com/news/wire/aramcos_new_china_refinery_venture_gets_1st_crude_cargo-14-oct-2026-184848-article/?rss=true",
+    "title": "Aramco's New China Refinery Venture Gets 1st Crude Cargo",
+    "source": "rigzone.com",
+    "summary": "Saudi Aramco and its local partners have received the first crude cargo for their new refining complex in China.",
+    "html": "<tr><td style=\"padding:16px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><div style=\"font-size:13px;font-weight:600;color:#555555;\">Oil, gas &amp; LNG</div>\n    <a href=\"https://www.rigzone.com/news/wire/aramcos_new_china_refinery_venture_gets_1st_crude_cargo-14-oct-2026-184848-article/?rss=true\" class=\"s\" style=\"display:block;font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:21px;line-height:1.25;padding:4px 0 4px;\">Aramco's New China Refinery Venture Gets 1st Crude Cargo</a>\n    <div style=\"font-size:13px;color:#555555;\">rigzone.com</div>\n    \n    <div style=\"font-size:15px;line-height:1.55;color:#1A1A1A;padding-top:8px;\"><b style=\"color:#000000;\">What it means:</b> Aramco's Chinese refinery venture has taken its first crude cargo, so Saudi crude has a new outlet in China and rival refiners should watch allocations.</div></td></tr>"
+   },
+   {
+    "key": "shipping",
+    "url": "https://splash247.com/suez-tightens-transit-rules-for-ageing-ships/",
+    "title": "Suez tightens transit rules for ageing ships",
+    "source": "splash247.com",
+    "summary": "The Suez Canal Authority (SCA) has introduced mandatory inspections and trials for vessels aged 25 years and older, adding further costs and…",
+    "html": "<tr><td style=\"padding:16px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><div style=\"font-size:13px;font-weight:600;color:#555555;\">Shipping, ports &amp; logistics · Red Sea &amp; Suez Canal</div>\n    <a href=\"https://splash247.com/suez-tightens-transit-rules-for-ageing-ships/\" class=\"s\" style=\"display:block;font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:21px;line-height:1.25;padding:4px 0 4px;\">Suez tightens transit rules for ageing ships</a>\n    <div style=\"font-size:13px;color:#555555;\">splash247.com</div>\n    \n    <div style=\"font-size:15px;line-height:1.55;color:#1A1A1A;padding-top:8px;\"><b style=\"color:#000000;\">What it means:</b> Ships aged 25 years and older now face mandatory inspections and trials at Suez, so charterers should check vessel age before fixing Suez routings.</div></td></tr>"
+   },
+   {
+    "key": "energy",
+    "url": "https://oilprice.com/Energy/Natural-Gas/Stranded-Middle-East-LNG-Supply-Upends-Gas-Markets.html",
+    "title": "Stranded Middle East LNG Supply Upends Gas Markets",
+    "source": "oilprice.com",
+    "summary": "The LNG supply out of the Middle East has not recovered in any meaningful way seven and a half months after the Iran war choked oil and gas…",
+    "html": "<tr><td style=\"padding:16px 0;border-top:1px solid #CCCCCC;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><div style=\"font-size:13px;font-weight:600;color:#555555;\">Oil, gas &amp; LNG · Strait of Hormuz</div>\n    <a href=\"https://oilprice.com/Energy/Natural-Gas/Stranded-Middle-East-LNG-Supply-Upends-Gas-Markets.html\" class=\"s\" style=\"display:block;font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;text-decoration:none;font-size:21px;line-height:1.25;padding:4px 0 4px;\">Stranded Middle East LNG Supply Upends Gas Markets</a>\n    <div style=\"font-size:13px;color:#555555;\">oilprice.com · 3 reports this week</div>\n    \n    <div style=\"font-size:15px;line-height:1.55;color:#1A1A1A;padding-top:8px;\"><b style=\"color:#000000;\">What it means:</b> Middle East LNG supply has still not meaningfully recovered seven and a half months after the Iran war, so buyers should expect continued pressure on alternative supply.</div></td></tr>"
+   }
+  ]
+ },
+ "moves": "<tr><td style=\"padding:18px 0 0;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><div style=\"font-size:13px;color:#555555;\"><b style=\"color:#000000;\">Stage moves:</b> PhilaPort Expansion <span style=\"white-space:nowrap;\">Development → <b>Awarded</b></span></div></td></tr>",
+ "tail": [
+  "<tr><td style=\"padding:24px 0 0;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#F5F5F3;border-top:2px solid #000000;\"><tr><td style=\"padding:16px 18px;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.55;color:#1A1A1A;\"><div class=\"s\" style=\"font-family:Newsreader,Georgia,'Times New Roman',serif;font-weight:400;color:#000000;font-size:21px;line-height:1.25;padding-bottom:8px;\">Sourcing equipment, materials or spares from China?</div><span style=\"color:#1A1A1A;\">Tell us what you need; we pass the request to partner trading companies in China so they can quote.</span> <a href=\"https://worldtradepro.com/project-sourcing/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=sourcing-demand#csr-apply\" style=\"color:#000000;font-weight:600;text-decoration:underline;\">China Sourcing request →</a><br><span style=\"color:#1A1A1A;\">Supplier or service provider? </span><a href=\"https://worldtradepro.com/project-leads/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=sourcing-supply\" style=\"color:#000000;font-weight:600;text-decoration:underline;\">See which projects need your product, free preview →</a></td></tr></table></td></tr>",
+  "<tr><td style=\"padding:14px 0 0;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><div style=\"font-size:15px;line-height:1.55;color:#1A1A1A;\"><span style=\"font-size:13px;color:#555555;\">Reach the people who build and move commodities: <a href=\"mailto:contact@worldtradepro.com?subject=Sponsor%20World%20Trade%20Pro%20Weekly\" style=\"color:#555555;font-weight:600;text-decoration:underline;\">sponsor this newsletter →</a></span></div></td></tr>",
+  "<tr><td style=\"padding:12px 0 0;font-family:'IBM Plex Sans',Helvetica,Arial,sans-serif;\"><div style=\"font-size:15px;line-height:1.55;color:#1A1A1A;\"><span style=\"font-size:13px;color:#555555;\"><b>P.S.</b> New to physical deals? The Paper Trail: A Survival Guide to Commodity Trading walks through one end to end. <a href=\"https://worldtradepro.com/commodity-course/?utm_source=newsletter&amp;utm_medium=email&amp;utm_campaign=weekly-2026-10-20&amp;utm_content=course\" style=\"color:#555555;font-weight:600;text-decoration:underline;\">Watch the free prologue →</a></span></div></td></tr>"
+ ],
+ "links": {
+  "projects": "https://worldtradepro.com/projects/?utm_source=newsletter&utm_medium=email&utm_campaign=weekly-2026-10-20&utm_content=projects-hub",
+  "map": "https://worldtradepro.com/intelligence-map/?utm_source=newsletter&utm_medium=email&utm_campaign=weekly-2026-10-20&utm_content=map",
+  "manage": "https://worldtradepro.com/newsletter/unsubscribe/",
+  "issue": "https://worldtradepro.com/blog/world-trade-pro-weekly-2026-w42/?utm_source=newsletter&utm_medium=email&utm_campaign=weekly-2026-10-20&utm_content=read-full",
+  "pdf": "https://cdn.jsdelivr.net/gh/worldtradepro/wtp-linkedin-bot@images/weekly/world-trade-pro-weekly-2026-w42/WorldTradePro-Weekly-2026-W42.pdf?utm_source=newsletter&utm_medium=email&utm_campaign=weekly-2026-10-20&utm_content=pdf"
+ },
+ "pdfUrl": "https://cdn.jsdelivr.net/gh/worldtradepro/wtp-linkedin-bot@images/weekly/world-trade-pro-weekly-2026-w42/WorldTradePro-Weekly-2026-W42.pdf",
+ "skip": false,
+ "counts": {
+  "epc": 98,
+  "tenders": 29,
+  "awards": 52,
+  "flow": 231,
+  "critical": 29,
+  "calls": 9,
+  "calendar": 5,
+  "notes": true,
+  "sectors": [
+   "energy:25",
+   "power:38",
+   "metals:5",
+   "agri:3",
+   "chem:1",
+   "infra:7",
+   "shipping:19"
+  ]
+ },
+ "material": {
+  "deals": [
+   {
+    "name": "Railway maintenance works - Replacement of components of the track superstructure - 7 lots",
+    "stage": "tender",
+    "country": "Romania",
+    "value": "US$864m",
+    "who": "Compania Nationala de Cai Ferate \"CFR\" - SA",
+    "deadline": "23 Nov",
+    "sector": "Shipping, ports & logistics",
+    "url": "https://ted.europa.eu/en/notice/-/detail/722028-2026",
+    "summary": ""
+   },
+   {
+    "name": "Electrification Rurale 2027-2030",
+    "stage": "tender",
+    "country": "France",
+    "value": "US$20m",
+    "who": "SDEE de la Lozère",
+    "deadline": "12 Nov",
+    "sector": "Power & renewables",
+    "url": "https://ted.europa.eu/en/notice/-/detail/705719-2026",
+    "summary": ""
+   },
+   {
+    "name": "Multi-Party Framework Agreement for Civil Engineering Works at Dublin Port",
+    "stage": "tender",
+    "country": "Ireland",
+    "value": "US$280m",
+    "who": "Dublin Port Company_411",
+    "deadline": "",
+    "sector": "Shipping, ports & logistics",
+    "url": "https://ted.europa.eu/en/notice/-/detail/716647-2026",
+    "summary": ""
+   },
+   {
+    "name": "Fujian Dadonghai high-end steel industry project 2×1200m³ blast furnace construction",
+    "stage": "award",
+    "country": "China",
+    "value": "US$175m",
+    "who": "Metallurgical Corporation of China (MCC)",
+    "deadline": "",
+    "sector": "Metals & mining",
+    "url": "http://static.cninfo.com.cn/finalpage/2026-10-15/1225605188.PDF",
+    "summary": "Metallurgical Corporation of China (MCC) signed an EPC contract worth about US$174.5M with Fujian Dadonghai Industrial Group Co., Ltd.: Fujian Dadonghai high-end steel industry project 2×1200m³ blast furnace…"
+   },
+   {
+    "name": "Ruyang County Yude Mining limestone mining for cement project",
+    "stage": "award",
+    "country": "China",
+    "value": "US$143m",
+    "who": "Metallurgical Corporation of China (MCC)",
+    "deadline": "",
+    "sector": "Metals & mining",
+    "url": "http://static.cninfo.com.cn/finalpage/2026-10-15/1225605188.PDF",
+    "summary": "Metallurgical Corporation of China (MCC) signed an EPC contract worth about US$143.1M with Ruyang County Yude Mining Co., Ltd.: Ruyang County Yude Mining limestone mining for cement…"
+   },
+   {
+    "name": "Dams and similar structures - AM MULTISERVICIO OBRA CIVIL HYDRO IBERIA (2026 - 2031)",
+    "stage": "award",
+    "country": "Spain",
+    "value": "US$98m",
+    "who": "J. Vilella Construccions, S.l. / Highest Priority, S.l. / Construccion",
+    "deadline": "",
+    "sector": "Power & renewables",
+    "url": "https://ted.europa.eu/en/notice/-/detail/721545-2026",
+    "summary": ""
+   },
+   {
+    "name": "Design and construction of two rescue and maritime assistance vessels",
+    "stage": "award",
+    "country": "Spain",
+    "value": "US$89m",
+    "who": "Astilleros Armon Vigo, S.a.",
+    "deadline": "",
+    "sector": "Shipping, ports & logistics",
+    "url": "https://ted.europa.eu/en/notice/-/detail/714408-2026",
+    "summary": ""
+   },
+   {
+    "name": "Small-scale electricity generation with ORC system",
+    "stage": "tender",
+    "country": "Sweden",
+    "value": "US$30m",
+    "who": "Sinfra",
+    "deadline": "",
+    "sector": "Power & renewables",
+    "url": "https://ted.europa.eu/en/notice/-/detail/714655-2026",
+    "summary": ""
+   },
+   {
+    "name": "Kauno rajono PEB solar power acquisition system",
+    "stage": "tender",
+    "country": "Lithuania",
+    "value": "US$25m",
+    "who": "Kauno rajono savivaldybės administracija",
+    "deadline": "",
+    "sector": "Power & renewables",
+    "url": "https://ted.europa.eu/en/notice/-/detail/706930-2026",
+    "summary": ""
+   },
+   {
+    "name": "Design, Supply and Installation of the Mpika-Kasama Transmission Lines Complete with Associated Substation Extensions",
+    "stage": "award",
+    "country": "Zambia",
+    "value": "US$8m",
+    "who": "Sinotec Consortium",
+    "deadline": "",
+    "sector": "Power & renewables",
+    "url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00475127",
+    "summary": "World Bank-financed contract US$7.8M awarded to SINOTEC CONSORTIUM (China): Design, Supply and Installation of the Mpika-Kasama Transmission Lines Complete with Associated Substation…"
+   },
+   {
+    "name": "Requalification and Recovery Works of Camalaú-PB Dam",
+    "stage": "award",
+    "country": "Brazil",
+    "value": "US$2m",
+    "who": "Rca Construes",
+    "deadline": "",
+    "sector": "Agriculture & food",
+    "url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00475605",
+    "summary": "World Bank-financed contract US$1.7M awarded to RCA CONSTRUES (Brazil): Requalification and Recovery Works of Camalaú-PB…"
+   },
+   {
+    "name": "Delivery of Four Autotransformers 350,000 kVA, 400/121/31.5 kV",
+    "stage": "award",
+    "country": "Bulgaria",
+    "value": "US$30m",
+    "who": "",
+    "deadline": "",
+    "sector": "Power & renewables",
+    "url": "https://ted.europa.eu/en/notice/-/detail/711220-2026",
+    "summary": ""
+   }
+  ],
+  "flows": [
+   {
+    "url": "https://www.hellenicshippingnews.com/container-carriers-adjust-rates-add-services-to-americas-continue-gradual-return-to-suez/",
+    "title": "Container carriers adjust rates, add services to Americas, continue gradual return to Suez",
+    "source": "hellenicshippingnews.com",
+    "sector": "Shipping, ports & logistics",
+    "summary": "Global container shipping companies are increasing rates along some trade lanes, adding stops to existing services to the Americas, and improving…"
+   },
+   {
+    "url": "https://www.rigzone.com/news/wire/aramcos_new_china_refinery_venture_gets_1st_crude_cargo-14-oct-2026-184848-article/?rss=true",
+    "title": "Aramco's New China Refinery Venture Gets 1st Crude Cargo",
+    "source": "rigzone.com",
+    "sector": "Oil, gas & LNG",
+    "summary": "Saudi Aramco and its local partners have received the first crude cargo for their new refining complex in China."
+   },
+   {
+    "url": "https://splash247.com/suez-tightens-transit-rules-for-ageing-ships/",
+    "title": "Suez tightens transit rules for ageing ships",
+    "source": "splash247.com",
+    "sector": "Shipping, ports & logistics",
+    "summary": "The Suez Canal Authority (SCA) has introduced mandatory inspections and trials for vessels aged 25 years and older, adding further costs and…"
+   },
+   {
+    "url": "https://oilprice.com/Energy/Natural-Gas/Stranded-Middle-East-LNG-Supply-Upends-Gas-Markets.html",
+    "title": "Stranded Middle East LNG Supply Upends Gas Markets",
+    "source": "oilprice.com",
+    "sector": "Oil, gas & LNG",
+    "summary": "The LNG supply out of the Middle East has not recovered in any meaningful way seven and a half months after the Iran war choked oil and gas…"
+   }
+  ],
+  "deltas": {
+   "epc": 20,
+   "tenders": 6,
+   "awards": 17,
+   "flow": -80
+  },
+  "prev": {
+   "epc": 78,
+   "tenders": 23,
+   "awards": 35,
+   "flow": 311
+  },
+  "topWinner": {
+   "who": "Metallurgical Corporation of China (MCC)",
+   "n": 2
+  },
+  "topCountry": {
+   "name": "United States",
+   "n": 11
+  },
+  "biggest": {
+   "name": "Railway maintenance works - Replacement of components of the track superstructure - 7 lots",
+   "value": "US$864m",
+   "who": "Compania Nationala de Cai Ferate \"CFR\" - SA",
+   "url": "https://ted.europa.eu/en/notice/-/detail/722028-2026"
+  }
+ }
+}

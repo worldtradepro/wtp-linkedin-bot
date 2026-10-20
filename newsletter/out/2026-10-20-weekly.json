@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-20",
+  "edition": "weekly",
+  "skip": false,
+  "subject": "US$864m tender: Railway maintenance works - Replacement of…",
+  "preview": "98 new projects in 44 countries · 29 tenders · 52 awards · 231 trade-flow signals, 29 critical",
+  "counts": {
+    "epc": 98,
+    "tenders": 29,
+    "awards": 52,
+    "flow": 231,
+    "critical": 29,
+    "calls": 9,
+    "calendar": 5,
+    "notes": true,
+    "sectors": [
+      "energy:25",
+      "power:38",
+      "metals:5",
+      "agri:3",
+      "chem:1",
+      "infra:7",
+      "shipping:19"
+    ]
+  }
+}
