@@ -114,6 +114,12 @@
       "mode": "schedule",
       "at": "2026-10-19T09:02:27.639Z",
       "dueAt": "2026-10-20T12:00:00.000Z"
+    },
+    "cd_orange_juice_tanker": {
+      "postId": "6ad728eec4a5f1eea4c8238f",
+      "mode": "schedule",
+      "at": "2026-10-20T08:40:14.358Z",
+      "dueAt": "2026-10-21T12:00:00.000Z"
     }
   }
 }
