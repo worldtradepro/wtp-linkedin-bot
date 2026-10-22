@@ -1,6 +1,7 @@
 // Calls to our own site for radar_enrich.py, through the same siteFetch the other bot workflows use (Node fetch + Cloudflare allow header).
 // stdin: {"method":"GET","path":"/wp-json/...","params":{...},"body":{...}}   stdout: {"status":200,"text":"..."}
 import { siteFetch } from '../common.mjs';
+console.log = console.error;   // siteFetch logs its retries with console.log: keep stdout for the JSON result only
 const chunks = [];
 for await (const c of process.stdin) chunks.push(c);
 const { method = 'GET', path, params = {}, body } = JSON.parse(Buffer.concat(chunks).toString('utf8'));

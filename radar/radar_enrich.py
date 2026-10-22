@@ -71,7 +71,7 @@ def site_call(method, path, **kw):
         req["body"] = kw["json"]
     out = subprocess.run(["node", os.path.join(HERE, "site.mjs")], input=json.dumps(req), capture_output=True, text=True, timeout=900)
     try:
-        j = json.loads(out.stdout)
+        j = json.loads([ln for ln in out.stdout.splitlines() if ln.strip()][-1])
         return _Resp(j["status"], j["text"])
     except Exception:
         raise RuntimeError("site call failed: " + (out.stderr or out.stdout)[-400:])
@@ -160,7 +160,7 @@ def claude_json(prompt):
                           "--model", MODEL, "--max-turns", "1", "--output-format", "json"],
                          input=prompt, cwd=cwd, env=env, capture_output=True, text=True, timeout=900)
     try:
-        j = json.loads(out.stdout)
+        j = json.loads([ln for ln in out.stdout.splitlines() if ln.strip()][-1])
         text = j.get("result") or ""
     except Exception:
         raise RuntimeError("claude CLI failed: " + (out.stdout or out.stderr)[:300])
