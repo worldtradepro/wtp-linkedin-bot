@@ -57,14 +57,15 @@ def save(p, o):
 
 def site_call(method, path, **kw):
     """Calls to our own site: the owner's Cloudflare rule lets requests with the x-wtp-bot header past the runner-IP challenge."""
-    h = {"User-Agent": "wtp-radar-enrich/1.0"}
+    h = {"User-Agent": "wtp-linkedin-bot/1.0 (+https://worldtradepro.com)"}   # same agent string the other bot workflows send
     if os.environ.get("WTP_CF_BYPASS"):
         h["x-wtp-bot"] = os.environ["WTP_CF_BYPASS"]
     last = None
     for i in range(1, 5):
         r = requests.request(method, SITE + path, headers=h, timeout=120, **kw)
-        if r.status_code not in (403, 429, 503, 520, 521, 522, 523, 524):
+        if r.status_code not in (403, 429, 503, 520, 521, 522, 523, 524) and "json" in r.headers.get("content-type", "").lower():
             return r
+        print("site call %s %s -> HTTP %s, %s, first bytes: %r (bypass header set: %s)" % (method, path, r.status_code, r.headers.get("content-type"), r.text[:120], bool(os.environ.get("WTP_CF_BYPASS"))), flush=True)
         last = r
         time.sleep(5 * i)
     return last
