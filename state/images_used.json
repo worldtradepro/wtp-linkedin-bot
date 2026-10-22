@@ -305,6 +305,18 @@
       "id": "infra-2",
       "url": "https://img.tdworld.com/files/base/ebm/tdworld/image/2026/10/6ad7df056a15c43a52815638-dreamstime_xxl_204500862.png",
       "hash": "5559dc2d4581062a06523017f7430ee807bb18d3"
+    },
+    {
+      "date": "2026-10-22",
+      "id": "infra-1",
+      "url": "https://images.unsplash.com/photo-1791221254344-c196eadb6110",
+      "hash": "623fdf10a2a847ee950bae84f1f29cc265c48d70"
+    },
+    {
+      "date": "2026-10-22",
+      "id": "infra-2",
+      "url": "https://image.cnbcfm.com/api/v1/image/108218012-1761672039836-2025-10-28T171405Z_952897547_RC24LHAD4P7G_RTRMADP_3_NOKIA-NVIDIA.JPG",
+      "hash": "d96c773322548eacd1e1e9a3dd2ffa5c5efd6e6a"
     }
   ]
 }
