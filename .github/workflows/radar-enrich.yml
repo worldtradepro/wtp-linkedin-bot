@@ -1,0 +1,74 @@
+name: radar-enrich
+
+# Daily: rows of the project database that the server pipeline could not verify ('limited') get a second chance.
+# Brave Search finds candidate pages (monthly cap), the pages are read with the robots-gated fetcher, and Claude (owner's
+# subscription through the `claude` CLI) decides whether a page reports on the same project and extracts the facts.
+# Program checks guard the result; only then does it go back to the site (verification full -> paid_eligible 1).
+# SAFE BY DEFAULT: it only WRITES when the repository variable RADAR_WRITE = true (or the manual run asks for it);
+# otherwise it is a dry run and the report is in the run summary.
+# Pause switch: Settings -> Secrets and variables -> Actions -> Variables -> RADAR_PAUSED = true
+# Needs secrets: WTP_BOT_SECRET, CLAUDE_CODE_OAUTH_TOKEN (both already used by the other workflows) and BRAVE_API_KEY (new).
+
+on:
+  # runs after the server pipeline (cron 14:30 UTC, heavy sources until ~15:30); GitHub may start scheduled runs hours late
+  schedule:
+    - cron: '47 16 * * *'
+    - cron: '47 20 * * *'
+  workflow_dispatch:
+    inputs:
+      write:
+        description: 'Write the results to the site (default: dry run, report only)'
+        type: boolean
+        default: false
+      max_rows:
+        description: 'Rows to try in this run'
+        default: '40'
+      backlog:
+        description: 'Also older rows (the existing limited backlog), best first'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: radar-enrich
+  cancel-in-progress: false
+
+jobs:
+  run:
+    if: ${{ vars.RADAR_PAUSED != 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      BRAVE_API_KEY: ${{ secrets.BRAVE_API_KEY }}
+      RADAR_WRITE: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.write || vars.RADAR_WRITE || 'false' }}
+      RADAR_MAX: ${{ github.event.inputs.max_rows || vars.RADAR_MAX || '40' }}
+      RADAR_BACKLOG: ${{ github.event.inputs.backlog == 'true' && '1' || vars.RADAR_BACKLOG || '0' }}
+      RADAR_BRAVE_CAP: ${{ vars.RADAR_BRAVE_CAP || '150' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check secrets
+        run: |
+          test -n "$WTP_BOT_SECRET" || { echo "::error::Secret WTP_BOT_SECRET is missing"; exit 1; }
+          test -n "$CLAUDE_CODE_OAUTH_TOKEN" || { echo "::error::Secret CLAUDE_CODE_OAUTH_TOKEN is missing"; exit 1; }
+          test -n "$BRAVE_API_KEY" || { echo "::error::Secret BRAVE_API_KEY is missing (add it under Settings -> Secrets and variables -> Actions)"; exit 1; }
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r radar/requirements.txt
+      - run: npm install -g @anthropic-ai/claude-code@latest && claude --version
+      - name: Enrich
+        run: python radar/radar_enrich.py
+      - name: Save state (rows tried, Brave count)
+        if: always()
+        run: |
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          git add state/radar_tried.json state/radar_brave.json || true
+          git diff --cached --quiet || (git commit -m "radar state $(date -u +%F)" && git pull --rebase origin ${{ github.ref_name }} && git push origin HEAD:${{ github.ref_name }})
