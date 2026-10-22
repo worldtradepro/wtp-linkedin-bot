@@ -55,12 +55,27 @@ def save(p, o):
     json.dump(o, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
 
+def site_call(method, path, **kw):
+    """Calls to our own site: the owner's Cloudflare rule lets requests with the x-wtp-bot header past the runner-IP challenge."""
+    h = {"User-Agent": "wtp-radar-enrich/1.0"}
+    if os.environ.get("WTP_CF_BYPASS"):
+        h["x-wtp-bot"] = os.environ["WTP_CF_BYPASS"]
+    last = None
+    for i in range(1, 5):
+        r = requests.request(method, SITE + path, headers=h, timeout=120, **kw)
+        if r.status_code not in (403, 429, 503, 520, 521, 522, 523, 524):
+            return r
+        last = r
+        time.sleep(5 * i)
+    return last
+
+
 def get_rows():
     rows, off = [], 0
     frm = "2026-01-01" if BACKLOG else (datetime.date.today() - datetime.timedelta(days=DAYS)).isoformat()
     while True:
         q = {"report_type": "epc", "from": frm, "to": datetime.date.today().isoformat(), "limit": 5000, "offset": off, "secret": SECRET}
-        j = requests.get(SITE + "/wp-json/wtp/v1/opportunities", params=q, headers={"User-Agent": "wtp-radar-enrich/1.0"}, timeout=120).json()
+        j = site_call("GET", "/wp-json/wtp/v1/opportunities", params=q).json()
         b = j.get("items") or []
         rows += b
         off += len(b)
@@ -265,7 +280,7 @@ def main():
     if updates and WRITE:
         for i in range(0, len(updates), 100):
             body = {"dry": False, "updates": updates[i:i + 100]}
-            r = requests.patch(SITE + "/wp-json/wtp/v1/opportunities-v3", params={"secret": SECRET}, json=body, headers={"User-Agent": "wtp-radar-enrich/1.0"}, timeout=120)
+            r = site_call("PATCH", "/wp-json/wtp/v1/opportunities-v3", params={"secret": SECRET}, json=body)
             print("PATCH", r.status_code, r.text[:200], flush=True)
     elif updates:
         print("dry run - %d updates NOT sent" % len(updates))

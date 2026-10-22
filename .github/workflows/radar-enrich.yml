@@ -44,6 +44,7 @@ jobs:
       WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
       BRAVE_API_KEY: ${{ secrets.BRAVE_API_KEY }}
+      WTP_CF_BYPASS: ${{ secrets.WTP_CF_BYPASS }}   # owner's Cloudflare rule for the bot's calls to the site
       RADAR_WRITE: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.write || vars.RADAR_WRITE || 'false' }}
       RADAR_MAX: ${{ github.event.inputs.max_rows || vars.RADAR_MAX || '40' }}
       RADAR_BACKLOG: ${{ github.event.inputs.backlog == 'true' && '1' || vars.RADAR_BACKLOG || '0' }}
