@@ -30,7 +30,8 @@ BRAVE = os.environ.get("BRAVE_API_KEY", "").strip()
 MAX_ROWS = int(os.environ.get("RADAR_MAX", "40"))
 DAYS = int(os.environ.get("RADAR_DAYS", "4"))
 BACKLOG = os.environ.get("RADAR_BACKLOG", "0") == "1"
-BRAVE_CAP = int(os.environ.get("RADAR_BRAVE_CAP", "150"))
+BRAVE_CAP = int(os.environ.get("RADAR_BRAVE_CAP", "1000"))      # no own monthly quota any more: the account limit (1000/month) is the limit
+BRAVE_RESERVE = int(os.environ.get("RADAR_BRAVE_RESERVE", "40"))   # keep this many searches of the account for the server pipeline
 WRITE = os.environ.get("RADAR_WRITE", "false").lower() == "true"
 MODEL = os.environ.get("RADAR_MODEL", "claude-sonnet-5-5")
 STATE = os.path.join(os.path.dirname(HERE), "state")
@@ -96,18 +97,27 @@ def month():
 
 
 def brave_search(q):
+    """Returns the result urls, or None when the account's monthly searches are (nearly) used up - then the run stops searching
+    and the rows are NOT marked as tried."""
     use = load(BRAVE_F, {})
-    if use.get(month(), 0) >= BRAVE_CAP or not BRAVE:
+    if use.get(month(), 0) >= BRAVE_CAP or not BRAVE or use.get(month() + "-stop"):
         return None
-    use[month()] = use.get(month(), 0) + 1
-    save(BRAVE_F, use)
     try:
         r = requests.get("https://api.search.brave.com/res/v1/web/search", params={"q": q, "count": 10},
                          headers={"X-Subscription-Token": BRAVE, "Accept": "application/json"}, timeout=20)
-        time.sleep(1.1)
-        return [x["url"] for x in r.json().get("web", {}).get("results", [])] if r.status_code == 200 else []
     except Exception:
         return []
+    if r.status_code == 429:
+        return None                     # monthly limit of the account reached
+    use[month()] = use.get(month(), 0) + 1
+    save(BRAVE_F, use)
+    time.sleep(1.1)
+    rem = re.findall(r"\d+", r.headers.get("X-RateLimit-Remaining", ""))
+    if rem and int(rem[-1]) <= BRAVE_RESERVE:
+        print("Brave: only %s searches left on the account - stopping after this one" % rem[-1], flush=True)
+        use[month() + "-stop"] = True
+        save(BRAVE_F, use)
+    return [x["url"] for x in r.json().get("web", {}).get("results", [])] if r.status_code == 200 else []
 
 
 def clip(text, r):

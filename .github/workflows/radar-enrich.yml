@@ -51,7 +51,7 @@ jobs:
       RADAR_WRITE: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.write || github.event_name == 'schedule' && vars.RADAR_WRITE_OFF != 'true' && 'true' || 'false' }}
       RADAR_MAX: ${{ github.event_name == 'push' && '20' || github.event.inputs.max_rows || vars.RADAR_MAX || '40' }}
       RADAR_BACKLOG: ${{ github.event_name == 'push' && '1' || github.event.inputs.backlog == 'true' && '1' || vars.RADAR_BACKLOG || '0' }}
-      RADAR_BRAVE_CAP: ${{ vars.RADAR_BRAVE_CAP || '150' }}
+      RADAR_BRAVE_CAP: ${{ vars.RADAR_BRAVE_CAP || '1000' }}
     steps:
       - uses: actions/checkout@v4
       - name: Check secrets
