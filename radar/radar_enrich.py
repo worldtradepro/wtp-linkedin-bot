@@ -285,14 +285,11 @@ def main():
         open(summary, "a", encoding="utf-8").write("## Radar enrichment (write=%s)\n%s\n\n%s\n" % (WRITE, dict(st), NL.join(report)))
     print(NL.join(report))
     try:   # keep the last report in the repo so it can be read without opening the Actions page
-        open(os.path.join(STATE, "radar_report.md"), "w", encoding="utf-8").write(
-            "# radar-enrich report %s (write=%s, rows tried: %d)
-%s
-
-%s
-" % (datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"), WRITE, len(rows), dict(st), NL.join(report)))
+        stamp = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')
+        head = '# radar-enrich report ' + stamp + ' (write=' + str(WRITE) + ', rows tried: ' + str(len(rows)) + ')'
+        open(os.path.join(STATE, 'radar_report.md'), 'w', encoding='utf-8').write(head + NL + str(dict(st)) + NL + NL + NL.join(report) + NL)
     except Exception as e:
-        print("report file not saved:", e)
+        print('report file not saved:', e)
     if updates and WRITE:
         for i in range(0, len(updates), 100):
             body = {"dry": False, "updates": updates[i:i + 100]}

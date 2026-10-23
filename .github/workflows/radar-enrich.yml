@@ -71,5 +71,5 @@ jobs:
         run: |
           git config user.name "wtp-bot"
           git config user.email "wtp-bot@users.noreply.github.com"
-          git add state/radar_tried.json state/radar_brave.json || true
+          git add state/radar_tried.json state/radar_brave.json state/radar_report.md || true
           git diff --cached --quiet || (git commit -m "radar state $(date -u +%F)" && git pull --rebase origin ${{ github.ref_name }} && git push origin HEAD:${{ github.ref_name }})
