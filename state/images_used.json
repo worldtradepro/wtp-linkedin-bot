@@ -317,6 +317,18 @@
       "id": "infra-2",
       "url": "https://image.cnbcfm.com/api/v1/image/108218012-1761672039836-2025-10-28T171405Z_952897547_RC24LHAD4P7G_RTRMADP_3_NOKIA-NVIDIA.JPG",
       "hash": "d96c773322548eacd1e1e9a3dd2ffa5c5efd6e6a"
+    },
+    {
+      "date": "2026-10-23",
+      "id": "infra-1",
+      "url": "https://images.unsplash.com/photo-1776938437751-33111079b460",
+      "hash": "d46155b414b59f9fb314a600caee4ef5ab007b63"
+    },
+    {
+      "date": "2026-10-23",
+      "id": "infra-2",
+      "url": "https://image.dngroup.com/global/nhst/binary/d6d4492de70dc15c048c04df2b9cc449",
+      "hash": "ca3011734b223ec95083e0802bbf1d61dc9a56b4"
     }
   ]
 }
