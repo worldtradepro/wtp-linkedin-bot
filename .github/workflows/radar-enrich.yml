@@ -10,6 +10,9 @@ name: radar-enrich
 # Needs secrets: WTP_BOT_SECRET, CLAUDE_CODE_OAUTH_TOKEN (both already used by the other workflows) and BRAVE_API_KEY (new).
 
 on:
+  # a push that touches radar/run_now.txt starts a DRY RUN with the backlog (20 rows): a way to test without opening the Actions page
+  push:
+    paths: ['radar/run_now.txt']
   # runs after the server pipeline (cron 14:30 UTC, heavy sources until ~15:30); GitHub may start scheduled runs hours late
   schedule:
     - cron: '47 16 * * *'
@@ -46,8 +49,8 @@ jobs:
       BRAVE_API_KEY: ${{ secrets.BRAVE_API_KEY }}
       WTP_CF_BYPASS: ${{ secrets.WTP_CF_BYPASS }}   # owner's Cloudflare rule for the bot's calls to the site
       RADAR_WRITE: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.write || vars.RADAR_WRITE || 'false' }}
-      RADAR_MAX: ${{ github.event.inputs.max_rows || vars.RADAR_MAX || '40' }}
-      RADAR_BACKLOG: ${{ github.event.inputs.backlog == 'true' && '1' || vars.RADAR_BACKLOG || '0' }}
+      RADAR_MAX: ${{ github.event_name == 'push' && '20' || github.event.inputs.max_rows || vars.RADAR_MAX || '40' }}
+      RADAR_BACKLOG: ${{ github.event_name == 'push' && '1' || github.event.inputs.backlog == 'true' && '1' || vars.RADAR_BACKLOG || '0' }}
       RADAR_BRAVE_CAP: ${{ vars.RADAR_BRAVE_CAP || '150' }}
     steps:
       - uses: actions/checkout@v4
