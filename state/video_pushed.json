@@ -132,6 +132,12 @@
       "mode": "schedule",
       "at": "2026-10-22T08:43:33.144Z",
       "dueAt": "2026-10-23T12:00:00.000Z"
+    },
+    "cd_sand_desert": {
+      "postId": "6adb1d2ee2b536ff313dcac3",
+      "mode": "schedule",
+      "at": "2026-10-23T08:39:10.294Z",
+      "dueAt": "2026-10-24T12:00:00.000Z"
     }
   }
 }
