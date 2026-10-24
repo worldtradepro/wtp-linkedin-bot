@@ -1,0 +1,340 @@
+================================================================================
+EPC RADAR — SOURCE LIST 维护指南
+================================================================================
+
+【设计原则】
+本source list的目标是捕捉大型资本项目和采购信号，而非追求source完整性。
+质量优先于数量——10个高产出source胜过100个零产出source。
+
+【抓取策略优先级】
+  rss        → 最稳定，优先使用。feedparser直接解析，有发布时间
+  wp_json    → WordPress站点，API稳定，次选
+  html       → 直接抓列表页，需定期验证URL有效性
+  html_weak  → html抓不到时降级，会自动fallback到google_news
+  google_news → 兜底策略，通过Google News RSS搜索公司名
+
+【Source分类】
+  5星 — 项目业主/运营商官网（信号权威，但发文少）
+  4星 — 专业垂直媒体/设备商/多边机构（产出稳定，质量高）
+  3星 — 综合媒体/贸易商/港口（产出多，噪音也多，靠Gemini过滤）
+
+【日常维护原则】
+  1. 不追求零产出=问题。大公司发文少是正常的，不需要处理。
+  2. 真正需要处理的是404/403/DNS失败——这些source永远不会产出，
+     只会浪费请求时间。
+  3. 处理方式：404/403 → 改为google_news策略；DNS失败 → 删除。
+  4. 每1-2个月跑一次probe_sources.py，更新失效URL。
+
+【probe_sources.py使用】
+  python probe_sources.py                    # 探测所有source
+  输出：probe_report.txt
+  关注：✗ INVALID URL 和 ✗ UNREACHABLE 两个分类
+  处理：将404/403的source在第6列加上 google_news
+       将DNS失败/长期unreachable的source删除
+
+【增加新source的标准】
+  优先增加：
+  - 行业垂直媒体（比公司官网更稳定，产出更高）
+  - 有RSS feed的source（最稳定）
+  - 专注于项目/合同/采购新闻的媒体
+  避免增加：
+  - 纯价格/市场分析媒体（噪音多，Gemini也难过滤）
+  - 已知强bot防护的大公司官网（用google_news代替）
+  - 小型/低频更新的媒体（投入产出比低）
+
+【格式说明】
+  格式: 类别 / 子类别 / 名称 / URL / 信用星级 / [google_news可选]
+  第6列 google_news = 不抓URL，改用Google News RSS搜索公司名
+
+================================================================================
+
+### 1. 能源行业 (Energy)
+### 5星: 项目业主/运营商官网 | 4星: 专业垂直媒体/设备商/多边机构 | 3星: 综合媒体/贸易商/港口 | 2星: 小型企业/小型媒体
+### 第6列 google_news = 无法直接抓取，通过Google News RSS搜索公司名
+Traditional|OilGas_LNG|BP|https://www.bp.com/en/global/corporate/news-and-insights/press-releases.html|5
+Traditional|OilGas_LNG|TotalEnergies|https://totalenergies.com/media/news|5|google_news
+Traditional|OilGas_LNG|Equinor|https://www.equinor.com/news|5
+Traditional|OilGas_LNG|ENI|https://www.eni.com/en-IT/media.html|5
+Traditional|OilGas_LNG|Repsol|https://www.repsol.com/en/press-room/press-releases/index.cshtml|5
+Traditional|OilGas_LNG|OMV|https://www.omv.com/en/media/press-releases|5
+Traditional|OilGas_LNG|Harbour Energy|https://www.harbourenergy.com/news-and-media/|5
+Traditional|OilGas_LNG|Galp|https://www.galp.com/corp/en/media/press-releases|5|google_news
+Traditional|OilGas_LNG|MOL Group|https://www.mol.com/en/press-releases|5|google_news
+Traditional|OilGas_LNG|Orlen|https://www.orlen.pl/en/about-the-company/media/press-releases-categories/all|5
+Traditional|OilGas_LNG|Perenco|https://www.perenco.com/news/|5|google_news
+Traditional|Gas_Infrastructure|National Grid|https://www.nationalgrid.com/media-centre|5
+Traditional|Gas_Infrastructure|Gassco|https://gassco.eu/en/news/|5|google_news
+Traditional|Gas_Infrastructure|Gasunie|https://www.gasunie.nl/en/news|5
+Traditional|Gas_Infrastructure|TAP|https://www.tap-ag.com/news|5
+Traditional|Gas_Infrastructure|Terna|https://www.terna.it/en/media/press-releases|5|google_news
+Traditional|Gas_Infrastructure|REN (Portugal Grid)|https://www.ren.pt/en-GB/media|5
+Traditional|Africa_NOCs|Sonatrach|https://sonatrach.com/category/actualites|5 | google_news
+Traditional|Africa_NOCs|Sonangol|https://www.sonangol.co.ao/categoria/comunicado-de-imprensa/|5
+Traditional|Africa_NOCs|GNPC|https://www.gnpcghana.com/news|5
+Traditional|Africa_NOCs|Empresa Nacional de Hidrocarbonetos|https://enh.co.mz/news/|5|google_news
+Traditional|Africa_NOCs|NAMCOR|https://namcor.com.na/media-centre/|5|google_news
+Traditional|Africa_NOCs|Petroci|https://petroci.ci/actualites/|5|google_news
+Traditional|Africa_Operators|Kosmos Energy|https://www.kosmosenergy.com/media/press-releases/|5
+Traditional|Africa_Operators|Tullow Oil|https://www.tullowoil.com/media/press-releases/|5 | google_news
+Traditional|Africa_Operators|Meren Energy|https://mereninc.com/news/|5|google_news
+Traditional|Global_LNG|QatarEnergy|https://www.qatarenergy.qa/en/MediaCenter/Pages/News.aspx|5|google_news
+Traditional|Global_LNG|Nigeria LNG|https://www.nlng.com/news/|5
+Traditional|Global_LNG|Mozambique LNG|https://www.mozambiquelng.com/news/|5
+Traditional|Global_LNG|Atlantic LNG|https://www.atlanticlng.com/media|5|google_news
+Traditional|Global_LNG|Cheniere|https://lngir.cheniere.com/news-events/press-releases|5
+Traditional|Global_LNG|Venture Global LNG|https://venturegloballng.com/news/|5|google_news
+Traditional|Global_LNG|Excelerate Energy|https://excelerateenergy.com/news/|5
+Traditional|Global_LNG|Golar LNG|https://www.golarlng.com/news|5|google_news
+Traditional|Global_LNG|BW LNG|https://www.bwlng.com/news/|5|google_news
+Traditional|Global_LNG|New Fortress Energy|https://www.newfortressenergy.com/news|5
+Traditional|Downstream|Neste|https://www.neste.com/media|5|google_news
+Traditional|Downstream|Dangote Refinery|https://dangote.com/media/|5 | google_news
+Renewables|Global|Iberdrola|https://www.iberdrola.com/press-room|5|google_news
+Renewables|Global|Orsted|https://orsted.com/en/media/news|5 | google_news
+Renewables|Global|RWE|https://www.rwe.com/en/press/|5 | google_news
+Renewables|Global|Vattenfall|https://group.vattenfall.com/press-and-media|5 | google_news
+Renewables|Global|EDP Renewables|https://www.edpr.com/en/media|5|google_news
+Renewables|Global|Enel Green Power|https://www.enelgreenpower.com/media|5
+Renewables|Global|Statkraft|https://www.statkraft.com/newsroom/press-releases/|5|google_news
+Renewables|Global|ENGIE|https://www.engie.com/news|5
+Renewables|Global|Sembcorp|https://www.sembcorp.com/news-and-insights/|5|google_news
+Renewables|Global|XLINKS|https://xlinks.co/news/|5
+Renewables|Africa|ACWA Power|https://www.acwapower.com/en/media-center/latest-news/|5|google_news
+Renewables|Africa|Masdar|https://masdar.ae/en/news|5
+Renewables|Africa|AMEA Power|https://www.ameapower.com/news|5
+Renewables|Africa|Scatec|https://scatec.com/media/|5
+Renewables|Africa|Neoen|https://neoen.com/en/news/|5
+Renewables|China|PowerChina|https://en.powerchina.cn/latest.html|5
+Renewables|Hydrogen|Nel Hydrogen|https://nelhydrogen.com/press-releases/|5
+Renewables|Hydrogen|ITM Power|https://itm-power.com/news|5
+Renewables|Hydrogen|Plug Power|https://www.plugpower.com/news/|5
+Renewables|Hydrogen|Hydrogen Europe|https://hydrogeneurope.eu/news/|4
+Renewables|Hydrogen|Air Liquide|https://www.airliquide.com/media|5
+Renewables|Hydrogen|Linde|https://www.linde.com/news-media/press-releases|5
+Renewables|Storage_Equipment|Siemens Energy|https://www.siemens-energy.com/global/en/news.html|5
+Renewables|Storage_Equipment|GE Vernova|https://www.gevernova.com/news|5|google_news
+Renewables|Storage_Equipment|Hitachi Energy|https://www.hitachienergy.com/news|5 | google_news
+Renewables|Storage_Equipment|Fluence|https://fluenceenergy.com/about/media-room/|5|google_news
+
+### 2. 采矿行业 (Mining)
+Mining|Global_Majors|BHP|https://www.bhp.com/news/media-centre/releases|5|google_news
+Mining|Global_Majors|Rio Tinto|https://www.riotinto.com/news|5
+Mining|Global_Majors|Vale|https://www.vale.com/news|5|google_news
+Mining|Global_Majors|Glencore|https://www.glencore.com/media-and-insights/news|5
+Mining|Global_Majors|Anglo American|https://www.angloamerican.com/media/press-releases|5
+Mining|Global_Majors|Barrick Gold|https://www.barrick.com/English/news/default.aspx|5|google_news
+Mining|Global_Majors|Freeport-McMoRan|https://fcx.com/media/news|5
+Mining|Africa_Operators|Ivanhoe Mines|https://www.ivanhoemines.com/news/|5|google_news
+Mining|Africa_Operators|First Quantum Minerals|https://www.first-quantum.com/media/press-releases/|5
+Mining|Africa_Operators|Kumba Iron Ore|https://www.angloamericankumba.com/media/press-releases|5
+Mining|Africa_Operators|African Rainbow Minerals|https://arm.co.za/media/|5 | google_news
+Mining|Africa_Operators|Endeavour Mining|https://www.endeavourmining.com/news-and-media/|5
+Mining|Africa_Operators|Perseus Mining|https://perseusmining.com/media/|5
+Mining|Europe_Operators|Boliden|https://www.boliden.com/media/news|5
+Mining|Europe_Operators|Eramet|https://www.eramet.com/en/media/press-releases/|5
+Mining|Europe_Operators|Aurubis|https://www.aurubis.com/en/media/press-releases|5
+Mining|Europe_Operators|KGHM|https://kghm.com/en/press-office|5|google_news
+Mining|Europe_Operators|Nornickel|https://www.nornickel.com/media/news/|5
+Mining|Battery_Metals|Sigma Lithium|https://sigmalithiumresources.com/news/|5
+Mining|Battery_Metals|Pilbara Minerals|https://www.pilbaraminerals.com.au/investors/asx-announcements/|5 | google_news
+Mining|Battery_Metals|Zijin Mining|https://www.zijinmining.com/news/news_list.jsp|5
+Mining|Battery_Metals|Ganfeng Lithium|https://www.ganfenglithium.com/news/|5
+Mining|Battery_Metals|Tianqi Lithium|https://en.tianqilithium.com/medium/index.html|5|google_news
+Mining|Phosphate_Fertilizer|OCP Group|https://www.ocpgroup.ma/en/investors/news-articles|5|google_news
+Mining|Phosphate_Fertilizer|EuroChem|https://www.eurochemgroup.com/media/|5
+Mining|Phosphate_Fertilizer|PhosAgro|https://www.phosagro.com/press/|5
+Mining|Smelting|Umicore|https://www.umicore.com/en/newsroom/|5
+Mining|Smelting|Alcoa|https://news.alcoa.com/press-releases/default.aspx|5|google_news
+Mining|Smelting|Rusal|https://www.rusal.ru/en/press-center/|5
+Mining|EPC|Metso|https://www.metso.com/media/|5
+Mining|EPC|FLSmidth|https://fls.com/en/investors/company-announcements|5|google_news
+Mining|EPC|Hatch|https://www.hatch.com/About-Us/News-And-Media|5
+Mining|EPC|DRA Global|https://www.draglobal.com/news/|5
+Mining|Copper|Cora Gold|https://www.coragold.com/media-centre/|2
+Mining|Copper|Power Metal Resources|https://www.powermetalresources.com/news/|2|google_news
+Mining|Gold_Diamond|Petra Diamonds|https://www.petradiamonds.com/news-releases/|3|google_news
+Mining|Gold_Diamond|Caledonia Mining|https://www.caledoniamining.com/news-media/|3
+Mining|PGM|Valterra Platinum|https://www.valterraplatinum.com/media_centre|5|google_news
+Mining|PGM|Tharisa|https://www.tharisa.com/investors/media/|3
+Mining|Rare_Earths|Lynas Rare Earths|https://www.lynasrareearths.com/news/|4
+
+### 3. 农业与化肥 (Agriculture)
+Agriculture|Fertilizer|Nutrien|https://www.nutrien.com/news|5
+Agriculture|Fertilizer|CF Industries|https://www.cfindustries.com/newsroom|5
+Agriculture|Fertilizer|OCI Global|https://www.oci-global.com/news|5
+Agriculture|Fertilizer|Indorama Eleme|https://indorama.com/news|4|google_news
+Agriculture|Fertilizer|IFFCO|https://www.iffco.com/news|3|google_news
+Agriculture|Grain_Traders|Cargill|https://www.cargill.com/news|5 | google_news
+Agriculture|Grain_Traders|Bunge|https://www.bunge.com/Press-Releases|5|google_news
+Agriculture|Grain_Traders|Louis Dreyfus|https://www.ldc.com/news-and-insights/press-releases/|5|google_news
+Agriculture|Grain_Traders|Olam Agri|https://www.olamagri.com/news|5
+Agriculture|Processors|Tereos|https://www.tereos.com/en/our-news/|4|google_news
+Agriculture|Processors|Sudzucker|https://www.suedzucker.de/en/press|4
+Agriculture|Processors|Agrana|https://www.agrana.com/en/media/press-releases|4|google_news
+Agriculture|Processors|Roquette|https://www.roquette.com/media-center|4
+Agriculture|Logistics|Port of Rouen|https://www.haropaport.com/en/news|3
+Agriculture|Logistics|Port of Abidjan|https://www.portabidjan.ci/en/news/|3
+Agriculture|Logistics|Tema Port|https://www.ghanaports.gov.gh/media/|3 | google_news
+Agriculture|Logistics|Vitol Agriculture|https://www.vitol.com/news/|4
+Agriculture|Logistics|COFCO International|https://www.cofcointernational.com/newsroom/|5|google_news
+Agriculture|Logistics|ADM|https://www.adm.com/news|5|google_news
+
+### 4. 物流与航运 (Logistics)
+Logistics|Port_Europe|Port of Rotterdam|https://www.portofrotterdam.com/en/news-and-press-releases|4|google_news
+Logistics|Port_Europe|Port of Hamburg|https://www.hafen-hamburg.de/en/current/news/|4|google_news
+Logistics|Port_Europe|Port of Marseille Fos|https://www.marseille-port.fr/en/news|4
+Logistics|Port_Europe|Port of Bilbao|https://www.bilbaoport.eus/en/news/|3
+Logistics|Port_Europe|Port of Valencia|https://www.valenciaport.com/en/press-room/|3
+Logistics|Port_Europe|Port of Piraeus|https://www.olp.gr/en/news/press-releases|3
+Logistics|Port_Africa|Transnet|https://www.transnet.net/MediaCentre|4|google_news
+Logistics|Port_Africa|Tanger Med|https://www.tangermed.ma/en/news/|4|google_news
+Logistics|Terminal_Operators|Euroports|https://www.euroports.com/news/|4
+Logistics|Terminal_Operators|Hutchison Ports|https://hutchisonports.com/en/News-And-Media/News.html|4 | google_news
+Logistics|Rail_Europe|DB Cargo|https://www.dbcargo.com/rail-de-en/logistics-news|4|google_news
+Logistics|Rail_Europe|PKP Cargo|https://www.pkpcargo.com/en/media/|3 | google_news
+Logistics|Shipyard|Hyundai Heavy Industries|https://www.hhi.co.kr/en/media-hub/social-media|4
+Logistics|Shipyard|Samsung Heavy Industries|https://samsungshi.com/En/Notice_news.aspx|4
+Logistics|Shipyard|Hanwha|https://www.hanwha.com/newsroom/news/all.do|4
+Logistics|Shipyard|Fincantieri|https://www.fincantieri.com/en/media/press-releases/|4
+Logistics|Ship_Owner|BW Group|https://bw-group.com/media/|4
+Logistics|Ship_Owner|NYK Line|https://www.nyk.com/english/news/|3
+
+### 5. EPC承包商 (EPC)
+EPC|Energy_Infrastructure|Technip Energies|https://www.technipenergies.com/media/news|5
+EPC|Energy_Infrastructure|Saipem|https://www.saipem.com/en/media/press-releases|5
+EPC|Energy_Infrastructure|Petrofac|https://www.petrofac.com/media/news|5
+EPC|Energy_Infrastructure|Worley|https://www.worley.com/en/insights/our-news|5
+EPC|Energy_Infrastructure|Fluor|https://investor.fluor.com/news-releases|5|google_news
+EPC|Energy_Infrastructure|Bechtel|https://www.bechtel.com/newsroom/|5
+EPC|Energy_Infrastructure|McDermott|https://www.mcdermott.com/news-insights/press-releases|5|google_news
+EPC|Energy_Infrastructure|KBR|https://www.kbr.com/en/insights-news|5|google_news
+EPC|Energy_Infrastructure|JGC Holdings|https://www.jgc.com/en/news/|5
+EPC|Energy_Infrastructure|Tecnicas Reunidas|https://www.tecnicasreunidas.es/news/|5
+EPC|Energy_Infrastructure|Samsung E&A|https://www.samsungena.com/en/newsroom/news/list|5 | google_news
+EPC|Energy_Infrastructure|L&T|https://www.larsentoubro.com/news-stories|5 | google_news
+EPC|Marine|Jan De Nul|https://www.jandenul.com/news|5
+EPC|Marine|Boskalis|https://boskalis.com/press/press-releases-and-company-news|5
+EPC|Marine|DEME|https://www.deme-group.com/news|5
+
+### 6. 设备供应商 (Equipment)
+Equipment|Global|Baker Hughes|https://investors.bakerhughes.com/press-releases|5|google_news
+Equipment|Global|Everllence|https://www.everllence.com/company/press-releases|4|google_news
+Equipment|Global|Wartsila|https://www.wartsila.com/media|4
+Equipment|Global|Atlas Copco|https://www.atlascopco.com/en-us/news/latest-news|4
+Equipment|Global|Chart Industries|https://www.chartindustries.com/News-And-Events|4|google_news
+Equipment|Global|Air Products|https://www.airproducts.com/company/news-center|5 | google_news
+
+### 7. 金融与多边机构 (Finance)
+Finance|Multilateral|World Bank|https://projects.worldbank.org|4
+Finance|Multilateral|EBRD|https://www.ebrd.com/work-with-us/project-finance.html|4
+Finance|Multilateral|AfDB|https://www.afdb.org/en/news-and-events|4|google_news
+Finance|Multilateral|IFC|https://disclosures.ifc.org/|4
+Finance|Multilateral|EIB|https://www.eib.org/en/projects|4|google_news
+
+### 8. 行业媒体 (Media)
+Media|Energy|Upstream Online|https://www.upstreamonline.com|4
+Media|Energy|Energy Voice|https://www.energyvoice.com|4 | google_news
+Media|Energy|Offshore Energy|https://www.offshore-energy.biz|4
+Media|Energy|LNG Prime|https://lngprime.com|4
+Media|Energy|LNG Industry|https://www.lngindustry.com|4
+Media|Energy|Rigzone|https://www.rigzone.com/news/|4
+Media|Energy|Natural Gas World|https://www.naturalgasworld.com|4|google_news
+Media|Energy|Oil & Gas Journal|https://www.ogj.com|4
+Media|Energy|World Oil|https://www.worldoil.com|3
+Media|Energy|Offshore Magazine|https://www.offshore-mag.com|3
+Media|Africa_Energy|Africa Energy Intelligence|https://www.africa-energy.com|4
+Media|Africa_Energy|Energy Capital & Power|https://energycapitalpower.com|3
+Media|Renewables|Recharge News|https://www.rechargenews.com|4
+Media|Renewables|WindEurope|https://windeurope.org/newsroom/|4
+Media|Renewables|Windpower Monthly|https://www.windpowermonthly.com|4 | google_news
+Media|Renewables|PV Tech|https://www.pv-tech.org|4
+Media|Renewables|Energy Storage News|https://www.energy-storage.news|3|google_news
+Media|Renewables|Clean Energy Wire|https://www.cleanenergywire.org|4
+Media|Hydrogen|Hydrogen Insight|https://www.hydrogeninsight.com|4
+Media|Hydrogen|H2 View|https://www.h2-view.com|3|google_news
+Media|Hydrogen|Hydrogen Central|https://hydrogen-central.com|3
+Media|Hydrogen|Fuel Cells Works|https://fuelcellsworks.com|3
+Media|Business_Global|Argus Media|https://www.argusmedia.com|4|google_news
+Media|Business_Global|Financial Times|https://www.ft.com/energy|4 | google_news
+Media|Mining|Mining.com|https://www.mining.com|4 | google_news
+Media|Mining|Mining Weekly|https://www.miningweekly.com/page/latest-news/feed|4
+Media|Mining|International Mining|https://im-mining.com|4
+Media|Mining|African Mining Market|https://africanminingmarket.com|3
+Media|Mining|Global Mining Review|https://www.globalminingreview.com|3
+Media|Mining|The Northern Miner|https://www.northernminer.com|4
+Media|Agriculture|World Fertilizer|https://www.worldfertilizer.com|4
+Media|Agriculture|Fertilizer International|https://www.bcinsight.crugroup.com|4
+Media|Agriculture|AgriBusiness Global|https://www.agribusinessglobal.com|3
+Media|Agriculture|World Grain|https://www.world-grain.com|3
+Media|Agriculture|African Farming|https://www.africanfarming.net|3
+Media|Logistics|Port Technology|https://www.porttechnology.org/news/feed|4 | google_news
+Media|Logistics|Splash247|https://splash247.com|4
+Media|Logistics|TradeWinds|https://www.tradewindsnews.com|4
+Media|Logistics|Dry Bulk Magazine|https://www.drybulkmagazine.com|3
+Media|Logistics|Lloyd's List|https://lloydslist.maritimeintelligence.informa.com|4|google_news
+Media|Logistics|MarineLink|https://www.marinelink.com|3
+Media|Logistics|Ship & Bunker|https://shipandbunker.com|3
+Media|Logistics|Hellenic Shipping News|https://www.hellenicshippingnews.com|3
+Media|Logistics|Seatrade Maritime News|https://www.seatrade-maritime.com|4
+Media|Logistics|International Railway Journal|https://www.railjournal.com|4 | google_news
+Media|Logistics|Railway Gazette|https://www.railwaygazette.com|4
+Media|Logistics|Global Railway Review|https://www.globalrailwayreview.com|3 | google_news
+Media|Logistics|Africa Ports & Ships|https://africaports.co.za|3
+# ── EPC / Project Contract Media ─────────────────────────────────────────────
+Media|EPC_Projects|NS Energy|https://www.nsenergybusiness.com/news/|4 | google_news
+Media|EPC_Projects|Zawya Projects|https://www.zawya.com/en/projects/|4|google_news
+Media|EPC_Projects|MEED|https://www.meed.com/news/|4|google_news
+Media|EPC_Projects|Proactive Investors|https://www.proactiveinvestors.com/companies/news/|3|google_news
+# ── Energy — Additional ───────────────────────────────────────────────────────
+Media|Energy|Hydrocarbon Processing|https://www.hydrocarbonprocessing.com/news|4 | google_news
+Media|Energy|Petroleum Economist|https://www.petroleum-economist.com/|3
+Media|Energy|Gas Processing & LNG|https://www.gasprocessingnews.com|3 | google_news
+# ── Mining — Additional ───────────────────────────────────────────────────────
+Media|Mining|Mining Journal|https://www.mining-journal.com/news/|4 | google_news
+Media|Mining|E&MJ Engineering Mining|https://www.e-mj.com/news/|3
+# ── Renewables — Additional ──────────────────────────────────────────────────
+Media|Renewables|Solar Power Portal|https://www.solarpowerportal.co.uk/news|3
+# ── Agriculture / Fertilizer — Additional ────────────────────────────────────
+
+# ── Europe: Energy & Renewables ──────────────────────────────────────────────
+Media|Renewables|4C Offshore|https://www.4coffshore.com/news/|4
+Media|Renewables|Renewables Now|https://renewablesnow.com/news/|4 | google_news
+# ── Africa: Energy & Power ────────────────────────────────────────────────────
+Media|Africa_Energy|ESI Africa|https://www.esi-africa.com/news/|4
+Media|Africa_Energy|Construction Review Africa|https://constructionreviewonline.com/feed|3
+### 数据中心 (Data Centers) - added 2026-10-10: data centres are a category of their own (Logistics & Infrastructure / Data Centers)
+Media|DataCenters|DatacenterDynamics|https://www.datacenterdynamics.com/en/news/|4
+Media|DataCenters|Data Center Knowledge|https://www.datacenterknowledge.com/|4
+Media|DataCenters|Data Center Frontier|https://www.datacenterfrontier.com/|4
+Media|DataCenters|Capacity Media|https://www.capacitymedia.com/|4
+Media|DataCenters|W.Media|https://w.media/|3
+# ── Africa: Mining ────────────────────────────────────────────────────────────
+Media|Mining|Mining Review Africa|https://www.miningreview.com/news/|4|google_news
+# ── Africa: Agriculture & Food ───────────────────────────────────────────────
+Media|Agriculture|Food Business Africa|https://www.foodbusinessafrica.com/feed|3
+# ── Logistics ────────────────────────────────────────────────────────────────
+Media|Logistics|Railway Africa|https://www.railwayafrica.com/news/|3|google_news
+Media|Logistics|Port Strategy|https://www.portstrategy.com/news/|3
+
+# ── Reprobe 2026-10-15: new sources (feeds verified 2026-10-15, recent items; wp_json used where the
+#    feed blocks feedparser's user agent; Gulf NOC sites are bot-protected -> google_news) ─────────
+Traditional|Gulf_NOCs|Saudi Aramco|https://www.aramco.com/en/news-media|5|google_news
+Traditional|Gulf_NOCs|ADNOC|https://www.adnoc.ae/en/news-and-media|5|google_news
+Media|EPC_Projects|Global Construction Review|https://www.globalconstructionreview.com|4
+Media|MiddleEast_Energy|Oil & Gas Middle East|https://www.oilandgasmiddleeast.com|4
+Media|MiddleEast_Energy|Utilities Middle East|https://www.utilities-me.com|3
+Media|Power|POWER Magazine|https://www.powermag.com|4
+Media|India_Energy|ET EnergyWorld|https://energy.economictimes.indiatimes.com|4
+Media|India_Infra|ET Infra|https://infra.economictimes.indiatimes.com|3
+Media|Renewables|Mercom India|https://www.mercomindia.com|3
+Media|Mining|Canadian Mining Journal|https://www.canadianminingjournal.com|3
+Media|Mining|Australian Mining|https://www.australianmining.com.au|3
+Media|Chemicals|Chemical Engineering Online|https://www.chemengonline.com|3
+Media|Logistics|Dredging Today|https://www.dredgingtoday.com|3
+
+# ── Dropped in reprobe 2026-10-15 (kept as comments for the record) ──
+# DROPPED 2026-10-15 reprobe (company absorbed by IsoEnergy, site redirects to isoenergy.ca): Mining|Rare_Earths|Toro Energy|https://www.toroenergy.com.au/news-media/|2
+# DROPPED 2026-10-15 reprobe (feed last item 2021, site dormant): Logistics|Rail_Africa|National Railways of Zimbabwe|https://www.nrz.co.zw/news/|2
+# DROPPED 2026-10-15 reprobe (SSL failure, publication inactive (Google News newest Jan 2026)): Media|Renewables|New Energy Update|https://newenergyupdate.com/news/|3
+# DROPPED 2026-10-15 reprobe (paywalled JS page, Google News 2 items): Media|Agriculture|ICIS Fertilizer|https://www.icis.com/explore/resources/news/?market=fertilizers|4
+# DROPPED 2026-10-15 reprobe (price-analysis service (off-scope per header), Google News 4 items): Media|Agriculture|Profercy|https://www.profercy.com/news/|3

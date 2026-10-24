@@ -1,0 +1,296 @@
+================================================================================
+EPC RADAR — SOURCE PROBE REPORT
+================================================================================
+Total sources: 238
+  rss         : 78
+  wp_json     : 4
+  html        : 71
+  html_weak   : 41
+  skip_js     : 10
+  invalid_url : 28
+  unreachable : 6
+
+--------------------------------------------------------------------------------
+✓ RSS / ATOM FEEDS  [78]
+--------------------------------------------------------------------------------
+  Traditional/Gas_Infrastructure/National Grid             https://www.nationalgrid.com/media-centre  → https://www.nationalgrid.com/rss.xml
+  Traditional/Gas_Infrastructure/Gasunie                   https://www.gasunie.nl/en/news  → https://www.gasunie.nl/en/news/rss
+  Traditional/Africa_NOCs/Sonangol                         https://www.sonangol.co.ao/categoria/comunicado-de-imprensa/  → https://www.sonangol.co.ao/feed
+  Traditional/Africa_Operators/Kosmos Energy               https://www.kosmosenergy.com/media/press-releases/  → https://www.kosmosenergy.com/feed
+  Traditional/Global_LNG/New Fortress Energy               https://www.newfortressenergy.com/news  → https://www.newfortressenergy.com/rss.xml
+  Traditional/Downstream/Dangote Refinery                  https://dangote.com/media/  → https://dangote.com/feed
+  Renewables/Global/XLINKS                                 https://xlinks.co/news/  → https://xlinks.co/feed
+  Renewables/Africa/AMEA Power                             https://www.ameapower.com/news  → https://www.ameapower.com/feed
+  Renewables/Africa/Scatec                                 https://scatec.com/media/  → https://scatec.com/en/rss
+  Renewables/Hydrogen/Plug Power                           https://www.plugpower.com/news/  → https://www.plugpower.com/feed
+  Renewables/Hydrogen/Hydrogen Europe                      https://hydrogeneurope.eu/news/  → https://hydrogeneurope.eu/feed
+  Mining/Global_Majors/Rio Tinto                           https://www.riotinto.com/news  → https://www.riotinto.com/news/feed
+  Mining/Africa_Operators/First Quantum Minerals           https://www.first-quantum.com/media/press-releases/  → https://www.first-quantum.com/feed
+  Mining/Africa_Operators/Perseus Mining                   https://perseusmining.com/media/  → https://perseusmining.com/feed
+  Mining/Europe_Operators/Boliden                          https://www.boliden.com/media/news  → https://www.boliden.com/rss
+  Mining/Europe_Operators/Eramet                           https://www.eramet.com/en/media/press-releases/  → https://www.eramet.com/feed
+  Mining/Europe_Operators/Nornickel                        https://www.nornickel.com/media/news/  → https://www.nornickel.com/rss
+  Mining/Battery_Metals/Sigma Lithium                      https://sigmalithiumresources.com/news/  → https://sigmalithiumresources.com/feed
+  Mining/Gold_Diamond/Caledonia Mining                     https://www.caledoniamining.com/news-media/  → https://www.caledoniamining.com/feed
+  Mining/Rare_Earths/Lynas Rare Earths                     https://www.lynasrareearths.com/news/  → https://www.lynasrareearths.com/feed
+  Agriculture/Fertilizer/OCI Global                        https://www.oci-global.com/news  → https://www.oci-global.com/feed
+  Agriculture/Logistics/Vitol Agriculture                  https://www.vitol.com/news/  → https://www.vitol.com/feed
+  Logistics/Port_Europe/Port of Marseille Fos              https://www.marseille-port.fr/en/news  → https://www.marseille-port.fr/rss.xml
+  Logistics/Port_Europe/Port of Bilbao                     https://www.bilbaoport.eus/en/news/  → https://www.bilbaoport.eus/feed/
+  Logistics/Port_Europe/Port of Valencia                   https://www.valenciaport.com/en/press-room/  → https://www.valenciaport.com/feed
+  Logistics/Terminal_Operators/Euroports                   https://www.euroports.com/news/  → https://www.euroports.com/feed
+  Logistics/Ship_Owner/BW Group                            https://bw-group.com/media/  → https://bw-group.com/feed
+  EPC/Energy_Infrastructure/Saipem                         https://www.saipem.com/en/media/press-releases  → https://www.saipem.com/rss.xml
+  EPC/Energy_Infrastructure/Tecnicas Reunidas              https://www.tecnicasreunidas.es/news/  → https://www.tecnicasreunidas.es/feed
+  Media/Energy/Offshore Energy                             https://www.offshore-energy.biz  → https://www.offshore-energy.biz/feed
+  Media/Energy/LNG Prime                                   https://lngprime.com  → https://lngprime.com/feed
+  Media/Africa_Energy/Energy Capital & Power               https://energycapitalpower.com  → https://energycapitalpower.com/feed
+  Media/Renewables/WindEurope                              https://windeurope.org/newsroom/  → https://windeurope.org/feed
+  Media/Renewables/Windpower Monthly                       https://www.windpowermonthly.com  → https://www.windpowermonthly.com/rss
+  Media/Renewables/Clean Energy Wire                       https://www.cleanenergywire.org  → https://www.cleanenergywire.org/rss.xml
+  Media/Hydrogen/Hydrogen Central                          https://hydrogen-central.com  → https://hydrogen-central.com/feed
+  Media/Hydrogen/Fuel Cells Works                          https://fuelcellsworks.com  → https://fuelcellsworks.com/feed
+  Media/Mining/Mining Weekly                               https://www.miningweekly.com/page/latest-news/feed  → https://www.miningweekly.com/page/latest-news/feed
+  Media/Mining/International Mining                        https://im-mining.com  → https://im-mining.com/feed
+  Media/Mining/African Mining Market                       https://africanminingmarket.com  → https://africanminingmarket.com/feed
+  Media/Mining/The Northern Miner                          https://www.northernminer.com  → https://www.northernminer.com/feed
+  Media/Agriculture/Fertilizer International               https://www.bcinsight.crugroup.com  → https://www.bcinsight.crugroup.com/feed
+  Media/Agriculture/AgriBusiness Global                    https://www.agribusinessglobal.com  → https://www.agribusinessglobal.com/feed
+  Media/Logistics/Port Technology                          https://www.porttechnology.org/news/feed  → https://www.porttechnology.org/feed
+  Media/Logistics/Splash247                                https://splash247.com  → https://splash247.com/feed
+  Media/Logistics/MarineLink                               https://www.marinelink.com  → https://www.marinelink.com/feed
+  Media/Logistics/Ship & Bunker                            https://shipandbunker.com  → https://shipandbunker.com/rss
+  Media/Logistics/Hellenic Shipping News                   https://www.hellenicshippingnews.com  → https://www.hellenicshippingnews.com/feed
+  Media/Logistics/Seatrade Maritime News                   https://www.seatrade-maritime.com  → https://www.seatrade-maritime.com/rss.xml
+  Media/Logistics/Railway Gazette                          https://www.railwaygazette.com  → https://www.railwaygazette.com/feed
+  Media/Mining/E&MJ Engineering Mining                     https://www.e-mj.com/news/  → https://www.e-mj.com/feed
+  Media/Renewables/Solar Power Portal                      https://www.solarpowerportal.co.uk/news  → https://www.solarpowerportal.co.uk/rss.xml
+  Media/Africa_Energy/Construction Review Africa           https://constructionreviewonline.com/feed  → https://constructionreviewonline.com/feed
+  Media/DataCenters/DatacenterDynamics                       https://www.datacenterdynamics.com/en/news/  → https://www.datacenterdynamics.com/en/rss/
+  Media/DataCenters/Data Center Knowledge                    https://www.datacenterknowledge.com/  → https://www.datacenterknowledge.com/rss.xml
+  Media/DataCenters/Data Center Frontier                     https://www.datacenterfrontier.com/  → https://www.datacenterfrontier.com/__rss/website-scheduled-content.xml?input=%7B%22sectionAlias%22%3A%22home%22%7D
+  Media/DataCenters/Capacity Media                           https://www.capacitymedia.com/  → https://www.capacitymedia.com/rss
+  Media/DataCenters/W.Media                                  https://w.media/  → https://w.media/feed/
+  Media/Mining/Mining Review Africa                        https://www.miningreview.com/news/  → https://www.miningreview.com/feed
+  Media/Agriculture/Food Business Africa                   https://www.foodbusinessafrica.com/feed  → https://www.foodbusinessafrica.com/feed
+
+--------------------------------------------------------------------------------
+✓ WORDPRESS REST API  [4]
+--------------------------------------------------------------------------------
+  EPC/Energy_Infrastructure/Bechtel                        https://www.bechtel.com/newsroom/  → https://www.bechtel.com/wp-json/wp/v2/posts
+  Media/Renewables/PV Tech                                 https://www.pv-tech.org  → https://www.pv-tech.org/wp-json/wp/v2/posts
+
+--------------------------------------------------------------------------------
+~ HTML SCRAPE (articles detected)  [71]
+--------------------------------------------------------------------------------
+  Traditional/OilGas_LNG/Equinor                           https://www.equinor.com/news  [52 article-like links found]
+  Traditional/OilGas_LNG/ENI                               https://www.eni.com/en-IT/media.html  [38 article-like links found]
+  Traditional/OilGas_LNG/OMV                               https://www.omv.com/en/media/press-releases  [9 article-like links found]
+  Traditional/OilGas_LNG/Harbour Energy                    https://www.harbourenergy.com/news-and-media/  [3 article-like links found]
+  Traditional/Gas_Infrastructure/TAP                       https://www.tap-ag.com/news  [5 article-like links found]
+  Traditional/Gas_Infrastructure/REN (Portugal Grid)       https://www.ren.pt/en-GB/media  [7 article-like links found]
+  Traditional/Africa_NOCs/GNPC                             https://www.gnpcghana.com/news  [12 article-like links found]
+  Renewables/Global/Vattenfall                             https://group.vattenfall.com/press-and-media  [29 article-like links found]
+  Renewables/Global/Enel Green Power                       https://www.enelgreenpower.com/media  [26 article-like links found]
+  Renewables/Global/ENGIE                                  https://www.engie.com/news  [11 article-like links found]
+  Renewables/Africa/Masdar                                 https://masdar.ae/en/news  [8 article-like links found]
+  Renewables/Hydrogen/Nel Hydrogen                         https://nelhydrogen.com/press-releases/  [10 article-like links found]
+  Renewables/Hydrogen/ITM Power                            https://itm-power.com/news  [4 article-like links found]
+  Renewables/Hydrogen/Air Liquide                          https://www.airliquide.com/media  [25 article-like links found]
+  Renewables/Hydrogen/Linde                                https://www.linde.com/news-media/press-releases  [13 article-like links found]
+  Renewables/Storage_Equipment/Siemens Energy              https://www.siemens-energy.com/global/en/news.html  [9 article-like links found]
+  Mining/Africa_Operators/Endeavour Mining                 https://www.endeavourmining.com/news-and-media/  [18 article-like links found]
+  Mining/Europe_Operators/Aurubis                          https://www.aurubis.com/en/media/press-releases  [13 article-like links found]
+  Mining/Phosphate_Fertilizer/PhosAgro                     https://www.phosagro.com/press/  [3 article-like links found]
+  Mining/Smelting/Umicore                                  https://www.umicore.com/en/newsroom/  [20 article-like links found]
+  Mining/Smelting/Rusal                                    https://www.rusal.ru/en/press-center/  [9 article-like links found]
+  Mining/EPC/Metso                                         https://www.metso.com/media/  [11 article-like links found]
+  Agriculture/Fertilizer/Nutrien                           https://www.nutrien.com/news  [3 article-like links found]
+  Agriculture/Fertilizer/CF Industries                     https://www.cfindustries.com/newsroom  [4 article-like links found]
+  Agriculture/Grain_Traders/Olam Agri                      https://www.olamagri.com/news  [6 article-like links found]
+  Agriculture/Processors/Sudzucker                         https://www.suedzucker.de/en/press  [10 article-like links found]
+  Agriculture/Processors/Roquette                          https://www.roquette.com/media-center  [15 article-like links found]
+  Agriculture/Logistics/Port of Abidjan                    https://www.portabidjan.ci/en/news/  [7 article-like links found]
+  Agriculture/Logistics/Tema Port                          https://www.ghanaports.gov.gh/media/  [9 article-like links found]
+  Logistics/Port_Europe/Port of Piraeus                    https://www.olp.gr/en/news/press-releases  [22 article-like links found]
+  Logistics/Shipyard/Hyundai Heavy Industries              https://www.hhi.co.kr/en/media-hub/social-media  [12 article-like links found]
+  Logistics/Shipyard/Hanwha                                https://www.hanwha.com/newsroom/news/all.do  [5 article-like links found]
+  Logistics/Shipyard/Fincantieri                           https://www.fincantieri.com/en/media/press-releases/  [10 article-like links found]
+  Logistics/Ship_Owner/NYK Line                            https://www.nyk.com/english/news/  [36 article-like links found]
+  EPC/Energy_Infrastructure/Technip Energies               https://www.technipenergies.com/media/news  [10 article-like links found]
+  EPC/Energy_Infrastructure/Petrofac                       https://www.petrofac.com/media/news  [7 article-like links found]
+  EPC/Energy_Infrastructure/Worley                         https://www.worley.com/en/insights/our-news  [14 article-like links found]
+  EPC/Energy_Infrastructure/KBR                            https://www.kbr.com/en/insights-news  [15 article-like links found]
+  EPC/Energy_Infrastructure/JGC Holdings                   https://www.jgc.com/en/news/  [394 article-like links found]
+  EPC/Marine/Jan De Nul                                    https://www.jandenul.com/news  [13 article-like links found]
+  EPC/Marine/Boskalis                                      https://boskalis.com/press/press-releases-and-company-news  [3 article-like links found]
+  Equipment/Global/Wartsila                                https://www.wartsila.com/media  [9 article-like links found]
+  Media/Energy/World Oil                                   https://www.worldoil.com  [175 article-like links found]
+  Media/Energy/Offshore Magazine                           https://www.offshore-mag.com  [28 article-like links found]
+  Media/Africa_Energy/Africa Energy Intelligence           https://www.africa-energy.com  [29 article-like links found]
+  Media/Agriculture/World Grain                            https://www.world-grain.com  [38 article-like links found]
+  Media/Energy/Hydrocarbon Processing                      https://www.hydrocarbonprocessing.com/news  [31 article-like links found]
+  Media/Energy/Gas Processing & LNG                        https://www.gasprocessingnews.com  [25 article-like links found]
+  Media/Renewables/4C Offshore                             https://www.4coffshore.com/news/  [3 article-like links found]
+
+--------------------------------------------------------------------------------
+~ HTML SCRAPE (weak — few links)  [41]
+--------------------------------------------------------------------------------
+  Traditional/OilGas_LNG/BP                                https://www.bp.com/en/global/corporate/news-and-insights/pre  [1 article-like links found]
+  Traditional/Global_LNG/Nigeria LNG                       https://www.nlng.com/news/  [Page loaded but no article links detected]
+  Traditional/Global_LNG/Mozambique LNG                    https://www.mozambiquelng.com/news/  [Page loaded but no article links detected]
+  Renewables/Africa/Neoen                                  https://neoen.com/en/news/  [Page loaded but no article links detected]
+  Renewables/China/PowerChina                              https://en.powerchina.cn/latest.html  [Page loaded but no article links detected]
+  Mining/Global_Majors/Glencore                            https://www.glencore.com/media-and-insights/news  [2 article-like links found]
+  Mining/Global_Majors/Barrick Gold                        https://www.barrick.com/English/news/default.aspx  [Page loaded but no article links detected]
+  Mining/Battery_Metals/Zijin Mining                       https://www.zijinmining.com/news/news_list.jsp  [Page loaded but no article links detected]
+  Mining/Battery_Metals/Ganfeng Lithium                    https://www.ganfenglithium.com/news/  [Page loaded but no article links detected]
+  Mining/Smelting/Alcoa                                    https://news.alcoa.com/press-releases/default.aspx  [1 article-like links found]
+  Mining/EPC/Hatch                                         https://www.hatch.com/About-Us/News-And-Media  [1 article-like links found]
+  Mining/EPC/DRA Global                                    https://www.draglobal.com/news/  [Page loaded but no article links detected]
+  Mining/PGM/Tharisa                                       https://www.tharisa.com/investors/media/  [Page loaded but no article links detected]
+  Logistics/Port_Africa/Transnet                           https://www.transnet.net/MediaCentre  [Page loaded but no article links detected]
+  Logistics/Terminal_Operators/Hutchison Ports             https://hutchisonports.com/en/News-And-Media/News.html  [Page loaded but no article links detected]
+  Logistics/Shipyard/Samsung Heavy Industries              https://samsungshi.com/En/Notice_news.aspx  [Page loaded but no article links detected]
+  EPC/Energy_Infrastructure/Samsung E&A                    https://www.samsungena.com/en/newsroom/news/list  [Page loaded but no article links detected]
+  EPC/Energy_Infrastructure/L&T                            https://www.larsentoubro.com/news-stories  [Page loaded but no article links detected]
+  Finance/Multilateral/World Bank                          https://projects.worldbank.org  [Page loaded but no article links detected]
+  Finance/Multilateral/EBRD                                https://www.ebrd.com/work-with-us/project-finance.html  [1 article-like links found]
+  Finance/Multilateral/IFC                                 https://disclosures.ifc.org/  [1 article-like links found]
+  Media/Energy/Upstream Online                             https://www.upstreamonline.com  [Page loaded but no article links detected]
+  Media/Energy/LNG Industry                                https://www.lngindustry.com  [1 article-like links found]
+  Media/Renewables/Recharge News                           https://www.rechargenews.com  [Page loaded but no article links detected]
+  Media/Hydrogen/Hydrogen Insight                          https://www.hydrogeninsight.com  [Page loaded but no article links detected]
+  Media/Mining/Global Mining Review                        https://www.globalminingreview.com  [1 article-like links found]
+  Media/Agriculture/World Fertilizer                       https://www.worldfertilizer.com  [1 article-like links found]
+  Media/Agriculture/African Farming                        https://www.africanfarming.net  [Page loaded but no article links detected]
+  Media/Logistics/TradeWinds                               https://www.tradewindsnews.com  [Page loaded but no article links detected]
+  Media/Logistics/Dry Bulk Magazine                        https://www.drybulkmagazine.com  [1 article-like links found]
+  Media/EPC_Projects/Zawya Projects                        https://www.zawya.com/en/projects/  [2 article-like links found]
+
+--------------------------------------------------------------------------------
+⚠ JS-RENDERED (needs Playwright or alternative)  [10]
+--------------------------------------------------------------------------------
+  Traditional/Global_LNG/QatarEnergy                       https://www.qatarenergy.qa/en/MediaCenter/Pages/News.aspx  [Possible JS app — no article links found]
+  Agriculture/Grain_Traders/Bunge                          https://www.bunge.com/Press-Releases  [Possible JS app — no article links found]
+  Equipment/Global/Baker Hughes                            https://investors.bakerhughes.com/press-releases  [Possible JS app — no article links found]
+  Media/Logistics/Global Railway Review                    https://www.globalrailwayreview.com  [Possible JS app — no article links found]
+  Media/EPC_Projects/Proactive Investors                   https://www.proactiveinvestors.com/companies/news/  [Very little text — likely JS-rendered]
+  Media/Logistics/Railway Africa                           https://www.railwayafrica.com/news/  [Very little text — likely JS-rendered]
+
+--------------------------------------------------------------------------------
+✗ INVALID URL (soft-404 / wrong page / redirected)  [28]
+--------------------------------------------------------------------------------
+  Traditional/OilGas_LNG/MOL Group                         https://www.mol.com/en/press-releases  [Redirected to homepage (original path: /en/press-releases)]
+  Traditional/Africa_Operators/Tullow Oil                  https://www.tullowoil.com/media/press-releases/  [HTTP 403 — Access denied (bot blocking)]
+  Traditional/Global_LNG/Venture Global LNG                https://venturegloballng.com/news/  [HTTP 404 — URL does not exist]
+  Renewables/Global/Iberdrola                              https://www.iberdrola.com/press-room  [HTTP 403 — Access denied (bot blocking)]
+  Renewables/Global/Orsted                                 https://orsted.com/en/media/news  [HTTP 403 — Access denied (bot blocking)]
+  Renewables/Global/Sembcorp                               https://www.sembcorp.com/news-and-insights/  [HTTP 403 — Access denied (bot blocking)]
+  Renewables/Storage_Equipment/Hitachi Energy              https://www.hitachienergy.com/news  [HTTP 404 — URL does not exist]
+  Mining/Africa_Operators/African Rainbow Minerals         https://arm.co.za/media/  [HTTP 403 — Access denied (bot blocking)]
+  Mining/Battery_Metals/Pilbara Minerals                   https://www.pilbaraminerals.com.au/investors/asx-announcemen  [HTTP 403 — Access denied (bot blocking)]
+  Mining/Phosphate_Fertilizer/OCP Group                    https://www.ocpgroup.ma/en/investors/news-articles  [HTTP 403 — Access denied (bot blocking)]
+  Agriculture/Grain_Traders/Cargill                        https://www.cargill.com/news  [HTTP 403 — Access denied (bot blocking)]
+  Agriculture/Grain_Traders/Louis Dreyfus                  https://www.ldc.com/news-and-insights/press-releases/  [HTTP 403 — Access denied (bot blocking)]
+  Agriculture/Logistics/COFCO International                https://www.cofcointernational.com/newsroom/  [HTTP 403 — Access denied (bot blocking)]
+  Logistics/Rail_Europe/PKP Cargo                          https://www.pkpcargo.com/en/media/  [Redirected to homepage (original path: /en/media)]
+  EPC/Energy_Infrastructure/Fluor                          https://investor.fluor.com/news-releases  [HTTP 404 — URL does not exist]
+  EPC/Energy_Infrastructure/McDermott                      https://www.mcdermott.com/news-insights/press-releases  [HTTP 403 — Access denied (bot blocking)]
+  Equipment/Global/Air Products                            https://www.airproducts.com/company/news-center  [HTTP 403 — Access denied (bot blocking)]
+  Finance/Multilateral/AfDB                                https://www.afdb.org/en/news-and-events  [HTTP 403 — Access denied (bot blocking)]
+  Media/Energy/Energy Voice                                https://www.energyvoice.com  [HTTP 403 — Access denied (bot blocking)]
+  Media/Business_Global/Financial Times                    https://www.ft.com/energy  [HTTP 403 — Access denied (bot blocking)]
+  Media/Mining/Mining.com                                  https://www.mining.com  [HTTP 403 — Access denied (bot blocking)]
+  Media/Logistics/International Railway Journal            https://www.railjournal.com  [HTTP 403 — Access denied (bot blocking)]
+  Media/EPC_Projects/NS Energy                             https://www.nsenergybusiness.com/news/  [HTTP 403 — Access denied (bot blocking)]
+  Media/EPC_Projects/MEED                                  https://www.meed.com/news/  [Redirected to homepage (original path: /news)]
+  Media/Mining/Mining Journal                              https://www.mining-journal.com/news/  [HTTP 404 — URL does not exist]
+
+--------------------------------------------------------------------------------
+✗ UNREACHABLE (timeout / DNS / connection error)  [6]
+--------------------------------------------------------------------------------
+  Traditional/Africa_NOCs/Sonatrach                        https://sonatrach.com/category/actualites  [Timeout]
+  Renewables/Global/RWE                                    https://www.rwe.com/en/press/  [HTTP 429]
+  Renewables/Africa/ACWA Power                             https://www.acwapower.com/en/media-center/latest-news/  [SSL error]
+  Mining/Global_Majors/BHP                                 https://www.bhp.com/news/media-centre/releases  [Timeout]
+  Media/Renewables/Renewables Now                          https://renewablesnow.com/news/  [HTTP 429]
+
+--------------------------------------------------------------------------------
+↻ REPROBE 2026-10-15 — fixed / switched / new sources  [73]
+  (manual reprobe; replaces this source's lines above. google_news searches the quoted
+   source NAME, so names were simplified where the old name returned ~0 results)
+--------------------------------------------------------------------------------
+  Traditional/OilGas_LNG/TotalEnergies                      https://totalenergies.com/media/news  [Google News RSS]
+  Traditional/OilGas_LNG/Repsol                             https://www.repsol.com/en/press-room/press-releases/index.cshtml  [10 article-like links found]
+  Traditional/OilGas_LNG/Galp                               https://www.galp.com/corp/en/media/press-releases  [Google News RSS]
+  Traditional/OilGas_LNG/Orlen                              https://www.orlen.pl/en/about-the-company/media/press-releases-categories/all  [15 article-like links found]
+  Traditional/OilGas_LNG/Perenco                            https://www.perenco.com/news/  [Google News RSS]
+  Traditional/Gas_Infrastructure/Gassco                     https://gassco.eu/en/news/  [Google News RSS]
+  Traditional/Gas_Infrastructure/Terna                      https://www.terna.it/en/media/press-releases  [Google News RSS]
+  Traditional/Africa_NOCs/Empresa Nacional de Hidrocarbonetos https://enh.co.mz/news/  [Google News RSS]
+  Traditional/Africa_NOCs/NAMCOR                            https://namcor.com.na/media-centre/  [Google News RSS]
+  Traditional/Africa_NOCs/Petroci                           https://petroci.ci/actualites/  [Google News RSS]
+  Traditional/Africa_Operators/Meren Energy                 https://mereninc.com/news/  [Google News RSS]
+  Traditional/Global_LNG/Atlantic LNG                       https://www.atlanticlng.com/media  [Google News RSS]
+  Traditional/Global_LNG/Cheniere                           https://lngir.cheniere.com/news-events/press-releases  → https://lngir.cheniere.com/news-events/press-releases/rss
+  Traditional/Global_LNG/Excelerate Energy                  https://excelerateenergy.com/news/  → https://excelerateenergy.com/news/feed/
+  Traditional/Global_LNG/Golar LNG                          https://www.golarlng.com/news  [Google News RSS]
+  Traditional/Global_LNG/BW LNG                             https://www.bwlng.com/news/  [Google News RSS]
+  Traditional/Downstream/Neste                              https://www.neste.com/media  [Google News RSS]
+  Renewables/Global/EDP Renewables                          https://www.edpr.com/en/media  [Google News RSS]
+  Renewables/Global/Statkraft                               https://www.statkraft.com/newsroom/press-releases/  [Google News RSS]
+  Renewables/Storage_Equipment/GE Vernova                   https://www.gevernova.com/news  [Google News RSS]
+  Renewables/Storage_Equipment/Fluence                      https://fluenceenergy.com/about/media-room/  [Google News RSS]
+  Mining/Global_Majors/Vale                                 https://www.vale.com/news  [Google News RSS]
+  Mining/Global_Majors/Anglo American                       https://www.angloamerican.com/media/press-releases  → https://www.angloamerican.com/rss/press-releases
+  Mining/Global_Majors/Freeport-McMoRan                     https://fcx.com/media/news  → https://investors.fcx.com/rss/pressrelease.aspx
+  Mining/Africa_Operators/Ivanhoe Mines                     https://www.ivanhoemines.com/news/  [Google News RSS]
+  Mining/Africa_Operators/Kumba Iron Ore                    https://www.angloamericankumba.com/media/press-releases  → https://www.angloamericankumba.com/rss/press-releases
+  Mining/Europe_Operators/KGHM                              https://kghm.com/en/press-office  [Google News RSS]
+  Mining/Battery_Metals/Tianqi Lithium                      https://en.tianqilithium.com/medium/index.html  [Google News RSS]
+  Mining/Phosphate_Fertilizer/EuroChem                      https://www.eurochemgroup.com/media/  [4 article-like links found]
+  Mining/EPC/FLSmidth                                       https://fls.com/en/investors/company-announcements  [Google News RSS]
+  Mining/Copper/Cora Gold                                   https://www.coragold.com/media-centre/  → https://www.coragold.com/wp-json/wp/v2/posts
+  Mining/Copper/Power Metal Resources                       https://www.powermetalresources.com/news/  [Google News RSS]
+  Mining/Gold_Diamond/Petra Diamonds                        https://www.petradiamonds.com/news-releases/  [Google News RSS]
+  Mining/PGM/Valterra Platinum                              https://www.valterraplatinum.com/media_centre  [Google News RSS]
+  Agriculture/Fertilizer/Indorama Eleme                     https://indorama.com/news  [Google News RSS]
+  Agriculture/Fertilizer/IFFCO                              https://www.iffco.com/news  [Google News RSS]
+  Agriculture/Processors/Tereos                             https://www.tereos.com/en/our-news/  [Google News RSS]
+  Agriculture/Processors/Agrana                             https://www.agrana.com/en/media/press-releases  [Google News RSS]
+  Agriculture/Logistics/Port of Rouen                       https://www.haropaport.com/en/news  [8 article-like links found]
+  Agriculture/Logistics/ADM                                 https://www.adm.com/news  [Google News RSS]
+  Logistics/Port_Europe/Port of Rotterdam                   https://www.portofrotterdam.com/en/news-and-press-releases  [Google News RSS]
+  Logistics/Port_Europe/Port of Hamburg                     https://www.hafen-hamburg.de/en/current/news/  [Google News RSS]
+  Logistics/Port_Africa/Tanger Med                          https://www.tangermed.ma/en/news/  [Google News RSS]
+  Logistics/Rail_Europe/DB Cargo                            https://www.dbcargo.com/rail-de-en/logistics-news  [Google News RSS]
+  EPC/Marine/DEME                                           https://www.deme-group.com/news  [10 article-like links found]
+  Equipment/Global/Everllence                               https://www.everllence.com/company/press-releases  [Google News RSS]
+  Equipment/Global/Atlas Copco                              https://www.atlascopco.com/en-us/news/latest-news  [10 article-like links found]
+  Equipment/Global/Chart Industries                         https://www.chartindustries.com/News-And-Events  [Google News RSS]
+  Finance/Multilateral/EIB                                  https://www.eib.org/en/projects  [Google News RSS]
+  Media/Energy/Rigzone                                      https://www.rigzone.com/news/  → https://www.rigzone.com/news/rss/rigzone_latest.aspx
+  Media/Energy/Natural Gas World                            https://www.naturalgasworld.com  [Google News RSS]
+  Media/Energy/Oil & Gas Journal                            https://www.ogj.com  → https://www.ogj.com/__rss/website-scheduled-content.xml?input=%7B%22sectionAlias%22%3A%22home%22%7D
+  Media/Renewables/Energy Storage News                      https://www.energy-storage.news  [Google News RSS]
+  Media/Hydrogen/H2 View                                    https://www.h2-view.com  [Google News RSS]
+  Media/Business_Global/Argus Media                         https://www.argusmedia.com  [Google News RSS]
+  Media/Logistics/Lloyd's List                              https://lloydslist.maritimeintelligence.informa.com  [Google News RSS]
+  Media/Logistics/Africa Ports & Ships                      https://africaports.co.za  → https://africaports.co.za/feed/
+  Media/Energy/Petroleum Economist                          https://www.petroleum-economist.com/  → https://www.petroleum-economist.com/rss
+  Media/Africa_Energy/ESI Africa                            https://www.esi-africa.com/news/  → https://www.esi-africa.com/news/feed/
+  Media/Logistics/Port Strategy                             https://www.portstrategy.com/news/  → https://www.portstrategy.com/feed/
+  Traditional/Gulf_NOCs/Saudi Aramco                        https://www.aramco.com/en/news-media  [Google News RSS]
+  Traditional/Gulf_NOCs/ADNOC                               https://www.adnoc.ae/en/news-and-media  [Google News RSS]
+  Media/EPC_Projects/Global Construction Review             https://www.globalconstructionreview.com  → https://www.globalconstructionreview.com/feed/
+  Media/MiddleEast_Energy/Oil & Gas Middle East             https://www.oilandgasmiddleeast.com  → https://www.oilandgasmiddleeast.com/wp-json/wp/v2/posts
+  Media/MiddleEast_Energy/Utilities Middle East             https://www.utilities-me.com  → https://www.utilities-me.com/wp-json/wp/v2/posts
+  Media/Power/POWER Magazine                                https://www.powermag.com  → https://www.powermag.com/feed/
+  Media/India_Energy/ET EnergyWorld                         https://energy.economictimes.indiatimes.com  → https://energy.economictimes.indiatimes.com/rss/topstories
+  Media/India_Infra/ET Infra                                https://infra.economictimes.indiatimes.com  → https://infra.economictimes.indiatimes.com/rss/topstories
+  Media/Renewables/Mercom India                             https://www.mercomindia.com  → https://www.mercomindia.com/feed
+  Media/Mining/Canadian Mining Journal                      https://www.canadianminingjournal.com  → https://www.canadianminingjournal.com/feed/
+  Media/Mining/Australian Mining                            https://www.australianmining.com.au  → https://www.australianmining.com.au/wp-json/wp/v2/posts
+  Media/Chemicals/Chemical Engineering Online               https://www.chemengonline.com  → https://www.chemengonline.com/feed/
+  Media/Logistics/Dredging Today                            https://www.dredgingtoday.com  → https://www.dredgingtoday.com/feed
