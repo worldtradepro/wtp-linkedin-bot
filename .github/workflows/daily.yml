@@ -27,6 +27,7 @@ jobs:
       WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
       BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
       UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}   # optional: stock photo when an article has no lead picture
+      PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}   # optional: second stock source (owner 2026-10-24: Unsplash + Pexels only)
       IMAGE_BASE_URL: https://raw.githubusercontent.com/${{ github.repository }}/images
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}   # owner's Claude Max subscription: Infrastructure headline rewrite (title_rewrite.mjs, optional)
       SCAN_MODEL: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN || secrets.OPENROUTER_API_KEY }}   # only tested for presence (see the guard step)

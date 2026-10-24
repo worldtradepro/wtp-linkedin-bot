@@ -14,6 +14,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { dayShift, fetchJson, ISO, regionNames, isoOf, flagOf, countryName, SECTOR_EMOJI, emojiOf, LANES, laneOf, clean, summaryOf, hostOf, STOP, tokens, similar, score } from './common.mjs';
+import { factsOf } from './fact_card.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const cfg = JSON.parse(readFileSync(join(HERE, 'config.json'), 'utf8'));
@@ -87,6 +88,7 @@ function audienceOf(it) {
   // Word boundaries matter: "Rail & Inland Transport" used to match /port/ and got the port-equipment line (2026-10-05).
   // Specific modes (rail, airport, shipyard) go before the generic port rule.
   const rules = [
+    [/data ?cent/, 'data-centre builders, power, cooling and electrical equipment suppliers'],
     [/\brail|metro|mrt\b|tram/, 'rolling-stock and signalling suppliers, civil EPC, track contractors'],
     [/airport|airfield/, 'airfield and terminal contractors, baggage and security systems suppliers'],
     [/shipyard|fleet|vessel|newbuild/, 'shipyards, marine equipment and propulsion suppliers, ship finance'],
@@ -98,7 +100,8 @@ function audienceOf(it) {
     [/hydrogen|ammonia/, 'electrolyser and process-equipment suppliers, EPC'],
     [/\bmine\b|mining|lithium|copper|critical|metal|smelt/, 'mining-equipment makers, process-plant EPC, materials suppliers'],
     [/fertili[sz]er|urea/, 'process EPC and equipment suppliers'],
-    [/grain|food|irrigation|\bwater\b|agri/, 'agri-processing equipment makers, civil and water-treatment contractors'],
+    [/desalin|\bwater\b|wastewater/, 'water-treatment and desalination EPC, membrane, pump and valve suppliers'],   // 2026-10-24: desalination got the agri line
+    [/grain|food|irrigation|agri/, 'agri-processing equipment makers, civil and irrigation contractors'],
   ];
   for (const [re, txt] of rules) if (re.test(t)) return txt;
   return 'EPC contractors, developers and equipment suppliers';
@@ -116,7 +119,7 @@ const descOf = (it) => (BAD_DESC.test(it.description || '') ? '' : it.descriptio
 
 function pickProjects(items, n, used) {
   const cands = items
-    .filter((it) => it.source_url && !used.has(it.source_url) && it.project_name)
+    .filter((it) => it.source_url && !used.has(it.source_url) && it.project_name && it.verification !== 'limited')   // 2026-10-24: only rows whose facts were checked (fields v3 full / project_only)
     // importance first: bigger scale, then earlier (pre-tender) stage, then newest
     .sort((a, b) => (scaleRank(b.scale) - scaleRank(a.scale)) || (isEarly(b) - isEarly(a)) || (b.report_date > a.report_date ? 1 : -1));
   const picks = [];
@@ -193,12 +196,31 @@ const STAGE_LONG = { S1: 'Earliest lead', S2: 'Development, before tender', S3: 
 function snapshotOf(it) {
   const st = STAGE_LONG[(it.stage || '').slice(0, 2)];
   const loc = [countryName(it.country), subOf(it)].filter(Boolean).join(' · ');
-  const lines = [loc && '📍 ' + loc, st && '🔧 Stage: ' + st, it.scale && '📊 Scale: ' + capWord(it.scale), '🎯 Worth a look for: ' + audienceOf(it)].filter(Boolean);
+  // 2026-10-24 owner: posts state the facts from our database (fields v3), not the media report's wording
+  // contractors / financiers arrive as JSON text: [{"name":"CNCEC","role":"EPC"}]
+  const list = (v) => { let a = v; if (typeof a === 'string') { try { a = JSON.parse(a); } catch { a = a.split(/\s*[;|]\s*/); } }
+    return (Array.isArray(a) ? a : []).map((x) => clean(typeof x === 'string' ? x : x?.name || '')).filter(Boolean).slice(0, 3).join(', '); };
+  let amt = Number(it.value_amount), unit = it.value_unit || '';
+  if (unit === 'million' && amt >= 1000) { amt = +(amt / 1000).toFixed(2); unit = 'billion'; }   // 1620 million -> 1.62 billion
+  const value = it.value_amount ? `${it.value_currency || ''} ${Number.isFinite(amt) ? amt.toLocaleString('en-US') : it.value_amount}${unit ? ' ' + unit : ''}`.trim() : '';
+  const owner = clean(it.owner || '');   // only the checked owner field; company_name can be a supplier (2026-10-24: "Owner: Energy Recovery")
+  const lines = [loc && '📍 ' + loc, owner && '🏢 Owner: ' + owner, it.capacity && '⚡ Capacity: ' + clean(it.capacity), value && '💰 Value: ' + value,
+    list(it.contractors) && '🛠️ Contractors: ' + list(it.contractors), list(it.financiers) && '🏦 Financing: ' + list(it.financiers),
+    st && '🔧 Stage: ' + st, !it.capacity && !value && it.scale && '📊 Scale: ' + capWord(it.scale), '🎯 Worth a look for: ' + audienceOf(it)].filter(Boolean);
   return lines.length ? ['Project snapshot', ...lines].join('\n') : '';
+}
+// Title from our own fact fields: "<Owner>: <project name> in <country> (<capacity>)" - never the article's headline (2026-10-24)
+function factTitle(it) {
+  let name = clean(it.project_name);
+  const owner = factsOf(it).owner, country = countryName(it.country), cap = clean(it.capacity || '');
+  const low = (x) => x.toLowerCase();
+  if (country && !low(name).includes(low(country))) name += ' in ' + country;
+  if (cap && !low(name).includes(low(cap))) name += ` (${cap})`;
+  return owner && !low(name).includes(low(owner)) ? `${owner}: ${name}` : name;
 }
 function projectPost(it, i, date, slot) {
   const sub = subOf(it);   // skips "(unspecified)" / "Unknown" so no #Unknown hashtag
-  const title = clean(descOf(it)) && /[.!?]$/.test(clean(descOf(it))) && clean(descOf(it)).length <= 140 ? clean(descOf(it)).replace(/.$/, '') : clean(it.project_name);
+  const title = factTitle(it);
   const prefix = `${flagsFor({ ...it, project_name: title }, true)} 🏗️`.trim();
   const blocks = [
     `${prefix} ${title}`,
@@ -215,7 +237,8 @@ function projectPost(it, i, date, slot) {
     text: blocks.filter(Boolean).join('\n\n'),
     firstComment: !INFRA_LINKS ? '' : commentFor(it, [`🗂️ All projects with filters: ${utm('infrastructure', 'proj', date, i)}`, BODY_LINKS ? '' : countryLine(it, date, i)].filter(Boolean).join('\n')),
     image: 'screenshot', sourceUrl: it.source_url, sourceName: it.source_name || hostOf(it.source_url),
-    meta: { stage: it.stage, sector: it.sector, subsector: it.subsector, country: countryName(it.country), company: it.company_name || null, scale: it.scale || null, reportDate: it.report_date },
+    meta: { stage: it.stage, sector: it.sector, subsector: it.subsector, country: countryName(it.country), company: it.company_name || null, scale: it.scale || null, reportDate: it.report_date,
+      facts: { ...factsOf(it), audience: audienceOf(it) } },   // render.mjs draws the fact card from these (fact_card.mjs)
   };
 }
 

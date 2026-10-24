@@ -14,6 +14,7 @@ import { stockPhoto } from './stock_photo.mjs';
 import { rewriteTitles, isGenericTitle, rewriteGenericTitle } from './title_rewrite.mjs';
 import { bestImage, loadPhoto, siteLabel, closeOcr } from './image_search.mjs';
 import { createHash } from 'node:crypto';
+import { factCardHtml } from './fact_card.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -191,7 +192,8 @@ function cardHtml(p) {
 
 // ---------------------------------------------------------------- Infrastructure own-data cards (1080x1350)
 // Flags are shown as ISO chips, not emoji: Windows Chrome has no flag-emoji font, Linux CI does, and a card must look the same everywhere.
-const LOGO = 'data:image/png;base64,' + readFileSync(join(HERE, 'assets', 'logo_light.png')).toString('base64');
+// 2026-10-24: logo v2 (brand/logo, white stacked version on dark cards and photos); the old Canva logo was assets/logo_light.png
+const LOGO = 'data:image/png;base64,' + readFileSync(join(HERE, 'assets', 'logo_white_v2.png')).toString('base64');
 // Hand-drawn infrastructure skyline (refinery, port gantry crane + containers, wind turbines, pylon): original artwork, so no photo licence
 // questions, and it renders identically on any machine. Kept very faint - it is a backdrop, the data stays the hero.
 const turbineSvg = (x, base, top, L, rot, w) => {
@@ -432,7 +434,10 @@ for (const f of files) {
     if (imageMode === 'photo') {
       let lead = null;
       try { lead = await leadPhoto(page); } catch (e) { why = 'photo lookup failed: ' + String(e.message || e).slice(0, 60); }
-      if (isCfg.enabled !== false && (isCfg.types || ['news', 'project']).includes(p.type)) {
+      // 2026-10-24 owner: Infrastructure project posts never use third-party photos (article lead pictures or web image search: a 10-22 post showed a
+      // news agency's Nokia photo for a Malaysian data centre). Only licensed stock (Unsplash / Pexels, below) or our own card. accounts.infra.thirdPartyPhotos=true restores it.
+      if (p.type === 'project' && cfg.accounts.infra.thirdPartyPhotos !== true) { lead = null; why = 'project post: no third-party photos'; }
+      else if (isCfg.enabled !== false && (isCfg.types || ['news', 'project']).includes(p.type)) {
         // relevance first (user 2026-09-26): the article's own photo competes with image-search results for the headline's key words
         const head = sameArticle && info.h1 ? info.h1 : p.headline;
         try {
@@ -452,7 +457,7 @@ for (const f of files) {
       why = (photo.note || 'photo') + ' ' + photo.w + 'x' + photo.h;
     }
     const wantShot = imageMode === 'screenshot' && !(p.type === 'project' && cfg.accounts.infra.imageMode === 'card');
-    if (!wantShot) { if (!photo && !why) why = 'no usable lead photo -> own themed card'; if (sameArticle && info.h1) articleHeadline = info.h1; }   // the article's own headline is more descriptive than the terse project name
+    if (!wantShot) { if (!photo && !why) why = 'no usable lead photo -> own themed card'; if (sameArticle && info.h1 && p.type !== 'project') articleHeadline = info.h1; }   // project posts keep our fact title (2026-10-24)   // the article's own headline is more descriptive than the terse project name
     if (wantShot && sameArticle && !blocked && info.region && info.visibleChars > 400) {
       // Tight crop of headline + lede (+ hero picture): reads like a news "quote card" instead of a slice of a busy web page.
       const PAD = 28;
@@ -484,7 +489,7 @@ for (const f of files) {
       // Plain screenshot of the article headline area - no frame, no branding, no website address (same look as the friend's link-preview posts).
       writeFileSync(out, shot);
       kind = 'screenshot';
-      if (p.type === 'project' && info.h1) articleHeadline = info.h1;   // project names are terse ("Callao Terminal Expansion"): use the article's own headline in the post
+      if (p.type === 'project' && info.h1 && cfg.accounts.infra.articleText === true) articleHeadline = info.h1;   // project names are terse ("Callao Terminal Expansion"): use the article's own headline in the post
       why = rejected ? 'consent dismissed' : 'no consent pop-up';
     } else if (wantShot) {
       why = !info.h1 ? 'no headline found on page' : (!sameArticle ? `page headline differs ("${info.h1.slice(0, 50)}")` : 'still covered by an overlay');
@@ -494,10 +499,13 @@ for (const f of files) {
   }
   // No usable lead photo in the article (or the page would not load): a themed Unsplash stock photo instead of our own blue card (config stockPhoto).
   const sp = cfg.stockPhoto || {};
-  if (kind === 'card' && (cfg.imageMode || 'photo') === 'photo' && sp.enabled !== false && (sp.types || ['news']).includes(p.type)) {
+  // 2026-10-24 owner: Infrastructure project posts always show our own fact card (owner / capacity / value / contractors / financing / stage + country map),
+  // no stock photo either: a generic Unsplash picture does not match the project. accounts.infra.factCard=false restores stock photos.
+  const factCard = p.type === 'project' && cfg.accounts.infra.factCard !== false && p.meta?.facts;
+  if (kind === 'card' && !factCard && (cfg.imageMode || 'photo') === 'photo' && sp.enabled !== false && (sp.types || ['news']).includes(p.type)) {
     try {
       const s = await stockPhoto({ id: p.id, headline: articleHeadline || p.headline, sector: p.meta?.sector, subsector: p.meta?.subsector, forCard: p.type === 'project' && cfg.accounts.infra.photoCard !== false }, (m) => console.log('  ' + p.id + ': ' + m));
-      if (s) { writeFileSync(outPhoto, s.jpeg); kind = 'photo'; photoUrl = s.url; photoMime = 'image/jpeg'; stockCredit = sp.credit === false ? '' : sp.creditLink === false ? s.credit.replace(/\s*➡️.*$/u, '') : s.credit; why = 'Unsplash stock photo (query "' + s.query + '", ' + s.photoId + ')'; }
+      if (s) { writeFileSync(outPhoto, s.jpeg); kind = 'photo'; photoUrl = s.url; photoMime = 'image/jpeg'; stockCredit = sp.credit === false ? '' : sp.creditLink === false ? s.credit.replace(/\s*➡️.*$/u, '') : s.credit; why = 'stock photo (query "' + s.query + '", ' + s.photoId + ')'; }
     } catch (e) { console.log('  ' + p.id + ': stock photo failed: ' + String(e.message || e).slice(0, 80)); }
   }
   // A redirect link resolved to the real publisher: show the publisher's name and put its URL in the first comment.
@@ -517,6 +525,12 @@ for (const f of files) {
     const [better] = isGenericTitle(base) ? [await rewriteGenericTitle(base, ctx, (m) => console.log('  ' + p.id + ':' + m))]
       : await rewriteTitles([base], (m) => console.log('  ' + p.id + ':' + m));
     if (better && better !== base) { console.log(`  ${p.id}: title "${base}" -> "${better}"`); articleHeadline = better; }
+    // 2026-10-24: the rewrite can fail (no model in CI, guard rejects) and a bare "Data Center" went out as the whole title: build a plain one from our own fields
+    else if (isGenericTitle(base)) {
+      const co = clean(p.meta?.company || ''), c = clean(p.meta?.country || '');
+      const t = `${co ? co + ': new' : 'New'} ${base.toLowerCase()} project${c ? ' in ' + c : ''}`;
+      console.log(`  ${p.id}: generic title "${base}" -> "${t}" (rule-based)`); articleHeadline = t;
+    }
   }
   if (kind === 'card') {
     if (p.type === 'news') {   // main-account news without a good article picture: own portrait card, same family as the Infrastructure cards
@@ -524,6 +538,12 @@ for (const f of files) {
       await drawOwn(page, infraCardHtml({ kind: 'news', scene: sceneKey(p.meta?.sector, p.meta?.subsector), tag: 'TRADE FLOW', title: 'Trade Flow Signal', sub: [p.meta?.sector, p.meta?.country].filter(Boolean).join('  ·  '), label: 'LATEST SIGNAL',
         footer: 'Live trade-flow signals', name: p.headline, chips: [p.meta?.country, p.meta?.sector, p.meta?.lane && `Lane: ${p.meta.lane}`].filter(Boolean), source: p.sourceName || '' }));
       await page.screenshot({ path: out, clip: { x: 0, y: 0, width: 1080, height: 1350 } });
+    } else if (factCard) {
+      await page.setViewportSize({ width: 1080, height: 1350 });
+      await drawOwn(page, factCardHtml({ ...p.meta.facts, source: p.sourceName || p.meta.facts.source }), true);
+      await page.evaluate(() => document.fonts.ready);   // Barlow Condensed / IBM Plex come from Google Fonts
+      await page.screenshot({ path: out, clip: { x: 0, y: 0, width: 1080, height: 1350 } });
+      why = (why ? why + ' -> ' : '') + 'fact card';
     } else if (p.type === 'project') {   // no usable article screenshot: own-design project card in the same style as the daily / weekly cards
       const stage = clean(p.meta?.stage || '').replace(/^S\d[-\s]*/, '');
       await page.setViewportSize({ width: 1080, height: 1350 });
@@ -553,7 +573,8 @@ for (const f of files) {
 
   // Description: the article's own opening sentences when we got them, else the (short) pipeline summary already in the post.
   const blocks = [...p.blocks];
-  if (excerpt) blocks[p.descIndex] = excerpt;
+  // 2026-10-24 owner: Infrastructure project posts state our own facts; no sentences copied from the article (accounts.infra.articleText=true restores it)
+  if (excerpt && (p.type !== 'project' || cfg.accounts.infra.articleText === true)) blocks[p.descIndex] = excerpt;
   if (articleHeadline) blocks[0] = `${p.headPrefix || ''} ${clean(articleHeadline)}`.trim();
   // "Source: tradingview.com" turns into a clickable link on LinkedIn (owner: no links in Infrastructure posts): name the site instead
   for (let k = 0; k < blocks.length; k++) { const m = /^Source: ((?:[a-z0-9-]+\.)+[a-z]{2,})$/i.exec(blocks[k] || ''); if (m) blocks[k] = 'Source: ' + (siteLabel('', m[1]) || m[1]); }
@@ -562,7 +583,7 @@ for (const f of files) {
   if (stockCredit) blocks.splice(/^#/.test(blocks[blocks.length - 1] || '') ? blocks.length - 1 : blocks.length, 0, stockCredit);   // photographer credit sits just above the hashtags
   Object.assign(p, {
     blocks, text: blocks.filter(Boolean).join('\n\n'),
-    imagePath: 'images/' + p.id + (kind === 'photo' ? '.jpg' : '.png'), imageKind: kind, imageUrl: photoUrl || null, imageRehost: kind === 'photo' && (rehost || !/jpeg|png|gif/i.test(photoMime)), imageCredit: stockCredit ? '' : imageCredit, stockPhoto: !!stockCredit || /^Unsplash/.test(why), excerptFromArticle: !!excerpt, renderNote: why,
+    imagePath: 'images/' + p.id + (kind === 'photo' ? '.jpg' : '.png'), imageKind: kind, imageUrl: photoUrl || null, imageRehost: kind === 'photo' && (rehost || !/jpeg|png|gif/i.test(photoMime)), imageCredit: stockCredit ? '' : imageCredit, stockPhoto: !!stockCredit || /^stock photo/.test(why), excerptFromArticle: !!excerpt, renderNote: why,
   });
   writeFileSync(path, JSON.stringify(p, null, 2));
   if (kind === 'photo' && existsSync(outPhoto)) imgUsed.push({ date: DATE, id: p.id, url: imgKey(photoUrl), hash: origHash || sha1(readFileSync(outPhoto)) });

@@ -108,8 +108,12 @@ const headers = () => ({ Authorization: 'Client-ID ' + KEY, 'Accept-Version': 'v
 const captionOf = (p) => `${p.description || ''} ${p.alt_description || ''}`;
 
 // -> { jpeg: Buffer, url, credit, query, photoId, w, h } | null
+// 2026-10-24 owner: licensed free stock only = Unsplash first, then Pexels (env PEXELS_API_KEY) when Unsplash has nothing usable.
 export async function stockPhoto(post, log = () => {}) {
-  if (!KEY) { log('no UNSPLASH_ACCESS_KEY: stock photo skipped'); return null; }
+  return (await unsplashPhoto(post, log)) || (await pexelsPhoto(post, log));
+}
+async function unsplashPhoto(post, log) {
+  if (!KEY) { log('no UNSPLASH_ACCESS_KEY: Unsplash skipped'); return null; }
   const used = new Set(loadUsed());
   const searched = new Map();   // query -> raw results (a query repeated across steps is only fetched once)
   for (const step of plan(post)) {
@@ -168,6 +172,51 @@ export async function stockPhoto(post, log = () => {}) {
     // Unsplash API terms (section 9): credit Unsplash + the photographer AND link to the photographer's profile (with our utm tags)
     const profile = pick.user?.links?.html ? pick.user.links.html.split('?')[0] + '?' + UTM : `https://unsplash.com/?${UTM}`;
     return { jpeg, url, query: pick.__query, photoId: pick.id, w: pick.width, h: pick.height, credit: `📷 Photo: ${name} / Unsplash ➡️ ${profile}` };
+  }
+  return null;
+}
+
+// Pexels API (free key, 200 requests/hour). Pexels licence: free to use, no attribution required; the API guidelines ask for a credit to
+// the photographer and Pexels when possible, so the post gets the same "📷 Photo: <name> / Pexels" line as Unsplash. Same query plan and filters.
+const PKEY = process.env.PEXELS_API_KEY || '';
+async function pexelsPhoto(post, log) {
+  if (!PKEY) { log('no PEXELS_API_KEY: Pexels skipped'); return null; }
+  const used = new Set(loadUsed());
+  const searched = new Map();
+  for (const step of plan(post)) {
+    let candidates = [];
+    for (const query of step.queries) {
+      if (!searched.has(query)) {
+        let data;
+        try {
+          const r = await fetch(`https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=30`, { headers: { Authorization: PKEY } });
+          if (r.status === 401 || r.status === 429) { log('Pexels rate limit / key rejected (' + r.status + ')'); return null; }
+          data = r.ok ? await r.json() : { photos: [] };
+        } catch (e) { log('Pexels unreachable: ' + String(e.message || e).slice(0, 60)); return null; }
+        searched.set(query, (data.photos || []).map((p) => ({ ...p, __query: query })));
+      }
+      candidates.push(...searched.get(query));
+    }
+    const shapeOk = (p) => Math.max(p.width, p.height) / Math.min(p.width, p.height) <= 2.0;
+    let fresh = candidates.filter((p) => !used.has('px:' + p.id) && Math.max(p.width, p.height) >= 1600 && Math.min(p.width, p.height) >= 900 && shapeOk(p));
+    if (step.filter) fresh = fresh.filter((p) => step.filter.test(p.alt || ''));
+    if (!fresh.length) continue;
+    const r = (p) => p.width / p.height;
+    const cardFit = fresh.filter((p) => r(p) >= 1.0 && r(p) <= 1.6), cardOk = fresh.filter((p) => r(p) >= 0.8);
+    const shaped = post.forCard ? (cardFit.length ? cardFit : cardOk) : fresh.filter((p) => p.height >= p.width);
+    const pool = (shaped.length ? shaped : fresh).slice(0, 12);
+    const pick = pool[hash(post.id + new Date().toISOString().slice(0, 10)) % pool.length];
+    log('Pexels ' + (step.filter ? 'caption-matched' : 'unfiltered fallback') + ' pick for "' + pick.__query + '": ' + (pick.alt || '(no caption)'));
+    const url = pick.src?.large2x || pick.src?.original;
+    let jpeg;
+    try {
+      const img = await fetch(url);
+      if (!img.ok) continue;
+      jpeg = Buffer.from(await img.arrayBuffer());
+      if (jpeg.length < 20000 || jpeg[0] !== 0xff || jpeg[1] !== 0xd8) continue;
+    } catch { continue; }
+    used.add('px:' + pick.id); saveUsed([...used]);
+    return { jpeg, url, query: pick.__query, photoId: 'pexels-' + pick.id, w: pick.width, h: pick.height, credit: `📷 Photo: ${pick.photographer || 'Pexels photographer'} / Pexels` };
   }
   return null;
 }
