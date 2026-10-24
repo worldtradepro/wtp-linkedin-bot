@@ -1,3 +1,1 @@
-2026-10-24T20:33:12Z write test on the 2026-10-23 rows the server left limited after its thread crash
-mode=write
-ids=6407,6406,6405,6401,6400,6399,6397,6396,6395,6394,6393,6392,6391
+2026-10-24T20:38:03Z switched: write mode is the default from now on (no one-off run)
