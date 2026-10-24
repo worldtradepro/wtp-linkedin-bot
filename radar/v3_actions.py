@@ -67,9 +67,15 @@ def verify(r, a, pages):
     return status, why, page
 
 
+IDS = {x.strip() for x in os.environ.get("V3_IDS", "").split(",") if x.strip()}   # one-off run on given row ids (any verification)
+
+
 def pick_rows():
     done = rx.load(DONE_F, {})
     rows = []
+    if IDS:
+        rx.DAYS = 30
+        return [r for r in rx.get_rows() if str(r["id"]) in IDS], done
     for r in rx.get_rows():
         aid, u = r.get("article_id") or "", r.get("source_url") or ""
         if aid.startswith(OFFICIAL) or not u or "news.google" in u or str(r["id"]) in done:

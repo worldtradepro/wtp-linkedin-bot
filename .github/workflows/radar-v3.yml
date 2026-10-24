@@ -50,7 +50,14 @@ jobs:
       - run: pip install -r radar/requirements.txt
       - run: npm install -g @anthropic-ai/claude-code@latest && claude --version
       - name: Extract
-        run: python radar/v3_actions.py
+        run: |
+          # a push of radar/v3_run_now.txt may carry "mode=write" / "ids=1,2,3" lines for a one-off run
+          if [ "${{ github.event_name }}" = "push" ]; then
+            m=$(grep -oP '^mode=\K\w+' radar/v3_run_now.txt || true); [ -n "$m" ] && export V3_MODE="$m"
+            i=$(grep -oP '^ids=\K[0-9,]+' radar/v3_run_now.txt || true); [ -n "$i" ] && export V3_IDS="$i"
+          fi
+          echo "mode=$V3_MODE ids=${V3_IDS:-none}"
+          python radar/v3_actions.py
       - name: Save state (rows done, comparison report)
         if: always()
         run: |
