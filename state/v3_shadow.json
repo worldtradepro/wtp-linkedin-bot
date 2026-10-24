@@ -1,0 +1,782 @@
+[
+ {
+  "date": "2026-10-24",
+  "id": "6477",
+  "project": "Era4 AI Data Center Project",
+  "url": "https://constructionreviewonline.com/era4-ai-data-center-project-in-canterbury-approved-to-be-powered-by-shelford-landfill-gas/",
+  "server": {
+   "verification": "full",
+   "owner": "Era4",
+   "capacity": "",
+   "value": "",
+   "event_type": "Permit/Approval",
+   "contractors": [],
+   "financiers": [],
+   "description": "Era4’s project in Canterbury, Kent, United Kingdom has received an approval."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "Era4",
+   "capacity": "13,000 square feet (1,210 square meters)",
+   "value": "",
+   "event_type": "Permit/Approval",
+   "contractors": [],
+   "financiers": [],
+   "description": "Era4 has received planning permission from Canterbury City Council for an AI data center at Shelford Landfill in Kent. Power would come mainly through a private wire from the nearby Valencia Energy Center, which runs on landfill gas."
+  },
+  "diff": [
+   "capacity"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6407",
+  "project": "Freedom Separation Plant",
+  "url": "https://www.chemengonline.com/phoenix-tailings-announces-plans-for-rare-earth-separation-plant-in-rochester-n-y/",
+  "server": {
+   "verification": "limited",
+   "owner": "Phoenix Tailings, Inc.",
+   "capacity": "",
+   "value": "USD 1200 million",
+   "event_type": "Other",
+   "contractors": [],
+   "financiers": [],
+   "description": "Project update: Freedom Separation Plant (Phoenix Tailings, Inc.), Rochester, N.Y., United States · USD 1200M"
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "Phoenix Tailings, Inc.",
+   "capacity": "More than 18,000 tons per year of feedstock; more than 4,400 tons per year of separated rare earth oxides",
+   "value": "USD 1.2 billion",
+   "event_type": "Other",
+   "contractors": [],
+   "financiers": [
+    "Department of War"
+   ],
+   "description": "Phoenix Tailings has chosen a Rochester, New York site at Eastman Business Park for its Freedom Separation rare earth plant, part of a $1.2 billion-plus project. The plant aims to output over 4,400 tons of separated oxides yearly, ramping up from 2027."
+  },
+  "diff": [
+   "verification",
+   "capacity",
+   "value",
+   "financiers"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6406",
+  "project": "Floating Solar-Plus-Storage Project",
+  "url": "https://www.mercomindia.com/rwanda-energy-corporation-tenders-floating-solar-plus-storage-project",
+  "server": {
+   "verification": "limited",
+   "owner": "Rwanda Energy Corporation",
+   "capacity": "",
+   "value": "",
+   "event_type": "Tender",
+   "contractors": [],
+   "financiers": [],
+   "description": "Tender issued: Floating Solar-Plus-Storage Project (Rwanda Energy Corporation), Rwanda"
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "Energy Development Corporation (EDCL)",
+   "capacity": "",
+   "value": "",
+   "event_type": "Tender",
+   "contractors": [],
+   "financiers": [],
+   "description": "Rwanda's Energy Development Corporation has invited independent power producers to bid on a floating solar project paired with battery storage. The site is Lake Sake in Ngoma District, Eastern Province, and bids are due November 12, 2026."
+  },
+  "diff": [
+   "verification",
+   "owner"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6401",
+  "project": "Terra Clove",
+  "url": "https://www.hellenicshippingnews.com/mpa-and-eastern-pacific-shipping-mark-christening-of-singapore-registered-ammonia-dual-fuelled-vessel/",
+  "server": {
+   "verification": "limited",
+   "owner": "",
+   "capacity": "93,000 cubic metres",
+   "value": "",
+   "event_type": "Delivery/Commissioning",
+   "contractors": [],
+   "financiers": [],
+   "description": "Eastern Pacific Shipping's Terra Clove is the first ammonia dual-fuelled vessel registered in Singapore."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "Eastern Pacific Shipping",
+   "capacity": "93,000 cubic metres",
+   "value": "",
+   "event_type": "Other",
+   "contractors": [
+    "HD Hyundai Heavy Industries",
+    "Everllence"
+   ],
+   "financiers": [],
+   "description": "Project update: Terra Clove (Eastern Pacific Shipping), HD Hyundai Heavy Industries, Ulsan, South Korea"
+  },
+  "diff": [
+   "verification",
+   "owner",
+   "event_type",
+   "contractors"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6400",
+  "project": "Newcastlemax Vessel Order",
+  "url": "https://splash247.com/laskaridis-linked-to-312m-newcastlemax-order-in-china/",
+  "server": {
+   "verification": "limited",
+   "owner": "",
+   "capacity": "",
+   "value": "USD 312 million",
+   "event_type": "Equipment/vessel order",
+   "contractors": [],
+   "financiers": [],
+   "description": "Lavinia Bulkers has ordered four Newcastlemax vessels in China, valued at $312 million."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "Lavinia Bulkers",
+   "capacity": "Four 212,000 dwt newcastlemax bulkers",
+   "value": "USD 312 million",
+   "event_type": "Equipment/vessel order",
+   "contractors": [
+    "Zhoushan Changhong International Shipyard"
+   ],
+   "financiers": [],
+   "description": "Lavinia Bulkers is reportedly behind an order for four 212,000 dwt newcastlemax bulkers at Zhoushan Changhong, valued near $312m. Deliveries are scheduled for 2030, according to shipbroking sources cited in the report."
+  },
+  "diff": [
+   "verification",
+   "owner",
+   "capacity",
+   "contractors"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6399",
+  "project": "Offshore Wind CTVs Order",
+  "url": "https://splash247.com/oeg-books-three-more-offshore-wind-ctvs-at-diverse-marine/",
+  "server": {
+   "verification": "limited",
+   "owner": "",
+   "capacity": "",
+   "value": "",
+   "event_type": "Equipment/vessel order",
+   "contractors": [],
+   "financiers": [],
+   "description": "OEG Marine Services has ordered three crew transfer vessels for its offshore wind fleet expansion."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "OEG Marine Services",
+   "capacity": "Three crew transfer vessels, 26 m length each",
+   "value": "",
+   "event_type": "Equipment/vessel order",
+   "contractors": [
+    "Diverse Marine",
+    "Chartwell Marine"
+   ],
+   "financiers": [],
+   "description": "Order placed: Offshore Wind CTVs Order (OEG Marine Services), Diverse Marine, Cowes, Isle of Wight, United Kingdom"
+  },
+  "diff": [
+   "verification",
+   "owner",
+   "capacity",
+   "contractors"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6397",
+  "project": "New Gas Play",
+  "url": "https://www.africa-energy.com/news-centre/article/nigeria-final-investment-decision-new-gas-play",
+  "server": {
+   "verification": "limited",
+   "owner": "",
+   "capacity": "",
+   "value": "",
+   "event_type": "FID",
+   "contractors": [],
+   "financiers": [],
+   "description": "Investors have taken FID for a new gas play that will supply an LNG facility in Nigeria."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "",
+   "capacity": "",
+   "value": "",
+   "event_type": "FID",
+   "contractors": [],
+   "financiers": [],
+   "description": "The project is a Nigerian gas development meant to feed an LNG plant, and its backers have approved the final investment decision. The page is paywalled, so volumes, costs and partners are not shown."
+  },
+  "diff": [
+   "verification"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6396",
+  "project": "Gas Plant Upgrade",
+  "url": "https://www.africa-energy.com/news-centre/article/nigeria-upgrade-utility-scale-gas-plant",
+  "server": {
+   "verification": "limited",
+   "owner": "",
+   "capacity": "",
+   "value": "",
+   "event_type": "Other",
+   "contractors": [],
+   "financiers": [],
+   "description": "A utility-scale gas-to-power plant in Lagos is undergoing a major upgrade to double its capacity."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "",
+   "capacity": "",
+   "value": "",
+   "event_type": "Other",
+   "contractors": [],
+   "financiers": [
+    "Public-private partnership"
+   ],
+   "description": "Project update: Gas Plant Upgrade, Lagos, Nigeria"
+  },
+  "diff": [
+   "verification",
+   "financiers"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6395",
+  "project": "St. Charles FCC Unit Upgrade",
+  "url": "https://www.ogj.com/refining-processing/news/55413762/valero-wraps-st-charles-fcc-project-reports-record-earnings",
+  "server": {
+   "verification": "limited",
+   "owner": "",
+   "capacity": "",
+   "value": "USD 230 million",
+   "event_type": "Construction start",
+   "contractors": [],
+   "financiers": [],
+   "description": "Valero completed a $230 million upgrade of the FCC unit at its St. Charles refinery."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "Valero Energy Corp.",
+   "capacity": "15,000-b/d incremental FCC throughput",
+   "value": "USD 230 million",
+   "event_type": "Delivery/Commissioning",
+   "contractors": [],
+   "financiers": [],
+   "description": "Valero finished its $230-million FCC unit optimization at the St. Charles refinery in Louisiana on schedule and on budget. The upgrade lifts gasoline and alkylate output, per its third-quarter 2026 earnings release."
+  },
+  "diff": [
+   "verification",
+   "owner",
+   "capacity",
+   "event_type"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6394",
+  "project": "Southeast Connector and Permian Link Pipelines",
+  "url": "https://www.ogj.com/pipelines-transportation/pipelines/news/55413822/kinder-morgan-takes-fid-on-southeast-connector-permian-link-natural-gas-pipelines",
+  "server": {
+   "verification": "limited",
+   "owner": "",
+   "capacity": "5.4 bcfd",
+   "value": "",
+   "event_type": "FID",
+   "contractors": [],
+   "financiers": [],
+   "description": "Kinder Morgan has taken FID on two natural gas pipelines to add 5.4 bcfd capacity by 2030."
+  },
+  "haiku": {
+   "verification": "project_only",
+   "why": "numbers not on page ['7.3']",
+   "owner": "Kinder Morgan Inc. (via Southern Natural Gas and Natural Gas Pipeline Co. of America)",
+   "capacity": "2.6 bcfd (Southeast Connector); 2.8 bcfd (Permian Link)",
+   "value": "USD 7.3 billion",
+   "event_type": "FID",
+   "contractors": [],
+   "financiers": [],
+   "description": "Kinder Morgan's subsidiaries reached final investment decisions on Southeast Connector, a 2.6 bcfd, 470-mile line costing $3.1 billion, and Permian Link, 2.8 bcfd costing $4.2 billion."
+  },
+  "diff": [
+   "verification",
+   "owner",
+   "capacity",
+   "value"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6393",
+  "project": "FSO Vessel Project",
+  "url": "https://offshore-energy.biz/2026/10/23/yinson-production-ptsc-cheer-fsos-first-oil-at-southeast-asian-project",
+  "server": {
+   "verification": "limited",
+   "owner": "",
+   "capacity": "",
+   "value": "",
+   "event_type": "Award",
+   "contractors": [],
+   "financiers": [],
+   "description": "Yinson Production and PTSC have achieved first oil at a floating storage and offloading vessel project in Vietnam."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "Yinson Production and PetroVietnam Technical Services Corporation (joint venture)",
+   "capacity": "460,000 barrels storage",
+   "value": "",
+   "event_type": "Delivery/Commissioning",
+   "contractors": [
+    "Murphy Cuu Long Bac Oil"
+   ],
+   "financiers": [],
+   "description": "Delivered / commissioned: FSO Vessel Project (Yinson Production and PetroVietnam Technical Services Corporation (joint v"
+  },
+  "diff": [
+   "verification",
+   "owner",
+   "capacity",
+   "event_type",
+   "contractors"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6391",
+  "project": "Atlas CCS Project",
+  "url": "https://www.ogj.com/energy-transition/news/55413476/aker-bp-hoegh-evi-win-funding-for-atlas-co2-project",
+  "server": {
+   "verification": "limited",
+   "owner": "",
+   "capacity": "",
+   "value": "",
+   "event_type": "Financing",
+   "contractors": [],
+   "financiers": [],
+   "description": "Aker BP and Höegh Evi secured EU funding for the Atlas CCS project in Norway."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "Aker BP; Höegh Evi",
+   "capacity": "Up to 6 million tonnes/year of CO2",
+   "value": "EUR 223 million",
+   "event_type": "Financing",
+   "contractors": [],
+   "financiers": [
+    "EU Innovation Fund"
+   ],
+   "description": "Financing agreed: Atlas CCS Project (Aker BP; Höegh Evi), EXL011 license, Norwegian North Sea, Norway"
+  },
+  "diff": [
+   "verification",
+   "owner",
+   "capacity",
+   "value",
+   "financiers"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6214",
+  "project": "North Field West Offshore Expansion Project",
+  "url": "https://constructionreviewonline.com/40bn-north-field-west-offshore-expansion-project-draws-cooec-lt-group-mcdermott-saipem-in-qatar/",
+  "server": {
+   "verification": "full",
+   "owner": "QatarEnergy",
+   "capacity": "16 MTPA",
+   "value": "USD 40000 million",
+   "event_type": "Tender",
+   "contractors": [
+    "COOEC",
+    "L&T",
+    "McDermott",
+    "Saipem"
+   ],
+   "financiers": [],
+   "description": "A tender has been issued for QatarEnergy’s project in Qatar. Capacity 16 MTPA. Value USD 40bn. Contractors: COOEC (EPC); L&T (EPC)."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "QatarEnergy",
+   "capacity": "",
+   "value": "USD 40 billion",
+   "event_type": "Tender",
+   "contractors": [
+    "China Offshore Oil Engineering Company (COOEC)",
+    "Larsen & Toubro Energy Hydrocarbon",
+    "McDermott",
+    "Saipem"
+   ],
+   "financiers": [],
+   "description": "Final stage of QatarEnergy's North Field LNG expansion, adding offshore gas supply for new Ras Laffan processing. COOEC, L&T, McDermott and Saipem are bidding on an offshore deck-module package; technical bids close October 12, 2026."
+  },
+  "diff": [
+   "capacity",
+   "value",
+   "contractors"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6213",
+  "project": "Dorra Gas Field",
+  "url": "https://constructionreviewonline.com/3-3bn-dorra-gas-field-advances-as-seven-contractors-prepare-for-tender-in-saudi-kuwait-neutral-zone/",
+  "server": {
+   "verification": "full",
+   "owner": "Kuwait Gulf Oil Company",
+   "capacity": "",
+   "value": "USD 3300 million",
+   "event_type": "Tender",
+   "contractors": [],
+   "financiers": [],
+   "description": "Kuwait Gulf Oil Company is advancing the Dorra Gas Field project with a $3.3 billion tender."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "Kuwait Gulf Oil Company (KGOC)",
+   "capacity": "632 million cubic feet of gas per day; about 60,000 barrels per day of condensate",
+   "value": "USD 3.3 billion",
+   "event_type": "Tender",
+   "contractors": [
+    "Ahmadiah Contracting & Trading Company"
+   ],
+   "financiers": [],
+   "description": "Kuwait Gulf Oil Company's estimated $3.3 billion plant beside Al-Zour will process Dorra field gas and condensate. The page reports an August 2026 tender and a site-preparation award to Ahmadiah Contracting."
+  },
+  "diff": [
+   "owner",
+   "capacity",
+   "value",
+   "contractors"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6212",
+  "project": "Umm Shaif LTDP-2.1 Expansion",
+  "url": "https://constructionreviewonline.com/umm-shaif-ltdp-2-1-expansion-adnocs-2bn-offshore-construction-plan-advances-towards-epc-tender/",
+  "server": {
+   "verification": "full",
+   "owner": "ADNOC Offshore",
+   "capacity": "390,000 barrels per day",
+   "value": "USD 2000 million",
+   "event_type": "Other",
+   "contractors": [],
+   "financiers": [],
+   "description": "ADNOC Offshore’s project in Abu Dhabi, United Arab Emirates is on our tracker. Capacity 390,000 barrels per day. Value USD 2bn."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "ADNOC Offshore",
+   "capacity": "approximately 390,000 crude barrels per day",
+   "value": "",
+   "event_type": "Tender",
+   "contractors": [],
+   "financiers": [],
+   "description": "ADNOC Offshore's LTDP-2.1 expansion at Umm Shaif in Abu Dhabi is nearing its main EPC tender. The page reports planned early contractor engagement, a June 2026 expression-of-interest for two EPC packages, and no disclosed cost."
+  },
+  "diff": [
+   "capacity",
+   "value",
+   "event_type"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6208",
+  "project": "Sullivan County Power Project",
+  "url": "https://constructionreviewonline.com/sullivan-county-power-project-secures-540m-financing-for-350-mw-indiana-solar-farm/",
+  "server": {
+   "verification": "full",
+   "owner": "Deriva Energy",
+   "capacity": "350 MW",
+   "value": "USD 540 million",
+   "event_type": "Financing",
+   "contractors": [],
+   "financiers": [],
+   "description": "Financing has been agreed for Deriva Energy’s project in Sullivan County, Indiana, United States (USD 540M). Capacity 350 MW."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "Deriva Energy (a Brookfield Renewable portfolio company)",
+   "capacity": "350 MW utility-scale solar",
+   "value": "USD 540 million",
+   "event_type": "Financing",
+   "contractors": [],
+   "financiers": [],
+   "description": "Deriva Energy has closed a roughly $540 million financing for the 350 MW Sullivan County solar project under construction in Indiana. The page reports the deal, arranged by Deriva's capital markets team with its lenders and external advisors."
+  },
+  "diff": [
+   "owner",
+   "capacity"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6206",
+  "project": "Ground Control Tools Order",
+  "url": "https://www.e-mj.com/departments/suppliers-report/kemi-orders-jennmar-ground-control-tools/",
+  "server": {
+   "verification": "full",
+   "owner": "Outokumpu Corp.",
+   "capacity": "",
+   "value": "",
+   "event_type": "Other",
+   "contractors": [
+    "Jennmar"
+   ],
+   "financiers": [],
+   "description": "Outokumpu Corp. partnered with Jennmar to supply ground control tools for the Kemi mine."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "Outokumpu Corp.",
+   "capacity": "2.7 million tons per year ore processing",
+   "value": "",
+   "event_type": "Offtake/Supply agreement",
+   "contractors": [
+    "Jennmar"
+   ],
+   "financiers": [],
+   "description": "Outokumpu's Kemi chrome mine in Finland will receive ground-control equipment from Jennmar under a multi-year agreement. The page reports the partnership, covering bolting products, mesh and resins, supported by a new Jennmar Finland unit."
+  },
+  "diff": [
+   "capacity",
+   "event_type"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6204",
+  "project": "Fuel Purchase Authorization for Moa Nickel",
+  "url": "https://www.e-mj.com/breaking-news/u-s-treasury-authorizes-fuel-purchase-for-moa-nickel-in-cuba/",
+  "server": {
+   "verification": "full",
+   "owner": "Sherritt International Corp.",
+   "capacity": "",
+   "value": "USD 450",
+   "event_type": "Other",
+   "contractors": [],
+   "financiers": [
+    "Gillon Capital, LLC"
+   ],
+   "description": "Sherritt International received U.S. Treasury authorization for fuel purchases for its Moa Nickel operations."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "Sherritt International Corp.",
+   "capacity": "",
+   "value": "",
+   "event_type": "Permit/Approval",
+   "contractors": [],
+   "financiers": [],
+   "description": "Sherritt International received a US OFAC license for fuel, fuel oil and sulfur deliveries to its Moa Nickel operations in Cuba. The page reports it is the first of several licenses needed to restart mining, with a shipment expected in Q4 2026."
+  },
+  "diff": [
+   "value",
+   "event_type",
+   "financiers"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6203",
+  "project": "LNG Carrier Order",
+  "url": "https://www.seatrade-maritime.com/tankers/misc-orders-five-lng-carriers-at-hudong-zhonghua",
+  "server": {
+   "verification": "full",
+   "owner": "MISC Berhad",
+   "capacity": "",
+   "value": "",
+   "event_type": "Equipment/vessel order",
+   "contractors": [
+    "Hudong-Zhonghua Shipbuilding"
+   ],
+   "financiers": [],
+   "description": "An equipment or vessel order was placed for MISC Berhad’s project in China. Contractors: Hudong-Zhonghua Shipbuilding (yard)."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "MISC Berhad",
+   "capacity": "5 vessels of 174,000 cubic metres each",
+   "value": "",
+   "event_type": "Equipment/vessel order",
+   "contractors": [
+    "Hudong-Zhonghua Shipbuilding"
+   ],
+   "financiers": [],
+   "description": "Malaysia's MISC has placed an order with Hudong-Zhonghua for a batch of 174,000 cbm gas carriers, after earlier orders of three and two ships this year. The yard's LNG carrier orderbook now totals 57 vessels."
+  },
+  "diff": [
+   "capacity"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6201",
+  "project": "LNG-Powered Car Carriers Charter",
+  "url": "https://lngprime.com/asia/seven-yield-bags-charters-for-lng-powered-car-carriers/198812/",
+  "server": {
+   "verification": "full",
+   "owner": "Seven Yield",
+   "capacity": "",
+   "value": "",
+   "event_type": "Other",
+   "contractors": [],
+   "financiers": [],
+   "description": "Seven Yield’s project in China is on our tracker."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "Seven Yield",
+   "capacity": "2 LNG dual-fuel PCTC vessels",
+   "value": "",
+   "event_type": "Other",
+   "contractors": [
+    "Major Chinese automobile manufacturer (unnamed)"
+   ],
+   "financiers": [],
+   "description": "Seven Yield has signed five-year time charters with a major Chinese automaker for two LNG dual-fuel PCTC vessels. The page reports the agreement dated 22 October 2026, while full terms sit behind a membership paywall."
+  },
+  "diff": [
+   "capacity",
+   "contractors"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6200",
+  "project": "Gdańsk Floating LNG Terminal",
+  "url": "https://offshore-energy.biz/2026/10/21/over-500-piles-lay-the-foundation-for-polands-floating-lng-terminal-gallery",
+  "server": {
+   "verification": "full",
+   "owner": "",
+   "capacity": "",
+   "value": "",
+   "event_type": "Permit/Approval",
+   "contractors": [],
+   "financiers": [],
+   "description": "The project in Poland has received an approval."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "Gaz-System",
+   "capacity": "",
+   "value": "",
+   "event_type": "Other",
+   "contractors": [],
+   "financiers": [],
+   "description": "Poland's gas TSO Gaz-System has finished driving more than 500 piles for the jetty of the planned FSRU terminal in Gdansk Bay. The page reports the milestone was completed on schedule and on budget, with the first vessel targeted for early 2028."
+  },
+  "diff": [
+   "owner",
+   "event_type"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6199",
+  "project": "DOF Subsea Installation Contract",
+  "url": "https://offshore-energy.biz/2026/10/22/dof-cements-its-spot-on-africas-subsea-stage-with-multimillion-dollar-vessel-job",
+  "server": {
+   "verification": "full",
+   "owner": "DOF Group",
+   "capacity": "",
+   "value": "USD 25 million",
+   "event_type": "Award",
+   "contractors": [],
+   "financiers": [],
+   "description": "A contract for DOF Group’s project in Africa has been awarded, valued at USD 25M."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "",
+   "capacity": "",
+   "value": "USD 15-25 million",
+   "event_type": "Award",
+   "contractors": [
+    "DOF Group",
+    "Skandi Acergy"
+   ],
+   "financiers": [],
+   "description": "Contract awarded: DOF Subsea Installation Contract (DOF Group), Offshore Africa · USD 15-25M · DOF Group +1"
+  },
+  "diff": [
+   "owner",
+   "value",
+   "contractors"
+  ]
+ },
+ {
+  "date": "2026-10-24",
+  "id": "6193",
+  "project": "Wisting FEED Contract",
+  "url": "https://www.equinor.com/news/20261022-aibel-awarded-contract-for-wisting",
+  "server": {
+   "verification": "full",
+   "owner": "Wisting partnership",
+   "capacity": "",
+   "value": "",
+   "event_type": "Award",
+   "contractors": [
+    "Aibel"
+   ],
+   "financiers": [],
+   "description": "A contract for Wisting partnership’s project in Norway has been awarded to Aibel (FEED)."
+  },
+  "haiku": {
+   "verification": "full",
+   "why": "",
+   "owner": "Wisting partnership: Equinor Energy AS, Aker BP ASA, Petoro AS, INPEX Idemitsu Norge AS",
+   "capacity": "",
+   "value": "",
+   "event_type": "Award",
+   "contractors": [
+    "Aibel"
+   ],
+   "financiers": [],
+   "description": "Aibel has been awarded the front-end engineering and design contract for the topsides of Wisting's production vessel after a competitive tender. The Wisting partnership expects a concept selection decision toward the end of 2026."
+  },
+  "diff": [
+   "owner"
+  ]
+ }
+]
