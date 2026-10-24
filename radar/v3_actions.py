@@ -10,7 +10,7 @@ server's step_v3 model call is switched off.
 
 Env: WTP_BOT_SECRET, CLAUDE_CODE_OAUTH_TOKEN, optional V3_MODE (shadow|write), V3_MODEL (claude-haiku-5-5), V3_DAYS (2), V3_MAX (60).
 """
-import os, sys, json, datetime, collections
+import os, re, sys, json, datetime, collections
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -27,6 +27,7 @@ DONE_F = os.path.join(rx.STATE, "v3_shadow_done.json" if MODE == "shadow" else "
 RAW_F = os.path.join(rx.STATE, "v3_shadow.json")
 REPORT_F = os.path.join(rx.STATE, "v3_shadow_report.md" if MODE == "shadow" else "v3_write_report.md")
 NL = chr(10)
+JUNK = re.compile(r"unnamed|undisclosed|not disclosed|unknown|^\s*$|public[- ]private partnership|^(a|an|the) (major|leading|local)\b", re.I)
 
 
 def as_list(v):
@@ -128,6 +129,11 @@ def main():
             continue
         for k, (r, pages) in enumerate(batch):
             a = ans.get(k) or {}
+            # 2026-10-24 first Actions run: placeholders came back as names ("Major Chinese automobile manufacturer (unnamed)",
+            # "Public-private partnership") - a contractor/financier list keeps only real names
+            for f in ("contractors", "financiers"):
+                if isinstance(a.get(f), list):
+                    a[f] = [x for x in a[f] if not JUNK.search(x.get("name", "") if isinstance(x, dict) else str(x))]
             status, why, page = verify(r, a, pages)
             st[status] += 1
             done[str(r["id"])] = today
