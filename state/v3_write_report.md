@@ -1,5 +1,10 @@
 # v3 extraction on Actions (write)
 
+## 2026-10-24 20:38 UTC - write, model claude-haiku-5-5, rows 0
+{}
+
+
+
 ## 2026-10-24 20:36 UTC - write, model claude-haiku-5-5, rows 13
 {'page unreadable': 2, 'full': 9, 'differ': 11, 'limited': 1, 'project_only': 1}
 
@@ -14,5 +19,3 @@
 - Southeast Connector and Permian Link Pipelines (6394) | server limited / haiku project_only | differs: owner [ | Kinder Morgan Inc. (via Southern Natural Gas and Natural Gas Pipeline Co. of America)], capacity [5.4 bcfd | Southeast Connector up to 2.6 bcfd over about 470 miles; Permian Link 2.8 bcfd], value [ | USD 7.3 billion]
 - FSO Vessel Project (6393) | server limited / haiku full | differs: owner [ | Yinson Production], capacity [ | 460,000 barrels storage], event_type [Award | Delivery/Commissioning]
 - Atlas CCS Project (6391) | server limited / haiku full | differs: owner [ | Aker BP and Höegh Evi], capacity [ | up to 6 million tonnes/year of CO2, expandable beyond 10 million tpy], value [ | EUR 223 million], financiers [[] | ['European Union Innovation Fund']]
-
-
