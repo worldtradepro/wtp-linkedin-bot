@@ -329,6 +329,18 @@
       "id": "infra-2",
       "url": "https://image.dngroup.com/global/nhst/binary/d6d4492de70dc15c048c04df2b9cc449",
       "hash": "ca3011734b223ec95083e0802bbf1d61dc9a56b4"
+    },
+    {
+      "date": "2026-10-24",
+      "id": "infra-1",
+      "url": "https://dvzpv6x5302g1.cloudfront.net/AcuCustom/Sitename/DAM/193/EU-Innovation_Main.png",
+      "hash": "9004fb505c119a527293bfa2f2db9285a77af101"
+    },
+    {
+      "date": "2026-10-24",
+      "id": "infra-2",
+      "url": "https://images.unsplash.com/photo-1750074905183-1f8d5e591245",
+      "hash": "3351df81ccf52eed58460e777fcc870bff638814"
     }
   ]
 }
