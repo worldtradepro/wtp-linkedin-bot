@@ -56,5 +56,5 @@ jobs:
         run: |
           git config user.name "wtp-bot"
           git config user.email "wtp-bot@users.noreply.github.com"
-          git add state/v3_shadow_done.json state/v3_shadow.json state/v3_shadow_report.md state/v3_write_done.json state/v3_write_report.md 2>/dev/null || true
+          for f in state/v3_shadow_done.json state/v3_shadow.json state/v3_shadow_report.md state/v3_write_done.json state/v3_write_report.md; do [ -f "$f" ] && git add "$f"; done; true   # one missing file must not block the others
           git diff --cached --quiet || (git commit -m "radar v3 state $(date -u +%F)" && git pull --rebase origin ${{ github.ref_name }} && git push origin HEAD:${{ github.ref_name }})
