@@ -1,0 +1,60 @@
+name: radar-v3
+
+# Daily v3 fact extraction for the day's media rows with Claude Haiku 5.5 on the owner's subscription (radar/v3_actions.py).
+# Owner 2026-10-24: replaces the server's OpenRouter (gpt-4o-mini) extraction, which stays as the fallback.
+# V3_MODE (repository variable): "shadow" (default) = compare with the server's result, WRITE NOTHING to the site;
+#                                "write" = take the rows the server left unverified and PATCH /opportunities-v3.
+# Pause switch: repository variable V3_PAUSED = true.
+# A push that touches radar/v3_run_now.txt starts one run (same mode as the variable).
+
+on:
+  push:
+    paths: ['radar/v3_run_now.txt']
+  # after the server pipeline (cron 14:30 UTC) and before radar-enrich (16:47 / 20:47 UTC)
+  schedule:
+    - cron: '17 16 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: radar-v3
+  cancel-in-progress: false
+
+jobs:
+  run:
+    if: ${{ vars.V3_PAUSED != 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      WTP_CF_BYPASS: ${{ secrets.WTP_CF_BYPASS }}
+      V3_MODE: ${{ vars.V3_MODE || 'shadow' }}
+      V3_MODEL: ${{ vars.V3_MODEL || 'claude-haiku-5-5' }}
+      V3_DAYS: ${{ vars.V3_DAYS || '2' }}
+      V3_MAX: ${{ vars.V3_MAX || '60' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check secrets
+        run: |
+          test -n "$WTP_BOT_SECRET" || { echo "::error::Secret WTP_BOT_SECRET is missing"; exit 1; }
+          test -n "$CLAUDE_CODE_OAUTH_TOKEN" || { echo "::error::Secret CLAUDE_CODE_OAUTH_TOKEN is missing"; exit 1; }
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r radar/requirements.txt
+      - run: npm install -g @anthropic-ai/claude-code@latest && claude --version
+      - name: Extract
+        run: python radar/v3_actions.py
+      - name: Save state (rows done, comparison report)
+        if: always()
+        run: |
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          git add state/v3_shadow_done.json state/v3_shadow.json state/v3_shadow_report.md state/v3_write_done.json state/v3_write_report.md 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "radar v3 state $(date -u +%F)" && git pull --rebase origin ${{ github.ref_name }} && git push origin HEAD:${{ github.ref_name }})
