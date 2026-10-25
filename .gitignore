@@ -6,3 +6,9 @@ gen.err
 share_test/
 media_library/candidates/
 reports/out/
+
+# radar pipeline on Actions: working data and logs never go to this public repo (article texts, fresh project rows)
+radar/server/data/
+radar/server/logs/
+state/radar_articles/articles_*.json
+state/radar_articles/opportunities_*.json

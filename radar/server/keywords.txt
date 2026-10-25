@@ -1,0 +1,671 @@
+# EPC Radar — Pre-filter Keywords
+# Format: one keyword per line, grouped by category
+# Lines starting with # are comments and will be ignored
+# Main logic: article passes if title matches ANY positive keyword
+#             AND does NOT match ANY negative keyword
+#
+# Usage in code:
+#   keywords = load_keywords("keywords.txt")
+#   positive = keywords["positive"]
+#   negative = keywords["negative"]
+
+[positive]
+# ── Stage 1: Early Signal ─────────────────────────────────────────────────────
+feasibility study
+pre-feasibility
+prefeasibility
+scoping study
+concept study
+conceptual engineering
+conceptual design
+resource assessment
+resource upgrade
+resource estimate
+EIA
+environmental impact assessment
+environmental impact study
+environmental study
+environmental approval
+exploration license
+exploration permit
+exploration block
+MOU
+memorandum of understanding
+heads of agreement
+framework agreement
+cooperation agreement
+project announcement
+project development
+greenfield
+brownfield expansion
+capacity expansion
+new capacity
+capacity addition
+phase 2
+phase ii
+expansion project
+debottlenecking
+# ── Stage 2: Developing ───────────────────────────────────────────────────────
+FEED
+front-end engineering design
+front end engineering
+front-end engineering
+pre-FEED
+preFEED
+pre-front end
+BDEP
+basic design engineering
+basic engineering
+DFS
+definitive feasibility study
+bankable feasibility
+bankable study
+financing
+project finance
+project financing
+debt financing
+equity financing
+financial close
+financial closing
+project funding
+loan agreement
+PPA
+power purchase agreement
+offtake agreement
+offtake contract
+government approval
+regulatory approval
+permitting
+FID target
+investment decision pending
+EPC tender preparation
+development agreement
+concession agreement
+# ── Stage 3: Pre-FID ──────────────────────────────────────────────────────────
+FID
+final investment decision
+investment decision
+project sanction
+sanctioned
+FEED complete
+FEED award
+FEED contract
+FEED completion
+EPC ready
+ready for EPC
+investment approved
+project approved
+board approval
+final approval
+# ── Stage 4: Active Tender ────────────────────────────────────────────────────
+EPC
+EPCI
+EPCM
+EPCIC
+ITT
+invitation to tender
+RFQ
+request for quotation
+RFP
+request for proposal
+tender
+bidding
+bid submission
+bid invitation
+shortlist
+shortlisted
+prequalification
+pre-qualification
+PQ
+LOI
+letter of intent
+contract negotiation
+procurement
+lump sum
+lump-sum
+turnkey
+reimbursable
+# ── Stage 5: Awarded ──────────────────────────────────────────────────────────
+contract award
+contract awarded
+awarded contract
+contract signed
+contract signing
+LOA
+letter of award
+notice to proceed
+NTP
+first steel
+groundbreaking
+construction start
+construction begins
+construction contract
+engineering contract
+procurement contract
+equipment order
+equipment contract
+equipment supply
+purchase order
+long-lead equipment
+long-lead order
+supply agreement
+supply contract
+vendor selection
+preferred supplier
+supplier agreement
+framework contract
+master supply agreement
+bulk purchase
+capital equipment
+# ── Large Equipment Contracts (project-linked) ───────────────────────────────
+turbine contract
+turbine supply
+turbine installation
+compressor contract
+compressor supply
+generator contract
+generator supply
+transformer contract
+transformer supply
+heat exchanger contract
+reactor contract
+boiler contract
+boiler supply
+HRSG contract
+pump contract
+subsea equipment
+subsea system
+underwater system
+mooring system
+marine equipment
+offshore equipment
+floating production
+production equipment
+processing equipment
+modular plant
+modular unit
+prefabricated module
+topside module
+compression module
+power module
+# ── Energy: Oil & Gas Upstream ────────────────────────────────────────────────
+FPSO
+FSO
+FLNG
+FSRU
+FSU
+jacket
+topside
+topsides
+hull
+mooring
+subsea
+umbilical
+flowline
+riser
+wellhead
+manifold
+compression platform
+gas processing plant
+gas treatment plant
+sweetening plant
+gas plant
+NGL plant
+LPG plant
+condensate
+fractionation plant
+gas injection
+water injection
+production platform
+drilling platform
+oil terminal
+crude terminal
+export terminal
+# ── Energy: LNG ───────────────────────────────────────────────────────────────
+LNG plant
+LNG terminal
+LNG facility
+liquefaction
+liquefaction plant
+liquefaction train
+LNG train
+regasification
+regasification terminal
+boil-off gas
+LNG storage
+LNG carrier
+LNG bunker
+LNG import
+LNG export
+MTPA
+# ── Energy: Refining & Petrochemicals ────────────────────────────────────────
+refinery
+refinery expansion
+crude distillation
+CDU
+VDU
+hydrocracker
+hydrotreater
+reformer
+FCC
+FCCU
+alkylation
+isomerization
+coker
+coking unit
+sulfur recovery
+SRU
+petrochemical
+petrochemical complex
+cracker
+ethylene cracker
+steam cracker
+olefin
+aromatics
+polypropylene
+polyethylene
+PTA
+paraxylene
+benzene
+methanol plant
+GTL
+gas to liquids
+# ── Energy: Pipelines & Infrastructure ───────────────────────────────────────
+pipeline
+gas pipeline
+oil pipeline
+trunkline
+trunk pipeline
+gathering system
+compressor station
+pump station
+metering station
+LPG pipeline
+CO2 pipeline
+carbon capture
+CCS
+CCUS
+storage cavern
+underground storage
+# ── Energy: Renewables ────────────────────────────────────────────────────────
+solar farm
+solar plant
+solar park
+solar power plant
+PV plant
+photovoltaic
+wind farm
+wind park
+offshore wind
+onshore wind
+wind power plant
+wind turbine
+floating wind
+floating solar
+hybrid plant
+battery storage
+BESS
+battery energy storage
+pumped hydro
+hydropower
+hydro plant
+geothermal
+concentrated solar
+CSP
+# ── Energy: Hydrogen & Ammonia ───────────────────────────────────────────────
+green hydrogen
+blue hydrogen
+grey hydrogen
+hydrogen plant
+hydrogen production
+electrolyser
+electrolysis
+PEM electrolyser
+alkaline electrolyser
+hydrogen pipeline
+hydrogen storage
+hydrogen hub
+hydrogen export
+ammonia plant
+ammonia production
+green ammonia
+blue ammonia
+ammonia export
+ammonia terminal
+ammonia cracker
+hydrogen fueling
+hydrogen facility
+# ── Energy: Power & Transmission ─────────────────────────────────────────────
+power plant
+power station
+combined cycle
+CCGT
+gas turbine
+IPP
+independent power project
+independent power producer
+transmission line
+HVDC
+HVAC
+substation
+switchyard
+transformer
+interconnection
+grid extension
+grid expansion
+rural electrification
+power grid
+electricity grid
+GW
+MW
+# ── Energy: Water & Desalination ─────────────────────────────────────────────
+desalination
+desalination plant
+SWRO
+RO plant
+MSF
+MED
+seawater reverse osmosis
+wastewater treatment
+WWTP
+sewage treatment
+water treatment plant
+WTP
+irrigation scheme
+irrigation canal
+dam construction
+pumping station
+water supply
+bulk water
+IWPP
+independent water
+water project
+# ── Mining: Mine Development ──────────────────────────────────────────────────
+mine development
+mine construction
+mine expansion
+mine project
+open pit
+open cast
+underground mine
+shaft sinking
+decline shaft
+decline development
+portal construction
+mining project
+new mine
+mine restart
+mine reopening
+tailings
+TSF
+tailings storage facility
+paste plant
+thickener
+filter plant
+mining infrastructure
+# ── Mining: Processing & Smelting ────────────────────────────────────────────
+concentrator
+processing plant
+mineral processing
+flotation plant
+leaching plant
+heap leach
+SXEW
+solvent extraction
+BIOX
+pressure oxidation
+POX
+autoclave
+smelter
+copper smelter
+zinc smelter
+lead smelter
+converter
+electrorefining
+DRI
+direct reduced iron
+pellet plant
+pelletizing
+sintering plant
+alumina refinery
+aluminum smelter
+beneficiation
+# ── Mining: Critical Minerals ─────────────────────────────────────────────────
+lithium
+lithium plant
+lithium hydroxide
+lithium carbonate
+cobalt
+cobalt refinery
+nickel
+nickel sulfate
+manganese
+graphite
+rare earth
+REE
+neodymium
+dysprosium
+copper project
+zinc project
+bauxite
+alumina
+phosphate
+potash
+sylvite
+# ── Agriculture: Crops & Commodities ─────────────────────────────────────────
+soybean
+soy
+soya
+corn
+maize
+wheat
+rice
+barley
+sorghum
+sunflower
+canola
+rapeseed
+cotton
+sugarcane
+sugar beet
+cassava
+palm oil
+cocoa
+coffee
+groundnut
+peanut
+# ── Agriculture: Processing Facilities ───────────────────────────────────────
+crushing plant
+oil mill
+grain mill
+flour mill
+sugar mill
+sugar refinery
+ethanol plant
+biofuel plant
+biorefinery
+feed mill
+animal feed plant
+malt plant
+malting facility
+starch plant
+glucose plant
+fructose plant
+oilseed processing
+edible oil refinery
+vegetable oil plant
+# ── Agriculture: Storage & Logistics ─────────────────────────────────────────
+grain terminal
+grain elevator
+grain silo
+bulk terminal
+grain handling
+storage facility
+grain storage
+port grain facility
+inland grain depot
+cold storage
+warehouse expansion
+grain corridor
+# ── Agriculture: Fertilizers ─────────────────────────────────────────────────
+urea plant
+DAP plant
+MAP plant
+NPK plant
+fertilizer plant
+fertilizer complex
+fertilizer blending
+granulation plant
+phosphoric acid plant
+sulfuric acid plant
+nitrogen plant
+potash facility
+fertilizer expansion
+fertilizer project
+# ── Logistics: Ports & Terminals ─────────────────────────────────────────────
+port expansion
+port development
+port construction
+terminal expansion
+terminal development
+new terminal
+berth
+quay
+wharf construction
+wharf expansion
+jetty
+pier construction
+dredging
+channel deepening
+dry bulk terminal
+liquid bulk terminal
+breakbulk terminal
+container terminal
+multipurpose terminal
+ship loader
+conveyor system
+stacker reclaimer
+port infrastructure
+# ── Logistics: Pipelines & Storage ───────────────────────────────────────────
+pipeline construction
+pipeline project
+pipeline expansion
+storage terminal
+tank farm
+LPG terminal
+oil storage
+product terminal
+# ── Logistics: Rail ───────────────────────────────────────────────────────────
+railway project
+rail project
+railway construction
+rail construction
+standard gauge
+narrow gauge
+broad gauge
+railway electrification
+rail electrification
+signaling system
+rolling stock
+wagon
+rail corridor
+rail link
+railway expansion
+freight railway
+bulk rail
+# ── Logistics: Shipyard & Fleet ───────────────────────────────────────────────
+newbuild
+time charter
+long-term charter
+bareboat charter
+vessel charter
+charter agreement
+retrofit
+conversion contract
+vessel conversion
+FPSO conversion
+refurbishment contract
+new vessel
+vessel order
+ship order
+shipbuilding contract
+LNG tanker
+bulk carrier
+VLCC
+tanker order
+offshore vessel
+drillship
+jack-up
+semi-submersible
+vessel retrofit
+vessel upgrade
+ship conversion
+ship retrofit
+ammonia carrier
+CO2 carrier
+hydrogen carrier
+methanol carrier
+LNG bunkering vessel
+cable lay vessel
+pipe lay vessel
+heavy lift vessel
+installation vessel
+[negative]
+# ── Financial Results ─────────────────────────────────────────────────────────
+quarterly results
+quarterly earnings
+annual results
+full year results
+half year results
+half-year results
+dividend
+takeover
+acquisition
+merger
+stake acquisition
+share buyback
+credit rating
+bond issuance
+dividends declared
+earnings per share
+EPS
+net income
+revenue growth
+profit warning
+loss reported
+impairment
+write-down
+write-off
+# ── Capital Markets ───────────────────────────────────────────────────────────
+AGM
+annual general meeting
+bond offering
+rating upgrade
+rating downgrade
+refinancing
+debt restructuring
+capital raise
+rights issue
+share placement
+IPO
+# ── Personnel / HR ────────────────────────────────────────────────────────────
+CEO appointed
+CFO appointed
+board appointment
+chairman appointed
+director appointed
+management change
+leadership change
+executive appointment
+resigned
+retirement
+# ── Reports & Compliance ─────────────────────────────────────────────────────
+sustainability report
+ESG report
+annual report
+corporate report
+integrated report
+safety report
+production report
+operations update
+trading update

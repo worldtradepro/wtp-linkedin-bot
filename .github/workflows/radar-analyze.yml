@@ -9,8 +9,8 @@ on:
   push:
     paths: ['radar/analyze_run_now.txt']
   # the server pipeline runs 07:30 UTC and publishes ~07:40
-  schedule:
-    - cron: '52 7 * * *'
+  # 2026-10-25: schedule off - radar-pipeline.yml now runs the whole pipeline (fetch + screen included). It also ran at 07:52, before
+  # the server's 14:30 run, so its "server rows today" were always 0. Its article / opportunity files no longer go into this public repo.
   workflow_dispatch:
 
 permissions:
