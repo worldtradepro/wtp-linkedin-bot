@@ -215,7 +215,7 @@ function factTitle(it) {
   const owner = factsOf(it).owner, country = countryName(it.country), cap = clean(it.capacity || '');
   const low = (x) => x.toLowerCase();
   if (country && !low(name).includes(low(country))) name += ' in ' + country;
-  if (cap && !low(name).includes(low(cap))) name += ` (${cap})`;
+  if (cap && cap.length <= 20 && !low(name).includes(low(cap))) name += ` (${cap})`;   // long capacity text stays in the snapshot only
   return owner && !low(name).includes(low(owner)) ? `${owner}: ${name}` : name;
 }
 function projectPost(it, i, date, slot) {

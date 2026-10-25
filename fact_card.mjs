@@ -6,7 +6,7 @@
 import { readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { clean, countryName } from './common.mjs';
+import { clean, countryName, isoOf } from './common.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const LOGO = 'data:image/png;base64,' + readFileSync(join(HERE, 'assets', 'logo_white_v2.png')).toString('base64');
@@ -50,13 +50,13 @@ export function locatorSvg(countryName, W, H) {
   const mw = 150, mh = 76, mpx = (lon) => (((lon + 180) / 360) * mw).toFixed(1), mpy = (lat) => (((84 - lat) / 144) * mh).toFixed(1);
   let mini = '';
   for (const o of world()) for (const r of o.p) { if (ringArea(r) < 4) continue; let d = ''; for (let i = 0; i < r.length; i += 8) d += (i ? 'L' : 'M') + mpx(r[i]) + ' ' + mpy(r[i + 1]); mini += d + 'Z'; }
-  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">
+  // the inset is its own small SVG (pinned to the box corner) so cropping the main map to the box never cuts it
+  return `<svg class="mp" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
     <rect width="${W}" height="${H}" fill="#dfe8f3"/>
     <path d="${others}" fill="#c3d0e2" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/>
     <path d="${mine}" fill="#e0bd4c" stroke="#0f2d5e" stroke-width="2.5" stroke-linejoin="round"/>
-    <g transform="translate(${W - mw - 14} ${H - mh - 14})"><rect x="-6" y="-6" width="${mw + 12}" height="${mh + 12}" rx="6" fill="#fff" fill-opacity=".92"/>
-      <path d="${mini}" fill="#9fb1cb"/><circle cx="${mpx(cx)}" cy="${mpy(cy)}" r="6" fill="#e0bd4c" stroke="#0f2d5e" stroke-width="2"/></g>
-  </svg>`;
+  </svg><svg class="mini" viewBox="-6 -6 ${mw + 12} ${mh + 12}" width="${mw + 12}" height="${mh + 12}" xmlns="http://www.w3.org/2000/svg"><rect x="-6" y="-6" width="${mw + 12}" height="${mh + 12}" rx="6" fill="#fff" fill-opacity=".92"/>
+      <path d="${mini}" fill="#9fb1cb"/><circle cx="${mpx(cx)}" cy="${mpy(cy)}" r="6" fill="#e0bd4c" stroke="#0f2d5e" stroke-width="2"/></svg>`;
 }
 
 // ---------------------------------------------------------------- subsector illustrations (original line art, 480x240, ground at y=210)
@@ -114,7 +114,7 @@ export function artKey(sector = '', subsector = '', name = '', capacity = '') {
     [/\blng\b|liquef|regas|fsru/, 'lng'], [/refin|petrochem|chemical/, 'refinery'], [/fertili[sz]|urea|potash|phosphate/, 'fertilizer'],
     [/combined.cycle|gas.fired|ccgt|gas turbine|thermal power/, 'gaspower'], [/pipeline|storage terminal|tank farm/, 'pipeline'], [/power|transmission|grid|substation|hydro/, 'power'],
     [/shipyard|fleet|vessel|newbuild|\bships?\b|carrier/, 'ship'], [/port|terminal|harbou?r|container/, 'port'], [/rail|metro|tram|train/, 'rail'],
-    [/smelt|refinery.*(copper|alumin)|processing/, 'smelter'], [/mine|mining|critical mineral|lithium|copper|gold|iron ore/, 'mine'], [/grain|food|silo/, 'silos'],
+    [/smelt|refinery.*(copper|alumin)|processing|separation|rare earth oxide/, 'smelter'], [/mine|mining|critical mineral|lithium|copper|gold|iron ore/, 'mine'], [/grain|food|silo/, 'silos'],
     [/oil|gas|upstream|offshore/, 'oilgas'], [/renewable|clean energy|green/, 'renewables'],
   ];
   for (const [re, k] of rules) if (re.test(t)) return k;
@@ -139,7 +139,8 @@ export function valueTile(f) {
   return { big: (CUR[f.valueCurrency] || (f.valueCurrency ? f.valueCurrency + ' ' : '')) + num, unit: UNIT[u], label: f.valueCurrency && !CUR[f.valueCurrency] ? `${basis} (${f.valueCurrency})` : basis };
 }
 export function capacityTile(f) {
-  const c = String(f.capacity || '').trim();
+  // empty capacity field: the project name often carries it ("... 300MW solar EPC contract")
+  const c = String(f.capacity || (/\b\d[\d.,]*\s*(MWp|MW|GW|MTPA)\b/i.exec(f.name || '') || [''])[0]).trim();
   const m = /^(?:at least\s+)?([\d.,]+)\s*-?\s*(MWp|MWh|MW|GW|GWh|kW|MTPA|Mtpa|mtpa|Mt\/y|Mt|t\/h|tpd|TEU|teu|bpd|barrels per day|million t|tonnes per year|t\/y|km)\b/i.exec(c);
   if (!m) return null;
   const unit = m[2].replace(/^barrels per day$/i, 'BPD').replace(/^mtpa$/i, 'MTPA').toUpperCase().replace('MWP', 'MWp');
@@ -162,29 +163,64 @@ export function factsOf(it) {
   return { name: clean(it.project_name), owner: clean(it.owner || '').replace(/\s*\((developer|owner|sponsor|client|operator)\)$/i, ''),   // owner field only: company_name can be a supplier
     country: countryName(it.country), city: clean(it.city || ''), sector: it.sector || '', subsector: it.subsector && it.subsector !== '(unspecified)' ? it.subsector : '',
     stage: it.stage || '', capacity: clean(it.capacity || ''), valueAmount: it.value_amount || '', valueUnit: it.value_unit || '', valueCurrency: it.value_currency || '', valueBasis: it.value_basis || '',
-    contractors: names(it.contractors), contractorLabel: contractorLabel(it.contractors), financing: names(it.financiers), reportDate: it.report_date || '', scale: clean(it.scale || ''), source: clean(it.source_name || '') };
+    contractors: names(it.contractors), contractorLabel: contractorLabel(it.contractors), financing: names(it.financiers), reportDate: it.report_date || '', scale: clean(it.scale || ''),
+    // for official_photo.mjs: who is behind the project, and the pages the pipeline linked to it (news source + official references)
+    parties: [...clean(it.owner || '').split(/\s*[,;]\s*/).filter(Boolean).map((n) => ({ name: n.replace(/\s*\((developer|owner|sponsor|client|operator)\)$/i, ''), role: 'owner' })),
+      ...parties(it.contractors).map((x) => ({ name: x.n, role: 'contractor' })), ...parties(it.financiers).map((x) => ({ name: x.n, role: 'financier' }))],
+    links: [...new Set([it.reference_url, it.project_ref_url, ...(() => { try { return (typeof it.sources === 'string' ? JSON.parse(it.sources || '[]') : it.sources || []).map((s) => s?.url); } catch { return []; } })(), it.source_url].filter((u) => /^https?:/.test(u || '')))], source: clean(it.source_name || '') };
 }
 
 // ---------------------------------------------------------------- the card (1080x1350, LinkedIn portrait)
+// 2026-10-25 owner ("试试", after a competitor's data card): headline says what happened, stage as a 5-step bar, the country's flag,
+// and a "So what" line for BD readers. No company logos (trademarks on a card that sells our product).
+const STAGES = [['S1', 'Early lead'], ['S2', 'Development'], ['S3', 'Near decision'], ['S4', 'Tender'], ['S5', 'Awarded']];
 const STAGE = { S1: 'Earliest lead', S2: 'Development', S3: 'Nearing decision', S4: 'In tender', S5: 'Awarded' };
 export const stageName = (s) => STAGE[String(s || '').slice(0, 2)] || String(s || '').replace(/^S\d[-\s]*/, '');
+const NOUN = { datacenter: 'data centre', solar: 'solar plant', wind: 'wind farm', battery: 'battery storage project', hydrogen: 'hydrogen plant', lng: 'LNG project', oilgas: 'oil and gas project',
+  refinery: 'refinery project', gaspower: 'gas-fired power plant', power: 'power project', water: 'water plant', port: 'port project', rail: 'rail project', ship: 'vessels', pipeline: 'pipeline project',
+  mine: 'mine', smelter: 'processing plant', silos: 'food processing plant', irrigation: 'irrigation project', fertilizer: 'fertilizer plant', renewables: 'renewable energy project', default: 'project' };
+const shortCo = (n) => { const p = (/\(([A-Za-z0-9&.\- ]{2,10})\)/.exec(n || '') || [])[1]; return p || String(n || '').replace(/\([^)]*\)/g, '').replace(/\b(Co\.?,? )?(Ltd|Limited|LIMITED|PLC|plc|Inc|Corporation|Company|Group|Holdings?|S\.?A\.?|AG|SE|GmbH|LLC|Berhad|Bhd)\b\.?/g, '').replace(/[\s,]+$/, '').trim(); };
+// "Al Mourjan Two Electricity Company awards 2.3 GW gas-fired power plant to Elsewedy Electric PSP" - built from our fields only
+export function eventTitle(f) {
+  const key = artKey(f.sector, f.subsector, f.name, f.capacity), noun = NOUN[key] || NOUN.default;
+  const cap = capacityTile(f), size = cap ? `${cap.big} ${cap.unit === 'MWp' ? 'MWp' : cap.unit}` : '';
+  const what = [size, noun].filter(Boolean).join(' '), who = shortCo(f.owner?.split(/\s*[,;]\s*/)[0]), con = shortCo((f.contractors || '').split(', ')[0]);
+  const where = '', s = String(f.stage || '').slice(0, 2);
+  if (key === 'ship') return s === 'S5' && con ? `${who || 'Owner'} orders ${what} from ${con}` : `${who ? who + ': ' : ''}${f.name}`;
+  if (s === 'S5') return con ? `${who ? who + ' awards' : 'Contract awarded for'} ${what}${where} to ${con}` : `${who ? who + ': ' : ''}${what}${where} awarded`;
+  if (s === 'S4') return `${who ? who + ' tenders' : 'Tender out for'} ${what}${where}`;
+  if (s === 'S3') return `${who ? who + ' nears decision on' : 'Decision near on'} ${what}${where}`;
+  if (s === 'S2') return `${who ? who + ' plans' : 'Planned:'} ${what}${where}`;
+  return `${who ? who + ': ' : 'Early lead: '}${what}${where}`;
+}
+// what the stage usually means for a supplier or contractor - general, not a claim about this project
+export function soWhat(f) {
+  const s = String(f.stage || '').slice(0, 2), key = artKey(f.sector, f.subsector, f.name, f.capacity), con = shortCo((f.contractors || '').split(', ')[0]);
+  if (s === 'S5' && key === 'ship') return 'Order placed: engines, deck machinery and outfitting packages usually follow from the yard.';
+  if (s === 'S5') return con ? `EPC chosen: subcontracts and equipment packages usually go out from ${con} next.` : 'Contract awarded: subcontract and equipment packages usually come next.';
+  if (s === 'S4') return 'Bids are open: bidders usually ask equipment suppliers and subcontractors for quotes now.';
+  if (s === 'S3') return 'Decision near: FEED, financing and prequalification lists are usually being settled.';
+  if (s === 'S2') return 'Before tender: the owner is usually choosing concepts and partners. Best time to get on the vendor list.';
+  return 'Early signal: worth tracking now, before tender documents are drafted.';
+}
+const flagUrl = (country) => { const i = isoOf(country).toLowerCase(); return i ? `https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/4x3/${i}.svg` : ''; };   // flag-icons, MIT
 export function factCardHtml(f) {
   const key = artKey(f.sector, f.subsector, f.name, f.capacity);
   const tiles = [valueTile(f), capacityTile(f)].filter(Boolean);
-  const stage = stageName(f.stage);
-  if (tiles.length < 2 && stage) tiles.push({ big: stage.toUpperCase(), unit: '', label: 'Project stage', text: true });
+  const cur = Math.max(0, STAGES.findIndex(([k]) => String(f.stage || '').startsWith(k)));
   const rows = [
-    ['Owner', f.owner], [f.contractorLabel || 'Contractors', f.contractors], ['Financing', f.financing],
+    ['Owner', f.owner], [/^S5/.test(f.stage || '') ? f.contractorLabel || 'Contractors' : (f.contractorLabel || 'Contractors').replace(/^EPC contractors?$/, 'EPC contractors named') , f.contractors && f.contractors !== f.owner ? f.contractors : ''], ['Financing', f.financing],
     ['Location', f.city ? [f.city, f.country].filter(Boolean).join(', ') : ''],
   ].filter(([, v]) => v);
   // thin rows (often only the owner is known): add the scale and who should look, both from our own data
-  if (rows.length < 4 && f.scale && !tiles.some((t) => !t.text)) rows.push(['Scale', f.scale[0].toUpperCase() + f.scale.slice(1)]);
-  if (rows.length < 4 && f.audience) rows.push(['Worth a look for', f.audience]);
-  const name = String(f.name || '');
-  const fs = name.length <= 30 ? 74 : name.length <= 50 ? 64 : name.length <= 75 ? 54 : 46;
-  const kicker = [key === 'default' && f.subsector ? f.subsector : artLabel(key), f.country].filter(Boolean).join('  ·  ');
+  if (rows.length < 3 && f.scale && !tiles.length) rows.push(['Scale', f.scale[0].toUpperCase() + f.scale.slice(1)]);
+  if (rows.length < 3 && f.audience) rows.push(['Worth a look for', f.audience]);
+  const head = eventTitle(f);
+  const fs = head.length <= 40 ? 66 : head.length <= 60 ? 58 : head.length <= 85 ? 50 : 44;
+  const kicker = key === 'default' && f.subsector ? f.subsector : artLabel(key);
   const reported = f.reportDate ? new Date(f.reportDate + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }) : '';
-  const MAPW = 464, MAPH = 440;
+  const flag = flagUrl(f.country);
+  const MAPW = 420, MAPH = 440;
   return `<!doctype html><html><head><meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Sans:wght@500;600;700&display=block" rel="stylesheet">
 <style>
@@ -192,47 +228,57 @@ export function factCardHtml(f) {
 :root{--ink:#0b1626;--navy:#0f2d5e;--gold:#e0bd4c;--blue:#1c4a8a;--bg:#eef3f9}
 body{width:1080px;height:1350px;font-family:'IBM Plex Sans',system-ui,sans-serif;background:#fff;overflow:hidden}
 .ig{width:1080px;height:1350px;display:flex;flex-direction:column}
-.hdr{background:var(--navy);padding:26px 40px 26px;display:flex;align-items:center;gap:30px;min-height:220px}
-.hdr img{height:118px;display:block;flex:none}
-.hdr .k{font:700 30px/1.05 'Barlow Condensed',sans-serif;color:var(--gold);letter-spacing:.04em;text-transform:uppercase}
-.hdr h1{font:800 ${fs}px/0.98 'Barlow Condensed',Impact,sans-serif;color:#fff;text-transform:uppercase;margin-top:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.hdr{background:var(--navy);padding:24px 40px 22px;display:flex;align-items:center;gap:30px;min-height:236px}
+.hdr img{height:108px;display:block;flex:none}
+.hdr .k{display:flex;align-items:center;gap:12px;font:700 30px/1 'Barlow Condensed',sans-serif;color:var(--gold);letter-spacing:.04em;text-transform:uppercase}
+.hdr .k img{height:30px;border-radius:3px;box-shadow:0 0 0 2px rgba(255,255,255,.25)}
+.hdr h1{font:800 ${fs}px/1 'Barlow Condensed',Impact,sans-serif;color:#fff;margin-top:10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.hdr .pn{font:600 24px/1.15 'Barlow Condensed',sans-serif;color:#b9c8de;margin-top:8px;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:820px}
 .hero{margin:14px 32px 0;display:grid;grid-template-columns:${tiles.length > 1 ? '1fr 1fr' : '1fr'};gap:14px}
-.hero div{border-radius:14px;padding:14px 24px 16px;color:#fff;background:var(--navy);height:182px;overflow:hidden}
+.hero div{border-radius:14px;padding:12px 24px 14px;color:#fff;background:var(--navy);height:164px;overflow:hidden}
 .hero div+div{background:var(--blue)}
-.hero b{display:block;font:800 104px/1 'Barlow Condensed',Impact,sans-serif;white-space:nowrap}
-.hero b.t{font-size:84px;line-height:1.2}
-.hero b small{font:800 54px/1 'Barlow Condensed',sans-serif;margin-left:8px}
-.hero span{display:block;font:700 32px/1.05 'Barlow Condensed',sans-serif;letter-spacing:.03em;text-transform:uppercase;color:#f1dc98;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hero b{display:block;font:800 96px/1 'Barlow Condensed',Impact,sans-serif;white-space:nowrap}
+.hero b small{font:800 50px/1 'Barlow Condensed',sans-serif;margin-left:8px}
+.hero span{display:block;font:700 30px/1.05 'Barlow Condensed',sans-serif;letter-spacing:.03em;text-transform:uppercase;color:#f1dc98;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stg{margin:14px 32px 0;display:flex;height:78px}
+.stg div{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;font:700 27px/1 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.02em;
+  clip-path:polygon(0 0,calc(100% - 22px) 0,100% 50%,calc(100% - 22px) 100%,0 100%,22px 50%);margin-left:-14px;padding:0 18px 0 30px;background:var(--bg);color:#7d8ea8}
+.stg div:first-child{clip-path:polygon(0 0,calc(100% - 22px) 0,100% 50%,calc(100% - 22px) 100%,0 100%);margin-left:0;padding-left:16px;border-radius:12px 0 0 12px}
+.stg div.p{background:#c9d6e8;color:var(--navy)}
+.stg div.c{background:var(--gold);color:var(--ink);font-size:31px;font-weight:800}
 .mid{margin:14px 32px 0;display:grid;grid-template-columns:1fr ${MAPW}px;gap:14px;flex:1;min-height:0}
-.facts{background:var(--bg);border:3px solid var(--navy);border-radius:14px;padding:26px 28px;display:flex;flex-direction:column;justify-content:center;gap:26px}
-.facts p{font:700 ${rows.length <= 2 ? 30 : 26}px/1 'Barlow Condensed',sans-serif;color:#8a6a0a;letter-spacing:.06em;text-transform:uppercase}
-.facts h3{font:700 ${rows.length <= 2 ? 48 : 40}px/1.06 'Barlow Condensed',sans-serif;color:var(--ink);margin-top:4px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.facts{background:var(--bg);border:3px solid var(--navy);border-radius:14px;padding:20px 26px;display:flex;flex-direction:column;justify-content:center;gap:20px}
+.facts p{font:700 25px/1 'Barlow Condensed',sans-serif;color:#8a6a0a;letter-spacing:.06em;text-transform:uppercase}
+.facts h3{font:700 ${rows.length <= 2 ? 44 : 38}px/1.06 'Barlow Condensed',sans-serif;color:var(--ink);margin-top:4px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .facts hr{border:0;border-top:2px solid #cfdaea}
 .right{display:flex;flex-direction:column;gap:14px;min-height:0}
 .map{border:3px solid var(--navy);border-radius:14px;overflow:hidden;flex:1;position:relative;background:#dfe8f3}
-.map svg{display:block;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
-.map i{position:absolute;left:14px;top:12px;font:800 30px/1 'Barlow Condensed',sans-serif;font-style:normal;color:var(--navy);background:rgba(255,255,255,.9);border-radius:8px;padding:6px 12px;text-transform:uppercase;letter-spacing:.03em}
-.art{height:250px;flex:none;background:var(--navy);border-radius:14px;padding:12px 20px 10px;display:flex;flex-direction:column;min-height:0}
+.map svg.mp{display:block;position:absolute;inset:0;width:100%;height:100%}.map svg.mini{position:absolute;right:12px;bottom:12px}
+.map i{position:absolute;left:12px;top:10px;display:flex;align-items:center;gap:10px;font:800 28px/1 'Barlow Condensed',sans-serif;font-style:normal;color:var(--navy);background:rgba(255,255,255,.92);border-radius:8px;padding:6px 12px;text-transform:uppercase;letter-spacing:.03em}
+.map i img{height:24px;border-radius:2px;box-shadow:0 0 0 1px rgba(15,45,94,.25)}
+.art{height:150px;flex:none;background:var(--navy);border-radius:14px;padding:10px 18px 8px;display:flex;flex-direction:column;min-height:0}
 .art .svg{flex:1;min-height:0}
-.art span{font:700 26px/1 'Barlow Condensed',sans-serif;color:var(--gold);letter-spacing:.06em;text-transform:uppercase;margin-top:6px}
-.bar{margin:14px 32px 0;background:var(--gold);color:var(--ink);border-radius:12px;text-align:center;padding:10px 12px 12px;font:800 40px/1.05 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.02em}
-.foot{margin-top:14px;background:var(--navy);padding:10px 32px;display:flex;align-items:center;justify-content:space-between;height:96px;gap:20px}
+.art span{font:700 22px/1 'Barlow Condensed',sans-serif;color:var(--gold);letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
+.sw{margin:14px 32px 0;background:var(--gold);color:var(--ink);border-radius:12px;padding:12px 24px 14px;font:600 34px/1.1 'Barlow Condensed',sans-serif}
+.sw b{font-weight:800;text-transform:uppercase;margin-right:8px}
+.foot{margin-top:14px;background:var(--navy);padding:10px 32px;display:flex;align-items:center;justify-content:space-between;height:92px;gap:20px}
 .foot .src{font:500 15px/1.35 'IBM Plex Sans';color:#b9c8de;max-width:660px}
 .foot .src b{color:#fff;font-weight:700}
 .foot .url{font:800 40px/1 'Barlow Condensed',sans-serif;color:#fff;text-align:right;letter-spacing:.02em}
 .foot .url small{display:block;font:600 18px 'IBM Plex Sans';color:var(--gold);margin-top:3px;letter-spacing:0}
 </style></head><body><div class="ig">
-  <div class="hdr"><img src="${LOGO}" alt=""><div><div class="k">${esc(kicker)}</div><h1>${esc(name)}</h1></div></div>
-  ${tiles.length ? `<div class="hero">${tiles.map((t) => `<div><b${t.text ? ' class="t"' : ''}>${esc(t.big)}${t.unit ? `<small>${esc(t.unit)}</small>` : ''}</b><span>${esc(t.label)}</span></div>`).join('')}</div>` : ''}
+  <div class="hdr"><img src="${LOGO}" alt=""><div><div class="k">${flag ? `<img src="${flag}" alt="">` : ''}${esc([kicker, f.country].filter(Boolean).join('  ·  '))}</div><h1>${esc(head)}</h1>${head.includes(f.name) ? '' : `<div class="pn">Project: ${esc(f.name)}</div>`}</div></div>
+  ${tiles.length ? `<div class="hero">${tiles.map((t) => `<div><b>${esc(t.big)}${t.unit ? `<small>${esc(t.unit)}</small>` : ''}</b><span>${esc(t.label)}</span></div>`).join('')}</div>` : ''}
+  <div class="stg">${STAGES.map(([, n], i) => `<div class="${i < cur ? 'p' : i === cur ? 'c' : ''}">${esc(n)}</div>`).join('')}</div>
   <div class="mid">
     <div class="facts">${rows.map(([k, v], i) => `${i ? '<hr>' : ''}<div><p>${esc(k)}</p><h3>${esc(v)}</h3></div>`).join('')}</div>
     <div class="right">
-      <div class="map">${locatorSvg(f.country, MAPW, MAPH)}<i>${esc(f.country || '')}</i></div>
+      <div class="map">${locatorSvg(f.country, MAPW, MAPH)}<i>${flag ? `<img src="${flag}" alt="">` : ''}${esc(f.country || '')}</i></div>
       <div class="art"><div class="svg">${artSvg(key)}</div><span>${esc(f.subsector && f.subsector !== '(unspecified)' ? f.subsector : artLabel(key))}</span></div>
     </div>
   </div>
-  <div class="bar">${esc([stage && !tiles.some((t) => t.text) && 'Stage: ' + stage, reported && 'Reported ' + reported].filter(Boolean).join('  ·  ') || 'New project lead')}</div>
-  <div class="foot"><div class="src"><b>Project data: World Trade Pro project tracker</b>, compiled from public sources (company filings, tenders, official releases)${f.source ? '. Source: ' + esc(f.source) : ''}. Map: Natural Earth. Drawing: World Trade Pro.</div>
+  <div class="sw"><b>So what:</b>${esc(soWhat(f))}</div>
+  <div class="foot"><div class="src"><b>Project data: World Trade Pro project tracker</b>, compiled from public sources (company filings, tenders, official releases)${f.source ? '. Source: ' + esc(f.source) : ''}${reported ? '. Reported ' + reported : ''}. Map: Natural Earth. Drawing: World Trade Pro.</div>
     <div class="url">worldtradepro.com<small>/projects/</small></div></div>
 </div></body></html>`;
 }

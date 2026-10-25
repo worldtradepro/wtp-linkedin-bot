@@ -15,6 +15,7 @@ import { rewriteTitles, isGenericTitle, rewriteGenericTitle } from './title_rewr
 import { bestImage, loadPhoto, siteLabel, closeOcr } from './image_search.mjs';
 import { createHash } from 'node:crypto';
 import { factCardHtml } from './fact_card.mjs';
+import { officialPhoto } from './official_photo.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -501,7 +502,18 @@ for (const f of files) {
   const sp = cfg.stockPhoto || {};
   // 2026-10-24 owner: Infrastructure project posts always show our own fact card (owner / capacity / value / contractors / financing / stage + country map),
   // no stock photo either: a generic Unsplash picture does not match the project. accounts.infra.factCard=false restores stock photos.
-  const factCard = p.type === 'project' && cfg.accounts.infra.factCard !== false && p.meta?.facts;
+  let factCard = p.type === 'project' && cfg.accounts.infra.factCard !== false && p.meta?.facts;
+  // 2026-10-24 owner: the project's own official photo first (owner / contractor / financier website, like Hydrogen Insight's "Photo: OMV"),
+  // shown unedited with "Photo: <company>"; none -> fact card. accounts.infra.officialPhotos=false = fact card only.
+  let official = null;
+  if (factCard && kind === 'card' && cfg.accounts.infra.officialPhotos !== false) {
+    try { official = await officialPhoto(ctx, p.meta.facts, { seen: imgSeen }, (m) => console.log('  ' + p.id + ': ' + m)); }
+    catch (e) { console.log('  ' + p.id + ': official photo lookup failed: ' + String(e.message || e).slice(0, 80)); }
+    if (official) {
+      writeFileSync(outPhoto, official.jpeg); kind = 'photo'; photoUrl = official.url; photoMime = official.mime; rehost = true;
+      imageCredit = '📷 Photo: ' + official.credit; why = official.note + ' ' + official.w + 'x' + official.h; factCard = false;
+    }
+  }
   if (kind === 'card' && !factCard && (cfg.imageMode || 'photo') === 'photo' && sp.enabled !== false && (sp.types || ['news']).includes(p.type)) {
     try {
       const s = await stockPhoto({ id: p.id, headline: articleHeadline || p.headline, sector: p.meta?.sector, subsector: p.meta?.subsector, forCard: p.type === 'project' && cfg.accounts.infra.photoCard !== false }, (m) => console.log('  ' + p.id + ': ' + m));
@@ -557,7 +569,7 @@ for (const f of files) {
     }
   }
   let origHash = '';
-  if (kind === 'photo' && p.type === 'project' && cfg.accounts.infra.photoCard !== false && existsSync(outPhoto)) {
+  if (kind === 'photo' && !official && p.type === 'project' && cfg.accounts.infra.photoCard !== false && existsSync(outPhoto)) {   // official photos stay unedited
     try {
       const raw = readFileSync(outPhoto); origHash = sha1(raw);
       const title = clean(articleHeadline || p.blocks[0].replace(p.headPrefix || '', '') || p.headline).replace(/^[\s🏗️]+/u, '');
