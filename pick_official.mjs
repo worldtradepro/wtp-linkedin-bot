@@ -38,7 +38,7 @@ const start = Date.now(), hits = [];
 for (const p of cands) {
   if (hits.length >= N) break;
   if (Date.now() - start > BUDGET_MS) { console.log(`time budget used up after ${cands.indexOf(p)} candidates`); break; }
-  const log = (m) => console.log(`  #${p.candidate} ${p.headline.slice(0, 50)}: ${m}`);
+  const log = (m) => { console.log(`  #${p.candidate} ${p.headline.slice(0, 50)}: ${m}`); p.photoNote = m; };
   const r = await officialPhoto(ctx, p.meta.facts, { seen: imgSeen }, log).catch((e) => { log('failed: ' + String(e.message || e).slice(0, 80)); return null; });
   p.officialChecked = true;   // render.mjs does not search again
   if (!r) continue;
@@ -67,4 +67,11 @@ for (const p of cands) if (!kept.includes(p) && p.officialPhoto) rmSync(join(IMG
 const STATE_FILE = join(HERE, 'state', 'used.json');
 const used = existsSync(STATE_FILE) ? JSON.parse(readFileSync(STATE_FILE, 'utf8')).urls || [] : [];
 writeFileSync(STATE_FILE, JSON.stringify({ urls: [...new Set([...used, ...kept.map((p) => p.sourceUrl).filter(Boolean)])].slice(-600) }, null, 2));
+// one line per day in the repo (committed by the "Save state" step): CI step logs need a GitHub login, this file does not
+const SUM_FILE = join(HERE, 'state', 'photo_first.json');
+const days = (existsSync(SUM_FILE) ? JSON.parse(readFileSync(SUM_FILE, 'utf8')).days || [] : []).filter((d) => d.date !== DATE).slice(-29);
+days.push({ date: DATE, search: process.env.BRAVE_API_KEY ? 'brave' : 'duckduckgo', checked: cands.filter((p) => p.officialChecked).length, photos: hits.length,
+  candidates: cands.map((p) => ({ rank: p.candidate ?? p.rank, project: p.headline, result: p.officialPhoto ? 'photo: ' + p.officialPhoto.note : p.officialChecked ? (p.photoNote || 'no official page found') : 'not checked' })),
+  kept: kept.map((p) => `${p.id}: ${p.headline} (${p.officialPhoto ? 'photo' : 'fact card'})`) });
+writeFileSync(SUM_FILE, JSON.stringify({ days }, null, 2));
 console.log(`Checked ${cands.filter((p) => p.officialChecked).length} of ${cands.length} candidates, ${hits.length} official photo(s). Kept: ${kept.map((p) => `${p.id} = #${p.rank}${p.officialPhoto ? ' (photo)' : ' (fact card)'} ${p.headline}`).join(' | ')}`);

@@ -127,5 +127,6 @@ async function findOfficial(ctx, facts, { seen = () => false, search = true } = 
   const hits = await webSearch(`${companyKeys(who.name).credit} ${facts.name}`);
   log(`official photo search: ${hits.length} results`);
   for (const h of hits) { const r = await attempt(h.url, true); if (r) return r; }
+  if (hits.length && !hits.some((h) => officialParty(hostOf(h.url), parties))) log(`search: ${hits.length} results, none on a project party's own website`);
   return null;
 }
