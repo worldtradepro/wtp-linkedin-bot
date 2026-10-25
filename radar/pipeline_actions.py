@@ -99,13 +99,13 @@ def shadow_report(date_str, mine):
     """Compare with what the server published for the same report date (counts + project names; no full rows in this public repo)."""
     rx.DAYS, rx.BACKLOG = 2, False
     srv = [r for r in rx.get_rows() if str(r.get("report_date"))[:10] == date_str]
-    norm = lambda s: re.sub(r"[^a-z0-9]+", " ", (s or "").lower()).strip()
-    srv_keys = {(r.get("article_id") or "") for r in srv} | {norm(r.get("project_name")) for r in srv}
-    my_keys = {(o.get("article_id") or o.get("id") or "") for o in mine} | {norm(o.get("project_name")) for o in mine}
-    kind = lambda o: "official" if str(o.get("article_id") or o.get("id") or "").startswith(rp_official) else "media"
-    both = [o for o in mine if (o.get("article_id") or o.get("id")) in srv_keys or norm(o.get("project_name")) in srv_keys]
+    # same article id, or names the analyzer's own de-duplication would call the same project ("Dangote Refinery" ~ "Dangote Refinery Project, Kenya")
+    aid = lambda o: o.get("article_id") or o.get("id") or ""
+    same = lambda a, b: (aid(a) and aid(a) == aid(b)) or oa._similarity(oa._normalize_name(a.get("project_name") or ""), oa._normalize_name(b.get("project_name") or "")) >= 0.6
+    kind = lambda o: "official" if str(aid(o)).startswith(rp_official) else "media"
+    both = [o for o in mine if any(same(o, r) for r in srv)]
     only_me = [o for o in mine if o not in both]
-    only_srv = [r for r in srv if r.get("article_id") not in my_keys and norm(r.get("project_name")) not in my_keys]
+    only_srv = [r for r in srv if not any(same(o, r) for o in mine)]
     lines = [f"## {date_str} - shadow run {datetime.datetime.utcnow():%H:%M} UTC, model {MODEL}",
              f"Actions: {len(mine)} rows ({sum(kind(o) == 'official' for o in mine)} official) - server published: {len(srv)} rows - in both: {len(both)}", ""]
     lines += [f"- ACTIONS ONLY ({kind(o)}): {o.get('project_name')} | {o.get('country')} | {o.get('stage')}" for o in only_me]
