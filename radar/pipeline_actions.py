@@ -71,7 +71,9 @@ def claude_text(prompt):
 oa.call_openrouter = claude_text                                 # analyzer, cn_contractors and title_translate all call this
 oa.time.sleep = lambda s: None
 _load_seen = fetcher.load_seen_urls
-fetcher.load_seen_urls = lambda d: _load_seen(d) | set(seen_ids)  # 7-day "seen" memory without keeping article files
+# 7-day "seen" memory without keeping article files; only earlier days (a re-run, or a shadow run after the server, must not
+# treat the day's own articles as seen - the first shadow run 2026-10-25 found 0 rows that way)
+fetcher.load_seen_urls = lambda d: _load_seen(d) | {k for k, v in seen_ids.items() if v < DATE}
 
 
 def publish(date_str):
