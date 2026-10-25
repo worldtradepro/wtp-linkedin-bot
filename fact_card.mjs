@@ -165,7 +165,8 @@ export function factsOf(it) {
     stage: it.stage || '', capacity: clean(it.capacity || ''), valueAmount: it.value_amount || '', valueUnit: it.value_unit || '', valueCurrency: it.value_currency || '', valueBasis: it.value_basis || '',
     contractors: names(it.contractors), contractorLabel: contractorLabel(it.contractors), financing: names(it.financiers), reportDate: it.report_date || '', scale: clean(it.scale || ''),
     // for official_photo.mjs: who is behind the project, and the pages the pipeline linked to it (news source + official references)
-    parties: [...clean(it.owner || '').split(/\s*[,;]\s*/).filter(Boolean).map((n) => ({ name: n.replace(/\s*\((developer|owner|sponsor|client|operator)\)$/i, ''), role: 'owner' })),
+    // "Aker BP and Höegh Evi" = two owners; "Phoenix Tailings, Inc." / "X Co., Ltd." = one
+    parties: [...clean(it.owner || '').split(/\s*;\s*|\s+and\s+|,\s+(?!(?:inc|ltd|llc|plc|co|corp|s\.?a|ag|gmbh|limited|bhd|berhad)\b\.?)/i).map((n) => (n || '').replace(/[\s,]+$/, '')).filter(Boolean).map((n) => ({ name: n.replace(/\s*\((developer|owner|sponsor|client|operator)\)$/i, ''), role: 'owner' })),
       ...parties(it.contractors).map((x) => ({ name: x.n, role: 'contractor' })), ...parties(it.financiers).map((x) => ({ name: x.n, role: 'financier' }))],
     links: [...new Set([it.reference_url, it.project_ref_url, ...(() => { try { return (typeof it.sources === 'string' ? JSON.parse(it.sources || '[]') : it.sources || []).map((s) => s?.url); } catch { return []; } })(), it.source_url].filter((u) => /^https?:/.test(u || '')))], source: clean(it.source_name || '') };
 }

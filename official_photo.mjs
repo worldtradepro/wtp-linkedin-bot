@@ -23,7 +23,8 @@ const hostOf = (u) => { try { return new URL(u).hostname.replace(/^www\./, '').t
 // "China National Chemical Engineering (CNCEC)" -> { credit: 'CNCEC', keys: ['cncec', 'chinanationalchemicalengineering', ...] }
 export function companyKeys(name) {
   const paren = (/\(([A-Za-z0-9&.\- ]{2,12})\)/.exec(name) || [])[1];
-  const base = name.replace(/\([^)]*\)/g, ' ').replace(LEGAL, ' ').replace(/[^A-Za-z0-9& ]/g, ' ').replace(/\s+/g, ' ').trim();
+  const shown = name.replace(/\([^)]*\)/g, ' ').replace(LEGAL, ' ').replace(/[\s,.]+$/g, '').replace(/\s+/g, ' ').trim();   // credit keeps accents: "Höegh Evi"
+  const base = shown.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Za-z0-9& ]/g, ' ').replace(/\s+/g, ' ').trim();   // keys: hoegh
   const words = base.split(' ').filter(Boolean);
   const keys = new Set();
   if (paren) keys.add(paren.toLowerCase().replace(/[^a-z0-9]/g, ''));
@@ -31,7 +32,7 @@ export function companyKeys(name) {
   if (words.length >= 2) keys.add(words.map((w) => w[0]).join('').toLowerCase());   // initials: China Tianchen Engineering -> cte
   if (words[0] && words[0].length >= 4 && !GENERIC.test(words[0])) keys.add(words[0].toLowerCase());
   if (words.length >= 2 && !GENERIC.test(words[0])) keys.add((words[0] + words[1]).toLowerCase());
-  return { credit: paren && paren.length <= 8 ? paren : base || name, keys: [...keys].filter((k) => k.length >= 3) };
+  return { credit: paren && paren.length <= 8 ? paren : shown || name, keys: [...keys].filter((k) => k.length >= 3) };
 }
 // The party whose official site this host is, or null. omv.com, group.vattenfall.com, engie.com.au, investors.kbr.com
 export function officialParty(host, parties) {
@@ -60,6 +61,17 @@ async function ogImage(ctx, url) {
 async function homeImage(ctx, url) {   // the site-wide default share picture: never "this project's" photo
   try { const r = await ogImage(ctx, new URL(url).origin + '/'); return r?.img || ''; } catch { return ''; }
 }
+// Brave Search API (secret BRAVE_API_KEY, the key radar-enrich already uses): reliable from CI. DuckDuckGo without a key returned
+// nothing at all after a few queries in the 2026-10-25 test, so it is only the fallback when no key is set.
+async function brave(query) {
+  const ac = new AbortController(); const t = setTimeout(() => ac.abort(), 15000);
+  try {
+    const r = await fetch('https://api.search.brave.com/res/v1/web/search?count=10&q=' + encodeURIComponent(query), { headers: { accept: 'application/json', 'X-Subscription-Token': process.env.BRAVE_API_KEY }, signal: ac.signal });
+    if (!r.ok) return [];
+    return ((await r.json()).web?.results || []).map((x) => ({ url: x.url, title: x.title || '' }));
+  } catch { return []; } finally { clearTimeout(t); }
+}
+const webSearch = (query) => (process.env.BRAVE_API_KEY ? brave(query) : ddg(query));
 // one DuckDuckGo query (plain HTML endpoint, no key). Best effort: it rate-limits, and an empty answer just means "use the fact card".
 async function ddg(query) {
   const ac = new AbortController(); const t = setTimeout(() => ac.abort(), 15000);
@@ -80,7 +92,13 @@ const projectTerms = (name, parties) => {
 };
 
 // facts = fact_card.mjs factsOf(); seen(url, jpeg) -> truthy when used recently. Returns a loadPhoto() result + { credit, page, source: 'official', note } or null.
-export async function officialPhoto(ctx, facts, { seen = () => false, search = true } = {}, log = () => {}) {
+// Hard time limit: a page or picture download that never answers must not hold up the day's posts (a local test hung for hours, 2026-10-25).
+export async function officialPhoto(ctx, facts, opts = {}, log = () => {}) {
+  let timer;
+  const limit = new Promise((res) => { timer = setTimeout(() => { log(`official photo lookup stopped after ${(opts.timeoutMs || 120000) / 1000} s`); res(null); }, opts.timeoutMs || 120000); });
+  try { return await Promise.race([findOfficial(ctx, facts, opts, log), limit]); } finally { clearTimeout(timer); }
+}
+async function findOfficial(ctx, facts, { seen = () => false, search = true } = {}, log = () => {}) {
   const parties = facts.parties || [];
   if (!parties.length) return null;
   const tried = new Set();
@@ -106,7 +124,7 @@ export async function officialPhoto(ctx, facts, { seen = () => false, search = t
   if (!search) return null;
   const who = parties.find((p) => p.role === 'owner' && !RED.test(p.name)) || parties.find((p) => !RED.test(p.name));
   if (!who) return null;
-  const hits = await ddg(`${companyKeys(who.name).credit} ${facts.name}`);
+  const hits = await webSearch(`${companyKeys(who.name).credit} ${facts.name}`);
   log(`official photo search: ${hits.length} results`);
   for (const h of hits) { const r = await attempt(h.url, true); if (r) return r; }
   return null;

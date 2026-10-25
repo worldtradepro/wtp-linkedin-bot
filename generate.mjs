@@ -356,8 +356,11 @@ const news = pickNews(flowForNews, newsN, A.main.minScore, used, cfg.blockedWord
 // A merged project (dedupe_projects.py) carries the most advanced stage any of its reports gave.
 const epcItems = (epc.items || []).map((it) => (it.latest_stage ? { ...it, stage: it.latest_stage } : it));
 const recentPool = epcItems.filter((it) => it.report_date >= dayShift(latestDay(epcItems) || TODAY, -1));
-const shown = infraOn ? pickProjects(recentPool.length >= A.infra.maxProjectsShownPerDay ? recentPool : epcItems, A.infra.maxProjectsShownPerDay, used) : [];
-const projs = shown.slice(0, A.infra.projectsPerDay);
+// 2026-10-25 owner, photo first: write up to photoCandidates ranked projects as candidates; pick_official.mjs (next CI step) keeps the
+// projectsPerDay best-ranked ones that have an official photo (topped up by rank when fewer), so most posts show a real photo, not the fact card.
+const PHOTO_FIRST = A.infra.officialPhotos === true && (A.infra.photoCandidates || 0) > A.infra.projectsPerDay;
+const shown = infraOn ? pickProjects(recentPool.length >= A.infra.maxProjectsShownPerDay ? recentPool : epcItems, PHOTO_FIRST ? A.infra.photoCandidates : A.infra.maxProjectsShownPerDay, used) : [];
+const projs = PHOTO_FIRST ? shown : shown.slice(0, A.infra.projectsPerDay);
 const isWeekly = args.includes('--weekly') || new Date(TODAY + 'T00:00:00Z').getUTCDay() === 1;   // Mondays (UTC)
 // The cards say "new / this week": without the secret the data is a week old, so do not publish them (use --allow-stale to test only).
 const cardsOk = !!SECRET || args.includes('--allow-stale');
@@ -365,7 +368,7 @@ if (!cardsOk) console.error('WARNING: WTP_BOT_SECRET is not set -> Infrastructur
 
 const posts = [
   ...news.map((it, k) => newsPost(it, k + 1, TODAY, newsSlots[k % newsSlots.length])),
-  ...projs.map((it, k) => projectPost(it, k + 1, TODAY, A.infra.slotsUtc[k % A.infra.slotsUtc.length])),
+  ...projs.map((it, k) => ({ ...projectPost(it, k + 1, TODAY, A.infra.slotsUtc[k % A.infra.slotsUtc.length]), ...(PHOTO_FIRST ? { candidate: k + 1 } : {}) })),
   // a null slot in config.json switches the card off (2026-10-05: both Infra cards off)
   ...(cardsOk && A.infra.dailyCardSlotUtc && shown.length && !isWeekly ? [dailyCardPost(epcItems, shown, TODAY, A.infra.dailyCardSlotUtc)] : []),
   ...(cardsOk && A.infra.weeklyCardSlotUtc && infraOn && isWeekly && epcItems.length ? [weeklyCardPost(epcItems, TODAY, A.infra.weeklyCardSlotUtc)] : []),
@@ -388,9 +391,9 @@ if (!DRY) {
   mkdirSync(dir, { recursive: true });
   for (const p of posts) writeFileSync(join(dir, p.id + '.json'), JSON.stringify(p, null, 2));
   writeFileSync(join(dir, 'preview.md'), preview.join('\n'));
-  for (const p of posts) if (p.sourceUrl) used.add(p.sourceUrl);
+  for (const p of posts) if (p.sourceUrl && !p.candidate) used.add(p.sourceUrl);   // candidates: pick_official.mjs marks only the ones it keeps
   for (const u of flashUrls) used.add(u);   // covered by the flash card: do not bring them back as news tomorrow
-  for (const it of (isWeekly ? projs : shown)) used.add(it.source_url);   // projects that only appear on the daily card must not come back tomorrow
+  for (const it of (PHOTO_FIRST ? [] : isWeekly ? projs : shown)) used.add(it.source_url);   // projects that only appear on the daily card must not come back tomorrow
   mkdirSync(join(HERE, 'state'), { recursive: true });
   writeFileSync(STATE_FILE, JSON.stringify({ urls: [...used].slice(-600) }, null, 2));
   const kept = (existsSync(RECENT_FILE) ? JSON.parse(readFileSync(RECENT_FILE, 'utf8')).posts || [] : []).filter((r) => r.date >= dayShift(TODAY, -14) && r.date !== TODAY);

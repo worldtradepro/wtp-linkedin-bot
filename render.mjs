@@ -507,8 +507,13 @@ for (const f of files) {
   // shown unedited with "Photo: <company>"; none -> fact card. accounts.infra.officialPhotos=false = fact card only.
   let official = null;
   if (factCard && kind === 'card' && cfg.accounts.infra.officialPhotos !== false) {
-    try { official = await officialPhoto(ctx, p.meta.facts, { seen: imgSeen }, (m) => console.log('  ' + p.id + ': ' + m)); }
-    catch (e) { console.log('  ' + p.id + ': official photo lookup failed: ' + String(e.message || e).slice(0, 80)); }
+    if (p.officialPhoto && existsSync(join(IMG, p.officialPhoto.file))) {   // already found by pick_official.mjs (photo first)
+      official = { ...p.officialPhoto, jpeg: readFileSync(join(IMG, p.officialPhoto.file)) };
+      rmSync(join(IMG, p.officialPhoto.file), { force: true });
+    } else if (!p.officialChecked) {
+      try { official = await officialPhoto(ctx, p.meta.facts, { seen: imgSeen }, (m) => console.log('  ' + p.id + ': ' + m)); }
+      catch (e) { console.log('  ' + p.id + ': official photo lookup failed: ' + String(e.message || e).slice(0, 80)); }
+    }
     if (official) {
       writeFileSync(outPhoto, official.jpeg); kind = 'photo'; photoUrl = official.url; photoMime = official.mime; rehost = true;
       imageCredit = '📷 Photo: ' + official.credit; why = official.note + ' ' + official.w + 'x' + official.h; factCard = false;

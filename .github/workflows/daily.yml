@@ -27,6 +27,7 @@ jobs:
       WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
       BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
       UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}   # optional: stock photo when an article has no lead picture
+      BRAVE_API_KEY: ${{ secrets.BRAVE_API_KEY }}   # pick_official.mjs: search for the project party's own press release (about 10 queries a day)
       PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}   # optional: second stock source (owner 2026-10-24: Unsplash + Pexels only)
       IMAGE_BASE_URL: https://raw.githubusercontent.com/${{ github.repository }}/images
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}   # owner's Claude Max subscription: Infrastructure headline rewrite (title_rewrite.mjs, optional)
@@ -83,6 +84,10 @@ jobs:
       - name: Generate the day's queue
         if: ${{ steps.guard.outputs.skip != 'true' }}
         run: node generate.mjs
+      - name: Photo first - keep the candidates with an official project photo
+        if: ${{ steps.guard.outputs.skip != 'true' }}
+        timeout-minutes: 30
+        run: node pick_official.mjs
       - name: Render images
         if: ${{ steps.guard.outputs.skip != 'true' }}
         run: node render.mjs
