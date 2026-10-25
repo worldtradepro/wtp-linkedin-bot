@@ -38,7 +38,7 @@ import os
 import re
 import tempfile
 import xml.etree.ElementTree as ET
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import requests
 
@@ -89,6 +89,11 @@ DAC = {
 # Agricultural policy (31110) holds both agro-industrial zones and emergency food
 # aid; only the former is EPC.
 AGRI_POLICY_OK = re.compile(r"agro-?industr|agropole|processing|irrigat|storage|silo|fertili|abattoir|cold chain", re.I)
+# 2026-10-25 (owner): city water supply, sewage and sanitation are not covered. EBRD files many of them under DAC 32266
+# (industrial minerals), which read as mining. Desalination and irrigation stay.
+WATER_EXCLUDE = re.compile(r"\bwater\b|wwtp|waste ?water|sewage|sewerage|sanitation|septic|\bdrain|vodokanal|\bvk\b|flood protection|"
+                           r"river rehabilitation|depollution|hydraulic infrastructure|\bswift\b|\br2cf\b|environmental programme", re.I)   # SWIFT / R2CF = EBRD Romanian water programmes
+WATER_KEEP = re.compile(r"desalinat|irrigat|biogas|hydro ?power|hydroelectric|mine|mining", re.I)
 TITLE_EXCLUDE = re.compile(r"humanitarian|emergency|technical assistance|capacity building|feasibility study|study|"
                            r"lessons learned|policy|reform|budget support|governance|covid|credit line|line of credit|"
                            r"\bsme\b|trade finance|guarantee facility|equity fund", re.I)
@@ -116,7 +121,7 @@ CAT3_TITLE = [
         (r"rail", ("Logistics & Infrastructure", "Rail & Inland Transport")),
         (r"port|harbou?r|terminal|jetty", ("Logistics & Infrastructure", "Ports & Terminals"))]),
     (("311",), [
-        (r"irrigat|dam|canal", ("Agriculture", "Irrigation & Water")),
+        (r"irrigat|dam\b|canal", ("Agriculture", "Irrigation & Water")),
         (r"silo|storage|agro-?industr|processing|abattoir", ("Agriculture", "Grain & Food Infrastructure"))]),
     (("321",), [
         (r"fertili|urea|ammonia", ("Agriculture", "Fertilizer Plants")),
@@ -128,6 +133,8 @@ CAT3_TITLE = [
 def classify(a):
     title = _t(a.find("title"))
     if not title or TITLE_EXCLUDE.search(title):
+        return None
+    if WATER_EXCLUDE.search(title) and not WATER_KEEP.search(title):
         return None
     sectors = a.findall("sector")
     codes = [s.get("code", "") for s in sectors if s.get("vocabulary", "1") == "1"]
@@ -250,7 +257,8 @@ def _record(a, pub, fx, names):
     rc = a.find("recipient-country")
     country, region = _place(rc.get("code") if rc is not None else "", names)
     impl = next((_t(p) for p in a.findall("participating-org") if p.get("role") == "4"), "")
-    return aid, {"publisher": pub, "status": status, "title": _t(a.find("title")), "sector": cls[0],
+    dates = [d.get("iso-date") or "" for d in a.findall("activity-date") if d.get("type") in ("1", "2")]
+    return aid, {"publisher": pub, "status": status, "title": _t(a.find("title")), "sector": cls[0], "start": min([x for x in dates if x] or [""]),
                  "subsector": cls[1], "country": country, "region": region, "implementer": impl,
                  "usd": _value_usd(a, fx)}
 
@@ -334,14 +342,23 @@ def merge_into_opportunities(date_str, data_dir, lookback_days=1):
 
     found = scan(PUBLISHERS, http_cache, load_fx(), _countries())
     items = []
+    old = 0
     for aid, r in found.items():
         before = seen.get(aid)
         moved = before == "1" and r["status"] == "2"
-        if not first_run and (before is None or moved):
+        # 2026-10-25: an activity seen for the first time is "new" only if it started or was approved in the last
+        # 180 days. Older ones appear when a bank recodes its sectors (EBRD, 10-22: 70 old city-water projects) -
+        # recorded in seen, not published.
+        recent = (r.get("start") or "9999") >= (datetime.now(timezone.utc) - timedelta(days=180)).strftime("%Y-%m-%d")
+        if not first_run and (moved or (before is None and recent)):
             items.append(to_opportunity(aid, r, date_str, moved))
+        elif not first_run and before is None:
+            old += 1
         seen[aid] = r["status"]
     if first_run:
         log.info(f"IATI first run: recorded {len(seen)} existing projects, nothing published")
+    if old:
+        log.info(f"IATI: {old} newly matching but older projects (started over 180 days ago) recorded, not published")
 
     from title_translate import translate
     items = translate(items, data_dir)
