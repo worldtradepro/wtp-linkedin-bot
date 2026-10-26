@@ -1,0 +1,61 @@
+{
+  "days": [
+    {
+      "date": "2026-10-26",
+      "search": "brave",
+      "checked": 9,
+      "photos": 0,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Era4 AI Data Center Project",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 2,
+          "project": "Oil and Gas Tenders",
+          "result": "no official page found"
+        },
+        {
+          "rank": 3,
+          "project": "Mechanical, Electrical and DSEAR Services",
+          "result": "no official page found"
+        },
+        {
+          "rank": 4,
+          "project": "BASE ENERGY GHANA LIMITED 300MW solar EPC contract",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 5,
+          "project": "FGL expansion project in Algeria",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 6,
+          "project": "Zhangzhou Longhai marine comprehensive utilization project",
+          "result": "official page fdi.swt.fujian.gov.cn: no share picture"
+        },
+        {
+          "rank": 7,
+          "project": "Chongqing Zhaosheng natural gas liquefaction project phase one",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 8,
+          "project": "Sichuan Ruibai new energy materials electronic chemicals project (phase one)",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 9,
+          "project": "Reinforcement of reservoir supply in Ankatso, Ambohidempona, and Campus, and installation of two lamellar settlers in Mandroseza II and II bis",
+          "result": "no official page found"
+        }
+      ],
+      "kept": [
+        "infra-1: Era4 AI Data Center Project (fact card)",
+        "infra-2: Oil and Gas Tenders (fact card)"
+      ]
+    }
+  ]
+}

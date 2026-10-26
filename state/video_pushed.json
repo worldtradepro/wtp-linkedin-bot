@@ -150,6 +150,12 @@
       "mode": "schedule",
       "at": "2026-10-25T08:32:11.054Z",
       "dueAt": "2026-10-26T13:00:00.000Z"
+    },
+    "cd_waste_paper_backhaul": {
+      "postId": "6adf17c6411d512f6d6f91dd",
+      "mode": "schedule",
+      "at": "2026-10-26T09:05:10.650Z",
+      "dueAt": "2026-10-27T13:00:00.000Z"
     }
   }
 }
