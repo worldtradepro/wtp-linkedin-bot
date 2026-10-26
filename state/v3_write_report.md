@@ -1,5 +1,15 @@
 # v3 extraction on Actions (write)
 
+## 2026-10-26 15:13 UTC - write, model claude-haiku-5-5, rows 11
+{'page unreadable': 5, 'full': 5, 'differ': 6, 'project_only': 1}
+
+- Tamil Nadu Solar Power Procurement (6535) | server None / haiku full | differs: owner [ | Tamil Nadu Power Distribution Corporation (TNPDCL)], capacity [600 MW | 600 MW solar with 300 MW / 1,800 MWh energy storage], event_type [Other | Permit/Approval], contractors [[] | ['Solar Energy Corporation of India (SECI)']]
+- Transmission Line Orders (6534) | server None / haiku project_only | differs: owner [ | Power Grid Corporation of India], capacity [ | 800 kV HVDC transmission lines], value [INR 949.35 million | INR 9.4935 billion], contractors [[] | ['Jyoti Structures']]
+- Thermal Power Plant Cargo Transport (6531) | server None / haiku full | differs: contractors [[] | ['AGL Sierra Leone', 'Shapoorji Pallonji Group']]
+- Mubbadrah AI Data Center Project (6529) | server None / haiku full | differs: owner [ | Mubbadrah Investment], capacity [400 MW | Up to 400 MW of computing capacity], contractors [[] | ['Sustopia Capital', 'Vela Tech', 'O2 Global Energy']]
+- VLCC Trio Order (6528) | server None / haiku full | differs: owner [ | Bahri], capacity [ | Three 320,000 dwt VLCCs], value [USD 451 million | SAR 1.692 billion], event_type [Award | Equipment/vessel order], contractors [[] | ['International Maritime Industries (IMI)']]
+- 470-MW Parron Maam Marang Wind Farm (6525) | server None / haiku full | differs: owner [ | Atmos Renewables], capacity [470 MW | 470 MW (78 Vestas V162-6.2 MW turbines)], value [AUD 470 million | ], contractors [[] | ['Vestas']]
+
 ## 2026-10-25 19:00 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
