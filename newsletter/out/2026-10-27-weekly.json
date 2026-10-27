@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-27",
+  "edition": "weekly",
+  "skip": false,
+  "subject": "US$67m tender: Fuel distribution concession in Milan",
+  "preview": "116 new projects in 57 countries · 34 tenders · 49 awards · 211 trade-flow signals, 22 critical",
+  "counts": {
+    "epc": 116,
+    "tenders": 34,
+    "awards": 49,
+    "flow": 211,
+    "critical": 22,
+    "calls": 9,
+    "calendar": 3,
+    "notes": true,
+    "sectors": [
+      "energy:36",
+      "power:39",
+      "metals:11",
+      "agri:4",
+      "chem:2",
+      "infra:4",
+      "shipping:20"
+    ]
+  }
+}
