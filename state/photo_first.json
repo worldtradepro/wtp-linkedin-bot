@@ -56,6 +56,68 @@
         "infra-1: Era4 AI Data Center Project (fact card)",
         "infra-2: Oil and Gas Tenders (fact card)"
       ]
+    },
+    {
+      "date": "2026-10-27",
+      "search": "brave",
+      "checked": 10,
+      "photos": 1,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Masdar Solar Project Acquisition",
+          "result": "no official page found"
+        },
+        {
+          "rank": 2,
+          "project": "VLCC Trio Order",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 3,
+          "project": "Dangote Refinery Financing",
+          "result": "no official page found"
+        },
+        {
+          "rank": 4,
+          "project": "1GW Data Centre with Battery Storage",
+          "result": "no official page found"
+        },
+        {
+          "rank": 5,
+          "project": "Mubbadrah AI Data Center Project",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 6,
+          "project": "Johor Solar Energy Expansion",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 7,
+          "project": "Tamil Nadu Solar Power Procurement",
+          "result": "official page now.solar: no share picture"
+        },
+        {
+          "rank": 8,
+          "project": "470-MW Parron Maam Marang Wind Farm",
+          "result": "photo: official photo (owner: Atmos Renewables, atmosrenewables.com.au)"
+        },
+        {
+          "rank": 9,
+          "project": "Ras Markaz Storage Expansion",
+          "result": "no official page found"
+        },
+        {
+          "rank": 10,
+          "project": "ADNOC LNG Export Plant",
+          "result": "no official page found"
+        }
+      ],
+      "kept": [
+        "infra-1: Masdar Solar Project Acquisition (fact card)",
+        "infra-2: 470-MW Parron Maam Marang Wind Farm (photo)"
+      ]
     }
   ]
 }
