@@ -1,5 +1,19 @@
 # v3 extraction on Actions (write)
 
+## 2026-10-27 20:43 UTC - write, model claude-haiku-5-5, rows 12
+{'page unreadable': 2, 'project_only': 2, 'differ': 10, 'full': 7, 'limited': 1}
+
+- Gujarat Transmission Order (6612) | server None / haiku project_only | differs: owner [ | Lakadia A Power Transmission Ltd], capacity [ | About 270 km of 765 kV double-circuit lines, linked to 14 GW of renewables], value [INR 180 million | INR 15 billion], contractors [[] | ['Bajel Projects']]
+- Mumbai Refinery Power Infrastructure (6611) | server None / haiku project_only | differs: owner [BPCL | Bharat Petroleum Corporation], capacity [90 MW | 110 kV connection for a 90 MW power requirement], value [INR 170 million | INR 2.5 billion], contractors [[] | ['Tata Power']]
+- Green Loan for Sydney Data Center (6608) | server None / haiku full | differs: owner [ | AirTrunk], value [AUD 4250 million | AUD 4.25 billion], financiers [[] | ['Consortium of 32 local and international financial institutions (14 banks underwriting)']]
+- MOU for AI Data Center Capacity (6607) | server None / haiku full | differs: owner [ | ARC Cloud], capacity [ | Up to 100 MW], contractors [[] | ['Compal Electronics, Inc.']]
+- AI Data Center near Itaipú Dam (6606) | server None / haiku full | differs: owner [ | Crusoe], capacity [280 MW | 106 MW IT initially, scalable to approximately 280 MW], contractors [[] | ['Araico']]
+- Data Center in Eatonton (6605) | server None / haiku full | differs: owner [ | Eatonton 379, LLC], capacity [520 MW | Up to 520 MW; up to 11 buildings totalling 3.5 million sq ft], event_type [Other | Permit/Approval]
+- Bulker Order for Mineral Transport (6601) | server None / haiku full | differs: owner [ | Zijin Mining], capacity [ | Two 3,000 dwt bulk carriers (6,000 dwt combined)], contractors [[] | ['Shandong Xinneng Shipbuilding']]
+- Cronos Gas Development (6600) | server None / haiku full | differs: owner [ | Eni], value [USD 1800 million | USD 1.8 billion], contractors [[] | ['Baker Hughes', 'TechnipFMC', 'Dalmine', 'Oceaneering International', 'China Merchants Heavy Industry']]
+- Groundbreaking for IPP in South Africa (6599) | server None / haiku limited | differs: event_type [Construction start | ]
+- Subsea Construction Vessels Order (6597) | server None / haiku full | differs: owner [ | Siem Industries], capacity [ | Two OSCVs, 145 m long, 27 m beam], contractors [[] | ['Fujian Mawei Shipbuilding', 'Sirius Design & Integration']]
+
 ## 2026-10-27 14:32 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
