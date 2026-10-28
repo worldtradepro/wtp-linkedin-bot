@@ -118,6 +118,68 @@
         "infra-1: Masdar Solar Project Acquisition (fact card)",
         "infra-2: 470-MW Parron Maam Marang Wind Farm (photo)"
       ]
+    },
+    {
+      "date": "2026-10-28",
+      "search": "brave",
+      "checked": 10,
+      "photos": 0,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Green Loan for Sydney Data Center",
+          "result": "official page airtrunk.com: only the site's default banner"
+        },
+        {
+          "rank": 2,
+          "project": "ADNOC Procurement Strategy Enhancement",
+          "result": "no official page found"
+        },
+        {
+          "rank": 3,
+          "project": "Bulker Order for Mineral Transport",
+          "result": "official page zijinmining.com: no share picture"
+        },
+        {
+          "rank": 4,
+          "project": "Dangote Refinery Financing",
+          "result": "no official page found"
+        },
+        {
+          "rank": 5,
+          "project": "1GW Data Centre with Battery Storage",
+          "result": "no official page found"
+        },
+        {
+          "rank": 6,
+          "project": "Johor Solar Energy Expansion",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 7,
+          "project": "Tamil Nadu Solar Power Procurement",
+          "result": "official page solarbytes.info: not about \"Tamil Nadu Solar Power Procurement\""
+        },
+        {
+          "rank": 8,
+          "project": "Cronos Gas Development",
+          "result": "official page eni.com: only the site's default banner"
+        },
+        {
+          "rank": 9,
+          "project": "Enippeas Solar Farm Acquisition",
+          "result": "no official page found"
+        },
+        {
+          "rank": 10,
+          "project": "VLCC Trio Order",
+          "result": "search: 10 results, none on a project party's own website"
+        }
+      ],
+      "kept": [
+        "infra-1: Green Loan for Sydney Data Center (fact card)",
+        "infra-2: ADNOC Procurement Strategy Enhancement (fact card)"
+      ]
     }
   ]
 }
