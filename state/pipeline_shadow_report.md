@@ -1,5 +1,87 @@
 # Whole pipeline on Actions (shadow, writes nothing)
 
+## 2026-10-28 - shadow run 20:17 UTC, model claude-haiku-5-5
+Actions: 94 rows (32 official) - server published: 30 rows - in both: 23
+
+- ACTIONS ONLY (media): Arzew CO2 Plant | Algeria | S4-Tender
+- ACTIONS ONLY (media): Dangote Refinery Upgrade | Nigeria | S5-Awarded
+- ACTIONS ONLY (media): Hornsea 3 Offshore Wind Farm | United Kingdom | S5-Awarded
+- ACTIONS ONLY (media): Elgin 230 MW UK Renewables Portfolio | United Kingdom | S3-Pre-FID
+- ACTIONS ONLY (media): RES Scotland 49.9 MW Solar Farm | United Kingdom | S2-Development
+- ACTIONS ONLY (media): Protos Carbon Capture Plant | United Kingdom | S5-Awarded
+- ACTIONS ONLY (media): Nxera Singapore low-carbon power supply MoU | Singapore | S1-Feasibility
+- ACTIONS ONLY (media): Sembcorp 600MW CCGT power plant, Singapore | Singapore | S5-Awarded
+- ACTIONS ONLY (media): Singapore Floating Power and Digital Infrastructure | Singapore | S1-Feasibility
+- ACTIONS ONLY (media): Seatrium-Karpowership floating power and data centre platform | Singapore | S1-Feasibility
+- ACTIONS ONLY (media): Dandara solar and BESS project, phase one | Egypt | S5-Awarded
+- ACTIONS ONLY (media): Qair 80 MW Solar Farm, Poland | Poland | S5-Awarded
+- ACTIONS ONLY (media): Pilbara Minerals P2000 project | Australia | S5-Awarded
+- ACTIONS ONLY (media): Stade LNG terminal FSRU | Germany | S5-Awarded
+- ACTIONS ONLY (media): Pulverdingen 1GW Battery Storage Plant | Germany | S2-Development
+- ACTIONS ONLY (media): Cronos Gas Development | Italy | S5-Awarded
+- ACTIONS ONLY (media): Cronos Gas Development | United States | S5-Awarded
+- ACTIONS ONLY (media): Alpha Omega Power US BESS Supply Agreement | United States | S5-Awarded
+- ACTIONS ONLY (media): Constellation Existing Nuclear Output Loan | United States | S2-Development
+- ACTIONS ONLY (media): Noble Globetrotter II Drillship Sale | United States | S5-Awarded
+- ACTIONS ONLY (media): Alliant Energy Gas, Battery and Grid Loan Package | United States | S2-Development
+- ACTIONS ONLY (media): Cronos Gas Development | Cyprus | S5-Awarded
+- ACTIONS ONLY (media): Cyprus first commercial gas project | Cyprus | S5-Awarded
+- ACTIONS ONLY (media): Uzbekistan Power Grid Upgrade Loans | Uzbekistan | S2-Development
+- ACTIONS ONLY (media): Roghun Hydropower Plant Next Phase | Tajikistan | S2-Development
+- ACTIONS ONLY (media): Bay du Nord | Canada | S3-Pre-FID
+- ACTIONS ONLY (media): Ksi Lisims LNG offtake | Canada | S2-Development
+- ACTIONS ONLY (media): Tullow Ghana riser retermination | Ghana | S5-Awarded
+- ACTIONS ONLY (media): Tema Refinery Expansion | Ghana | S1-Feasibility
+- ACTIONS ONLY (media): Siem Industries OSCV newbuilds | Norway | S5-Awarded
+- ACTIONS ONLY (media): Wallenius Wilhelmsen PCTC Renewal Programme | Norway | S5-Awarded
+- ACTIONS ONLY (media): Abadi LNG | Indonesia | S3-Pre-FID
+- ACTIONS ONLY (media): Venezuela Drilling Rig Deployment | Venezuela | S5-Awarded
+- ACTIONS ONLY (media): Municipal Renewable IPP Project | South Africa | S5-Awarded
+- ACTIONS ONLY (media): AGF Nitrogen Ammonia Plant Revamps | Germany, Austria | S5-Awarded
+- ACTIONS ONLY (media): Valencia Substation Project | Spain | S4-Tender
+- ACTIONS ONLY (media): Venergy VLCC Newbuild Order | Greece | S5-Awarded
+- ACTIONS ONLY (media): Meadway Bulkers Ultramax Newbuild Series | Greece | S5-Awarded
+- ACTIONS ONLY (media): KMTC Six-Ship Container Vessel Newbuild Order | South Korea | S5-Awarded
+- ACTIONS ONLY (media): Querétaro–Saltillo Railway | Mexico | S5-Awarded
+- ACTIONS ONLY (media): Nova Minerals Alaska Antimony Project | United States | S2-Development
+- ACTIONS ONLY (media): Nordic Battery Storage Offtake Exploration | Global | S1-Feasibility
+- ACTIONS ONLY (media): Norwegian 160 MW Wind Farm Support Agreement | Norway | S5-Awarded
+- ACTIONS ONLY (media): Power Grid Gujarat Transmission Line Order | India | S5-Awarded
+- ACTIONS ONLY (media): SECI FDRE-VII Peak Power Projects | India | S2-Development
+- ACTIONS ONLY (media): Kibuka High Grand Falls Dam and Energy Project | Kenya | S2-Development
+- ACTIONS ONLY (media): Western Australia off-grid data centre campus | Australia | S1-Feasibility
+- ACTIONS ONLY (media): CoreWeave DEN01 Copenhagen deployment | Denmark | S5-Awarded
+- ACTIONS ONLY (media): SANAD 17th Newbuild Drilling Rig Deployment | Saudi Arabia | S5-Awarded
+- ACTIONS ONLY (media): Oman AI Data Centre Consortium | Oman | S2-Development
+- ACTIONS ONLY (media): Dangote Gode Ammonia-Urea Fertilizer Complex | Ethiopia | S5-Awarded
+- ACTIONS ONLY (official): Glăvănești transformer substation turnkey design and execution, Lot 1 – CARMEN Vol. 3.2.2 | Romania | S5-Awarded
+- ACTIONS ONLY (official): Electricity power line construction – renewal of DR LARO connection contract 2027–2032 | France | S4-Tender
+- ACTIONS ONLY (official): Harbour construction – new intermodal terminal in Riesa harbour, Alter Hafen, Lot 3 main construction works | Germany | S4-Tender
+- ACTIONS ONLY (official): Drilling supervision services for GeoMmetEer research borehole – Langenweißbach (Saxony) | Germany | S4-Tender
+- ACTIONS ONLY (official): Topside facilities construction – modernisation of Negru Vodă natural gas metering station, 2 lots | Romania | S4-Tender
+- ACTIONS ONLY (official): Marker buoys – Toodrid | Estonia | S4-Tender
+- ACTIONS ONLY (official): Photovoltaic panels for PV plant construction – DNS | Czechia | S5-Awarded
+- ACTIONS ONLY (official): Submersible pumps – VE 42 underground pump | Germany | S4-Tender
+- ACTIONS ONLY (official): Ships – acquisition of a vessel for marine fisheries inspection | Croatia | S4-Tender
+- ACTIONS ONLY (official): Railway construction works – TII499 Luas Finglas Main Infrastructure Design and Construction Works | Ireland | S4-Tender
+- ACTIONS ONLY (official): Dredgers – acquisition of a 3,700 m³ suction dredger | France | S4-Tender
+- ACTIONS ONLY (official): Construction work – district heating and cooling pipelines 2027 | Sweden | S4-Tender
+- ACTIONS ONLY (official): Bio-waste processing installation at Libiąż B wastewater plant, high-efficiency cogeneration from biogas | Poland | S4-Tender
+- ACTIONS ONLY (official): Heat source modernisation at Elbląskie Przedsiębiorstwo Energetyki Cieplnej Sp. z o.o. (III procedure) | Poland | S4-Tender
+- ACTIONS ONLY (official): Supply and installation of two new OM-20 L3E and OM-20 P3E fines jigs, JSW S.A. Knurów-Szczygłowice mine | Poland | S4-Tender
+- ACTIONS ONLY (official): Whole house retrofit 2026–2031 | United Kingdom | S5-Awarded
+- ACTIONS ONLY (official): MMK 2.5 Mt coking plant EPC project |  | S5-Awarded
+- ACTIONS ONLY (official): Xishangzhuang supercritical low-calorific-value coal CHP EPC project | China | S5-Awarded
+- ACTIONS ONLY (official): Anhui Huoqiu 3 Mt steel EPC project | China | S5-Awarded
+- ACTIONS ONLY (official): Tosyali Algeria phase IV integrated steel plant project | Algeria | S5-Awarded
+- SERVER ONLY: Shenzhen Shawan River reservoir water quality assurance project phase II, Shenzhen | China | S5-Awarded
+- SERVER ONLY: East Coast Railway infrastructure maintenance project, Malaysia | Malaysia | S5-Awarded
+- SERVER ONLY: Beltline Energy Data Center | United States | S2-Development
+- SERVER ONLY: Jamnagar Desalination Plant | India | S5-Awarded
+- SERVER ONLY: Southern Railway Project | Tanzania | S1-Feasibility
+- SERVER ONLY: Power Generation Order for AI Computing | Global | S5-Awarded
+- SERVER ONLY: MoU for Low Carbon Power Supply | Singapore | S1-Feasibility
+
 ## 2026-10-27 - shadow run 19:59 UTC, model claude-haiku-5-5
 Actions: 78 rows (31 official) - server published: 29 rows - in both: 23
 
