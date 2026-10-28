@@ -1,5 +1,18 @@
 # v3 extraction on Actions (write)
 
+## 2026-10-28 15:08 UTC - write, model claude-haiku-5-5, rows 10
+{'page unreadable': 1, 'full': 9, 'differ': 9}
+
+- Gigawatt-scale Data Center Project (6754) | server None / haiku full | differs: owner [ | Quantum DC], capacity [ | 1.2GW at full build-out], event_type [Other | Permit/Approval]
+- Eatonton 379 Data Center Campus (6753) | server None / haiku full | differs: owner [ | Eatonton 379, LLC], capacity [520 MW | 520 MW estimated peak connected load; 3.5 million sq ft across up to 11 buildings], value [USD 3500 million | USD 3.5 billion]
+- Beltline Energy Data Center (6752) | server None / haiku full | differs: owner [ | Beltline Energies (BLE Landholdings LLC)]
+- Jamnagar Desalination Plant (6751) | server None / haiku full | differs: owner [ | Reliance Industries Limited], capacity [8400 cubic metres per hour | 8,400 m3/h desalination, expandable to 12,600 m3/h; 3,000 m3/h remineralisation], value [INR 1000 crore | INR 10 billion], contractors [[] | ['VA Tech WABAG Limited']]
+- LNG Heating Unit at Ratnagiri Terminal (6750) | server None / haiku full | differs: owner [ | GAIL India], capacity [ | Terminal capacity 5 million tons per annum], value [USD 63 million | INR 6 billion], event_type [Financing | Other]
+- Ammonia Plants Revamp (6745) | server None / haiku full | differs: owner [AGF Nitrogen | AGF Nitrogen (via SKWP and LAT Nitrogen)], contractors [[] | ['KBR']]
+- Renewable Energy and Storage Plant Tender (6744) | server None / haiku full | differs: 
+- Battery Procurement (6743) | server None / haiku full | differs: owner [ | Eskom Green]
+- MoU for Low Carbon Power Supply (6732) | server None / haiku full | differs: owner [ | Nxera Singapore]
+
 ## 2026-10-27 20:43 UTC - write, model claude-haiku-5-5, rows 12
 {'page unreadable': 2, 'project_only': 2, 'differ': 10, 'full': 7, 'limited': 1}
 
