@@ -1,5 +1,93 @@
 # Whole pipeline on Actions (shadow, writes nothing)
 
+## 2026-10-29 - shadow run 20:17 UTC, model claude-haiku-5-5
+Actions: 97 rows (19 official) - server published: 17 rows - in both: 16
+
+- ACTIONS ONLY (media): Tullow Ghana Riser Retermination | Ghana | S5-Awarded
+- ACTIONS ONLY (media): Scarabeo 9 Ghana Drilling Campaign | Ghana | S5-Awarded
+- ACTIONS ONLY (media): Ima Gas Project | Nigeria | S5-Awarded
+- ACTIONS ONLY (media): Dangote Refinery Expansion to 650,000bpd | Nigeria | S5-Awarded
+- ACTIONS ONLY (media): Eni and Golar FLNG Equipment Orders | Italy | S5-Awarded
+- ACTIONS ONLY (media): Eni Cronos Gas Development | Italy | S5-Awarded
+- ACTIONS ONLY (media): Hornsea 3 Offshore Wind Farm | United Kingdom | S5-Awarded
+- ACTIONS ONLY (media): East Anglia Three Inter-array Cabling | United Kingdom | S5-Awarded
+- ACTIONS ONLY (media): bp UK North Sea Stimulation Services | United Kingdom | S5-Awarded
+- ACTIONS ONLY (media): Statkraft Norwegian Wind Farm | Norway | S1-Feasibility
+- ACTIONS ONLY (media): Nxera Singapore Low-Carbon Power Supply | Singapore | S1-Feasibility
+- ACTIONS ONLY (media): Sembcorp 600 MW Power Plant | Singapore | S5-Awarded
+- ACTIONS ONLY (media): Sembcorp Singapore New Power Plant | Singapore | S5-Awarded
+- ACTIONS ONLY (media): Dandara Solar and BESS Project Phase One | Egypt | S5-Awarded
+- ACTIONS ONLY (media): Morocco Port Expansion Programme | Morocco | S1-Feasibility
+- ACTIONS ONLY (media): Cronos Gas Project Subsea Equipment and Services | Cyprus | S5-Awarded
+- ACTIONS ONLY (media): Cyprus First Commercial Gas Project | Cyprus | S5-Awarded
+- ACTIONS ONLY (media): Uzbekistan Power Grid Upgrade Loans | Uzbekistan | S2-Development
+- ACTIONS ONLY (media): Zakarpattia Standard-Gauge Rail Projects | Ukraine | S2-Development
+- ACTIONS ONLY (media): India Wave Energy Project | India | S1-Feasibility
+- ACTIONS ONLY (media): ACME Solar 400 MW NTPC FDRE Supply | India | S2-Development
+- ACTIONS ONLY (media): GUVNL Phase IX Standalone Battery Storage | India | S2-Development
+- ACTIONS ONLY (media): Stade FSRU Terminal Start-Up | Germany | S5-Awarded
+- ACTIONS ONLY (media): Wind Energy Construction ECV | Norway | S5-Awarded
+- ACTIONS ONLY (media): Wallenius Wilhelmsen Dual-Fuel PCTC Newbuild Programme | Norway | S5-Awarded
+- ACTIONS ONLY (media): Woodside Louisiana LNG | United States | S2-Development
+- ACTIONS ONLY (media): Constellation Existing Nuclear Output Boost | United States | S2-Development
+- ACTIONS ONLY (media): UC San Diego Battery Storage | United States | S2-Development
+- ACTIONS ONLY (media): Laramie Range Wind Project | United States | S2-Development
+- ACTIONS ONLY (media): Alliant Energy Iowa-Wisconsin Gas, Battery and LNG Storage Program | United States | S2-Development
+- ACTIONS ONLY (media): SEFE Canadian LNG Offtake | Canada | S2-Development
+- ACTIONS ONLY (media): Abadi LNG Project | Indonesia | S3-Pre-FID
+- ACTIONS ONLY (media): Geng North and Gehem Gas-Condensate Development | Indonesia | S5-Awarded
+- ACTIONS ONLY (media): Baleine Phase 3 | Côte d'Ivoire | S5-Awarded
+- ACTIONS ONLY (media): Azerbaijan Caspian Sea Gas Field Development | Azerbaijan | S5-Awarded
+- ACTIONS ONLY (media): OGDC Mature Field Production Optimization | Pakistan | S5-Awarded
+- ACTIONS ONLY (media): Nabors Venezuela Rig Deployment | Venezuela | S5-Awarded
+- ACTIONS ONLY (media): SANAD Newbuild Rig Deployment | Saudi Arabia | S5-Awarded
+- ACTIONS ONLY (media): Petrobras Offshore Platform Compression Optimization | Brazil | S5-Awarded
+- ACTIONS ONLY (media): SBM Offshore FPSO Gas Turbine Service Agreement | Netherlands | S5-Awarded
+- ACTIONS ONLY (media): South Africa Gas IPP Procurement Programme (GTP) | South Africa | S4-Tender
+- ACTIONS ONLY (media): Eskom Green Multi-Site Battery Storage Procurement | South Africa | S4-Tender
+- ACTIONS ONLY (media): Tunisia Renewable Energy and Storage Plant Tender | Tunisia | S4-Tender
+- ACTIONS ONLY (media): Portugal Large-Scale BESS Tender | Portugal | S4-Tender
+- ACTIONS ONLY (media): Delta Capacity Finland Financing | Finland | S2-Development
+- ACTIONS ONLY (media): Lobito Oil Refinery | Angola | S1-Feasibility
+- ACTIONS ONLY (media): AGF Nitrogen Ammonia Plants Revamp | Global | S5-Awarded
+- ACTIONS ONLY (media): Sihanoukville NCT2 Terminal Expansion | Cambodia | S5-Awarded
+- ACTIONS ONLY (media): SFL Three-Vessel Newbuild Order | Bermuda | S5-Awarded
+- ACTIONS ONLY (media): Namsung 7,100 TEU Containership Order | South Korea | S5-Awarded
+- ACTIONS ONLY (media): Maersk Megamax Container Ship Newbuild Order | Denmark | S4-Tender
+- ACTIONS ONLY (media): Washington State Ferries Hybrid Newbuild (Third Vessel) | United States | S5-Awarded
+- ACTIONS ONLY (media): Port of Virginia Electric Straddle Carrier Order | United States | S5-Awarded
+- ACTIONS ONLY (media): Querétaro–Saltillo Rail Line | Mexico | S5-Awarded
+- ACTIONS ONLY (media): Nova Minerals Alaska Antimony Project | United States | S2-Development
+- ACTIONS ONLY (media): Masdar 200 MW Floating Solar Plant | United Arab Emirates | S5-Awarded
+- ACTIONS ONLY (media): Greece 23.1 MW Wind Farm Acquisition | Greece | S5-Awarded
+- ACTIONS ONLY (media): Qair Poland 80 MW Solar Farm | Poland | S5-Awarded
+- ACTIONS ONLY (media): Energix 580 MW Solar Projects | Israel | S5-Awarded
+- ACTIONS ONLY (media): Dukovany Nuclear Power Plant | Czech Republic | S5-Awarded
+- ACTIONS ONLY (media): Indian Railways 2,583-Wagon Procurement | India | S5-Awarded
+- ACTIONS ONLY (media): Upper Zakum Fujairah Bypass Pipeline | United Arab Emirates | S2-Development
+- ACTIONS ONLY (media): Bapco Refining Bunker Vessels | Bahrain | S5-Awarded
+- ACTIONS ONLY (media): CF Industries Courtright Urea Liquor Upgrade Plant | Canada | S2-Development
+- ACTIONS ONLY (media): Dangote Gode Ammonia and Urea Fertilizer Complex | Ethiopia | S5-Awarded
+- ACTIONS ONLY (official): Intelligent Electronic Devices (IEDs) for electrical circuit switching and protection | Belgium | S5-Awarded
+- ACTIONS ONLY (official): Modernisation of heat source at Elbląskie Przedsiębiorstwo Energetyki Cieplnej Sp. z o.o. (III procedure) | Poland | S4-Tender
+- ACTIONS ONLY (official): Supply and installation of two fines jigs OM-20 L3E and OM-20 P3E, JSW S.A. KWK Knurów-Szczygłowice | Poland | S4-Tender
+- ACTIONS ONLY (official): Three-phase oil power transformers VVN/VN – joint procurement – PCI | Slovakia | S4-Tender
+- ACTIONS ONLY (official): Architectural, construction, engineering and inspection services – DIS Tekniska konsulter Hälsingland | Sweden | S4-Tender
+- ACTIONS ONLY (official): Design, build and fit-out of training and research vessel for Maritime University of Szczecin | Poland | S4-Tender
+- ACTIONS ONLY (official): Underground electricity line works – Enedis PFA Lyon DR Alpes Isère Savoie Haute-Savoie, subsequent TG | France | S4-Tender
+- ACTIONS ONLY (official): Harbour construction works – Udbud af Hovedentrepriseaftale for Opgradering af havne | Denmark | S4-Tender
+- ACTIONS ONLY (official): Architectural, construction, engineering and inspection services – DIS Tekniska konsulter Hälsingland | Sweden | S4-Tender
+- ACTIONS ONLY (official): Pipeline lifting and relaying – emergency intervention works – 7 lots | Romania | S5-Awarded
+- ACTIONS ONLY (official): MMK 2.5 Mt coking plant EPC project |  | S5-Awarded
+- ACTIONS ONLY (official): Xishangzhuang supercritical low-calorific-value coal CHP EPC project | China | S5-Awarded
+- ACTIONS ONLY (official): Huoqiu 3 Mt steel plant EPC project, Anhui | China | S5-Awarded
+- ACTIONS ONLY (official): Tosyali Algeria phase IV integrated steel plant project | Algeria | S5-Awarded
+- ACTIONS ONLY (official): Annaba port facilities construction project, Algeria | Algeria | S5-Awarded
+- ACTIONS ONLY (official): Yingkou Y2 site 550MW offshore wind project, offshore engineering EPC section 2, Liaoning | China | S5-Awarded
+- SERVER ONLY: 450 MW/900 MWh Battery Storage Projects | India | S2-Development
+- SERVER ONLY: Wind Power Projects Approval | Egypt | S2-Development
+- SERVER ONLY: FSRU for German LNG Terminal | Germany | S5-Awarded
+
 ## 2026-10-28 - shadow run 20:17 UTC, model claude-haiku-5-5
 Actions: 94 rows (32 official) - server published: 30 rows - in both: 23
 
