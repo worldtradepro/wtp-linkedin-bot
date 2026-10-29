@@ -1,5 +1,23 @@
 # v3 extraction on Actions (write)
 
+## 2026-10-29 15:17 UTC - write, model claude-haiku-5-5, rows 15
+{'page unreadable': 1, 'full': 13, 'differ': 14, 'limited': 1}
+
+- Hydrogen Reformers for Fertilizer Complex (6835) | server None / haiku full | differs: capacity [ | Reformers rated over 200,000 Nm³/h of hydrogen; plant designed for 3 million tons/yr of urea], contractors [[] | ['Técnicas Reunidas, S.A.', 'Topsoe A/S']]
+- 450 MW/900 MWh Battery Storage Projects (6834) | server None / haiku full | differs: owner [ | Gujarat Urja Vikas Nigam], capacity [450 MW | 450 MW / 900 MWh standalone battery storage]
+- 300 MW RTC Renewable Power Procurement (6833) | server None / haiku full | differs: owner [ | Noida Power Company], capacity [300 MW | 300 MW firm RE-RTC renewable power over 25 years]
+- AI Data Centers Assessment (6832) | server None / haiku full | differs: owner [ | PreussenElektra], contractors [[] | ['NVIDIA']]
+- Data Center Financing (6831) | server None / haiku limited | differs: value [USD 521 million | ], event_type [Financing | ]
+- Wind Power Projects Approval (6830) | server None / haiku full | differs: capacity [1.8 GW | 900 MW each; 1.8 GW combined]
+- New Electrical Substation (6829) | server None / haiku full | differs: capacity [ | 90 MW maximum (40 MW minimum)], value [ | EUR 18.7 million], financiers [[] | ['European Commission (Connecting Europe Facility)']]
+- Subsea Riser Project (6828) | server None / haiku full | differs: contractors [[] | ['DeepOcean']]
+- Ethylene Carrier Newbuilding (6827) | server None / haiku full | differs: owner [ | COSCO Shipping Energy Transportation], value [USD 50.2 million | USD 51.1 million], contractors [[] | ['Dalian COSCO Shipping Heavy Industry']]
+- Floating Liquefaction Project (6826) | server None / haiku full | differs: owner [ | ST LNG], capacity [8.4 mtpa | up to 8.4 mtpa]
+- LNG Supply Agreement (6825) | server None / haiku full | differs: owner [QatarEnergy | Woodside], capacity [ | 16.5 mtpa (three trains)]
+- FSRU Charter Agreement (6824) | server None / haiku full | differs: owner [Deutsche ReGas | Mitsui OSK Lines], capacity [ | 13.5bn cu m per year (terminal regasification capacity)], event_type [Renewal/Extension | Equipment/vessel order], contractors [['Hudong-Zhonghua Shipbuilding'] | ['Hudong-Zhonghua Shipbuilding', 'Deutsche ReGas']]
+- FSRU for German LNG Terminal (6823) | server None / haiku full | differs: owner [Deutsche ReGas | ], event_type [Award | Equipment/vessel order], contractors [[] | ['Hudong-Zhonghua Shipbuilding']]
+- AI-Ready Data Center (6821) | server None / haiku full | differs: owner [ | Vyoma.AI]
+
 ## 2026-10-28 21:02 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
