@@ -180,6 +180,68 @@
         "infra-1: Green Loan for Sydney Data Center (fact card)",
         "infra-2: ADNOC Procurement Strategy Enhancement (fact card)"
       ]
+    },
+    {
+      "date": "2026-10-29",
+      "search": "brave",
+      "checked": 10,
+      "photos": 0,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Southern Railway Project",
+          "result": "no official page found"
+        },
+        {
+          "rank": 2,
+          "project": "PGE 400 MW Project",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 3,
+          "project": "Bulker Order for Mineral Transport",
+          "result": "official page zijinmining.com: no share picture"
+        },
+        {
+          "rank": 4,
+          "project": "Gigawatt-scale Data Center Project",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 5,
+          "project": "Bangladesh Underground Metro Rail Project",
+          "result": "no official page found"
+        },
+        {
+          "rank": 6,
+          "project": "Power Generation Order for AI Computing",
+          "result": "no official page found"
+        },
+        {
+          "rank": 7,
+          "project": "Battery Procurement",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 8,
+          "project": "Renewable Energy and Storage Plant Tender",
+          "result": "no official page found"
+        },
+        {
+          "rank": 9,
+          "project": "580 MW Projects Equipment Order",
+          "result": "no official page found"
+        },
+        {
+          "rank": 10,
+          "project": "Jamnagar Desalination Plant",
+          "result": "search: 10 results, none on a project party's own website"
+        }
+      ],
+      "kept": [
+        "infra-1: Southern Railway Project (fact card)",
+        "infra-2: PGE 400 MW Project (fact card)"
+      ]
     }
   ]
 }
