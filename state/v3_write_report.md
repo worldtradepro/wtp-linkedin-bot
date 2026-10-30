@@ -1,5 +1,22 @@
 # v3 extraction on Actions (write)
 
+## 2026-10-30 15:05 UTC - write, model claude-haiku-5-5, rows 13
+{'full': 12, 'differ': 13, 'limited': 1}
+
+- Urea Liquor Upgrade Plant (6897) | server None / haiku full | differs: owner [CF Industries Holdings, Inc. | CF Industries Holdings, Inc. (via affiliate)], capacity [ | More than 400,000 short tons per year of diesel exhaust fluid], contractors [[] | ['thyssenkrupp Uhde GmbH']]
+- Solar Project Bids (6896) | server None / haiku full | differs: owner [ | NTPC Renewable Energy (NTPC REL)]
+- Solar Power Procurement (6895) | server None / haiku limited | differs: capacity [2545 MW | ], event_type [Permit/Approval | ]
+- Data Center Development in Ontario (6894) | server None / haiku full | differs: owner [ | PowerBank Corporation], value [USD 7.16 million | ], event_type [Acquisition/Sale | Offtake/Supply agreement], financiers [[] | ['PowerBank Corporation', 'Joint development partner']]
+- Energy Solutions for Data Centers (6893) | server None / haiku full | differs: owner [ | DayOne Data Centers], contractors [[] | ['Sembcorp Utilities Pte Ltd']]
+- 50 MW AI Data Center Capacity (6892) | server None / haiku full | differs: owner [ | AIB Data Centers Ltd], capacity [50 MW | 50 MW of IT capacity], event_type [Acquisition/Sale | Offtake/Supply agreement], financiers [[] | ['Nebius (advance payments)', 'Project-level lenders', 'Preferred equity investors']]
+- Project Eagle Data Center Campus (6891) | server None / haiku full | differs: capacity [700 MW | approximately 700 MW gas power plant], event_type [Award | Permit/Approval]
+- Galaxy AI Data Center Campus (6890) | server None / haiku full | differs: owner [ | Envision Group], capacity [3 GW | 3 GW eventual], value [USD 10000 million | ]
+- MacGregor PLC Retrofit for Wallenius Wilhelmsen (6884) | server None / haiku full | differs: capacity [ | 35 PCTC vessels], contractors [[] | ['MacGregor']]
+- Gas Power and Battery Storage Buildout (6883) | server None / haiku full | differs: owner [ | Alliant Energy's Interstate Power and Light (IPL) and Wisconsin Power and Light (WPL) utilities], capacity [ | over 2.6 GW new or upgraded; approximately 1,500 MW new gas, 240 MW upgrades, 1,000 MW battery storage], value [USD 5100 million | USD 5.1 billion], financiers [[] | ['U.S. Department of Energy, Office of Energy Dominance Financing']]
+- Acquisition of Former LyondellBasell Houston Refinery (6882) | server None / haiku full | differs: owner [ | Valero Refining-Texas LP], capacity [165,000 b/d | 165,000 b/d restart target; 13.5 million bbl storage], value [ | USD 320.5 million]
+- Dredging Contract (6881) | server None / haiku full | differs: owner [ | New Mangalore Port Authority], capacity [ | 15.9 million cubic meters over three years], contractors [[] | ['Knowledge Marine & Engineering Works Limited']]
+- Long-Term Charter with Deutsche ReGas (6877) | server None / haiku full | differs: event_type [Long-term charter/lease agreement | Award], contractors [[] | ['Hudong-Zhonghua Shipbuilding (Group) Co., Ltd.']]
+
 ## 2026-10-29 21:06 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
