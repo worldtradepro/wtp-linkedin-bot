@@ -1,5 +1,69 @@
 # Whole pipeline on Actions (shadow, writes nothing)
 
+## 2026-10-30 - shadow run 20:02 UTC, model claude-haiku-5-5
+Actions: 82 rows (21 official) - server published: 26 rows - in both: 25
+
+- ACTIONS ONLY (media): German Offshore Wind Site Retender | Germany | S4-Tender
+- ACTIONS ONLY (media): Deutsche ReGas German LNG Terminal FSRU | Germany | S5-Awarded
+- ACTIONS ONLY (media): Tullow Ghana Riser Retermination | Ghana | S5-Awarded
+- ACTIONS ONLY (media): QatarEnergy-Woodside 20-Year LNG Supply Agreement | Australia | S2-Development
+- ACTIONS ONLY (media): Woodside LNG Supply to QatarEnergy | Australia | S5-Awarded
+- ACTIONS ONLY (media): Ima Gas Project | Nigeria | S5-Awarded
+- ACTIONS ONLY (media): Eni Offshore Equipment Order | Italy | S5-Awarded
+- ACTIONS ONLY (media): Golar FLNG Equipment Order | Bermuda | S5-Awarded
+- ACTIONS ONLY (media): Statkraft Biorefinery Power Supply | Norway | S2-Development
+- ACTIONS ONLY (media): Borregaard Power Supply Agreement | Norway | S2-Development
+- ACTIONS ONLY (media): Statkraft Norwegian Wind Farm | Norway | S1-Feasibility
+- ACTIONS ONLY (media): DayOne and Sembcorp APAC Data Centre Energy MoU | Global | S1-Feasibility
+- ACTIONS ONLY (media): Wicklow Solar Farm | Ireland | S5-Awarded
+- ACTIONS ONLY (media): Steel Carbon Capture Trial | Luxembourg | S2-Development
+- ACTIONS ONLY (media): Bunge Pacific Northwest Feed Processor Acquisition | United States | S5-Awarded
+- ACTIONS ONLY (media): APM Terminals Morocco Port Concession | Morocco | S5-Awarded
+- ACTIONS ONLY (media): Mrima Hill Critical Minerals Project | Kenya | S4-Tender
+- ACTIONS ONLY (media): Cronos Gas Development Subsea Package | Cyprus | S5-Awarded
+- ACTIONS ONLY (media): Solstad CSV Subsea and ROV Support Contracts | Norway | S5-Awarded
+- ACTIONS ONLY (media): Wind Energy Construction Energy Construction Vessel | Norway | S5-Awarded
+- ACTIONS ONLY (media): SBM Offshore FPSO Integration for South American Projects | Netherlands | S5-Awarded
+- ACTIONS ONLY (media): Eco Wave Power India Wave Site Assessment | India | S1-Feasibility
+- ACTIONS ONLY (media): SECI 4 GW BESS Tender (Rajasthan & Gujarat) | India | S4-Tender
+- ACTIONS ONLY (media): ACME Solar NTPC 400 MW FDRE Supply Contract | India | S2-Development
+- ACTIONS ONLY (media): East Anglia Three Offshore Wind Farm | United Kingdom | S5-Awarded
+- ACTIONS ONLY (media): Woodside Louisiana LNG Supply to QatarEnergy | United States | S5-Awarded
+- ACTIONS ONLY (media): Rio Grande LNG Train 1 | United States | S5-Awarded
+- ACTIONS ONLY (media): Alliant Energy Iowa and Wisconsin Power Buildout | United States | S2-Development
+- ACTIONS ONLY (media): BaseBlue Blue Hydrogen Project | United States | S5-Awarded
+- ACTIONS ONLY (media): Tanzania Mnazi Bay Exploration Licences | Tanzania | S1-Feasibility
+- ACTIONS ONLY (media): South Africa Gas IPP Procurement Programme | South Africa | S4-Tender
+- ACTIONS ONLY (media): Portugal 1GW Grid-Forming BESS Tender | Portugal | S4-Tender
+- ACTIONS ONLY (media): Delta Capacity Finland Financing | Finland | S2-Development
+- ACTIONS ONLY (media): Lobito Oil Refinery Project | Angola | S1-Feasibility
+- ACTIONS ONLY (media): China Merchants Nanjing Tanker Fleet Renewal Newbuilds | China | S5-Awarded
+- ACTIONS ONLY (media): wpd Croatia Wind Farm Repowering with BESS | Croatia | S2-Development
+- ACTIONS ONLY (media): Ukraine Wind Tender Award (Elementum Energy) | Ukraine | S5-Awarded
+- ACTIONS ONLY (media): Gdansk Offshore Wind Terminal | Poland | S5-Awarded
+- ACTIONS ONLY (media): Greek Wind Farm 23.1 MW Acquisition (Faria) | Greece | S5-Awarded
+- ACTIONS ONLY (media): DayOne and Sembcorp APAC power MoU | Global | S1-Feasibility
+- ACTIONS ONLY (media): DayOne SG1 virtual power plant feasibility study | Singapore | S1-Feasibility
+- ACTIONS ONLY (media): Lobito Corridor Railway Lot 1B | Zambia | S5-Awarded
+- ACTIONS ONLY (media): Mina Al-Ahmadi FCC Regenerator Replacement | Kuwait | S5-Awarded
+- ACTIONS ONLY (media): GC and SCG Chemicals Thailand Olefins-Polyolefins JV | Thailand | S1-Feasibility
+- ACTIONS ONLY (official): Architectural, construction, engineering and inspection services – DIS Tekniska konsulter Hälsingland | Sweden | S4-Tender
+- ACTIONS ONLY (official): Pipeline lifting and relaying – Emergency intervention works – 7 lots | Romania | S5-Awarded
+- ACTIONS ONLY (official): Switchgear – 110 kV GIS switchgear, three-phase, enclosed | Switzerland | S5-Awarded
+- ACTIONS ONLY (official): Heating plant construction work – Design-build general contract, UNITED HEAT Stage II solar heating plant | Poland | S4-Tender
+- ACTIONS ONLY (official): Pipe system installation – Hydraulic and gas works, BAYONNE Prissé district heating plant | France | S5-Awarded
+- ACTIONS ONLY (official): Railway construction works – Track superstructure maintenance by replacing components in sequence | Romania | S5-Awarded
+- ACTIONS ONLY (official): Drilling and exploration work – Münster research drilling – Part 1 drilling contractor | Germany | S4-Tender
+- ACTIONS ONLY (official): MMK 2.5 Mt coking plant EPC project |  | S5-Awarded
+- ACTIONS ONLY (official): Xishangzhuang supercritical low-calorific coal-fired power EPC project | China | S5-Awarded
+- ACTIONS ONLY (official): Anhui Huoqiu 3 Mt steel EPC project | China | S5-Awarded
+- ACTIONS ONLY (official): Tosyali Algeria phase IV integrated steel plant project | Algeria | S5-Awarded
+- ACTIONS ONLY (official): Annaba port facilities construction, Algeria | Algeria | S5-Awarded
+- ACTIONS ONLY (official): Yingkou offshore wind Y2 site (550MW) marine engineering EPC, section 2, Liaoning | China | S5-Awarded
+- SERVER ONLY: Urea Liquor Upgrade Plant | Canada | S2-Development
+- SERVER ONLY: 50 MW AI Data Center Capacity | United States | S5-Awarded
+- SERVER ONLY: Gas Power and Battery Storage Buildout | United States | S2-Development
+
 ## 2026-10-29 - shadow run 20:17 UTC, model claude-haiku-5-5
 Actions: 97 rows (19 official) - server published: 17 rows - in both: 16
 
