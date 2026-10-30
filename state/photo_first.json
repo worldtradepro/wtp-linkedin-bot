@@ -242,6 +242,68 @@
         "infra-1: Southern Railway Project (fact card)",
         "infra-2: PGE 400 MW Project (fact card)"
       ]
+    },
+    {
+      "date": "2026-10-30",
+      "search": "brave",
+      "checked": 10,
+      "photos": 0,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Bonaparte CCS",
+          "result": "no official page found"
+        },
+        {
+          "rank": 2,
+          "project": "Bangladesh Underground Metro Rail Project",
+          "result": "no official page found"
+        },
+        {
+          "rank": 3,
+          "project": "Hydrogen Reformers for Fertilizer Complex",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 4,
+          "project": "LNG Supply Agreement",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 5,
+          "project": "Floating Liquefaction Project",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 6,
+          "project": "Wind Power Projects Approval",
+          "result": "no official page found"
+        },
+        {
+          "rank": 7,
+          "project": "Gigawatt-scale Data Center Project",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 8,
+          "project": "Power Generation Order for AI Computing",
+          "result": "no official page found"
+        },
+        {
+          "rank": 9,
+          "project": "Battery Procurement",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 10,
+          "project": "Renewable Energy and Storage Plant Tender",
+          "result": "no official page found"
+        }
+      ],
+      "kept": [
+        "infra-1: Bonaparte CCS (fact card)",
+        "infra-2: Bangladesh Underground Metro Rail Project (fact card)"
+      ]
     }
   ]
 }
