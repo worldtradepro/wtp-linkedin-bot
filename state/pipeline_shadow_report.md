@@ -1,5 +1,48 @@
 # Whole pipeline on Actions (shadow, writes nothing)
 
+## 2026-10-31 - shadow run 19:04 UTC, model claude-haiku-5-5
+Actions: 52 rows (20 official) - server published: 10 rows - in both: 13
+
+- ACTIONS ONLY (media): Gent steel plant carbon capture trial | Belgium | S2-Development
+- ACTIONS ONLY (media): Mrima Hill Critical Minerals Project | Kenya | S4-Tender
+- ACTIONS ONLY (media): Cronos Gas Subsea Development | Cyprus | S5-Awarded
+- ACTIONS ONLY (media): Solstad CSV Subsea and ROV Support Contracts | Norway | S5-Awarded
+- ACTIONS ONLY (media): South American FPSO Integration Package | Netherlands | S5-Awarded
+- ACTIONS ONLY (media): Rio Grande LNG Train 1 | United States | S5-Awarded
+- ACTIONS ONLY (media): Former LyondellBasell Houston Refinery Restart | United States | S2-Development
+- ACTIONS ONLY (media): Woodside–QatarEnergy 20-Year LNG Supply Agreement | Australia | S5-Awarded
+- ACTIONS ONLY (media): Malaysia 200MW Floating Solar PV | Malaysia | S5-Awarded
+- ACTIONS ONLY (media): Dajin Heavy newcastlemax fourth-vessel option (Evalend) | Greece | S5-Awarded
+- ACTIONS ONLY (media): China Merchants Nanjing Tanker fleet renewal newbuilds | China | S5-Awarded
+- ACTIONS ONLY (media): Galaxy Data Center Campus | China | S2-Development
+- ACTIONS ONLY (media): wpd Croatian Wind Farm Repowering | Croatia | S2-Development
+- ACTIONS ONLY (media): Oman AI Data Centre with Solar and BESS | Oman | S1-Feasibility
+- ACTIONS ONLY (media): Elementum Energy Ukraine Wind Tender Win | Ukraine | S5-Awarded
+- ACTIONS ONLY (media): Australian Data Centre with 6.7 GW Renewables Hub | Australia | S1-Feasibility
+- ACTIONS ONLY (media): Enova-Funded Norwegian Floating Wind Projects | Norway | S2-Development
+- ACTIONS ONLY (media): Gdansk Offshore Wind Terminal | Poland | S5-Awarded
+- ACTIONS ONLY (media): SECI 4 GW Battery Storage Tender | India | S4-Tender
+- ACTIONS ONLY (media): Telangana 2,545 MW Solar Procurement | India | S2-Development
+- ACTIONS ONLY (media): NTPC REL Andhra Pradesh Solar Project | India | S4-Tender
+- ACTIONS ONLY (media): Holt Data Center Campus | USA | S1-Feasibility
+- ACTIONS ONLY (media): PowerBank Ontario Modular Data Center | Canada | S5-Awarded
+- ACTIONS ONLY (media): Zuluf 48-inch Offshore Trunkline | Saudi Arabia | S5-Awarded
+- ACTIONS ONLY (media): Lobito Corridor Railway Lot 1B | Zambia | S5-Awarded
+- ACTIONS ONLY (media): KMEW Maintenance Dredging Contract | India | S5-Awarded
+- ACTIONS ONLY (official): Mobile platforms: purchase and delivery of APK-type autonomous wheeled vehicle with additional equipment | Poland | S4-Tender
+- ACTIONS ONLY (official): Transformers: substations and transformers for electricity distribution networks | Sweden | S5-Awarded
+- ACTIONS ONLY (official): Construction of compressed-air generating plant: VE470 Technische Gase | Germany | S4-Tender
+- ACTIONS ONLY (official): Transformers: 400/130 kV transformers PT2 Lidmyran | Sweden | S4-Tender
+- ACTIONS ONLY (official): Railway track superstructure maintenance: successive replacement of components | Romania | S5-Awarded
+- ACTIONS ONLY (official): Research drilling Münster: Part 1, drilling contractor | Germany | S4-Tender
+- ACTIONS ONLY (official): Harbour construction: specialist hydraulic deep civil engineering works | Germany | S4-Tender
+- ACTIONS ONLY (official): Heating plant construction: heat source for the city of Jaworzno | Poland | S5-Awarded
+- ACTIONS ONLY (official): MMK 2.5 Mt coking plant EPC project, Russia | Russia | S5-Awarded
+- ACTIONS ONLY (official): Xishangzhuang supercritical low-calorific-value coal-fired power EPC project, China | China | S5-Awarded
+- ACTIONS ONLY (official): Anhui Huoqiu 3 Mt steel EPC project | China | S5-Awarded
+- ACTIONS ONLY (official): Tosyali Algeria Phase IV integrated steel mill project | Algeria | S5-Awarded
+- ACTIONS ONLY (official): Yingkou offshore wind Y2 site (550MW) offshore EPC, lot 2, Liaoning | China | S5-Awarded
+
 ## 2026-10-30 - shadow run 20:02 UTC, model claude-haiku-5-5
 Actions: 82 rows (21 official) - server published: 26 rows - in both: 25
 
