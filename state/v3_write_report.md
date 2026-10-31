@@ -1,5 +1,12 @@
 # v3 extraction on Actions (write)
 
+## 2026-10-31 19:57 UTC - write, model claude-haiku-5-5, rows 4
+{'page unreadable': 1, 'full': 3, 'differ': 3}
+
+- DayOne and Sembcorp MoU (6967) | server None / haiku full | differs: owner [ | DayOne]
+- HDF Energy BaseBlue Hydrogen Project (6966) | server None / haiku full | differs: capacity [ | 250 MW], event_type [Other | Award], contractors [[] | ['Topsoe A/S']]
+- Valero Houston Refinery Acquisition (6965) | server None / haiku full | differs: 
+
 ## 2026-10-31 14:32 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
