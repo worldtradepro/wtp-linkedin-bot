@@ -1,36 +1,6 @@
 {
   "items": [
     {
-      "date": "2026-09-30",
-      "id": "infra-1",
-      "url": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA2cNfM6.img",
-      "hash": "329f4777f464bd1211f93272c4fdc7064d566867"
-    },
-    {
-      "date": "2026-09-30",
-      "id": "infra-2",
-      "url": "https://images.unsplash.com/photo-1540380403593-2f4cbbc006dd",
-      "hash": "e05a77350671ffaaa67d5294178144115591c5ee"
-    },
-    {
-      "date": "2026-09-30",
-      "id": "main-1",
-      "url": "https://www.freightwaves.com/wp-content/uploads/2026/09/29/PanamaCanalTower.jpg",
-      "hash": "61796fe6d0699461a03a75968c6b9c413ecb09aa"
-    },
-    {
-      "date": "2026-09-30",
-      "id": "main-2",
-      "url": "https://splash247.com/wp-content/uploads/2026/09/Uni-Tankers-780x470.jpg",
-      "hash": "d1e1b2e42bb223e92a8715d31255833e69805b15"
-    },
-    {
-      "date": "2026-09-30",
-      "id": "main-3",
-      "url": "https://cdn.brownfieldagnews.com/wp-content/uploads/2024/04/Exports.jpg",
-      "hash": "b99c61b4696b4096d991c5091feb5146eb6dfdb7"
-    },
-    {
       "date": "2026-10-06",
       "id": "infra-1",
       "url": "https://constructionreviewonline.com/wp-content/uploads/2026/10/Grassland-at-Mammoth-1.png",
@@ -287,6 +257,12 @@
       "id": "infra-2",
       "url": "https://atmosrenewables.com.au/wp-content/uploads/2024/09/Parron-site-photo-website-pic-1200x900.jpg",
       "hash": "880a8c7e6d747f93c44f9af2fda0c9f1236e7cdb"
+    },
+    {
+      "date": "2026-10-31",
+      "id": "infra-1",
+      "url": "http://www.alliantenergy.com/-/media/alliant/images/alliantenergynews/wood-co-bess--web.jpg",
+      "hash": "55882ed6d3de6043ca93d46502897544626d084c"
     }
   ]
 }

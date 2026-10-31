@@ -304,6 +304,68 @@
         "infra-1: Bonaparte CCS (fact card)",
         "infra-2: Bangladesh Underground Metro Rail Project (fact card)"
       ]
+    },
+    {
+      "date": "2026-10-31",
+      "search": "brave",
+      "checked": 10,
+      "photos": 1,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Gas Power and Battery Storage Buildout",
+          "result": "photo: official photo (owner: Alliant Energy's Interstate Power, alliantenergy.com)"
+        },
+        {
+          "rank": 2,
+          "project": "Galaxy AI Data Center Campus",
+          "result": "official page envision-group.com: no share picture"
+        },
+        {
+          "rank": 3,
+          "project": "Hydrogen Reformers for Fertilizer Complex",
+          "result": "official page tecnicasreunidas.es: no share picture"
+        },
+        {
+          "rank": 4,
+          "project": "AI Data Centre Project in Oman",
+          "result": "no official page found"
+        },
+        {
+          "rank": 5,
+          "project": "Solar Power Procurement",
+          "result": "no official page found"
+        },
+        {
+          "rank": 6,
+          "project": "LNG Supply Agreement",
+          "result": "official photo search: 10 results"
+        },
+        {
+          "rank": 7,
+          "project": "Floating Liquefaction Project",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 8,
+          "project": "Wind Power Projects Approval",
+          "result": "no official page found"
+        },
+        {
+          "rank": 9,
+          "project": "Acquisition of Former LyondellBasell Houston Refinery",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 10,
+          "project": "Maersk Megamax Order",
+          "result": "no official page found"
+        }
+      ],
+      "kept": [
+        "infra-1: Gas Power and Battery Storage Buildout (photo)",
+        "infra-2: Galaxy AI Data Center Campus (fact card)"
+      ]
     }
   ]
 }
