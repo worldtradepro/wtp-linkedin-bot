@@ -1,4 +1,4 @@
-# radar-enrich report 2026-10-30 21:07 UTC (write=True, rows tried: 34)
+# radar-enrich report 2026-10-31 00:05 UTC (write=True, rows tried: 25)
 {}
 
 
