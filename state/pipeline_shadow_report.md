@@ -1,5 +1,22 @@
 # Whole pipeline on Actions (shadow, writes nothing)
 
+## 2026-11-01 - shadow run 19:25 UTC, model claude-haiku-5-5
+Actions: 16 rows (7 official) - server published: 4 rows - in both: 4
+
+- ACTIONS ONLY (media): Cyprus Subsea Contract (Baker Hughes) | Cyprus | S5-Awarded
+- ACTIONS ONLY (media): Metro Detroit Battery Storage Expansion | United States | S2-Development
+- ACTIONS ONLY (media): Valero Houston Refinery Restart | United States | S2-Development
+- ACTIONS ONLY (media): Rwanda SMR Nuclear Cooperation Agreement | Rwanda | S1-Feasibility
+- ACTIONS ONLY (media): HUMAIN Data Center Platform (Aramco stake) | Saudi Arabia | S2-Development
+- ACTIONS ONLY (media): Zuluf Offshore Trunkline (Aramco) | Saudi Arabia | S5-Awarded
+- ACTIONS ONLY (official): MMK 2.5 Mt coking plant EPC project |  | S5-Awarded
+- ACTIONS ONLY (official): Xishangzhuang supercritical low-calorific coal-fired power plant EPC project | China | S5-Awarded
+- ACTIONS ONLY (official): Anhui Huoqiu 3 Mt steel plant EPC project | China | S5-Awarded
+- ACTIONS ONLY (official): Tosyali Algeria phase IV integrated steel plant project | Algeria | S5-Awarded
+- ACTIONS ONLY (official): Annaba port facilities construction project | Algeria | S5-Awarded
+- ACTIONS ONLY (official): Yingkou Y2 offshore wind farm (550MW) marine works EPC, section 2 | China | S5-Awarded
+- SERVER ONLY: Høyanger K5 Hydropower Plant | Norway | S1-Feasibility
+
 ## 2026-10-31 - shadow run 19:04 UTC, model claude-haiku-5-5
 Actions: 52 rows (20 official) - server published: 10 rows - in both: 13
 
