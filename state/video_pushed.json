@@ -186,6 +186,12 @@
       "mode": "schedule",
       "at": "2026-10-31T09:45:52.308Z",
       "dueAt": "2026-11-01T13:00:00.000Z"
+    },
+    "cd_aluminium_can_loop": {
+      "postId": "6ae71639f0984eef335cef72",
+      "mode": "schedule",
+      "at": "2026-11-01T10:36:41.500Z",
+      "dueAt": "2026-11-02T13:00:00.000Z"
     }
   }
 }
