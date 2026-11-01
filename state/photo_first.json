@@ -366,6 +366,68 @@
         "infra-1: Gas Power and Battery Storage Buildout (photo)",
         "infra-2: Galaxy AI Data Center Campus (fact card)"
       ]
+    },
+    {
+      "date": "2026-11-01",
+      "search": "brave",
+      "checked": 10,
+      "photos": 0,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Solar Power Procurement",
+          "result": "no official page found"
+        },
+        {
+          "rank": 2,
+          "project": "Maersk Megamax Order",
+          "result": "no official page found"
+        },
+        {
+          "rank": 3,
+          "project": "AI Data Centre Project in Oman",
+          "result": "no official page found"
+        },
+        {
+          "rank": 4,
+          "project": "Dangote Refinery",
+          "result": "no official page found"
+        },
+        {
+          "rank": 5,
+          "project": "Dangote Refinery",
+          "result": "no official page found"
+        },
+        {
+          "rank": 6,
+          "project": "Acquisition of Former LyondellBasell Houston Refinery",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 7,
+          "project": "Petro Rabigh Bottom-of-the-Barrel Upgrade",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 8,
+          "project": "FSRU Deployment at Deutsche Ostsee Terminal",
+          "result": "no official page found"
+        },
+        {
+          "rank": 9,
+          "project": "Dredging Contract",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 10,
+          "project": "MacGregor PLC Retrofit for Wallenius Wilhelmsen",
+          "result": "search: 10 results, none on a project party's own website"
+        }
+      ],
+      "kept": [
+        "infra-1: Solar Power Procurement (fact card)",
+        "infra-2: Maersk Megamax Order (fact card)"
+      ]
     }
   ]
 }
