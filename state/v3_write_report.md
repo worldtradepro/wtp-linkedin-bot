@@ -1,5 +1,10 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-01 15:08 UTC - write, model claude-haiku-5-5, rows 1
+{'full': 1, 'differ': 1}
+
+- Greenfield Refinery (6988) | server None / haiku full | differs: 
+
 ## 2026-10-31 19:57 UTC - write, model claude-haiku-5-5, rows 4
 {'page unreadable': 1, 'full': 3, 'differ': 3}
 
