@@ -1,5 +1,38 @@
 # Whole pipeline on Actions (shadow, writes nothing)
 
+## 2026-11-02 - shadow run 23:12 UTC, model claude-haiku-5-5
+Actions: 46 rows (6 official) - server published: 34 rows - in both: 26
+
+- ACTIONS ONLY (media): Mozambique Offshore FLNG Drilling Campaign | Mozambique | S2-Development
+- ACTIONS ONLY (media): Golar Latest FLNG Conversion | Bermuda | S5-Awarded
+- ACTIONS ONLY (media): Tâmega Wind Farm | Portugal | S2-Development
+- ACTIONS ONLY (media): Portugal Wind Farm (Iberdrola–Norges Bank Alliance) | Portugal | S2-Development
+- ACTIONS ONLY (media): RWE 47.2 MW Wind Farm, Italy | Italy | S5-Awarded
+- ACTIONS ONLY (media): Vattenfall German Offshore Wind Farm | Germany | S5-Awarded
+- ACTIONS ONLY (media): Vattenfall Offshore Wind Farms Seabed Survey | Sweden | S2-Development
+- ACTIONS ONLY (media): Gent Steel Plant Carbon Capture | Belgium | S5-Awarded
+- ACTIONS ONLY (media): Vyoma AI 52 MW Liquid-Cooled AI Data Centre | India | S5-Awarded
+- ACTIONS ONLY (media): Lyra Fast-Track Oil Development | Norway | S5-Awarded
+- ACTIONS ONLY (media): Senegal greenfield refinery | Senegal | S1-Feasibility
+- ACTIONS ONLY (media): T1 Energy TOPCon module supply agreements | United States | S5-Awarded
+- ACTIONS ONLY (media): Hazelwood BESS 2 | Australia | S5-Awarded
+- ACTIONS ONLY (media): Fenn-Gib Gold Project | Canada | S2-Development
+- ACTIONS ONLY (media): CMM Purity Petrobras charter | Brazil | S5-Awarded
+- ACTIONS ONLY (media): JP Morgan VLCC Newbuilds at Hanwha Ocean | United States | S5-Awarded
+- ACTIONS ONLY (media): Yangzijiang Maritime MR Tanker Newbuilds | Singapore | S5-Awarded
+- ACTIONS ONLY (media): Asia Break Bulk Heavylift Newbuilds | Singapore | S5-Awarded
+- ACTIONS ONLY (media): ADNOC Landmark Gas Development (unnamed) | UAE | S2-Development
+- ACTIONS ONLY (media): LyondellBasell Houston Refinery Restart | USA | S2-Development
+- SERVER ONLY: Cambrex Iowa API Expansion | United States | S5-Awarded
+- SERVER ONLY: Pakistan LNG Terminal and Pipeline Project | Pakistan | S2-Development
+- SERVER ONLY: Plaquemines LNG Phase One | United States | S5-Awarded
+- SERVER ONLY: Illinois Nuclear Plant Upgrades | United States | S2-Development
+- SERVER ONLY: Nador West Med Port Container Terminal | Morocco | S5-Awarded
+- SERVER ONLY: Teesside Electricity Substation | United Kingdom | S2-Development
+- SERVER ONLY: GE Vernova Gas Turbine Orders | Unknown | S2-Development
+- SERVER ONLY: Long-Term LNG Supply Agreement | Global | S5-Awarded
+- SERVER ONLY: Petrobras Oil Spill Response Vessel Charter | Brazil | S5-Awarded
+
 ## 2026-11-01 - shadow run 19:25 UTC, model claude-haiku-5-5
 Actions: 16 rows (7 official) - server published: 4 rows - in both: 4
 
