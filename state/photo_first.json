@@ -428,6 +428,68 @@
         "infra-1: Solar Power Procurement (fact card)",
         "infra-2: Maersk Megamax Order (fact card)"
       ]
+    },
+    {
+      "date": "2026-11-02",
+      "search": "brave",
+      "checked": 10,
+      "photos": 0,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Dangote Refinery",
+          "result": "no official page found"
+        },
+        {
+          "rank": 2,
+          "project": "Greenfield Refinery",
+          "result": "no official page found"
+        },
+        {
+          "rank": 3,
+          "project": "Dangote Refinery",
+          "result": "no official page found"
+        },
+        {
+          "rank": 4,
+          "project": "Petro Rabigh Bottom-of-the-Barrel Upgrade",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 5,
+          "project": "Høyanger K5 Hydropower Plant",
+          "result": "no official page found"
+        },
+        {
+          "rank": 6,
+          "project": "HDF Energy BaseBlue Hydrogen Project",
+          "result": "official page hdf-energy.com: only the site's default banner"
+        },
+        {
+          "rank": 7,
+          "project": "DayOne and Sembcorp MoU",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 8,
+          "project": "Construction works on a connection line between Subotica - Bogojevo - State Border rail line and Novi Sad - Odzaci - Bogojevo rail line with reconstruction of Bogojevo railway station",
+          "result": "no official page found"
+        },
+        {
+          "rank": 9,
+          "project": "Supply and delivery of chemical fertilizers (urea and NPK) for the 2026-2027 rice season – Alaotra Mangoro and Sofia",
+          "result": "no official page found"
+        },
+        {
+          "rank": 10,
+          "project": "Construction of Bulking Facility for Feed Storage, Pasture Area with Solar Powered Boreholes and Perimeter Fencing for No. Producer-Clusters in Jalingo",
+          "result": "no official page found"
+        }
+      ],
+      "kept": [
+        "infra-1: Dangote Refinery (fact card)",
+        "infra-2: Greenfield Refinery (fact card)"
+      ]
     }
   ]
 }
