@@ -1,5 +1,28 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-02 18:25 UTC - write, model claude-haiku-5-5, rows 25
+{'page unreadable': 6, 'full': 18, 'differ': 19, 'limited': 1}
+
+- Pacifico Mexinol Electrolyzer Facility (7034) | server None / haiku full | differs: owner [ | Transition Industries LLC], capacity [210 MW | approximately 210 MW electrolyzer facility]
+- Cambrex Iowa API Expansion (7033) | server None / haiku full | differs: owner [ | Cambrex Corp.], capacity [160,000 liters | 160,000 liters added; site total near one million liters]
+- GSFC Phosphoric Acid–Sulfuric Acid Complex (7032) | server None / haiku full | differs: owner [Gujarat State Fertilizers & Chemicals Ltd. | Gujarat State Fertilizers & Chemicals Ltd. (GSFC)], capacity [ | 600 MTPD phosphoric acid plant; 1,800 MTPD sulfuric acid plant], contractors [[] | ['Tata Projects Ltd.']]
+- EPC Tender for Solar Projects (7031) | server None / haiku full | differs: owner [ | Terra Clean (TeCL), subsidiary of Indian Oil Corporation]
+- MOU for Distributed VPP in Singapore (7028) | server None / haiku full | differs: owner [ | DayOne Data Centers], event_type [Other | Study/FEED], contractors [[] | ['Blue Whale Energy']]
+- AI-Ready Data Center in Jakarta (7027) | server None / haiku full | differs: owner [ | SM+ Data Centers], contractors [[] | ['LG Sinar Mas']], financiers [[] | ['Korea Investment Real Asset Management (KIRA)']]
+- Data Center Campus in Idaho (7026) | server None / haiku full | differs: owner [ | TerraVolt Holdings, Inc.], event_type [Other | Acquisition/Sale]
+- Alliant Energy Data Center Contracts (7025) | server None / haiku full | differs: owner [ | Alliant Energy], capacity [1 GW | 1 GW expected; 3.4 GW already contracted]
+- Pakistan LNG Terminal and Pipeline Project (7024) | server None / haiku full | differs: owner [ | US-linked energy and investment consortium], capacity [ | Terminal about 35 BCF per year; pipeline about 1.2 BCFD], value [USD 4400 million | USD 4.4 billion], event_type [Permit/Approval | Other]
+- Plaquemines LNG Phase One (7021) | server None / haiku full | differs: owner [ | Venture Global], capacity [ | 13.33 million tonnes per annum (Phase One)], value [USD 13200 million | USD 13.2 billion]
+- Illinois Nuclear Plant Upgrades (7020) | server None / haiku full | differs: owner [ | Constellation Energy], value [USD 5000 million | USD 5 billion]
+- Nador West Med Port Container Terminal (7019) | server None / haiku full | differs: owner [ | West Med Container Terminal], capacity [ | 3.5 million containers per year by 2030], value [USD 5500 million | USD 509 million], event_type [Construction start | Delivery/Commissioning], contractors [[] | ['Marsa Maroc', 'Terminal Investment Limited']]
+- Teesside Electricity Substation (7018) | server None / haiku full | differs: owner [ | National Grid Electricity Transmission], capacity [ | 400kV; over 1GW contracted import/export], event_type [Permit/Approval | Acquisition/Sale]
+- GE Vernova Gas Turbine Orders (7016) | server None / haiku limited | differs: capacity [130 GW | ], event_type [Other | ]
+- OnPath Energy Solar-Plus-Storage Project (7014) | server None / haiku full | differs: owner [ | OnPath Energy], capacity [ | 49MW solar; 50MW/100MWh BESS], contractors [[] | ['AECOM', 'Grupotec']], financiers [['NatWest'] | ['Bank NatWest']]
+- Long-Term LNG Supply Agreement (7013) | server None / haiku full | differs: capacity [0.6 billion cubic meters per annum | six cargoes per year, about 0.6 bcma]
+- Petrobras Oil Spill Response Vessel Charter (7012) | server None / haiku full | differs: owner [Petrobras | Oceanity (formerly CMM Offshore)], contractors [[] | ['CMM Offshore Brasil']]
+- Maha Gas Field Production (7010) | server None / haiku full | differs: owner [Eni | Eni SpA and Petronas], capacity [250 million standard cubic feet per day | up to 250 MMscfd of gas via Jangkrik FPU], event_type [Construction start | Delivery/Commissioning]
+- Lyra Field Development (7008) | server None / haiku full | differs: capacity [ | about 20,000 boe/d gross plateau], value [USD 150-300 million | ]
+
 ## 2026-11-01 20:29 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
