@@ -490,6 +490,68 @@
         "infra-1: Dangote Refinery (fact card)",
         "infra-2: Greenfield Refinery (fact card)"
       ]
+    },
+    {
+      "date": "2026-11-03",
+      "search": "brave",
+      "checked": 10,
+      "photos": 0,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "1.2 GW Solar-Plus-Storage Project",
+          "result": "no official page found"
+        },
+        {
+          "rank": 2,
+          "project": "Alliant Energy Data Center Contracts",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 3,
+          "project": "GSFC Phosphoric Acid–Sulfuric Acid Complex",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 4,
+          "project": "Ruwais Diyab Unconventional Gas Project",
+          "result": "no official page found"
+        },
+        {
+          "rank": 5,
+          "project": "GE Vernova Gas Turbine Orders",
+          "result": "no official page found"
+        },
+        {
+          "rank": 6,
+          "project": "Sea Link Development",
+          "result": "no official page found"
+        },
+        {
+          "rank": 7,
+          "project": "Teesside Electricity Substation",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 8,
+          "project": "Illinois Nuclear Plant Upgrades",
+          "result": "official picture on constellationenergy.com rejected"
+        },
+        {
+          "rank": 9,
+          "project": "Texas Offshore LNG Port",
+          "result": "no official page found"
+        },
+        {
+          "rank": 10,
+          "project": "Pakistan LNG Terminal and Pipeline Project",
+          "result": "search: 10 results, none on a project party's own website"
+        }
+      ],
+      "kept": [
+        "infra-1: 1.2 GW Solar-Plus-Storage Project (fact card)",
+        "infra-2: Alliant Energy Data Center Contracts (fact card)"
+      ]
     }
   ]
 }
