@@ -1,5 +1,22 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-03 16:19 UTC - write, model claude-haiku-5-5, rows 14
+{'page unreadable': 1, 'full': 13, 'differ': 13}
+
+- Battery Storage Projects in Uttar Pradesh (7130) | server None / haiku full | differs: owner [ | Noida Power Company]
+- Data Center Solar Projects (7128) | server None / haiku full | differs: contractors [[] | ['Northern Solar Assets Sdn. Bhd.']]
+- Papua LNG Project (7127) | server None / haiku full | differs: event_type [FID | Other]
+- Jackup Rig Charter Extension (7126) | server None / haiku full | differs: owner [ | RigCo Holding (Keppel subsidiary)], contractors [[] | ['Arabian Drilling Company']]
+- Offshore Vessel Charter (7125) | server None / haiku full | differs: owner [ | PT Pelayaran Nasional Ekalya Purnamasari], capacity [ | Two crewboats, about 40.3 m in length], contractors [[] | ['Atlantic Maritime Group', 'PT Orela Shipyard']]
+- GSFC Acid Complex (7124) | server None / haiku full | differs: capacity [ | 600 t/d phosphoric acid; 1,800 t/d sulphuric acid], contractors [['Tata Projects'] | ['Tata Projects', 'TECI', 'Chemetics', 'Projects & Development India Limited (PDIL)']]
+- Syerston Scandium Project (7123) | server None / haiku full | differs: capacity [ | 64,000 t/y of ore to produce 60 t/y of high-purity scandium oxide]
+- Mazoon Copper Project (7122) | server None / haiku full | differs: capacity [ | About 115,000 t/y of 21.5% copper concentrate from 2.5 Mt/y of mined ore], contractors [['Hongda Blasting Engineering Group'] | ['Hongda Blasting Engineering Group (via Hongda International SPC)']]
+- Viscaria Mine Development (7121) | server None / haiku full | differs: owner [ | Gruvaktiebolaget Viscaria], contractors [[] | ['Orefields Mining']]
+- Mozambique FLNG Play Drilling (7120) | server None / haiku full | differs: owner [Eni | Eni-led consortium]
+- Coral North FLNG Drilling Campaign (7119) | server None / haiku full | differs: owner [Eni | Eni and Area 4 partners]
+- 504 MW South Korean Offshore Wind Farm (7118) | server None / haiku full | differs: event_type [Award | Offtake/Supply agreement], contractors [['LS Cable', 'LS Marine'] | ['LS Cable & System', 'LS Marine Solution']]
+- Drax Data Center Phase 1 (7117) | server None / haiku full | differs: owner [Drax | Drax Group], capacity [100 MW | up to 100MW (phase one); up to 1GW total], value [ | GBP 20 billion], contractors [['Brookfield', 'Radiant'] | []]
+
 ## 2026-11-02 23:29 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
