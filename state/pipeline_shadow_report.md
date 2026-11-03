@@ -1,5 +1,78 @@
 # Whole pipeline on Actions (shadow, writes nothing)
 
+## 2026-11-03 - shadow run 21:02 UTC, model claude-haiku-5-5
+Actions: 95 rows (25 official) - server published: 32 rows - in both: 30
+
+- ACTIONS ONLY (media): ADNOC Gas-TotalEnergies LNG Supply Agreement | United Arab Emirates | S5-Awarded
+- ACTIONS ONLY (media): Ruwais Diyab Unconventional Gas Development | United Arab Emirates | S5-Awarded
+- ACTIONS ONLY (media): TotalEnergies–ADNOC Gas LNG Supply Deal | United Arab Emirates | S5-Awarded
+- ACTIONS ONLY (media): UAE Large-Scale Solar Farm Ground Improvement | United Arab Emirates | S5-Awarded
+- ACTIONS ONLY (media): Woodside-QatarEnergy 20-Year LNG Supply Agreement | Australia | S5-Awarded
+- ACTIONS ONLY (media): Glenrowan BESS | Australia | S2-Development
+- ACTIONS ONLY (media): Gentari Maryvale BESS | Australia | S5-Awarded
+- ACTIONS ONLY (media): Moreton Hill Wind Farm | Australia | S2-Development
+- ACTIONS ONLY (media): Golar FLNG Conversion (Latest Unit) | Bermuda | S5-Awarded
+- ACTIONS ONLY (media): Turkana Crude Oil Pipeline Revival | Kenya | S2-Development
+- ACTIONS ONLY (media): Portuguese Wind Farm Co-Investment (Iberdrola-NBIM) | Portugal | S2-Development
+- ACTIONS ONLY (media): German Hydrogen-Ready Gas Plants (RWE) | Germany | S5-Awarded
+- ACTIONS ONLY (media): RWE and LEAG Gas-Fired Power Plant Funding | Germany | S2-Development
+- ACTIONS ONLY (media): Nordlicht I Offshore Wind Farm | Germany | S5-Awarded
+- ACTIONS ONLY (media): Stade FSRU LNG Import Terminal | Germany | S5-Awarded
+- ACTIONS ONLY (media): Germany First Capacity Auction Hydrogen-Ready Plants | Germany | S5-Awarded
+- ACTIONS ONLY (media): Germany rooftop solar tender round | Germany | S5-Awarded
+- ACTIONS ONLY (media): Thyssenkrupp tkH2Steel hydrogen tender | Germany | S4-Tender
+- ACTIONS ONLY (media): Germany Biomass Auction Awards | Germany | S5-Awarded
+- ACTIONS ONLY (media): Vattenfall Offshore Wind Farms Seabed Survey Campaign | Sweden | S5-Awarded
+- ACTIONS ONLY (media): Gent Steelworks Carbon Capture | Belgium | S5-Awarded
+- ACTIONS ONLY (media): Teesworks Substation for AI Data Centres | United Kingdom | S2-Development
+- ACTIONS ONLY (media): OnPath Energy solar-plus-storage project | United Kingdom | S2-Development
+- ACTIONS ONLY (media): Teesside Node A Substation | United Kingdom | S2-Development
+- ACTIONS ONLY (media): South Korea Clean Hydrogen Power Tender | South Korea | S4-Tender
+- ACTIONS ONLY (media): TPAO Ultra-Deepwater FPU | Türkiye | S5-Awarded
+- ACTIONS ONLY (media): Searah Offshore Gas Field | Malaysia | S5-Awarded
+- ACTIONS ONLY (media): Maha Gas Field Tieback | Indonesia | S5-Awarded
+- ACTIONS ONLY (media): Turkey 1.5GW Onshore Wind Auction | Turkey | S5-Awarded
+- ACTIONS ONLY (media): YEKA solar tender round | Turkey | S5-Awarded
+- ACTIONS ONLY (media): RenewSys-Kosol Encapsulant and Backsheet Supply | India | S5-Awarded
+- ACTIONS ONLY (media): Noida Standalone BESS Tender | India | S4-Tender
+- ACTIONS ONLY (media): T1 Energy TOPCon Module Offtake Agreements | USA | S5-Awarded
+- ACTIONS ONLY (media): Windfall Gold Mine | Canada | S2-Development
+- ACTIONS ONLY (media): Fenn-Gib Gold Project | Canada | S2-Development
+- ACTIONS ONLY (media): Simandou Iron Ore Project Mining Trucks | Guinea | S5-Awarded
+- ACTIONS ONLY (media): CF Courtright DEF Project | Canada | S2-Development
+- ACTIONS ONLY (media): Autoport Expansion | Türkiye | S2-Development
+- ACTIONS ONLY (media): Valencia Port Community Platform | Spain | S4-Tender
+- ACTIONS ONLY (media): Kazo Agility Crewboat Charter | Global | S5-Awarded
+- ACTIONS ONLY (media): LG CNS Modular Data Center Expansion | Global | S1-Feasibility
+- ACTIONS ONLY (media): Fram Wind Floating Wind Project | Norway | S2-Development
+- ACTIONS ONLY (media): Grimaldi Car Carrier Newbuild Program | Italy | S4-Tender
+- ACTIONS ONLY (media): Yangzijiang Maritime Newbuild Order | Unknown | S5-Awarded
+- ACTIONS ONLY (media): France Onshore Wind Tender Round | France | S5-Awarded
+- ACTIONS ONLY (media): California 1 GW Fuel Cell Plan | United States | S1-Feasibility
+- ACTIONS ONLY (media): ST LNG Texas Offshore LNG Port | United States | S2-Development
+- ACTIONS ONLY (media): LyondellBasell Houston Refinery Restart | United States | S2-Development
+- ACTIONS ONLY (media): Northern Wisconsin Gas-Fired Power Plant | United States | S2-Development
+- ACTIONS ONLY (media): Envision 800V DC SST Data Centre Power System | China | S5-Awarded
+- ACTIONS ONLY (media): Cronos-Linked Gas Pipeline, Egypt | Egypt | S5-Awarded
+- ACTIONS ONLY (media): Nhava Sheva Container Terminal Yard and Reclamation Works | India | S5-Awarded
+- ACTIONS ONLY (media): Indian Railways Wagon Procurement Expansion | India | S5-Awarded
+- ACTIONS ONLY (media): Sucuriú Pulp Mill Effluent Treatment Line | Brazil | S5-Awarded
+- ACTIONS ONLY (media): GSFC Phosphoric-Sulfuric Acid Complex, Sikka | India | S5-Awarded
+- ACTIONS ONLY (official): Construction and Development of Women and youth led agribusiness firms on the drip irrigation system , Solar pumping system, fencing of the 5 hectare gardens and bole hold drip and shades for the gardens | Gambia | S5-Awarded
+- ACTIONS ONLY (official): Intervention in Rectifier Substations of San Fernando, Victoria, San Isidro, Olivos, Núñez, and Palermo - Mitre Line | Argentina | S4-Tender
+- ACTIONS ONLY (official): Construction and Development of Women and youth led agribusiness firms on the drip irrigation system , Solar pumping system, fencing of the 5 hectare gardens and bole hold drip and shades for the gardens | Gambia | S5-Awarded
+- ACTIONS ONLY (official): Construction and Development of Women and youth led agribusiness firms on the drip irrigation system , Solar pumping system, fencing of the 5 hectare gardens and bole hold drip and shades for the gardens | Gambia | S5-Awarded
+- ACTIONS ONLY (official): Construction and Development of Women and youth led agribusiness firms on the drip irrigation system , Solar pumping system, fencing of the 5 hectare gardens and bole hold drip and shades for the gardens | Gambia | S5-Awarded
+- ACTIONS ONLY (official): Gas industry professional services – Evacuation, flaring and inerting of gas transmission pipelines | Germany | S4-Tender
+- ACTIONS ONLY (official): Construction work – Tullkammarkajen contract | Sweden | S4-Tender
+- ACTIONS ONLY (official): Wharf construction work – Liepāja port berth No. 46 reconstruction design, construction and author supervision | Latvia | S4-Tender
+- ACTIONS ONLY (official): Mobile hydraulic-powered mine roof supports – 24 new longwall sections, type 12/31 POz | Poland | S4-Tender
+- ACTIONS ONLY (official): Design & Build of Long Welded Rail Trains | United Kingdom | S3-Pre-FID
+- SERVER ONLY: Battery Storage Projects in Uttar Pradesh | India | S4-Tender
+- SERVER ONLY: Offshore Vessel Charter | Saudi Arabia | S5-Awarded
+- SERVER ONLY: Drax Data Center Phase 1 | United Kingdom | S2-Development
+- SERVER ONLY: Hydrogen-Ready Gas-Fired Power Plants | Germany | S5-Awarded
+
 ## 2026-11-02 - shadow run 23:12 UTC, model claude-haiku-5-5
 Actions: 46 rows (6 official) - server published: 34 rows - in both: 26
 
