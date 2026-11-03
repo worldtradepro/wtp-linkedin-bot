@@ -55,5 +55,12 @@
     "failed": 0,
     "at": "2026-10-27T05:09:35.460Z",
     "subject": "US$67m tender: Fuel distribution concession in Milan"
+  },
+  "2026-11-03-weekly": {
+    "done": true,
+    "sent": 12,
+    "failed": 0,
+    "at": "2026-11-03T06:52:05.202Z",
+    "subject": "US$864m award: Annaba Port facilities construction, Algeria"
   }
 }

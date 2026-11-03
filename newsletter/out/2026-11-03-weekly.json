@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-03",
+  "edition": "weekly",
+  "skip": false,
+  "subject": "US$864m award: Annaba Port facilities construction, Algeria",
+  "preview": "109 new projects in 58 countries · 30 tenders · 56 awards · 208 trade-flow signals, 20 critical",
+  "counts": {
+    "epc": 109,
+    "tenders": 30,
+    "awards": 56,
+    "flow": 208,
+    "critical": 20,
+    "calls": 9,
+    "calendar": 2,
+    "notes": true,
+    "sectors": [
+      "energy:32",
+      "power:34",
+      "metals:2",
+      "agri:5",
+      "chem:4",
+      "infra:10",
+      "shipping:22"
+    ]
+  }
+}
