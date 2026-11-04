@@ -1,5 +1,89 @@
 # Whole pipeline on Actions (shadow, writes nothing)
 
+## 2026-11-04 - shadow run 21:19 UTC, model claude-haiku-5-5
+Actions: 104 rows (32 official) - server published: 27 rows - in both: 28
+
+- ACTIONS ONLY (media): Danube Refinery AV3 Unit Restart | Hungary | S5-Awarded
+- ACTIONS ONLY (media): Coral North FLNG | Mozambique | S2-Development
+- ACTIONS ONLY (media): CP2 LNG Expansion | United States | S5-Awarded
+- ACTIONS ONLY (media): NOV Floating Production Contract | United States | S5-Awarded
+- ACTIONS ONLY (media): New Fortress Energy Mobile Turbine Lease | United States | S5-Awarded
+- ACTIONS ONLY (media): Panamint Texas Solar Phase 1 | United States | S2-Development
+- ACTIONS ONLY (media): AEP-Bloom Cheyenne Fuel-Cell Power Project | United States | S2-Development
+- ACTIONS ONLY (media): Northern Wisconsin Gas-Fired Power Plant | United States | S2-Development
+- ACTIONS ONLY (media): RWE Germany Three Power Station Projects | Germany | S5-Awarded
+- ACTIONS ONLY (media): German Hydrogen-Ready Gas Plant Contracts | Germany | S5-Awarded
+- ACTIONS ONLY (media): RWE/LEAG Gas Plant Funding | Germany | S5-Awarded
+- ACTIONS ONLY (media): RWE 2.1 GW German Capacity Awards | Germany | S5-Awarded
+- ACTIONS ONLY (media): Nordlicht I Offshore Wind Farm | Germany | S5-Awarded
+- ACTIONS ONLY (media): Vattenfall German Offshore Wind Farm (unnamed) | Germany | S5-Awarded
+- ACTIONS ONLY (media): Stade FSRU LNG Import Terminal | Germany | S5-Awarded
+- ACTIONS ONLY (media): Germany First Capacity Auction Hydrogen-Ready Backup Plants | Germany | S5-Awarded
+- ACTIONS ONLY (media): Germany Rooftop Solar Tender (288 MW) | Germany | S5-Awarded
+- ACTIONS ONLY (media): Germany Backup Capacity Tender (5.16 GW) | Germany | S5-Awarded
+- ACTIONS ONLY (media): tkH2Steel Hydrogen Tender | Germany | S4-Tender
+- ACTIONS ONLY (media): Vattenfall Danish 1.8 GW Offshore Wind Tender Agreements | Denmark | S5-Awarded
+- ACTIONS ONLY (media): Power Grid HVDC Transmission Order | India | S5-Awarded
+- ACTIONS ONLY (media): 6,000 MW HVDC Renewable Transmission Project | India | S5-Awarded
+- ACTIONS ONLY (media): Barmer-South Kalamb HVDC Link | India | S5-Awarded
+- ACTIONS ONLY (media): Odisha Floating Solar Partnership | India | S1-Feasibility
+- ACTIONS ONLY (media): Kamoa-Kakula Hybrid Solar Facility | Democratic Republic of the Congo | S5-Awarded
+- ACTIONS ONLY (media): Samsung Heavy Two-Vessel LNG Carrier Newbuild | France | S5-Awarded
+- ACTIONS ONLY (media): TeraWulf Anthropic-Leased Data Centre | United States | S5-Awarded
+- ACTIONS ONLY (media): East Anglia Two Offshore Wind Farm | United Kingdom | S5-Awarded
+- ACTIONS ONLY (media): Scottish 57 MW Wind Farm PPA | United Kingdom | S2-Development
+- ACTIONS ONLY (media): Taean Offshore Wind Farm | South Korea | S4-Tender
+- ACTIONS ONLY (media): South Korea Clean Hydrogen Power Tender | South Korea | S4-Tender
+- ACTIONS ONLY (media): LNG Canada Phase 2 | Canada | S5-Awarded
+- ACTIONS ONLY (media): Vivit Asia LNG Bunkering Vessel | Switzerland | S5-Awarded
+- ACTIONS ONLY (media): Fos Cavaou Small-Scale LNG Loading Services | France | S1-Feasibility
+- ACTIONS ONLY (media): France Onshore Wind Tender Batch | France | S5-Awarded
+- ACTIONS ONLY (media): Himalaya Shipping LNG-fuelled Newcastlemax charters | Bermuda | S5-Awarded
+- ACTIONS ONLY (media): ADNOC Gas LNG Supply Agreement with TotalEnergies | United Arab Emirates | S5-Awarded
+- ACTIONS ONLY (media): Ruwais Ammonia Terminal and Plant Financing | United Arab Emirates | S2-Development
+- ACTIONS ONLY (media): ADNOC Gas LNG and Domestic Gas Supply Agreements | United Arab Emirates | S5-Awarded
+- ACTIONS ONLY (media): Turkey 1.5GW Onshore Wind Auction | Turkey | S5-Awarded
+- ACTIONS ONLY (media): RenewSys POE Encapsulant and Backsheet Supply to Kosol Energie | Unknown | S5-Awarded
+- ACTIONS ONLY (media): Viscaria Underground Development Work | Sweden | S4-Tender
+- ACTIONS ONLY (media): Mazoon Copper Project Mining Operations Contract | Oman | S5-Awarded
+- ACTIONS ONLY (media): CF Courtright DEF Project | Canada | S2-Development
+- ACTIONS ONLY (media): Málaga Port Expansion | Spain | S4-Tender
+- ACTIONS ONLY (media): Torm LR2 Newbuild Program | Denmark | S5-Awarded
+- ACTIONS ONLY (media): Eastern Pacific Shipping Midsize Containership Order | Singapore | S5-Awarded
+- ACTIONS ONLY (media): Laskaridis LR2 Tanker Newbuilds at Hengli | Greece | S5-Awarded
+- ACTIONS ONLY (media): Yangzijiang Maritime Newbuild Order | Unknown | S5-Awarded
+- ACTIONS ONLY (media): Papua LNG | Papua New Guinea | S3-Pre-FID
+- ACTIONS ONLY (media): Diamba Sud Project | Senegal | S2-Development
+- ACTIONS ONLY (media): Buenos Aires Wind Farm Expansion | Argentina | S2-Development
+- ACTIONS ONLY (media): Victoria 1.3 GW Wind Farm | Australia | S2-Development
+- ACTIONS ONLY (media): Moreton Hill Wind Farm (420 MW) | Australia | S2-Development
+- ACTIONS ONLY (media): Jafurah Fifth Expansion Phase | Saudi Arabia | S4-Tender
+- ACTIONS ONLY (media): Shuqaiq Combined-Cycle Power Plant Water Treatment Contract | Saudi Arabia | S5-Awarded
+- ACTIONS ONLY (media): Drax Power Station Data Centre Campus | United Kingdom | S1-Feasibility
+- ACTIONS ONLY (media): Princeton Digital Group JH1 Campus Expansion | Malaysia | S2-Development
+- ACTIONS ONLY (media): LG CNS Modular Data Centre Expansion | Global | S1-Feasibility
+- ACTIONS ONLY (media): Northern Solar Data Centre Supply Awards (189 MW) | Malaysia | S5-Awarded
+- ACTIONS ONLY (media): Sucuriú Pulp Mill Effluent Treatment Line | Brazil | S5-Awarded
+- ACTIONS ONLY (official): Geothermal power plant construction (Geothermieanlage) | Germany | S4-Tender
+- ACTIONS ONLY (official): Supply of 24 new mechanised longwall roof support line sections, type 12/31 POz | Poland | S4-Tender
+- ACTIONS ONLY (official): Methane fermentation and composting plant construction (0–80 mm fraction), EKO DOLINA Sp. z o.o. | Poland | S5-Awarded
+- ACTIONS ONLY (official): ZAS-MHKW: groundworks and shell construction in subprojects (TP) 2, 4 and 6 | Germany | S4-Tender
+- ACTIONS ONLY (official): Erschließung, 6th construction section (harbour construction works) | Germany | S4-Tender
+- ACTIONS ONLY (official): Design and manufacture of an eNavibus vessel fleet | France | S4-Tender
+- ACTIONS ONLY (official): Longwall shearer for Polska Grupa Górnicza S.A., Piast-Ziemowit Division, Ziemowit Mine | Poland | S4-Tender
+- ACTIONS ONLY (official): Vessel for sea fisheries supervision | Croatia | S4-Tender
+- ACTIONS ONLY (official): ENEDIS PFA Lyon DR Alpes Isère Savoie Haute-Savoie: TG subsequent underground works | France | S4-Tender
+- ACTIONS ONLY (official): Preliminary Market Engagement: Vessel Arrest System | United Kingdom | S3-Pre-FID
+- ACTIONS ONLY (official): South Sudan - Power Interconnection Project between South Sudan and Uganda |  | S3-Pre-FID
+- ACTIONS ONLY (official): Chad - Gassi and Lamadji Solar PV DtP | Chad | S3-Pre-FID
+- ACTIONS ONLY (official): Multinational – Burn Electric Cooking Expansion Program (BEEP) |  | S3-Pre-FID
+- ACTIONS ONLY (official): Sierra Leone - Preparatory Studies for Sierra Leone Rural Electricity Access Project (SLREAP) | Sierra Leone | S3-Pre-FID
+- ACTIONS ONLY (official): Tanzania – Submarine Cable to Zanzibar Project | Tanzania | S3-Pre-FID
+- SERVER ONLY: US$ 1.3 Billion Green Loan for Johor Data Center Expansion | Malaysia | S2-Development
+- SERVER ONLY: 1.3-GW Wind Farm in Victoria | Australia | S2-Development
+- SERVER ONLY: Argentina LNG Project | Argentina | S3-Pre-FID
+- SERVER ONLY: Anthropic Lease and EPC Pact | United States | S2-Development
+
 ## 2026-11-03 - shadow run 21:02 UTC, model claude-haiku-5-5
 Actions: 95 rows (25 official) - server published: 32 rows - in both: 30
 
