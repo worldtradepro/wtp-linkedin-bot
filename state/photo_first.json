@@ -552,6 +552,68 @@
         "infra-1: 1.2 GW Solar-Plus-Storage Project (fact card)",
         "infra-2: Alliant Energy Data Center Contracts (fact card)"
       ]
+    },
+    {
+      "date": "2026-11-04",
+      "search": "brave",
+      "checked": 10,
+      "photos": 1,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Dangote Refinery Crude Deliveries",
+          "result": "no official page found"
+        },
+        {
+          "rank": 2,
+          "project": "Drax Power Station Data Centre Plans",
+          "result": "photo: official photo (owner: Drax, drax.com)"
+        },
+        {
+          "rank": 3,
+          "project": "Mazoon Copper Project",
+          "result": "official page mdo.om: no share picture"
+        },
+        {
+          "rank": 4,
+          "project": "GSFC Phosphoric Acid–Sulfuric Acid Complex",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 5,
+          "project": "Cambrex Iowa API Expansion",
+          "result": "official page cambrex.com: no share picture"
+        },
+        {
+          "rank": 6,
+          "project": "Coral North FLNG Drilling Campaign",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 7,
+          "project": "Papua LNG Project",
+          "result": "no official page found"
+        },
+        {
+          "rank": 8,
+          "project": "GE Vernova Gas Turbine Orders",
+          "result": "no official page found"
+        },
+        {
+          "rank": 9,
+          "project": "Sea Link Development",
+          "result": "no official page found"
+        },
+        {
+          "rank": 10,
+          "project": "Teesside Electricity Substation",
+          "result": "search: 10 results, none on a project party's own website"
+        }
+      ],
+      "kept": [
+        "infra-1: Dangote Refinery Crude Deliveries (fact card)",
+        "infra-2: Drax Power Station Data Centre Plans (photo)"
+      ]
     }
   ]
 }

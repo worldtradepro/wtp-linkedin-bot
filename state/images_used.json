@@ -263,6 +263,12 @@
       "id": "infra-1",
       "url": "http://www.alliantenergy.com/-/media/alliant/images/alliantenergynews/wood-co-bess--web.jpg",
       "hash": "55882ed6d3de6043ca93d46502897544626d084c"
+    },
+    {
+      "date": "2026-11-04",
+      "id": "infra-2",
+      "url": "https://www.drax.com/wp-content/uploads/2025/12/AdobeStock_1107050519-1920x1080.jpeg",
+      "hash": "2f1f8b1aee6c7dac5eb4c3b3d9bc3414e8f2f570"
     }
   ]
 }
