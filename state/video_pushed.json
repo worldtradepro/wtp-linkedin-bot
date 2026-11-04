@@ -204,6 +204,12 @@
       "mode": "schedule",
       "at": "2026-11-03T10:59:39.163Z",
       "dueAt": "2026-11-04T13:00:00.000Z"
+    },
+    "cd_lumber_nominal_size": {
+      "postId": "6aeb11ab9b828eded3a6bb77",
+      "mode": "schedule",
+      "at": "2026-11-04T11:06:19.342Z",
+      "dueAt": "2026-11-05T13:00:00.000Z"
     }
   }
 }
