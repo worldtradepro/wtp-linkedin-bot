@@ -1,5 +1,14 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-04 16:21 UTC - write, model claude-haiku-5-5, rows 6
+{'page unreadable': 1, 'full': 5, 'differ': 5}
+
+- US$ 1.3 Billion Green Loan for Johor Data Center Expansion (7203) | server None / haiku full | differs: financiers [[] | ['Affin Bank', 'HSBC', 'Maybank', 'OCBC', 'Standard Chartered', 'UOB']]
+- £20 Billion Data Center Development in North Yorkshire (7202) | server None / haiku full | differs: capacity [ | 100 MW in phase one; 500 MW option in phase two], event_type [Financing | Other], financiers [[] | ['Brookfield Corporation']]
+- 60 MW AI Data Center in Gumi (7201) | server None / haiku full | differs: capacity [60 MW | 60 MW initially, expandable to 120 MW]
+- YEKA Solar Capacity Auction (7197) | server None / haiku full | differs: owner [Türkiye’s Ministry of Energy and Natural Resources | ], capacity [785 MW | 785 MW across 11 projects], value [USD 1 billion | ]
+- Drill and Blast Services (7195) | server None / haiku full | differs: value [ | AUD 32 million], contractors [[] | ['Drillforce (Aquirian Limited subsidiary)']]
+
 ## 2026-11-03 21:46 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
