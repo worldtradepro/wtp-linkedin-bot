@@ -614,6 +614,68 @@
         "infra-1: Dangote Refinery Crude Deliveries (fact card)",
         "infra-2: Drax Power Station Data Centre Plans (photo)"
       ]
+    },
+    {
+      "date": "2026-11-05",
+      "search": "brave",
+      "checked": 4,
+      "photos": 2,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Argentina LNG Project",
+          "result": "no official page found"
+        },
+        {
+          "rank": 2,
+          "project": "US$ 1.3 Billion Green Loan for Johor Data Center Expansion",
+          "result": "photo: official photo (owner: Princeton Digital, princetondg.com)"
+        },
+        {
+          "rank": 3,
+          "project": "Mazoon Copper Project",
+          "result": "official page mdo.om: no share picture"
+        },
+        {
+          "rank": 4,
+          "project": "1.3-GW Wind Farm in Victoria",
+          "result": "photo: official photo (owner: Virya Energy, virya-energy.com)"
+        },
+        {
+          "rank": 5,
+          "project": "Coral North FLNG Drilling Campaign",
+          "result": "not checked"
+        },
+        {
+          "rank": 6,
+          "project": "Papua LNG Project",
+          "result": "not checked"
+        },
+        {
+          "rank": 7,
+          "project": "YEKA Solar PV Tender",
+          "result": "not checked"
+        },
+        {
+          "rank": 8,
+          "project": "1 GW BESS Capacity Auction in Belgium",
+          "result": "not checked"
+        },
+        {
+          "rank": 9,
+          "project": "Al Hada Gas Plant Project",
+          "result": "not checked"
+        },
+        {
+          "rank": 10,
+          "project": "Hydrogen-Ready Gas-Fired Power Plants",
+          "result": "not checked"
+        }
+      ],
+      "kept": [
+        "infra-1: US$ 1.3 Billion Green Loan for Johor Data Center Expansion (photo)",
+        "infra-2: 1.3-GW Wind Farm in Victoria (photo)"
+      ]
     }
   ]
 }

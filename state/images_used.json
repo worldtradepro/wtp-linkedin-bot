@@ -269,6 +269,18 @@
       "id": "infra-2",
       "url": "https://www.drax.com/wp-content/uploads/2025/12/AdobeStock_1107050519-1920x1080.jpeg",
       "hash": "2f1f8b1aee6c7dac5eb4c3b3d9bc3414e8f2f570"
+    },
+    {
+      "date": "2026-11-05",
+      "id": "infra-1",
+      "url": "https://princetondg.com/wp-content/uploads/2026/11/Web-Banner_800x450.jpg",
+      "hash": "942caeb151ba217a3dd0b9ef80e0435ce27472bf"
+    },
+    {
+      "date": "2026-11-05",
+      "id": "infra-2",
+      "url": "https://virya-energy.com/wp-content/uploads/2025/10/Open_Graph_Image_1200x630-copy.jpg",
+      "hash": "ec4b25c9b544f29e361ec160a60bc92037525511"
     }
   ]
 }
