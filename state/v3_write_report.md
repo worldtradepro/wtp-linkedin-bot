@@ -1,5 +1,19 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-05 16:31 UTC - write, model claude-haiku-5-5, rows 12
+{'page unreadable': 2, 'full': 8, 'differ': 10, 'limited': 1, 'project_only': 1}
+
+- Diamba Sud Project Permitting (7296) | server None / haiku full | differs: 
+- Malaysia Data Center Build-Out (7294) | server None / haiku full | differs: owner [ | Princeton Digital Group], financiers [[] | ['Affin Bank', 'HSBC', 'Maybank', 'OCBC', 'Standard Chartered', 'UOB']]
+- Data Center Build-Out (7293) | server None / haiku limited | differs: value [USD 1.9 billion | ], event_type [Financing | ]
+- Data Center Pipeline (7292) | server None / haiku full | differs: owner [ | Downing Renewable Developments], capacity [500 MW | more than 500MW (advanced pipeline)]
+- Power and Control Systems for Offshore Data Centers (7291) | server None / haiku project_only | differs: owner [ | Hanwha Ocean], contractors [[] | ['Hanwha Ocean', 'ABB']]
+- Eneva LNG Terminal and Power Plants (7283) | server None / haiku full | differs: owner [ | Eneva]
+- Justified Data Center Campus (7279) | server None / haiku full | differs: owner [ | TeraWulf Inc.], contractors [[] | ['Fluor Corporation']]
+- Renewable Energy Auctions Q3 2026 (7277) | server None / haiku full | differs: event_type [Tender | Other]
+- Cypress Knee Solar (7275) | server None / haiku full | differs: owner [ | EDP Renewables North America]
+- Alpha Ventus Offshore Wind Farm Maintenance (7270) | server None / haiku full | differs: capacity [ | 60 MW], contractors [[] | ['Deutsche Windtechnik']]
+
 ## 2026-11-04 21:52 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
