@@ -210,6 +210,12 @@
       "mode": "schedule",
       "at": "2026-11-04T11:06:19.342Z",
       "dueAt": "2026-11-05T13:00:00.000Z"
+    },
+    "cd_rare_earth_refining": {
+      "postId": "6aec635ca5300fd99cc75066",
+      "mode": "schedule",
+      "at": "2026-11-05T11:07:08.546Z",
+      "dueAt": "2026-11-06T13:00:00.000Z"
     }
   }
 }
