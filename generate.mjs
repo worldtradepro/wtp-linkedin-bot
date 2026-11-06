@@ -119,7 +119,10 @@ const descOf = (it) => (BAD_DESC.test(it.description || '') ? '' : it.descriptio
 
 function pickProjects(items, n, used) {
   const cands = items
-    .filter((it) => it.source_url && !used.has(it.source_url) && it.project_name && it.verification !== 'limited')   // 2026-10-24: only rows whose facts were checked (fields v3 full / project_only)
+    // 2026-10-24: only rows whose facts were checked (fields v3 full / project_only). 2026-11-06: rows with NO verification yet
+    // (null) also used to pass and posted news that is not a project ("Dangote crude deliveries", "Maersk order, location unknown").
+    .filter((it) => it.source_url && !used.has(it.source_url) && it.project_name && ['full', 'project_only'].includes(it.verification))
+    .filter((it) => !/^(unknown|global|multiple|)$/i.test(clean(it.country || '')) && infraSource(it))   // a project post needs a place and a named source
     // importance first: bigger scale, then earlier (pre-tender) stage, then newest
     .sort((a, b) => (scaleRank(b.scale) - scaleRank(a.scale)) || (isEarly(b) - isEarly(a)) || (b.report_date > a.report_date ? 1 : -1));
   const picks = [];
@@ -202,7 +205,8 @@ function snapshotOf(it) {
     return (Array.isArray(a) ? a : []).map((x) => clean(typeof x === 'string' ? x : x?.name || '')).filter(Boolean).slice(0, 3).join(', '); };
   let amt = Number(it.value_amount), unit = it.value_unit || '';
   if (unit === 'million' && amt >= 1000) { amt = +(amt / 1000).toFixed(2); unit = 'billion'; }   // 1620 million -> 1.62 billion
-  const value = it.value_amount ? `${it.value_currency || ''} ${Number.isFinite(amt) ? amt.toLocaleString('en-US') : it.value_amount}${unit ? ' ' + unit : ''}`.trim() : '';
+  // unit "unstated" / empty: the number alone is ambiguous ("USD 10,000 unstated", 2026-10-31), so no value line
+  const value = it.value_amount && ['thousand', 'million', 'billion'].includes(unit) ? `${it.value_currency || ''} ${Number.isFinite(amt) ? amt.toLocaleString('en-US') : it.value_amount}${unit ? ' ' + unit : ''}`.trim() : '';
   const owner = clean(it.owner || '');   // only the checked owner field; company_name can be a supplier (2026-10-24: "Owner: Energy Recovery")
   const lines = [loc && '📍 ' + loc, owner && '🏢 Owner: ' + owner, it.capacity && '⚡ Capacity: ' + clean(it.capacity), value && '💰 Value: ' + value,
     list(it.contractors) && '🛠️ Contractors: ' + list(it.contractors), list(it.financiers) && '🏦 Financing: ' + list(it.financiers),
@@ -227,7 +231,7 @@ function projectPost(it, i, date, slot) {
     clean(descOf(it)).replace(/.$/, '') !== title ? summaryOf(descOf(it), cfg.maxSummaryChars) : '',
     snapshotOf(it),
     // 2026-10-09 owner: Infrastructure page posts carry NO links (LinkedIn cuts reach for posts with external links); credit stays as plain text.
-    INFRA_LINKS ? sourceLine(it) : `Source: ${it.source_name || hostOf(it.source_url)}`,
+    INFRA_LINKS ? sourceLine(it) : `Source: ${infraSource(it)}`,
     BODY_LINKS && INFRA_LINKS ? countryLine(it, date, i) : '',
     hashtagsFor(it, ['Infrastructure', it.company_name && it.company_name.replace(/[^A-Za-z0-9]/g, ''), sub && sub.replace(/[^A-Za-z]/g, '')]),
   ];
@@ -330,6 +334,24 @@ const SECRET = process.env.WTP_BOT_SECRET || '';
 const epcFrom = SECRET ? dayShift(TODAY, -6) : dayShift(TODAY, -15);
 const epcTo = SECRET ? TODAY : dayShift(TODAY, -7);
 const epc = await fetchJson(`${API}?report_type=epc&from=${epcFrom}&to=${epcTo}&limit=1000${SECRET ? '&secret=' + encodeURIComponent(SECRET) : ''}`);
+
+// 2026-11-06 "Source: w" / "Venergy VLCC order - Source: International Mining" (link was splash247.com): a row's source_name is
+// often another merged report's name, so the infra credit comes from the link's site. Name = what most rows from that site
+// say (>= 2 votes and >= 2/3 of the named rows), else the bare domain (render.mjs turns it into a plain label).
+const SOURCE_NAMES = (() => {
+  const votes = new Map();
+  for (const it of epc.items || []) {
+    const h = hostOf(it.source_url), n = clean(it.source_name || '');
+    if (!h || !n || n.includes(' / ') || h === 'news.google.com') continue;
+    const c = votes.get(h) || new Map(); c.set(n, (c.get(n) || 0) + 1); votes.set(h, c);
+  }
+  const out = new Map();
+  for (const [h, c] of votes) { const all = [...c.values()].reduce((a, b) => a + b, 0), [n, k] = [...c].sort((a, b) => b[1] - a[1])[0]; if (k >= 2 && k * 3 >= all * 2) out.set(h, n); }
+  return out;
+})();
+// Google News links name no site of their own: only the row's own single source_name can credit them
+const infraSource = (it) => { const h = hostOf(it.source_url), own = clean(it.source_name || '');
+  return h === 'news.google.com' ? (own && !own.includes(' / ') ? own : '') : SOURCE_NAMES.get(h) || h; };
 
 const A = cfg.accounts;
 const isWeekend = [0, 6].includes(new Date(TODAY + 'T00:00:00Z').getUTCDay());   // Sat / Sun (UTC)

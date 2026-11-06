@@ -195,7 +195,9 @@ export const siteLabel = (name, host) => {
   const n = clean(name).replace(/\s*[|–—-]\s.*$/, '');
   if (n && n.length <= 40 && !/\.[a-z]{2,}(\s|$)/i.test(n)) return n;
   const h = (host || '').replace(/^www\./, '').replace(/\.(com?|org|net|gov|ac)\.[a-z]{2}$/i, '').replace(/\.[a-z]{2,}$/i, '');
-  return h.split('.').pop() || '';
+  const last = h.split('.').pop() || '';
+  // "w.media" -> "w" says nothing (2026-11-06 "Source: w"): short names keep every part, without the dot LinkedIn would link
+  return last.length >= 4 ? last : (host || '').replace(/^www\./, '').split('.').map((x) => x.charAt(0).toUpperCase() + x.slice(1)).join(' ');
 };
 
 export const sha1 = (buf) => createHash('sha1').update(buf).digest('hex');
