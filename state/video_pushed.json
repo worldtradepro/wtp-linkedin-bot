@@ -216,6 +216,12 @@
       "mode": "schedule",
       "at": "2026-11-05T11:07:08.546Z",
       "dueAt": "2026-11-06T13:00:00.000Z"
+    },
+    "cd_co2_ammonia_byproduct": {
+      "postId": "6aedb43175db0573c8d398a7",
+      "mode": "schedule",
+      "at": "2026-11-06T11:04:17.349Z",
+      "dueAt": "2026-11-07T13:00:00.000Z"
     }
   }
 }
