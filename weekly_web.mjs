@@ -97,8 +97,10 @@ ${NOTES?.lede_html ? `<div class="note"><div class="k">This week</div><div>${NOT
 <h2>The week in one look</h2>
 ${b.chartTitle ? `<p style="font-size:18px;font-weight:700;color:var(--ink);margin:0 0 2px">${esc(b.chartTitle)}</p><p style="font-size:13px;color:var(--muted);margin:0">New projects by sector · tenders / awards / earlier stage · value where the notice names one</p>` : ''}
 ${b.chart ? emailTable(b.chart) : ''}${b.callout ? emailTable(b.callout) : ''}
-<h2>Deals of the week</h2>
-${emailTable(b.calls.slice(0, 6).map((c, i) => `<tr><td style="padding:8px 0 0"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-left:4px solid #1F6FEB;background:#F3F4F6;"><tr><td style="padding:12px 16px 14px;"><div style="font-size:11px;color:#9CA3AF;font-weight:700;">${i + 1} / ${Math.min(6, b.calls.length)}</div>${c.html}${c.why ? '' : c.call || ''}</td></tr></table></td></tr>`).join(''))}
+${(b.dash?.topDeals || []).length ? `<h2>Largest contracts of the week</h2>
+<table class="list"><thead><tr><th>Contract</th><th>Stage</th><th>Value</th><th>Country</th><th>Buyer / winner</th></tr></thead><tbody>
+${b.dash.topDeals.map((d) => `<tr><td><a href="${esc(d.url)}">${esc(d.name)}</a><div class="sub">${esc(d.sector || '')}</div></td><td class="st ${d.tender ? 'st-S4' : 'st-S5'}">${d.tender ? 'Tender' : 'Awarded'}</td><td style="white-space:nowrap;font-weight:600">${esc(d.value || '')}</td><td>${esc(d.country || '')}</td><td>${d.who ? `<span class="sub">${d.tender ? 'buyer' : 'won by'}</span> ${esc(d.who)}` : ''}</td></tr>`).join('')}
+</tbody></table>` : ''}
 ${b.calendar ? `<h2 id="deadlines">Bid deadlines, next 14 days</h2>${emailTable(b.calendar)}` : ''}
 <h2>All ${st.epc ?? 0} new projects, by sector</h2>
 <p style="font-size:14px;color:var(--muted);margin:0 0 6px">First seen ${fmtDay(b.from)} – ${fmtDay(b.to)}. Each name links to the source notice or report.</p>

@@ -256,7 +256,8 @@ function assembleFull(b, readerLike = {}, opts = {}) {
     out.push(b.calendar);
   };
   if (b.directory) out.push(b.directory);   // "new on the supplier directory" - only when the week had listings
-  const order = FLOWFIRST.includes(reader.role) ? [overviewSec, flowsSec, callsSec, calendarSec, projectsSec] : [overviewSec, callsSec, calendarSec, projectsSec, flowsSec];
+  // 2026-11-06 owner: no scored "Deals of the week" section (callsSec kept unused); the largest contracts table covers it
+  const order = FLOWFIRST.includes(reader.role) ? [overviewSec, flowsSec, calendarSec, projectsSec] : [overviewSec, calendarSec, projectsSec, flowsSec];
   order.forEach((f) => f());
   if (b.moves) out.push(b.moves);
   out.push(button('Browse every project, with filters →', b.links.projects));
