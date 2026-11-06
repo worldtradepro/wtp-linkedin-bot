@@ -1,24 +1,6 @@
 {
   "items": [
     {
-      "date": "2026-10-06",
-      "id": "infra-1",
-      "url": "https://constructionreviewonline.com/wp-content/uploads/2026/10/Grassland-at-Mammoth-1.png",
-      "hash": "6504434d8d37534eb527c71e33ce870db740d047"
-    },
-    {
-      "date": "2026-10-06",
-      "id": "infra-2",
-      "url": "https://www.lloydslist.com/-/media/lloyds-list/images/week-in-newbuildings/2023-new-pictures/winb-270323-yangzijiang-shipbuilding-yard-in-china.png",
-      "hash": "37f6627ce419f12791f9ba041fe09d2341de17e5"
-    },
-    {
-      "date": "2026-10-06",
-      "id": "infra-3",
-      "url": "https://images.unsplash.com/photo-1660423998838-6e31e207f282",
-      "hash": "607664e89844bee465cadc26e5a0a0f36dcbd7ea"
-    },
-    {
       "date": "2026-10-07",
       "id": "infra-1",
       "url": "https://constructionreviewonline.com/wp-content/uploads/2026/10/asset_f18555ca-6e3f-49b3-bbf9-8347a1bca4a1-scaled.png",
@@ -281,6 +263,12 @@
       "id": "infra-2",
       "url": "https://virya-energy.com/wp-content/uploads/2025/10/Open_Graph_Image_1200x630-copy.jpg",
       "hash": "ec4b25c9b544f29e361ec160a60bc92037525511"
+    },
+    {
+      "date": "2026-11-06",
+      "id": "infra-2",
+      "url": "https://cdn.prod.website-files.com/65d656d7af48f196e88745fe/691c44626373d306345e84e2_KAO%20data.jpg",
+      "hash": "e89f9c190a26730154eaf51f63f0cf4bde47d293"
     }
   ]
 }

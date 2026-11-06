@@ -676,6 +676,68 @@
         "infra-1: US$ 1.3 Billion Green Loan for Johor Data Center Expansion (photo)",
         "infra-2: 1.3-GW Wind Farm in Victoria (photo)"
       ]
+    },
+    {
+      "date": "2026-11-06",
+      "search": "brave",
+      "checked": 10,
+      "photos": 1,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "1.2-GW Solar Project",
+          "result": "no official page found"
+        },
+        {
+          "rank": 2,
+          "project": "Data Center Pipeline",
+          "result": "photo: official photo (owner: Downing Renewable Developments, downing-renewables.co.uk)"
+        },
+        {
+          "rank": 3,
+          "project": "MSME Financing Expansion",
+          "result": "no official page found"
+        },
+        {
+          "rank": 4,
+          "project": "Fourth Grinding Line Expansion Project",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 5,
+          "project": "2,200-Acre Solar Farm",
+          "result": "no official page found"
+        },
+        {
+          "rank": 6,
+          "project": "LNG Regasification Terminal",
+          "result": "no official page found"
+        },
+        {
+          "rank": 7,
+          "project": "Argentina LNG Project",
+          "result": "no official page found"
+        },
+        {
+          "rank": 8,
+          "project": "Cypress Knee Solar",
+          "result": "search: 10 results, none on a project party's own website"
+        },
+        {
+          "rank": 9,
+          "project": "6,000 MW HVDC Renewable Project",
+          "result": "no official page found"
+        },
+        {
+          "rank": 10,
+          "project": "Renewable Energy Auctions Q3 2026",
+          "result": "no official page found"
+        }
+      ],
+      "kept": [
+        "infra-1: 1.2-GW Solar Project (fact card)",
+        "infra-2: Data Center Pipeline (photo)"
+      ]
     }
   ]
 }
