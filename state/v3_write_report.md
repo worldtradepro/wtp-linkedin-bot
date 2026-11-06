@@ -1,5 +1,19 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-06 15:57 UTC - write, model claude-haiku-5-5, rows 13
+{'page unreadable': 3, 'full': 10, 'differ': 10}
+
+- Heat Recovery Project (7370) | server None / haiku full | differs: owner [ | Calentix]
+- Fourth Grinding Line Expansion Project (7369) | server None / haiku full | differs: capacity [ | 165,000 metric tons per day concentrator throughput (up from 130,000)], contractors [[] | ['Fluor Corp.']]
+- Venergy VLCC Order (7366) | server None / haiku full | differs: capacity [ | 306,000 dwt per VLCC], event_type [Award | Equipment/vessel order], contractors [[] | ['Hengli Heavy Industries']]
+- Chevron Pipeline Work (7365) | server None / haiku full | differs: 
+- New Burton Mine Services (7364) | server None / haiku full | differs: contractors [[] | ['Platinum Blasting Services']]
+- Nchanga Tailings Leach Plant (7363) | server None / haiku full | differs: owner [ZCCM Investments Holdings | Konkola Copper Mines PLC], capacity [ | approximately 70,000 t a year of LME Grade A copper cathode at full capacity], financiers [[] | ['Konkola Copper Mines PLC']]
+- Bio-LNG Production Plant (7357) | server None / haiku full | differs: event_type [Other | Award], contractors [[] | ['Nordsol']]
+- LNG Supply Agreement (7355) | server None / haiku full | differs: owner [AxDo Bahamas | Excelerate Energy], capacity [ | 16 TBtu per year (LNG supply)], event_type [Award | Offtake/Supply agreement]
+- Bahamas LNG Hub (7354) | server None / haiku full | differs: owner [ | Excelerate Energy], capacity [ | 16 TBtu per year (LNG supply)], value [USD 52 million | ]
+- Project Aaka Campus (7353) | server None / haiku full | differs: owner [ExxonMobil Alaska Production | STAK Energy Corporation], capacity [3 GW | Nearly 3 GW], value [USD 4000 million | ], event_type [Other | Offtake/Supply agreement]
+
 ## 2026-11-05 21:59 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
