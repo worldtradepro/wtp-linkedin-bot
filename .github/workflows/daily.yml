@@ -22,7 +22,7 @@ jobs:
   run:
     if: ${{ vars.BOT_PAUSED != 'true' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     env:
       WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
       BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}

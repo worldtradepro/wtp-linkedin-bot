@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { chromium } from 'playwright';
 import { officialPhoto } from './official_photo.mjs';
+import { commonsPhoto } from './commons_photo.mjs';
 import { closeOcr } from './image_search.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -39,7 +40,9 @@ for (const p of cands) {
   if (hits.length >= N) break;
   if (Date.now() - start > BUDGET_MS) { console.log(`time budget used up after ${cands.indexOf(p)} candidates`); break; }
   const log = (m) => { console.log(`  #${p.candidate} ${p.headline.slice(0, 50)}: ${m}`); p.photoNote = m; };
-  const r = await officialPhoto(ctx, p.meta.facts, { seen: imgSeen }, log).catch((e) => { log('failed: ' + String(e.message || e).slice(0, 80)); return null; });
+  const r = await officialPhoto(ctx, p.meta.facts, { seen: imgSeen, timeoutMs: 90000 }, log).catch((e) => { log('failed: ' + String(e.message || e).slice(0, 80)); return null; })
+    // 2026-11-06 owner: fewer fact cards - second source, a Wikimedia Commons photo of the facility itself
+    || (A.commonsPhotos !== false ? await commonsPhoto(ctx, p.meta.facts, { seen: imgSeen }, log).catch((e) => { log('commons failed: ' + String(e.message || e).slice(0, 80)); return null; }) : null);
   p.officialChecked = true;   // render.mjs does not search again
   if (!r) continue;
   // two posts the same day: different sector or country, like generate.mjs's strict pass

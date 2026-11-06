@@ -58,6 +58,34 @@ async function ogImage(ctx, url) {
     });
   } catch { return null; } finally { await page.close().catch(() => {}); }
 }
+// 2026-11-06: two site graphics got through as "project photos" - princetondg.com Web-Banner_800x450.jpg (a blurred green swirl for a green-loan
+// post) and virya-energy.com Open_Graph_Image_1200x630 (logo + slogan on solar panels, for a wind farm). Both are site/brand graphics, not the project.
+const BANNER_NAME = /banner|open[\s_-]?graph|og[\s_-]?image|social[\s_-]?(share|image)|share[\s_-]?image|logo|placeholder|default|background|hero[\s_-]?bg|pattern|texture|wallpaper/i;
+// Mean brightness change between neighbouring pixels (x100, at 96x54): real scenes measured 3.3-6.6, the blurred banner 1.16.
+export const MIN_DETAIL = 2;
+export async function detailOf(ctx, jpeg) {
+  const page = await ctx.newPage();
+  try {
+    return await page.evaluate(async (b64) => {
+      const img = new Image(); img.src = 'data:image/jpeg;base64,' + b64; await img.decode();
+      const W = 96, H = 54, c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d'); g.drawImage(img, 0, 0, W, H);
+      const d = g.getImageData(0, 0, W, H).data, L = [];
+      for (let i = 0; i < d.length; i += 4) L.push((0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]) / 255);
+      let e = 0;
+      for (let y = 0; y < H; y++) for (let x = 1; x < W; x++) e += Math.abs(L[y * W + x] - L[y * W + x - 1]);
+      for (let y = 1; y < H; y++) for (let x = 0; x < W; x++) e += Math.abs(L[y * W + x] - L[(y - 1) * W + x]);
+      return +((e / (W * H * 2)) * 100).toFixed(2);
+    }, jpeg.toString('base64'));
+  } catch { return 99; } finally { await page.close().catch(() => {}); }   // measuring failed: do not block on it
+}
+// A company's own site can carry a picture it licensed from a stock library (drax.com AdobeStock_1107050519, 2026-11-04): that licence covers the
+// company, not us. Skip it when the file name or the picture's embedded IPTC / XMP rights text names a stock library.
+const STOCK = /adobe ?stock|shutterstock|getty ?images|istock|alamy|dreamstime|123rf|depositphotos|bigstock|envato|stocksy|pond5/i;
+async function stockMark(ctx, url) {
+  if (STOCK.test(decodeURIComponent(url.split(/[?#]/)[0].split('/').pop() || ''))) return 'file name';
+  try { const r = await ctx.request.get(url, { timeout: 15000 }); if (r.ok()) { const head = (await r.body()).subarray(0, 196608).toString('latin1'); const m = STOCK.exec(head); if (m) return 'embedded rights text (' + m[0] + ')'; } } catch { /* the photo check downloads it again */ }
+  return '';
+}
 async function homeImage(ctx, url) {   // the site-wide default share picture: never "this project's" photo
   try { const r = await ogImage(ctx, new URL(url).origin + '/'); return r?.img || ''; } catch { return ''; }
 }
@@ -115,8 +143,13 @@ async function findOfficial(ctx, facts, { seen = () => false, search = true } = 
       if (terms.length && !terms.some((t) => hay.includes(t))) { log(`official page ${host}: not about "${facts.name}"`); return null; }
     }
     if (og.img === (await homeImage(ctx, og.page))) { log(`official page ${host}: only the site's default banner`); return null; }
+    if (BANNER_NAME.test(decodeURIComponent(og.img.split(/[?#]/)[0].split('/').pop() || ''))) { log(`official picture on ${host}: a site banner / share graphic (file name)`); return null; }
+    const stock = await stockMark(ctx, og.img);
+    if (stock) { log(`official picture on ${host}: licensed stock photo (${stock})`); return null; }
     const ph = await loadPhoto(ctx, og.img, og.page);
     if (!ph) { log(`official picture on ${host} rejected`); return null; }
+    const detail = await detailOf(ctx, ph.jpeg);
+    if (detail < MIN_DETAIL) { log(`official picture on ${host}: abstract / blurred graphic (detail ${detail})`); return null; }
     if (seen(ph.url, ph.jpeg)) { log(`official picture on ${host} already used`); return null; }
     return { ...ph, credit: party.credit, page: og.page, source: 'official', note: `official photo (${party.role}: ${party.credit}, ${host})` };
   };
