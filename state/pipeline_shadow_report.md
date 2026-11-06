@@ -1,5 +1,53 @@
 # Whole pipeline on Actions (shadow, writes nothing)
 
+## 2026-11-06 - shadow run 20:56 UTC, model claude-haiku-5-5
+Actions: 77 rows (19 official) - server published: 37 rows - in both: 38
+
+- ACTIONS ONLY (media): Maydan Mahzam Field Engineering | Qatar | S5-Awarded
+- ACTIONS ONLY (media): South Africa Solar-Wind IPP | South Africa | S5-Awarded
+- ACTIONS ONLY (media): Venture Global CP2 LNG Expansion | United States | S5-Awarded
+- ACTIONS ONLY (media): Revolution Wind | United States | S5-Awarded
+- ACTIONS ONLY (media): Arkansas Wind Farm (Scout Clean) | United States | S5-Awarded
+- ACTIONS ONLY (media): Dangote Refinery Kenya | Kenya | S2-Development
+- ACTIONS ONLY (media): Bio-Energie Moser Bio-LNG Plant | Germany | S5-Awarded
+- ACTIONS ONLY (media): Germany Wind Farm Pair (Energiekontor) | Germany | S5-Awarded
+- ACTIONS ONLY (media): Everfuel Denmark–Germany RFNBO Hydrogen Corridor | Denmark | S2-Development
+- ACTIONS ONLY (media): Rezolv Energy Romanian Wind Farm | Romania | S2-Development
+- ACTIONS ONLY (media): Romania Wind Farm (EBRD-backed) | Romania | S2-Development
+- ACTIONS ONLY (media): Romanian Wind Farms Grid Connection (Emergy) | Romania | S2-Development
+- ACTIONS ONLY (media): Uruguay Well Rig Charter (APA) | Uruguay | S5-Awarded
+- ACTIONS ONLY (media): Murphy Ivory Coast Ultra-deepwater Discovery | Côte d'Ivoire | S1-Feasibility
+- ACTIONS ONLY (media): Petrobras Subsea Decommissioning | Brazil | S5-Awarded
+- ACTIONS ONLY (media): Petrobras Brazil Field Redevelopment FPSO | Brazil | S1-Feasibility
+- ACTIONS ONLY (media): Corinth-Kos HVDC Interconnection | Greece | S5-Awarded
+- ACTIONS ONLY (media): Eco Wave Power AI Data Centre Wave Energy MoU | Israel | S1-Feasibility
+- ACTIONS ONLY (media): Aker BP Norwegian Fast-Track Oil Subsea Project | Norway | S5-Awarded
+- ACTIONS ONLY (media): Vopak Victoria FSRU LNG Import Terminal | Australia | S2-Development
+- ACTIONS ONLY (media): CP2 Expansion LNG Project | USA | S5-Awarded
+- ACTIONS ONLY (media): Border Basin Solar Project | USA | S5-Awarded
+- ACTIONS ONLY (media): LNG Canada Phase 2 | Canada | S5-Awarded
+- ACTIONS ONLY (media): Ignitis Latvia Solar Farm | Latvia | S5-Awarded
+- ACTIONS ONLY (media): Aseng Gas Development Flowline Pre-commissioning | Equatorial Guinea | S5-Awarded
+- ACTIONS ONLY (media): Asso.subsea Vessel Cable-Lay Equipment Package | Norway | S5-Awarded
+- ACTIONS ONLY (media): Warren Project | United States | S2-Development
+- ACTIONS ONLY (media): Sicily Solar Farm (Qair) | Italy | S5-Awarded
+- ACTIONS ONLY (media): UK Solar Farm (Recurrent Energy) | United Kingdom | S5-Awarded
+- ACTIONS ONLY (media): TC Energy US Pipeline Expansion | USA | S2-Development
+- ACTIONS ONLY (media): Coastal GasLink Phase 2 | Canada | S2-Development
+- ACTIONS ONLY (media): Drax Power Station AI Data Centre | United Kingdom | S1-Feasibility
+- ACTIONS ONLY (media): STS 10 Santos Container Terminal | Brazil | S4-Tender
+- ACTIONS ONLY (media): Oued Zine Gas Project | Algeria | S4-Tender
+- ACTIONS ONLY (official): South Sudan - Power Interconnection Project between South Sudan and Uganda |  | S3-Pre-FID
+- ACTIONS ONLY (official): Chad - Gassi and Lamadji Solar PV DtP | Chad | S3-Pre-FID
+- ACTIONS ONLY (official): Multinational – Burn Electric Cooking Expansion Program (BEEP) |  | S3-Pre-FID
+- ACTIONS ONLY (official): Sierra Leone - Preparatory Studies for Sierra Leone Rural Electricity Access Project (SLREAP) | Sierra Leone | S3-Pre-FID
+- ACTIONS ONLY (official): Tanzania – Submarine Cable to Zanzibar Project | Tanzania | S3-Pre-FID
+- SERVER ONLY: FTC Solar Supply Agreements | USA | S5-Awarded
+- SERVER ONLY: Dhaka Metro Construction | Bangladesh | S5-Awarded
+- SERVER ONLY: Chevron Pipeline Work | Equatorial Guinea | S5-Awarded
+- SERVER ONLY: Nchanga Tailings Leach Plant | Zambia | S5-Awarded
+- SERVER ONLY: Bio-LNG Production Plant | Germany | S2-Development
+
 ## 2026-11-04 - shadow run 21:19 UTC, model claude-haiku-5-5
 Actions: 104 rows (32 official) - server published: 27 rows - in both: 28
 
