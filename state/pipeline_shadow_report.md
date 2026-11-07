@@ -1,5 +1,58 @@
 # Whole pipeline on Actions (shadow, writes nothing)
 
+## 2026-11-07 - shadow run 19:17 UTC, model claude-haiku-5-5
+Actions: 54 rows (18 official) - server published: 7 rows - in both: 6
+
+- ACTIONS ONLY (media): Dangote Planned 700,000 bpd Refinery | Kenya | S2-Development
+- ACTIONS ONLY (media): RWE Hydrogen-Ready Power Stations | Germany | S5-Awarded
+- ACTIONS ONLY (media): RWE 60 MW Open-Cast Mine Wind Farm | Germany | S5-Awarded
+- ACTIONS ONLY (media): BSH Germany Offshore Wind Geotechnical Framework | Germany | S5-Awarded
+- ACTIONS ONLY (media): Vattenfall Danish Offshore Wind Farms (two sites) | Denmark | S2-Development
+- ACTIONS ONLY (media): Rabigh 2 IPP | Saudi Arabia | S5-Awarded
+- ACTIONS ONLY (media): TeraWulf Kentucky Data Centre Campus | United States | S5-Awarded
+- ACTIONS ONLY (media): Google Cheyenne Data Center Campus | United States | S2-Development
+- ACTIONS ONLY (media): EBRD-Backed Romanian Wind Farm | Romania | S2-Development
+- ACTIONS ONLY (media): Rezolv Energy Romania Wind Farm | Romania | S2-Development
+- ACTIONS ONLY (media): Uruguay Well Rig Charter | Uruguay | S5-Awarded
+- ACTIONS ONLY (media): Corinth-Kos HVDC Interconnection | Greece | S5-Awarded
+- ACTIONS ONLY (media): Venture Global Louisiana LNG Expansion | United States | S5-Awarded
+- ACTIONS ONLY (media): Google Wyoming Fuel Cell Power Supply | United States | S2-Development
+- ACTIONS ONLY (media): Türkiye First Offshore Wind Site Investigation | Türkiye | S5-Awarded
+- ACTIONS ONLY (media): Petrobras Brazil Field Redevelopment FPSO | Brazil | S1-Feasibility
+- ACTIONS ONLY (media): Eco Wave Power Wave Energy for AI Data Centers | Israel | S1-Feasibility
+- ACTIONS ONLY (media): AxDo Bahamas LNG Supply | Bahamas | S5-Awarded
+- ACTIONS ONLY (media): ADNOC LNG Supply to Gujarat Energy | India | S5-Awarded
+- ACTIONS ONLY (media): Bihar 10 MW Canal Bank Solar Project | India | S2-Development
+- ACTIONS ONLY (media): Centrica-Tourmaline Gas Supply Agreement Expansion | United Kingdom | S5-Awarded
+- ACTIONS ONLY (media): Saltend Power Station M701F Turbine Upgrade | United Kingdom | S5-Awarded
+- ACTIONS ONLY (media): Tume Solar Farm | Latvia | S5-Awarded
+- ACTIONS ONLY (media): Ignitis Latvia 174 MW Solar Farm | Latvia | S5-Awarded
+- ACTIONS ONLY (media): Nchanga Tailings Leach Plant | Zambia | S5-Awarded
+- ACTIONS ONLY (media): New Burton Mine | Australia | S5-Awarded
+- ACTIONS ONLY (media): Sherritt Cuba Restart | Cuba | S2-Development
+- ACTIONS ONLY (media): Aseng Gas Development Flowline Pre-commissioning | Equatorial Guinea | S5-Awarded
+- ACTIONS ONLY (media): Venergy VLCC Newbuilds at Hengli | Greece | S5-Awarded
+- ACTIONS ONLY (media): Finland Offshore Wind Areas Designation | Finland | S2-Development
+- ACTIONS ONLY (media): Cronos Gas Project | Cyprus | S5-Awarded
+- ACTIONS ONLY (media): Lyra Field Subsea Systems | Norway | S5-Awarded
+- ACTIONS ONLY (media): Oued Zine Gas Project | Algeria | S4-Tender
+- ACTIONS ONLY (official): Intervention in Rectifier Substations of San Fernando, Victoria, San Isidro, Olivos, Núñez, and Palermo - Mitre Line | Argentina | S4-Tender
+- ACTIONS ONLY (official): Floating structures – NRP new-build reserve pontoon 60 m | Germany | S4-Tender
+- ACTIONS ONLY (official): Transformers – call-off order for 550 MVA transformer banks 380-220 kV | Austria | S5-Awarded
+- ACTIONS ONLY (official): Medium-voltage switchboards | Italy | S5-Awarded
+- ACTIONS ONLY (official): Floating structures – modular barrier system | Lithuania | S4-Tender
+- ACTIONS ONLY (official): Marine works – Quay 9 extension and Quay 8 infill for new multipurpose esplanade, Port of Málaga | Spain | S4-Tender
+- ACTIONS ONLY (official): Marine works – Stralcio II: construction and commissioning of Colonnella and Rodella submarine pipelines | Italy | S5-Awarded
+- ACTIONS ONLY (official): Pipeline replacement and new natural gas distribution works – 4 lots (East, West, South, North) | Romania | S5-Awarded
+- ACTIONS ONLY (official): Oil and gas industry construction – new multifunction building Schmitzers Wiese, geothermal probes | Germany | S4-Tender
+- ACTIONS ONLY (official): Transformer substation – DigiTEL Green pilot, 220/110/20 kV Mostiștea digital retrofit – procurement 1 | Romania | S4-Tender
+- ACTIONS ONLY (official): South Sudan - Power Interconnection Project between South Sudan and Uganda |  | S3-Pre-FID
+- ACTIONS ONLY (official): Chad - Gassi and Lamadji Solar PV DtP | Chad | S3-Pre-FID
+- ACTIONS ONLY (official): Multinational – Burn Electric Cooking Expansion Program (BEEP) |  | S3-Pre-FID
+- ACTIONS ONLY (official): Sierra Leone - Preparatory Studies for Sierra Leone Rural Electricity Access Project (SLREAP) | Sierra Leone | S3-Pre-FID
+- ACTIONS ONLY (official): Tanzania – Submarine Cable to Zanzibar Project | Tanzania | S3-Pre-FID
+- SERVER ONLY: Mary’s Creek Water Reclamation Facility | United States | S5-Awarded
+
 ## 2026-11-06 - shadow run 20:56 UTC, model claude-haiku-5-5
 Actions: 77 rows (19 official) - server published: 37 rows - in both: 38
 
