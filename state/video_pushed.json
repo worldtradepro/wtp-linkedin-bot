@@ -222,6 +222,12 @@
       "mode": "schedule",
       "at": "2026-11-06T11:04:17.349Z",
       "dueAt": "2026-11-07T13:00:00.000Z"
+    },
+    "cd_cashew_raw_processing": {
+      "postId": "6aeefc2fd6bbae6fa17d20ba",
+      "mode": "schedule",
+      "at": "2026-11-07T10:23:43.838Z",
+      "dueAt": "2026-11-08T13:00:00.000Z"
     }
   }
 }
