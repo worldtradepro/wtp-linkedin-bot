@@ -1,5 +1,12 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-07 14:55 UTC - write, model claude-haiku-5-5, rows 5
+{'page unreadable': 2, 'full': 3, 'differ': 3}
+
+- Mary’s Creek Water Reclamation Facility (7433) | server None / haiku full | differs: owner [ | City of Fort Worth], contractors [[] | ['Ferrovial SE', 'Webber, LLC']]
+- Bulloo Interlink Gas Pipeline (7430) | server None / haiku full | differs: capacity [ | 800 TJ per day], value [AUD 700 million | AUD 920 million], event_type [Financing | FID]
+- Google Wyoming Data Centre (7429) | server None / haiku full | differs: capacity [702 MW | 702 MW fuel cells with carbon capture and storage], value [USD 17000 million | USD 17 billion], event_type [Financing | Other], contractors [[] | ['Bloom Energy']]
+
 ## 2026-11-06 21:29 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
