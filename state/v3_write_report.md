@@ -1,5 +1,10 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-07 20:14 UTC - write, model claude-haiku-5-5, rows 0
+{}
+
+
+
 ## 2026-11-07 14:55 UTC - write, model claude-haiku-5-5, rows 5
 {'page unreadable': 2, 'full': 3, 'differ': 3}
 
