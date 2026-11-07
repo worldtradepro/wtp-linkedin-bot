@@ -738,6 +738,163 @@
         "infra-1: 1.2-GW Solar Project (fact card)",
         "infra-2: Data Center Pipeline (photo)"
       ]
+    },
+    {
+      "date": "2026-11-07",
+      "search": "brave",
+      "checked": 18,
+      "photos": 2,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Malaysia Data Center Build-Out",
+          "result": "commons: 12 files for \"Build Out Data Center\""
+        },
+        {
+          "rank": 2,
+          "project": "Project Aaka Campus",
+          "result": "commons: 12 files for \"Aaka\""
+        },
+        {
+          "rank": 3,
+          "project": "Venergy VLCC Order",
+          "result": "commons: 0 files for \"Venergy VLCC\""
+        },
+        {
+          "rank": 4,
+          "project": "Cypress Knee Solar",
+          "result": "photo: Commons photo (Cypress knee 6016, CC BY-SA 3.0)"
+        },
+        {
+          "rank": 5,
+          "project": "Renewable Energy Auctions Q3 2026",
+          "result": "commons: 12 files for \"Renewable Auctions\""
+        },
+        {
+          "rank": 6,
+          "project": "Bahamas LNG Hub",
+          "result": "commons: 12 files for \"LNG\""
+        },
+        {
+          "rank": 7,
+          "project": "Bio-LNG Production Plant",
+          "result": "commons: 12 files for \"Bio LNG Production\""
+        },
+        {
+          "rank": 8,
+          "project": "Eneva LNG Terminal and Power Plants",
+          "result": "commons: 7 files for \"Eneva LNG Plants\""
+        },
+        {
+          "rank": 9,
+          "project": "LNG Supply Agreement",
+          "result": "commons: 12 files for \"LNG Supply Agreement\""
+        },
+        {
+          "rank": 10,
+          "project": "Chevron Pipeline Work",
+          "result": "commons: 12 files for \"Chevron Work Pipeline\""
+        },
+        {
+          "rank": 11,
+          "project": "Transformers – 550 MVA Trafobänke 380-220kV",
+          "result": "commons: 0 files for \"Transformers MVA Trafobanke\""
+        },
+        {
+          "rank": 12,
+          "project": "Marine construction works – Extension of dock 9 and filling of dock 8 at Port of Málaga",
+          "result": "commons: 12 files for \"Marine Extension Malaga Port\""
+        },
+        {
+          "rank": 13,
+          "project": "Alpha Ventus Offshore Wind Farm Maintenance",
+          "result": "commons: 0 files for \"Alpha Ventus Offshore Maintenance Wind Farm\""
+        },
+        {
+          "rank": 14,
+          "project": "New Burton Mine Services",
+          "result": "commons: 12 files for \"Burton Services Mine\""
+        },
+        {
+          "rank": 15,
+          "project": "Medium-voltage switchboards – prj_129276",
+          "result": "commons: 12 files for \"Medium\""
+        },
+        {
+          "rank": 16,
+          "project": "Marine construction works – Works for underwater pipelines Colonnella and Rodella",
+          "result": "commons: 0 files for \"Marine Colonnella Rodella\""
+        },
+        {
+          "rank": 17,
+          "project": "Pipeline relaying works – Replacement of pipelines and new gas distribution – 4 LOTS (East, West, South, North)",
+          "result": "commons: 12 files for \"Replacement LOTS Pipeline\""
+        },
+        {
+          "rank": 18,
+          "project": "Heat Recovery Project",
+          "result": "photo: Commons photo (Installed heat recovery (31380297942), CC BY-SA 2.0)"
+        },
+        {
+          "rank": 19,
+          "project": "Power and Control Systems for Offshore Data Centers",
+          "result": "not checked"
+        },
+        {
+          "rank": 20,
+          "project": "Diamba Sud Project Permitting",
+          "result": "not checked"
+        },
+        {
+          "rank": 21,
+          "project": "Floating structures – NRP Neubau Reserve Ponton 60m",
+          "result": "not checked"
+        },
+        {
+          "rank": 22,
+          "project": "Ships – Design and construction of a research training vessel for Politechnika Morska in Szczecin",
+          "result": "not checked"
+        },
+        {
+          "rank": 23,
+          "project": "Floating structures – Modular barrier system",
+          "result": "not checked"
+        },
+        {
+          "rank": 24,
+          "project": "Construction work for oil and gas – New multifunctional building Schmitzers Wiese_Ground heat probe facility",
+          "result": "not checked"
+        },
+        {
+          "rank": 25,
+          "project": "Rehabilitation of Approach Road and Improvement of Basic Facilities at Janauri Dam (Package -2), District Hoshiarpur, Punjab under Dam Rehabilitation and Improvement Project (DRIP-II).",
+          "result": "not checked"
+        },
+        {
+          "rank": 26,
+          "project": "Topside facilities construction for Fête du Citron tribunes",
+          "result": "not checked"
+        },
+        {
+          "rank": 27,
+          "project": "Quay construction for Alksnynė coastal protection dam project",
+          "result": "not checked"
+        },
+        {
+          "rank": 28,
+          "project": "Harbour construction for Skandinavienkai- Travemünde Landstrom expansion",
+          "result": "not checked"
+        },
+        {
+          "rank": 29,
+          "project": "Drilling services – Recompletion of DZH4 – Work-over Rig Services",
+          "result": "not checked"
+        }
+      ],
+      "kept": [
+        "infra-1: Cypress Knee Solar (photo)",
+        "infra-2: Heat Recovery Project (photo)"
+      ]
     }
   ]
 }
