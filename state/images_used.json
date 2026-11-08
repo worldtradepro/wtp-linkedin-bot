@@ -1,24 +1,6 @@
 {
   "items": [
     {
-      "date": "2026-10-08",
-      "id": "infra-1",
-      "url": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA2dGBJ5.img",
-      "hash": "afea6768a55858443e5acaa7b74c5d7e941981e3"
-    },
-    {
-      "date": "2026-10-08",
-      "id": "infra-2",
-      "url": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA2dLP5D.img",
-      "hash": "8aa0ad7c4ef951d739501352698f4535ab8c3973"
-    },
-    {
-      "date": "2026-10-08",
-      "id": "infra-3",
-      "url": "https://assets.st-note.com/production/uploads/images/318069836/rectangle_large_type_2_54259f0b12a73472510674de21ea8f77.jpeg",
-      "hash": "c5481fb26395941a672123c34b726aa4861b8e4a"
-    },
-    {
       "date": "2026-10-09",
       "id": "infra-1",
       "url": "https://constructionreviewonline.com/wp-content/uploads/2026/10/images-80.jpg",
@@ -263,6 +245,18 @@
       "id": "infra-2",
       "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/96/Installed_heat_recovery_%2831380297942%29.jpg/1920px-Installed_heat_recovery_%2831380297942%29.jpg",
       "hash": "169f29a173ce7f7ce169fde69e100e106905572b"
+    },
+    {
+      "date": "2026-11-08",
+      "id": "infra-1",
+      "url": "https://api.apa.com.au/media/cxvemogb/2026-09-23-bulloo-interlink-laydown-yard-at-darling-downs-solar-farm-001.jpg",
+      "hash": "5563949b65f78ef6c1be84a374f8f2d1e8e210bb"
+    },
+    {
+      "date": "2026-11-08",
+      "id": "infra-2",
+      "url": "https://www.chevron.com/-/media/chevron/newsroom/2022/Q3/planned-infrastructure-and-innovative-design-drives-lower-carbon-progress-1568x882.jpg",
+      "hash": "be8fb0ab50ed5157c0807b746cae41c46e0e4203"
     }
   ]
 }

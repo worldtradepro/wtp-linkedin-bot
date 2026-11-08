@@ -895,6 +895,128 @@
         "infra-1: Cypress Knee Solar (photo)",
         "infra-2: Heat Recovery Project (photo)"
       ]
+    },
+    {
+      "date": "2026-11-08",
+      "search": "brave",
+      "checked": 9,
+      "photos": 2,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Google Wyoming Data Centre",
+          "result": "commons: 12 files for \"Google Wyoming Data Centre\""
+        },
+        {
+          "rank": 2,
+          "project": "Bahamas LNG Hub",
+          "result": "commons: 12 files for \"LNG\""
+        },
+        {
+          "rank": 3,
+          "project": "Project Aaka Campus",
+          "result": "commons: 12 files for \"Aaka\""
+        },
+        {
+          "rank": 4,
+          "project": "Venergy VLCC Order",
+          "result": "commons: 0 files for \"Venergy VLCC\""
+        },
+        {
+          "rank": 5,
+          "project": "Bulloo Interlink Gas Pipeline",
+          "result": "photo: official photo (owner: APA, apa.com.au)"
+        },
+        {
+          "rank": 6,
+          "project": "Bio-LNG Production Plant",
+          "result": "commons: 12 files for \"Bio LNG Production\""
+        },
+        {
+          "rank": 7,
+          "project": "Mary’s Creek Water Reclamation Facility",
+          "result": "commons: 12 files for \"Mary Creek Water Reclamation\""
+        },
+        {
+          "rank": 8,
+          "project": "LNG Supply Agreement",
+          "result": "commons: 12 files for \"LNG Supply Agreement\""
+        },
+        {
+          "rank": 9,
+          "project": "Chevron Pipeline Work",
+          "result": "photo: official photo (owner: Chevron, chevron.com)"
+        },
+        {
+          "rank": 10,
+          "project": "Transformers – 550 MVA Trafobänke 380-220kV",
+          "result": "not checked"
+        },
+        {
+          "rank": 11,
+          "project": "Marine construction works – Extension of dock 9 and filling of dock 8 at Port of Málaga",
+          "result": "not checked"
+        },
+        {
+          "rank": 12,
+          "project": "Design, Supply and Installation for Selçuklu (Konya) Solar Power Plant (SPP) Project",
+          "result": "not checked"
+        },
+        {
+          "rank": 13,
+          "project": "\"Design, Construct, Supply, and Installation of 66 kV sub-transmission lines from Kenema to Kailahun and associated substation at Kailahun.\"",
+          "result": "not checked"
+        },
+        {
+          "rank": 14,
+          "project": "New Burton Mine Services",
+          "result": "not checked"
+        },
+        {
+          "rank": 15,
+          "project": "Medium-voltage switchboards – prj_129276",
+          "result": "not checked"
+        },
+        {
+          "rank": 16,
+          "project": "Marine construction works – Works for underwater pipelines Colonnella and Rodella",
+          "result": "not checked"
+        },
+        {
+          "rank": 17,
+          "project": "Pipeline relaying works – Replacement of pipelines and new gas distribution – 4 LOTS (East, West, South, North)",
+          "result": "not checked"
+        },
+        {
+          "rank": 18,
+          "project": "TRAVAUX DE CONSTRUCTION/REHABILITATION DES INFRASTRUCTURES SOCIO-ECONOMIQUES (ETABLISSEMENTS SCOLAIRES, CENTRE DE SANTE, MAGASIN DE STOCKAGE, INFRASTRUCTURES COMMUNAUTAIRES) DANS LES COMMUNES DE KOUSSERI, MAKARY ET LOGONE BIRNI",
+          "result": "not checked"
+        },
+        {
+          "rank": 19,
+          "project": "Floating structures – NRP Neubau Reserve Ponton 60m",
+          "result": "not checked"
+        },
+        {
+          "rank": 20,
+          "project": "Ships – Design and construction of a research training vessel for Politechnika Morska in Szczecin",
+          "result": "not checked"
+        },
+        {
+          "rank": 21,
+          "project": "Floating structures – Modular barrier system",
+          "result": "not checked"
+        },
+        {
+          "rank": 22,
+          "project": "Construction work for oil and gas – New multifunctional building Schmitzers Wiese_Ground heat probe facility",
+          "result": "not checked"
+        }
+      ],
+      "kept": [
+        "infra-1: Bulloo Interlink Gas Pipeline (photo)",
+        "infra-2: Chevron Pipeline Work (photo)"
+      ]
     }
   ]
 }
