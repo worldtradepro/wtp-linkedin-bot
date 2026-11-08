@@ -1,5 +1,10 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-08 15:13 UTC - write, model claude-haiku-5-5, rows 1
+{'limited': 1, 'differ': 1}
+
+- Substation Capacity Expansion (7455) | server None / haiku limited | differs: event_type [Other | ]
+
 ## 2026-11-07 20:14 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
