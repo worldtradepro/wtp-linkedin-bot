@@ -1,5 +1,20 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-09 18:51 UTC - write, model claude-haiku-5-5, rows 13
+{'page unreadable': 2, 'full': 11, 'differ': 11}
+
+- Corsicana Data Center Lease (7488) | server None / haiku full | differs: owner [ | Riot Platforms Inc], capacity [910 MW | 910 MW critical IT], value [USD 28000 million | USD 28 billion], event_type [Lease | Offtake/Supply agreement]
+- Methanol-Ready Boxship Order (7484) | server None / haiku full | differs: owner [ | A2B-online], event_type [Award | Equipment/vessel order], contractors [[] | ['China Merchants Industry Weihai Shipyard', 'Technolog Services']]
+- Containership Order (7483) | server None / haiku full | differs: owner [ | Regional Container Lines], capacity [ | 2 x 9,200 teu], event_type [Award | Equipment/vessel order]
+- AHTS Contract Extension (7482) | server None / haiku full | differs: owner [ | DOF], value [ | USD 15-25 million]
+- Weizhou Oilfield Expansion (7481) | server None / haiku full | differs: owner [ | Sinopec], contractors [[] | ['Sinopec Petroleum Engineering Design', 'Sinopec Shengli Oil Construction']]
+- Offshore Wind Contracts (7480) | server None / haiku full | differs: capacity [ | just over 1 GW combined], value [USD 17.5 million | RMB 124.23 million], contractors [[] | ['PowerChina East China Engineering Institute']]
+- Jerritt Canyon Gold Mine Restart (7479) | server None / haiku full | differs: owner [ | First Majestic Silver Corp], value [ | EUR 9 million], event_type [Award | Equipment/vessel order], contractors [[] | ['Metso', 'Loesche']]
+- LNG Carrier Construction (7478) | server None / haiku full | differs: capacity [ | two LNG carriers], contractors [[] | ['HD Hyundai Heavy Industries']]
+- Galveston LNG Facility (7477) | server None / haiku full | differs: owner [ | Stabilis Solutions], event_type [FID | Other]
+- Sodegaura LNG Units (7476) | server None / haiku full | differs: owner [ | Jera], event_type [Award | Other], contractors [[] | ['Eneos Power']]
+- Floating Data Centers Power Systems (7474) | server None / haiku full | differs: owner [ | Hanwha Ocean], event_type [MoU | Other], contractors [[] | ['ABB']]
+
 ## 2026-11-08 20:27 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
