@@ -1,5 +1,56 @@
 # Whole pipeline on Actions (shadow, writes nothing)
 
+## 2026-11-09 - shadow run 23:52 UTC, model claude-haiku-5-5
+Actions: 67 rows (20 official) - server published: 25 rows - in both: 25
+
+- ACTIONS ONLY (media): Vanguard Wind Farm | United Kingdom | S2-Development
+- ACTIONS ONLY (media): Vale of Glamorgan Solar Farm | United Kingdom | S2-Development
+- ACTIONS ONLY (media): Bedburg 3 Wind Park | Germany | S5-Awarded
+- ACTIONS ONLY (media): RWE Hydrogen-Ready Gas Plant Awards | Germany | S5-Awarded
+- ACTIONS ONLY (media): PowerChina Centralised PV Module Procurement | China | S5-Awarded
+- ACTIONS ONLY (media): Galveston LNG Liquefaction Facility | United States | S2-Development
+- ACTIONS ONLY (media): Big Rooter Power | United States | S2-Development
+- ACTIONS ONLY (media): Kentucky Data Center Campus (Fluor EPC) | United States | S5-Awarded
+- ACTIONS ONLY (media): Two Egyptian Wind Farms (EBRD Financing Package) | Egypt | S2-Development
+- ACTIONS ONLY (media): Dama Solar Park | Romania | S2-Development
+- ACTIONS ONLY (media): Mulwala Solar PV Plant | Australia | S5-Awarded
+- ACTIONS ONLY (media): Alphamin Tin Concentrate Supply to New US Smelter | United States | S5-Awarded
+- ACTIONS ONLY (media): Panama Canal New Container Terminals | Panama | S4-Tender
+- ACTIONS ONLY (media): COSCO VLCC Newbuild and Charter Expansion | China | S5-Awarded
+- ACTIONS ONLY (media): RCL 9,200 teu Neo-Panamax Containership Pair | Thailand | S5-Awarded
+- ACTIONS ONLY (media): A.E. Nomikos Oshima Kamsarmax Newbuild | Greece | S5-Awarded
+- ACTIONS ONLY (media): A2B-online Methanol-Capable Containership Pair | Netherlands | S5-Awarded
+- ACTIONS ONLY (media): Kuwait Offshore Jack-Up Rigs 1 and 2 | Kuwait | S5-Awarded
+- ACTIONS ONLY (media): Syria Refinery Rebuild Project | Syria | S1-Feasibility
+- ACTIONS ONLY (media): PGE Poland Battery Storage | Poland | S5-Awarded
+- ACTIONS ONLY (media): Coral Norte FLNG | Mozambique | S2-Development
+- ACTIONS ONLY (media): AirTrunk Melbourne Data Centre | Australia | S2-Development
+- ACTIONS ONLY (media): Petro Rabigh BOTB Red Sea Refinery Upgrade | Saudi Arabia | S4-Tender
+- ACTIONS ONLY (media): ADNOC Drilling Jack-Up Rig Contracts | United Arab Emirates | S5-Awarded
+- ACTIONS ONLY (media): Nigeria–Morocco Gas Pipeline | Global | S1-Feasibility
+- ACTIONS ONLY (media): GCC Gulf Water Interconnection and Grid Expansion Studies | Global | S1-Feasibility
+- ACTIONS ONLY (media): ONGC Jack-Up Rig Charters | India | S5-Awarded
+- ACTIONS ONLY (media): Odisha 470 MW FDRE Power Procurement | India | S2-Development
+- ACTIONS ONLY (media): Odisha 750 MW Hybrid Renewable Procurement | India | S2-Development
+- ACTIONS ONLY (media): KPCL Solar-Plus-Storage Project | India | S4-Tender
+- ACTIONS ONLY (official): Railway maintenance works by replacing track superstructure components – 7 lots | Romania | S4-Tender
+- ACTIONS ONLY (official): Drilling services at JSW S.A.: core, coreless, small/large-diameter boreholes; rock and coal seam surveys | Poland | S3-Pre-FID
+- ACTIONS ONLY (official): New intermodal terminal in Riesa harbour, Alter Hafen – lot 3, main construction lot | Germany | S4-Tender
+- ACTIONS ONLY (official): Coal/rock cutting machines for JSW S.A.: roadheader and longwall shearer rental, purchase and delivery | Poland | S3-Pre-FID
+- ACTIONS ONLY (official): Mining construction work for JSW S.A.: excavation of shaft bypass roadway | Poland | S3-Pre-FID
+- ACTIONS ONLY (official): Pipe laying for JSW S.A.: degasification pipelines in underground workings, installation and assembly | Poland | S3-Pre-FID
+- ACTIONS ONLY (official): Hydroelectric plant construction work – innovation and modernisation of Čunovo hydropower plant | Slovakia | S4-Tender
+- ACTIONS ONLY (official): South Sudan - Power Interconnection Project between South Sudan and Uganda |  | S3-Pre-FID
+- ACTIONS ONLY (official): Chad - Gassi and Lamadji Solar PV DtP | Chad | S3-Pre-FID
+- ACTIONS ONLY (official): Multinational – Burn Electric Cooking Expansion Program (BEEP) |  | S3-Pre-FID
+- ACTIONS ONLY (official): Sierra Leone - Preparatory Studies for Sierra Leone Rural Electricity Access Project (SLREAP) | Sierra Leone | S3-Pre-FID
+- ACTIONS ONLY (official): Tanzania - Submarine Cable to Zanzibar Project | Tanzania | S3-Pre-FID
+- SERVER ONLY: 372 MWh Battery Storage | Poland | S5-Awarded
+- SERVER ONLY: Cabaçal Project | Brazil | S3-Pre-FID
+- SERVER ONLY: Methanol-Ready Boxship Order | China | S5-Awarded
+- SERVER ONLY: Containership Order | Thailand | S5-Awarded
+- SERVER ONLY: Wind Farms in Egypt | Egypt | S2-Development
+
 ## 2026-11-08 - shadow run 19:21 UTC, model claude-haiku-5-5
 Actions: 12 rows (8 official) - server published: 2 rows - in both: 1
 
@@ -671,18 +722,4 @@ Actions: 78 rows (31 official) - server published: 29 rows - in both: 23
 ## 2026-10-26 - shadow run 20:26 UTC, model claude-haiku-5-5
 Actions: 50 rows (15 official) - server published: 28 rows - in both: 29
 
-- ACTIONS ONLY (media): Greece 550 MW Solar Project | Greece | S2-Development
-- ACTIONS ONLY (media): Côte d'Ivoire 372 MW Power Plant | Côte d'Ivoire | S5-Awarded
-- ACTIONS ONLY (media): WinGD Service Agreements for 14 Dual-Fuel LNG Carriers | Switzerland | S5-Awarded
-- ACTIONS ONLY (media): MSC Ultra-Large Container Ship Newbuild Order at Hengli | Switzerland | S5-Awarded
-- ACTIONS ONLY (media): Swiss Government Cloud (SGC) | Switzerland | S4-Tender
-- ACTIONS ONLY (media): LNG Canada | Canada | S5-Awarded
-- ACTIONS ONLY (media): East Anglia TWO Offshore Wind Farm | United Kingdom | S5-Awarded
-- ACTIONS ONLY (media): Noor PV Multisites Solar Programme | Morocco | S4-Tender
-- ACTIONS ONLY (media): Water Pipeline Hydropower Feasibility Study | Morocco | S1-Feasibility
-- ACTIONS ONLY (media): EU Mediterranean Clean Tech Loan Guarantee Programme | Global | S2-Development
-- ACTIONS ONLY (media): Energy Fuels Rare-Earth Magnet Plant Acquisition | United States | S5-Awarded
-- ACTIONS ONLY (media): Transocean Maritime Agencies Tanker Newbuild Pair | Monaco | S5-Awarded
-- ACTIONS ONLY (media): Aramco Offshore EPC Projects (NMDC Energy awards) | Saudi Arabia | S5-Awarded
-- ACTIONS ONLY (media): Havila Charisma and Foresight PSV Charter Extensions | Norway | S5-Awarded
-- ACTIONS ONLY (media): Renewable-Powered Offshore Data Centre Test |
+- ACTIONS ONLY (media): Greece 550 MW
