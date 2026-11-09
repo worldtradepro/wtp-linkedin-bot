@@ -1017,6 +1017,43 @@
         "infra-1: Bulloo Interlink Gas Pipeline (photo)",
         "infra-2: Chevron Pipeline Work (photo)"
       ]
+    },
+    {
+      "date": "2026-11-09",
+      "search": "brave",
+      "checked": 5,
+      "photos": 0,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Google Wyoming Data Centre",
+          "result": "commons: 12 files for \"Google Wyoming Data Centre\""
+        },
+        {
+          "rank": 2,
+          "project": "Mary’s Creek Water Reclamation Facility",
+          "result": "commons: 12 files for \"Mary Creek Water Reclamation\""
+        },
+        {
+          "rank": 3,
+          "project": "Design, Supply and Installation for Selçuklu (Konya) Solar Power Plant (SPP) Project",
+          "result": "commons: 0 files for \"Design Supply Installation Selcuklu Konya SPP Plant\""
+        },
+        {
+          "rank": 4,
+          "project": "\"Design, Construct, Supply, and Installation of 66 kV sub-transmission lines from Kenema to Kailahun and associated substation at Kailahun.\"",
+          "result": "commons: 0 files for \"Design Construct Supply Installation Kenema Kailahun Kailahun substation\""
+        },
+        {
+          "rank": 5,
+          "project": "TRAVAUX DE CONSTRUCTION/REHABILITATION DES INFRASTRUCTURES SOCIO-ECONOMIQUES (ETABLISSEMENTS SCOLAIRES, CENTRE DE SANTE, MAGASIN DE STOCKAGE, INFRASTRUCTURES COMMUNAUTAIRES) DANS LES COMMUNES DE KOUSSERI, MAKARY ET LOGONE BIRNI",
+          "result": "commons: 0 files for \"TRAVAUX REHABILITATION DES INFRASTRUCTURES SOCIO ECONOMIQUES ETABLISSEMENTS SCOLAIRES SANTE MAGASIN STOCKAGE INFRASTRUCTURES COMMUNAUTAIRES DANS LES COMMUNES KOUSSERI MAKARY LOGONE BIRNI\""
+        }
+      ],
+      "kept": [
+        "infra-1: Google Wyoming Data Centre (fact card)",
+        "infra-2: Mary’s Creek Water Reclamation Facility (fact card)"
+      ]
     }
   ]
 }
