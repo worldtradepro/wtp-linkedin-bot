@@ -1,5 +1,19 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-10 16:27 UTC - write, model claude-haiku-5-5, rows 13
+{'page unreadable': 3, 'full': 9, 'differ': 10, 'project_only': 1}
+
+- 6.3 GW Renewable Power Procurement (7568) | server None / haiku full | differs: owner [Telangana Electricity Regulatory Commission | Telangana state distribution companies (DISCOMs)], capacity [6300 MW | 6,300 MW], event_type [Financing | Permit/Approval]
+- Rooftop Solar Project with Battery Storage (7567) | server None / haiku full | differs: owner [ | Savitribai Phule Pune University]
+- 200 MW FDRE Procurement (7566) | server None / haiku full | differs: owner [Bihar State Power Holding Company | Bihar State Power Holding Company (BSPHCL)], event_type [Financing | Permit/Approval], contractors [[] | ['SJVN']]
+- 300 MW Solar-Plus-Storage Procurement (7565) | server None / haiku full | differs: owner [Bihar Electricity Regulatory Commission | ], capacity [300 MW | 300 MW solar; 150 MW/600 MWh BESS], event_type [Financing | Permit/Approval], contractors [[] | ['NHPC']]
+- Vadodara–Mumbai Expressway Construction (7564) | server None / haiku project_only | differs: owner [NHAI | National Highways Authority of India (NHAI)], capacity [ | eight-lane], value [INR 865.90 million | INR 8.659 billion], contractors [[] | ['Ashoka Buildcon']]
+- Offshore Jack-Up Rig Contracts (7559) | server None / haiku full | differs: owner [ | Kuwait Oil Company (KOC)], capacity [ | 2 offshore jack-up rigs], value [ | USD 313.6 million], contractors [[] | ['ADNOC Drilling']]
+- Offshore Wind EPC Contract (7558) | server None / haiku full | differs: capacity [800 MW | 800MW (2 x 400MW)], contractors [[] | ['China Energy Engineering Guangdong Electric Power Design Institute']]
+- 250 MW Power Plant in Texas (7556) | server None / haiku full | differs: owner [ | HDF Energy], contractors [[] | ['Topsoe']]
+- Newbuild LNG Dual-Fuel Car Carriers (7555) | server None / haiku full | differs: owner [ | Global Car Carriers (GCC), MSC-controlled], capacity [ | 4 x 8,600 ceu (34,400 ceu total)], event_type [Award | Equipment/vessel order], contractors [[] | ['Zhoushan Changhong International Shipyard', 'China Merchants Weihai yard']]
+- LNG-Powered Containerships Order (7554) | server None / haiku full | differs: contractors [[] | ['Yangzijiang Shipbuilding']]
+
 ## 2026-11-10 00:14 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
