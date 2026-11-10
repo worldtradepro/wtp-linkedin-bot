@@ -1054,6 +1054,108 @@
         "infra-1: Google Wyoming Data Centre (fact card)",
         "infra-2: Mary’s Creek Water Reclamation Facility (fact card)"
       ]
+    },
+    {
+      "date": "2026-11-10",
+      "search": "brave",
+      "checked": 18,
+      "photos": 1,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Corsicana Data Center Lease",
+          "result": "commons: 12 files for \"Corsicana Lease Data Center\""
+        },
+        {
+          "rank": 2,
+          "project": "Sodegaura LNG Units",
+          "result": "commons: 1 files for \"Sodegaura LNG\""
+        },
+        {
+          "rank": 3,
+          "project": "LNG Carrier Construction",
+          "result": "photo: Commons photo (Shahamah LNG carrier, CC BY 2.1 JP)"
+        },
+        {
+          "rank": 4,
+          "project": "Jerritt Canyon Gold Mine Restart",
+          "result": "commons: 0 files for \"Jerritt Canyon Gold Restart Mine\""
+        },
+        {
+          "rank": 5,
+          "project": "Weizhou Oilfield Expansion",
+          "result": "commons: 1 files for \"Weizhou Oilfield\""
+        },
+        {
+          "rank": 6,
+          "project": "AHTS Contract Extension",
+          "result": "commons: 12 files for \"AHTS Extension\""
+        },
+        {
+          "rank": 7,
+          "project": "Containership Order",
+          "result": "commons: 12 files for \"Containership\""
+        },
+        {
+          "rank": 8,
+          "project": "Methanol-Ready Boxship Order",
+          "result": "commons: 0 files for \"Methanol Ready Boxship\""
+        },
+        {
+          "rank": 9,
+          "project": "Construction work for gas pipelines - Segarcea - Băilești – Calafat - Plenița - 3 LOTS",
+          "result": "commons: 0 files for \"Segarcea Bailesti Calafat Plenita LOTS\""
+        },
+        {
+          "rank": 10,
+          "project": "Gas turbines - Supply of two turbine islands for Łagisza with accompanying services",
+          "result": "commons: 12 files for \"Supply\""
+        },
+        {
+          "rank": 11,
+          "project": "Offshore Wind Contracts",
+          "result": "commons Barrow Offshore wind turbines NR: picture rejected"
+        },
+        {
+          "rank": 12,
+          "project": "Floating Data Centers Power Systems",
+          "result": "commons: 12 files for \"Floating Centers Systems\""
+        },
+        {
+          "rank": 13,
+          "project": "Mining equipment - Equipment for JSW S.A. including battery-powered tractors",
+          "result": "commons: 12 files for \"Mining equipment Equipment JSW\""
+        },
+        {
+          "rank": 14,
+          "project": "BSC Cutter Capability Gap Initial Market Engagement",
+          "result": "commons: 0 files for \"BSC Cutter Capability Gap Initial Market Engagement\""
+        },
+        {
+          "rank": 15,
+          "project": "Design, Supply and Installation of high voltage substations (total number of transformers as follows: 3x300 MVA 400/230 kV, 9x125 MVA 230/66 kV and 17x30 MVA 66/20 kV of combined transformation capacity), including the Supply of necessary spare parts",
+          "result": "commons: 12 files for \"Design Supply Installation MVA MVA MVA Supply\""
+        },
+        {
+          "rank": 16,
+          "project": "Hydro-electric plant construction - Murkraftwerk Leoben-Ost - Stahlwasserbau",
+          "result": "commons: 0 files for \"Hydro Murkraftwerk Leoben Ost Stahlwasserbau plant\""
+        },
+        {
+          "rank": 17,
+          "project": "District-heating plant construction - Energy supply engineering in Zwolle",
+          "result": "commons Nationale Boomplantdag Prinses Beatrix plant eerste bo voor bos in Zwolle, Bestanddeelnr 930-7451: picture rejected"
+        },
+        {
+          "rank": 18,
+          "project": "Downhole services - Directional drilling technology for GeoMetEr LWB-01 - Langenweißbach",
+          "result": "commons: 0 files for \"Downhole Directional GeoMetEr LWB Langenwei\""
+        }
+      ],
+      "kept": [
+        "infra-1: Corsicana Data Center Lease (fact card)",
+        "infra-2: LNG Carrier Construction (photo)"
+      ]
     }
   ]
 }

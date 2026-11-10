@@ -1,18 +1,6 @@
 {
   "items": [
     {
-      "date": "2026-10-10",
-      "id": "infra-1",
-      "url": "https://thedeepdive.ca/wp-content/uploads/2026/10/buys-30-stake-in-equinors-bay-du-nord-project-ahea-7fc7a357-9b11-4a92-a863-1fdafb8b4e26.jpg",
-      "hash": "5395fabebb243ea846d0ed2a0eb6f1581e53578e"
-    },
-    {
-      "date": "2026-10-10",
-      "id": "infra-2",
-      "url": "https://images.unsplash.com/photo-1784915468280-7e85cf29002c",
-      "hash": "8b8eacc308f4e6361954dee120ffd441618a0d06"
-    },
-    {
       "date": "2026-10-11",
       "id": "infra-1",
       "url": "https://s49634.pcdn.co/wp-content/uploads/2026/07/AirTrunk-CEO-Robin-Khuda.jpg",
@@ -239,6 +227,12 @@
       "id": "infra-2",
       "url": "https://www.chevron.com/-/media/chevron/newsroom/2022/Q3/planned-infrastructure-and-innovative-design-drives-lower-carbon-progress-1568x882.jpg",
       "hash": "be8fb0ab50ed5157c0807b746cae41c46e0e4203"
+    },
+    {
+      "date": "2026-11-10",
+      "id": "infra-2",
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/Shahamah_LNG_carrier.jpg/1920px-Shahamah_LNG_carrier.jpg",
+      "hash": "173de417ba6ebe770cb86a15a5eaad4b6590afa4"
     }
   ]
 }
