@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-10",
+  "edition": "weekly",
+  "skip": false,
+  "subject": "US$416m award: Mazoon Copper Project",
+  "preview": "117 new projects in 49 countries · 27 tenders · 58 awards · 192 trade-flow signals, 18 critical",
+  "counts": {
+    "epc": 117,
+    "tenders": 27,
+    "awards": 58,
+    "flow": 192,
+    "critical": 18,
+    "calls": 9,
+    "calendar": 3,
+    "notes": true,
+    "sectors": [
+      "energy:28",
+      "power:41",
+      "metals:11",
+      "agri:5",
+      "chem:4",
+      "infra:5",
+      "shipping:23"
+    ]
+  }
+}

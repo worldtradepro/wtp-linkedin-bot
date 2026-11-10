@@ -62,5 +62,12 @@
     "failed": 0,
     "at": "2026-11-03T06:52:05.202Z",
     "subject": "US$864m award: Annaba Port facilities construction, Algeria"
+  },
+  "2026-11-10-weekly": {
+    "done": true,
+    "sent": 14,
+    "failed": 0,
+    "at": "2026-11-10T07:22:57.569Z",
+    "subject": "US$416m award: Mazoon Copper Project"
   }
 }
