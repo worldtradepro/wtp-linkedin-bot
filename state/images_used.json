@@ -1,18 +1,6 @@
 {
   "items": [
     {
-      "date": "2026-10-11",
-      "id": "infra-1",
-      "url": "https://s49634.pcdn.co/wp-content/uploads/2026/07/AirTrunk-CEO-Robin-Khuda.jpg",
-      "hash": "115830775eabb6aac4af45fe975cc17665f60d8c"
-    },
-    {
-      "date": "2026-10-11",
-      "id": "infra-2",
-      "url": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA2dQH6B.img",
-      "hash": "884641b672b558e71fce415134f70aef8a8be70e"
-    },
-    {
       "date": "2026-10-12",
       "id": "infra-1",
       "url": "https://images.tmcnet.com/tmc/world.jpg",
@@ -233,6 +221,12 @@
       "id": "infra-2",
       "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/Shahamah_LNG_carrier.jpg/1920px-Shahamah_LNG_carrier.jpg",
       "hash": "173de417ba6ebe770cb86a15a5eaad4b6590afa4"
+    },
+    {
+      "date": "2026-11-11",
+      "id": "infra-2",
+      "url": "https://www.topsoe.com/hubfs/HDF%20signing_web.jpeg",
+      "hash": "c0988333bdb233c289794c324797148f9b4e7691"
     }
   ]
 }

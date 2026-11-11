@@ -1156,6 +1156,153 @@
         "infra-1: Corsicana Data Center Lease (fact card)",
         "infra-2: LNG Carrier Construction (photo)"
       ]
+    },
+    {
+      "date": "2026-11-11",
+      "search": "brave",
+      "checked": 27,
+      "photos": 1,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "300 MW Solar-Plus-Storage Procurement",
+          "result": "commons: 12 files for \"Plus\""
+        },
+        {
+          "rank": 2,
+          "project": "LNG-Powered Containerships Order",
+          "result": "commons: 11 files for \"LNG Powered Containerships\""
+        },
+        {
+          "rank": 3,
+          "project": "Jerritt Canyon Gold Mine Restart",
+          "result": "commons: 0 files for \"Jerritt Canyon Gold Restart Mine\""
+        },
+        {
+          "rank": 4,
+          "project": "6.3 GW Renewable Power Procurement",
+          "result": "commons: 12 files for \"Renewable\""
+        },
+        {
+          "rank": 5,
+          "project": "Newbuild LNG Dual-Fuel Car Carriers",
+          "result": "commons: 0 files for \"Newbuild LNG Dual Fuel Car Carriers\""
+        },
+        {
+          "rank": 6,
+          "project": "250 MW Power Plant in Texas",
+          "result": "photo: official photo (contractor: Topsoe, topsoe.com)"
+        },
+        {
+          "rank": 7,
+          "project": "Offshore Wind EPC Contract",
+          "result": "commons Barrow Offshore wind turbines NR: picture rejected"
+        },
+        {
+          "rank": 8,
+          "project": "200 MW FDRE Procurement",
+          "result": "commons: 12 files for \"FDRE\""
+        },
+        {
+          "rank": 9,
+          "project": "Offshore Jack-Up Rig Contracts",
+          "result": "commons: 12 files for \"Offshore Jack Rig\""
+        },
+        {
+          "rank": 10,
+          "project": "Vadodara–Mumbai Expressway Construction",
+          "result": "commons: 2 files for \"Vadodara Mumbai Expressway\""
+        },
+        {
+          "rank": 11,
+          "project": "Railway construction works – Nouveau tracé Vuisternens - Romont",
+          "result": "commons: 0 files for \"Nouveau Vuisternens Romont Railway\""
+        },
+        {
+          "rank": 12,
+          "project": "Sodegaura LNG Units",
+          "result": "commons: 1 files for \"Sodegaura LNG\""
+        },
+        {
+          "rank": 13,
+          "project": "Weizhou Oilfield Expansion",
+          "result": "commons: 1 files for \"Weizhou Oilfield\""
+        },
+        {
+          "rank": 14,
+          "project": "AHTS Contract Extension",
+          "result": "commons: 12 files for \"AHTS Extension\""
+        },
+        {
+          "rank": 15,
+          "project": "Containership Order",
+          "result": "commons: 12 files for \"Containership\""
+        },
+        {
+          "rank": 16,
+          "project": "Methanol-Ready Boxship Order",
+          "result": "commons: 0 files for \"Methanol Ready Boxship\""
+        },
+        {
+          "rank": 17,
+          "project": "Construction work for gas pipelines - Segarcea - Băilești – Calafat - Plenița - 3 LOTS",
+          "result": "commons: 0 files for \"Segarcea Bailesti Calafat Plenita LOTS\""
+        },
+        {
+          "rank": 18,
+          "project": "Gas turbines - Supply of two turbine islands for Łagisza with accompanying services",
+          "result": "commons: 12 files for \"Supply\""
+        },
+        {
+          "rank": 19,
+          "project": "UKNNL - Fabrication, Machining, Associated Supplies and Services Open Framework",
+          "result": "commons: 0 files for \"UKNNL Fabrication Machining Associated Supplies Services Open Framework\""
+        },
+        {
+          "rank": 20,
+          "project": "Floating Data Centers Power Systems",
+          "result": "commons: 12 files for \"Floating Centers Systems\""
+        },
+        {
+          "rank": 21,
+          "project": "Mining equipment - Equipment for JSW S.A. including battery-powered tractors",
+          "result": "commons: 12 files for \"Mining equipment Equipment JSW\""
+        },
+        {
+          "rank": 22,
+          "project": "BSC Cutter Capability Gap Initial Market Engagement",
+          "result": "commons: 0 files for \"BSC Cutter Capability Gap Initial Market Engagement\""
+        },
+        {
+          "rank": 23,
+          "project": "Well-support services – Gręžinių su vandens tiekimo įranga repair and maintenance",
+          "result": "commons: 3 files for \"Well Greziniu\""
+        },
+        {
+          "rank": 24,
+          "project": "Design, Supply and Installation of high voltage substations (total number of transformers as follows: 3x300 MVA 400/230 kV, 9x125 MVA 230/66 kV and 17x30 MVA 66/20 kV of combined transformation capacity), including the Supply of necessary spare parts",
+          "result": "commons: 12 files for \"Design Supply Installation MVA MVA MVA Supply\""
+        },
+        {
+          "rank": 25,
+          "project": "Hydro-electric plant construction - Murkraftwerk Leoben-Ost - Stahlwasserbau",
+          "result": "commons: 0 files for \"Hydro Murkraftwerk Leoben Ost Stahlwasserbau plant\""
+        },
+        {
+          "rank": 26,
+          "project": "District-heating plant construction - Energy supply engineering in Zwolle",
+          "result": "commons Nationale Boomplantdag Prinses Beatrix plant eerste bo voor bos in Zwolle, Bestanddeelnr 930-7451: picture rejected"
+        },
+        {
+          "rank": 27,
+          "project": "Downhole services - Directional drilling technology for GeoMetEr LWB-01 - Langenweißbach",
+          "result": "commons: 0 files for \"Downhole Directional GeoMetEr LWB Langenwei\""
+        }
+      ],
+      "kept": [
+        "infra-1: 300 MW Solar-Plus-Storage Procurement (fact card)",
+        "infra-2: 250 MW Power Plant in Texas (photo)"
+      ]
     }
   ]
 }
