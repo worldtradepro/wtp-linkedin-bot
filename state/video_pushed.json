@@ -246,6 +246,12 @@
       "mode": "schedule",
       "at": "2026-11-10T00:19:23.243Z",
       "dueAt": "2026-11-11T13:00:00.000Z"
+    },
+    "cd_general_average_cargo": {
+      "postId": "6af44cc2d18307dbac69ab39",
+      "mode": "schedule",
+      "at": "2026-11-11T11:08:50.868Z",
+      "dueAt": "2026-11-12T13:00:00.000Z"
     }
   }
 }
