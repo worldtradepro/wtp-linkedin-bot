@@ -1,5 +1,29 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-11 22:44 UTC - write, model claude-haiku-5-5, rows 28
+{'page unreadable': 8, 'full': 17, 'differ': 20, 'project_only': 3}
+
+- Torus Foundry Modular AI Data Center (7766) | server None / haiku full | differs: capacity [ | 1MW to 20MW per unit (expected range)]
+- COSCO SHIPPING Development 16-VLCC Newbuild Order (7761) | server None / haiku full | differs: capacity [ | 16 VLCCs of 307,000 DWT], contractors [['China State Shipbuilding Group'] | ['China State Shipbuilding Group', 'Dalian Shipbuilding Industry']]
+- Foresight VLAC Fleet Expansion (7760) | server None / haiku project_only | differs: capacity [10 vessels | 10 dual-fuel VLACs], contractors [['HD Hyundai'] | ['HD Hyundai Heavy Industries']]
+- Eastway suezmax tanker newbuild order (7759) | server None / haiku project_only | differs: owner [Eastway (X-Press Feeders / Sea Consortium group) | Eastway], capacity [157,000 dwt per vessel (four vessels) | 4 suezmax tankers of 157,000 dwt]
+- Torm eight-ship LR2 newbuild programme (7758) | server None / haiku full | differs: owner [Torm (50:50 JV with a Ren Yuanlin-led maritime investment group) | Torm (50:50 joint venture)], capacity [ | 8 LR2 tankers], event_type [Equipment/vessel order | Other]
+- Veni Vidi Vici VLCC newbuild acquisition (7757) | server None / haiku full | differs: contractors [[] | ['Hengli Heavy Industry']]
+- Dangote Gode Ammonia and Urea Complex (7755) | server None / haiku full | differs: capacity [ | 3 million tonnes per year of urea], event_type [Award | Equipment/vessel order], contractors [['Técnicas Reunidas'] | ['Técnicas Reunidas', 'Topsoe']]
+- Mauritania Hybrid Renewable IPP (7754) | server None / haiku full | differs: 
+- Nigeria Off-Grid Solar Mini-Grids (7753) | server None / haiku full | differs: capacity [over 30MWp | more than 30 MWp]
+- Nigeria Onshore Gas Pipeline (7752) | server None / haiku full | differs: event_type [Other | Delivery/Commissioning]
+- Zimbabwe Large-Scale Renewable IPP (7751) | server None / haiku full | differs: 
+- Green Hydrogen Electrolyser Projects (PLI Scheme) (7750) | server None / haiku full | differs: 
+- Kalyanpur Synchronous Condensers (7749) | server None / haiku project_only | differs: owner [Power Grid | Power Grid Corporation of India Ltd], capacity [ | 2 x +300/-200 MVAR synchronous condensers], value [INR 600-900 | INR 6000-9000 million]
+- ONGC Offshore Jack-up Rig Contracts (7745) | server None / haiku full | differs: owner [ONGC | Oil and Natural Gas Corporation (ONGC)], capacity [ | 2 standard jack-up rigs], value [ | USD 117.2 million], contractors [['ADES'] | ['ADES Holding Company']]
+- Lewis Hub (Western Isles Interconnector) (7744) | server None / haiku full | differs: capacity [ | 1.8 GW (wider Western Isles HVDC Link)], contractors [[] | ['RJ McLeod']]
+- Calibrant Energy Solar and Battery Storage Portfolio (7738) | server None / haiku full | differs: capacity [120 MWh | 120 MWh battery energy storage system (PJM site)], financiers [['Investec'] | ['Investec (lead)', 'Citi', 'Liberty Bank', 'Siemens Financial Services']]
+- Stennis Space Center LNG Supply Agreement (7735) | server None / haiku full | differs: owner [Stabilis Solutions | ]
+- Berwick Bank B Offshore Wind (7733) | server None / haiku full | differs: capacity [1.4GW | 1.4 GW], event_type [Other | Award], contractors [['Siemens Energy'] | ['Siemens Energy', 'Smulders', 'HSM Offshore Energy']]
+- Botley West Solar Farm (7732) | server None / haiku full | differs: owner [ | IPP SolarFive], capacity [840 MW | 840MW], contractors [[] | ['Photovoltaic Development Partners']]
+- Viking CCS expansion well engineering and subsurface studies (7731) | server None / haiku full | differs: capacity [ | Initial phase up to 4m tonnes CO2 per year from early 2030s; up to 15m tonnes per year targeted by 2035]
+
 ## 2026-11-11 16:12 UTC - write, model claude-haiku-5-5, rows 10
 {'page unreadable': 1, 'project_only': 2, 'differ': 9, 'full': 6, 'limited': 1}
 
