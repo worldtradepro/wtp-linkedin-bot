@@ -60,7 +60,7 @@ async function ogImage(ctx, url) {
 }
 // 2026-11-06: two site graphics got through as "project photos" - princetondg.com Web-Banner_800x450.jpg (a blurred green swirl for a green-loan
 // post) and virya-energy.com Open_Graph_Image_1200x630 (logo + slogan on solar panels, for a wind farm). Both are site/brand graphics, not the project.
-const BANNER_NAME = /banner|open[\s_-]?graph|og[\s_-]?image|social[\s_-]?(share|image)|share[\s_-]?image|logo|placeholder|default|background|hero[\s_-]?bg|pattern|texture|wallpaper/i;
+export const BANNER_NAME = /banner|open[\s_-]?graph|og[\s_-]?image|social[\s_-]?(share|image)|share[\s_-]?image|logo|placeholder|default|background|hero[\s_-]?bg|pattern|texture|wallpaper/i;
 // Mean brightness change between neighbouring pixels (x100, at 96x54): real scenes measured 3.3-6.6, the blurred banner 1.16.
 export const MIN_DETAIL = 2;
 export async function detailOf(ctx, jpeg) {
@@ -80,7 +80,7 @@ export async function detailOf(ctx, jpeg) {
 }
 // A company's own site can carry a picture it licensed from a stock library (drax.com AdobeStock_1107050519, 2026-11-04): that licence covers the
 // company, not us. Skip it when the file name or the picture's embedded IPTC / XMP rights text names a stock library.
-const STOCK = /adobe ?stock|shutterstock|getty ?images|istock|alamy|dreamstime|123rf|depositphotos|bigstock|envato|stocksy|pond5/i;
+export const STOCK = /adobe ?stock|shutterstock|getty ?images|istock|alamy|dreamstime|123rf|depositphotos|bigstock|envato|stocksy|pond5/i;
 async function stockMark(ctx, url) {
   if (STOCK.test(decodeURIComponent(url.split(/[?#]/)[0].split('/').pop() || ''))) return 'file name';
   try { const r = await ctx.request.get(url, { timeout: 15000 }); if (r.ok()) { const head = (await r.body()).subarray(0, 196608).toString('latin1'); const m = STOCK.exec(head); if (m) return 'embedded rights text (' + m[0] + ')'; } } catch { /* the photo check downloads it again */ }

@@ -10,6 +10,7 @@ import { createHash } from 'node:crypto';
 import { chromium } from 'playwright';
 import { officialPhoto } from './official_photo.mjs';
 import { commonsPhoto } from './commons_photo.mjs';
+import { newsPhoto } from './news_photo.mjs';
 import { closeOcr } from './image_search.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -42,14 +43,16 @@ for (const p of cands) {
   const log = (m) => { console.log(`  #${p.candidate} ${p.headline.slice(0, 50)}: ${m}`); p.photoNote = m; };
   const r = await officialPhoto(ctx, p.meta.facts, { seen: imgSeen, timeoutMs: 90000 }, log).catch((e) => { log('failed: ' + String(e.message || e).slice(0, 80)); return null; })
     // 2026-11-06 owner: fewer fact cards - second source, a Wikimedia Commons photo of the facility itself
-    || (A.commonsPhotos !== false ? await commonsPhoto(ctx, p.meta.facts, { seen: imgSeen }, log).catch((e) => { log('commons failed: ' + String(e.message || e).slice(0, 80)); return null; }) : null);
+    || (A.commonsPhotos !== false ? await commonsPhoto(ctx, p.meta.facts, { seen: imgSeen }, log).catch((e) => { log('commons failed: ' + String(e.message || e).slice(0, 80)); return null; }) : null)
+    // 2026-11-11 owner ("放开,排除通讯社图"): third source, the news article's own lead picture - never agency / stock pictures
+    || (A.newsPhotos !== false ? await newsPhoto(ctx, [p.sourceUrl, ...(p.meta.facts.links || [])], { seen: imgSeen }, log).catch((e) => { log('news failed: ' + String(e.message || e).slice(0, 80)); return null; }) : null);
   p.officialChecked = true;   // render.mjs does not search again
   if (!r) continue;
   // two posts the same day: different sector or country, like generate.mjs's strict pass
   if (hits.some((h) => h.meta.sector === p.meta.sector && h.meta.country === p.meta.country)) { log('photo found, but same sector and country as an earlier pick'); continue; }
   const file = `official-${p.candidate}.jpg`;
   writeFileSync(join(IMG, file), r.jpeg);
-  p.officialPhoto = { file, url: r.url, mime: r.mime, w: r.w, h: r.h, credit: r.credit, note: r.note, page: r.page };
+  p.officialPhoto = { file, url: r.url, mime: r.mime, w: r.w, h: r.h, credit: r.credit, note: r.note, page: r.page, source: r.source || 'official' };
   hits.push(p);
   log(`HIT ${r.note}`);
 }

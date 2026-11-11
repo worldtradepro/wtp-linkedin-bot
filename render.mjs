@@ -516,7 +516,7 @@ for (const f of files) {
     }
     if (official) {
       writeFileSync(outPhoto, official.jpeg); kind = 'photo'; photoUrl = official.url; photoMime = official.mime; rehost = true;
-      imageCredit = '📷 Photo: ' + official.credit; why = official.note + ' ' + official.w + 'x' + official.h; factCard = false;
+      imageCredit = (official.source === 'news' ? '📷 Image: ' : '📷 Photo: ') + official.credit;   // news = the outlet's picture, not "their photo" why = official.note + ' ' + official.w + 'x' + official.h; factCard = false;
     }
   }
   if (kind === 'card' && !factCard && (cfg.imageMode || 'photo') === 'photo' && sp.enabled !== false && (sp.types || ['news']).includes(p.type)) {
