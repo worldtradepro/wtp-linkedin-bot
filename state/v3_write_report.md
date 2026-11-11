@@ -1,5 +1,18 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-11 16:12 UTC - write, model claude-haiku-5-5, rows 10
+{'page unreadable': 1, 'project_only': 2, 'differ': 9, 'full': 6, 'limited': 1}
+
+- VLAC Fleet Expansion (7627) | server None / haiku project_only | differs: owner [ | Foresight Group], capacity [ | 10 dual-fuel VLACs], value [USD 1200 million | USD 1.2 billion], event_type [Acquisition/Sale | Equipment/vessel order], contractors [[] | ['HD Hyundai Heavy Industries']]
+- Berwick Bank B Offshore Wind Project (7624) | server None / haiku full | differs: owner [ | SSE], event_type [Other | Award], contractors [[] | ['Siemens Energy']]
+- Battery Storage for Data Center (7623) | server None / haiku full | differs: owner [ | Calibrant Energy], capacity [120 MWh | 120 MWh battery energy storage system], financiers [[] | ['Investec', 'Citi', 'Liberty Bank', 'Siemens Financial Services']]
+- US Natural Gas Pipeline Projects (7621) | server None / haiku limited | differs: capacity [46.5 Bcf/day | ], event_type [Other | ]
+- Volare Shipping VLCC Acquisition (7620) | server None / haiku full | differs: owner [ | Volare Shipping], capacity [ | 1 scrubber-fitted VLCC], contractors [[] | ['Fearnley Securities']]
+- Eastway Tanker Newbuild Order (7619) | server None / haiku project_only | differs: owner [ | Eastway], capacity [ | 4 suezmax tankers of 157,000 dwt each], event_type [Award | Equipment/vessel order], contractors [[] | ['Penglai Zhongbai Jinglu Ship Industry']]
+- Off-Grid Solar Construction (7617) | server None / haiku full | differs: capacity [30 MWp | over 30MWp]
+- Egypt Solar-Storage IPP (7616) | server None / haiku full | differs: 
+- Viking CCS Project Expansion (7613) | server None / haiku full | differs: owner [Harbour Energy | Harbour Energy (60%, operator), BP (40%)], capacity [ | up to 4m tonnes CO2 per year (initial phase)], contractors [[] | ['Elemental Energies']]
+
 ## 2026-11-10 21:48 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
