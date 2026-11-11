@@ -2,17 +2,20 @@ name: radar-pipeline
 
 # The whole EPC Radar daily pipeline on Actions (owner 2026-10-25: move all of it off the server) - radar/pipeline_actions.py running the
 # server's code copy in radar/server/ with Claude Haiku 5.5 instead of OpenRouter.
-# PIPELINE_MODE (repository variable): shadow (default) = writes nothing, compares with the server's 14:38 UTC publish ->
-# state/pipeline_shadow_report.md; write = publishes the day's rows and keeps state/radar_data/ (only after the server cron is paused:
-# publishing replaces the day's rows, so there must be one writer per day).
+# CUT OVER 2026-11-11 (owner OK 2026-10-25 after clean shadow days): this job is now THE daily writer; the server's cron is paused
+# (PAUSED flag + guard in ~/automation/epc_radar/cron_run.sh; local scripts/radar_cutover.py pause|resume).
+# PIPELINE_MODE (repository variable): write (default) = publishes the day's rows and keeps state/radar_data/; shadow = writes nothing,
+# compares with the server's publish -> state/pipeline_shadow_report.md. Publishing replaces the day's rows, so only one writer per
+# day: before un-pausing the server, set this back to shadow.
 # Pause switch: repository variable PIPELINE_PAUSED = true. A push that touches radar/pipeline_run_now.txt starts one run.
 
 on:
   push:
     paths: ['radar/pipeline_run_now.txt']
-  # the server runs 14:30 UTC and publishes ~14:38; shadow compares after that
+  # 09:07 UTC: GitHub has started this job 5-9 h late (23:36 UTC once), and a start after midnight would file the day under the
+  # next date. linkedin-daily (03:17) reads the last 6 days, radar-v3 (08:17, 16:17) checks the new media rows.
   schedule:
-    - cron: '50 14 * * *'
+    - cron: '7 9 * * *'
   workflow_dispatch:
 
 permissions:
@@ -32,7 +35,7 @@ jobs:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
       WTP_CF_BYPASS: ${{ secrets.WTP_CF_BYPASS }}
       ANALYZE_MODEL: ${{ vars.ANALYZE_MODEL || 'claude-haiku-5-5' }}
-      PIPELINE_MODE: ${{ vars.PIPELINE_MODE || 'shadow' }}
+      PIPELINE_MODE: ${{ vars.PIPELINE_MODE || 'write' }}
     steps:
       - uses: actions/checkout@v4
       - name: Check secrets
