@@ -1,7 +1,7 @@
 {
   "BP": {
     "last_seen": "2026-10-16",
-    "zero_days": 25,
+    "zero_days": 26,
     "needs_reprobe": true
   },
   "TotalEnergies": {
@@ -11,67 +11,67 @@
   },
   "Equinor": {
     "last_seen": "2026-10-22",
-    "zero_days": 20,
+    "zero_days": 21,
     "needs_reprobe": true
   },
   "ENI": {
     "last_seen": "2026-04-01",
-    "zero_days": 188,
+    "zero_days": 189,
     "needs_reprobe": true
   },
   "Repsol": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "OMV": {
     "last_seen": "2026-10-29",
-    "zero_days": 13,
+    "zero_days": 14,
     "needs_reprobe": true
   },
   "Harbour Energy": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Galp": {
     "last_seen": "2026-11-08",
-    "zero_days": 3,
+    "zero_days": 4,
     "needs_reprobe": false
   },
   "MOL Group": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "Orlen": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Perenco": {
     "last_seen": "2026-11-08",
-    "zero_days": 3,
+    "zero_days": 4,
     "needs_reprobe": false
   },
   "National Grid": {
     "last_seen": "2026-10-20",
-    "zero_days": 22,
+    "zero_days": 23,
     "needs_reprobe": true
   },
   "Gassco": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Gasunie": {
     "last_seen": "2026-10-01",
-    "zero_days": 36,
+    "zero_days": 37,
     "needs_reprobe": true
   },
   "TAP": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Terna (Italy Grid)": {
@@ -81,22 +81,22 @@
   },
   "REN (Portugal Grid)": {
     "last_seen": "2026-08-13",
-    "zero_days": 71,
+    "zero_days": 72,
     "needs_reprobe": true
   },
   "Sonatrach": {
     "last_seen": "2026-11-07",
-    "zero_days": 4,
-    "needs_reprobe": false
+    "zero_days": 5,
+    "needs_reprobe": true
   },
   "Sonangol": {
     "last_seen": "2026-08-10",
-    "zero_days": 74,
+    "zero_days": 75,
     "needs_reprobe": true
   },
   "GNPC": {
     "last_seen": "2026-07-06",
-    "zero_days": 102,
+    "zero_days": 103,
     "needs_reprobe": true
   },
   "ENH (Mozambique)": {
@@ -116,12 +116,12 @@
   },
   "Kosmos Energy": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Tullow Oil": {
     "last_seen": "2026-10-30",
-    "zero_days": 12,
+    "zero_days": 13,
     "needs_reprobe": true
   },
   "Africa Oil Corp": {
@@ -136,32 +136,32 @@
   },
   "Nigeria LNG": {
     "last_seen": "2026-11-06",
-    "zero_days": 5,
+    "zero_days": 6,
     "needs_reprobe": true
   },
   "Mozambique LNG": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "Atlantic LNG": {
     "last_seen": "2026-10-24",
-    "zero_days": 18,
+    "zero_days": 19,
     "needs_reprobe": true
   },
   "Cheniere": {
     "last_seen": "2026-08-12",
-    "zero_days": 72,
+    "zero_days": 73,
     "needs_reprobe": true
   },
   "Venture Global LNG": {
     "last_seen": "2026-11-06",
-    "zero_days": 5,
+    "zero_days": 6,
     "needs_reprobe": true
   },
   "Excelerate Energy": {
     "last_seen": "2026-11-06",
-    "zero_days": 5,
+    "zero_days": 6,
     "needs_reprobe": true
   },
   "Golar LNG": {
@@ -171,17 +171,17 @@
   },
   "BW LNG": {
     "last_seen": "2026-11-02",
-    "zero_days": 9,
+    "zero_days": 10,
     "needs_reprobe": true
   },
   "New Fortress Energy": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Neste": {
     "last_seen": "2026-10-06",
-    "zero_days": 33,
+    "zero_days": 34,
     "needs_reprobe": true
   },
   "Dangote Refinery": {
@@ -191,7 +191,7 @@
   },
   "Iberdrola": {
     "last_seen": "2026-11-09",
-    "zero_days": 2,
+    "zero_days": 3,
     "needs_reprobe": false
   },
   "Orsted": {
@@ -206,7 +206,7 @@
   },
   "Vattenfall": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "EDP Renewables": {
@@ -216,7 +216,7 @@
   },
   "Enel Green Power": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Statkraft": {
@@ -226,17 +226,17 @@
   },
   "ENGIE": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Sembcorp": {
     "last_seen": "2026-10-31",
-    "zero_days": 11,
+    "zero_days": 12,
     "needs_reprobe": true
   },
   "XLINKS": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "ACWA Power": {
@@ -246,17 +246,17 @@
   },
   "Masdar": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "AMEA Power": {
     "last_seen": "2026-06-17",
-    "zero_days": 115,
+    "zero_days": 116,
     "needs_reprobe": true
   },
   "Scatec": {
     "last_seen": "2026-10-29",
-    "zero_days": 13,
+    "zero_days": 14,
     "needs_reprobe": true
   },
   "Neoen": {
@@ -266,42 +266,42 @@
   },
   "PowerChina": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "Nel Hydrogen": {
     "last_seen": "2026-10-14",
-    "zero_days": 27,
+    "zero_days": 28,
     "needs_reprobe": true
   },
   "ITM Power": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Plug Power": {
     "last_seen": "2026-10-09",
-    "zero_days": 30,
+    "zero_days": 31,
     "needs_reprobe": true
   },
   "Hydrogen Europe": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "Air Liquide": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Linde": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Siemens Energy": {
     "last_seen": "2026-09-03",
-    "zero_days": 56,
+    "zero_days": 57,
     "needs_reprobe": true
   },
   "GE Vernova": {
@@ -316,7 +316,7 @@
   },
   "Fluence": {
     "last_seen": "2026-10-29",
-    "zero_days": 13,
+    "zero_days": 14,
     "needs_reprobe": true
   },
   "BHP": {
@@ -326,97 +326,97 @@
   },
   "Rio Tinto": {
     "last_seen": "2026-11-05",
-    "zero_days": 6,
+    "zero_days": 7,
     "needs_reprobe": true
   },
   "Vale": {
     "last_seen": "2026-11-09",
-    "zero_days": 2,
+    "zero_days": 3,
     "needs_reprobe": false
   },
   "Glencore": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Anglo American": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Barrick Gold": {
     "last_seen": "2026-10-26",
-    "zero_days": 16,
+    "zero_days": 17,
     "needs_reprobe": true
   },
   "Freeport-McMoRan": {
     "last_seen": "2026-07-24",
-    "zero_days": 88,
+    "zero_days": 89,
     "needs_reprobe": true
   },
   "Ivanhoe Mines": {
     "last_seen": "2026-11-05",
-    "zero_days": 6,
+    "zero_days": 7,
     "needs_reprobe": true
   },
   "First Quantum Minerals": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Kumba Iron Ore": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "African Rainbow Minerals": {
     "last_seen": "2026-10-28",
-    "zero_days": 14,
+    "zero_days": 15,
     "needs_reprobe": true
   },
   "Endeavour Mining": {
     "last_seen": "2026-04-23",
-    "zero_days": 156,
+    "zero_days": 157,
     "needs_reprobe": true
   },
   "Perseus Mining": {
     "last_seen": "2026-09-10",
-    "zero_days": 51,
+    "zero_days": 52,
     "needs_reprobe": true
   },
   "Boliden": {
     "last_seen": "2026-10-29",
-    "zero_days": 13,
+    "zero_days": 14,
     "needs_reprobe": true
   },
   "Eramet": {
     "last_seen": "2026-10-29",
-    "zero_days": 13,
+    "zero_days": 14,
     "needs_reprobe": true
   },
   "Aurubis": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "KGHM": {
     "last_seen": "2026-11-05",
-    "zero_days": 6,
+    "zero_days": 7,
     "needs_reprobe": true
   },
   "Nornickel": {
     "last_seen": "2026-11-05",
-    "zero_days": 6,
+    "zero_days": 7,
     "needs_reprobe": true
   },
   "Sigma Lithium": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "Pilbara Minerals": {
     "last_seen": "2026-11-04",
-    "zero_days": 7,
+    "zero_days": 8,
     "needs_reprobe": true
   },
   "Zijin Mining": {
@@ -431,77 +431,77 @@
   },
   "Tianqi Lithium": {
     "last_seen": "2026-11-06",
-    "zero_days": 5,
+    "zero_days": 6,
     "needs_reprobe": true
   },
   "OCP Group": {
     "last_seen": "2026-11-09",
-    "zero_days": 2,
+    "zero_days": 3,
     "needs_reprobe": false
   },
   "EuroChem": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "PhosAgro": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Umicore": {
     "last_seen": "2026-10-21",
-    "zero_days": 21,
+    "zero_days": 22,
     "needs_reprobe": true
   },
   "Alcoa": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "Rusal": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Metso": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "FLSmidth": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Hatch": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "DRA Global": {
     "last_seen": "2026-10-14",
-    "zero_days": 27,
+    "zero_days": 28,
     "needs_reprobe": true
   },
   "Cora Gold": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Power Metal Resources": {
     "last_seen": "2026-09-28",
-    "zero_days": 39,
+    "zero_days": 40,
     "needs_reprobe": true
   },
   "Petra Diamonds": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Caledonia Mining": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Anglo American Platinum": {
@@ -511,7 +511,7 @@
   },
   "Tharisa": {
     "last_seen": "2026-10-20",
-    "zero_days": 22,
+    "zero_days": 23,
     "needs_reprobe": true
   },
   "Toro Energy": {
@@ -521,28 +521,28 @@
   },
   "Lynas Rare Earths": {
     "last_seen": "2026-09-02",
-    "zero_days": 57,
+    "zero_days": 58,
     "needs_reprobe": true
   },
   "Nutrien": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "CF Industries": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "OCI Global": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Indorama Eleme": {
-    "last_seen": "2026-08-28",
-    "zero_days": 60,
-    "needs_reprobe": true
+    "last_seen": "2026-11-11",
+    "zero_days": 0,
+    "needs_reprobe": false
   },
   "IFFCO Africa": {
     "last_seen": null,
@@ -551,17 +551,17 @@
   },
   "Cargill": {
     "last_seen": "2026-11-05",
-    "zero_days": 6,
+    "zero_days": 7,
     "needs_reprobe": true
   },
   "Bunge": {
     "last_seen": "2026-11-06",
-    "zero_days": 5,
+    "zero_days": 6,
     "needs_reprobe": true
   },
   "Louis Dreyfus": {
     "last_seen": "2026-10-05",
-    "zero_days": 34,
+    "zero_days": 35,
     "needs_reprobe": true
   },
   "Olam Agri": {
@@ -571,32 +571,32 @@
   },
   "Tereos": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Sudzucker": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Agrana": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Roquette": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Port of Rouen": {
     "last_seen": "2026-03-24",
-    "zero_days": 194,
+    "zero_days": 195,
     "needs_reprobe": true
   },
   "Port of Abidjan": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Tema Port": {
@@ -606,17 +606,17 @@
   },
   "Vitol Agriculture": {
     "last_seen": "2026-06-25",
-    "zero_days": 109,
+    "zero_days": 110,
     "needs_reprobe": true
   },
   "COFCO International": {
     "last_seen": "2026-09-15",
-    "zero_days": 48,
+    "zero_days": 49,
     "needs_reprobe": true
   },
   "ADM": {
     "last_seen": "2026-11-06",
-    "zero_days": 5,
+    "zero_days": 6,
     "needs_reprobe": true
   },
   "Port of Rotterdam": {
@@ -626,32 +626,32 @@
   },
   "Port of Hamburg": {
     "last_seen": "2026-10-01",
-    "zero_days": 36,
+    "zero_days": 37,
     "needs_reprobe": true
   },
   "Port of Marseille Fos": {
     "last_seen": "2026-08-14",
-    "zero_days": 70,
+    "zero_days": 71,
     "needs_reprobe": true
   },
   "Port of Bilbao": {
     "last_seen": "2026-06-15",
-    "zero_days": 117,
+    "zero_days": 118,
     "needs_reprobe": true
   },
   "Port of Valencia": {
     "last_seen": "2026-09-21",
-    "zero_days": 44,
+    "zero_days": 45,
     "needs_reprobe": true
   },
   "Port of Piraeus": {
     "last_seen": "2026-10-14",
-    "zero_days": 27,
+    "zero_days": 28,
     "needs_reprobe": true
   },
   "Transnet": {
     "last_seen": "2026-11-03",
-    "zero_days": 8,
+    "zero_days": 9,
     "needs_reprobe": true
   },
   "Tanger Med": {
@@ -661,22 +661,22 @@
   },
   "Euroports": {
     "last_seen": "2026-07-20",
-    "zero_days": 92,
+    "zero_days": 93,
     "needs_reprobe": true
   },
   "Hutchison Ports": {
     "last_seen": "2026-11-08",
-    "zero_days": 3,
+    "zero_days": 4,
     "needs_reprobe": false
   },
   "DB Cargo": {
     "last_seen": "2026-10-22",
-    "zero_days": 20,
+    "zero_days": 21,
     "needs_reprobe": true
   },
   "PKP Cargo": {
     "last_seen": "2026-10-27",
-    "zero_days": 15,
+    "zero_days": 16,
     "needs_reprobe": true
   },
   "National Railways of Zimbabwe": {
@@ -686,87 +686,87 @@
   },
   "Hyundai Heavy Industries": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Samsung Heavy Industries": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "Hanwha": {
     "last_seen": "2026-11-02",
-    "zero_days": 9,
+    "zero_days": 10,
     "needs_reprobe": true
   },
   "Fincantieri": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "BW Group": {
     "last_seen": "2026-11-06",
-    "zero_days": 5,
+    "zero_days": 6,
     "needs_reprobe": true
   },
   "NYK Line": {
     "last_seen": "2026-11-06",
-    "zero_days": 5,
+    "zero_days": 6,
     "needs_reprobe": true
   },
   "Technip Energies": {
     "last_seen": "2026-06-18",
-    "zero_days": 114,
+    "zero_days": 115,
     "needs_reprobe": true
   },
   "Saipem": {
     "last_seen": "2026-10-15",
-    "zero_days": 26,
+    "zero_days": 27,
     "needs_reprobe": true
   },
   "Petrofac": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Worley": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Fluor": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "Bechtel": {
     "last_seen": "2026-10-07",
-    "zero_days": 32,
+    "zero_days": 33,
     "needs_reprobe": true
   },
   "McDermott": {
-    "last_seen": "2026-11-07",
-    "zero_days": 4,
+    "last_seen": "2026-11-11",
+    "zero_days": 0,
     "needs_reprobe": false
   },
   "KBR": {
     "last_seen": "2026-10-24",
-    "zero_days": 18,
+    "zero_days": 19,
     "needs_reprobe": true
   },
   "JGC Holdings": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Tecnicas Reunidas": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "Samsung E&A": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "L&T": {
@@ -776,17 +776,17 @@
   },
   "Jan De Nul": {
     "last_seen": "2026-10-29",
-    "zero_days": 13,
+    "zero_days": 14,
     "needs_reprobe": true
   },
   "Boskalis": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "DEME": {
     "last_seen": "2026-03-30",
-    "zero_days": 190,
+    "zero_days": 191,
     "needs_reprobe": true
   },
   "Baker Hughes": {
@@ -801,22 +801,22 @@
   },
   "Wartsila": {
     "last_seen": "2026-10-23",
-    "zero_days": 19,
+    "zero_days": 20,
     "needs_reprobe": true
   },
   "Atlas Copco": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Chart Industries": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Air Products": {
     "last_seen": "2026-11-06",
-    "zero_days": 5,
+    "zero_days": 6,
     "needs_reprobe": true
   },
   "World Bank": {
@@ -836,7 +836,7 @@
   },
   "IFC": {
     "last_seen": "2026-11-09",
-    "zero_days": 2,
+    "zero_days": 3,
     "needs_reprobe": false
   },
   "EIB": {
@@ -866,23 +866,23 @@
   },
   "LNG Industry": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "Rigzone": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "Natural Gas World": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Oil & Gas Journal": {
-    "last_seen": "2026-11-06",
-    "zero_days": 5,
-    "needs_reprobe": true
+    "last_seen": "2026-11-11",
+    "zero_days": 0,
+    "needs_reprobe": false
   },
   "World Oil": {
     "last_seen": "2026-11-11",
@@ -901,12 +901,12 @@
   },
   "Energy Capital & Power": {
     "last_seen": "2026-06-01",
-    "zero_days": 128,
+    "zero_days": 129,
     "needs_reprobe": true
   },
   "Recharge News": {
-    "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "last_seen": "2026-11-11",
+    "zero_days": 0,
     "needs_reprobe": false
   },
   "WindEurope": {
@@ -916,7 +916,7 @@
   },
   "Windpower Monthly": {
     "last_seen": "2026-11-09",
-    "zero_days": 2,
+    "zero_days": 3,
     "needs_reprobe": false
   },
   "PV Tech": {
@@ -931,7 +931,7 @@
   },
   "Clean Energy Wire": {
     "last_seen": "2026-09-21",
-    "zero_days": 44,
+    "zero_days": 45,
     "needs_reprobe": true
   },
   "Hydrogen Insight": {
@@ -941,7 +941,7 @@
   },
   "H2 View": {
     "last_seen": "2026-04-10",
-    "zero_days": 181,
+    "zero_days": 182,
     "needs_reprobe": true
   },
   "Hydrogen Central": {
@@ -951,17 +951,17 @@
   },
   "Fuel Cells Works": {
     "last_seen": "2026-10-20",
-    "zero_days": 22,
+    "zero_days": 23,
     "needs_reprobe": true
   },
   "Argus Media": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Financial Times": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "Mining.com": {
@@ -971,7 +971,7 @@
   },
   "Mining Weekly": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "International Mining": {
@@ -986,7 +986,7 @@
   },
   "Global Mining Review": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "The Northern Miner": {
@@ -996,7 +996,7 @@
   },
   "World Fertilizer": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "Fertilizer International": {
@@ -1006,7 +1006,7 @@
   },
   "AgriBusiness Global": {
     "last_seen": "2026-10-15",
-    "zero_days": 26,
+    "zero_days": 27,
     "needs_reprobe": true
   },
   "World Grain": {
@@ -1016,7 +1016,7 @@
   },
   "African Farming": {
     "last_seen": "2026-11-04",
-    "zero_days": 7,
+    "zero_days": 8,
     "needs_reprobe": true
   },
   "Port Technology": {
@@ -1036,7 +1036,7 @@
   },
   "Dry Bulk Magazine": {
     "last_seen": "2026-11-05",
-    "zero_days": 6,
+    "zero_days": 7,
     "needs_reprobe": true
   },
   "Lloyd's List": {
@@ -1051,7 +1051,7 @@
   },
   "Ship & Bunker": {
     "last_seen": "2026-10-26",
-    "zero_days": 16,
+    "zero_days": 17,
     "needs_reprobe": true
   },
   "Hellenic Shipping News": {
@@ -1071,12 +1071,12 @@
   },
   "Railway Gazette": {
     "last_seen": "2026-11-11",
-    "zero_days": 0,
+    "zero_days": 1,
     "needs_reprobe": false
   },
   "Global Railway Review": {
     "last_seen": "2026-11-09",
-    "zero_days": 2,
+    "zero_days": 3,
     "needs_reprobe": false
   },
   "Africa Ports & Ships": {
@@ -1086,7 +1086,7 @@
   },
   "NS Energy": {
     "last_seen": "2026-11-06",
-    "zero_days": 5,
+    "zero_days": 6,
     "needs_reprobe": true
   },
   "Zawya Projects": {
@@ -1106,8 +1106,8 @@
   },
   "Hydrocarbon Processing": {
     "last_seen": "2026-11-07",
-    "zero_days": 4,
-    "needs_reprobe": false
+    "zero_days": 5,
+    "needs_reprobe": true
   },
   "Petroleum Economist": {
     "last_seen": "2026-11-11",
@@ -1116,17 +1116,17 @@
   },
   "Gas Processing & LNG": {
     "last_seen": "2026-10-16",
-    "zero_days": 25,
+    "zero_days": 26,
     "needs_reprobe": true
   },
   "Mining Journal": {
-    "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "last_seen": "2026-11-11",
+    "zero_days": 0,
     "needs_reprobe": false
   },
   "E&MJ Engineering Mining": {
     "last_seen": "2026-11-06",
-    "zero_days": 5,
+    "zero_days": 6,
     "needs_reprobe": true
   },
   "New Energy Update": {
@@ -1151,7 +1151,7 @@
   },
   "4C Offshore": {
     "last_seen": null,
-    "zero_days": 205,
+    "zero_days": 206,
     "needs_reprobe": true
   },
   "Renewables Now": {
@@ -1161,7 +1161,7 @@
   },
   "ESI Africa": {
     "last_seen": "2026-10-19",
-    "zero_days": 23,
+    "zero_days": 24,
     "needs_reprobe": true
   },
   "Construction Review Africa": {
@@ -1171,17 +1171,17 @@
   },
   "Mining Review Africa": {
     "last_seen": "2026-11-06",
-    "zero_days": 5,
+    "zero_days": 6,
     "needs_reprobe": true
   },
   "Food Business Africa": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "Railway Africa": {
     "last_seen": "2026-07-03",
-    "zero_days": 103,
+    "zero_days": 104,
     "needs_reprobe": true
   },
   "Port Strategy": {
@@ -1201,12 +1201,12 @@
   },
   "Data Center Frontier": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "Capacity Media": {
     "last_seen": "2026-10-28",
-    "zero_days": 14,
+    "zero_days": 15,
     "needs_reprobe": true
   },
   "W.Media": {
@@ -1216,37 +1216,37 @@
   },
   "Terna": {
     "last_seen": "2026-10-26",
-    "zero_days": 16,
+    "zero_days": 17,
     "needs_reprobe": true
   },
   "Empresa Nacional de Hidrocarbonetos": {
     "last_seen": null,
-    "zero_days": 26,
+    "zero_days": 27,
     "needs_reprobe": true
   },
   "NAMCOR": {
     "last_seen": "2026-11-09",
-    "zero_days": 2,
+    "zero_days": 3,
     "needs_reprobe": false
   },
   "Petroci": {
     "last_seen": null,
-    "zero_days": 26,
+    "zero_days": 27,
     "needs_reprobe": true
   },
   "Meren Energy": {
     "last_seen": "2026-10-18",
-    "zero_days": 24,
+    "zero_days": 25,
     "needs_reprobe": true
   },
   "Valterra Platinum": {
     "last_seen": "2026-10-16",
-    "zero_days": 25,
+    "zero_days": 26,
     "needs_reprobe": true
   },
   "IFFCO": {
     "last_seen": "2026-11-11",
-    "zero_days": 0,
+    "zero_days": 1,
     "needs_reprobe": false
   },
   "Everllence": {
@@ -1266,7 +1266,7 @@
   },
   "Global Construction Review": {
     "last_seen": "2026-10-30",
-    "zero_days": 12,
+    "zero_days": 13,
     "needs_reprobe": true
   },
   "Oil & Gas Middle East": {
@@ -1300,23 +1300,23 @@
     "needs_reprobe": false
   },
   "Canadian Mining Journal": {
-    "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "last_seen": "2026-11-11",
+    "zero_days": 0,
     "needs_reprobe": false
   },
   "Australian Mining": {
     "last_seen": "2026-10-20",
-    "zero_days": 22,
+    "zero_days": 23,
     "needs_reprobe": true
   },
   "Chemical Engineering Online": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   },
   "Dredging Today": {
     "last_seen": "2026-11-10",
-    "zero_days": 1,
+    "zero_days": 2,
     "needs_reprobe": false
   }
 }
