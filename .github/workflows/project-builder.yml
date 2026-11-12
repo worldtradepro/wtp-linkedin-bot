@@ -23,7 +23,7 @@ on:
         default: 'no'
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: project-builder
@@ -55,3 +55,10 @@ jobs:
           if [ "${{ github.event_name }}" != "push" ] && [ -n "${{ github.event.inputs.country }}" ]; then ARGS="$ARGS --country '${{ github.event.inputs.country }}'"; fi
           if [ "${{ github.event.inputs.dry }}" = "yes" ]; then ARGS="$ARGS --dry"; fi
           eval python radar/project_builder.py $ARGS
+      - name: Save run summary (counts and error text only)
+        if: always()
+        run: |
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          git add state/project_builder_last_run.md 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "project builder run summary" && (git push || (git pull --rebase && git push)))

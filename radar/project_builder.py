@@ -29,6 +29,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SITE = 'https://worldtradepro.com'
 SECRET = os.environ.get('WTP_BOT_SECRET', '')
 MODEL = os.environ.get('PB_MODEL', 'claude-sonnet-5-5')
+FAILS = []          # why batches failed this run - written to state/project_builder_last_run.md (public repo: counts and error text only)
+STATS = {'batches': 0, 'ok': 0}
 
 ISO = {'SA': 'Saudi Arabia', 'AE': 'United Arab Emirates', 'UAE': 'United Arab Emirates', 'US': 'United States', 'USA': 'United States', 'GB': 'United Kingdom',
        'UK': 'United Kingdom', 'KR': 'South Korea', 'CN': 'China', 'IN': 'India', 'QA': 'Qatar', 'OM': 'Oman', 'KW': 'Kuwait', 'EG': 'Egypt', 'ID': 'Indonesia',
@@ -88,7 +90,10 @@ def claude(prompt):
             m = re.search(r'\{.*\}', txt, re.S)
             return json.loads(m.group(0))
         except Exception:
-            print('claude failed:', (out.stdout or out.stderr)[:300], file=sys.stderr)
+            err = re.sub(r'\s+', ' ', (out.stderr or out.stdout or '')[:300])
+            print('claude failed:', err, file=sys.stderr)
+            if attempt == 2:
+                FAILS.append(f"{time.strftime('%H:%M:%S')} exit {out.returncode}: {err}")
             time.sleep(20 * (attempt + 1))
     return None
 
@@ -187,7 +192,10 @@ def run_batch(country, batch, projects, dry):
             cands[int(p['id'])] = p
     prompt = PROMPT.replace('{country}', country).replace('{projects}', '\n'.join(fmt_project(p) for p in list(cands.values())[:40]) or '(none yet)') \
                    .replace('{reports}', '\n'.join(fmt_report(r) for r in batch))
+    STATS['batches'] += 1
     ans = claude(prompt)
+    if ans:
+        STATS['ok'] += 1
     if not ans:
         print(f'  ! no answer for {len(batch)} reports in {country} - left in the queue')
         return []
@@ -267,6 +275,17 @@ def main():
             projects[country] += made
             done += len(rows[i:i + args.batch])
     print(f'done: {done} reports processed')
+    try:
+        left = site('GET', 'pb-queue', {'from': args.frm, 'limit': 1}).get('left')
+    except Exception:
+        left = '?'
+    os.makedirs(os.path.join(HERE, '..', 'state'), exist_ok=True)
+    with open(os.path.join(HERE, '..', 'state', 'project_builder_last_run.md'), 'w', encoding='utf-8') as f:
+        nl = chr(10)
+        f.write(f"# project builder {time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime())}" + nl + nl)
+        f.write(f"model {MODEL} · batches {STATS['batches']} · answered {STATS['ok']} · failed {len(FAILS)} · reports in queue after the run: {left}" + nl + nl)
+        f.write(nl.join('- ' + x for x in FAILS[:60]) or 'no failures')
+        f.write(nl)
 
 
 if __name__ == '__main__':
