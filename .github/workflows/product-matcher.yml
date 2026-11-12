@@ -1,0 +1,49 @@
+name: product-matcher
+
+# Decides, per Project Alerts member, which projects will buy the member's product (radar/product_matcher.py). Every 2 hours:
+# a member who changed the product gets results within ~2 hours; runs with nothing to do finish in a minute.
+on:
+  schedule:
+    - cron: '25 */2 * * *'
+  push:
+    paths: ['radar/product_matcher_run_now.txt']   # one line of arguments, e.g. --order 9
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: product-matcher
+  cancel-in-progress: false
+
+jobs:
+  run:
+    if: ${{ vars.PRODUCT_MATCHER_PAUSED != 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    env:
+      WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      WTP_CF_BYPASS: ${{ secrets.WTP_CF_BYPASS }}
+      PM_MODEL: ${{ vars.PM_MODEL || 'claude-sonnet-5-5' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: npm install -g @anthropic-ai/claude-code@latest && claude --version
+      - name: Match products
+        run: |
+          ARGS=""
+          if [ "${{ github.event_name }}" = "push" ]; then ARGS="$(head -1 radar/product_matcher_run_now.txt)"; fi
+          eval python radar/product_matcher.py $ARGS
+      - name: Save run summary (counts and error text only)
+        if: always()
+        run: |
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          git add state/product_matcher_last_run.md 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "product matcher run summary" && (git push || (git pull --rebase && git push)))
