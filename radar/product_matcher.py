@@ -67,7 +67,7 @@ def fmt(p):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--order', type=int, default=0)
-    ap.add_argument('--limit', type=int, default=600)
+    ap.add_argument('--limit', type=int, default=1500)
     ap.add_argument('--batch', type=int, default=15)
     args = ap.parse_args()
     q = {'limit': args.limit}
