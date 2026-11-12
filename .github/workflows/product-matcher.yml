@@ -40,6 +40,11 @@ jobs:
           ARGS=""
           if [ "${{ github.event_name }}" = "push" ]; then ARGS="$(head -1 radar/product_matcher_run_now.txt)"; fi
           eval python radar/product_matcher.py $ARGS
+      - name: Project lookups requested by members (web search)
+        if: always()
+        env:
+          PL_MODEL: ${{ vars.PL_MODEL || 'claude-haiku-5-5' }}
+        run: python radar/project_lookup.py
       - name: Save run summary (counts and error text only)
         if: always()
         run: |
