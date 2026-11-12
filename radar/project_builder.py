@@ -104,7 +104,7 @@ def op_key(s):
     return w[0] if w else ''
 
 
-def candidates(report, projects, k=25):
+def candidates(report, projects, k=30):
     rt = tokens(report['project_name'] + ' ' + (report.get('description') or '')[:300])
     ro = op_key(report.get('owner') or report.get('company_name'))
     scored = []
@@ -129,7 +129,10 @@ Hard rules - if any differs, it is NOT the same project:
 - capacity (more than 30% apart, e.g. 6 mtpa vs 18 mtpa; 200 MW vs 278 MW),
 - location (different field, block, city or site).
 Reports about drilling/appraisal for a project's gas, its financing, offtake/supply agreements or equipment orders belong to that
-project only when the text makes clear which project; otherwise leave them unassigned.
+project when the text makes clear which project.
+If a report PROBABLY belongs to one existing project but you cannot be sure (e.g. "Eni FLNG drilling" when Eni has a tendering FLNG),
+LINK it with confidence "unconfirmed" and say why in the reason - members will be asked to confirm. Use unassigned only when no
+existing project is a plausible match.
 UNASSIGNED: too vague to identify one project (e.g. "FLNG", "Utility-Scale PV Plants", "Project update" with no operator, site or unit),
 or not a capital project at all (share sale, M&A, trade cargo).
 
@@ -200,9 +203,11 @@ def run_batch(country, batch, projects, dry):
         d = x.get('decision')
         link = {k: x.get(k) or '' for k in ('confidence', 'reason', 'milestone', 'proc', 'proc_date', 'proc_note', 'status_event')}
         link['report_id'] = rid
-        if d == 'link' and x.get('project_id') and int(x['project_id']) in cands:
-            link['project_id'] = int(x['project_id'])
-        elif d == 'new' and x.get('key'):
+        known = {int(p['id']) for p in projects}
+        pid = x.get('project_id')
+        if d == 'link' and str(pid or '').isdigit() and (int(pid) in cands or int(pid) in known):
+            link['project_id'] = int(pid)
+        elif d in ('link', 'new') and x.get('key') and any(p.get('key') == x.get('key') for p in ans.get('new_projects') or []):
             link['key'] = str(x['key'])
             link['confidence'] = link['confidence'] or 'confirmed'
         else:
