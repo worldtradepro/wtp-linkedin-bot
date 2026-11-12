@@ -1303,6 +1303,168 @@
         "infra-1: 300 MW Solar-Plus-Storage Procurement (fact card)",
         "infra-2: 250 MW Power Plant in Texas (photo)"
       ]
+    },
+    {
+      "date": "2026-11-12",
+      "search": "brave",
+      "checked": 2,
+      "photos": 2,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "6.3 GW Renewable Power Procurement",
+          "result": "photo: news photo (mercomindia, mercomindia.com)"
+        },
+        {
+          "rank": 2,
+          "project": "Foresight VLAC Fleet Expansion",
+          "result": "photo: news photo (indiatimes, infra.economictimes.indiatimes.com)"
+        },
+        {
+          "rank": 3,
+          "project": "LNG-Powered Containerships Order",
+          "result": "not checked"
+        },
+        {
+          "rank": 4,
+          "project": "Newbuild LNG Dual-Fuel Car Carriers",
+          "result": "not checked"
+        },
+        {
+          "rank": 5,
+          "project": "Offshore Wind EPC Contract",
+          "result": "not checked"
+        },
+        {
+          "rank": 6,
+          "project": "Botley West Solar Farm",
+          "result": "not checked"
+        },
+        {
+          "rank": 7,
+          "project": "Calibrant Energy Solar and Battery Storage Portfolio",
+          "result": "not checked"
+        },
+        {
+          "rank": 8,
+          "project": "Torus Foundry Modular AI Data Center",
+          "result": "not checked"
+        },
+        {
+          "rank": 9,
+          "project": "200 MW FDRE Procurement",
+          "result": "not checked"
+        },
+        {
+          "rank": 10,
+          "project": "Kalyanpur Synchronous Condensers",
+          "result": "not checked"
+        },
+        {
+          "rank": 11,
+          "project": "Construction work for oil and gas pipelines – AUS_Pipelinebau_SPO_Lot 2_Center",
+          "result": "not checked"
+        },
+        {
+          "rank": 12,
+          "project": "Offshore Jack-Up Rig Contracts",
+          "result": "not checked"
+        },
+        {
+          "rank": 13,
+          "project": "Vadodara–Mumbai Expressway Construction",
+          "result": "not checked"
+        },
+        {
+          "rank": 14,
+          "project": "Railway construction works – Nouveau tracé Vuisternens - Romont",
+          "result": "not checked"
+        },
+        {
+          "rank": 15,
+          "project": "Nigeria Off-Grid Solar Mini-Grids",
+          "result": "not checked"
+        },
+        {
+          "rank": 16,
+          "project": "Marine construction works – Rosslare Europort, Berth 3 Upgrade",
+          "result": "not checked"
+        },
+        {
+          "rank": 17,
+          "project": "Construction work for electricity power lines – TG CPI HTA BT & Underground Works Marseille",
+          "result": "not checked"
+        },
+        {
+          "rank": 18,
+          "project": "Relocation of 132kV UKPN Cut Throat Lane Switching Station",
+          "result": "not checked"
+        },
+        {
+          "rank": 19,
+          "project": "UKNNL - Fabrication, Machining, Associated Supplies and Services Open Framework",
+          "result": "not checked"
+        },
+        {
+          "rank": 20,
+          "project": "Green Hydrogen Electrolyser Projects (PLI Scheme)",
+          "result": "not checked"
+        },
+        {
+          "rank": 21,
+          "project": "Zimbabwe Large-Scale Renewable IPP",
+          "result": "not checked"
+        },
+        {
+          "rank": 22,
+          "project": "Mauritania Hybrid Renewable IPP",
+          "result": "not checked"
+        },
+        {
+          "rank": 23,
+          "project": "Viking CCS expansion well engineering and subsurface studies",
+          "result": "not checked"
+        },
+        {
+          "rank": 24,
+          "project": "Stennis Space Center LNG Supply Agreement",
+          "result": "not checked"
+        },
+        {
+          "rank": 25,
+          "project": "Lewis Hub (Western Isles Interconnector)",
+          "result": "not checked"
+        },
+        {
+          "rank": 26,
+          "project": "Nigeria Onshore Gas Pipeline",
+          "result": "not checked"
+        },
+        {
+          "rank": 27,
+          "project": "Dangote Gode Ammonia and Urea Complex",
+          "result": "not checked"
+        },
+        {
+          "rank": 28,
+          "project": "Veni Vidi Vici VLCC newbuild acquisition",
+          "result": "not checked"
+        },
+        {
+          "rank": 29,
+          "project": "Torm eight-ship LR2 newbuild programme",
+          "result": "not checked"
+        },
+        {
+          "rank": 30,
+          "project": "Eastway suezmax tanker newbuild order",
+          "result": "not checked"
+        }
+      ],
+      "kept": [
+        "infra-1: 6.3 GW Renewable Power Procurement (photo)",
+        "infra-2: Foresight VLAC Fleet Expansion (photo)"
+      ]
     }
   ]
 }

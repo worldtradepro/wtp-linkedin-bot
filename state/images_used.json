@@ -1,18 +1,6 @@
 {
   "items": [
     {
-      "date": "2026-10-12",
-      "id": "infra-1",
-      "url": "https://images.tmcnet.com/tmc/world.jpg",
-      "hash": "9b0a7827d75202eb5a268dcef6ac2622dab81e70"
-    },
-    {
-      "date": "2026-10-12",
-      "id": "infra-2",
-      "url": "https://www.power-eng.com/wp-content/uploads/2026/10/image-1.png",
-      "hash": "99beaf5785395f7b8b956307a8da3dd3abaede77"
-    },
-    {
       "date": "2026-10-13",
       "id": "infra-1",
       "url": "https://images.unsplash.com/photo-1696998302294-b21fb356e1a4",
@@ -227,6 +215,18 @@
       "id": "infra-2",
       "url": "https://www.topsoe.com/hubfs/HDF%20signing_web.jpeg",
       "hash": "c0988333bdb233c289794c324797148f9b4e7691"
+    },
+    {
+      "date": "2026-11-12",
+      "id": "infra-1",
+      "url": "https://d382rz2cea0pah.cloudfront.net/wp-content/uploads/2026/10/FDRE-Projects-Create-New-Revenue-Streams-Through-Surplus-Power-Sales.jpg",
+      "hash": "55bd39e0510fdd535120919ee0cd1512083f310e"
+    },
+    {
+      "date": "2026-11-12",
+      "id": "infra-2",
+      "url": "https://etimg.etb2bimg.com/thumb/msid-135722778,imgsize-56341,width-1200,height=627,overlay-etinfra,resizemode-75/news/ports-shipping/ravi-mehrotra-led-foresight-group-launches-1-2-bn-fleet-expansion-with-vlac-order-at-hd-hyundai.jpg",
+      "hash": "c328d3ee1b4b6191df59f89b4d56dbebeea434cc"
     }
   ]
 }
