@@ -5,8 +5,8 @@ name: project-builder
 on:
   push:
     paths: ['radar/project_builder_run_now.txt']   # one line of builder arguments, e.g. --country Mozambique,MZ --limit 100
-  # schedule (after the owner checks the first pass):
-  #   - cron: '40 11 * * *'
+  schedule:
+    - cron: '40 11 * * *'   # after the radar pipeline (09:07 UTC) and dedupe; also clears any first-pass backlog
   workflow_dispatch:
     inputs:
       country:
@@ -50,7 +50,7 @@ jobs:
       - run: npm install -g @anthropic-ai/claude-code@latest && claude --version
       - name: Build projects
         run: |
-          ARGS="--limit ${{ github.event.inputs.limit || '600' }}"
+          ARGS="--limit ${{ github.event.inputs.limit || '2500' }}"
           if [ "${{ github.event_name }}" = "push" ]; then ARGS="$(head -1 radar/project_builder_run_now.txt)"; fi
           if [ "${{ github.event_name }}" != "push" ] && [ -n "${{ github.event.inputs.country }}" ]; then ARGS="$ARGS --country '${{ github.event.inputs.country }}'"; fi
           if [ "${{ github.event.inputs.dry }}" = "yes" ]; then ARGS="$ARGS --dry"; fi
