@@ -3,6 +3,8 @@ name: project-builder
 # Places Infrastructure reports into projects (wp_wtp_projects) - radar/project_builder.py. Manual runs for the first pass
 # (country / limit inputs); the daily schedule places the new reports after the radar pipeline (09:07 UTC) and dedupe.
 on:
+  push:
+    paths: ['radar/project_builder_run_now.txt']   # one line of builder arguments, e.g. --country Mozambique,MZ --limit 100
   # schedule (after the owner checks the first pass):
   #   - cron: '40 11 * * *'
   workflow_dispatch:
@@ -49,6 +51,7 @@ jobs:
       - name: Build projects
         run: |
           ARGS="--limit ${{ github.event.inputs.limit || '600' }}"
-          if [ -n "${{ github.event.inputs.country }}" ]; then ARGS="$ARGS --country '${{ github.event.inputs.country }}'"; fi
+          if [ "${{ github.event_name }}" = "push" ]; then ARGS="$(head -1 radar/project_builder_run_now.txt)"; fi
+          if [ "${{ github.event_name }}" != "push" ] && [ -n "${{ github.event.inputs.country }}" ]; then ARGS="$ARGS --country '${{ github.event.inputs.country }}'"; fi
           if [ "${{ github.event.inputs.dry }}" = "yes" ]; then ARGS="$ARGS --dry"; fi
           eval python radar/project_builder.py $ARGS
