@@ -1,5 +1,23 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-12 22:19 UTC - write, model claude-haiku-5-5, rows 16
+{'page unreadable': 2, 'full': 12, 'differ': 14, 'limited': 2}
+
+- Rowan Digital Infrastructure Hyperscale Financing (7904) | server None / haiku full | differs: financiers [['Apterra Infrastructure Capital'] | ['Apterra Infrastructure Capital', 'Citibank, N.A.', 'Mizuho Bank, Ltd.', 'MUFG Bank, Ltd.', 'Goldman Sachs Bank USA', 'Societe Generale', 'Sumitomo Mitsui Banking Corp. (SMBC)']]
+- Singapore LNG Floating Storage Licensing (7901) | server None / haiku full | differs: capacity [ | 130,000 cubic metres minimum per FSU]
+- Northern Morocco Wind IPP Phase 1 (7898) | server None / haiku full | differs: 
+- Google Utah Geothermal Supply (7897) | server None / haiku full | differs: owner [Google | Fervo Energy]
+- Greasewood Solar Farm PPA (7896) | server None / haiku full | differs: owner [CIP | Copenhagen Infrastructure Partners]
+- Project Elkhorn (7895) | server None / haiku full | differs: owner [Arena Energy | Arena Energy (Elkhorn Offshore, LLC)], capacity [ | 38,600 barrels of oil per day at peak]
+- Amur Small-Scale LNG Plant Phase 2 (7893) | server None / haiku full | differs: 
+- Maran Suezmax LNG Dual-Fuel Newbuild (7892) | server None / haiku limited | differs: owner [Maran Tankers Management | ], event_type [Delivery/Commissioning | ]
+- Höegh Ammonia-Capable Car Carrier Battery Storage (7891) | server None / haiku full | differs: capacity [ | 9,100 ceu]
+- DOF CSV Seven-Year Assignment (7890) | server None / haiku full | differs: value [USD 160 million | USD 110 million], contractors [[] | ['DOF Group']]
+- Gothenburg LBG Liquefaction Plant (7888) | server None / haiku full | differs: owner [Port of Gothenburg | Nordion Energi], event_type [Other | Construction start]
+- Tarragona Green Hydrogen Plant (7884) | server None / haiku full | differs: capacity [150MW | 150 MW], value [EUR 400 million | ]
+- National Renewable Energy Program Round 8 Solar and Wind (7883) | server None / haiku full | differs: 
+- Nigeria IPP Transformer Order (7880) | server None / haiku limited | differs: event_type [Equipment/vessel order | ]
+
 ## 2026-11-12 16:49 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
