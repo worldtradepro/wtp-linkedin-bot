@@ -1,0 +1,54 @@
+name: project-builder
+
+# Places Infrastructure reports into projects (wp_wtp_projects) - radar/project_builder.py. Manual runs for the first pass
+# (country / limit inputs); the daily schedule places the new reports after the radar pipeline (09:07 UTC) and dedupe.
+on:
+  # schedule (after the owner checks the first pass):
+  #   - cron: '40 11 * * *'
+  workflow_dispatch:
+    inputs:
+      country:
+        description: 'Comma list of countries as stored (e.g. Mozambique,MZ); empty = all'
+        required: false
+        default: ''
+      limit:
+        description: 'Max reports this run'
+        required: false
+        default: '400'
+      dry:
+        description: 'Dry run (print, do not write): yes / no'
+        required: false
+        default: 'no'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: project-builder
+  cancel-in-progress: false
+
+jobs:
+  run:
+    if: ${{ vars.PROJECT_BUILDER_PAUSED != 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    env:
+      WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      WTP_CF_BYPASS: ${{ secrets.WTP_CF_BYPASS }}
+      PB_MODEL: ${{ vars.PB_MODEL || 'claude-sonnet-5-5' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: npm install -g @anthropic-ai/claude-code@latest && claude --version
+      - name: Build projects
+        run: |
+          ARGS="--limit ${{ github.event.inputs.limit || '600' }}"
+          if [ -n "${{ github.event.inputs.country }}" ]; then ARGS="$ARGS --country '${{ github.event.inputs.country }}'"; fi
+          if [ "${{ github.event.inputs.dry }}" = "yes" ]; then ARGS="$ARGS --dry"; fi
+          eval python radar/project_builder.py $ARGS
