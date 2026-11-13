@@ -1,5 +1,22 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-13 21:59 UTC - write, model claude-haiku-5-5, rows 19
+{'page unreadable': 6, 'limited': 1, 'differ': 13, 'full': 12}
+
+- Rowan Data Center Build-out (8062) | server None / haiku limited | differs: owner [Rowan | ], value [USD 1.5 billion | ], event_type [Financing | ]
+- Jindal Mmamabula Energy Project (8061) | server None / haiku full | differs: owner [Jindal Power | Jindal Energy Botswana], capacity [700MW | 700 MW net coal-fired]
+- Giga-scale ACC Battery Cell Manufacturing Tender (India) (8052) | server None / haiku full | differs: 
+- Southeastern Senegal Solar-Storage IPP (8050) | server None / haiku full | differs: 
+- Southern Mozambique FSRU-Based LNG Terminal Study (8048) | server None / haiku full | differs: 
+- Pakistan LNG Spot Cargo Tender (8047) | server None / haiku full | differs: capacity [ | 2 spot LNG cargoes]
+- Longtail Development, Stabroek Block (8046) | server None / haiku full | differs: owner [ExxonMobil Guyana | ExxonMobil Guyana Limited], capacity [ | 1.2 bcf/d gas and up to 250,000 bpd condensate]
+- Shokeir Wind Farm (Gulf of Suez Wind Farm 3) (8043) | server None / haiku full | differs: owner [ENGIE, Aeolus and Orascom Construction | ENGIE, Aeolus, Orascom Construction], capacity [900MW | 900 MW], financiers [[] | ['International development finance institutions', 'Commercial banks']]
+- Steeple Solar Farm (8039) | server None / haiku full | differs: capacity [450MW solar, 150MW BESS | 450 MW solar; 150 MW battery storage]
+- Hornsea 3 Offshore Wind Farm (8038) | server None / haiku full | differs: 
+- Lynn and Inner Dowsing Offshore Wind O&M (8037) | server None / haiku full | differs: owner [XceCo | Funds managed by Macquarie Asset Management], capacity [194.4MW | 194.4 MW combined, 54 turbines], contractors [['Deutsche Windtechnik'] | ['Deutsche Windtechnik', 'XceCo']]
+- Hornsea 3 Inter-Array Cable Installation (8036) | server None / haiku full | differs: capacity [ | 2.9 GW], contractors [['Seaway7'] | ['Seaway7', 'Hellenic', 'Prysmian', 'JDR Cable Systems']]
+- Grace Dahlia MKII FLNG Conversion (8033) | server None / haiku full | differs: 
+
 ## 2026-11-13 16:24 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
