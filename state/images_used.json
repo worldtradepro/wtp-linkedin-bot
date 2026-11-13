@@ -1,18 +1,6 @@
 {
   "items": [
     {
-      "date": "2026-10-13",
-      "id": "infra-1",
-      "url": "https://images.unsplash.com/photo-1696998302294-b21fb356e1a4",
-      "hash": "6526ea48ea6851b864a3ba9232938dc8fc5dcda2"
-    },
-    {
-      "date": "2026-10-13",
-      "id": "infra-2",
-      "url": "https://cdn.insideindianabusiness.com/wp-content/uploads/2022/03/AES-Indiana-Building-Sign-2.jpg",
-      "hash": "eb9079aab68600cbdf539b4ede87af317f25088b"
-    },
-    {
       "date": "2026-10-14",
       "id": "infra-1",
       "url": "https://washingtonstatestandard.com/wp-content/uploads/2026/10/looking-downstream-of-blue-owl-capitals-data-center-location-2048x1356.jpg",
@@ -227,6 +215,18 @@
       "id": "infra-2",
       "url": "https://etimg.etb2bimg.com/thumb/msid-135722778,imgsize-56341,width-1200,height=627,overlay-etinfra,resizemode-75/news/ports-shipping/ravi-mehrotra-led-foresight-group-launches-1-2-bn-fleet-expansion-with-vlac-order-at-hd-hyundai.jpg",
       "hash": "c328d3ee1b4b6191df59f89b4d56dbebeea434cc"
+    },
+    {
+      "date": "2026-11-13",
+      "id": "infra-1",
+      "url": "https://images.rigzone.com/images/news/articles/USA-DOE-Closes-480MM-Loan-to-Expand-American-Energy-Output-185069-1200x628.png",
+      "hash": "6eba6a6346a48b70c8c9d383f90bfca16ab78b7f"
+    },
+    {
+      "date": "2026-11-13",
+      "id": "infra-2",
+      "url": "https://eu-images.contentstack.com/v3/assets/blt864e32313783fe03/blt6e4374683284f2c2/6a99be3a8378c89eb604c820/On_completion_Botley_West_could_deliver_840MW_of_renewable_power_to_the_national_grid..jpg",
+      "hash": "96fdde667158ee4a2f3533e1c20648991bdb8561"
     }
   ]
 }

@@ -1465,6 +1465,168 @@
         "infra-1: 6.3 GW Renewable Power Procurement (photo)",
         "infra-2: Foresight VLAC Fleet Expansion (photo)"
       ]
+    },
+    {
+      "date": "2026-11-13",
+      "search": "brave",
+      "checked": 5,
+      "photos": 2,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Project Elkhorn",
+          "result": "photo: news photo (rigzone, rigzone.com)"
+        },
+        {
+          "rank": 2,
+          "project": "DOF CSV Seven-Year Assignment",
+          "result": "news offshore-energy.biz: picture rejected (shape / text / not a photo)"
+        },
+        {
+          "rank": 3,
+          "project": "Fountain Lake Jetty - Main Works Contract",
+          "result": "commons: 12 files for \"Fountain Lake Jetty Main\""
+        },
+        {
+          "rank": 4,
+          "project": "Northern Morocco Wind IPP Phase 1",
+          "result": "news africa-energy.com: picture rejected (shape / text / not a photo)"
+        },
+        {
+          "rank": 5,
+          "project": "Botley West Solar Farm",
+          "result": "photo: news photo (Solar Power Portal, solarpowerportal.co.uk)"
+        },
+        {
+          "rank": 6,
+          "project": "Calibrant Energy Solar and Battery Storage Portfolio",
+          "result": "not checked"
+        },
+        {
+          "rank": 7,
+          "project": "Torus Foundry Modular AI Data Center",
+          "result": "not checked"
+        },
+        {
+          "rank": 8,
+          "project": "Hydraulic turbine pump/turbine modernization, Integrator SE",
+          "result": "not checked"
+        },
+        {
+          "rank": 9,
+          "project": "Railway signalling works: design, extraordinary maintenance and upgrades",
+          "result": "not checked"
+        },
+        {
+          "rank": 10,
+          "project": "Kalyanpur Synchronous Condensers",
+          "result": "not checked"
+        },
+        {
+          "rank": 11,
+          "project": "Construction work for oil and gas pipelines – AUS_Pipelinebau_SPO_Lot 2_Center",
+          "result": "not checked"
+        },
+        {
+          "rank": 12,
+          "project": "Nigeria Off-Grid Solar Mini-Grids",
+          "result": "not checked"
+        },
+        {
+          "rank": 13,
+          "project": "Marine construction works – Rosslare Europort, Berth 3 Upgrade",
+          "result": "not checked"
+        },
+        {
+          "rank": 14,
+          "project": "Construction work for electricity power lines – TG CPI HTA BT & Underground Works Marseille",
+          "result": "not checked"
+        },
+        {
+          "rank": 15,
+          "project": "Relocation of 132kV UKPN Cut Throat Lane Switching Station",
+          "result": "not checked"
+        },
+        {
+          "rank": 16,
+          "project": "Tarragona Green Hydrogen Plant",
+          "result": "not checked"
+        },
+        {
+          "rank": 17,
+          "project": "Gothenburg LBG Liquefaction Plant",
+          "result": "not checked"
+        },
+        {
+          "rank": 18,
+          "project": "Rowan Digital Infrastructure Hyperscale Financing",
+          "result": "not checked"
+        },
+        {
+          "rank": 19,
+          "project": "Zimbabwe Large-Scale Renewable IPP",
+          "result": "not checked"
+        },
+        {
+          "rank": 20,
+          "project": "Mauritania Hybrid Renewable IPP",
+          "result": "not checked"
+        },
+        {
+          "rank": 21,
+          "project": "National Renewable Energy Program Round 8 Solar and Wind",
+          "result": "not checked"
+        },
+        {
+          "rank": 22,
+          "project": "Höegh Ammonia-Capable Car Carrier Battery Storage",
+          "result": "not checked"
+        },
+        {
+          "rank": 23,
+          "project": "Amur Small-Scale LNG Plant Phase 2",
+          "result": "not checked"
+        },
+        {
+          "rank": 24,
+          "project": "Singapore LNG Floating Storage Licensing",
+          "result": "not checked"
+        },
+        {
+          "rank": 25,
+          "project": "Viking CCS expansion well engineering and subsurface studies",
+          "result": "not checked"
+        },
+        {
+          "rank": 26,
+          "project": "Stennis Space Center LNG Supply Agreement",
+          "result": "not checked"
+        },
+        {
+          "rank": 27,
+          "project": "Lewis Hub (Western Isles Interconnector)",
+          "result": "not checked"
+        },
+        {
+          "rank": 28,
+          "project": "ONGC Offshore Jack-up Rig Contracts",
+          "result": "not checked"
+        },
+        {
+          "rank": 29,
+          "project": "Nigeria Onshore Gas Pipeline",
+          "result": "not checked"
+        },
+        {
+          "rank": 30,
+          "project": "Dangote Gode Ammonia and Urea Complex",
+          "result": "not checked"
+        }
+      ],
+      "kept": [
+        "infra-1: Project Elkhorn (photo)",
+        "infra-2: Botley West Solar Farm (photo)"
+      ]
     }
   ]
 }
