@@ -258,6 +258,12 @@
       "mode": "schedule",
       "at": "2026-11-12T11:27:07.760Z",
       "dueAt": "2026-11-13T13:00:00.000Z"
+    },
+    "cd_helium_container": {
+      "postId": "6af6f035d414da1f7d9e0789",
+      "mode": "schedule",
+      "at": "2026-11-13T11:10:45.571Z",
+      "dueAt": "2026-11-14T13:00:00.000Z"
     }
   }
 }
