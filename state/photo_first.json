@@ -1627,6 +1627,168 @@
         "infra-1: Project Elkhorn (photo)",
         "infra-2: Botley West Solar Farm (photo)"
       ]
+    },
+    {
+      "date": "2026-11-14",
+      "search": "brave",
+      "checked": 11,
+      "photos": 2,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "DOF CSV Seven-Year Assignment",
+          "result": "news offshore-energy.biz: picture rejected (shape / text / not a photo)"
+        },
+        {
+          "rank": 2,
+          "project": "Hydraulic turbine pump/turbine modernization, Integrator SE",
+          "result": "commons: 12 files for \"Hydraulic Integrator\""
+        },
+        {
+          "rank": 3,
+          "project": "Fountain Lake Jetty - Main Works Contract",
+          "result": "commons: 12 files for \"Fountain Lake Jetty Main\""
+        },
+        {
+          "rank": 4,
+          "project": "Grace Dahlia MKII FLNG Conversion",
+          "result": "photo: news photo (LNG Prime, lngprime.com)"
+        },
+        {
+          "rank": 5,
+          "project": "Northern Morocco Wind IPP Phase 1",
+          "result": "news africa-energy.com: picture rejected (shape / text / not a photo)"
+        },
+        {
+          "rank": 6,
+          "project": "Lynn and Inner Dowsing Offshore Wind O&M",
+          "result": "news splash247.com: picture rejected (shape / text / not a photo)"
+        },
+        {
+          "rank": 7,
+          "project": "AQUA MONTIS – Torrent regulation in mountain basins, Larissa, Lamia, Trikala, Mouzakiou, Agia forest areas",
+          "result": "commons: 0 files for \"AQUA MONTIS Torrent Larissa Lamia Trikala Mouzakiou Agia\""
+        },
+        {
+          "rank": 8,
+          "project": "Oil drilling equipment – Uzlazne cijevi (tubing), zaštitne cijevi (casing) i čelične cijevi/Tubing, Casing and Steel Pipes",
+          "result": "commons: 0 files for \"Uzlazne tubing casing Tubing Casing Steel Pipes\""
+        },
+        {
+          "rank": 9,
+          "project": "Electricity power lines – Works and maintenance of HTB overhead lines 2028–2035, DR Corse",
+          "result": "commons: 0 files for \"Electricity HTB Corse\""
+        },
+        {
+          "rank": 10,
+          "project": "Railway signalling works: design, extraordinary maintenance and upgrades",
+          "result": "no official page found"
+        },
+        {
+          "rank": 11,
+          "project": "Greasewood Solar Farm PPA",
+          "result": "photo: news photo (datacenterdynamics, datacenterdynamics.com)"
+        },
+        {
+          "rank": 12,
+          "project": "Generators – MotorGenerator – SE Integrator",
+          "result": "not checked"
+        },
+        {
+          "rank": 13,
+          "project": "Shokeir Wind Farm (Gulf of Suez Wind Farm 3)",
+          "result": "not checked"
+        },
+        {
+          "rank": 14,
+          "project": "Longtail Development, Stabroek Block",
+          "result": "not checked"
+        },
+        {
+          "rank": 15,
+          "project": "Southern Mozambique FSRU-Based LNG Terminal Study",
+          "result": "not checked"
+        },
+        {
+          "rank": 16,
+          "project": "Southeastern Senegal Solar-Storage IPP",
+          "result": "not checked"
+        },
+        {
+          "rank": 17,
+          "project": "Jindal Mmamabula Energy Project",
+          "result": "not checked"
+        },
+        {
+          "rank": 18,
+          "project": "Tarragona Green Hydrogen Plant",
+          "result": "not checked"
+        },
+        {
+          "rank": 19,
+          "project": "Gothenburg LBG Liquefaction Plant",
+          "result": "not checked"
+        },
+        {
+          "rank": 20,
+          "project": "Rowan Digital Infrastructure Hyperscale Financing",
+          "result": "not checked"
+        },
+        {
+          "rank": 21,
+          "project": "Hornsea 3 Inter-Array Cable Installation",
+          "result": "not checked"
+        },
+        {
+          "rank": 22,
+          "project": "Pakistan LNG Spot Cargo Tender",
+          "result": "not checked"
+        },
+        {
+          "rank": 23,
+          "project": "Giga-scale ACC Battery Cell Manufacturing Tender (India)",
+          "result": "not checked"
+        },
+        {
+          "rank": 24,
+          "project": "Procure of solar panels for the NSC and regional departments",
+          "result": "not checked"
+        },
+        {
+          "rank": 25,
+          "project": "Plant Design, Supply, Installation, Test and Commissioning for Distribution Network Upgrading, Strengthening and Rehabilitating to improve the reliability of supply Lot 7 (Bambasi ...) and Lot 8 (chiro...)",
+          "result": "not checked"
+        },
+        {
+          "rank": 26,
+          "project": "Design and Build of a Railway and Related Infrastructure Connecting to the Anaklia Deep-Sea Port",
+          "result": "not checked"
+        },
+        {
+          "rank": 27,
+          "project": "Lease of two longwall shearers with warranty and service, Polska Grupa Górnicza S.A., KWK ROW Chwałowice",
+          "result": "not checked"
+        },
+        {
+          "rank": 28,
+          "project": "National Renewable Energy Program Round 8 Solar and Wind",
+          "result": "not checked"
+        },
+        {
+          "rank": 29,
+          "project": "Höegh Ammonia-Capable Car Carrier Battery Storage",
+          "result": "not checked"
+        },
+        {
+          "rank": 30,
+          "project": "Amur Small-Scale LNG Plant Phase 2",
+          "result": "not checked"
+        }
+      ],
+      "kept": [
+        "infra-1: Grace Dahlia MKII FLNG Conversion (photo)",
+        "infra-2: Greasewood Solar Farm PPA (photo)"
+      ]
     }
   ]
 }
