@@ -264,6 +264,12 @@
       "mode": "schedule",
       "at": "2026-11-13T11:10:45.571Z",
       "dueAt": "2026-11-14T13:00:00.000Z"
+    },
+    "cd_floating_storage_contango": {
+      "postId": "6af839e481e1228421fd3a2c",
+      "mode": "schedule",
+      "at": "2026-11-14T10:37:24.972Z",
+      "dueAt": "2026-11-15T13:00:00.000Z"
     }
   }
 }
