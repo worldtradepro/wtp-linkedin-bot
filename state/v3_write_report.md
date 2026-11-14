@@ -1,5 +1,14 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-14 20:41 UTC - write, model claude-haiku-5-5, rows 8
+{'page unreadable': 3, 'full': 5, 'differ': 5}
+
+- Shipping Corporation of India Fleet Tender (8154) | server None / haiku full | differs: owner [Shipping Corporation of India | Shipping Corporation of India Ltd (SCI)], capacity [22 ships | 22 vessels]
+- AirTrunk Andhra Pradesh Data Centers (8153) | server None / haiku full | differs: capacity [1.8GW | 1.8GW (400MW Rambilli, 1.4GW Tootipala)]
+- Patmos Fairfield Technology Campus (8152) | server None / haiku full | differs: 
+- Longtail Development (8151) | server None / haiku full | differs: capacity [ | 1.2 bcfd gas; up to 250,000 b/d condensate], value [ | USD 12.5 billion]
+- Appalachian Power West Virginia Gas Plants (8150) | server None / haiku full | differs: capacity [ | about 3 GW gas-fired generation]
+
 ## 2026-11-14 15:04 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
