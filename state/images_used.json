@@ -1,18 +1,6 @@
 {
   "items": [
     {
-      "date": "2026-10-15",
-      "id": "infra-1",
-      "url": "https://images.unsplash.com/photo-1491677533189-49af044391ed",
-      "hash": "28c8b60af5f0d97d92d7fc015b80c86b2f43faf2"
-    },
-    {
-      "date": "2026-10-15",
-      "id": "infra-2",
-      "url": "https://assets.bizclikmedia.net/1200/25d62ab9a20d0cb737809e1368aaedea:16c968aa5bad45607bc2e1e3f1151099/bihar-s-first-ai-ready-dc-inauguration-by-chief-minister-of-bihar.jpg.jpg",
-      "hash": "5ef9dc538ca416aa9715a8335ce84487420d7f50"
-    },
-    {
       "date": "2026-10-16",
       "id": "infra-1",
       "url": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e",
@@ -227,6 +215,18 @@
       "id": "infra-2",
       "url": "https://media.datacenterdynamics.com/media/images/SDC-Austin_sabey_texas.2e16d0ba.fill-1200x630.jpg",
       "hash": "6a3d0cb7e4dd0c6a56180d6971fd0190a6034c54"
+    },
+    {
+      "date": "2026-11-15",
+      "id": "infra-1",
+      "url": "https://media.datacenterdynamics.com/media/images/airtrunk_vizag.2e16d0ba.fill-1200x630.png",
+      "hash": "ad6d64128482cd62d34e38e0a7fca1314bb68838"
+    },
+    {
+      "date": "2026-11-15",
+      "id": "infra-2",
+      "url": "https://constructionreviewonline.com/wp-content/uploads/2026/11/images-2026-11-13T210754.564.jpeg",
+      "hash": "449a43e936a747ee06955e4b2e0474c4d907a329"
     }
   ]
 }

@@ -1789,6 +1789,133 @@
         "infra-1: Grace Dahlia MKII FLNG Conversion (photo)",
         "infra-2: Greasewood Solar Farm PPA (photo)"
       ]
+    },
+    {
+      "date": "2026-11-15",
+      "search": "brave",
+      "checked": 8,
+      "photos": 2,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Vinmetal steelmaking package EPC, Vietnam",
+          "result": "commons: 1 files for \"Vinmetal\""
+        },
+        {
+          "rank": 2,
+          "project": "AirTrunk Andhra Pradesh Data Centers",
+          "result": "photo: news photo (datacenterdynamics, datacenterdynamics.com)"
+        },
+        {
+          "rank": 3,
+          "project": "Sanmenxia Shanzhou South Slope bauxite mine mining works (phase 1)",
+          "result": "commons: 0 files for \"Shanzhou Slope mine\""
+        },
+        {
+          "rank": 4,
+          "project": "Lynn and Inner Dowsing Offshore Wind O&M",
+          "result": "news splash247.com: picture rejected (shape / text / not a photo)"
+        },
+        {
+          "rank": 5,
+          "project": "AQUA MONTIS – Torrent regulation in mountain basins, Larissa, Lamia, Trikala, Mouzakiou, Agia forest areas",
+          "result": "commons: 0 files for \"AQUA MONTIS Torrent Larissa Lamia Trikala Mouzakiou Agia\""
+        },
+        {
+          "rank": 6,
+          "project": "Oil drilling equipment – Uzlazne cijevi (tubing), zaštitne cijevi (casing) i čelične cijevi/Tubing, Casing and Steel Pipes",
+          "result": "commons: 0 files for \"Uzlazne tubing casing Tubing Casing Steel Pipes\""
+        },
+        {
+          "rank": 7,
+          "project": "Electricity power lines – Works and maintenance of HTB overhead lines 2028–2035, DR Corse",
+          "result": "commons: 0 files for \"Electricity HTB Corse\""
+        },
+        {
+          "rank": 8,
+          "project": "Patmos Fairfield Technology Campus",
+          "result": "photo: news photo (Construction Review, constructionreviewonline.com)"
+        },
+        {
+          "rank": 9,
+          "project": "Generators – MotorGenerator – SE Integrator",
+          "result": "not checked"
+        },
+        {
+          "rank": 10,
+          "project": "Steeple Solar Farm",
+          "result": "not checked"
+        },
+        {
+          "rank": 11,
+          "project": "Shokeir Wind Farm (Gulf of Suez Wind Farm 3)",
+          "result": "not checked"
+        },
+        {
+          "rank": 12,
+          "project": "Southern Mozambique FSRU-Based LNG Terminal Study",
+          "result": "not checked"
+        },
+        {
+          "rank": 13,
+          "project": "Southeastern Senegal Solar-Storage IPP",
+          "result": "not checked"
+        },
+        {
+          "rank": 14,
+          "project": "Jindal Mmamabula Energy Project",
+          "result": "not checked"
+        },
+        {
+          "rank": 15,
+          "project": "Shipping Corporation of India Fleet Tender",
+          "result": "not checked"
+        },
+        {
+          "rank": 16,
+          "project": "Hornsea 3 Inter-Array Cable Installation",
+          "result": "not checked"
+        },
+        {
+          "rank": 17,
+          "project": "Longtail Development, Stabroek Block",
+          "result": "not checked"
+        },
+        {
+          "rank": 18,
+          "project": "Pakistan LNG Spot Cargo Tender",
+          "result": "not checked"
+        },
+        {
+          "rank": 19,
+          "project": "Giga-scale ACC Battery Cell Manufacturing Tender (India)",
+          "result": "not checked"
+        },
+        {
+          "rank": 20,
+          "project": "Procure of solar panels for the NSC and regional departments",
+          "result": "not checked"
+        },
+        {
+          "rank": 21,
+          "project": "Plant Design, Supply, Installation, Test and Commissioning for Distribution Network Upgrading, Strengthening and Rehabilitating to improve the reliability of supply Lot 7 (Bambasi ...) and Lot 8 (chiro...)",
+          "result": "not checked"
+        },
+        {
+          "rank": 22,
+          "project": "Design and Build of a Railway and Related Infrastructure Connecting to the Anaklia Deep-Sea Port",
+          "result": "not checked"
+        },
+        {
+          "rank": 23,
+          "project": "Lease of two longwall shearers with warranty and service, Polska Grupa Górnicza S.A., KWK ROW Chwałowice",
+          "result": "not checked"
+        }
+      ],
+      "kept": [
+        "infra-1: AirTrunk Andhra Pradesh Data Centers (photo)",
+        "infra-2: Patmos Fairfield Technology Campus (photo)"
+      ]
     }
   ]
 }
