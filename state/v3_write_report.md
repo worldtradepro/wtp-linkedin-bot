@@ -1,5 +1,12 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-15 21:01 UTC - write, model claude-haiku-5-5, rows 4
+{'page unreadable': 1, 'full': 2, 'differ': 3, 'limited': 1}
+
+- Bahía Blanca Port Dredging Contract 06-CGPBB/2026 (8179) | server None / haiku full | differs: contractors [['Jan De Nul'] | ['Jan De Nul', 'Compañía Sudamericana de Dragados']]
+- Free State Solar PV IPP Phase 2 (8177) | server None / haiku full | differs: 
+- Côte d'Ivoire Utility-Scale Solar PV IPP (8176) | server None / haiku limited | differs: event_type [Financing | ]
+
 ## 2026-11-15 15:41 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
