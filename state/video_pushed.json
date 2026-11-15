@@ -270,6 +270,12 @@
       "mode": "schedule",
       "at": "2026-11-14T10:37:24.972Z",
       "dueAt": "2026-11-15T13:00:00.000Z"
+    },
+    "cd_robusta_arabica": {
+      "postId": "6af992cce86a5789a6065e2e",
+      "mode": "schedule",
+      "at": "2026-11-15T11:09:00.772Z",
+      "dueAt": "2026-11-16T13:00:00.000Z"
     }
   }
 }
