@@ -237,8 +237,8 @@ const sponsor = W.sponsor?.enabled && W.sponsor.name
 const tail = [
   box(`<div class="s" style="${serif}color:${C.ink};font-size:21px;line-height:1.25;padding-bottom:8px;">Sourcing equipment, materials or spares from China?</div><span style="color:${C.text};">Tell us what you need; we pass the request to partner trading companies in China so they can quote.</span> ${link('China Sourcing request →', utm(cfg.site + '/project-sourcing/#csr-apply', 'sourcing-demand'))}<br><span style="color:${C.text};">Supplier or service provider? </span>${link('See which projects need your product, free preview →', utm(cfg.site + '/project-leads/', 'sourcing-supply'))}`),
   para(`<span style="font-size:13px;color:${C.muted};">${sponsor ? 'Reach the people who build and move commodities: ' : 'Reach ' + (W.audienceLine || 'the people who build and move commodities') + ': '}<a href="${sponsorMail}" style="color:${C.muted};font-weight:600;text-decoration:underline;">sponsor this newsletter →</a></span>`, '14px 0 0'),
-  // 2026-11-06 (owner): course audience = brokers chasing a first deal; second half points readers with an audience to /affiliates/ (50%).
-  nl.promo?.enabled ? para(`<span style="font-size:13px;color:${C.muted};"><b>P.S.</b> Chasing your first physical deal? ${esc(nl.promo.title)} walks through one end to end. ${link('Watch the free prologue →', utm(nl.promo.url, 'course'), C.muted)} · Write for commodity brokers? ${link('Earn 50% recommending it →', utm(cfg.site + '/affiliates/', 'course-affiliate'), C.muted)}</span>`, '12px 0 0') : '',
+  // 2026-11-15 (owner): the page now sells the One Percent e-book; video course hidden, affiliate half removed.
+  nl.promo?.enabled ? para(`<span style="font-size:13px;color:${C.muted};"><b>P.S.</b> Someone you trust sent you a commodity offer? ${esc(nl.promo.title)}, our e-book for beginner brokers, shows how to check it. ${link((nl.promo.cta || 'Read the free sample') + ' →', utm(nl.promo.url, 'onepercent'), C.muted)}</span>`, '12px 0 0') : '',
 ].filter(Boolean);
 
 // ---------------------------------------------------------------- week-on-week, superlatives, bid calendar, sector chart, editor's note
