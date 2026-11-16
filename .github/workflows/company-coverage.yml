@@ -1,0 +1,64 @@
+name: company-coverage
+
+# Company coverage check (owner 2026-11-16) - radar/company_coverage.py. Every week the ~25 companies on radar/company_watch.json
+# that were checked longest ago are searched on the web for projects our news radar missed; new ones are added to the project
+# table (the daily dedupe and project builder then place them). Each company comes round about once a month.
+on:
+  push:
+    paths: ['radar/company_coverage_run_now.txt']   # line 1: write=true|false   line 2 (optional): only=Company A,Company B
+  schedule:
+    - cron: '30 3 * * 6'    # Saturdays 03:30 UTC
+  workflow_dispatch:
+    inputs:
+      write:
+        description: 'Write to the site (true) or dry run (false)'
+        required: false
+        default: 'false'
+      only:
+        description: 'Only these companies (comma list, names as in company_watch.json); empty = the next 25'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: company-coverage
+  cancel-in-progress: false
+
+jobs:
+  run:
+    if: ${{ vars.COMPANY_COVERAGE_PAUSED != 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    env:
+      WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      WTP_CF_BYPASS: ${{ secrets.WTP_CF_BYPASS }}
+      COV_MODEL: ${{ vars.COV_MODEL || 'claude-sonnet-5-5' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r radar/requirements.txt
+      - run: npm install -g @anthropic-ai/claude-code@latest && claude --version
+      - name: Check companies
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then export COV_WRITE=true; fi
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then export COV_WRITE="${{ github.event.inputs.write }}"; export COV_ONLY="${{ github.event.inputs.only }}"; fi
+          if [ "${{ github.event_name }}" = "push" ]; then
+            export COV_WRITE="$(sed -n 's/^write=//p' radar/company_coverage_run_now.txt | head -1)"
+            export COV_ONLY="$(sed -n 's/^only=//p' radar/company_coverage_run_now.txt | head -1)"
+          fi
+          python radar/company_coverage.py
+      - name: Save state and report (company names and counts only)
+        if: always()
+        run: |
+          git config user.name "wtp-bot"
+          git config user.email "wtp-bot@users.noreply.github.com"
+          git add state/company_coverage.json state/company_coverage_report.md 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "company coverage report" && (git push || (git pull --rebase && git push)) || echo "report not pushed (busy repo)")
