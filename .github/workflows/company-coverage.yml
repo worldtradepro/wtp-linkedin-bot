@@ -48,7 +48,8 @@ jobs:
       - run: npm install -g @anthropic-ai/claude-code@latest && claude --version
       - name: Check companies
         run: |
-          if [ "${{ github.event_name }}" = "schedule" ]; then export COV_WRITE=true; fi
+          # the weekly run writes only after the owner's OK (repo variable COMPANY_COVERAGE_WRITE=true); until then it is a dry run with a report
+          if [ "${{ github.event_name }}" = "schedule" ]; then export COV_WRITE="${{ vars.COMPANY_COVERAGE_WRITE || 'false' }}"; fi
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then export COV_WRITE="${{ github.event.inputs.write }}"; export COV_ONLY="${{ github.event.inputs.only }}"; fi
           if [ "${{ github.event_name }}" = "push" ]; then
             export COV_WRITE="$(sed -n 's/^write=//p' radar/company_coverage_run_now.txt | head -1)"
