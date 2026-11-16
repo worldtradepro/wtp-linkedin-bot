@@ -1916,6 +1916,43 @@
         "infra-1: AirTrunk Andhra Pradesh Data Centers (photo)",
         "infra-2: Patmos Fairfield Technology Campus (photo)"
       ]
+    },
+    {
+      "date": "2026-11-16",
+      "search": "brave",
+      "checked": 4,
+      "photos": 2,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Vinmetal steelmaking package EPC, Vietnam",
+          "result": "commons: 1 files for \"Vinmetal\""
+        },
+        {
+          "rank": 2,
+          "project": "Sanmenxia Shanzhou South Slope bauxite mine mining works (phase 1)",
+          "result": "commons: 0 files for \"Shanzhou Slope mine\""
+        },
+        {
+          "rank": 3,
+          "project": "Free State Solar PV IPP Phase 2",
+          "result": "photo: news photo (African Energy, africa-energy.com)"
+        },
+        {
+          "rank": 4,
+          "project": "Bahía Blanca Port Dredging Contract 06-CGPBB/2026",
+          "result": "photo: news photo (dredgingtoday, dredgingtoday.com)"
+        },
+        {
+          "rank": 5,
+          "project": "Shipping Corporation of India Fleet Tender",
+          "result": "not checked"
+        }
+      ],
+      "kept": [
+        "infra-1: Free State Solar PV IPP Phase 2 (photo)",
+        "infra-2: Bahía Blanca Port Dredging Contract 06-CGPBB/2026 (photo)"
+      ]
     }
   ]
 }

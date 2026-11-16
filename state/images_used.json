@@ -1,18 +1,6 @@
 {
   "items": [
     {
-      "date": "2026-10-16",
-      "id": "infra-1",
-      "url": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e",
-      "hash": "d4ebb874dc1a11c313fb23019825be43cc3908ba"
-    },
-    {
-      "date": "2026-10-16",
-      "id": "infra-2",
-      "url": "https://assets.newsweek.com/wp-content/uploads/2026/10/GettyImages-2287219474.jpg",
-      "hash": "cb00426f4c18e02f0c270d0852ad8f162958e60f"
-    },
-    {
       "date": "2026-10-17",
       "id": "infra-1",
       "url": "https://www.pv-magazine.com/wp-content/uploads/2026/06/1280px-BalticServers_data_center-1024x680-1.jpg",
@@ -227,6 +215,18 @@
       "id": "infra-2",
       "url": "https://constructionreviewonline.com/wp-content/uploads/2026/11/images-2026-11-13T210754.564.jpeg",
       "hash": "449a43e936a747ee06955e4b2e0474c4d907a329"
+    },
+    {
+      "date": "2026-11-16",
+      "id": "infra-1",
+      "url": "https://www.africa-energy.com/storage/93371/Ilikwa-solar.jpg",
+      "hash": "f1652f2cfca2dfcbc546e94898b48b1330cba49d"
+    },
+    {
+      "date": "2026-11-16",
+      "id": "infra-2",
+      "url": "https://www.dredgingtoday.com/api/media/file/argenports%20jan%20de%20nul%20bahia.jpg",
+      "hash": "eb16cb165c86b9c5e004fe271980c45ec523d3dc"
     }
   ]
 }
