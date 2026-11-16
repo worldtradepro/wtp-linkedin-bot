@@ -214,6 +214,11 @@
       "postId": "6af9a1cb918fe79d2edf9501",
       "at": "2026-11-15T12:12:59.360Z",
       "dueAt": "2026-11-16T16:30:00.000Z"
+    },
+    "cd_floating_storage_contango": {
+      "postId": "6afaffaaf0e0e28df1d214b5",
+      "at": "2026-11-16T13:05:46.500Z",
+      "dueAt": "2026-11-17T16:30:00.000Z"
     }
   }
 }
