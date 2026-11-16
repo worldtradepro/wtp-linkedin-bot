@@ -68,6 +68,10 @@ Rules:
 - Many company sites do not list projects, and some block robots. If a page does not load or blocks access, skip it and use another
   source. Never try to get around a block.
 - Report only what a dated public source says. Do not guess, do not fill gaps from memory. No source, no item.
+- Search in English AND in the company's home language (Chinese for Chinese firms, Korean for Korean, Japanese for Japanese ...),
+  and open the company's own news page if robots may read it.
+- Only energy, mining, industrial, transport, water and digital infrastructure projects (the subsector list below). NOT in scope:
+  housing, apartments, offices, malls, hotels, hospitals, schools, stadiums, urban redevelopment, domestic building works.
 - One item per project (the latest news about it). Skip routine maintenance, small service jobs, share buybacks, results reports.
 - At most 15 items, the largest first. If you find nothing new, return an empty list.
 
@@ -105,7 +109,7 @@ def ask(prompt):
     if env.get("CLAUDE_CODE_OAUTH_TOKEN"):
         env["CLAUDE_CODE_OAUTH_TOKEN"] = re.sub(r"\s+", "", env["CLAUDE_CODE_OAUTH_TOKEN"])
     out = subprocess.run(["claude", "-p", "Follow the instructions in the input; use web search; reply with the JSON only.", "--model", MODEL,
-                          "--allowedTools", "WebSearch", "WebFetch", "--max-turns", "30", "--output-format", "json"],
+                          "--allowedTools", "WebSearch", "WebFetch", "--max-turns", "45", "--output-format", "json"],
                          input=prompt, cwd=tempfile.mkdtemp(prefix="cov-"), env=env, capture_output=True, text=True, timeout=1500)
     try:
         txt = json.loads([ln for ln in out.stdout.splitlines() if ln.strip()][-1]).get("result") or ""
@@ -176,7 +180,9 @@ def clean(it, c):
         return None, "no project name"
     stage = it.get("stage") if it.get("stage") in STAGES else "S5-Awarded"
     sector = it.get("sector") if it.get("sector") in SECTORS else "Energy"
-    sub = it.get("subsector") if it.get("subsector") in SUBSECTORS else ""
+    sub = it.get("subsector")
+    if sub not in SUBSECTORS:
+        return None, "out of scope (" + str(sub)[:30] + ")"
     region = it.get("region") if it.get("region") in REGIONS else "Unknown"
     owner = (it.get("owner") or "").strip()
     role = (it.get("company_role") or "contractor").strip()
@@ -235,19 +241,23 @@ def main():
             got, kind = clean(it, c)
             if not got:
                 st["dropped"] += 1
+                print("   drop (%s): %s" % (kind, (it.get("project_name") or "")[:90]), flush=True)
                 continue
             row, facts = got
             if row["source_url"].rstrip("/").lower() in have_urls or any(same_project(row, r) for r in mine) or any(same_project(row, r) for r in new_rows):
                 st["dropped"] += 1
+                print("   drop (already have): %s" % row["project_name"][:90], flush=True)
                 continue
             chk = page_check(row["source_url"], names)
             if chk == "absent":
                 st["dropped"] += 1                                          # the page does not name the company: not trusted
+                print("   drop (page does not name the company): %s | %s" % (row["project_name"][:80], row["source_url"][:80]), flush=True)
                 continue
             facts.update(verification="full" if chk == "full" else "project_only", paid_eligible=1 if chk == "full" else 0)
             if chk != "full":
                 facts["project_ref_url"] = row["source_url"]
             new_rows.append(row); facts_by_aid[row["article_id"]] = facts
+            print("   NEW [%s, %s, %s] %s | %s | %s" % (row["report_date"], row["stage"], facts["verification"], row["project_name"][:90], row["country"], row["source_url"][:90]), flush=True)
             kinds[kind] += 1
             st["added"] += 1
         st["kinds"] = dict(kinds)

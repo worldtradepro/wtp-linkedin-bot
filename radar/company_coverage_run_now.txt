@@ -1,2 +1,2 @@
 write=false
-only=Wison New Energies,Petrofac,GS Engineering & Construction
+only=Wison New Energies,GS Engineering & Construction,Offshore Oil Engineering (COOEC),Samsung E&A,National Petroleum Construction Company (NPCC)
