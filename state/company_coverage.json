@@ -1,14 +1,34 @@
 {
  "GS Engineering & Construction": {
-  "added": 4,
+  "added": 2,
   "checked": "2026-11-16",
-  "dropped": 1,
-  "found": 5,
+  "dropped": 0,
+  "found": 2,
   "had": 0,
   "kinds": {
-   "press": 4
+   "press": 2
   },
-  "note": "Web search turned up Korean press (Asiae, Ajupress, Digital Daily) on domestic housing and mixed-use awards. I found no dated 2025-26 overseas plant, energy or infrastructure award. DART and the compa"
+  "note": "Press search worked. The DART filing mirror (chickstockfi, KRW 597.6bn amended supply contract dated 2026-11-11) returned 403, so it was skipped and its subject is unknown. Korean reports mention expe"
+ },
+ "National Petroleum Construction Company (NPCC)": {
+  "added": 1,
+  "checked": "2026-11-16",
+  "dropped": 0,
+  "found": 1,
+  "had": 2,
+  "kinds": {
+   "press": 1
+  },
+  "note": "NMDC Energy's newsroom loaded but listed only results, with no new awards. The ADX filing was not opened. SaudiGulf Projects, Upstream and the offshore search results were blocked or paywalled. The AE"
+ },
+ "Offshore Oil Engineering (COOEC)": {
+  "added": 0,
+  "checked": "2026-11-16",
+  "dropped": 2,
+  "found": 2,
+  "had": 7,
+  "kinds": {},
+  "note": "I took both items from a search-engine summary of the SSE half-year report, because the PDF could not be read as text. Details are thin and should be checked. Qatar awards were already in your list. T"
  },
  "Petrofac": {
   "added": 0,
@@ -19,6 +39,17 @@
   "kinds": {},
   "note": "Searches found no new dated Petrofac contract awards in the window. Petrofac entered administration in Oct 2025 and its UAE unit was sold in mid-2026. One MEED-derived item (29 Jun 2026, a $1.8bn Alge"
  },
+ "Samsung E&A": {
+  "added": 2,
+  "checked": "2026-11-16",
+  "dropped": 0,
+  "found": 2,
+  "had": 4,
+  "kinds": {
+   "press": 2
+  },
+  "note": "Web search and press coverage of DART disclosures worked. The chickstockfi.com filing mirror returned 403 and was skipped. Several items were left out: Samsung Electronics Giheung and Hadong fab civil"
+ },
  "Wison New Energies": {
   "added": 2,
   "checked": "2026-11-16",
@@ -26,8 +57,9 @@
   "found": 2,
   "had": 3,
   "kinds": {
-   "press": 2
+   "company": 1,
+   "press": 1
   },
-  "note": "Trade press (LNG Prime, Splash247, iMarine, Offshore) worked. Wison is unlisted, so there were no filings. I did not open the company site or tender portals. The Qair floating-wind alliance (July 2026"
+  "note": "Web search and Wison Engineering's press release worked. The Wison Suriname FLNG item had no readable date, so I left it out. HKEX filings, Wison's own news page and tender portals were not checked di"
  }
 }
