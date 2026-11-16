@@ -45,6 +45,10 @@ SUBSECTORS = ["Oil & Gas", "LNG", "Gas", "Refining & Petrochemicals", "Pipelines
 STAGES = {"S1-Feasibility": "study, feasibility, MoU", "S2-Development": "development, permits, FEED", "S3-Pre-FID": "FEED done, FID pending",
           "S4-Tender": "EPC or package tender open", "S5-Awarded": "contract awarded, under construction or vessel/equipment order"}
 REGIONS = ["Europe", "Asia Pacific", "Americas", "Africa", "Middle East", "Global"]
+FILING_HOSTS = ("cninfo.com.cn", "sse.com.cn", "szse.cn", "hkexnews.hk", "dart.fss.or.kr", "kind.krx.co.kr", "release.tdnet.info", "nseindia.com",
+                "bseindia.com", "newsweb.oslobors.no", "live.euronext.com", "londonstockexchange.com", "asx.com.au", "sgx.com", "adx.ae", "sec.gov")
+AGREEMENT = re.compile(r"\b(partnership|partners? with|joint venture|jv|mou|memorandum|co-develop\w*|alliance|framework agreement|cooperation agreement|teaming)\b", re.I)
+JUNK_NAME = re.compile(r"^(undisclosed|unnamed|unknown|confidential|an? (overseas|middle east|major|leading))", re.I)
 GENERIC = set("project projects plant unit phase new the and of for in at to a an with by contract contracts award awarded epc package "
               "expansion development construction facility facilities station farm park order orders supply agreement".split())
 
@@ -72,6 +76,7 @@ Rules:
   and open the company's own news page if robots may read it.
 - Only energy, mining, industrial, transport, water and digital infrastructure projects (the subsector list below). NOT in scope:
   housing, apartments, offices, malls, hotels, hospitals, schools, stadiums, urban redevelopment, domestic building works.
+- A partnership, JV, MoU or framework agreement is stage S1-Feasibility, not an award. The client and the country must be named.
 - One item per project (the latest news about it). Skip routine maintenance, small service jobs, share buybacks, results reports.
 - At most 15 items, the largest first. If you find nothing new, return an empty list.
 
@@ -178,7 +183,12 @@ def clean(it, c):
     name = (it.get("project_name") or "").strip()
     if len(name) < 8:
         return None, "no project name"
+    if JUNK_NAME.search(name) or not (it.get("country") or "").strip():
+        return None, "client or country not named"
     stage = it.get("stage") if it.get("stage") in STAGES else "S5-Awarded"
+    agreement = bool(AGREEMENT.search(name + " " + (it.get("description") or "")))
+    if agreement and stage in ("S4-Tender", "S5-Awarded"):
+        stage = "S1-Feasibility"                                             # a partnership / JV / MoU is not a contract award
     sector = it.get("sector") if it.get("sector") in SECTORS else "Energy"
     sub = it.get("subsector")
     if sub not in SUBSECTORS:
@@ -196,7 +206,7 @@ def clean(it, c):
            "credibility": 4, "confidence": "Medium", "report_date": d.isoformat()}
     facts = {"owner": owner, "site": row["city"], "capacity": (it.get("capacity") or "").strip(),
              "contractors": json.dumps(contractors, ensure_ascii=False), "description_source": "model",
-             "event_type": it.get("event_type") if it.get("event_type") in rx.fieldsv2.EVENT_TYPES else "Other"}
+             "event_type": "Other" if agreement else (it.get("event_type") if it.get("event_type") in rx.fieldsv2.EVENT_TYPES else "Other")}
     if str(it.get("value_amount") or "").replace(".", "", 1).isdigit():
         facts.update(value_amount=str(it["value_amount"]), value_unit=it.get("value_unit") or "", value_currency=it.get("value_currency") or "")
     return (row, facts), it.get("source_kind") or "press"
@@ -249,6 +259,8 @@ def main():
                 print("   drop (already have): %s" % row["project_name"][:90], flush=True)
                 continue
             chk = page_check(row["source_url"], names)
+            if chk == "absent" and any(h in row["source_url"].lower() for h in FILING_HOSTS):
+                chk = "blocked"                                             # the company's own exchange filing (PDF, often not in English): keep, outside paid alerts
             if chk == "absent":
                 st["dropped"] += 1                                          # the page does not name the company: not trusted
                 print("   drop (page does not name the company): %s | %s" % (row["project_name"][:80], row["source_url"][:80]), flush=True)
