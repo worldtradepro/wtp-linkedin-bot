@@ -11,7 +11,10 @@ export async function siteFetch(url, init = {}, tries = 5) {
     try {
       const r = await fetch(url, { ...init, headers });
       if (![403, 429, 503, 520, 521, 522, 523, 524].includes(r.status)) return r;
-      last = new Error(`HTTP ${r.status}`);
+      // say WHO refused: a Cloudflare challenge page ("Just a moment...", cf-mitigated header) or our own site (JSON error)
+      const txt = (await r.text().catch(() => '')).replace(/\s+/g, ' ');
+      const who = r.headers.get('cf-mitigated') ? `cloudflare ${r.headers.get('cf-mitigated')}` : /<title>/i.test(txt) ? 'cloudflare/html: ' + (txt.match(/<title>([^<]*)/i) || [])[1] : 'site: ' + txt.slice(0, 120);
+      last = new Error(`HTTP ${r.status} (${who})`);
     } catch (e) { last = e; }
     if (i < tries) { const wait = 8000 * i; console.log(`site ${init.method || 'GET'} ${new URL(url).pathname}: ${last.message} - retry ${i}/${tries - 1} in ${wait / 1000}s`); await new Promise((r) => setTimeout(r, wait)); }
   }

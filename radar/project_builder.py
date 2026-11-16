@@ -60,7 +60,8 @@ def site(method, path, params=None, body=None):
             req = urllib.request.Request(url, data=data, method=method, headers={'User-Agent': 'wtp-linkedin-bot/1.0', 'Content-Type': 'application/json'})
             with urllib.request.urlopen(req, timeout=120) as r:
                 return json.load(r)
-        except Exception as e:  # Cloudflare challenge from GitHub runners: fall back to Node (radar/site.mjs passes the owner's rule)
+        except Exception as first:  # Cloudflare challenge from GitHub runners: fall back to Node (radar/site.mjs passes the owner's rule)
+            e = first
             if os.path.exists(os.path.join(HERE, 'site.mjs')):
                 req = {'method': method, 'path': f'/wp-json/wtp/v1/{path}', 'params': params}
                 if body is not None:
@@ -70,10 +71,11 @@ def site(method, path, params=None, body=None):
                     j = json.loads([ln for ln in out.stdout.splitlines() if ln.strip()][-1])
                     if j['status'] < 300:
                         return json.loads(j['text'])
+                    e = RuntimeError(f"site call failed: HTTP {j['status']} {j['text'][:200]}")
                 except Exception:
-                    pass
+                    e = RuntimeError('site call failed: ' + (out.stderr or out.stdout)[-300:].strip())
             if attempt == 3:
-                raise
+                raise e
             time.sleep((5, 20, 60)[attempt])
 
 
