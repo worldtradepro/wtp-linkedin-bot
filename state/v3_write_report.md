@@ -1,5 +1,35 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-17 23:34 UTC - write, model claude-haiku-5-5, rows 33
+{'page unreadable': 7, 'full': 24, 'differ': 26, 'project_only': 2}
+
+- Grand Est Black Mass Recycling Plant (8450) | server None / haiku full | differs: capacity [ | nearly 7,000 tons of black mass per year (equivalent to 20,000 tons of batteries)]
+- West Papua Ammonia-Urea Complex (8449) | server None / haiku full | differs: capacity [2,500 metric tons per day | 2,500 metric tons per day of ammonia], event_type [Other | Award]
+- Blue Elephant Agri-PV Projects (8448) | server None / haiku full | differs: capacity [nearly 96 MW | nearly 96 MW (three agri-PV projects)]
+- TAZAMA Pipeline Upgrade and New Tanzania–Zambia Fuel Line (8447) | server None / haiku full | differs: owner [Vitol | TAZAMA Pipelines Limited], capacity [ | new line 7 million tonnes per year; existing line planned at 4 million tonnes per year], contractors [[] | ['Vitol Bahrain']]
+- Bab Gas Cap Development (8445) | server None / haiku full | differs: 
+- EemsGas Delfzijl Green Gas Plant (8444) | server None / haiku full | differs: capacity [ | approximately 18 million cubic meters of green gas per year], event_type [Study/FEED | Award], contractors [['Technip Energies'] | ['Technip Energies N.V.']]
+- Skandi Africa CSV Charter Extension (8438) | server None / haiku full | differs: value [USD 100-200 million | ], contractors [['TechnipFMC'] | []]
+- Fengmiao II Offshore Wind Substation (8437) | server None / haiku full | differs: 
+- Laguna Verde Lithium Project (8435) | server None / haiku full | differs: capacity [ | 15,000 tonnes per year battery-grade lithium carbonate], value [ | USD 748 million]
+- Electra Positive Materials Nickel Sulfate Supply (8434) | server None / haiku full | differs: capacity [ | 20,000 tonnes per year nickel sulfate]
+- Troilus Gold-Copper Project (8432) | server None / haiku full | differs: 
+- Neon Oil Field Phased Development (8430) | server None / haiku full | differs: capacity [25,000 to 30,000 bbl/d | ], value [USD 800-950 million | ], event_type [Other | Study/FEED]
+- Jackdaw Gas Development (8428) | server None / haiku full | differs: value [USD 2.7 billion | GBP 2.1 billion]
+- Rosmari-Marjoram Gas Fields (8424) | server None / haiku full | differs: 
+- Frontera Cartagena LNG Power Plant (8423) | server None / haiku full | differs: 
+- Longtail Development (8422) | server None / haiku full | differs: owner [ExxonMobil Guyana Ltd. (operator), Hess Guyana Exploration Ltd., CNOOC Petroleum Guyana Ltd. | ExxonMobil Guyana Ltd. (operator, 45%), Hess Guyana Exploration Ltd. (30%), CNOOC Petroleum Guyana Ltd. (25%)], capacity [250,000 bbl/d condensate | 1.2 Bcf/d gas; up to 250,000 bbl/d condensate]
+- ExxonMobil Guyana Eighth Offshore Oil Project (8420) | server None / haiku full | differs: owner [ExxonMobil | ExxonMobil Guyana Ltd.], value [ | USD 1-1.5 billion], contractors [['SBM Offshore', 'Saipem'] | ['Saipem', 'SBM Offshore']]
+- Baltic-German Hybrid Offshore Interconnector (8419) | server None / haiku full | differs: owner [Lithuania, Latvia and Germany | Litgrid (Lithuania), Augstsprieguma tīkls (Latvia), 50Hertz (Germany)]
+- Maharashtra Driveline and Additive Manufacturing Facility (8418) | server None / haiku full | differs: contractors [['LSR Speciality Oils Pvt. Ltd.'] | []]
+- MHA Facilities Rooftop Solar Tenders (8417) | server None / haiku full | differs: 
+- SECI Battery Storage Empanelment (8416) | server None / haiku full | differs: 
+- Khavda Cluster-01 BESS (8415) | server None / haiku project_only | differs: capacity [2 x 300 MW/900 MWh | 600 MW/1,800 MWh], event_type [Equipment/vessel order | Award]
+- Amazon India Renewable Investment Programme (8414) | server None / haiku full | differs: capacity [934 MW | 934 MW across four new wind and solar projects]
+- Energos FSRU Conversion (8412) | server None / haiku full | differs: 
+- Stade FSRU LNG Import Terminal (8406) | server None / haiku full | differs: owner [DET | Deutsche Energy Terminal (DET)]
+- German Floating LNG Terminal Programme (8405) | server None / haiku project_only | differs: owner [German federal government | Deutsche Energy Terminal (DET)]
+
 ## 2026-11-17 17:38 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
