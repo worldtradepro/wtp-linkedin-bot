@@ -1,5 +1,31 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-17 00:16 UTC - write, model claude-haiku-5-5, rows 25
+{'page unreadable': 3, 'full': 21, 'differ': 22, 'project_only': 1}
+
+- Geraldton Port Maximization Project – Berth 1 (8273) | server None / haiku full | differs: capacity [ | 291-metre wharf], value [350 million | ], contractors [['McConnell Dowell'] | ['McConnell Dowell Constructors (Aust) Pty Ltd']]
+- 200 MW FDRE Procurement (8272) | server None / haiku full | differs: 
+- International Power Transmission EPC Order (8271) | server None / haiku project_only | differs: contractors [['KPIL'] | ['Kalpataru Projects International (KPIL)']]
+- Port of Luanda Quay Wall Upgrade (8267) | server None / haiku full | differs: 
+- AirTrunk Anakapalli Data Centre Campuses (8266) | server None / haiku full | differs: capacity [1.8 GW | 1.8 GW total (1.4 GW Tootipala, 400 MW Rambilli)], value [ | USD 11 billion]
+- Infra-HUMAIN AI Compute Financing (8265) | server None / haiku full | differs: owner [Infra-HUMAIN | HUMAIN], capacity [25 MW | Initial GPU financing about 25 MW IT load; infrastructure designed for up to 1 GW IT capacity], financiers [[] | ['National Infrastructure Fund (Infra)']]
+- Project Rise Data Center Campus (8264) | server None / haiku full | differs: contractors [['Ryan Companies'] | []]
+- Ireland 500MW Long-Duration Energy Storage Procurement (8263) | server None / haiku full | differs: owner [ | EirGrid], capacity [500MW | 500MW, 4-hour duration]
+- Ve-Na di Navigazione 9,200 dwt General Cargo Newbuild (8262) | server None / haiku full | differs: capacity [9,200 dwt | 9,200 dwt general cargo vessel]
+- SwissChemGas VLAC Newbuild Pair (8261) | server None / haiku full | differs: capacity [93,000 cu m each | 2 x 93,000 cu m VLACs]
+- Oga-Katagami-Akita Offshore Wind Farm (8260) | server None / haiku full | differs: owner [ | JERA Nex BP, J-Power, Tohoku Electric Power, Itochu consortium], capacity [315MW | 315MW (21 x 15MW turbines)]
+- Cross Lanes Geothermal Lithium Project (8259) | server None / haiku full | differs: contractors [['Marriott Drilling'] | ['Marriott Drilling Group']], financiers [[] | ['UK Government DRIVE35 programme']]
+- Zambia Greenfield Solar PV IPP (8258) | server None / haiku full | differs: contractors [[''] | []]
+- Benin Utility-Scale Solar PV Plant (8257) | server None / haiku full | differs: 
+- Energos LNG Carrier to FSRU Conversion (8256) | server None / haiku full | differs: 
+- Subsea7 Deepwater US Gulf Tieback (8255) | server None / haiku full | differs: owner [ | Kosmos Energy Gulf of Mexico Operations], capacity [ | 14 km steel catenary riser and wet-insulated flowline], value [USD 50-150 million | ]
+- Amplitude Otway Basin Subsea Installation Contract (8254) | server None / haiku full | differs: capacity [ | up to 90 terajoules per day], value [USD 50-100 million | ]
+- Muswellbrook Solar Farm and BESS (8253) | server None / haiku full | differs: owner [ | OX2], capacity [135 MW AC/176 MW DC | 135 MW AC / 176 MW DC], contractors [['LONGi'] | ['LONGi', 'Bouygues Construction Australia and Equans Solar & Storage joint venture']]
+- Amplitude Energy APAC SURF Project (8252) | server None / haiku full | differs: event_type [Construction start | Award]
+- Taiwan Offshore Wind Subsea Inspection Contract (8251) | server None / haiku full | differs: contractors [['High Performance Robotics'] | ['High Performance Robotics', 'International Ocean Group']]
+- Hammerhead Development (Essequibo 1899 FPSO) (8250) | server None / haiku full | differs: capacity [ | 150,000 bopd], value [USD 6.8 billion | ]
+- ExxonMobil Guyana Seventh Oil Project FPSO (8249) | server None / haiku full | differs: capacity [ | 150,000 bopd], value [USD 6.8 billion | ], contractors [['MODEC', 'Seatrium'] | ['Seatrium', 'MODEC']]
+
 ## 2026-11-15 21:01 UTC - write, model claude-haiku-5-5, rows 4
 {'page unreadable': 1, 'full': 2, 'differ': 3, 'limited': 1}
 
