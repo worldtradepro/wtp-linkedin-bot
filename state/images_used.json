@@ -1,18 +1,6 @@
 {
   "items": [
     {
-      "date": "2026-10-17",
-      "id": "infra-1",
-      "url": "https://www.pv-magazine.com/wp-content/uploads/2026/06/1280px-BalticServers_data_center-1024x680-1.jpg",
-      "hash": "3a5d1944d40aa77c50d7f3cf970d5bc6a1ed2922"
-    },
-    {
-      "date": "2026-10-17",
-      "id": "infra-2",
-      "url": "https://www.powermag.com/wp-content/uploads/2016/07/stock_ap1000-nuclear-plant-model_westinghouse.jpg",
-      "hash": "43c88c41863e3a63b2c571d90fb228eb577809fb"
-    },
-    {
       "date": "2026-10-18",
       "id": "infra-1",
       "url": "https://img-cdn.publive.online/fit-in/1200x675/solarbytes/media/media_files/2026/10/16/2026-10-16-sepco-gks-1200w-2026-10-16-14-06-29.jpg",
@@ -227,6 +215,18 @@
       "id": "infra-2",
       "url": "https://www.dredgingtoday.com/api/media/file/argenports%20jan%20de%20nul%20bahia.jpg",
       "hash": "eb16cb165c86b9c5e004fe271980c45ec523d3dc"
+    },
+    {
+      "date": "2026-11-17",
+      "id": "infra-1",
+      "url": "https://etimg.etb2bimg.com/thumb/msid-135876422,imgsize-351660,width-1200,height=627,overlay-etenergy,resizemode-75/power/kpil-secures-2610-crore-international-power-transmission-order.jpg",
+      "hash": "1117edbd8744527c5a52802e2a38904d08a8e1c4"
+    },
+    {
+      "date": "2026-11-17",
+      "id": "infra-2",
+      "url": "https://w.media/wp-content/uploads/2026/11/pexels-rompalliharish-4441983-1024x576.jpg",
+      "hash": "ddbdf6fed92fbd5dcf5b82e56703f945dffca47a"
     }
   ]
 }

@@ -1953,6 +1953,138 @@
         "infra-1: Free State Solar PV IPP Phase 2 (photo)",
         "infra-2: Bahía Blanca Port Dredging Contract 06-CGPBB/2026 (photo)"
       ]
+    },
+    {
+      "date": "2026-11-17",
+      "search": "brave",
+      "checked": 3,
+      "photos": 2,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "International Power Transmission EPC Order",
+          "result": "photo: news photo (indiatimes, energy.economictimes.indiatimes.com)"
+        },
+        {
+          "rank": 2,
+          "project": "Infra-HUMAIN AI Compute Financing",
+          "result": "news capacityglobal.com: agency / stock picture (AdobeStock) - skipped"
+        },
+        {
+          "rank": 3,
+          "project": "AirTrunk Anakapalli Data Centre Campuses",
+          "result": "photo: news photo (W Media, w.media)"
+        },
+        {
+          "rank": 4,
+          "project": "Hammerhead Development (Essequibo 1899 FPSO)",
+          "result": "not checked"
+        },
+        {
+          "rank": 5,
+          "project": "Project Rise Data Center Campus",
+          "result": "not checked"
+        },
+        {
+          "rank": 6,
+          "project": "Ireland 500MW Long-Duration Energy Storage Procurement",
+          "result": "not checked"
+        },
+        {
+          "rank": 7,
+          "project": "Muswellbrook Solar Farm and BESS",
+          "result": "not checked"
+        },
+        {
+          "rank": 8,
+          "project": "Oga-Katagami-Akita Offshore Wind Farm",
+          "result": "not checked"
+        },
+        {
+          "rank": 9,
+          "project": "Geraldton Port Maximization Project – Berth 1",
+          "result": "not checked"
+        },
+        {
+          "rank": 10,
+          "project": "Electricity power lines – TG Aéro-souterrains HTA/BT and Programmed Renovation",
+          "result": "not checked"
+        },
+        {
+          "rank": 11,
+          "project": "Call-off order: disconnectors/earthing switches",
+          "result": "not checked"
+        },
+        {
+          "rank": 12,
+          "project": "Call-off: supply of medium-voltage switchgear and installations",
+          "result": "not checked"
+        },
+        {
+          "rank": 13,
+          "project": "Benin Utility-Scale Solar PV Plant",
+          "result": "not checked"
+        },
+        {
+          "rank": 14,
+          "project": "Market consultation – Firan WSB – Heat Networks Programme",
+          "result": "not checked"
+        },
+        {
+          "rank": 15,
+          "project": "Taiwan Offshore Wind Subsea Inspection Contract",
+          "result": "not checked"
+        },
+        {
+          "rank": 16,
+          "project": "Amplitude Energy APAC SURF Project",
+          "result": "not checked"
+        },
+        {
+          "rank": 17,
+          "project": "Zambia Greenfield Solar PV IPP",
+          "result": "not checked"
+        },
+        {
+          "rank": 18,
+          "project": "Cross Lanes Geothermal Lithium Project",
+          "result": "not checked"
+        },
+        {
+          "rank": 19,
+          "project": "SwissChemGas VLAC Newbuild Pair",
+          "result": "not checked"
+        },
+        {
+          "rank": 20,
+          "project": "Ve-Na di Navigazione 9,200 dwt General Cargo Newbuild",
+          "result": "not checked"
+        },
+        {
+          "rank": 21,
+          "project": "Port of Luanda Quay Wall Upgrade",
+          "result": "not checked"
+        },
+        {
+          "rank": 22,
+          "project": "Design, construction and commissioning of a wood-chip firing/heating plant",
+          "result": "not checked"
+        },
+        {
+          "rank": 23,
+          "project": "Rental of longwall shearer for JSW S.A. KWK 'Knurów-Szczygłowice' Ruch 'Szczygłowice'",
+          "result": "not checked"
+        },
+        {
+          "rank": 24,
+          "project": "City of Dornstetten local heating network construction – heat pump lot",
+          "result": "not checked"
+        }
+      ],
+      "kept": [
+        "infra-1: International Power Transmission EPC Order (photo)",
+        "infra-2: AirTrunk Anakapalli Data Centre Campuses (photo)"
+      ]
     }
   ]
 }
