@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-17",
+  "edition": "weekly",
+  "skip": false,
+  "subject": "US$87m tender: Torrent regulation in mountain basins, Larissa,…",
+  "preview": "142 new projects in 58 countries · 33 tenders · 76 awards · 195 trade-flow signals, 23 critical",
+  "counts": {
+    "epc": 142,
+    "tenders": 33,
+    "awards": 76,
+    "flow": 195,
+    "critical": 23,
+    "calls": 9,
+    "calendar": 2,
+    "notes": true,
+    "sectors": [
+      "energy:44",
+      "power:52",
+      "metals:8",
+      "agri:6",
+      "chem:3",
+      "infra:7",
+      "shipping:22"
+    ]
+  }
+}
