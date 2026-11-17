@@ -282,6 +282,12 @@
       "mode": "schedule",
       "at": "2026-11-16T11:38:51.774Z",
       "dueAt": "2026-11-17T13:00:00.000Z"
+    },
+    "cd_wine_bulk_flexitank": {
+      "postId": "6afb9d7e85dca6b14a0c7e84",
+      "mode": "schedule",
+      "at": "2026-11-17T00:19:10.123Z",
+      "dueAt": "2026-11-18T13:00:00.000Z"
     }
   }
 }
