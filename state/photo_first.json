@@ -2085,6 +2085,168 @@
         "infra-1: International Power Transmission EPC Order (photo)",
         "infra-2: AirTrunk Anakapalli Data Centre Campuses (photo)"
       ]
+    },
+    {
+      "date": "2026-11-18",
+      "search": "brave",
+      "checked": 6,
+      "photos": 2,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Skandi Africa CSV Charter Extension",
+          "result": "news splash247.com: picture rejected (shape / text / not a photo)"
+        },
+        {
+          "rank": 2,
+          "project": "Neon Oil Field Phased Development",
+          "result": "news offshore-mag.com: agency / stock picture (Dreamstime) - skipped"
+        },
+        {
+          "rank": 3,
+          "project": "Infra-HUMAIN AI Compute Financing",
+          "result": "news capacityglobal.com: agency / stock picture (AdobeStock) - skipped"
+        },
+        {
+          "rank": 4,
+          "project": "Jackdaw Gas Development",
+          "result": "photo: news photo (Offshore Magazine, offshore-mag.com)"
+        },
+        {
+          "rank": 5,
+          "project": "HPP Kosinj – main civil structures construction and equipment supply",
+          "result": "commons: 0 files for \"HPP Kosinj\""
+        },
+        {
+          "rank": 6,
+          "project": "Hammerhead Development (Essequibo 1899 FPSO)",
+          "result": "photo: news photo (offshore-energy, offshore-energy.biz)"
+        },
+        {
+          "rank": 7,
+          "project": "Project Rise Data Center Campus",
+          "result": "not checked"
+        },
+        {
+          "rank": 8,
+          "project": "West Papua Ammonia-Urea Complex",
+          "result": "not checked"
+        },
+        {
+          "rank": 9,
+          "project": "Ireland 500MW Long-Duration Energy Storage Procurement",
+          "result": "not checked"
+        },
+        {
+          "rank": 10,
+          "project": "Khavda Cluster-01 BESS",
+          "result": "not checked"
+        },
+        {
+          "rank": 11,
+          "project": "Fengmiao II Offshore Wind Substation",
+          "result": "not checked"
+        },
+        {
+          "rank": 12,
+          "project": "Railway signalling, lot S&T01: conventional and high-speed sections, ETCS – design, build, maintain",
+          "result": "not checked"
+        },
+        {
+          "rank": 13,
+          "project": "Muswellbrook Solar Farm and BESS",
+          "result": "not checked"
+        },
+        {
+          "rank": 14,
+          "project": "Geraldton Port Maximization Project – Berth 1",
+          "result": "not checked"
+        },
+        {
+          "rank": 15,
+          "project": "Electricity power lines – TG Aéro-souterrains HTA/BT and Programmed Renovation",
+          "result": "not checked"
+        },
+        {
+          "rank": 16,
+          "project": "Procurement of Supply, Installation, Operation and Maintenance of Modular Stand-alone Solar PV Systems for 1262 Public Facilities in six(6) lots.",
+          "result": "not checked"
+        },
+        {
+          "rank": 17,
+          "project": "EPC- Restoration of 132 kV GIS Bageshwar Sub-station and its associated line under CERC,U-PREPARE.",
+          "result": "not checked"
+        },
+        {
+          "rank": 18,
+          "project": "Works to rehabilitate 9 dams in 3 lots: Lot 1 - 4 in Assaba; Lot 2 - 3 in Brakna; Lot 3 - 2 in Gorgol",
+          "result": "not checked"
+        },
+        {
+          "rank": 19,
+          "project": "Call-off order: disconnectors/earthing switches",
+          "result": "not checked"
+        },
+        {
+          "rank": 20,
+          "project": "Call-off: supply of medium-voltage switchgear and installations",
+          "result": "not checked"
+        },
+        {
+          "rank": 21,
+          "project": "Amazon India Renewable Investment Programme",
+          "result": "not checked"
+        },
+        {
+          "rank": 22,
+          "project": "Frontera Cartagena LNG Power Plant",
+          "result": "not checked"
+        },
+        {
+          "rank": 23,
+          "project": "Laguna Verde Lithium Project",
+          "result": "not checked"
+        },
+        {
+          "rank": 24,
+          "project": "Benin Utility-Scale Solar PV Plant",
+          "result": "not checked"
+        },
+        {
+          "rank": 25,
+          "project": "Market consultation – Firan WSB – Heat Networks Programme",
+          "result": "not checked"
+        },
+        {
+          "rank": 26,
+          "project": "German Floating LNG Terminal Programme",
+          "result": "not checked"
+        },
+        {
+          "rank": 27,
+          "project": "Stade FSRU LNG Import Terminal",
+          "result": "not checked"
+        },
+        {
+          "rank": 28,
+          "project": "Energos FSRU Conversion",
+          "result": "not checked"
+        },
+        {
+          "rank": 29,
+          "project": "SECI Battery Storage Empanelment",
+          "result": "not checked"
+        },
+        {
+          "rank": 30,
+          "project": "Maharashtra Driveline and Additive Manufacturing Facility",
+          "result": "not checked"
+        }
+      ],
+      "kept": [
+        "infra-1: Jackdaw Gas Development (photo)",
+        "infra-2: Hammerhead Development (Essequibo 1899 FPSO) (photo)"
+      ]
     }
   ]
 }

@@ -1,18 +1,6 @@
 {
   "items": [
     {
-      "date": "2026-10-18",
-      "id": "infra-1",
-      "url": "https://img-cdn.publive.online/fit-in/1200x675/solarbytes/media/media_files/2026/10/16/2026-10-16-sepco-gks-1200w-2026-10-16-14-06-29.jpg",
-      "hash": "04d595414d49c373e84ff9c4f90b9515009d1925"
-    },
-    {
-      "date": "2026-10-18",
-      "id": "infra-2",
-      "url": "https://lngprime.com/wp-content/uploads/2026/10/MISC-orders-five-more-LNG-carriers-in-China.jpg",
-      "hash": "2763673471cc8f47dab784f1fc3bd08346a373f5"
-    },
-    {
       "date": "2026-10-19",
       "id": "infra-1",
       "url": "https://images.unsplash.com/photo-1678984239420-43cdc183bce6",
@@ -227,6 +215,18 @@
       "id": "infra-2",
       "url": "https://w.media/wp-content/uploads/2026/11/pexels-rompalliharish-4441983-1024x576.jpg",
       "hash": "ddbdf6fed92fbd5dcf5b82e56703f945dffca47a"
+    },
+    {
+      "date": "2026-11-18",
+      "id": "infra-1",
+      "url": "https://img.offshore-mag.com/files/base/ebm/os/image/2026/11/6afbd01f18fb9e1abaddd3bb-jackdawhighres3scaled.png",
+      "hash": "d59804c89baa32f42210228711da2733719ec009"
+    },
+    {
+      "date": "2026-11-18",
+      "id": "infra-2",
+      "url": "https://www.offshore-energy.biz/api/media/file/_2Fapi_2Fmedia_2Ffile_2Fwp-import-1784739181456-1024x796.png",
+      "hash": "e47948830a27a39ca0faf7f8aa3f748fbe3afbc1"
     }
   ]
 }
