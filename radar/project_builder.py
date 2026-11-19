@@ -76,7 +76,8 @@ def site(method, path, params=None, body=None):
                     e = RuntimeError('site call failed: ' + (out.stderr or out.stdout)[-300:].strip())
             if attempt == 3:
                 raise e
-            wait = (60, 240, 600)[attempt]   # 2026-11-19: the host's Imunify360 bot protection can refuse a runner IP for minutes
+            refused = bool(re.search(r'403|429|503|Imunify|cloudflare|runner: use Node', str(e), re.I))
+            wait = (60, 240, 600)[attempt] if refused else (5, 20, 60)[attempt]   # 2026-11-19: Imunify360 can refuse a runner IP for minutes
             print(f'site {method} {path} refused ({str(e)[-120:]}) - retry {attempt + 1}/3 in {wait}s', flush=True)
             time.sleep(wait)
 
