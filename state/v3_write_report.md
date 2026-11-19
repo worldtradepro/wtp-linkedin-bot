@@ -1,5 +1,33 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-19 23:06 UTC - write, model claude-haiku-5-5, rows 37
+{'page unreadable': 9, 'full': 22, 'differ': 24, 'project_only': 2, 'model failed': 4}
+
+- Israel Ports Company Dredging Contract (8839) | server None / haiku full | differs: event_type [Award | Other]
+- Bégin-Lamarche Phosphate Project (8838) | server None / haiku full | differs: 
+- Cape Station Geothermal Project (8830) | server None / haiku full | differs: capacity [505 MW | 505 MW transmission capacity (contracted)], contractors [[] | ['Longroad Energy']]
+- Starbase Data Center and Gas Power Plant (8829) | server None / haiku full | differs: 
+- Core Scientific Muskogee 100 MW Data Center (8828) | server None / haiku full | differs: capacity [100 MW | 100 MW (about 70 MW IT load)], event_type [Offtake/Supply agreement | Other], contractors [[] | ['CoreWeave']]
+- Hindustan Zinc Metal Production Expansion (8823) | server None / haiku full | differs: owner [Hindustan Zinc Ltd (Vedanta Group) | Hindustan Zinc Ltd], capacity [ | Zinc 2 million mt/y; silver 1,500 mt/y]
+- Brave Bulker Kamsarmax Delivery (8821) | server None / haiku full | differs: contractors [['Tsuneishi Shipbuilding (Cebu yard)'] | ['Tsuneishi Shipbuilding']]
+- Stamford 10 MR Product Tanker Newbuild (8820) | server None / haiku full | differs: capacity [ | 10 MR product tankers of 49,900 dwt each, plus 2 sister vessels]
+- NETRA Waste-to-Hydrogen Plant Gas Cleaning Contract (8819) | server None / haiku full | differs: owner [NTPC Energy Technology Research | NTPC Energy Technology Research Alliance (NETRA)], capacity [ | 1 ton per day of hydrogen], contractors [['Airscience Technologies Pvt. Ltd. (AST-PGG)'] | ['Pyro Green-Gas Inc. (AST-PGG)', 'KPI Green Hydrogen & Ammonia Pvt.']]
+- HPGCL Thermal Plant Solar O&M Tender (8818) | server None / haiku full | differs: 
+- NSPCL Chhattisgarh Solar EPC (8817) | server None / haiku full | differs: 
+- NTPC Battery Storage Project Transformer Order (8816) | server None / haiku full | differs: capacity [ | Inverter duty transformers of 11 MVA to 22 MVA]
+- ONGC Pipeline Replacement Project X (PRP-X) (8813) | server None / haiku full | differs: contractors [['Seamec', 'PACC Offshore Services Holdings (POSH) India subsidiary'] | ['Larsen & Toubro', 'POSH Indian subsidiary (PACC Offshore Services Holdings)', 'Seamec']]
+- Pupuk West Papua Ammonia Project (8812) | server None / haiku project_only | differs: capacity [ | 2,500 t/d ammonia]
+- Cabaçal Copper-Gold-Silver Mine (8811) | server None / haiku full | differs: owner [Rio Cabaçal Mineração (subsidiary of Meridian Mining) | Rio Cabaçal Mineração], capacity [ | 2.5 Mt/y ore]
+- Algeria Baseload Power Plant Expansion (8808) | server None / haiku full | differs: owner [ | State-owned utility]
+- North-Eastern Nigeria Power Plant Restart (8807) | server None / haiku full | differs: 
+- Rovuma LNG Megaproject (8806) | server None / haiku full | differs: 
+- ALNG 2013-built LNG Carrier Period Charters (8805) | server None / haiku full | differs: owner [ALNG | ALNG (formerly Awilco LNG)], capacity [156,000 cu m | 156,000 cu m per vessel]
+- Constellation Amaralina Star MPD Drilling Contract (8803) | server None / haiku full | differs: 
+- Excelerate FSRU Reliquefaction System (8802) | server None / haiku full | differs: contractors [['Nord Gas Solutions'] | ['Nord Gas Solutions (formerly Wartsila Gas Solutions)']]
+- Kanata Prince Rupert FLNG Project (8801) | server None / haiku full | differs: value [15.7 billion | $ 15.7 billion]
+- Dodecanese Islands Mainland Interconnector (8800) | server None / haiku full | differs: owner [ | IPTO (Independent Power Transmission Operator)], value [EUR 228.9 million | EUR 2.54 billion], financiers [['European Union'] | ['CINEA Public Sector Loan Facility, EU grant of €228.9 million', 'European Investment Bank, €1.53 billion loan', 'Greek Decarbonisation Fund, €534 million grant']]
+- Apache North Sea Offshore Decommissioning Programme (8798) | server None / haiku project_only | differs: 
+
 ## 2026-11-19 17:26 UTC - write, model claude-haiku-5-5, rows 31
 {'page unreadable': 9, 'full': 21, 'differ': 22, 'project_only': 1}
 
