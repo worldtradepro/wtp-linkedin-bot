@@ -14,8 +14,10 @@ import { stockPhoto } from './stock_photo.mjs';
 import { rewriteTitles, isGenericTitle, rewriteGenericTitle } from './title_rewrite.mjs';
 import { bestImage, loadPhoto, siteLabel, closeOcr } from './image_search.mjs';
 import { createHash } from 'node:crypto';
-import { factCardHtml } from './fact_card.mjs';
+import { factCardHtml, eventTitle } from './fact_card.mjs';
 import { officialPhoto } from './official_photo.mjs';
+import { deepCardHtml, trackerRows, chartFor, stretchFlags } from './deep_card.mjs';
+let trackerCache = null;   // our tracker's last 30 days, fetched once per run for the deep cards' charts
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -355,7 +357,7 @@ async function drawOwn(page, html, strict = false) {
 
 // ---------------------------------------------------------------- Infrastructure photo card (2026-10-09, style of Hydrogen Insight): real photo on top, dark navy block with big white headline below
 const esc2 = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-function photoCardHtml(jpeg, title, tagline) {
+function photoCardHtml(jpeg, title, tagline, credit = '') {
   // The navy block is only as tall as the headline needs (a 2-line title used to leave a third of the card empty); the photo takes the rest.
   const n = title.length;
   const fs = n <= 45 ? 84 : n <= 70 ? 76 : n <= 100 ? 68 : n <= 130 ? 60 : 52;
@@ -364,6 +366,7 @@ function photoCardHtml(jpeg, title, tagline) {
     <img src="data:image/jpeg;base64,${jpeg.toString('base64')}" style="position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover">
     <div style="position:absolute;left:0;top:0;width:1080px;height:190px;background:linear-gradient(to bottom,rgba(5,13,36,.7),transparent)"></div>
     <img src="${LOGO}" style="position:absolute;left:36px;top:26px;height:104px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.55))">
+    ${credit ? `<div style="position:absolute;right:14px;bottom:12px;font-size:17px;font-weight:500;color:#fff;background:rgba(5,13,36,.6);padding:4px 10px;border-radius:4px">${esc2(credit)}</div>` : ''}
   </div>
   <div style="flex:0 0 auto;background:#050d24;box-sizing:border-box;padding:48px 56px 44px 56px">
     <div style="color:#fff;font-weight:800;font-size:${fs}px;line-height:1.14;letter-spacing:-.5px;text-wrap:balance;display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden">${esc2(title)}</div>
@@ -506,6 +509,20 @@ for (const f of files) {
   // 2026-10-24 owner: the project's own official photo first (owner / contractor / financier website, like Hydrogen Insight's "Photo: OMV"),
   // shown unedited with "Photo: <company>"; none -> fact card. accounts.infra.officialPhotos=false = fact card only.
   let official = null;
+  // 2026-11-19 owner: "只发这种帖子和深度数据帖" - a deep data card (pick_official.mjs chose it and checked its numbers against the source)
+  let deepDone = false;
+  if (p.deep && p.meta?.facts) {   // v3 (2026-11-19): chart is the hero, no photo
+    if (!trackerCache) trackerCache = await trackerRows(cfg.site, process.env.WTP_BOT_SECRET, DATE);
+    const facts = { ...p.meta.facts, source: p.sourceName || p.meta.facts.source };
+    const chart = chartFor(facts, trackerCache, DATE);
+    const flags = await stretchFlags(chart.bars.map((b) => b.country));
+    await page.setViewportSize({ width: 1080, height: 1350 });
+    await drawOwn(page, deepCardHtml(facts, { chart, today: DATE, flags }), true);
+    await page.evaluate(() => document.fonts.ready);
+    await page.screenshot({ path: out, clip: { x: 0, y: 0, width: 1080, height: 1350 } });
+    if (p.officialPhoto) rmSync(join(IMG, p.officialPhoto.file), { force: true });
+    kind = 'card'; deepDone = true; factCard = false; why = 'deep data card (' + chart.bars.length + ' bars, #' + chart.rank + ' of ' + chart.priced + ')' + (p.deepCheck ? '; ' + p.deepCheck : '');
+  }
   if (factCard && kind === 'card' && cfg.accounts.infra.officialPhotos !== false) {
     if (p.officialPhoto && existsSync(join(IMG, p.officialPhoto.file))) {   // already found by pick_official.mjs (photo first)
       official = { ...p.officialPhoto, jpeg: readFileSync(join(IMG, p.officialPhoto.file)) };
@@ -516,10 +533,11 @@ for (const f of files) {
     }
     if (official) {
       writeFileSync(outPhoto, official.jpeg); kind = 'photo'; photoUrl = official.url; photoMime = official.mime; rehost = true;
-      imageCredit = (official.source === 'news' ? '📷 Image: ' : '📷 Photo: ') + official.credit;   // news = the outlet's picture, not "their photo" why = official.note + ' ' + official.w + 'x' + official.h; factCard = false;
+      imageCredit = (official.source === 'news' ? '📷 Image: ' : '📷 Photo: ') + official.credit;   // news = the outlet's picture, not "their photo"
+      why = official.note + ' ' + official.w + 'x' + official.h; factCard = false;
     }
   }
-  if (kind === 'card' && !factCard && (cfg.imageMode || 'photo') === 'photo' && sp.enabled !== false && (sp.types || ['news']).includes(p.type)) {
+  if (kind === 'card' && !factCard && !deepDone && (cfg.imageMode || 'photo') === 'photo' && sp.enabled !== false && (sp.types || ['news']).includes(p.type)) {
     try {
       const s = await stockPhoto({ id: p.id, headline: articleHeadline || p.headline, sector: p.meta?.sector, subsector: p.meta?.subsector, forCard: p.type === 'project' && cfg.accounts.infra.photoCard !== false }, (m) => console.log('  ' + p.id + ': ' + m));
       if (s) { writeFileSync(outPhoto, s.jpeg); kind = 'photo'; photoUrl = s.url; photoMime = 'image/jpeg'; stockCredit = sp.credit === false ? '' : sp.creditLink === false ? s.credit.replace(/\s*➡️.*$/u, '') : s.credit; why = 'stock photo (query "' + s.query + '", ' + s.photoId + ')'; }
@@ -549,7 +567,7 @@ for (const f of files) {
       console.log(`  ${p.id}: generic title "${base}" -> "${t}" (rule-based)`); articleHeadline = t;
     }
   }
-  if (kind === 'card') {
+  if (kind === 'card' && !deepDone) {
     if (p.type === 'news') {   // main-account news without a good article picture: own portrait card, same family as the Infrastructure cards
       await page.setViewportSize({ width: 1080, height: 1350 });
       await drawOwn(page, infraCardHtml({ kind: 'news', scene: sceneKey(p.meta?.sector, p.meta?.subsector), tag: 'TRADE FLOW', title: 'Trade Flow Signal', sub: [p.meta?.sector, p.meta?.country].filter(Boolean).join('  ·  '), label: 'LATEST SIGNAL',
@@ -574,13 +592,16 @@ for (const f of files) {
     }
   }
   let origHash = '';
-  if (kind === 'photo' && !official && p.type === 'project' && cfg.accounts.infra.photoCard !== false && existsSync(outPhoto)) {   // official photos stay unedited
+  // 2026-11-19 owner: every photo post is the headline-on-photo card (official, Commons and news pictures too), credit printed on the picture
+  if (kind === 'photo' && p.type === 'project' && cfg.accounts.infra.photoCard !== false && existsSync(outPhoto)) {
     try {
       const raw = readFileSync(outPhoto); origHash = sha1(raw);
-      const title = clean(articleHeadline || p.blocks[0].replace(p.headPrefix || '', '') || p.headline).replace(/^[\s🏗️]+/u, '');
+      // the AI news-style title when it ran; else the event headline from our fields ("X takes FID on ...") - the post's
+      // "Owner: Project (Capacity) in Country" line reads badly as a card headline (2026-11-19 test)
+      const title = clean(articleHeadline || (p.meta?.facts ? eventTitle(p.meta.facts) : '') || p.blocks[0].replace(p.headPrefix || '', '') || p.headline).replace(/^[\s🏗️]+/u, '');
       const tagline = [p.meta?.country, p.meta?.subsector && p.meta.subsector !== '(unspecified)' ? p.meta.subsector : p.meta?.sector].filter(Boolean).join('  ·  ');
       await page.setViewportSize({ width: 1080, height: 1350 });
-      await drawOwn(page, photoCardHtml(raw, title, tagline), true);
+      await drawOwn(page, photoCardHtml(raw, title, tagline, (imageCredit || stockCredit || '').replace(/^📷\s*/u, '')), true);
       await page.screenshot({ path: outPhoto, type: 'jpeg', quality: 92, clip: { x: 0, y: 0, width: 1080, height: 1350 } });
       rehost = true;   // the composed picture is ours: always serve our own copy
       why += ' + photo card';

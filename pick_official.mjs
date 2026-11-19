@@ -1,6 +1,6 @@
 // Photo first (owner 2026-10-25): with accounts.infra.officialPhotos=true, generate.mjs writes up to photoCandidates ranked Infrastructure
 // project posts ("candidate": rank). This step looks for each candidate's official photo (official_photo.mjs) in rank order and keeps the
-// projectsPerDay best-ranked candidates that have one, topped up by rank when fewer have a photo (those get the fact card). The kept posts
+// projectsPerDay posts: deepPerDay number-checked deep data cards + photo cards (since 2026-11-19; more deep cards when photos run short, never the thin fact card). The kept posts
 // become infra-1..n with the day's slots, carry the photo for render.mjs, and are the only ones marked used (state/used.json).
 // Usage: node pick_official.mjs [--date YYYY-MM-DD]
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync, rmSync } from 'node:fs';
@@ -12,6 +12,7 @@ import { officialPhoto } from './official_photo.mjs';
 import { commonsPhoto } from './commons_photo.mjs';
 import { newsPhoto } from './news_photo.mjs';
 import { closeOcr } from './image_search.mjs';
+import { deepScore, checkAgainstSource } from './deep_card.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -36,31 +37,51 @@ const imgSeen = (url, buf) => imgUsed.find((x) => (url && x.url === (url || '').
 mkdirSync(IMG, { recursive: true });
 const browser = await chromium.launch();
 const ctx = await browser.newContext({ userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', locale: 'en-US' });
-const start = Date.now(), hits = [];
-for (const p of cands) {
-  if (hits.length >= N) break;
-  if (Date.now() - start > BUDGET_MS) { console.log(`time budget used up after ${cands.indexOf(p)} candidates`); break; }
+const start = Date.now(), hits = [], deep = [];
+// 2026-11-19 owner: "只发这种帖子和深度数据帖, 一天发4个" - posts are headline-on-photo cards and deep data cards only (no thin fact card).
+// Deep card first: the best-ranked candidate with price + owner + one more fact whose numbers are found in the source article.
+const DEEP = A.deepPerDay ?? 1;
+const sameSlot = (a, b) => a.meta.sector === b.meta.sector && a.meta.country === b.meta.country;
+async function tryDeep(p) {
+  if (!p.meta?.facts || !deepScore(p.meta.facts) || [...deep, ...hits].some((h) => sameSlot(h, p))) return false;
+  const chk = await checkAgainstSource(ctx, p.sourceUrl, p.meta.facts).catch((e) => ({ ok: false, notes: ['check failed: ' + String(e.message || e).slice(0, 60)] }));
+  p.deepCheck = chk.notes.join('; ');
+  console.log(`  #${p.candidate} ${p.headline.slice(0, 50)}: deep card check: ${p.deepCheck}`);
+  if (!chk.ok) return false;
+  p.deep = true; deep.push(p); return true;
+}
+for (const p of cands) { if (deep.length >= DEEP || Date.now() - start > BUDGET_MS / 3) break; await tryDeep(p); }
+async function findPhoto(p) {
   const log = (m) => { console.log(`  #${p.candidate} ${p.headline.slice(0, 50)}: ${m}`); p.photoNote = m; };
-  const r = await officialPhoto(ctx, p.meta.facts, { seen: imgSeen, timeoutMs: 90000 }, log).catch((e) => { log('failed: ' + String(e.message || e).slice(0, 80)); return null; })
+  const r = (await officialPhoto(ctx, p.meta.facts, { seen: imgSeen, timeoutMs: 90000 }, log).catch((e) => { log('failed: ' + String(e.message || e).slice(0, 80)); return null; }))
     // 2026-11-06 owner: fewer fact cards - second source, a Wikimedia Commons photo of the facility itself
     || (A.commonsPhotos !== false ? await commonsPhoto(ctx, p.meta.facts, { seen: imgSeen }, log).catch((e) => { log('commons failed: ' + String(e.message || e).slice(0, 80)); return null; }) : null)
     // 2026-11-11 owner ("放开,排除通讯社图"): third source, the news article's own lead picture - never agency / stock pictures
     || (A.newsPhotos !== false ? await newsPhoto(ctx, [p.sourceUrl, ...(p.meta.facts.links || [])], { seen: imgSeen }, log).catch((e) => { log('news failed: ' + String(e.message || e).slice(0, 80)); return null; }) : null);
   p.officialChecked = true;   // render.mjs does not search again
-  if (!r) continue;
-  // two posts the same day: different sector or country, like generate.mjs's strict pass
-  if (hits.some((h) => h.meta.sector === p.meta.sector && h.meta.country === p.meta.country)) { log('photo found, but same sector and country as an earlier pick'); continue; }
+  if (!r) return false;
   const file = `official-${p.candidate}.jpg`;
   writeFileSync(join(IMG, file), r.jpeg);
   p.officialPhoto = { file, url: r.url, mime: r.mime, w: r.w, h: r.h, credit: r.credit, note: r.note, page: r.page, source: r.source || 'official' };
-  hits.push(p);
   log(`HIT ${r.note}`);
+  return true;
 }
+// photo cards for the other slots
+for (const p of cands) {
+  if (hits.length + deep.length >= N) break;
+  if (Date.now() - start > BUDGET_MS) { console.log(`time budget used up after ${cands.indexOf(p)} candidates`); break; }
+  if (deep.includes(p)) continue;
+  // posts on the same day: different sector or country, like generate.mjs's strict pass
+  if ([...deep, ...hits].some((h) => sameSlot(h, p))) { p.photoNote = 'skipped: same sector and country as an earlier pick'; continue; }
+  if (await findPhoto(p)) hits.push(p);
+}
+// too few photos: more deep cards (still number-checked); never the thin fact card
+for (const p of cands) { if (hits.length + deep.length >= N || Date.now() - start > BUDGET_MS * 1.2) break; if (!deep.includes(p) && !hits.includes(p)) await tryDeep(p); }
 await closeOcr();
 await browser.close();
 
-// keep the photo posts, top up by rank, then put them back in rank order for the slots
-const kept = [...hits, ...cands.filter((p) => !hits.includes(p))].slice(0, N).sort((a, b) => a.candidate - b.candidate);
+// the day's posts in rank order for the slots (fewer than N only when neither a photo nor a checked deep card was found)
+const kept = [...deep, ...hits].sort((a, b) => a.candidate - b.candidate);
 for (const f of files) { const p = JSON.parse(readFileSync(join(DIR, f), 'utf8')); if (p.candidate) rmSync(join(DIR, f)); }
 kept.forEach((p, k) => {
   const slot = A.slotsUtc[k % A.slotsUtc.length];
@@ -76,8 +97,8 @@ writeFileSync(STATE_FILE, JSON.stringify({ urls: [...new Set([...used, ...kept.m
 // one line per day in the repo (committed by the "Save state" step): CI step logs need a GitHub login, this file does not
 const SUM_FILE = join(HERE, 'state', 'photo_first.json');
 const days = (existsSync(SUM_FILE) ? JSON.parse(readFileSync(SUM_FILE, 'utf8')).days || [] : []).filter((d) => d.date !== DATE).slice(-29);
-days.push({ date: DATE, search: process.env.BRAVE_API_KEY ? 'brave' : 'duckduckgo', checked: cands.filter((p) => p.officialChecked).length, photos: hits.length,
-  candidates: cands.map((p) => ({ rank: p.candidate ?? p.rank, project: p.headline, result: p.officialPhoto ? 'photo: ' + p.officialPhoto.note : p.officialChecked ? (p.photoNote || 'no official page found') : 'not checked' })),
-  kept: kept.map((p) => `${p.id}: ${p.headline} (${p.officialPhoto ? 'photo' : 'fact card'})`) });
+days.push({ date: DATE, search: process.env.BRAVE_API_KEY ? 'brave' : 'duckduckgo', checked: cands.filter((p) => p.officialChecked).length, photos: hits.length, deep: deep.length,
+  candidates: cands.map((p) => ({ rank: p.candidate ?? p.rank, project: p.headline, result: p.deep ? 'deep card (' + p.deepCheck + ')' : p.officialPhoto ? 'photo: ' + p.officialPhoto.note : p.deepCheck && !p.officialChecked ? 'no deep card: ' + p.deepCheck : p.officialChecked ? (p.photoNote || 'no official page found') : 'not checked' })),
+  kept: kept.map((p) => `${p.id}: ${p.headline} (${p.deep ? 'deep card' + (p.officialPhoto ? ' + photo' : '') : p.officialPhoto ? 'photo' : 'fact card'})`) });
 writeFileSync(SUM_FILE, JSON.stringify({ days }, null, 2));
-console.log(`Checked ${cands.filter((p) => p.officialChecked).length} of ${cands.length} candidates, ${hits.length} official photo(s). Kept: ${kept.map((p) => `${p.id} = #${p.rank}${p.officialPhoto ? ' (photo)' : ' (fact card)'} ${p.headline}`).join(' | ')}`);
+console.log(`Checked ${cands.filter((p) => p.officialChecked).length} of ${cands.length} candidates, ${hits.length} official photo(s). Kept: ${kept.map((p) => `${p.id} = #${p.rank}${p.deep ? ' (deep card)' : p.officialPhoto ? ' (photo)' : ' (fact card)'} ${p.headline}`).join(' | ')}`);

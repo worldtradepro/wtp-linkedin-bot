@@ -46,11 +46,15 @@
     },
     "infra": {
       "name": "World Trade Pro · Infrastructure & Supply Chain",
-      "projectsPerDay": 2,
-      "maxProjectsShownPerDay": 2,
+      "projectsPerDay": 4,
+      "maxProjectsShownPerDay": 4,
+      "deepPerDay": 1,
+      "_posts": "2026-11-19 owner: '只发这种帖子和深度数据帖, 一天发4个, 你随便组合' - 4 posts a day, headline-on-photo cards + deepPerDay deep data cards (numbers checked against the source); more deep cards when photos run short; no thin fact card. Slots 3 h apart (buffer.minGapMinutes 180).",
       "slotsUtc": [
-      "09:00",
-      "14:00"
+      "07:00",
+      "10:00",
+      "13:00",
+      "16:00"
     ],
       "videoSlotUtc": "17:00",
       "_videoTest": "2026-09-28: last daily slot (17:00 UTC) reserved for a Project Radar video instead of a 2nd project post, to A/B video vs text. Not auto-generated/published yet - build+post manually until wired up.",
@@ -62,7 +66,6 @@
       "photoSearchMinutes": 25,
       "commonsPhotos": true,
       "_photoCandidates": "2026-11-06 owner: fact cards were 75% of posts (10-26..11-06), \"尽量不要选有数据卡的\" but keep 2 posts a day: 30 candidates (was 10), second source Wikimedia Commons (commonsPhotos), fact card only to fill the 2nd slot.",
-      "photoSearchMinutes": 20,
       "_officialPhotos": "2026-10-25 owner: project's own official photo (owner/contractor/financier website, unedited, 'Photo: <company>') before the fact card, and PHOTO FIRST: generate.mjs writes photoCandidates ranked projects, pick_official.mjs keeps the best-ranked ones with an official photo (fact card only when too few). false = fact card only, top-ranked projects.",
       "links": false,
       "_weekly": "2026-10-10 owner: 2 project posts a day (09:00 + 14:00 UTC), weekends included (was 3 on weekdays only).",

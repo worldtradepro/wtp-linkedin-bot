@@ -162,7 +162,7 @@ function contractorLabel(v) {
 export function factsOf(it) {
   return { name: clean(it.project_name), owner: clean(it.owner || '').replace(/\s*\((developer|owner|sponsor|client|operator)\)$/i, ''),   // owner field only: company_name can be a supplier
     country: countryName(it.country), city: clean(it.city || ''), sector: it.sector || '', subsector: it.subsector && it.subsector !== '(unspecified)' ? it.subsector : '',
-    stage: it.stage || '', capacity: clean(it.capacity || ''), valueAmount: it.value_amount || '', valueUnit: it.value_unit || '', valueCurrency: it.value_currency || '', valueBasis: it.value_basis || '',
+    stage: it.stage || '', eventType: it.event_type || '', capacity: clean(it.capacity || ''), valueAmount: it.value_amount || '', valueUnit: it.value_unit || '', valueCurrency: it.value_currency || '', valueBasis: it.value_basis || '',
     contractors: names(it.contractors), contractorLabel: contractorLabel(it.contractors), financing: names(it.financiers), reportDate: it.report_date || '', scale: clean(it.scale || ''),
     // for official_photo.mjs: who is behind the project, and the pages the pipeline linked to it (news source + official references)
     // "Aker BP and Höegh Evi" = two owners; "Phoenix Tailings, Inc." / "X Co., Ltd." = one
@@ -182,12 +182,27 @@ const NOUN = { datacenter: 'data centre', solar: 'solar plant', wind: 'wind farm
   mine: 'mine', smelter: 'processing plant', silos: 'food processing plant', irrigation: 'irrigation project', fertilizer: 'fertilizer plant', renewables: 'renewable energy project', default: 'project' };
 const shortCo = (n) => { const p = (/\(([A-Za-z0-9&.\- ]{2,10})\)/.exec(n || '') || [])[1]; return p || String(n || '').replace(/\([^)]*\)/g, '').replace(/\b(Co\.?,? )?(Ltd|Limited|LIMITED|PLC|plc|Inc|Corporation|Company|Group|Holdings?|S\.?A\.?|AG|SE|GmbH|LLC|Berhad|Bhd)\b\.?/g, '').replace(/[\s,]+$/, '').trim(); };
 // "Al Mourjan Two Electricity Company awards 2.3 GW gas-fired power plant to Elsewedy Electric PSP" - built from our fields only
+// 2026-11-19: the verb follows the event type (a 15-year data-centre lease was headlined "... data centre awarded"), and a capacity spread over
+// several projects ("934 MW across four new wind and solar projects") is a portfolio, not one plant.
+const fin = (f) => { const a = (f.financing || '').split(', ').filter(Boolean); return a.length ? shortCo(a[0]) + (a.length > 1 ? ' and others' : '') : ''; };
 export function eventTitle(f) {
-  const key = artKey(f.sector, f.subsector, f.name, f.capacity), noun = NOUN[key] || NOUN.default;
-  const cap = capacityTile(f), size = cap ? `${cap.big} ${cap.unit === 'MWp' ? 'MWp' : cap.unit}` : '';
+  const key = artKey(f.sector, f.subsector, f.name, f.capacity);
+  const many = /\bacross\b|\bprojects\b|\bportfolio\b|\bplants\b|\bfarms\b|\bsites\b/i.test(f.capacity || '');
+  const noun = many ? `${(f.subsector || artLabel(key)).toLowerCase()} portfolio` : NOUN[key] || NOUN.default;
+  const cap = capacityTile(f), size = cap ? `${cap.big}\u00a0${cap.unit === 'MWp' ? 'MWp' : cap.unit}` : '';
   const what = [size, noun].filter(Boolean).join(' '), who = shortCo(f.owner?.split(/\s*[,;]\s*/)[0]), con = shortCo((f.contractors || '').split(', ')[0]);
-  const where = '', s = String(f.stage || '').slice(0, 2);
-  if (key === 'ship') return s === 'S5' && con ? `${who || 'Owner'} orders ${what} from ${con}` : `${who ? who + ': ' : ''}${f.name}`;
+  const where = '', s = String(f.stage || '').slice(0, 2), ev = f.eventType || '';
+  if (ev === 'FID') return `${who || 'Owner'} takes FID on ${what}`;
+  if (ev === 'Financing') return who ? `${who} secures financing for ${what}${fin(f) ? ' from ' + fin(f) : ''}` : `Financing closed for ${what}${fin(f) ? ' from ' + fin(f) : ''}`;
+  if (ev === 'Construction start') return `Construction starts on ${who ? who + "'s " : ''}${what}`;
+  if (ev === 'Permit/Approval') return `${who ? who + ' wins approval for' : 'Approval for'} ${what}`;
+  if (ev === 'Offtake/Supply agreement') return `${who || 'Owner'} signs ${key === 'datacenter' ? 'long-term deal' : 'offtake deal'} for ${what}`;
+  if (ev === 'Acquisition/Sale') return `${who || 'Buyer'} acquires ${what}`;
+  if (ev === 'Delivery/Commissioning') return `${who ? who + "'s " : ''}${what} enters service`;
+  if (ev === 'Study/FEED') return con ? `${who || 'Owner'} picks ${con} for FEED on ${what}` : `FEED under way on ${who ? who + "'s " : ''}${what}`;
+  if (ev === 'Renewal/Extension') return `${who || 'Owner'} extends contract on ${what}${con ? ' with ' + con : ''}`;
+  if (ev === 'Equipment/vessel order' || key === 'ship') return s === 'S5' && con ? `${who || 'Owner'} orders ${what} from ${con}` : `${who ? who + ': ' : ''}${f.name}`;
+  if (ev === 'Tender') return `${who ? who + ' tenders' : 'Tender out for'} ${what}`;
   if (s === 'S5') return con ? `${who ? who + ' awards' : 'Contract awarded for'} ${what}${where} to ${con}` : `${who ? who + ': ' : ''}${what}${where} awarded`;
   if (s === 'S4') return `${who ? who + ' tenders' : 'Tender out for'} ${what}${where}`;
   if (s === 'S3') return `${who ? who + ' nears decision on' : 'Decision near on'} ${what}${where}`;
@@ -196,7 +211,15 @@ export function eventTitle(f) {
 }
 // what the stage usually means for a supplier or contractor - general, not a claim about this project
 export function soWhat(f) {
-  const s = String(f.stage || '').slice(0, 2), key = artKey(f.sector, f.subsector, f.name, f.capacity), con = shortCo((f.contractors || '').split(', ')[0]);
+  const s = String(f.stage || '').slice(0, 2), key = artKey(f.sector, f.subsector, f.name, f.capacity), con = shortCo((f.contractors || '').split(', ')[0]), ev = f.eventType || '';
+  if (ev === 'FID') return 'FID taken: main contracts and long-lead equipment orders usually follow within months.';
+  if (ev === 'Financing') return 'Money in place: construction contracts and equipment orders usually follow.';
+  if (ev === 'Permit/Approval') return 'Approved: the owner usually moves to tender or contract award next.';
+  if (ev === 'Construction start') return 'On site now: subcontracts, bulk materials and services are usually bought during construction.';
+  if (ev === 'Offtake/Supply agreement') return 'Demand secured: the owner usually commits to construction and equipment next.';
+  if (ev === 'Delivery/Commissioning') return 'In service: operations, maintenance and spare-parts contracts come next.';
+  if (ev === 'Acquisition/Sale') return 'New owner: supplier lists and contracts are often reviewed after a change of ownership.';
+  if (ev === 'Study/FEED') return 'FEED stage: the FEED contractor usually shapes the vendor list. Get on it now.';
   if (s === 'S5' && key === 'ship') return 'Order placed: engines, deck machinery and outfitting packages usually follow from the yard.';
   if (s === 'S5') return con ? `EPC chosen: subcontracts and equipment packages usually go out from ${con} next.` : 'Contract awarded: subcontract and equipment packages usually come next.';
   if (s === 'S4') return 'Bids are open: bidders usually ask equipment suppliers and subcontractors for quotes now.';
