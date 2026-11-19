@@ -1,5 +1,31 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-19 17:26 UTC - write, model claude-haiku-5-5, rows 31
+{'page unreadable': 9, 'full': 21, 'differ': 22, 'project_only': 1}
+
+- Israel Ports Dredging Contract (8654) | server None / haiku full | differs: owner [Israel Ports Company | Israel Ports Company (IPC)], event_type [Award | Other]
+- Bégin-Lamarche Phosphate Project (8653) | server None / haiku full | differs: 
+- Aframax Tanker Tender (8652) | server None / haiku full | differs: owner [ | Shipping Corporation of India Ltd (SCI)], capacity [ | 4 methanol-powered, dual-fuel ready Aframax tankers], contractors [['Cochin Shipyard', 'SDHI'] | ['Cochin Shipyard Ltd', 'Swan Defence and Heavy Industries Ltd (SDHI)']]
+- Maputo Container Terminal Expansion (8645) | server None / haiku full | differs: capacity [650,000 TEU | 650,000 TEU per year], event_type [Financing | Other]
+- UPPCL 600MW ISTS-Connected Wind Power Procurement (8639) | server None / haiku full | differs: capacity [600MW | 600 MW]
+- Upper Sileru Pumped Storage Transmission System (8638) | server None / haiku full | differs: 
+- Hindustan Zinc Metal Production Expansion (8635) | server None / haiku full | differs: capacity [ | Zinc 2 million mt/y; silver 1,500 mt/y]
+- Pupuk Kalimantan Timur West Papua Ammonia Project (8629) | server None / haiku full | differs: capacity [ | 2,500 t/d ammonia]
+- Cabaçal Copper-Gold-Silver Mine (8628) | server None / haiku full | differs: capacity [ | 2.5 Mt/y ore processing]
+- XCMG–BHP Cooperation Letter of Intent (8627) | server None / haiku full | differs: owner [BHP | ]
+- Algeria Baseload Power Plant Capacity Expansion (8625) | server None / haiku full | differs: owner [State-owned utility (name not given) | ], contractors [[''] | []]
+- NNPC North-Eastern Power Plant Restart (8623) | server None / haiku full | differs: 
+- Uaru Field Development (8621) | server None / haiku full | differs: owner [ExxonMobil Guyana (operator), with Hess Guyana Exploration and CNOOC Petroleum Guyana | ExxonMobil Guyana]
+- Constellation Amaralina Star Deepwater MPD Campaign (8619) | server None / haiku full | differs: event_type [Equipment/vessel order | Award], contractors [['Weatherford International'] | ['Weatherford']]
+- Excelerate FSRU Reliquefaction System (8618) | server None / haiku full | differs: contractors [['Nord Gas Solutions'] | ['Nord Gas Solutions (formerly Wartsila Gas Solutions)']]
+- Woodside LNG Supply to Trafigura (8617) | server None / haiku full | differs: owner [Woodside Energy | Woodside Energy Trading Singapore], capacity [1 million tons per year | 1 mtpa]
+- Dodecanese Islands Mainland Grid Interconnector (8616) | server None / haiku full | differs: owner [ | IPTO], value [EUR 228.9 million | EUR 2.54 billion], financiers [['European Union'] | ['CINEA PSLF (EU grant)', 'European Investment Bank', 'Greek Decarbonisation Fund']]
+- Baltyk 2 Offshore Wind Export Cables (8614) | server None / haiku full | differs: contractors [['Jan De Nul', 'Hellenic Cables'] | ['Hellenic Cables']]
+- Excelerate FSRU Reliquefaction Retrofit (8610) | server None / haiku full | differs: capacity [ | 173,400 cbm FSRU]
+- Delfin FLNG Onshore FERC Extension (8608) | server None / haiku full | differs: 
+- Venture Global and China Gas LNG Supply Expansion (8607) | server None / haiku project_only | differs: owner [ | Venture Global], capacity [500,000 tons annually | 0.5 mtpa increase]
+- SEFE-Tourmaline Gas Supply Contract (8600) | server None / haiku full | differs: 
+
 ## 2026-11-18 22:57 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
