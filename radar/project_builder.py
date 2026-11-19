@@ -76,7 +76,9 @@ def site(method, path, params=None, body=None):
                     e = RuntimeError('site call failed: ' + (out.stderr or out.stdout)[-300:].strip())
             if attempt == 3:
                 raise e
-            time.sleep((5, 20, 60)[attempt])
+            wait = (60, 240, 600)[attempt]   # 2026-11-19: the host's Imunify360 bot protection can refuse a runner IP for minutes
+            print(f'site {method} {path} refused ({str(e)[-120:]}) - retry {attempt + 1}/3 in {wait}s', flush=True)
+            time.sleep(wait)
 
 
 def claude(prompt):
