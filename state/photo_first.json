@@ -2247,6 +2247,96 @@
         "infra-1: Jackdaw Gas Development (photo)",
         "infra-2: Hammerhead Development (Essequibo 1899 FPSO) (photo)"
       ]
+    },
+    {
+      "date": "2026-11-19",
+      "search": "brave",
+      "checked": 16,
+      "photos": 0,
+      "deep": 0,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Construction of the Standard Gauge Railway (Malaba-Kampala) Project in Uganda",
+          "result": "commons: 1 files for \"Standard Gauge Malaba Kampala Railway\""
+        },
+        {
+          "rank": 2,
+          "project": "Istanbul North Rail Crossing Project",
+          "result": "commons Pedestrian crossing touch sensor Istanbul 2026: picture rejected"
+        },
+        {
+          "rank": 3,
+          "project": "Sonagazi 220 MW Solar Power and Livelihoods Improvement Project",
+          "result": "commons: 0 files for \"Sonagazi Livelihoods Improvement\""
+        },
+        {
+          "rank": 4,
+          "project": "Reconstruction of the Garabagh Irrigation Canal",
+          "result": "commons: 0 files for \"Reconstruction Garabagh Irrigation Canal\""
+        },
+        {
+          "rank": 5,
+          "project": "Electric Power System Infrastructure Reinforcement and Electricity Access Project Phase II – PROSER II",
+          "result": "commons: 0 files for \"Electric System Infrastructure Reinforcement Electricity Access PROSER\""
+        },
+        {
+          "rank": 6,
+          "project": "Niger State Solar Energy Development Project",
+          "result": "no official page found"
+        },
+        {
+          "rank": 7,
+          "project": "Kungrad Wind and Battery Energy Storage System Project",
+          "result": "commons: 12 files for \"Kungrad System\""
+        },
+        {
+          "rank": 8,
+          "project": "Track renewal to lift speed restrictions on line 316, Reghin – Târgu Mureș – Luduș, km 249+100–323+400",
+          "result": "commons: 0 files for \"Track Reghin Targu Mures Ludus\""
+        },
+        {
+          "rank": 9,
+          "project": "Extension of Quay 9 and infill of Quay 8 to create a new multipurpose esplanade at the Port of Málaga",
+          "result": "commons: 12 files for \"Extension Quay Quay Malaga Port\""
+        },
+        {
+          "rank": 10,
+          "project": "ERTMS Level 2 (ETCS/GSM-R or FRMCS) on Ruse–Kaspichan rail section: design, supply, construction, commissioning",
+          "result": "commons: 0 files for \"ERTMS Level ETCS GSM FRMCS Ruse Kaspichan\""
+        },
+        {
+          "rank": 11,
+          "project": "District-heating 15 MW wood-chip boiler plant – supply and installation",
+          "result": "no official page found"
+        },
+        {
+          "rank": 12,
+          "project": "Tersan III",
+          "result": "commons: 12 files for \"Tersan III\""
+        },
+        {
+          "rank": 13,
+          "project": "DFF - Eurasia Bottlers (extension)",
+          "result": "commons: 0 files for \"DFF Eurasia Bottlers\""
+        },
+        {
+          "rank": 14,
+          "project": "Mota Engil Africa - Mining Services",
+          "result": "commons: 1 files for \"Mota Engil Mining Services\""
+        },
+        {
+          "rank": 15,
+          "project": "Hydro-electric plant construction work – 2026-06 Kvíslatunguvirkjun - Kvíslatunga Hydropower Plant – Civil and Structural Works",
+          "result": "commons: 0 files for \"Hydro Kvislatunguvirkjun Kvislatunga Hydropower Civil Structural plant\""
+        },
+        {
+          "rank": 16,
+          "project": "Mobile hydraulic mine roof supports: supply of 24 new longwall line sections, type 12/31 POz",
+          "result": "commons: 12 files for \"Mobile POz mine\""
+        }
+      ],
+      "kept": []
     }
   ]
 }
