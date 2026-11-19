@@ -70,12 +70,20 @@ def site_call(method, path, **kw):
     req = {"method": method, "path": path, "params": kw.get("params") or {}}
     if "json" in kw:
         req["body"] = kw["json"]
-    out = subprocess.run(["node", os.path.join(HERE, "site.mjs")], input=json.dumps(req), capture_output=True, text=True, timeout=900)
-    try:
-        j = json.loads([ln for ln in out.stdout.splitlines() if ln.strip()][-1])
-        return _Resp(j["status"], j["text"])
-    except Exception:
-        raise RuntimeError("site call failed: " + (out.stderr or out.stdout)[-400:])
+    # 2026-11-19: the host's Imunify360 bot protection sometimes refuses a GitHub runner IP for several minutes ("Access denied by
+    # Imunify360 bot-protection"); siteFetch's own retries (~2 min) are too short, so wait longer before giving up (about 15 min).
+    for attempt in range(4):
+        out = subprocess.run(["node", os.path.join(HERE, "site.mjs")], input=json.dumps(req), capture_output=True, text=True, timeout=900)
+        try:
+            j = json.loads([ln for ln in out.stdout.splitlines() if ln.strip()][-1])
+            return _Resp(j["status"], j["text"])
+        except Exception:
+            err = (out.stderr or out.stdout)[-400:]
+            if attempt == 3 or not re.search(r"403|429|503|Imunify|cloudflare", err, re.I):
+                raise RuntimeError("site call failed: " + err)
+            wait = (60, 240, 600)[attempt]
+            print("site call refused (%s) - retry %d/3 in %ds" % (err.strip().splitlines()[-1][:120] if err.strip() else "?", attempt + 1, wait), flush=True)
+            time.sleep(wait)
 
 
 def get_rows():
