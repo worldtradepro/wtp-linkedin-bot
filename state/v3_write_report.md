@@ -1,5 +1,36 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-20 22:43 UTC - write, model claude-haiku-5-5, rows 29
+{'page unreadable': 2, 'full': 25, 'differ': 27, 'limited': 1, 'project_only': 1}
+
+- Koverhar Harbour Deepening (9000) | server None / haiku full | differs: capacity [ | 14 m channel depth]
+- Aqaba-Amman Water Desalination Plant (8999) | server None / haiku full | differs: capacity [ | 851,000 cubic metres per day; 418 km pipeline], value [ | USD 6.7 billion], contractors [[] | ['SUEZ', 'Orascom Construction PLC']]
+- Retelit Data Centers Sale (8994) | server None / haiku full | differs: value [ | EUR 700 million]
+- Uganda Standard Gauge Railway (8993) | server None / haiku full | differs: capacity [ | 272 km, electrified], value [USD 3 billion | EUR 2.7 billion], contractors [[] | ['Yapi Merkezi and YM Global joint venture']], financiers [[] | ['Islamic Development Bank', 'OPEC Fund', 'Saudi Arabia']]
+- Wyoming Intertie (8989) | server None / haiku full | differs: owner [ | Grid United], capacity [1.8 GW | up to 1,800 MW; 106 miles], financiers [['U.S. Department of Energy'] | ['U.S. Department of Energy (Office of Energy Dominance Financing)']]
+- Los Santos Tungsten Tailings Retreatment (8987) | server None / haiku full | differs: value [ | USD 3 million]
+- Hanwha Ocean VLCC Pair for Oceania Owner (8986) | server None / haiku full | differs: owner [ | Unnamed Oceania-based shipowner], capacity [ | 2 VLCCs]
+- Carnival Dual-Fuel Cruise Ship Newbuilds (8985) | server None / haiku full | differs: capacity [ | 2 cruise ships, about 130,000 GT and 1,650 cabins each], value [ | USD 2.2 billion]
+- Advantage VLCC Newbuild Pair (8984) | server None / haiku full | differs: capacity [ | 2 VLCCs of 320,000 dwt]
+- Jacktel Takeover Bid (8983) | server None / haiku full | differs: 
+- Muntanga Uranium Project (8982) | server None / haiku full | differs: 
+- Kucing Liar Underground Mine Complex (8981) | server None / haiku full | differs: value [ | AUD 187 million]
+- H2Datacenter pilot (Datco Chile) (8980) | server None / haiku full | differs: owner [Datco Chile | Datco Chile Spa], value [ | EUR 1.98 million], financiers [[] | ['Export Initiative Environmental Protection (EXI)']]
+- Angola large hydroelectric plant (8979) | server None / haiku limited | differs: event_type [Other | ]
+- Ichthys LNG Phase 2c Part 1 (8978) | server None / haiku full | differs: owner [INPEX | Ichthys Joint Venture (INPEX Corporation-led)], contractors [[] | ['McDermott and Baker Hughes consortium']]
+- LNG Canada Phase 2 Storage Tank (8977) | server None / haiku full | differs: owner [Shell (LNG Canada Phase 2) | Shell-led LNG Canada Phase 2], capacity [225,000 cbm | 225,000 cbm LNG storage tank], contractors [['Vinci', 'Fluor-JGC joint venture'] | ['Vinci (unit)', 'Fluor-JGC joint venture']]
+- ExxonMobil Guyana Subsea Production Systems (8976) | server None / haiku full | differs: owner [ExxonMobil | ExxonMobil Guyana Limited], capacity [ | 250,000 bpd condensate; 1.2 billion scf/d gas], value [USD 500-1000 million | ]
+- WEDUSEA Floating Wave Energy Converter Test Deployment (8975) | server None / haiku full | differs: contractors [[] | ['OceanEnergy']], financiers [[] | ['EU Horizon Europe Programme', 'Innovate UK']]
+- Sea Lion Oil Development (8974) | server None / haiku full | differs: capacity [ | 55,000 bopd (FPSO Aoka Mizu, first two phases)], value [ | USD 2.1 billion]
+- Olam Agri Integrated Feed Mill, Ogwashi-Uku (8973) | server None / haiku project_only | differs: capacity [1,500-tonne-per-day poultry feed mill; 300-tonne-per-day aqua feed mill; 125,000-tonne silo bag storage | 1,500 t/day poultry feed mill; 300 t/day aqua feed mill; 125,000 t silo bag storage]
+- Finnish Green Hydrogen E-Methane Plant (8968) | server None / haiku full | differs: owner [ | Nordic Ren-Gas], value [ | EUR 300 million]
+- thyssenkrupp nucera Portugal Cell Assembly Site (8967) | server None / haiku full | differs: financiers [[] | ['Portuguese government']]
+- Swedish e-SAF Project Electrolyser Supply (8966) | server None / haiku full | differs: capacity [200MW | 200MW PEM electrolysers; 66,000-tonne e-SAF project], event_type [Equipment/vessel order | Other]
+- Muir Mhòr Floating Wind Farm (8965) | server None / haiku full | differs: capacity [1GW | 1GW; up to 67 floating wind turbines]
+- Tata Steel Kalinganagar H2Gen Hydrogen Unit (8961) | server None / haiku full | differs: capacity [ | 10 tons per day of hydrogen]
+- DMRC ISTS Solar with BESS Power Procurement (8960) | server None / haiku full | differs: 
+- Lekki Refinery Complex Expansion (8958) | server None / haiku full | differs: owner [Dangote Group | Dangote Petroleum Refinery and Petrochemicals FZE (DPRP)], capacity [ | 1.4 million b/d total crude capacity after an additional 750,000 b/d], contractors [['Kirloskar Group holdings'] | ['Kirloskar Brothers Ltd. (KBL)', 'Kirloskar Ebara Pumps Ltd. (KEPL)']]
+
 ## 2026-11-20 16:59 UTC - write, model claude-haiku-5-5, rows 4
 {'full': 4, 'differ': 4}
 
