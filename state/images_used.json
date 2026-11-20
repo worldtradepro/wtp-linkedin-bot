@@ -1,30 +1,6 @@
 {
   "items": [
     {
-      "date": "2026-10-19",
-      "id": "infra-1",
-      "url": "https://images.unsplash.com/photo-1678984239420-43cdc183bce6",
-      "hash": "a531c75e0f8d2b579e6f8ebe65a2a163a7e148c6"
-    },
-    {
-      "date": "2026-10-19",
-      "id": "infra-2",
-      "url": "https://www.africa-energy.com/storage/91676/Kafue-Lower-HEP.png",
-      "hash": "aa8885ae1c92135ee13ccd0cd5f77f1a77632ae3"
-    },
-    {
-      "date": "2026-10-20",
-      "id": "infra-1",
-      "url": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1boBXq.img",
-      "hash": "5c04d4975fbccbeb7588d73d207d3397fea5bbca"
-    },
-    {
-      "date": "2026-10-20",
-      "id": "infra-2",
-      "url": "https://splash247.com/wp-content/uploads/2026/09/Viking-Drive-PCTC-Global-Car-Carriers-780x470.jpg",
-      "hash": "1342a522552385175a43c79b502f25be1c1bf0f8"
-    },
-    {
       "date": "2026-10-21",
       "id": "infra-1",
       "url": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA2fB0tX.img",
@@ -227,6 +203,24 @@
       "id": "infra-2",
       "url": "https://www.offshore-energy.biz/api/media/file/_2Fapi_2Fmedia_2Ffile_2Fwp-import-1784739181456-1024x796.png",
       "hash": "e47948830a27a39ca0faf7f8aa3f748fbe3afbc1"
+    },
+    {
+      "date": "2026-11-20",
+      "id": "infra-2",
+      "url": "https://www.africa-energy.com/storage/93810/PresidentChapo.jpg",
+      "hash": "6dc76961c9dc6e705d498fbb30edc8b08cd745cc"
+    },
+    {
+      "date": "2026-11-20",
+      "id": "infra-3",
+      "url": "https://corescientific.com/wp-content/uploads/2025/04/Muskogee-1024x576.jpg",
+      "hash": "3d72ea6f5ff5be8ef290b3a708c915cd535f12f8"
+    },
+    {
+      "date": "2026-11-20",
+      "id": "infra-4",
+      "url": "https://www.canadianminingjournal.com/wp-content/uploads/2024/07/First-Phosphate-chief-geo-Gilles-Laverdiere-677x437-1.jpeg",
+      "hash": "177dc744d047be581e9c62616a22b795b8042c9f"
     }
   ]
 }

@@ -2337,6 +2337,171 @@
         }
       ],
       "kept": []
+    },
+    {
+      "date": "2026-11-20",
+      "search": "brave",
+      "checked": 5,
+      "photos": 3,
+      "deep": 1,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Hindustan Zinc Metal Production Expansion",
+          "result": "news e-mj.com: picture rejected (shape / text / not a photo)"
+        },
+        {
+          "rank": 2,
+          "project": "Kanata Prince Rupert FLNG Project",
+          "result": "deep card (value found in source; owner found)"
+        },
+        {
+          "rank": 3,
+          "project": "Rovuma LNG Megaproject",
+          "result": "photo: news photo (African Energy, africa-energy.com)"
+        },
+        {
+          "rank": 4,
+          "project": "Core Scientific Muskogee 100 MW Data Center",
+          "result": "photo: official photo (owner: Core Scientific, corescientific.com)"
+        },
+        {
+          "rank": 5,
+          "project": "Dodecanese Islands Mainland Interconnector",
+          "result": "news offshore-energy.biz: abstract / blurred graphic (detail 1.43)"
+        },
+        {
+          "rank": 6,
+          "project": "Bégin-Lamarche Phosphate Project",
+          "result": "photo: news photo (Canadian Mining Journal, canadianminingjournal.com)"
+        },
+        {
+          "rank": 7,
+          "project": "Track renewal to lift speed restrictions on line 316, Reghin – Târgu Mureș – Luduș, km 249+100–323+400",
+          "result": "not checked"
+        },
+        {
+          "rank": 8,
+          "project": "Extension of Quay 9 and infill of Quay 8 to create a new multipurpose esplanade at the Port of Málaga",
+          "result": "not checked"
+        },
+        {
+          "rank": 9,
+          "project": "ERTMS Level 2 (ETCS/GSM-R or FRMCS) on Ruse–Kaspichan rail section: design, supply, construction, commissioning",
+          "result": "not checked"
+        },
+        {
+          "rank": 10,
+          "project": "ONGC Pipeline Replacement Project X (PRP-X)",
+          "result": "not checked"
+        },
+        {
+          "rank": 11,
+          "project": "NTPC Battery Storage Project Transformer Order",
+          "result": "not checked"
+        },
+        {
+          "rank": 12,
+          "project": "Construction of Service Reservoirs, Solar Power Plants and Upgrading of Pumping Stations in Blantyre",
+          "result": "not checked"
+        },
+        {
+          "rank": 13,
+          "project": "Finishing and commissioning of the new Maradit Refrigerated Slaughterhouse (AFRIM)",
+          "result": "not checked"
+        },
+        {
+          "rank": 14,
+          "project": "District-heating 15 MW wood-chip boiler plant – supply and installation",
+          "result": "not checked"
+        },
+        {
+          "rank": 15,
+          "project": "North-Eastern Nigeria Power Plant Restart",
+          "result": "not checked"
+        },
+        {
+          "rank": 16,
+          "project": "Starbase Data Center and Gas Power Plant",
+          "result": "not checked"
+        },
+        {
+          "rank": 17,
+          "project": "Cape Station Geothermal Project",
+          "result": "not checked"
+        },
+        {
+          "rank": 18,
+          "project": "Apache North Sea Offshore Decommissioning Programme",
+          "result": "not checked"
+        },
+        {
+          "rank": 19,
+          "project": "Excelerate FSRU Reliquefaction System",
+          "result": "not checked"
+        },
+        {
+          "rank": 20,
+          "project": "Constellation Amaralina Star MPD Drilling Contract",
+          "result": "not checked"
+        },
+        {
+          "rank": 21,
+          "project": "ALNG 2013-built LNG Carrier Period Charters",
+          "result": "not checked"
+        },
+        {
+          "rank": 22,
+          "project": "Algeria Baseload Power Plant Expansion",
+          "result": "not checked"
+        },
+        {
+          "rank": 23,
+          "project": "Cabaçal Copper-Gold-Silver Mine",
+          "result": "not checked"
+        },
+        {
+          "rank": 24,
+          "project": "NSPCL Chhattisgarh Solar EPC",
+          "result": "not checked"
+        },
+        {
+          "rank": 25,
+          "project": "HPGCL Thermal Plant Solar O&M Tender",
+          "result": "not checked"
+        },
+        {
+          "rank": 26,
+          "project": "NETRA Waste-to-Hydrogen Plant Gas Cleaning Contract",
+          "result": "not checked"
+        },
+        {
+          "rank": 27,
+          "project": "Stamford 10 MR Product Tanker Newbuild",
+          "result": "not checked"
+        },
+        {
+          "rank": 28,
+          "project": "Brave Bulker Kamsarmax Delivery",
+          "result": "not checked"
+        },
+        {
+          "rank": 29,
+          "project": "Israel Ports Company Dredging Contract",
+          "result": "not checked"
+        },
+        {
+          "rank": 30,
+          "project": "Hydro-electric plant construction work – 2026-06 Kvíslatunguvirkjun - Kvíslatunga Hydropower Plant – Civil and Structural Works",
+          "result": "not checked"
+        }
+      ],
+      "kept": [
+        "infra-1: Kanata Prince Rupert FLNG Project (deep card)",
+        "infra-2: Rovuma LNG Megaproject (photo)",
+        "infra-3: Core Scientific Muskogee 100 MW Data Center (photo)",
+        "infra-4: Bégin-Lamarche Phosphate Project (photo)"
+      ]
     }
   ]
 }
