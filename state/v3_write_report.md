@@ -1,5 +1,13 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-20 16:59 UTC - write, model claude-haiku-5-5, rows 4
+{'full': 4, 'differ': 4}
+
+- Baltyk 2 offshore wind farm export cable (8795) | server None / haiku full | differs: contractors [['Jan De Nul', 'Hellenic Cables'] | ['Hellenic Cables']]
+- Woodside–Trafigura LNG Supply Agreement (8792) | server None / haiku full | differs: capacity [1 million tons per year | 1 mtpa], contractors [['Trafigura'] | []]
+- Venture Global – China Gas LNG Supply Expansion (8784) | server None / haiku full | differs: capacity [500,000 tons per year | 0.5 mtpa added; total 3 mtpa]
+- SEFE–Tourmaline Gas Supply Agreement (8775) | server None / haiku full | differs: owner [ | SEFE], contractors [['Tourmaline'] | []]
+
 ## 2026-11-19 23:06 UTC - write, model claude-haiku-5-5, rows 37
 {'page unreadable': 9, 'full': 22, 'differ': 24, 'project_only': 2, 'model failed': 4}
 
