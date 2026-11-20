@@ -341,7 +341,7 @@ async function leadPhoto(page) {
 
 // ---------------------------------------------------------------- main
 const files = readdirSync(DIR).filter((f) => f.endsWith('.json')).sort();
-if (!files.length) { console.error('No queue files in ' + DIR + ' - run generate.mjs first'); process.exit(1); }
+if (!files.length) { console.error('::error::No posts today in ' + DIR + ' - generate.mjs wrote none, or pick_official.mjs kept none (no photo and no checked deep card: see state/photo_first.json)'); process.exit(1); }
 mkdirSync(IMG, { recursive: true });
 
 // Draw our own HTML on a page. The page may still belong to a news site (it was used to open the article), and a document written with

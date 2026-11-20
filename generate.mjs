@@ -381,7 +381,15 @@ const recentPool = epcItems.filter((it) => it.report_date >= dayShift(latestDay(
 // 2026-10-25 owner, photo first: write up to photoCandidates ranked projects as candidates; pick_official.mjs (next CI step) keeps the
 // projectsPerDay best-ranked ones that have an official photo (topped up by rank when fewer), so most posts show a real photo, not the fact card.
 const PHOTO_FIRST = A.infra.officialPhotos === true && (A.infra.photoCandidates || 0) > A.infra.projectsPerDay;
-const shown = infraOn ? pickProjects(recentPool.length >= A.infra.maxProjectsShownPerDay ? recentPool : epcItems, PHOTO_FIRST ? A.infra.photoCandidates : A.infra.maxProjectsShownPerDay, used) : [];
+const wantN = PHOTO_FIRST ? A.infra.photoCandidates : A.infra.maxProjectsShownPerDay;
+const shown = infraOn ? pickProjects(recentPool.length >= A.infra.maxProjectsShownPerDay ? recentPool : epcItems, wantN, used) : [];
+// 2026-11-20: on 11-19 the recent pool held only 16 tender rows (the 11-18 publish was refused by the host) and none had a photo or a
+// checked deep card -> no post at all. Top the candidates up with the rest of the 7-day window (recent ones stay first in rank).
+if (infraOn && PHOTO_FIRST && shown.length < wantN) {
+  const more = pickProjects(epcItems.filter((it) => !shown.includes(it) && !shown.some((s) => similar(s.project_name, it.project_name))), wantN - shown.length, used);
+  if (more.length) console.error(`Infrastructure candidates: ${shown.length} from the last two days, topped up with ${more.length} from the 7-day window`);
+  shown.push(...more);
+}
 const projs = PHOTO_FIRST ? shown : shown.slice(0, A.infra.projectsPerDay);
 const isWeekly = args.includes('--weekly') || new Date(TODAY + 'T00:00:00Z').getUTCDay() === 1;   // Mondays (UTC)
 // The cards say "new / this week": without the secret the data is a week old, so do not publish them (use --allow-stale to test only).
