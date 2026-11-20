@@ -300,6 +300,12 @@
       "mode": "schedule",
       "at": "2026-11-19T11:50:38.313Z",
       "dueAt": "2026-11-20T13:00:00.000Z"
+    },
+    "cd_uranium_yellowcake": {
+      "postId": "6b00343d0c6d6b9052835bbe",
+      "mode": "schedule",
+      "at": "2026-11-20T11:51:25.790Z",
+      "dueAt": "2026-11-21T13:00:00.000Z"
     }
   }
 }
