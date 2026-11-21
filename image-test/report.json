@@ -3,24 +3,32 @@
     "headline": "Aramco Restores East-West Pipeline as War Risk Closes In on Yanbu",
     "query": "aramco east-west yanbu pipeline",
     "pick": {
-      "url": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA2fNI4U.img?w=1200&h=809&m=4&q=86",
-      "credit": "Msn Com",
-      "note": "news photo \"aramco east-west yanbu pipeline\" #2 match 0.65 \"Aramco CEO says east-west pipeline capacity could reach 10 m\"",
+      "url": "https://th-i.thgim.com/public/incoming/pbbhoe/article71695405.ece/alternates/LANDSCAPE_1200/2026-11-09T165348Z_764578082_RC2AONA88CSD_RTRMADP_3_IRAN-CRISIS-SAUDI.JPG",
+      "credit": "The Hindu",
+      "note": "news photo \"aramco east-west yanbu pipeline\" #2 match 0.65 \"Yemen’s Houthis say they targeted Saudi East-West pipeline, \"",
       "w": 1200,
-      "h": 809
+      "h": 675
     },
-    "logs": []
+    "logs": [
+      "  no og:image: https://www.firstpost.com/world/saudi-arabia-says-key-east-west-oil-pipeline-tar",
+      "  no og:image: https://www.reuters.com/world/middle-east/yemens-houthis-say-they-attacked-pumpi"
+    ]
   },
   {
     "headline": "India expected to double pulse imports",
     "query": "india pulse imports",
     "pick": {
-      "url": "https://media.assettype.com/freepressjournal/2026-10-27/9ffwuhi8/Copy-of-Copy-of-Copy-of-Copy-of-Copy-of-Copy-of-Copy-of-Copy-of-Copy-of-Copy-of-Copy-of-Copy-of-Copy-of-Copy-of-Queen-Of-All-Mayhem-2026-10-27T214656.372.jpg",
-      "credit": "Free Press Journal",
-      "note": "news photo \"india pulse imports\" #5 match 0.60 \"Duty Cut Not Warranted On Gold, Pulses And Edible Oil Import\"",
+      "url": "https://akm-img-a-in.tosshub.com/indiatoday/images/story/202611/kisan-tak-conclave-ashok-lahiri-ashok-gulati-niti-aayog-indian-agricultural-policy-msp-verghese-kuri-164428640-16x9_0.jpg?VersionId=6Mvzrv3_QWWpNGr.qE4CPfd7VE5GWvmd",
+      "credit": "India Today",
+      "note": "news photo \"india pulse imports\" #3 match 1.00 \"Glut of paddy, but India imports pulses: Experts explain why\"",
       "w": 1200,
       "h": 675
     },
-    "logs": []
+    "logs": [
+      "  no og:image: https://www.newsbytesapp.com/news/business/el-nino-pushes-indias-pulse-imports-u",
+      "  no og:image: https://www.newsbytesapp.com/news/india/india-warns-importers-against-hoarding-p",
+      "  no og:image: https://www.telegraphindia.com/india/strategic-disaster-looms-if-indias-pulse-ed",
+      "  no og:image: https://www.financialexpress.com/policy/economy/pulse-imports-surge-60-in-apr-se"
+    ]
   }
 ]
