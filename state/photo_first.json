@@ -2502,6 +2502,171 @@
         "infra-3: Core Scientific Muskogee 100 MW Data Center (photo)",
         "infra-4: Bégin-Lamarche Phosphate Project (photo)"
       ]
+    },
+    {
+      "date": "2026-11-21",
+      "search": "brave",
+      "checked": 7,
+      "photos": 3,
+      "deep": 1,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Hindustan Zinc Metal Production Expansion",
+          "result": "news e-mj.com: picture rejected (shape / text / not a photo)"
+        },
+        {
+          "rank": 2,
+          "project": "Muir Mhòr Floating Wind Farm",
+          "result": "news splash247.com: picture rejected (shape / text / not a photo)"
+        },
+        {
+          "rank": 3,
+          "project": "Jacktel Takeover Bid",
+          "result": "news splash247.com: no lead picture"
+        },
+        {
+          "rank": 4,
+          "project": "Uganda Standard Gauge Railway",
+          "result": "photo: Commons photo (A section of Standard Railway Gauge, Ngoroi, Kenya, CC BY-SA 4.0)"
+        },
+        {
+          "rank": 5,
+          "project": "Finnish Green Hydrogen E-Methane Plant",
+          "result": "photo: news photo (Hydrogen Europe, hydrogeneurope.eu)"
+        },
+        {
+          "rank": 6,
+          "project": "Dodecanese Islands Mainland Interconnector",
+          "result": "deep card (value found in source; owner found)"
+        },
+        {
+          "rank": 7,
+          "project": "Advantage VLCC Newbuild Pair",
+          "result": "news splash247.com: no lead picture"
+        },
+        {
+          "rank": 8,
+          "project": "Venture Global – China Gas LNG Supply Expansion",
+          "result": "photo: news photo (offshore-energy, offshore-energy.biz)"
+        },
+        {
+          "rank": 9,
+          "project": "Woodside–Trafigura LNG Supply Agreement",
+          "result": "not checked"
+        },
+        {
+          "rank": 10,
+          "project": "Track renewal to lift speed restrictions on line 316, Reghin – Târgu Mureș – Luduș, km 249+100–323+400",
+          "result": "not checked"
+        },
+        {
+          "rank": 11,
+          "project": "Extension of Quay 9 and infill of Quay 8 to create a new multipurpose esplanade at the Port of Málaga",
+          "result": "not checked"
+        },
+        {
+          "rank": 12,
+          "project": "ERTMS Level 2 (ETCS/GSM-R or FRMCS) on Ruse–Kaspichan rail section: design, supply, construction, commissioning",
+          "result": "not checked"
+        },
+        {
+          "rank": 13,
+          "project": "Design, Supply and Installation of Transformers and Equipments for Substation in Southern Region (Saphaothong, Banna and Pakbo)",
+          "result": "not checked"
+        },
+        {
+          "rank": 14,
+          "project": "Spennymoor 400kV",
+          "result": "not checked"
+        },
+        {
+          "rank": 15,
+          "project": "ONGC Pipeline Replacement Project X (PRP-X)",
+          "result": "not checked"
+        },
+        {
+          "rank": 16,
+          "project": "NTPC Battery Storage Project Transformer Order",
+          "result": "not checked"
+        },
+        {
+          "rank": 17,
+          "project": "Construction of Service Reservoirs, Solar Power Plants and Upgrading of Pumping Stations in Blantyre",
+          "result": "not checked"
+        },
+        {
+          "rank": 18,
+          "project": "Finishing and commissioning of the new Maradit Refrigerated Slaughterhouse (AFRIM)",
+          "result": "not checked"
+        },
+        {
+          "rank": 19,
+          "project": "District-heating 15 MW wood-chip boiler plant – supply and installation",
+          "result": "not checked"
+        },
+        {
+          "rank": 20,
+          "project": "Tata Steel Kalinganagar H2Gen Hydrogen Unit",
+          "result": "not checked"
+        },
+        {
+          "rank": 21,
+          "project": "Sea Lion Oil Development",
+          "result": "not checked"
+        },
+        {
+          "rank": 22,
+          "project": "H2Datacenter pilot (Datco Chile)",
+          "result": "not checked"
+        },
+        {
+          "rank": 23,
+          "project": "Muntanga Uranium Project",
+          "result": "not checked"
+        },
+        {
+          "rank": 24,
+          "project": "Wyoming Intertie",
+          "result": "not checked"
+        },
+        {
+          "rank": 25,
+          "project": "North-Eastern Nigeria Power Plant Restart",
+          "result": "not checked"
+        },
+        {
+          "rank": 26,
+          "project": "Starbase Data Center and Gas Power Plant",
+          "result": "not checked"
+        },
+        {
+          "rank": 27,
+          "project": "Cape Station Geothermal Project",
+          "result": "not checked"
+        },
+        {
+          "rank": 28,
+          "project": "Lekki Refinery Complex Expansion",
+          "result": "not checked"
+        },
+        {
+          "rank": 29,
+          "project": "DMRC ISTS Solar with BESS Power Procurement",
+          "result": "not checked"
+        },
+        {
+          "rank": 30,
+          "project": "thyssenkrupp nucera Portugal Cell Assembly Site",
+          "result": "not checked"
+        }
+      ],
+      "kept": [
+        "infra-1: Uganda Standard Gauge Railway (photo)",
+        "infra-2: Finnish Green Hydrogen E-Methane Plant (photo)",
+        "infra-3: Dodecanese Islands Mainland Interconnector (deep card)",
+        "infra-4: Venture Global – China Gas LNG Supply Expansion (photo)"
+      ]
     }
   ]
 }

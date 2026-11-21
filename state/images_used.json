@@ -1,18 +1,6 @@
 {
   "items": [
     {
-      "date": "2026-10-21",
-      "id": "infra-1",
-      "url": "https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA2fB0tX.img",
-      "hash": "0144a34f2f7e3a5ba2000110058466eb41c40004"
-    },
-    {
-      "date": "2026-10-21",
-      "id": "infra-2",
-      "url": "https://img.tdworld.com/files/base/ebm/tdworld/image/2026/10/6ad7df056a15c43a52815638-dreamstime_xxl_204500862.png",
-      "hash": "5559dc2d4581062a06523017f7430ee807bb18d3"
-    },
-    {
       "date": "2026-10-22",
       "id": "infra-1",
       "url": "https://images.unsplash.com/photo-1791221254344-c196eadb6110",
@@ -221,6 +209,24 @@
       "id": "infra-4",
       "url": "https://www.canadianminingjournal.com/wp-content/uploads/2024/07/First-Phosphate-chief-geo-Gilles-Laverdiere-677x437-1.jpeg",
       "hash": "177dc744d047be581e9c62616a22b795b8042c9f"
+    },
+    {
+      "date": "2026-11-21",
+      "id": "infra-1",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/53/A_section_of_Standard_Railway_Gauge%2C_Ngoroi%2C_Kenya.jpg",
+      "hash": "715e18d3ba22d75a255605429e2898eca61fe05a"
+    },
+    {
+      "date": "2026-11-21",
+      "id": "infra-2",
+      "url": "https://hydrogeneurope.eu/wp-content/uploads/2026/11/ren-gas-small.jpg",
+      "hash": "0c70154e7a2b8d5e40d5f925653a30b4423a5105"
+    },
+    {
+      "date": "2026-11-21",
+      "id": "infra-4",
+      "url": "https://www.offshore-energy.biz/api/media/file/_2Fapi_2Fmedia_2Ffile_2Fwp-import-1784730228845-1024x746-1024x746.png",
+      "hash": "4a88ca542963429fbb6bc76137e5085a30b7e37c"
     }
   ]
 }
