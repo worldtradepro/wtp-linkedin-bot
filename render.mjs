@@ -363,7 +363,10 @@ function photoCardHtml(jpeg, title, tagline, credit = '') {
   const fs = n <= 45 ? 84 : n <= 70 ? 76 : n <= 100 ? 68 : n <= 130 ? 60 : 52;
   return `<html><body style="margin:0;width:1080px;height:1350px;display:flex;flex-direction:column;overflow:hidden;background:#050d24;font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif">
   <div style="flex:1 1 0;min-height:0;position:relative">
-    <img src="data:image/jpeg;base64,${jpeg.toString('base64')}" style="position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover">
+    <!-- 2026-11-21 owner: a wide meeting photo lost the key person at the side ("关键的人都在图像之外") - the whole photo is shown, never cropped;
+         the space around it is the same photo blurred and darkened -->
+    <img src="data:image/jpeg;base64,${jpeg.toString('base64')}" style="position:absolute;left:-40px;top:-40px;width:calc(100% + 80px);height:calc(100% + 80px);object-fit:cover;filter:blur(28px) brightness(.45) saturate(1.1)">
+    <img src="data:image/jpeg;base64,${jpeg.toString('base64')}" style="position:absolute;left:0;top:0;width:100%;height:100%;object-fit:contain">
     <div style="position:absolute;left:0;top:0;width:1080px;height:190px;background:linear-gradient(to bottom,rgba(5,13,36,.7),transparent)"></div>
     <img src="${LOGO}" style="position:absolute;left:36px;top:26px;height:104px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.55))">
     ${credit ? `<div style="position:absolute;right:14px;bottom:12px;font-size:17px;font-weight:500;color:#fff;background:rgba(5,13,36,.6);padding:4px 10px;border-radius:4px">${esc2(credit)}</div>` : ''}
