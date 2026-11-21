@@ -45,12 +45,6 @@ jobs:
         env:
           PL_MODEL: ${{ vars.PL_MODEL || 'claude-haiku-5-5' }}
         run: python radar/project_lookup.py
-      - name: Deep research requested by members (web search)
-        if: always()
-        env:
-          RS_MODEL: ${{ vars.RS_MODEL || 'claude-sonnet-5-5' }}
-          RS_MAX: ${{ vars.RS_MAX || '3' }}
-        run: python radar/project_research.py
       - name: Save run summary (counts and error text only)
         if: always()
         run: |
