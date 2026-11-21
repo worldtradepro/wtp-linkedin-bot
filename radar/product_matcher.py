@@ -57,6 +57,25 @@ PROJECTS:
 """
 
 
+# 2026-11-15 (owner): one product for sales people at every level of the supply chain. A member who chose a role gets a note
+# on top of the match prompt; an EPC contractor's "product" is the main contract itself.
+ROLE_NOTES = {
+    'epc': """IMPORTANT - this company is an EPC or construction CONTRACTOR, not an equipment supplier. Its product is its own
+engineering, procurement and construction work. Read "buy this product" as "award a FEED or EPC contract this contractor could
+bid for": "yes" = the kind of plant or works it builds; "maybe" = related works or a thin description; "no" = a kind of project
+it does not build, or pure supply / share / financing news. Judge the project type only: a project whose EPC contract is already
+awarded is still "yes" (the site marks its window closed). package = the contract it could win (for example "EPC contract for
+the 2 x 5 MTPA LNG trains", "FEED contract"). buyer = the project owner.
+
+""",
+    'services': """IMPORTANT - this company sells SERVICES to capital projects (engineering, inspection, logistics, construction
+subcontracting, manpower), not equipment. package = the service scope the project would buy. buyer = the EPC contractor if
+named, else "the EPC winner" or the owner.
+
+""",
+}
+
+
 def fmt(p):
     return json.dumps({'project_id': int(p['id']), 'name': p['name'], 'operator': p.get('operator'), 'country': p.get('country'),
                        'facility': p.get('facility'), 'unit': p.get('unit_no'), 'capacity': p.get('capacity'), 'sector': p.get('sector'),
@@ -92,7 +111,7 @@ def main():
         yes = maybe = 0
         for i in range(0, len(todo), args.batch):
             chunk = todo[i:i + args.batch]
-            ans = pb.claude(MATCH_PROMPT.replace('{summary}', prof['summary']).replace('{products}', ', '.join(prof.get('products') or []))
+            ans = pb.claude(ROLE_NOTES.get(prof.get('role') or '', '') + MATCH_PROMPT.replace('{summary}', prof['summary']).replace('{products}', ', '.join(prof.get('products') or []))
                             .replace('{region}', prof.get('region') or 'all regions').replace('{projects}', '\n'.join(fmt(p) for p in chunk)))
             if not ans:
                 FAILS.append(f"#{o['order']} batch {i // args.batch}: no answer")
