@@ -107,6 +107,7 @@ const ART_LABEL = { renewables: 'Renewables', datacenter: 'Data centre', solar: 
 export function artKey(sector = '', subsector = '', name = '', capacity = '') {
   // a specific subsector wins ("Offshore Wind CTVs Order" is a ship order); broad ones are refined by the project name and capacity text
   const BROAD = /^(|renewables|power & transmission|oil & gas|energy|irrigation & water|pipelines & storage|mine development|critical minerals)$/i;
+  capacity = String(capacity || '').replace(/battery[- ]grade/gi, '');
   const sub = (subsector || '').toLowerCase(), t = `${BROAD.test(sub) ? '' : sub} ${BROAD.test(sub) ? name + ' ' + capacity : ''}`.toLowerCase(), s = `${sector} ${subsector}`.toLowerCase();
   const rules = [
     [/data ?cent|hyperscale|\bai campus/, 'datacenter'], [/desalin|water treatment|wastewater|\bwater\b(?!.*irrigat)/, 'water'], [/irrigat|\bdam\b|canal/, 'irrigation'],
@@ -143,7 +144,8 @@ export function capacityTile(f) {
   const c = String(f.capacity || (/\b\d[\d.,]*\s*(MWp|MW|GW|MTPA)\b/i.exec(f.name || '') || [''])[0]).trim();
   const m = /^(?:at least\s+)?([\d.,]+)\s*-?\s*(MWp|MWh|MW|GW|GWh|kW|MTPA|Mtpa|mtpa|Mt\/y|Mt|t\/h|tpd|TEU|teu|bpd|barrels per day|million t|tonnes per year|t\/y|km)\b/i.exec(c);
   if (!m) return null;
-  const unit = m[2].replace(/^barrels per day$/i, 'BPD').replace(/^mtpa$/i, 'MTPA').toUpperCase().replace('MWP', 'MWp');
+  const short = { 'tonnes per year': 't/y', 't/y': 't/y', 'tpd': 't/d', 't/h': 't/h', 'million t': 'Mt', 'mt/y': 'Mt/y', 'km': 'km' }[m[2].toLowerCase()];
+  const unit = short || m[2].replace(/^barrels per day$/i, 'BPD').replace(/^mtpa$/i, 'MTPA').toUpperCase().replace('MWP', 'MWp');
   const rest = c.slice(m[0].length).replace(/^[\s,/;-]+/, '');
   return { big: m[1], unit, label: rest && rest.length <= 30 ? 'Capacity · ' + rest : 'Capacity' };
 }
@@ -163,7 +165,7 @@ export function factsOf(it) {
   return { name: clean(it.project_name), owner: clean(it.owner || '').replace(/\s*\((developer|owner|sponsor|client|operator)\)$/i, ''),   // owner field only: company_name can be a supplier
     country: countryName(it.country), city: clean(it.city || ''), sector: it.sector || '', subsector: it.subsector && it.subsector !== '(unspecified)' ? it.subsector : '',
     stage: it.stage || '', eventType: it.event_type || '', capacity: clean(it.capacity || ''), valueAmount: it.value_amount || '', valueUnit: it.value_unit || '', valueCurrency: ({ '$': 'USD', 'US$': 'USD', '€': 'EUR', '£': 'GBP', '¥': 'CNY', 'RMB': 'CNY', '₹': 'INR' }[String(it.value_currency || '').trim()] || it.value_currency || ''), valueBasis: it.value_basis || '',
-    contractors: names(it.contractors), contractorLabel: contractorLabel(it.contractors), financing: names(it.financiers), reportDate: it.report_date || '', scale: clean(it.scale || ''),
+    contractors: names(it.contractors), contractorLabel: contractorLabel(it.contractors), financing: names(it.financiers), reportDate: it.report_date || '', keyDates: it.key_dates || '', scale: clean(it.scale || ''),
     // for official_photo.mjs: who is behind the project, and the pages the pipeline linked to it (news source + official references)
     // "Aker BP and Höegh Evi" = two owners; "Phoenix Tailings, Inc." / "X Co., Ltd." = one
     parties: [...clean(it.owner || '').split(/\s*;\s*|\s+and\s+|,\s+(?!(?:inc|ltd|llc|plc|co|corp|s\.?a|ag|gmbh|limited|bhd|berhad)\b\.?)/i).map((n) => (n || '').replace(/[\s,]+$/, '')).filter(Boolean).map((n) => ({ name: n.replace(/\s*\((developer|owner|sponsor|client|operator)\)$/i, ''), role: 'owner' })),
@@ -184,15 +186,18 @@ const shortCo = (n) => { const p = (/\(([A-Za-z0-9&.\- ]{2,10})\)/.exec(n || '')
 // "Al Mourjan Two Electricity Company awards 2.3 GW gas-fired power plant to Elsewedy Electric PSP" - built from our fields only
 // 2026-11-19: the verb follows the event type (a 15-year data-centre lease was headlined "... data centre awarded"), and a capacity spread over
 // several projects ("934 MW across four new wind and solar projects") is a portfolio, not one plant.
-const fin = (f) => { const a = (f.financing || '').split(', ').filter(Boolean); return a.length ? shortCo(a[0]) + (a.length > 1 ? ' and others' : '') : ''; };
+const fin = (f) => { const a = (f.financing || '').split(', ').filter(Boolean); if (!a.length) return ''; const n = shortCo(a[0]); if (String(f.name || '').toLowerCase().includes(n.toLowerCase())) return ''; return n + (a.length > 1 ? ' and others' : ''); };
 export function eventTitle(f) {
   const key = artKey(f.sector, f.subsector, f.name, f.capacity);
   const many = /\bacross\b|\bprojects\b|\bportfolio\b|\bplants\b|\bfarms\b|\bsites\b/i.test(f.capacity || '');
-  const noun = many ? `${(f.subsector || artLabel(key)).toLowerCase()} portfolio` : NOUN[key] || NOUN.default;
+  // mining: name the mineral ("15,000 t/y lithium project"), a brine or processing project is not a "mine"
+  const mineral = (key === 'mine' || key === 'smelter') && (/\b(lithium|copper|gold|nickel|cobalt|graphite|uranium|iron ore|bauxite|zinc|tin|tungsten|rare earths?|phosphate|potash|manganese|silver)\b/i.exec(f.name || '') || [])[1];
+  const noun = many ? `${(f.subsector || artLabel(key)).toLowerCase()} portfolio` : mineral ? `${mineral.toLowerCase()} project` : NOUN[key] || NOUN.default;
   const cap = capacityTile(f), size = cap ? `${cap.big}\u00a0${cap.unit === 'MWp' ? 'MWp' : cap.unit}` : '';
   const ownerWords = new Set(String(f.owner || '').toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 2));
   const named = String(f.name || '').split(/\s+/).filter((w) => !ownerWords.has(w.toLowerCase().replace(/[^a-z0-9]/g, ''))).join(' ').replace(/\bProject\b/, 'project');
-  const what = size ? [size, noun].join(' ') : named.length >= 6 && named.length <= 60 ? named : noun, who = shortCo(f.owner?.split(/\s*[,;]\s*/)[0]), con = shortCo((f.contractors || '').split(', ')[0]);
+  const namedClean = named.replace(/\b(financing|funding|loan|contract|award|tender|order)\b/gi, '').replace(/\s+/g, ' ').replace(/[\s-]+$/, '').trim();
+  const what = size ? [size, noun].join(' ') : namedClean.length >= 6 && namedClean.length <= 60 ? namedClean : noun, who = shortCo(f.owner?.split(/\s*[,;]\s*/)[0]), con = shortCo((f.contractors || '').split(', ')[0]);
   const where = '', s = String(f.stage || '').slice(0, 2), ev = f.eventType || '';
   if (ev === 'FID') return `${who || 'Owner'} takes FID on ${what}`;
   if (ev === 'Financing') return who ? `${who} secures financing for ${what}${fin(f) ? ' from ' + fin(f) : ''}` : `Financing closed for ${what}${fin(f) ? ' from ' + fin(f) : ''}`;

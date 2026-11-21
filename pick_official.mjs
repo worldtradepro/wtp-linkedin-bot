@@ -8,11 +8,13 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { chromium } from 'playwright';
-import { officialPhoto } from './official_photo.mjs';
+import { officialPhoto, paddedSides } from './official_photo.mjs';
 import { commonsPhoto } from './commons_photo.mjs';
 import { newsPhoto } from './news_photo.mjs';
-import { closeOcr } from './image_search.mjs';
+import { closeOcr, pictureWords, isLogoShot } from './image_search.mjs';
+import { stockPhoto } from './stock_photo.mjs';
 import { deepScore, checkAgainstSource, trackerRows, chartFor } from './deep_card.mjs';
+import { pickHero } from './deep_variants.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -43,6 +45,9 @@ const start = Date.now(), hits = [], deep = [];
 const DEEP = A.deepPerDay ?? 1;
 const sameSlot = (a, b) => a.meta.sector === b.meta.sector && a.meta.country === b.meta.country;
 const TRACKER = await trackerRows(cfg.site, process.env.WTP_BOT_SECRET, DATE);
+const TRACKER90 = await trackerRows(cfg.site, process.env.WTP_BOT_SECRET, DATE, 90);
+// yesterday's chart kind, so two days in a row do not show the same kind of chart
+const PREV_KIND = (() => { try { const d = JSON.parse(readFileSync(join(HERE, 'state', 'photo_first.json'), 'utf8')).days || []; return d.filter((x) => x.date < DATE).slice(-1)[0]?.deepKind || ''; } catch { return ''; } })();
 async function tryDeep(p) {
   if (!p.meta?.facts || !deepScore(p.meta.facts) || [...deep, ...hits].some((h) => sameSlot(h, p))) return false;
   const bars = chartFor(p.meta.facts, TRACKER, DATE).bars.length;
@@ -51,6 +56,9 @@ async function tryDeep(p) {
   p.deepCheck = chk.notes.join('; ');
   console.log(`  #${p.candidate} ${p.headline.slice(0, 50)}: deep card check: ${p.deepCheck}`);
   if (!chk.ok) return false;
+  if (!(await findPhoto(p))) { p.deepCheck += '; no real photo found'; console.log(`  #${p.candidate} ${p.headline.slice(0, 50)}: no deep card, no real photo`); return false; }
+  const h = pickHero(p.meta.facts, { rows30: TRACKER, rows90: TRACKER90, peerChart: chartFor(p.meta.facts, TRACKER, DATE), avoid: PREV_KIND });
+  p.deepKind = h?.kind || 'ranking';
   p.deep = true; deep.push(p); return true;
 }
 for (const p of cands) { if (deep.length >= DEEP || Date.now() - start > BUDGET_MS / 3) break; await tryDeep(p); }
@@ -60,9 +68,13 @@ async function findPhoto(p) {
     // 2026-11-06 owner: fewer fact cards - second source, a Wikimedia Commons photo of the facility itself
     || (A.commonsPhotos !== false ? await commonsPhoto(ctx, p.meta.facts, { seen: imgSeen }, log).catch((e) => { log('commons failed: ' + String(e.message || e).slice(0, 80)); return null; }) : null)
     // 2026-11-11 owner ("放开,排除通讯社图"): third source, the news article's own lead picture - never agency / stock pictures
-    || (A.newsPhotos !== false ? await newsPhoto(ctx, [p.sourceUrl, ...(p.meta.facts.links || [])], { seen: imgSeen }, log).catch((e) => { log('news failed: ' + String(e.message || e).slice(0, 80)); return null; }) : null);
+    || (A.newsPhotos !== false ? await newsPhoto(ctx, [p.sourceUrl, ...(p.meta.facts.links || [])], { seen: imgSeen }, log).catch((e) => { log('news failed: ' + String(e.message || e).slice(0, 80)); return null; }) : null)
+    // 2026-11-21 owner: last, a free image-library photo (Unsplash / Pexels) - on-topic only, labelled illustrative on the card
+    || (A.stockPhotos !== false ? await stockPhoto({ id: p.id, headline: p.headline, sector: p.meta.sector, subsector: p.meta.subsector, forCard: true, strict: true }, log).then((s) => (s && !imgSeen(s.url, s.jpeg) ? { ...s, mime: 'image/jpeg', source: 'stock', credit: s.credit.replace(/^📷\s*Photo:\s*/u, '').replace(/\s*➡️.*$/u, ''), note: 'stock photo (' + s.query + ')' } : null)).catch((e) => { log('stock failed: ' + String(e.message || e).slice(0, 80)); return null; }) : null);
   p.officialChecked = true;   // render.mjs does not search again
   if (!r) return false;
+  if (isLogoShot(await pictureWords(r.jpeg), (p.meta.facts.parties || []).map((x) => x.name))) { log('picture shows the company name (logo or sign), not the project'); return false; }
+  if (await paddedSides(ctx, r.jpeg)) { log('picture is padded with blurred sides, cannot fill a card'); return false; }
   const file = `official-${p.candidate}.jpg`;
   writeFileSync(join(IMG, file), r.jpeg);
   p.officialPhoto = { file, url: r.url, mime: r.mime, w: r.w, h: r.h, credit: r.credit, note: r.note, page: r.page, source: r.source || 'official' };
@@ -100,7 +112,7 @@ writeFileSync(STATE_FILE, JSON.stringify({ urls: [...new Set([...used, ...kept.m
 // one line per day in the repo (committed by the "Save state" step): CI step logs need a GitHub login, this file does not
 const SUM_FILE = join(HERE, 'state', 'photo_first.json');
 const days = (existsSync(SUM_FILE) ? JSON.parse(readFileSync(SUM_FILE, 'utf8')).days || [] : []).filter((d) => d.date !== DATE).slice(-29);
-days.push({ date: DATE, search: process.env.BRAVE_API_KEY ? 'brave' : 'duckduckgo', checked: cands.filter((p) => p.officialChecked).length, photos: hits.length, deep: deep.length,
+days.push({ date: DATE, deepKind: deep[0]?.deepKind || '', search: process.env.BRAVE_API_KEY ? 'brave' : 'duckduckgo', checked: cands.filter((p) => p.officialChecked).length, photos: hits.length, deep: deep.length,
   candidates: cands.map((p) => ({ rank: p.candidate ?? p.rank, project: p.headline, result: p.deep ? 'deep card (' + p.deepCheck + ')' : p.officialPhoto ? 'photo: ' + p.officialPhoto.note : p.deepCheck && !p.officialChecked ? 'no deep card: ' + p.deepCheck : p.officialChecked ? (p.photoNote || 'no official page found') : 'not checked' })),
   kept: kept.map((p) => `${p.id}: ${p.headline} (${p.deep ? 'deep card' + (p.officialPhoto ? ' + photo' : '') : p.officialPhoto ? 'photo' : 'fact card'})`) });
 writeFileSync(SUM_FILE, JSON.stringify({ days }, null, 2));

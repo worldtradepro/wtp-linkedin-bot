@@ -28,6 +28,7 @@ const RULES = [
   // a refinery story (oil OR alumina / sugar / metals) needs a process plant, not a tanker or a drilling rig (2026-10-10: Alcoa's Wagerup alumina refinery got a jack-up rig)
   [/\brefiner\w*\b/i, ['oil refinery', 'refinery plant', 'petrochemical plant'], /refiner|petrochemical|chemical plant|industrial plant/i],
   [/\b(oil|crude|brent|wti|opec|petroleum|barrel)\b/i, ['oil tanker', 'oil refinery', 'offshore oil platform']],
+  [/\b(gas-fired|combined-cycle|gas power plant|gas turbines?)\b/i, ['gas power plant', 'gas turbine power station'], /power|turbine|plant|station/i],   // a gas power plant is not a pipeline (2026-11-21)
   [/\b(pipeline|gas)\b/i, ['gas pipeline', 'natural gas plant']],
   [/\bsuez\b/i, ['suez canal ship', 'cargo ship strait']],
   [/\bpanama\b/i, ['panama canal ship', 'cargo ship strait']],
@@ -81,7 +82,7 @@ function looseFilter(queries) {
 // Ordered attempts: [{ queries, filter }], filter = null means "any photo of the right shape", a regex means "must
 // share a real word with the topic in the photo's OWN caption". Confident (topic/confirm regex) first, then relaxed
 // (any query word), then sector fallback, then a fully generic cargo-ship shot.
-function plan({ headline = '', sector = '', subsector = '' }) {
+function plan({ headline = '', sector = '', subsector = '', strict = false }) {
   const hay = `${headline} ${subsector}`;
   const steps = [];
   // what the headline says first; the subsector is only a broad bucket ("Power & Transmission" also holds power plants) and decides when the headline names nothing
@@ -89,8 +90,10 @@ function plan({ headline = '', sector = '', subsector = '' }) {
   if (topic) {
     const [triggerRe, queries, confirmRe] = topic;
     steps.push({ queries, filter: confirmRe || triggerRe });
+    if (strict) return steps;   // project cards (owner 2026-11-21): on-topic photos only
     steps.push({ queries, filter: looseFilter(queries) });
   }
+  if (strict) return steps;
   const sec = SECTOR_FALLBACK.find(([re]) => re.test(sector));
   if (sec) steps.push({ queries: sec[1], filter: null });
   steps.push({ queries: [GENERIC], filter: null });

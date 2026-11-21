@@ -16,7 +16,9 @@ import { bestImage, loadPhoto, siteLabel, closeOcr } from './image_search.mjs';
 import { createHash } from 'node:crypto';
 import { factCardHtml, eventTitle } from './fact_card.mjs';
 import { officialPhoto } from './official_photo.mjs';
-import { deepCardHtml, trackerRows, chartFor, stretchFlags } from './deep_card.mjs';
+import { deepBriefHtml, trackerRows, chartFor } from './deep_card.mjs';
+import * as variants from './deep_variants.mjs';
+let trackerCache90 = null;
 let trackerCache = null;   // our tracker's last 30 days, fetched once per run for the deep cards' charts
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -514,17 +516,23 @@ for (const f of files) {
   let official = null;
   // 2026-11-19 owner: "只发这种帖子和深度数据帖" - a deep data card (pick_official.mjs chose it and checked its numbers against the source)
   let deepDone = false;
-  if (p.deep && p.meta?.facts) {   // v3 (2026-11-19): chart is the hero, no photo
+  // 2026-11-21 owner ("这个多好看"): the brief layout - real photo strip, fact table (with key dates), chart, tiles, So what.
+  // The chart is the kind pick_official.mjs chose: contractor order book, cost per MW, peer ranking or country pipeline.
+  if (p.deep && p.meta?.facts) {
     if (!trackerCache) trackerCache = await trackerRows(cfg.site, process.env.WTP_BOT_SECRET, DATE);
+    if (!trackerCache90) trackerCache90 = await trackerRows(cfg.site, process.env.WTP_BOT_SECRET, DATE, 90);
     const facts = { ...p.meta.facts, source: p.sourceName || p.meta.facts.source };
-    const chart = chartFor(facts, trackerCache, DATE);
-    const flags = await stretchFlags(chart.bars.map((b) => b.country));
+    const ph = p.officialPhoto && existsSync(join(IMG, p.officialPhoto.file)) ? readFileSync(join(IMG, p.officialPhoto.file)) : null;
+    const credit = ph ? (p.officialPhoto.source === 'news' ? 'Image: ' : p.officialPhoto.source === 'stock' ? 'Illustrative photo: ' : 'Photo: ') + p.officialPhoto.credit : '';
+    const k = p.deepKind || 'ranking';
+    const hero = k === 'ranking' ? null : k === 'pipeline' ? variants.pipeline(facts, trackerCache) : variants[k]?.(facts, trackerCache90);
+    const opts = hero ? { ...hero } : { chart: chartFor(facts, trackerCache, DATE) };
     await page.setViewportSize({ width: 1080, height: 1350 });
-    await drawOwn(page, deepCardHtml(facts, { chart, today: DATE, flags }), true);
+    await drawOwn(page, deepBriefHtml(facts, { ...opts, today: DATE, timeline: variants.timelineOf(facts.keyDates), photo: ph ? 'data:image/jpeg;base64,' + ph.toString('base64') : '', photoCredit: credit }), true);
     await page.evaluate(() => document.fonts.ready);
     await page.screenshot({ path: out, clip: { x: 0, y: 0, width: 1080, height: 1350 } });
-    if (p.officialPhoto) rmSync(join(IMG, p.officialPhoto.file), { force: true });
-    kind = 'card'; deepDone = true; factCard = false; why = 'deep data card (' + chart.bars.length + ' bars, #' + chart.rank + ' of ' + chart.priced + ')' + (p.deepCheck ? '; ' + p.deepCheck : '');
+    if (ph) { imageCredit = '📷 ' + credit; rmSync(join(IMG, p.officialPhoto.file), { force: true }); }
+    kind = 'card'; deepDone = true; factCard = false; why = 'deep data card (' + (hero ? k : 'ranking') + (ph ? ', ' + p.officialPhoto.note : ', no photo') + ')' + (p.deepCheck ? '; ' + p.deepCheck : '');
   }
   if (factCard && kind === 'card' && cfg.accounts.infra.officialPhotos !== false) {
     if (p.officialPhoto && existsSync(join(IMG, p.officialPhoto.file))) {   // already found by pick_official.mjs (photo first)
@@ -536,7 +544,7 @@ for (const f of files) {
     }
     if (official) {
       writeFileSync(outPhoto, official.jpeg); kind = 'photo'; photoUrl = official.url; photoMime = official.mime; rehost = true;
-      imageCredit = (official.source === 'news' ? '📷 Image: ' : '📷 Photo: ') + official.credit;   // news = the outlet's picture, not "their photo"
+      imageCredit = (official.source === 'news' ? '📷 Image: ' : official.source === 'stock' ? '📷 Illustrative photo: ' : '📷 Photo: ') + official.credit;   // news = the outlet's picture, not "their photo"
       why = official.note + ' ' + official.w + 'x' + official.h; factCard = false;
     }
   }
@@ -622,6 +630,12 @@ for (const f of files) {
   for (let k = blocks.length - 1; k >= 0; k--) if (/^📷 /.test(blocks[k] || '')) blocks.splice(k, 1);   // a re-render must not stack credit lines
   if (imageCredit && !stockCredit) blocks.splice(/^#/.test(blocks[blocks.length - 1] || '') ? blocks.length - 1 : blocks.length, 0, imageCredit);   // where the picture comes from
   if (stockCredit) blocks.splice(/^#/.test(blocks[blocks.length - 1] || '') ? blocks.length - 1 : blocks.length, 0, stockCredit);   // photographer credit sits just above the hashtags
+  // 2026-11-21 owner ("都加"): every Infrastructure project post points to Project Alerts - by name only, no URL (a URL becomes a link, which costs reach)
+  const ctaLine = cfg.accounts.infra.ctaLine;
+  if (p.type === 'project' && ctaLine && !blocks.includes(ctaLine)) {
+    const at = blocks.findIndex((b) => /^📷 /.test(b || ''));
+    blocks.splice(at >= 0 ? at : /^#/.test(blocks[blocks.length - 1] || '') ? blocks.length - 1 : blocks.length, 0, ctaLine);
+  }
   Object.assign(p, {
     blocks, text: blocks.filter(Boolean).join('\n\n'),
     imagePath: 'images/' + p.id + (kind === 'photo' ? '.jpg' : '.png'), imageKind: kind, imageUrl: photoUrl || null, imageRehost: kind === 'photo' && (rehost || !/jpeg|png|gif/i.test(photoMime)), imageCredit: stockCredit ? '' : imageCredit, stockPhoto: !!stockCredit || /^stock photo/.test(why), excerptFromArticle: !!excerpt, renderNote: why,

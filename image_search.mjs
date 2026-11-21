@@ -188,6 +188,18 @@ export async function overlayText(jpeg) {
     return words.length >= 3 ? words.slice(0, 8).join(' ') : '';
   } catch { ocr = null; return ''; }
 }
+export async function pictureWords(jpeg) {
+  try {
+    if (!ocr) ocr = (await import('tesseract.js')).createWorker('eng');
+    const { data } = await (await ocr).recognize(jpeg);
+    return (data.words || []).filter((x) => /[A-Za-z]{3,}/.test(x.text)).map((x) => ({ w: x.text.toLowerCase().replace(/[^a-z0-9]/g, ''), c: x.confidence }));
+  } catch { ocr = null; return []; }
+}
+export function isLogoShot(words, names) {
+  const keys = names.flatMap((n) => String(n || '').toLowerCase().replace(/\([^)]*\)/g, ' ').split(/[^a-z0-9]+/)).filter((w) => w.length >= 4 && !/^(energy|power|group|limited|company|corporation|holdings|international|global|national|development|services|solutions|technologies|industries|resources)$/.test(w));
+  // a confident word containing the name, or the exact name at any confidence (big blurred logos read as "AMAZON" at 0 %)
+  return keys.some((k) => words.some((x) => (x.c >= 70 && x.w.includes(k)) || (k.length >= 5 && x.w === k)));
+}
 export async function closeOcr() { try { if (ocr) await (await ocr).terminate(); } catch { /* already gone */ } ocr = null; }
 
 // "thedeepdive.ca" in a post becomes a clickable link on LinkedIn (owner: no links in posts): credit the site by name instead.

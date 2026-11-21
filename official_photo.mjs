@@ -63,6 +63,31 @@ async function ogImage(ctx, url) {
 export const BANNER_NAME = /banner|open[\s_-]?graph|og[\s_-]?image|social[\s_-]?(share|image)|share[\s_-]?image|logo|placeholder|default|background|hero[\s_-]?bg|pattern|texture|wallpaper/i;
 // Mean brightness change between neighbouring pixels (x100, at 96x54): real scenes measured 3.3-6.6, the blurred banner 1.16.
 export const MIN_DETAIL = 2;
+// Outlets pad a portrait photo to 16:9 with a blurred copy of itself (ET / indiatimes, 2026-11-21 sample): sharp centre, blurred sides.
+// Such a picture cannot fill a card strip. Detail of the outer quarters vs the centre half, same measure as detailOf.
+export async function paddedSides(ctx, jpeg) {
+  const page = await ctx.newPage();
+  try {
+    return await page.evaluate(async (b64) => {
+      const img = new Image(); img.src = 'data:image/jpeg;base64,' + b64; await img.decode();
+      const W = 160, H = 90, c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d'); g.drawImage(img, 0, 0, W, H);
+      const d = g.getImageData(0, 0, W, H).data, L = (x, y) => { const i = (y * W + x) * 4; return (0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]) / 255; };
+      const det = (x0, x1) => { let e = 0, n = 0; for (let y = 1; y < H; y++) for (let x = Math.max(1, x0); x < x1; x++) { e += Math.abs(L(x, y) - L(x - 1, y)) + Math.abs(L(x, y) - L(x, y - 1)); n += 2; } return (e / n) * 100; };
+      // measured: padded ET portrait sides 1.87 / centre 4.6; real photos have sides 3.4-7.2 and centre/side 0.7-1.6
+      const sides = Math.max(det(0, W * 0.2), det(W * 0.8, W)), mid = det(W * 0.35, W * 0.65);
+      if (sides < 2.2 && mid >= sides * 2) return true;
+      // second test: the padding ends in a straight vertical seam at mirrored x (left and right). Share of rows with a big step at x,
+      // best mirrored pair vs the photo's median column. Measured: padded 4.0 (Jamnagar) / 32 (Foresight); real photos 1.8-2.5.
+      const SW = 400, SH = Math.round(SW * img.naturalHeight / img.naturalWidth), c2 = document.createElement('canvas'); c2.width = SW; c2.height = SH;
+      const g2 = c2.getContext('2d'); g2.drawImage(img, 0, 0, SW, SH);
+      const e = g2.getImageData(0, 0, SW, SH).data, M = (x, y) => { const i = (y * SW + x) * 4; return 0.299 * e[i] + 0.587 * e[i + 1] + 0.114 * e[i + 2]; };
+      const prof = []; for (let x = 1; x < SW; x++) { let n = 0; for (let y = 0; y < SH; y++) if (Math.abs(M(x, y) - M(x - 1, y)) > 12) n++; prof.push(n / SH); }
+      let best = 0; for (let x = Math.round(SW * 0.06); x < SW * 0.42; x++) best = Math.max(best, Math.min(prof[x - 1], Math.max(prof[SW - x - 3] || 0, prof[SW - x - 2] || 0, prof[SW - x - 1] || 0)));
+      const median = [...prof].sort((a, b) => a - b)[Math.floor(prof.length / 2)] || 0.01;
+      return best >= 0.3 && best / median >= 3.5;
+    }, jpeg.toString('base64'));
+  } catch { return false; } finally { await page.close().catch(() => {}); }
+}
 export async function detailOf(ctx, jpeg) {
   const page = await ctx.newPage();
   try {

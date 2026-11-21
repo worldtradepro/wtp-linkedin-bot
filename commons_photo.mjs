@@ -8,7 +8,7 @@
 import { loadPhoto } from './image_search.mjs';
 import { detailOf, MIN_DETAIL } from './official_photo.mjs';
 
-const UA = 'wtp-linkedin-bot/1.0 (https://worldtradepro.com; contact@worldtradepro.com)';   // Wikimedia API policy: identify the client
+const UA = 'wtp-linkedin-bot/1.0 (https://worldtradepro.com)';   // Wikimedia API policy: identify the client (a site URL is enough; no e-mail address)
 const OK_LICENCE = /^(cc0|pd|public domain|cc[ -]by(-sa)?[ -]\d)/i;
 const NOT_PHOTO = /\b(map|locator|logo|diagram|chart|graph|flag|coat of arms|seal|plan|layout|scheme|schematic|icon|svg|render(ing)?|drawing|poster|stamp|banknote)\b/i;
 // words of a project name that do not identify a facility
@@ -60,8 +60,9 @@ async function findCommons(ctx, facts, { seen = () => false } = {}, log = () => 
     const tw = new Set(words(title).map((w) => w.toLowerCase()));
     if (!/jpe?g/i.test(ii.mime || '') || NOT_PHOTO.test(title.replace(/_/g, ' '))) continue;
     if (!proper.every((w) => tw.has(w)) || all.filter((w) => tw.has(w)).length < 2) continue;   // its own name + one more word of the project name
-    // one proper name may be a place we do not know ("Johor"): then the owner must be in the file name too ("Data centre in Johor" is someone else's)
-    if (proper.length < 2 && ownerWords.length && !ownerWords.some((w) => tw.has(w))) continue;
+    // the owner must be in the file name too: a project name can be a common word ("Freedom Separation Plant" matched an
+    // Operation Iraqi Freedom oil-fire photo, 2026-11-21) or a place ("Data centre in Johor" is someone else's). Dangote / Drax still pass.
+    if (!ownerWords.length || !ownerWords.some((w) => tw.has(w))) continue;
     const m = ii.extmetadata || {}, lic = strip(m.LicenseShortName?.value) || strip(m.License?.value);
     if (!OK_LICENCE.test(lic)) { log(`commons ${title}: licence "${lic}" not accepted`); continue; }
     const ph = await loadPhoto(ctx, ii.thumburl || ii.url, 'https://commons.wikimedia.org/');
