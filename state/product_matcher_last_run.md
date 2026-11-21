@@ -1,5 +1,5 @@
-# product matcher 2026-11-21 12:50 UTC
+# product matcher 2026-11-21 13:19 UTC
 
-- #9 (main_equipment): 0 judged, 0 yes, 0 maybe
+- #9 (epc): 551 judged, 62 yes, 85 maybe
 
 no failures
