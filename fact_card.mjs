@@ -162,7 +162,7 @@ function contractorLabel(v) {
 export function factsOf(it) {
   return { name: clean(it.project_name), owner: clean(it.owner || '').replace(/\s*\((developer|owner|sponsor|client|operator)\)$/i, ''),   // owner field only: company_name can be a supplier
     country: countryName(it.country), city: clean(it.city || ''), sector: it.sector || '', subsector: it.subsector && it.subsector !== '(unspecified)' ? it.subsector : '',
-    stage: it.stage || '', eventType: it.event_type || '', capacity: clean(it.capacity || ''), valueAmount: it.value_amount || '', valueUnit: it.value_unit || '', valueCurrency: it.value_currency || '', valueBasis: it.value_basis || '',
+    stage: it.stage || '', eventType: it.event_type || '', capacity: clean(it.capacity || ''), valueAmount: it.value_amount || '', valueUnit: it.value_unit || '', valueCurrency: ({ '$': 'USD', 'US$': 'USD', '€': 'EUR', '£': 'GBP', '¥': 'CNY', 'RMB': 'CNY', '₹': 'INR' }[String(it.value_currency || '').trim()] || it.value_currency || ''), valueBasis: it.value_basis || '',
     contractors: names(it.contractors), contractorLabel: contractorLabel(it.contractors), financing: names(it.financiers), reportDate: it.report_date || '', scale: clean(it.scale || ''),
     // for official_photo.mjs: who is behind the project, and the pages the pipeline linked to it (news source + official references)
     // "Aker BP and Höegh Evi" = two owners; "Phoenix Tailings, Inc." / "X Co., Ltd." = one
@@ -190,7 +190,9 @@ export function eventTitle(f) {
   const many = /\bacross\b|\bprojects\b|\bportfolio\b|\bplants\b|\bfarms\b|\bsites\b/i.test(f.capacity || '');
   const noun = many ? `${(f.subsector || artLabel(key)).toLowerCase()} portfolio` : NOUN[key] || NOUN.default;
   const cap = capacityTile(f), size = cap ? `${cap.big}\u00a0${cap.unit === 'MWp' ? 'MWp' : cap.unit}` : '';
-  const what = [size, noun].filter(Boolean).join(' '), who = shortCo(f.owner?.split(/\s*[,;]\s*/)[0]), con = shortCo((f.contractors || '').split(', ')[0]);
+  const ownerWords = new Set(String(f.owner || '').toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 2));
+  const named = String(f.name || '').split(/\s+/).filter((w) => !ownerWords.has(w.toLowerCase().replace(/[^a-z0-9]/g, ''))).join(' ').replace(/\bProject\b/, 'project');
+  const what = size ? [size, noun].join(' ') : named.length >= 6 && named.length <= 60 ? named : noun, who = shortCo(f.owner?.split(/\s*[,;]\s*/)[0]), con = shortCo((f.contractors || '').split(', ')[0]);
   const where = '', s = String(f.stage || '').slice(0, 2), ev = f.eventType || '';
   if (ev === 'FID') return `${who || 'Owner'} takes FID on ${what}`;
   if (ev === 'Financing') return who ? `${who} secures financing for ${what}${fin(f) ? ' from ' + fin(f) : ''}` : `Financing closed for ${what}${fin(f) ? ' from ' + fin(f) : ''}`;
@@ -207,7 +209,7 @@ export function eventTitle(f) {
   if (s === 'S4') return `${who ? who + ' tenders' : 'Tender out for'} ${what}${where}`;
   if (s === 'S3') return `${who ? who + ' nears decision on' : 'Decision near on'} ${what}${where}`;
   if (s === 'S2') return `${who ? who + ' plans' : 'Planned:'} ${what}${where}`;
-  return `${who ? who + ': ' : 'Early lead: '}${what}${where}`;
+  return `${who ? who + ' eyes' : 'Early lead:'} ${what}${where}`;
 }
 // what the stage usually means for a supplier or contractor - general, not a claim about this project
 export function soWhat(f) {

@@ -18,8 +18,9 @@ const flag = (country) => { const i = isoOf(country).toLowerCase(); return i ? `
 const PER_USD = { USD: 1, EUR: 0.93, GBP: 0.79, CNY: 7.2, INR: 88, AUD: 1.53, CAD: 1.38, SAR: 3.75, AED: 3.67, QAR: 3.64, JPY: 152, KRW: 1390, SEK: 10.6, NOK: 10.9, DKK: 6.9,
   PLN: 4.0, CZK: 23.5, HUF: 365, RON: 4.6, TRY: 34, BRL: 5.6, MXN: 19.5, ZAR: 18.2, EGP: 49, NGN: 1600, KES: 129, IDR: 15800, MYR: 4.5, THB: 35, VND: 25400, PHP: 58, SGD: 1.34, CHF: 0.88, NZD: 1.68, CLP: 940, COP: 4300, PEN: 3.75, ARS: 1000, PKR: 278, BDT: 120 };
 const UNIT = { thousand: 1e3, million: 1e6, billion: 1e9 };
+export const curCode = (c) => ({ '$': 'USD', 'US$': 'USD', 'USD$': 'USD', '€': 'EUR', '£': 'GBP', '¥': 'CNY', 'RMB': 'CNY', 'Rs': 'INR', '₹': 'INR' }[String(c || '').trim()] || String(c || '').trim().toUpperCase());
 export function usdOf(r) {
-  const amt = Number(r.value_amount ?? r.valueAmount), unit = UNIT[r.value_unit ?? r.valueUnit], rate = PER_USD[r.value_currency ?? r.valueCurrency];
+  const amt = Number(r.value_amount ?? r.valueAmount), unit = UNIT[r.value_unit ?? r.valueUnit], rate = PER_USD[curCode(r.value_currency ?? r.valueCurrency)];
   return Number.isFinite(amt) && amt > 0 && unit && rate ? (amt * unit) / rate : 0;
 }
 
@@ -32,11 +33,17 @@ export function deepScore(f) {
 // Same-sector priced projects from our tracker, last 30 days (verified rows only). The site API is the one generate.mjs reads.
 export async function trackerRows(site, secret, today) {
   const from = new Date(Date.parse(today + 'T00:00:00Z') - 30 * 864e5).toISOString().slice(0, 10);
-  const url = `${site}/wp-json/wtp/v1/opportunities?report_type=epc&from=${from}&to=${today}&limit=2000${secret ? '&secret=' + encodeURIComponent(secret) : ''}`;
-  try {
-    const j = await (await fetch(url, { headers: { 'user-agent': 'wtp-linkedin-bot/1.0' } })).json();
-    return (Array.isArray(j) ? j : j.items || []).filter((r) => r.verification === 'full' || r.verification === 'project_only');
-  } catch { return []; }
+  const url = `${site}/wp-json/wtp/v1/opportunities?report_type=epc&from=${from}&to=${today}&limit=1000${secret ? '&secret=' + encodeURIComponent(secret) : ''}`;
+  for (let k = 0; k < 2; k++) {
+    try {
+      const j = await (await fetch(url, { headers: { 'user-agent': 'wtp-linkedin-bot/1.0' } })).json();
+      const rows = (Array.isArray(j) ? j : j.items || []).filter((r) => r.verification === 'full' || r.verification === 'project_only');
+      console.log(`  tracker rows for deep cards: ${rows.length} (${from} to ${today})`);
+      if (rows.length) return rows;
+    } catch (e) { console.log('  tracker rows failed: ' + String(e.message || e).slice(0, 80)); }
+    await new Promise((r) => setTimeout(r, 3000));
+  }
+  return [];
 }
 const cutWords = (t, n) => (t.length <= n ? t : t.slice(0, n).replace(/\s+\S*$/, '') + '…');
 export function chartFor(f, rows, today) {
@@ -93,6 +100,7 @@ export function deepCardHtml(f, { chart, today, flags = {} } = {}) {
     chart?.rank && chart.priced > 1 ? [`#${chart.rank} of ${chart.priced}`, `by value, priced ${sector.replace(/\b([A-Z][a-z]+)\b/g, (w) => w.toLowerCase())} projects, 30 days`] : cap ? [`${cap.big} ${cap.unit}`, cap.label.toLowerCase()] : [stage, 'project stage'],
     top && !top.me ? [money(top.m), `largest in the chart: ${top.label}`] : cap ? [`${cap.big} ${cap.unit}`, cap.label.toLowerCase()] : [stage, 'project stage'],
   ];
+  for (let i = tiles.length - 1; i > 0; i--) if (tiles.slice(0, i).some((t) => t[0] === tiles[i][0])) tiles.splice(i, 1);
   const n = head.length, fs = n <= 40 ? 96 : n <= 60 ? 84 : n <= 80 ? 74 : 64;
   return `<!doctype html><html><head><meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=IBM+Plex+Sans:wght@500;600;700&display=block" rel="stylesheet">

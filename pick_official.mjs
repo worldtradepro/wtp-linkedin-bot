@@ -12,7 +12,7 @@ import { officialPhoto } from './official_photo.mjs';
 import { commonsPhoto } from './commons_photo.mjs';
 import { newsPhoto } from './news_photo.mjs';
 import { closeOcr } from './image_search.mjs';
-import { deepScore, checkAgainstSource } from './deep_card.mjs';
+import { deepScore, checkAgainstSource, trackerRows, chartFor } from './deep_card.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -42,8 +42,11 @@ const start = Date.now(), hits = [], deep = [];
 // Deep card first: the best-ranked candidate with price + owner + one more fact whose numbers are found in the source article.
 const DEEP = A.deepPerDay ?? 1;
 const sameSlot = (a, b) => a.meta.sector === b.meta.sector && a.meta.country === b.meta.country;
+const TRACKER = await trackerRows(cfg.site, process.env.WTP_BOT_SECRET, DATE);
 async function tryDeep(p) {
   if (!p.meta?.facts || !deepScore(p.meta.facts) || [...deep, ...hits].some((h) => sameSlot(h, p))) return false;
+  const bars = chartFor(p.meta.facts, TRACKER, DATE).bars.length;
+  if (bars < 3) { p.deepCheck = `only ${bars} priced projects to compare`; console.log(`  #${p.candidate} ${p.headline.slice(0, 50)}: no deep card, ${p.deepCheck}`); return false; }
   const chk = await checkAgainstSource(ctx, p.sourceUrl, p.meta.facts).catch((e) => ({ ok: false, notes: ['check failed: ' + String(e.message || e).slice(0, 60)] }));
   p.deepCheck = chk.notes.join('; ');
   console.log(`  #${p.candidate} ${p.headline.slice(0, 50)}: deep card check: ${p.deepCheck}`);
