@@ -45,6 +45,9 @@ Rules:
 Reply with JSON only, in this shape:
 {"summary": "three or four sentences: what the project is, where it stands today, and the one thing a sales person should know",
  "status": "two or three sentences on the current stage and the latest confirmed event, with its date",
+ "stage": {"milestone": "M1 study or feasibility | M2 FEED or EPC bidding before FID | M3 FID taken or funding approved | M4 EPC awarded or under construction | M5 operating | empty if no dated source settles it",
+           "proc": "latest procurement event: feed_tender | epc_tender | epc_award | package | registration | empty",
+           "proc_date": "YYYY-MM-DD of that event or empty", "basis": "one line: the source and date that settle the stage"},
  "timeline": [{"date": "", "event": "one line"}],
  "parties": [{"role": "Owner | Partner | Licensor | FEED contractor | EPC contractor | EPC bidder | Financier | Offtaker | Yard | other", "company": "", "note": "share, scope or status, one line"}],
  "procurement": [{"package": "the contract or package", "status": "planned | tender open | bids in | awarded | not known", "holder": "company if awarded or shortlisted", "date": ""}],
