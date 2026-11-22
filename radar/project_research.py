@@ -134,6 +134,45 @@ def ask(prompt, turns):
         return {}
 
 
+ANSWER = """You answer the key questions sales people have on ONE capital project they are working on. Today is {today}.
+
+THE PROJECT: {project}
+
+THE RESEARCH BRIEF WE HOLD (written today, with its sources):
+{brief}
+
+THE QUESTIONS ("known" = what we told them so far; empty = nothing yet):
+{questions}
+
+Go through EVERY question, one by one:
+1. Look in the brief and its sources first. Most basic questions are answered there.
+2. Then search the web for that question specifically (the owner, its partners, contractors and suppliers, tender portals,
+   filings, trade and local press).
+Give an answer whenever a dated public source states it, in full or in part. Also say what is known so far when the matter is
+not settled, for example "Not yet. Two groups are doing competing FEEDs; the owner plans to choose in Q2 2027."
+Do not answer from inference or from your own memory: every answer needs a source page that states it. A rumour counts only if
+the answer says who reports it and that it is not confirmed. Never name individual people.
+For a question that has "known": return it only if a source says something NEW or different. Leave out a question for which
+you found nothing.
+Plain English, one or two short sentences per answer.
+
+Reply with JSON only:
+{"questions": [{"key": "the question's key", "answer": "", "source": "https://... the one page that states it", "date": "date of that page",
+                "final": true or false}]}
+final = true when the matter is settled (a decision taken, a contract awarded, a date passed); false when it can still change.
+"""
+
+
+def answers(pj, brief, qs):
+    """A pass of its own for the key questions: asked along with the brief, the model answered only a few of them."""
+    global ask_extra
+    ask_extra = ''
+    b = {k: brief.get(k) for k in ('summary', 'status', 'stage', 'timeline', 'parties', 'procurement', 'next_steps', 'competitors', 'risks', 'not_found', 'sources')}
+    v = ask(ANSWER.replace('{today}', datetime.date.today().isoformat()).replace('{project}', json.dumps(pj, ensure_ascii=False))
+            .replace('{brief}', json.dumps(b, ensure_ascii=False)).replace('{questions}', chr(10).join(json.dumps(x, ensure_ascii=False) for x in qs)), 30)
+    return [x for x in ((v or {}).get('questions') or []) if isinstance(x, dict)]
+
+
 CHECK = """You check answers before they are sent to sales people as an alert. Be strict: a wrong alert costs their trust.
 Today is {today}. THE PROJECT: {project}
 
@@ -161,8 +200,11 @@ def checked(pj, qs, a):
     lines = chr(10).join(json.dumps({'key': x['key'], 'question': by.get(str(x['key'])), 'answer': x['answer'], 'source': x['source'], 'date': x.get('date')}, ensure_ascii=False) for x in ans)
     global ask_extra
     ask_extra = ''
-    v = ask(CHECK.replace('{today}', datetime.date.today().isoformat()).replace('{project}', json.dumps(pj, ensure_ascii=False)).replace('{answers}', lines), 5 + 3 * len(ans))
-    keep = {str(k) for k in ((v or {}).get('keep') or [])}   # no verdict (runner trouble, bad JSON): keep none, the question stays open
+    v = ask(CHECK.replace('{today}', datetime.date.today().isoformat()).replace('{project}', json.dumps(pj, ensure_ascii=False)).replace('{answers}', lines), 10 + 4 * len(ans))
+    if not v or 'keep' not in v:   # no verdict (runner trouble, bad JSON): the answers are shown on the member's page but never sent as an alert
+        print(f"   answers: {len(ans)} given, check gave no verdict, kept as quiet", flush=True)
+        return [dict(x, quiet=True) for x in ans]
+    keep = {str(k) for k in (v.get('keep') or [])}
     print(f"   answers: {len(ans)} given, {len([x for x in ans if str(x['key']) in keep])} passed the check", flush=True)
     return [x for x in ans if str(x['key']) in keep]
 
@@ -173,7 +215,7 @@ def one(r):
     qs = r.get('questions') or []
     qblock = QUESTIONS.replace('{questions}', chr(10).join(json.dumps(x, ensure_ascii=False) for x in qs)) if qs else ''
     global ask_extra
-    ask_extra = qblock
+    ask_extra = ''   # the key questions get a pass of their own after the brief (answers())
     if r.get('previous'):   # an update: a member's redo, new reports, or the daily web check of a followed project
         news = '\n'.join(json.dumps(x, ensure_ascii=False) for x in r.get('new_reports') or []) or '(none reached us: search the web for anything newer than the brief)'
         a = ask(UPDATE_PROMPT.replace('{today}', today).replace('{project}', json.dumps(pj, ensure_ascii=False))
@@ -187,7 +229,7 @@ def one(r):
         return None
     ok = bool(a.get('summary') and a.get('sources'))
     if ok:
-        a['questions'] = checked(pj, qs, a) if qs else []
+        a['questions'] = checked(pj, qs, {'questions': answers(pj, a, qs)}) if qs else []
     res = pb.site('POST', 'rs-apply', body={'research_id': int(r['id']), 'ok': ok, 'report': a if ok else {}})
     print(f"#{r['id']} project {pj.get('id')} -> {res}", flush=True)   # ids and status only: the repository log is public
     return ok
