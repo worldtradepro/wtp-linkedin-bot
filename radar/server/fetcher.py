@@ -138,6 +138,8 @@ def load_sources(path):
                 "url":         parts[3].strip(),
                 "credibility": int(parts[4].strip()) if len(parts) >= 5 else 3,
                 "google_news": len(parts) >= 6 and parts[5].strip() == "google_news",
+                # 2026-11-22: optional 7th field = raw Google News query (used instead of the quoted name)
+                "gn_query":    parts[6].strip() if len(parts) >= 7 else "",
             })
     log.info(f"Sources loaded: {len(sources)}")
     return sources
@@ -678,11 +680,40 @@ def build_google_news_url(company_name):
     return f"https://news.google.com/rss/search?q={query}&hl=en&gl=US&ceid=US:en"
 
 
+def build_google_news_query_url(query):
+    return f"https://news.google.com/rss/search?q={quote_plus(query)}&hl=en&gl=US&ceid=US:en"
+
+
+def _site_query(url):
+    """site:<domain>[/path] for a publication's own articles (www. and trailing / dropped)."""
+    p = urlparse(url)
+    host = p.netloc.lower()
+    host = host[4:] if host.startswith("www.") else host
+    path = p.path.rstrip("/")
+    if path in ("/news", "/news/feed") or path.endswith("/feed"):
+        path = ""                         # list pages / feeds: whole site, not the path
+    days = max(2, LOOKBACK_HOURS // 24 + 1)
+    return f"site:{host}{path} when:{days}d"
+
+
 def fetch_google_news(source, keywords, seen):
-    rss_url  = build_google_news_url(source["name"])
-    articles = fetch_rss(source, rss_url, keywords, seen)
-    for a in articles:
-        a["fetch_strategy"] = "google_news"
+    """2026-11-22: a raw query (7th field) wins; a Media source fetches BOTH the quoted-name search and a
+    site: search and merges them (the name search alone missed most of a publication's own articles;
+    tested 7 days, 22 Media sources: name 97 vs site 146 passing items, each finds some the other misses)."""
+    if source.get("gn_query"):
+        urls = [build_google_news_query_url(source["gn_query"])]
+    elif source.get("category") == "Media":
+        urls = [build_google_news_url(source["name"]), build_google_news_query_url(_site_query(source["url"]))]
+    else:
+        urls = [build_google_news_url(source["name"])]
+    articles, got = [], set()
+    for u in urls:
+        for a in fetch_rss(source, u, keywords, seen):
+            if a["id"] in got:
+                continue
+            got.add(a["id"])
+            a["fetch_strategy"] = "google_news"
+            articles.append(a)
     return articles
 
 

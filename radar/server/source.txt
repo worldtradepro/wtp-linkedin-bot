@@ -338,3 +338,17 @@ Media|Logistics|Dredging Today|https://www.dredgingtoday.com|3
 # DROPPED 2026-10-15 reprobe (SSL failure, publication inactive (Google News newest Jan 2026)): Media|Renewables|New Energy Update|https://newenergyupdate.com/news/|3
 # DROPPED 2026-10-15 reprobe (paywalled JS page, Google News 2 items): Media|Agriculture|ICIS Fertilizer|https://www.icis.com/explore/resources/news/?market=fertilizers|4
 # DROPPED 2026-10-15 reprobe (price-analysis service (off-scope per header), Google News 4 items): Media|Agriculture|Profercy|https://www.profercy.com/news/|3
+
+# ── Qatar / Oman coverage 2026-11-22 (reports/seo/qatar_oman_coverage_gap_2026-11-22.md): our data had ~5 named
+#    contractor awards each in 12 months vs 13-15 for UAE / Saudi; no Oman source at all. Local papers: Oman Observer
+#    (/rssFeed/1, allowed by robots) and Times of Oman (/feed) direct; Peninsula has no feed and Gulf Times disallows
+#    /rssFeed/* in robots.txt -> Google News. Owners via Google News by name. Optional 7th field = raw Google News query.
+Media|Oman|Oman Observer|https://www.omanobserver.om|3
+Media|Oman|Times of Oman|https://timesofoman.com|3
+Media|Qatar|The Peninsula Qatar|https://thepeninsulaqatar.com|3|google_news
+Media|Qatar|Gulf Times|https://www.gulf-times.com|3|google_news
+Traditional|Oman_Owners|Petroleum Development Oman|https://www.pdo.co.om|5|google_news|"Petroleum Development Oman" OR (PDO Oman) when:2d
+Traditional|Oman_Owners|Nama PWP|https://omanpwp.om|5|google_news|"Nama PWP" OR "Nama Power and Water Procurement" when:2d
+Traditional|Qatar_Owners|Kahramaa|https://www.km.qa|5|google_news
+Media|Gulf_Search|Qatar contract awards (search)|https://news.google.com|3|google_news|(Qatar OR Doha OR "Ras Laffan" OR Mesaieed) (contract OR EPC OR EPCI) (awarded OR awards OR wins OR secures OR signs) when:2d
+Media|Gulf_Search|Oman contract awards (search)|https://news.google.com|3|google_news|(Oman OR Duqm OR Sohar OR Muscat) (contract OR EPC OR EPCI) (awarded OR awards OR wins OR secures OR signs) when:2d

@@ -294,3 +294,6 @@ Total sources: 238
   Media/Mining/Australian Mining                            https://www.australianmining.com.au  → https://www.australianmining.com.au/wp-json/wp/v2/posts
   Media/Chemicals/Chemical Engineering Online               https://www.chemengonline.com  → https://www.chemengonline.com/feed/
   Media/Logistics/Dredging Today                            https://www.dredgingtoday.com  → https://www.dredgingtoday.com/feed
+
+  Media/Oman/Oman Observer                                https://www.omanobserver.om  → https://www.omanobserver.om/rssFeed/1
+  Media/Oman/Times of Oman                                https://timesofoman.com  → https://timesofoman.com/feed
