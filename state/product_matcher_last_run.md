@@ -1,5 +1,5 @@
-# product matcher 2026-11-22 09:57 UTC
+# product matcher 2026-11-22 17:54 UTC
 
-- #9 (epc): 0 judged, 0 yes, 0 maybe
+- #9 (epc): 23 judged, 0 yes, 1 maybe
 
 no failures
