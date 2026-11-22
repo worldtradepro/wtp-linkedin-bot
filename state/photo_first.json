@@ -2667,6 +2667,172 @@
         "infra-3: Dodecanese Islands Mainland Interconnector (deep card)",
         "infra-4: Venture Global – China Gas LNG Supply Expansion (photo)"
       ]
+    },
+    {
+      "date": "2026-11-22",
+      "deepKind": "packages",
+      "search": "brave",
+      "checked": 8,
+      "photos": 3,
+      "deep": 1,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Muir Mhòr Floating Wind Farm",
+          "result": "photo: stock photo (wind turbines)"
+        },
+        {
+          "rank": 2,
+          "project": "Jacktel Takeover Bid",
+          "result": "no PEXELS_API_KEY: Pexels skipped"
+        },
+        {
+          "rank": 3,
+          "project": "Advantage VLCC Newbuild Pair",
+          "result": "no PEXELS_API_KEY: Pexels skipped"
+        },
+        {
+          "rank": 4,
+          "project": "US Electric Cooperative Fuel Cell Installation",
+          "result": "no PEXELS_API_KEY: Pexels skipped"
+        },
+        {
+          "rank": 5,
+          "project": "Design, Supply and Installation of Transformers and Equipments for Substation in Southern Region (Saphaothong, Banna and Pakbo)",
+          "result": "no PEXELS_API_KEY: Pexels skipped"
+        },
+        {
+          "rank": 6,
+          "project": "Spennymoor 400kV",
+          "result": "not checked"
+        },
+        {
+          "rank": 7,
+          "project": "Hallsville Gas Power Plant",
+          "result": "photo: news photo (Construction Review, constructionreviewonline.com)"
+        },
+        {
+          "rank": 8,
+          "project": "Tata Steel Kalinganagar H2Gen Hydrogen Unit",
+          "result": "photo: stock photo (open pit mine)"
+        },
+        {
+          "rank": 9,
+          "project": "Sea Lion Oil Development",
+          "result": "not checked"
+        },
+        {
+          "rank": 10,
+          "project": "H2Datacenter pilot (Datco Chile)",
+          "result": "deep card (value found in source; owner found)"
+        },
+        {
+          "rank": 11,
+          "project": "Muntanga Uranium Project",
+          "result": "not checked"
+        },
+        {
+          "rank": 12,
+          "project": "Wyoming Intertie",
+          "result": "not checked"
+        },
+        {
+          "rank": 13,
+          "project": "Block 15 Lifespan Extension",
+          "result": "not checked"
+        },
+        {
+          "rank": 14,
+          "project": "Kurmuk Gold Mine",
+          "result": "not checked"
+        },
+        {
+          "rank": 15,
+          "project": "WBSEDCL 1,750 MW Renewable Power Supply Contract",
+          "result": "not checked"
+        },
+        {
+          "rank": 16,
+          "project": "VOC Port Container Terminal Outer Harbour Works",
+          "result": "not checked"
+        },
+        {
+          "rank": 17,
+          "project": "MM-EPIC2 subsea pipeline, power cables and umbilicals project, Qatar",
+          "result": "not checked"
+        },
+        {
+          "rank": 18,
+          "project": "Lekki Refinery Complex Expansion",
+          "result": "not checked"
+        },
+        {
+          "rank": 19,
+          "project": "DMRC ISTS Solar with BESS Power Procurement",
+          "result": "not checked"
+        },
+        {
+          "rank": 20,
+          "project": "thyssenkrupp nucera Portugal Cell Assembly Site",
+          "result": "not checked"
+        },
+        {
+          "rank": 21,
+          "project": "Olam Agri Integrated Feed Mill, Ogwashi-Uku",
+          "result": "not checked"
+        },
+        {
+          "rank": 22,
+          "project": "LNG Canada Phase 2 Storage Tank",
+          "result": "not checked"
+        },
+        {
+          "rank": 23,
+          "project": "Ichthys LNG Phase 2c Part 1",
+          "result": "not checked"
+        },
+        {
+          "rank": 24,
+          "project": "Kucing Liar Underground Mine Complex",
+          "result": "not checked"
+        },
+        {
+          "rank": 25,
+          "project": "Carnival Dual-Fuel Cruise Ship Newbuilds",
+          "result": "not checked"
+        },
+        {
+          "rank": 26,
+          "project": "Los Santos Tungsten Tailings Retreatment",
+          "result": "not checked"
+        },
+        {
+          "rank": 27,
+          "project": "Retelit Data Centers Sale",
+          "result": "not checked"
+        },
+        {
+          "rank": 28,
+          "project": "Aqaba-Amman Water Desalination Plant",
+          "result": "not checked"
+        },
+        {
+          "rank": 29,
+          "project": "Koverhar Harbour Deepening",
+          "result": "not checked"
+        },
+        {
+          "rank": 30,
+          "project": "Powered mine roof support control hydraulics – Polska Grupa Górnicza S.A., lot 295-15",
+          "result": "not checked"
+        }
+      ],
+      "kept": [
+        "infra-1: Muir Mhòr Floating Wind Farm (photo)",
+        "infra-2: Hallsville Gas Power Plant (photo)",
+        "infra-3: Tata Steel Kalinganagar H2Gen Hydrogen Unit (photo)",
+        "infra-4: H2Datacenter pilot (Datco Chile) (deep card + photo)"
+      ]
     }
   ]
 }
