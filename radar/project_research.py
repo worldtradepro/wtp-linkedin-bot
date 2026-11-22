@@ -158,8 +158,10 @@ Give an answer whenever a dated public source states it, in full or in part. Als
 not settled, for example "Not yet. Two groups are doing competing FEEDs; the owner plans to choose in Q2 2027."
 Do not answer from inference or from your own memory: every answer needs a source page that states it. A rumour counts only if
 the answer says who reports it and that it is not confirmed. Never name individual people.
-For a question that has "known": return it only if a source says something NEW or different. Leave out a question for which
-you found nothing.
+Return one entry for EVERY question, in the same order. Leave "answer" empty when you found nothing, and for a question that
+has "known" when no source says anything NEW or different from it.
+Sources: prefer the owner's or a partner's own page, a regulator, a filing or a development bank over a news article, and
+prefer pages that open without a login.
 Plain English, one or two short sentences per answer.
 
 Reply with JSON only:
@@ -175,23 +177,26 @@ def answers(pj, brief, qs):
     ask_extra = ''
     b = {k: brief.get(k) for k in ('summary', 'status', 'key_questions', 'stage', 'timeline', 'parties', 'procurement', 'next_steps', 'competitors', 'risks', 'not_found', 'sources')}
     v = ask(ANSWER.replace('{today}', datetime.date.today().isoformat()).replace('{project}', json.dumps(pj, ensure_ascii=False))
-            .replace('{brief}', json.dumps(b, ensure_ascii=False)).replace('{questions}', chr(10).join(json.dumps(x, ensure_ascii=False) for x in qs)), 30)
+            .replace('{brief}', json.dumps(b, ensure_ascii=False)).replace('{questions}', chr(10).join(json.dumps(x, ensure_ascii=False) for x in qs)), 45)
     return [x for x in ((v or {}).get('questions') or []) if isinstance(x, dict)]
 
 
-CHECK = """You check answers before they are sent to sales people as an alert. Be strict: a wrong alert costs their trust.
-Today is {today}. THE PROJECT: {project}
+CHECK = """You check answers before they are shown to sales people and sent to them as an alert. Today is {today}.
+THE PROJECT: {project}
 
-For each ANSWER below, open its source page and decide:
-1. Does the page itself state the answer? (not an inference, not something from another page)
-2. Is the page about THIS project (same owner, asset and country), not one with a similar name?
-3. Is the date right, and is this the current position rather than old news that later events replaced?
-Keep an answer only when all three hold. If the page cannot be opened, do not keep it.
+For each ANSWER below, open its source page and give one verdict:
+- "ok": the page states the facts the answer rests on, it is about THIS project (same owner, asset and country, not one with
+  a similar name), and it is the current position, not old news that later events replaced. The wording may differ; the
+  facts must be there. An answer of the kind "not yet, the target is ..." is ok when the page gives that target or status.
+- "wrong": you read the page and it does not support the answer, or it is about another project, or a later event you know
+  from a dated source replaced it. Say why in one line.
+- "unread": the page could not be opened (blocked, login, error). Then search the web for another page that states the same
+  facts; if you find one, give verdict "ok" and put that page in "source". If you find none, keep "unread".
 
 ANSWERS:
 {answers}
 
-Reply with JSON only: {"keep": ["the keys of the answers that pass"], "dropped": [{"key": "", "why": "one line"}]}
+Reply with JSON only: {"verdicts": [{"key": "", "verdict": "ok | wrong | unread", "source": "only when you replaced the source", "why": "one line, for wrong"}]}
 """
 
 
@@ -206,14 +211,25 @@ def checked(pj, qs, a):
     lines = chr(10).join(json.dumps({'key': x['key'], 'question': by.get(str(x['key'])), 'answer': x['answer'], 'source': x['source'], 'date': x.get('date')}, ensure_ascii=False) for x in ans)
     global ask_extra
     ask_extra = ''
-    v = ask(CHECK.replace('{today}', datetime.date.today().isoformat()).replace('{project}', json.dumps(pj, ensure_ascii=False)).replace('{answers}', lines), 10 + 4 * len(ans))
-    if not v or 'keep' not in v:   # no verdict (runner trouble, bad JSON): the answers are shown on the member's page but never sent as an alert
-        print(f"   answers: {len(ans)} given, check gave no verdict, kept as quiet", flush=True)
-        return [dict(x, quiet=True) for x in ans]
-    keep = {str(k) for k in (v.get('keep') or [])}
-    print(f"   answers: {len(ans)} given, {len([x for x in ans if str(x['key']) in keep])} passed the check", flush=True)
-    return [x for x in ans if str(x['key']) in keep]
-
+    v = ask(CHECK.replace('{today}', datetime.date.today().isoformat()).replace('{project}', json.dumps(pj, ensure_ascii=False)).replace('{answers}', lines), 15 + 5 * len(ans))
+    vd = {str(x.get('key')): x for x in ((v or {}).get('verdicts') or []) if isinstance(x, dict)}
+    out = []; n = {'ok': 0, 'wrong': 0, 'quiet': 0}
+    for x in ans:
+        d = vd.get(str(x['key'])) or {}
+        verdict = str(d.get('verdict') or '').strip().lower()
+        if verdict == 'wrong':
+            n['wrong'] += 1   # read and not supported: the question stays open
+            continue
+        if verdict == 'ok':
+            n['ok'] += 1
+            if str(d.get('source') or '').startswith('http'):
+                x = dict(x, source=d['source'])
+            out.append(x)
+        else:   # unread, or no verdict at all: shown on the member's page with its source, never sent as an alert
+            n['quiet'] += 1
+            out.append(dict(x, quiet=True))
+    print(f"   answers: {len(ans)} given, {n['ok']} confirmed, {n['quiet']} shown without alert, {n['wrong']} dropped", flush=True)
+    return out
 
 def one(r):
     pj = r.get('project') or {}
