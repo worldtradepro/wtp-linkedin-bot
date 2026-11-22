@@ -150,6 +150,11 @@ def main():
                 done, bad = done + (1 if res else 0), bad + (0 if res else 1)
             if time.time() - start >= MINUTES * 60 or trouble >= 3:
                 break
+    if trouble >= 3:
+        try:
+            open(os.path.join(tempfile.gettempdir(), 'rs_trouble'), 'w').write('1')   # tells the workflow not to start the next run
+        except OSError:
+            pass
     print(f'{done} brief(s) written, {bad} unusable, {"stopped after runner trouble, " if trouble >= 3 else ""}{int(time.time() - start)} s')
 
 

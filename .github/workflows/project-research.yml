@@ -1,17 +1,22 @@
 name: project-research
 
 # Deep research briefs (radar/project_research.py): a member asked for a brief on a project, or the site queued one.
-# Starts at once when the site sends a "research" dispatch (a member clicked), and looks at the queue every 10 minutes
-# otherwise. A run with nothing to do ends in under a minute. Nothing is committed: briefs go to the site only.
+# Starts when the site sends a "research" dispatch (a member clicked), when radar/project_research_run_now.txt is pushed,
+# and on a 10-minute schedule (GitHub often runs schedules hours late, so the schedule is only a safety net).
+# A run works through the queue for RS_MINUTES and, if jobs are still waiting, starts the next run itself.
+# A run with nothing to do ends in under a minute. Nothing is committed: briefs go to the site only.
 on:
   schedule:
     - cron: '*/10 * * * *'
   repository_dispatch:
     types: [research]
+  push:
+    paths: ['radar/project_research_run_now.txt']
   workflow_dispatch:
 
 permissions:
   contents: read
+  actions: write   # the last step starts the next run
 
 concurrency:
   group: project-research
@@ -21,14 +26,15 @@ jobs:
   run:
     if: ${{ vars.PROJECT_RESEARCH_PAUSED != 'true' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 70
+    timeout-minutes: 300
     env:
       WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
       WTP_CF_BYPASS: ${{ secrets.WTP_CF_BYPASS }}
       RS_MODEL: ${{ vars.RS_MODEL || 'claude-sonnet-5-5' }}
       RS_BATCH: ${{ vars.RS_BATCH || '5' }}
-      RS_MINUTES: ${{ vars.RS_MINUTES || '45' }}
+      RS_MINUTES: ${{ vars.RS_MINUTES || '240' }}
+      RS_MAX: ${{ vars.RS_MAX || '400' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -44,5 +50,16 @@ jobs:
         if: ${{ steps.q.outputs.n != '0' }}
         run: npm install -g @anthropic-ai/claude-code@latest && claude --version
       - name: Research
+        id: r
         if: ${{ steps.q.outputs.n != '0' }}
         run: python radar/project_research.py
+      - name: Start the next run when jobs are still waiting
+        if: ${{ always() && steps.q.outputs.n != '0' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # not after runner trouble (usage limit): the schedule or the next member request picks it up later
+          if [ "${{ steps.r.outcome }}" != "success" ] || [ -f /tmp/rs_trouble ]; then echo "not chaining"; exit 0; fi
+          left="$(python radar/project_research.py --count | tail -1)"
+          echo "waiting: $left"
+          if [ "$left" != "0" ]; then gh workflow run project-research.yml --repo "${{ github.repository }}" --ref "${{ github.ref_name }}"; fi
