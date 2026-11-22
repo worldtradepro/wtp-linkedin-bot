@@ -52,9 +52,19 @@ Reply with JSON only, in this shape:
             "main_equipment": "the same for a maker of main equipment or packaged units",
             "materials": "the same for a supplier of pumps, valves, cables and other materials",
             "services": "the same for engineering, inspection, logistics and other services"},
+ "questions": [{"key": "the key of an OPEN QUESTION given above", "answered": true, "answer": "the answer in one or two sentences", "source": "https://... the page that answers it", "date": "date of that source"}],
  "not_found": ["what you looked for and did not find"],
  "sources": [{"title": "publisher and headline", "url": "https://...", "date": ""}]}
 Give 5 to 15 sources. Leave a list empty rather than fill it with guesses.
+"questions": include an entry only for an OPEN QUESTION that a dated public source now answers; leave the others out. If there
+are no open questions, return an empty list.
+"""
+
+QUESTIONS = """
+OPEN QUESTIONS the readers who follow this project want answered. Search for each one specifically (the owner, its partners,
+contractors and suppliers, tender portals, filings, trade and local press). They decide a sale, so do not answer from
+inference: only when a dated source states it.
+{questions}
 """
 
 PROMPT = """You write a research brief on ONE capital project for a sales person who sells into such projects (an EPC contractor,
@@ -91,7 +101,14 @@ Start the summary with what is new since {previous_date}; if nothing changed, ke
 """ + RULES
 
 
+ask_extra = ''
+
+
 def ask(prompt, turns):
+    # the open questions go in front of the rules, which end with the answer format
+    if ask_extra:
+        prompt = prompt.replace('Rules:' + chr(10), ask_extra + chr(10) + 'Rules:' + chr(10), 1)
+        turns += 10
     env = dict(os.environ)
     if env.get('CLAUDE_CODE_OAUTH_TOKEN'):
         env['CLAUDE_CODE_OAUTH_TOKEN'] = re.sub(r'\s+', '', env['CLAUDE_CODE_OAUTH_TOKEN'])
@@ -117,6 +134,10 @@ def ask(prompt, turns):
 def one(r):
     pj = r.get('project') or {}
     today = datetime.date.today().isoformat()
+    qs = r.get('questions') or []
+    qblock = QUESTIONS.replace('{questions}', chr(10).join(json.dumps(x, ensure_ascii=False) for x in qs)) if qs else ''
+    global ask_extra
+    ask_extra = qblock
     if r.get('previous'):   # an update: a member's redo, new reports, or the daily web check of a followed project
         news = '\n'.join(json.dumps(x, ensure_ascii=False) for x in r.get('new_reports') or []) or '(none reached us: search the web for anything newer than the brief)'
         a = ask(UPDATE_PROMPT.replace('{today}', today).replace('{project}', json.dumps(pj, ensure_ascii=False))
