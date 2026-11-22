@@ -40,7 +40,8 @@ Reply with JSON only, in this shape:
  "status": "two or three sentences on the current stage and the latest confirmed event, with its date",
  "stage": {"milestone": "M1 study or feasibility | M2 FEED or EPC bidding before FID | M3 FID taken or funding approved | M4 EPC awarded or under construction | M5 operating | empty if no dated source settles it",
            "proc": "latest procurement event: feed_tender | epc_tender | epc_award | package | registration | empty",
-           "proc_date": "YYYY-MM-DD of that event or empty", "basis": "one line: the source and date that settle the stage"},
+           "proc_date": "YYYY-MM-DD of that event or empty", "basis": "one line: the source and date that settle the stage",
+           "status": "active | on_hold | cancelled ; on_hold or cancelled only when a dated source says so"},
  "timeline": [{"date": "", "event": "one line"}],
  "parties": [{"role": "Owner | Partner | Licensor | FEED contractor | EPC contractor | EPC bidder | Financier | Offtaker | Yard | other", "company": "", "note": "share, scope or status, one line"}],
  "procurement": [{"package": "the contract or package", "status": "planned | tender open | bids in | awarded | not known", "holder": "company if awarded or shortlisted", "date": ""}],
@@ -85,7 +86,7 @@ NEW REPORTS that reached us after that brief:
 Read the new reports (open their links when you need the detail) and search the web only for what may have changed since
 {previous_date}: stage, awards, tenders, partners, dates, delays. Then return the WHOLE brief again, brought up to date: keep what
 still holds, correct what changed, add the new events to the timeline, and keep the earlier sources that still support a point.
-Start the summary with what is new since {previous_date}.
+Start the summary with what is new since {previous_date}; if nothing changed, keep the summary and do not invent news.
 
 """ + RULES
 
@@ -116,10 +117,11 @@ def ask(prompt, turns):
 def one(r):
     pj = r.get('project') or {}
     today = datetime.date.today().isoformat()
-    if r.get('previous') and r.get('new_reports'):
+    if r.get('previous'):   # an update: a member's redo, new reports, or the daily web check of a followed project
+        news = '\n'.join(json.dumps(x, ensure_ascii=False) for x in r.get('new_reports') or []) or '(none reached us: search the web for anything newer than the brief)'
         a = ask(UPDATE_PROMPT.replace('{today}', today).replace('{project}', json.dumps(pj, ensure_ascii=False))
                 .replace('{previous_date}', (r.get('previous_date') or '')[:10]).replace('{previous}', json.dumps(r['previous'], ensure_ascii=False))
-                .replace('{new_reports}', '\n'.join(json.dumps(x, ensure_ascii=False) for x in r['new_reports'])), 20)
+                .replace('{new_reports}', news), 20)
     else:
         reps = '\n'.join(json.dumps(x, ensure_ascii=False) for x in r.get('reports') or []) or '(none)'
         a = ask(PROMPT.replace('{today}', today).replace('{project}', json.dumps(pj, ensure_ascii=False)).replace('{reports}', reps), 40)
