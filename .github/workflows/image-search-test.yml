@@ -3,13 +3,10 @@ name: image-search-test
 # Diagnostic only: checks that the same-story news photo search (Bing News RSS + article og:image) works from the GitHub runner.
 # Nothing is posted; result goes to branch images/image-test/.
 
+# Manual only since 2026-11-22: the push trigger ran it on every image_search.mjs change and each run hit the
+# 10-minute timeout (cancelled), which showed as a red light on the dashboard.
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - test_image_search.mjs
-      - image_search.mjs
-      - .github/workflows/image-search-test.yml
 
 permissions:
   contents: write
