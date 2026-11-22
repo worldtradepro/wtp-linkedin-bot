@@ -52,14 +52,20 @@ Reply with JSON only, in this shape:
             "main_equipment": "the same for a maker of main equipment or packaged units",
             "materials": "the same for a supplier of pumps, valves, cables and other materials",
             "services": "the same for engineering, inspection, logistics and other services"},
- "questions": [{"key": "the key of an OPEN QUESTION given above", "answered": true, "answer": "the answer in one or two sentences", "source": "https://... the page that answers it", "date": "date of that source",
-                "final": "true when the matter is settled (a decision taken, a contract awarded, a date passed); false when this is only what is known so far and it can still change"}],
+ "key_questions": [{"key": "s1", "answer": "one or two sentences, or empty when no dated public source states it", "source": "https://... the one page that states it", "date": "date of that page",
+                    "final": "true when the matter is settled (a decision taken, a contract awarded, a date passed), else false"}],
  "not_found": ["what you looked for and did not find"],
  "sources": [{"title": "publisher and headline", "url": "https://...", "date": ""}]}
 Give 5 to 15 sources. Leave a list empty rather than fill it with guesses.
-"questions": include an entry only for an OPEN QUESTION that a dated public source answers, in full or in part. Where the
-question shows "known", return an entry only if a source says something NEW or different from it; if nothing changed, leave
-the question out. If there are no open questions, return an empty list.
+"key_questions": one entry for EVERY key question listed above, in the same order, with its key. Research each of them on
+purpose: they are what a sales person asks first. Give what is known so far even when the matter is not settled (for example
+"Not yet. Two groups are doing competing FEEDs; the owner plans to choose in Q2 2027."). Leave "answer" empty only when no
+dated public source states anything on it; never fill it from inference.
+"""
+
+STD = """
+KEY QUESTIONS every brief answers (see "key_questions" in the answer format):
+{std}
 """
 
 QUESTIONS = """
@@ -167,7 +173,7 @@ def answers(pj, brief, qs):
     """A pass of its own for the key questions: asked along with the brief, the model answered only a few of them."""
     global ask_extra
     ask_extra = ''
-    b = {k: brief.get(k) for k in ('summary', 'status', 'stage', 'timeline', 'parties', 'procurement', 'next_steps', 'competitors', 'risks', 'not_found', 'sources')}
+    b = {k: brief.get(k) for k in ('summary', 'status', 'key_questions', 'stage', 'timeline', 'parties', 'procurement', 'next_steps', 'competitors', 'risks', 'not_found', 'sources')}
     v = ask(ANSWER.replace('{today}', datetime.date.today().isoformat()).replace('{project}', json.dumps(pj, ensure_ascii=False))
             .replace('{brief}', json.dumps(b, ensure_ascii=False)).replace('{questions}', chr(10).join(json.dumps(x, ensure_ascii=False) for x in qs)), 30)
     return [x for x in ((v or {}).get('questions') or []) if isinstance(x, dict)]
@@ -215,7 +221,8 @@ def one(r):
     qs = r.get('questions') or []
     qblock = QUESTIONS.replace('{questions}', chr(10).join(json.dumps(x, ensure_ascii=False) for x in qs)) if qs else ''
     global ask_extra
-    ask_extra = ''   # the key questions get a pass of their own after the brief (answers())
+    # the ten standard questions go into every brief; followers' open questions get a pass of their own afterwards (answers())
+    ask_extra = STD.replace('{std}', chr(10).join(json.dumps(x, ensure_ascii=False) for x in r.get('std') or [])) if r.get('std') else ''
     if r.get('previous'):   # an update: a member's redo, new reports, or the daily web check of a followed project
         news = '\n'.join(json.dumps(x, ensure_ascii=False) for x in r.get('new_reports') or []) or '(none reached us: search the web for anything newer than the brief)'
         a = ask(UPDATE_PROMPT.replace('{today}', today).replace('{project}', json.dumps(pj, ensure_ascii=False))
