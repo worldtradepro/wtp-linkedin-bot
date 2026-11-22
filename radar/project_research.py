@@ -61,6 +61,9 @@ Give 5 to 15 sources. Leave a list empty rather than fill it with guesses.
 purpose: they are what a sales person asks first. Give what is known so far even when the matter is not settled (for example
 "Not yet. Two groups are doing competing FEEDs; the owner plans to choose in Q2 2027."). Leave "answer" empty only when no
 dated public source states anything on it; never fill it from inference.
+Write every answer as a plain statement of what the source reports, and name the source in the sentence when it is a news
+report ("Upstream reported in Jun 2026 that three Asian yards will bid."). Never write "I" or "we" and never describe your
+search ("I found no ...", "could not verify"). When sources disagree, give both with their dates.
 """
 
 STD = """
@@ -163,6 +166,9 @@ has "known" when no source says anything NEW or different from it.
 Sources: prefer the owner's or a partner's own page, a regulator, a filing or a development bank over a news article, and
 prefer pages that open without a login.
 Plain English, one or two short sentences per answer.
+Write every answer as a plain statement of what the source reports, and name the source in the sentence when it is a news
+report ("Upstream reported in Jun 2026 that three Asian yards will bid."). Never write "I" or "we" and never describe your
+search ("I found no ...", "could not verify"). When sources disagree, give both with their dates.
 
 Reply with JSON only:
 {"questions": [{"key": "the question's key", "answer": "", "source": "https://... the one page that states it", "date": "date of that page",
