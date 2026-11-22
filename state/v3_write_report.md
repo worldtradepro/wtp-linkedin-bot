@@ -1,5 +1,16 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-21 21:39 UTC - write, model claude-haiku-5-5, rows 10
+{'page unreadable': 3, 'project_only': 2, 'differ': 7, 'full': 5}
+
+- VOC Port Container Terminal Outer Harbour Works (9134) | server None / haiku project_only | differs: owner [ | V O Chidambaranar Port (VOC Port Authority)], value [INR 117332.8 million | INR 117.33 billion], contractors [['Megha Engineering & Infrastructures Ltd (MEIL)'] | ['Megha Engineering and Infrastructures Ltd (MEIL)', 'Adani Ports and Special Economic Zone (APSEZ)', 'Vishwa Samudra Engineering']]
+- WBSEDCL 1,750 MW Renewable Power Supply Contract (9133) | server None / haiku project_only | differs: owner [Adani Energy | West Bengal State Electricity Distribution Co (WBSEDCL), buyer], capacity [1,750 MW | 1,750 MW initial, 2,500 MW with greenshoe option], contractors [['Adani Energy'] | ['Powerpulse Trading Solutions (PTSL)']]
+- Kurmuk Gold Mine (9130) | server None / haiku full | differs: 
+- Swedish e-SAF Electrolyser Project (9129) | server None / haiku full | differs: owner [ | Alby PtX], capacity [200 MW | About 200 MW PEM electrolysis; 66,000 t/yr synthetic SAF], contractors [['Siemens Energy'] | ['Siemens Energy', 'Técnicas Reunidas', 'Topsoe', 'Sasol']]
+- Block 15 Lifespan Extension (9127) | server None / haiku full | differs: owner [ExxonMobil | ExxonMobil (operator, 36%) with Azule Energy and other Block 15 partners], value [ | USD 4 billion]
+- Hallsville Gas Power Plant (9125) | server None / haiku full | differs: capacity [450MW | 450 MW (two gas-fired combustion turbines of about 225 MW each)]
+- US Electric Cooperative Fuel Cell Installation (9124) | server None / haiku full | differs: owner [US electric cooperative (unnamed) | ], capacity [ | 27 MW installed fuel cell capacity, 20 MW rated power], event_type [Equipment/vessel order | Award], contractors [['PowerCell Group (PowerCell Inc.)'] | ['PowerCell Inc.']]
+
 ## 2026-11-21 16:09 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
