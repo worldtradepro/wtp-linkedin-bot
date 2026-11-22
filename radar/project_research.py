@@ -52,18 +52,21 @@ Reply with JSON only, in this shape:
             "main_equipment": "the same for a maker of main equipment or packaged units",
             "materials": "the same for a supplier of pumps, valves, cables and other materials",
             "services": "the same for engineering, inspection, logistics and other services"},
- "questions": [{"key": "the key of an OPEN QUESTION given above", "answered": true, "answer": "the answer in one or two sentences", "source": "https://... the page that answers it", "date": "date of that source"}],
+ "questions": [{"key": "the key of an OPEN QUESTION given above", "answered": true, "answer": "the answer in one or two sentences", "source": "https://... the page that answers it", "date": "date of that source",
+                "final": "true when the matter is settled (a decision taken, a contract awarded, a date passed); false when this is only what is known so far and it can still change"}],
  "not_found": ["what you looked for and did not find"],
  "sources": [{"title": "publisher and headline", "url": "https://...", "date": ""}]}
 Give 5 to 15 sources. Leave a list empty rather than fill it with guesses.
-"questions": include an entry only for an OPEN QUESTION that a dated public source now answers; leave the others out. If there
-are no open questions, return an empty list.
+"questions": include an entry only for an OPEN QUESTION that a dated public source answers, in full or in part. Where the
+question shows "known", return an entry only if a source says something NEW or different from it; if nothing changed, leave
+the question out. If there are no open questions, return an empty list.
 """
 
 QUESTIONS = """
-OPEN QUESTIONS the readers who follow this project want answered. Search for each one specifically (the owner, its partners,
-contractors and suppliers, tender portals, filings, trade and local press). They decide a sale, so do not answer from
-inference: only when a dated source states it.
+OPEN QUESTIONS the readers who follow this project want answered ("known" = what we told them so far). Search for each one
+specifically (the owner, its partners, contractors and suppliers, tender portals, filings, trade and local press). They decide
+a sale, so do not answer from inference: only when a dated source states it. A source that only repeats a rumour counts only
+if you say in the answer who reports it and that it is not confirmed. Never name individual people in an answer.
 {questions}
 """
 
@@ -131,6 +134,39 @@ def ask(prompt, turns):
         return {}
 
 
+CHECK = """You check answers before they are sent to sales people as an alert. Be strict: a wrong alert costs their trust.
+Today is {today}. THE PROJECT: {project}
+
+For each ANSWER below, open its source page and decide:
+1. Does the page itself state the answer? (not an inference, not something from another page)
+2. Is the page about THIS project (same owner, asset and country), not one with a similar name?
+3. Is the date right, and is this the current position rather than old news that later events replaced?
+Keep an answer only when all three hold. If the page cannot be opened, do not keep it.
+
+ANSWERS:
+{answers}
+
+Reply with JSON only: {"keep": ["the keys of the answers that pass"], "dropped": [{"key": "", "why": "one line"}]}
+"""
+
+
+def checked(pj, qs, a):
+    """Second pass: every answer to an open question is checked against its source before the site may alert on it."""
+    keys = {str(q.get('key')) for q in qs}
+    ans = [x for x in (a.get('questions') or []) if isinstance(x, dict) and str(x.get('key')) in keys
+           and str(x.get('answer') or '').strip() and str(x.get('source') or '').startswith('http')]
+    if not ans:
+        return []
+    by = {str(q.get('key')): q.get('q') for q in qs}
+    lines = chr(10).join(json.dumps({'key': x['key'], 'question': by.get(str(x['key'])), 'answer': x['answer'], 'source': x['source'], 'date': x.get('date')}, ensure_ascii=False) for x in ans)
+    global ask_extra
+    ask_extra = ''
+    v = ask(CHECK.replace('{today}', datetime.date.today().isoformat()).replace('{project}', json.dumps(pj, ensure_ascii=False)).replace('{answers}', lines), 5 + 3 * len(ans))
+    keep = {str(k) for k in ((v or {}).get('keep') or [])}   # no verdict (runner trouble, bad JSON): keep none, the question stays open
+    print(f"   answers: {len(ans)} given, {len([x for x in ans if str(x['key']) in keep])} passed the check", flush=True)
+    return [x for x in ans if str(x['key']) in keep]
+
+
 def one(r):
     pj = r.get('project') or {}
     today = datetime.date.today().isoformat()
@@ -150,6 +186,8 @@ def one(r):
         print(f"#{r['id']} project {pj.get('id')} -> not done, stays queued", flush=True)
         return None
     ok = bool(a.get('summary') and a.get('sources'))
+    if ok:
+        a['questions'] = checked(pj, qs, a) if qs else []
     res = pb.site('POST', 'rs-apply', body={'research_id': int(r['id']), 'ok': ok, 'report': a if ok else {}})
     print(f"#{r['id']} project {pj.get('id')} -> {res}", flush=True)   # ids and status only: the repository log is public
     return ok
