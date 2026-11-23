@@ -2833,6 +2833,172 @@
         "infra-3: Tata Steel Kalinganagar H2Gen Hydrogen Unit (photo)",
         "infra-4: H2Datacenter pilot (Datco Chile) (deep card + photo)"
       ]
+    },
+    {
+      "date": "2026-11-23",
+      "deepKind": "pipeline",
+      "search": "brave",
+      "checked": 6,
+      "photos": 3,
+      "deep": 1,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "US Electric Cooperative Fuel Cell Installation",
+          "result": "no PEXELS_API_KEY: Pexels skipped"
+        },
+        {
+          "rank": 2,
+          "project": "Block 15 Lifespan Extension",
+          "result": "photo: news photo (Oil & Gas Journal, ogj.com)"
+        },
+        {
+          "rank": 3,
+          "project": "Kurmuk Gold Mine",
+          "result": "photo: news photo (E & MJ, e-mj.com)"
+        },
+        {
+          "rank": 4,
+          "project": "WBSEDCL 1,750 MW Renewable Power Supply Contract",
+          "result": "not checked"
+        },
+        {
+          "rank": 5,
+          "project": "VOC Port Container Terminal Outer Harbour Works",
+          "result": "photo: news photo (ET Infra, infra.economictimes.indiatimes.com)"
+        },
+        {
+          "rank": 6,
+          "project": "MM-EPIC2 subsea pipeline, power cables and umbilicals project, Qatar",
+          "result": "not checked"
+        },
+        {
+          "rank": 7,
+          "project": "Hindustan Zinc Metal Production Expansion",
+          "result": "not checked"
+        },
+        {
+          "rank": 8,
+          "project": "Jacktel Takeover Bid",
+          "result": "not checked"
+        },
+        {
+          "rank": 9,
+          "project": "Woodside–Trafigura LNG Supply Agreement",
+          "result": "not checked"
+        },
+        {
+          "rank": 10,
+          "project": "Neon Oil Field Phased Development",
+          "result": "not checked"
+        },
+        {
+          "rank": 11,
+          "project": "HPP Kosinj – main civil structures construction and equipment supply",
+          "result": "not checked"
+        },
+        {
+          "rank": 12,
+          "project": "Advantage VLCC Newbuild Pair",
+          "result": "no PEXELS_API_KEY: Pexels skipped"
+        },
+        {
+          "rank": 13,
+          "project": "Track renewal to lift speed restrictions on line 316, Reghin – Târgu Mureș – Luduș, km 249+100–323+400",
+          "result": "not checked"
+        },
+        {
+          "rank": 14,
+          "project": "Extension of Quay 9 and infill of Quay 8 to create a new multipurpose esplanade at the Port of Málaga",
+          "result": "not checked"
+        },
+        {
+          "rank": 15,
+          "project": "ERTMS Level 2 (ETCS/GSM-R or FRMCS) on Ruse–Kaspichan rail section: design, supply, construction, commissioning",
+          "result": "not checked"
+        },
+        {
+          "rank": 16,
+          "project": "Khavda Cluster-01 BESS",
+          "result": "no deep card: value 26.91 billion NOT found in source; capacity found; owner found"
+        },
+        {
+          "rank": 17,
+          "project": "Fengmiao II Offshore Wind Substation",
+          "result": "not checked"
+        },
+        {
+          "rank": 18,
+          "project": "Skandi Africa CSV Charter Extension",
+          "result": "not checked"
+        },
+        {
+          "rank": 19,
+          "project": "West Papua Ammonia-Urea Complex",
+          "result": "not checked"
+        },
+        {
+          "rank": 20,
+          "project": "Railway signalling, lot S&T01: conventional and high-speed sections, ETCS – design, build, maintain",
+          "result": "not checked"
+        },
+        {
+          "rank": 21,
+          "project": "Design, Supply and Installation of Transformers and Equipments for Substation in Southern Region (Saphaothong, Banna and Pakbo)",
+          "result": "not checked"
+        },
+        {
+          "rank": 22,
+          "project": "Spennymoor 400kV",
+          "result": "not checked"
+        },
+        {
+          "rank": 23,
+          "project": "NTPC Battery Storage Project Transformer Order",
+          "result": "deep card (value found in source; owner found)"
+        },
+        {
+          "rank": 24,
+          "project": "Construction of Service Reservoirs, Solar Power Plants and Upgrading of Pumping Stations in Blantyre",
+          "result": "not checked"
+        },
+        {
+          "rank": 25,
+          "project": "Finishing and commissioning of the new Maradit Refrigerated Slaughterhouse (AFRIM)",
+          "result": "not checked"
+        },
+        {
+          "rank": 26,
+          "project": "District-heating 15 MW wood-chip boiler plant – supply and installation",
+          "result": "not checked"
+        },
+        {
+          "rank": 27,
+          "project": "Procurement of Supply, Installation, Operation and Maintenance of Modular Stand-alone Solar PV Systems for 1262 Public Facilities in six(6) lots.",
+          "result": "not checked"
+        },
+        {
+          "rank": 28,
+          "project": "EPC- Restoration of 132 kV GIS Bageshwar Sub-station and its associated line under CERC,U-PREPARE.",
+          "result": "not checked"
+        },
+        {
+          "rank": 29,
+          "project": "Works to rehabilitate 9 dams in 3 lots: Lot 1 - 4 in Assaba; Lot 2 - 3 in Brakna; Lot 3 - 2 in Gorgol",
+          "result": "not checked"
+        },
+        {
+          "rank": 30,
+          "project": "Sea Lion Oil Development",
+          "result": "not checked"
+        }
+      ],
+      "kept": [
+        "infra-1: Block 15 Lifespan Extension (photo)",
+        "infra-2: Kurmuk Gold Mine (photo)",
+        "infra-3: VOC Port Container Terminal Outer Harbour Works (photo)",
+        "infra-4: NTPC Battery Storage Project Transformer Order (deep card + photo)"
+      ]
     }
   ]
 }

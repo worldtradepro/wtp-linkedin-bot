@@ -1,18 +1,6 @@
 {
   "items": [
     {
-      "date": "2026-10-23",
-      "id": "infra-1",
-      "url": "https://images.unsplash.com/photo-1776938437751-33111079b460",
-      "hash": "d46155b414b59f9fb314a600caee4ef5ab007b63"
-    },
-    {
-      "date": "2026-10-23",
-      "id": "infra-2",
-      "url": "https://image.dngroup.com/global/nhst/binary/d6d4492de70dc15c048c04df2b9cc449",
-      "hash": "ca3011734b223ec95083e0802bbf1d61dc9a56b4"
-    },
-    {
       "date": "2026-10-24",
       "id": "infra-1",
       "url": "https://dvzpv6x5302g1.cloudfront.net/AcuCustom/Sitename/DAM/193/EU-Innovation_Main.png",
@@ -233,6 +221,24 @@
       "id": "infra-3",
       "url": "https://images.unsplash.com/photo-1763824391183-931ce7101902",
       "hash": "5be86c79d4a4bffd03c8649643b490267ce10ae4"
+    },
+    {
+      "date": "2026-11-23",
+      "id": "infra-1",
+      "url": "https://img.ogj.com/files/base/ebm/ogj/image/2026/11/6b008638961d6e8b66422427-exxonmobil_angola_image_11202026.png",
+      "hash": "3d3e08428eefe12df386ad69c41bec494ebb1743"
+    },
+    {
+      "date": "2026-11-23",
+      "id": "infra-2",
+      "url": "https://www.e-mj.com/wp-content/uploads/2026/11/2-Kurmuk-Commissioning-1.jpg",
+      "hash": "2aa0a7a4c41450a0d0f75c0d2c56173a67e7503e"
+    },
+    {
+      "date": "2026-11-23",
+      "id": "infra-3",
+      "url": "https://etimg.etb2bimg.com/thumb/msid-136052939,imgsize-911251,width-1200,height=627,overlay-etinfra,resizemode-75/news/ports-shipping/meil-nmdc-unit-tie-up-for-machilipatnam-and-voc-port-outer-harbour-dredging-works.jpg",
+      "hash": "3db776db61ab6bd45d2080f8fef161d5a78012d9"
     }
   ]
 }
