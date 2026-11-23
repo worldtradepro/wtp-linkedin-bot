@@ -352,3 +352,39 @@ Traditional|Oman_Owners|Nama PWP|https://omanpwp.om|5|google_news|"Nama PWP" OR 
 Traditional|Qatar_Owners|Kahramaa|https://www.km.qa|5|google_news
 Media|Gulf_Search|Qatar contract awards (search)|https://news.google.com|3|google_news|(Qatar OR Doha OR "Ras Laffan" OR Mesaieed) (contract OR EPC OR EPCI) (awarded OR awards OR wins OR secures OR signs) when:2d
 Media|Gulf_Search|Oman contract awards (search)|https://news.google.com|3|google_news|(Oman OR Duqm OR Sohar OR Muscat) (contract OR EPC OR EPCI) (awarded OR awards OR wins OR secures OR signs) when:2d
+# ── Other countries without a local / owner source, 2026-11-23 (reports/seo/country_coverage_check_2026-11-22.md):
+#    90-day recall check found only 44 of 120 news awards in our data (Kuwait 1/9, Iraq 0/4, Peru 0/4, Brazil 3/11...).
+#    Option 1 = one contract-award search per country; option 2 = national oil companies / owners by name. ─────────
+Media|Country_Search|Kuwait contract awards (search)|https://news.google.com|3|google_news|(Kuwait OR KOC OR KNPC OR KIPIC) (contract OR EPC OR EPCI) (awarded OR awards OR wins OR secures OR signs) when:2d
+Media|Country_Search|Iraq contract awards (search)|https://news.google.com|3|google_news|(Iraq OR Basra OR Kurdistan OR Kirkuk) (contract OR EPC OR EPCI) (awarded OR awards OR wins OR secures OR signs) when:2d
+Media|Country_Search|Bahrain contract awards (search)|https://news.google.com|3|google_news|(Bahrain OR Bapco) (contract OR EPC) (awarded OR awards OR wins OR secures OR signs) when:2d
+Media|Country_Search|Egypt contract awards (search)|https://news.google.com|3|google_news|Egypt (contract OR EPC) (awarded OR awards OR wins OR secures OR signs) (plant OR project OR pipeline OR power OR solar OR wind OR port OR desalination) when:2d
+Media|Country_Search|Libya contract awards (search)|https://news.google.com|3|google_news|Libya (contract OR EPC) (awarded OR awards OR wins OR secures OR signs) when:2d
+Media|Country_Search|Brazil contract awards (search)|https://news.google.com|3|google_news|(Brazil OR Petrobras) (contract OR EPC OR FPSO) (awarded OR awards OR wins OR secures OR signs) when:2d
+Media|Country_Search|Mexico contract awards (search)|https://news.google.com|3|google_news|(Mexico OR Pemex OR CFE) (contract OR EPC) (awarded OR awards OR wins OR secures OR signs) (plant OR project OR pipeline OR power OR refinery OR LNG) when:2d
+Media|Country_Search|Argentina contract awards (search)|https://news.google.com|3|google_news|(Argentina OR "Vaca Muerta" OR YPF) (contract OR EPC) (awarded OR awards OR wins OR secures OR signs) when:2d
+Media|Country_Search|Peru contract awards (search)|https://news.google.com|3|google_news|Peru (contract OR EPC OR concession) (awarded OR awards OR wins OR secures OR signs) (mine OR power OR transmission OR rail OR port OR pipeline OR project) when:2d
+Media|Country_Search|Chile contract awards (search)|https://news.google.com|3|google_news|(Chile OR Codelco) (contract OR EPC) (awarded OR awards OR wins OR secures OR signs) when:2d
+Media|Country_Search|Kazakhstan contract awards (search)|https://news.google.com|3|google_news|(Kazakhstan OR Tengiz OR Kashagan OR Karachaganak) (contract OR EPC) (awarded OR awards OR wins OR secures OR signs) when:2d
+Media|Country_Search|Indonesia contract awards (search)|https://news.google.com|3|google_news|(Indonesia OR Pertamina OR PLN) (contract OR EPC) (awarded OR awards OR wins OR secures OR signs) (plant OR project OR smelter OR power OR refinery OR LNG) when:2d
+Media|Country_Search|Malaysia contract awards (search)|https://news.google.com|3|google_news|(Malaysia OR Petronas OR Sarawak) (contract OR EPC OR EPCC) (awarded OR awards OR wins OR secures OR bags OR signs) when:2d
+Media|Country_Search|Vietnam contract awards (search)|https://news.google.com|3|google_news|(Vietnam OR PetroVietnam OR EVN) (contract OR EPC) (awarded OR awards OR wins OR secures OR signs) when:2d
+Media|Country_Search|Turkey contract awards (search)|https://news.google.com|3|google_news|(Turkey OR Türkiye OR BOTAS) (contract OR EPC) (awarded OR awards OR wins OR secures OR signs) (plant OR project OR pipeline OR power OR refinery OR port OR rail) when:2d
+Media|Country_Search|Pakistan contract awards (search)|https://news.google.com|3|google_news|Pakistan (contract OR EPC) (awarded OR awards OR wins OR secures OR signs) (plant OR project OR pipeline OR power OR dam OR port OR mine) when:2d
+Media|Country_Search|Mozambique contract awards (search)|https://news.google.com|3|google_news|(Mozambique OR Afungi OR "Rovuma" OR "Coral Norte") (contract OR EPC) (awarded OR awards OR wins OR secures OR signs) when:2d
+Traditional|Country_Owners|Kuwait Oil Company|https://www.kockw.com|5|google_news|"Kuwait Oil Company" OR KNPC OR KIPIC OR "Kuwait Petroleum Corporation" when:2d
+Traditional|Country_Owners|Iraq oil ministry and Basra Oil Company|https://oil.gov.iq|5|google_news|"Basra Oil Company" OR "Iraqi Oil Ministry" OR "Iraq's oil ministry" OR "Iraq oil ministry" when:2d
+Traditional|Country_Owners|Bapco Energies|https://www.bapcoenergies.com|5|google_news
+Traditional|Country_Owners|EGPC and EGAS|https://www.egpc.com.eg|5|google_news|EGPC OR EGAS OR "Egyptian General Petroleum" OR "Egyptian Natural Gas Holding" when:2d
+Traditional|Country_Owners|Libya NOC|https://noc.ly|5|google_news|"National Oil Corporation" Libya (contract OR awarded OR awards OR agreement OR tender OR project OR signs) when:2d
+Traditional|Country_Owners|Petrobras|https://petrobras.com.br|5|google_news
+Traditional|Country_Owners|Pemex and CFE|https://www.pemex.com|5|google_news|Pemex OR "Comision Federal de Electricidad" OR "Federal Electricity Commission" when:2d
+Traditional|Country_Owners|YPF|https://www.ypf.com|5|google_news|YPF (Argentina OR "Vaca Muerta" OR LNG OR pipeline) when:2d
+Traditional|Country_Owners|Codelco|https://www.codelco.com|5|google_news
+Traditional|Country_Owners|KazMunayGas|https://www.kmg.kz|5|google_news|KazMunayGas OR "Samruk-Kazyna" OR "Tengizchevroil" when:2d
+Traditional|Country_Owners|Pertamina and PLN|https://www.pertamina.com|5|google_news|Pertamina OR "PT PLN" OR "PLN Indonesia" when:2d
+Traditional|Country_Owners|Petronas|https://www.petronas.com|5|google_news
+Traditional|Country_Owners|PetroVietnam and EVN|https://www.pvn.vn|5|google_news|PetroVietnam OR "Petrovietnam" OR "Vietnam Electricity" OR "PV Power" OR PTSC when:2d
+Traditional|Country_Owners|BOTAS|https://www.botas.gov.tr|5|google_news|BOTAS OR BOTAŞ OR "Turkish Petroleum" OR TPAO when:2d
+Traditional|Country_Owners|Pakistan energy owners|https://www.ogdcl.com|5|google_news|OGDCL OR WAPDA OR "Pakistan Petroleum" OR "Sui Northern" OR "Reko Diq" when:2d
+Traditional|Country_Owners|Petroperu and Peru agencies|https://www.petroperu.com.pe|5|google_news|Petroperu OR ProInversion OR "Peru LNG" when:2d
