@@ -318,6 +318,12 @@
       "mode": "schedule",
       "at": "2026-11-22T11:37:24.875Z",
       "dueAt": "2026-11-23T13:00:00.000Z"
+    },
+    "cd_natural_rubber_tapping": {
+      "postId": "6b043a230d00264c1a3ca9a8",
+      "mode": "schedule",
+      "at": "2026-11-23T13:05:39.568Z",
+      "dueAt": "2026-11-24T13:00:00.000Z"
     }
   }
 }
