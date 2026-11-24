@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-24",
+  "edition": "weekly",
+  "skip": false,
+  "subject": "US$528m tender: Main civil structures construction and…",
+  "preview": "162 new projects in 60 countries · 31 tenders · 97 awards · 187 trade-flow signals, 14 critical",
+  "counts": {
+    "epc": 162,
+    "tenders": 31,
+    "awards": 97,
+    "flow": 187,
+    "critical": 14,
+    "calls": 9,
+    "calendar": 1,
+    "notes": true,
+    "sectors": [
+      "energy:66",
+      "power:47",
+      "metals:14",
+      "agri:5",
+      "chem:2",
+      "infra:5",
+      "shipping:22",
+      "recycling:1"
+    ]
+  }
+}
