@@ -1,5 +1,22 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-24 02:56 UTC - write, model claude-haiku-5-5, rows 15
+{'page unreadable': 2, 'full': 11, 'differ': 13, 'project_only': 1, 'limited': 1}
+
+- Rajasthan 500 MW Standalone BESS Projects (9409) | server None / haiku full | differs: 
+- Gujarat 600 MWh Battery Storage Project (9407) | server None / haiku full | differs: contractors [['Sterling and Wilson Renewable'] | ['Sterling and Wilson Renewable Energy']]
+- Port Macquarie Maintenance Dredging (9405) | server None / haiku project_only | differs: event_type [Other | Study/FEED]
+- Two VLCC Tanker Newbuild Order (9396) | server None / haiku full | differs: owner [ | Advantage Tankers], capacity [ | 2 x 320,000 DWT], contractors [[] | ['Hanwha Ocean']]
+- M.V. Sarita Naree Long-Term Charter (9395) | server None / haiku full | differs: owner [Precious Shipping | Precious Shipping Public Company Limited]
+- Machilipatnam Greenfield Port Capital Dredging (9392) | server None / haiku full | differs: contractors [['NMDC Dredging & Marine'] | ['NMDC Dredging & Marine', 'Megha Engineering & Infrastructure Limited']]
+- Shipping Corporation of India Fleet Expansion Newbuild Tenders (9390) | server None / haiku full | differs: capacity [up to 22 newbuildings | 22 newbuildings]
+- Nigeria Pipeline (unnamed) (9389) | server None / haiku limited | differs: event_type [Delivery/Commissioning | ]
+- Gambia Renewable Power Plant (9388) | server None / haiku full | differs: owner [Ministry of Petroleum and Energy (Gambia) | Ministry of Petroleum and Energy]
+- Humber Refinery Gasoline-Quality Improvement Project (9386) | server None / haiku full | differs: 
+- Aker Solutions Oil & Gas Letter of Award (9385) | server None / haiku full | differs: owner [Undisclosed oil and gas company | ], value [USD 409 million | ], contractors [['Aker Solutions'] | []]
+- Arabian Drilling KJO Offshore Vessel Contract (9383) | server None / haiku full | differs: capacity [2 vessels | 2 self-propelled offshore vessels]
+- Prince Rupert Gas Transmission (PRGT) Pipeline (9381) | server None / haiku full | differs: owner [NW Infrastructure Limited Partnership (Western LNG and Nisga'a Nation JV) | NW Infrastructure Limited Partnership (joint venture of Western LNG and Nisga'a Nation)]
+
 ## 2026-11-23 20:14 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
