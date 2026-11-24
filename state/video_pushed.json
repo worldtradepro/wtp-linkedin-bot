@@ -324,6 +324,12 @@
       "mode": "schedule",
       "at": "2026-11-23T13:05:39.568Z",
       "dueAt": "2026-11-24T13:00:00.000Z"
+    },
+    "cd_alfalfa_virtual_water": {
+      "postId": "6b04fd2dc43c1f2f5c81a7ea",
+      "mode": "schedule",
+      "at": "2026-11-24T02:57:50.100Z",
+      "dueAt": "2026-11-25T13:00:00.000Z"
     }
   }
 }
