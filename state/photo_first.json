@@ -2999,6 +2999,172 @@
         "infra-3: VOC Port Container Terminal Outer Harbour Works (photo)",
         "infra-4: NTPC Battery Storage Project Transformer Order (deep card + photo)"
       ]
+    },
+    {
+      "date": "2026-11-24",
+      "deepKind": "ranking",
+      "search": "brave",
+      "checked": 5,
+      "photos": 3,
+      "deep": 1,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Aker Solutions Oil & Gas Letter of Award",
+          "result": "photo: news photo (offshore-energy, offshore-energy.biz)"
+        },
+        {
+          "rank": 2,
+          "project": "Two VLCC Tanker Newbuild Order",
+          "result": "no PEXELS_API_KEY: Pexels skipped"
+        },
+        {
+          "rank": 3,
+          "project": "Gambia Renewable Power Plant",
+          "result": "photo: news photo (African Energy, africa-energy.com)"
+        },
+        {
+          "rank": 4,
+          "project": "Machilipatnam Greenfield Port Capital Dredging",
+          "result": "photo: news photo (dredgingtoday, dredgingtoday.com)"
+        },
+        {
+          "rank": 5,
+          "project": "Rajasthan 500 MW Standalone BESS Projects",
+          "result": "not checked"
+        },
+        {
+          "rank": 6,
+          "project": "Natural gas distribution mains: rehabilitation, optimisation and new network construction works",
+          "result": "not checked"
+        },
+        {
+          "rank": 7,
+          "project": "Prince Rupert Gas Transmission (PRGT) Pipeline",
+          "result": "not checked"
+        },
+        {
+          "rank": 8,
+          "project": "Arabian Drilling KJO Offshore Vessel Contract",
+          "result": "deep card (value found in source; owner found)"
+        },
+        {
+          "rank": 9,
+          "project": "Humber Refinery Gasoline-Quality Improvement Project",
+          "result": "not checked"
+        },
+        {
+          "rank": 10,
+          "project": "Shipping Corporation of India Fleet Expansion Newbuild Tenders",
+          "result": "not checked"
+        },
+        {
+          "rank": 11,
+          "project": "M.V. Sarita Naree Long-Term Charter",
+          "result": "not checked"
+        },
+        {
+          "rank": 12,
+          "project": "Gujarat 600 MWh Battery Storage Project",
+          "result": "not checked"
+        },
+        {
+          "rank": 13,
+          "project": "Supply and Installation of Solar Systems to cover Electricity Consumption for Educational Facilities in West Bank.",
+          "result": "not checked"
+        },
+        {
+          "rank": 14,
+          "project": "Reallabor Rheinland – Weisweiler R1 exploration borehole: drilling fluid service",
+          "result": "not checked"
+        },
+        {
+          "rank": 15,
+          "project": "Hindustan Zinc Metal Production Expansion",
+          "result": "not checked"
+        },
+        {
+          "rank": 16,
+          "project": "Jacktel Takeover Bid",
+          "result": "not checked"
+        },
+        {
+          "rank": 17,
+          "project": "Woodside–Trafigura LNG Supply Agreement",
+          "result": "not checked"
+        },
+        {
+          "rank": 18,
+          "project": "Track renewal to lift speed restrictions on line 316, Reghin – Târgu Mureș – Luduș, km 249+100–323+400",
+          "result": "not checked"
+        },
+        {
+          "rank": 19,
+          "project": "Extension of Quay 9 and infill of Quay 8 to create a new multipurpose esplanade at the Port of Málaga",
+          "result": "not checked"
+        },
+        {
+          "rank": 20,
+          "project": "ERTMS Level 2 (ETCS/GSM-R or FRMCS) on Ruse–Kaspichan rail section: design, supply, construction, commissioning",
+          "result": "not checked"
+        },
+        {
+          "rank": 21,
+          "project": "US Electric Cooperative Fuel Cell Installation",
+          "result": "not checked"
+        },
+        {
+          "rank": 22,
+          "project": "Design, Supply and Installation of Transformers and Equipments for Substation in Southern Region (Saphaothong, Banna and Pakbo)",
+          "result": "not checked"
+        },
+        {
+          "rank": 23,
+          "project": "Spennymoor 400kV",
+          "result": "not checked"
+        },
+        {
+          "rank": 24,
+          "project": "ONGC Pipeline Replacement Project X (PRP-X)",
+          "result": "not checked"
+        },
+        {
+          "rank": 25,
+          "project": "Construction of Service Reservoirs, Solar Power Plants and Upgrading of Pumping Stations in Blantyre",
+          "result": "not checked"
+        },
+        {
+          "rank": 26,
+          "project": "Finishing and commissioning of the new Maradit Refrigerated Slaughterhouse (AFRIM)",
+          "result": "not checked"
+        },
+        {
+          "rank": 27,
+          "project": "District-heating 15 MW wood-chip boiler plant – supply and installation",
+          "result": "not checked"
+        },
+        {
+          "rank": 28,
+          "project": "Sea Lion Oil Development",
+          "result": "not checked"
+        },
+        {
+          "rank": 29,
+          "project": "Muntanga Uranium Project",
+          "result": "not checked"
+        },
+        {
+          "rank": 30,
+          "project": "Wyoming Intertie",
+          "result": "not checked"
+        }
+      ],
+      "kept": [
+        "infra-1: Aker Solutions Oil & Gas Letter of Award (photo)",
+        "infra-2: Gambia Renewable Power Plant (photo)",
+        "infra-3: Machilipatnam Greenfield Port Capital Dredging (photo)",
+        "infra-4: Arabian Drilling KJO Offshore Vessel Contract (deep card + photo)"
+      ]
     }
   ]
 }

@@ -1,18 +1,6 @@
 {
   "items": [
     {
-      "date": "2026-10-24",
-      "id": "infra-1",
-      "url": "https://dvzpv6x5302g1.cloudfront.net/AcuCustom/Sitename/DAM/193/EU-Innovation_Main.png",
-      "hash": "9004fb505c119a527293bfa2f2db9285a77af101"
-    },
-    {
-      "date": "2026-10-24",
-      "id": "infra-2",
-      "url": "https://images.unsplash.com/photo-1750074905183-1f8d5e591245",
-      "hash": "3351df81ccf52eed58460e777fcc870bff638814"
-    },
-    {
       "date": "2026-10-27",
       "id": "infra-2",
       "url": "https://atmosrenewables.com.au/wp-content/uploads/2024/09/Parron-site-photo-website-pic-1200x900.jpg",
@@ -239,6 +227,24 @@
       "id": "infra-3",
       "url": "https://etimg.etb2bimg.com/thumb/msid-136052939,imgsize-911251,width-1200,height=627,overlay-etinfra,resizemode-75/news/ports-shipping/meil-nmdc-unit-tie-up-for-machilipatnam-and-voc-port-outer-harbour-dredging-works.jpg",
       "hash": "3db776db61ab6bd45d2080f8fef161d5a78012d9"
+    },
+    {
+      "date": "2026-11-24",
+      "id": "infra-1",
+      "url": "https://www.offshore-energy.biz/api/media/file/_2Fapi_2Fmedia_2Ffile_2Foffshore_maintenance_modifications_Aker_2520Solutions-1600x900.png",
+      "hash": "5599f834ddfc2d59285a7f231e3136f395a03261"
+    },
+    {
+      "date": "2026-11-24",
+      "id": "infra-2",
+      "url": "https://www.africa-energy.com/storage/94044/Soma-substation--Eiffage.jpg",
+      "hash": "bf46535db20b10311ba7ebb12ea928ea9191c07e"
+    },
+    {
+      "date": "2026-11-24",
+      "id": "infra-3",
+      "url": "https://www.dredgingtoday.com/api/media/file/contract%20dredging%20nmdc-1.jpg",
+      "hash": "0b03ea2a23d12affe2f782a41529e10e4ac0d076"
     }
   ]
 }
