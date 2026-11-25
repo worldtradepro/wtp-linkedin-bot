@@ -245,6 +245,24 @@
       "id": "infra-3",
       "url": "https://www.dredgingtoday.com/api/media/file/contract%20dredging%20nmdc-1.jpg",
       "hash": "0b03ea2a23d12affe2f782a41529e10e4ac0d076"
+    },
+    {
+      "date": "2026-11-25",
+      "id": "infra-1",
+      "url": "https://images.unsplash.com/photo-1784914180330-6d6324323a5d",
+      "hash": "dee0faeb757bf99c2e1d0e86a5c0903fcdd2dfe1"
+    },
+    {
+      "date": "2026-11-25",
+      "id": "infra-2",
+      "url": "https://images.unsplash.com/photo-1791221254274-5b35c0c42fd6",
+      "hash": "e8ec78bf8dcaa0f3bd80976a5186a90fdbdb2914"
+    },
+    {
+      "date": "2026-11-25",
+      "id": "infra-4",
+      "url": "https://www.africa-energy.com/storage/94093/LPG_El_Fasher_Central_Gas_Station_Sudan_UNAMID_2012.jpg",
+      "hash": "79e3ac136c1596cbc439493c169c86fee868ce9f"
     }
   ]
 }

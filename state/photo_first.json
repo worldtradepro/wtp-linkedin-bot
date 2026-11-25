@@ -1,63 +1,6 @@
 {
   "days": [
     {
-      "date": "2026-10-26",
-      "search": "brave",
-      "checked": 9,
-      "photos": 0,
-      "candidates": [
-        {
-          "rank": 1,
-          "project": "Era4 AI Data Center Project",
-          "result": "search: 10 results, none on a project party's own website"
-        },
-        {
-          "rank": 2,
-          "project": "Oil and Gas Tenders",
-          "result": "no official page found"
-        },
-        {
-          "rank": 3,
-          "project": "Mechanical, Electrical and DSEAR Services",
-          "result": "no official page found"
-        },
-        {
-          "rank": 4,
-          "project": "BASE ENERGY GHANA LIMITED 300MW solar EPC contract",
-          "result": "search: 10 results, none on a project party's own website"
-        },
-        {
-          "rank": 5,
-          "project": "FGL expansion project in Algeria",
-          "result": "search: 10 results, none on a project party's own website"
-        },
-        {
-          "rank": 6,
-          "project": "Zhangzhou Longhai marine comprehensive utilization project",
-          "result": "official page fdi.swt.fujian.gov.cn: no share picture"
-        },
-        {
-          "rank": 7,
-          "project": "Chongqing Zhaosheng natural gas liquefaction project phase one",
-          "result": "search: 10 results, none on a project party's own website"
-        },
-        {
-          "rank": 8,
-          "project": "Sichuan Ruibai new energy materials electronic chemicals project (phase one)",
-          "result": "search: 10 results, none on a project party's own website"
-        },
-        {
-          "rank": 9,
-          "project": "Reinforcement of reservoir supply in Ankatso, Ambohidempona, and Campus, and installation of two lamellar settlers in Mandroseza II and II bis",
-          "result": "no official page found"
-        }
-      ],
-      "kept": [
-        "infra-1: Era4 AI Data Center Project (fact card)",
-        "infra-2: Oil and Gas Tenders (fact card)"
-      ]
-    },
-    {
       "date": "2026-10-27",
       "search": "brave",
       "checked": 10,
@@ -3164,6 +3107,172 @@
         "infra-2: Gambia Renewable Power Plant (photo)",
         "infra-3: Machilipatnam Greenfield Port Capital Dredging (photo)",
         "infra-4: Arabian Drilling KJO Offshore Vessel Contract (deep card + photo)"
+      ]
+    },
+    {
+      "date": "2026-11-25",
+      "deepKind": "packages",
+      "search": "brave",
+      "checked": 6,
+      "photos": 3,
+      "deep": 1,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Two VLCC Tanker Newbuild Order",
+          "result": "no PEXELS_API_KEY: Pexels skipped"
+        },
+        {
+          "rank": 2,
+          "project": "Engen LNG-to-Power Project",
+          "result": "photo: stock photo (lng tanker)"
+        },
+        {
+          "rank": 3,
+          "project": "Maharashtra 2,000 MW Battery Storage Procurement",
+          "result": "photo: stock photo (battery energy storage system)"
+        },
+        {
+          "rank": 4,
+          "project": "NTT–B.Grimm 400 MW Data Center, Thailand",
+          "result": "deep card (value found in source; capacity found; owner found)"
+        },
+        {
+          "rank": 5,
+          "project": "Transformers – Shunt Reactors",
+          "result": "no PEXELS_API_KEY: Pexels skipped"
+        },
+        {
+          "rank": 6,
+          "project": "Mombasa LPG storage terminal",
+          "result": "photo: news photo (African Energy, africa-energy.com)"
+        },
+        {
+          "rank": 7,
+          "project": "Rajasthan 500 MW Standalone BESS Projects",
+          "result": "not checked"
+        },
+        {
+          "rank": 8,
+          "project": "Demirköprü Dam Floating Solar Plant",
+          "result": "not checked"
+        },
+        {
+          "rank": 9,
+          "project": "Natural gas distribution mains: rehabilitation, optimisation and new network construction works",
+          "result": "not checked"
+        },
+        {
+          "rank": 10,
+          "project": "Geliga Gas Field Development (Eni-Petronas)",
+          "result": "not checked"
+        },
+        {
+          "rank": 11,
+          "project": "Port Macquarie Maintenance Dredging",
+          "result": "not checked"
+        },
+        {
+          "rank": 12,
+          "project": "RWE Hydrogen-Ready Gas Power Plants (3 units)",
+          "result": "not checked"
+        },
+        {
+          "rank": 13,
+          "project": "Korean Offshore Wind Cable Protection Supply",
+          "result": "not checked"
+        },
+        {
+          "rank": 14,
+          "project": "PFLNG Tiga",
+          "result": "not checked"
+        },
+        {
+          "rank": 15,
+          "project": "Ca Na LNG-to-Power Project",
+          "result": "not checked"
+        },
+        {
+          "rank": 16,
+          "project": "Njord Field Hydrone-R subsea drone services",
+          "result": "not checked"
+        },
+        {
+          "rank": 17,
+          "project": "Ravenswood Gold Drilling Contract",
+          "result": "not checked"
+        },
+        {
+          "rank": 18,
+          "project": "Australian Gold Plant Crushing and Sampling",
+          "result": "not checked"
+        },
+        {
+          "rank": 19,
+          "project": "KazAzot Aktau Fertilizer Complex",
+          "result": "not checked"
+        },
+        {
+          "rank": 20,
+          "project": "Danaos Containership Charter Fixtures",
+          "result": "not checked"
+        },
+        {
+          "rank": 21,
+          "project": "Skandi Forza Vessel Sale and Charterback",
+          "result": "not checked"
+        },
+        {
+          "rank": 22,
+          "project": "Cairo Metro Line 1 Metropolis Rolling Stock",
+          "result": "not checked"
+        },
+        {
+          "rank": 23,
+          "project": "Koleje Dolnośląskie Battery-Hydrogen Multiple Units",
+          "result": "not checked"
+        },
+        {
+          "rank": 24,
+          "project": "ICAR Institutes Rooftop Solar (PM Surya Ghar)",
+          "result": "not checked"
+        },
+        {
+          "rank": 25,
+          "project": "Port of Geraldton Berth 1 and Tug Harbor Package",
+          "result": "not checked"
+        },
+        {
+          "rank": 26,
+          "project": "Conception, Fourniture, Installation et Maintenance de Systèmes Solaires Photovoltaïques pour l’électrification de 98 Centres de Santé (CS) dans les régions de Bafatá, Biombo, Bolama, Bubaque, Cacheu, Farim, Gabú, Oio, Quinara, Tombali.",
+          "result": "not checked"
+        },
+        {
+          "rank": 27,
+          "project": "Design and Construction of the Solar Sludge Drying Facility for the Asım Kibar Organized Industrial Zone (AKOSB)",
+          "result": "not checked"
+        },
+        {
+          "rank": 28,
+          "project": "Supply, Installation, Interfacing, Testing & Commissioning of Hardware In Loop Training Simulators for BESS and STATCOM at NKLP Lahore and Jamshoro",
+          "result": "not checked"
+        },
+        {
+          "rank": 29,
+          "project": "Heating plant construction work – CE TKV – System interconnection, hot water storage, air cooler",
+          "result": "not checked"
+        },
+        {
+          "rank": 30,
+          "project": "Mining equipment – Supply of three underground sprinkler vehicles",
+          "result": "not checked"
+        }
+      ],
+      "kept": [
+        "infra-1: Engen LNG-to-Power Project (photo)",
+        "infra-2: Maharashtra 2,000 MW Battery Storage Procurement (photo)",
+        "infra-3: NTT–B.Grimm 400 MW Data Center, Thailand (deep card + photo)",
+        "infra-4: Mombasa LPG storage terminal (photo)"
       ]
     }
   ]
