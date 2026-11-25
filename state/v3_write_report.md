@@ -1,5 +1,35 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-25 00:44 UTC - write, model claude-haiku-5-5, rows 26
+{'full': 25, 'differ': 26, 'project_only': 1}
+
+- Prince Rupert Gas Transmission Pipeline (9588) | server None / haiku full | differs: 
+- Port of Geraldton Berth 1 and Tug Harbor Package (9587) | server None / haiku full | differs: owner [ | Government of Western Australia]
+- NVVN Standalone ISTS-Connected Battery Storage (9586) | server None / haiku full | differs: 
+- ICAR Institutes Rooftop Solar (PM Surya Ghar) (9585) | server None / haiku full | differs: 
+- Maharashtra 2,000 MW Battery Storage Procurement (9584) | server None / haiku full | differs: capacity [2,000 MW/4,000 MWh | 2,000 MW / 4,000 MWh]
+- Bihar Feeder-Level Solarization with Battery Storage (9583) | server None / haiku full | differs: 
+- Demirköprü Dam Floating Solar Plant (9582) | server None / haiku full | differs: capacity [ | 50.25 MWp installed; 35 MW grid export], event_type [Other | Construction start]
+- Koleje Dolnośląskie Battery-Hydrogen Multiple Units (9578) | server None / haiku full | differs: capacity [ | 2 prototype units, with up to 16 units possible]
+- Cairo Metro Line 1 Metropolis Rolling Stock (9577) | server None / haiku full | differs: financiers [[] | ['French government financing']]
+- Geliga Gas Field Development (Eni-Petronas) (9573) | server None / haiku full | differs: owner [Eni; Petronas | Searah (Eni–Petronas joint venture)], capacity [ | Peak 1 bn cubic feet gas and 50,000 bbl condensate per day]
+- Skandi Forza CSV Sale-and-Leaseback (9572) | server None / haiku full | differs: capacity [ | Accommodation for up to 120 people]
+- Skandi Forza Vessel Sale and Charterback (9571) | server None / haiku full | differs: 
+- Danaos Containership Charter Fixtures (9569) | server None / haiku full | differs: event_type [Other | Award], contractors [[] | ['CSSC Huangpu Wenchong Shipyard']]
+- KazAzot Aktau Fertilizer Complex (9567) | server None / haiku full | differs: capacity [ | 660,000 t/y ammonia, 577,500 t/y urea, 395,000 t/y nitric acid, 500,000 t/y ammonium nitrate], contractors [['Técnicas Reunidas'] | ['Técnicas Reunidas', 'Wuhuan Engineering']]
+- Australian Gold Plant Crushing and Sampling (9565) | server None / haiku full | differs: capacity [ | 1,000 t/h]
+- Ravenswood Gold Drilling Contract (9564) | server None / haiku full | differs: capacity [ | 16 drill rigs], contractors [['Blastcon Australia'] | ['Blastcon Australia', 'Roc-Drill']]
+- Mombasa LPG storage terminal (9560) | server None / haiku full | differs: capacity [30,000 tonne | 30,000 tonnes LPG storage], financiers [['International Finance Corporation (World Bank Group)'] | ['World Bank']]
+- Njord Field Hydrone-R subsea drone services (9559) | server None / haiku full | differs: 
+- Mount Ita LNG Dual-Fuel Newcastlemax Charter (9555) | server None / haiku full | differs: 
+- Ca Na LNG-to-Power Project (9552) | server None / haiku full | differs: 
+- PFLNG Tiga (9549) | server None / haiku full | differs: 
+- Korean Offshore Wind Cable Protection Supply (9548) | server None / haiku full | differs: capacity [ | 390 MW]
+- Engen LNG-to-Power Project (9547) | server None / haiku full | differs: value [USD 2.3 billion | ZAR 40 billion], contractors [[] | ['VTTI']]
+- Block 15 Production Extension (9546) | server None / haiku full | differs: owner [ExxonMobil | ExxonMobil and Block 15 partners]
+- NTT–B.Grimm 400 MW Data Center, Thailand (9541) | server None / haiku full | differs: owner [NTT | NTT Global Data Centers; B.Grimm Power], value [ | THB 113 billion], contractors [['B.Grimm'] | []]
+- RWE Hydrogen-Ready Gas Power Plants (3 units) (9539) | server None / haiku project_only | differs: capacity [ | 3 x approx. 800–850 MW], contractors [['Técnicas Reunidas'] | ['Técnicas Reunidas', 'Ansaldo Energia', 'GE Vernova']]
+
 ## 2026-11-24 19:30 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
