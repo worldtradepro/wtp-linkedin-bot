@@ -1,5 +1,34 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-26 00:20 UTC - write, model claude-haiku-5-5, rows 31
+{'page unreadable': 6, 'full': 25, 'differ': 25}
+
+- Adani Kutch Copper Smelter Anode Supply (9786) | server None / haiku full | differs: owner [Adani Group (Kutch Copper) | Adani Group], capacity [ | 500,000 tonnes per year smelter; 24,000 tonnes per year supply]
+- EdgeConneX Pickaway County Gas-Fired Power Plant (9783) | server None / haiku full | differs: owner [ | EdgeConneX], capacity [up to 800 MW | 800 MW]
+- South Africa BESIPPPP Bid Window 4 Battery Storage Tender (9782) | server None / haiku full | differs: 
+- Project Sunflower Fridley Data Center Campus (9779) | server None / haiku full | differs: 
+- Finniss Lithium Restart - First Spodumene Shipment (9773) | server None / haiku full | differs: 
+- Los Verdes Copper-Molybdenum Acquisition (9772) | server None / haiku full | differs: owner [Colibri Resource Corp. | Mining Americas Inc. (formerly Minera Alamos Inc.)]
+- Lach Huyen Container Terminal (9766) | server None / haiku full | differs: owner [PSA Vietnam; Lach Huyen International Logistics & Industrial Park (LHF) | PSA Vietnam and LHF], capacity [4.7 million TEUs per year | 4.7 million TEU per year]
+- Royal Wagenborg EasyMax 2.0 Fleet Renewal (9765) | server None / haiku full | differs: capacity [14,000 dwt per vessel (four vessels) | four 14,000 dwt general cargo vessels], contractors [['Wärtsilä'] | ['Wärtsilä', 'Royal Niestern Sander']]
+- Prince Rupert Gas Transmission Pipeline (9763) | server None / haiku full | differs: owner [ | NW Infrastructure], capacity [ | 50 km offshore section], value [ | EUR 300 million], contractors [['Allseas', 'DEME'] | ['DEME', 'Allseas']]
+- Aramco Offshore Manifold and Pipeline EPCI (9761) | server None / haiku full | differs: 
+- Neda VLCC Newbuild (9760) | server None / haiku full | differs: capacity [303,000 dwt | 303,000 dwt VLCC, one firm vessel plus one option]
+- Bonny Gas Transport LNG Carrier Newbuilds (9759) | server None / haiku full | differs: capacity [174,000 cu m | two 174,000 cu m LNG carriers], contractors [['Hudong-Zhonghua Shipbuilding'] | ['Hudong-Zhonghua Shipbuilding', 'China Shipbuilding Trading']]
+- Shenzhen Energy Kamsarmax Newbuild (9757) | server None / haiku full | differs: value [CNY 296 million | RMB 296 million], event_type [Equipment/vessel order | Award]
+- Nordic Ren-Gas Tampere E-Methane Plant (9756) | server None / haiku full | differs: capacity [ | 190 GWh e-methane]
+- Spain-France Hydrogen Pipeline (BarMar) (9754) | server None / haiku full | differs: owner [BarMar | BarMar S.A.S.]
+- Namibia LNG Import Terminal and CCGT Power Plant (9751) | server None / haiku full | differs: 
+- Virtus Solis Orbital Solar PPA (9750) | server None / haiku full | differs: contractors [['Brae Systems'] | []]
+- UPPCL 125 MW / 500 MWh BESS Tariff (9746) | server None / haiku full | differs: owner [Uttar Pradesh Power Corporation Ltd (UPPCL) | ]
+- Himachal Pradesh FDRE Procurement from SJVN (9745) | server None / haiku full | differs: 
+- Khavda Battery Storage Auction (NGEL) (9744) | server None / haiku full | differs: 
+- Uttar Pradesh Rooftop Solar Proposal (PM Surya Ghar) (9743) | server None / haiku full | differs: value [ | INR 37.5 billion]
+- ACME Odisha Green Ammonia Plant (9742) | server None / haiku full | differs: capacity [760,000 tonnes/year | 760,000 t/y], contractors [[] | ['thyssenkrupp Uhde']]
+- RWE Hydrogen-Ready Gas Power Plants (three units) (9734) | server None / haiku full | differs: capacity [ | approx. 800-850 MW each], value [ | EUR 1.5 billion], event_type [Award | Construction start], contractors [['Técnicas Reunidas'] | ['Técnicas Reunidas (TR Power)']]
+- MOL FSRU Conversion at Mukran (9733) | server None / haiku full | differs: owner [MOL; Deutsche ReGas (operator) | Mitsui O.S.K. Lines (MOL)], event_type [Award | Equipment/vessel order], contractors [['Huarun Dadong', 'Hudong-Zhonghua'] | ['Huarun Dadong Dockyard', 'Hudong-Zhonghua Shipbuilding']]
+- GNL Med Vado Ligure Small-Scale LNG Terminal (9728) | server None / haiku full | differs: 
+
 ## 2026-11-25 18:39 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
