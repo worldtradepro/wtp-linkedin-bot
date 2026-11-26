@@ -342,6 +342,13 @@
       "mode": "schedule",
       "at": "2026-11-26T00:31:52.024Z",
       "dueAt": "2026-11-27T13:00:00.000Z"
+    },
+    "ts_announced_100": {
+      "postId": "6b077df7a791bea1b23cf47f",
+      "mode": "schedule",
+      "at": "2026-11-26T21:03:05.000Z",
+      "dueAt": "2026-11-27T13:00:00.000Z",
+      "note": "swapped in by hand 2026-11-26 (owner): replaces the booked cd_tallow_biofuel post"
     }
   }
 }
