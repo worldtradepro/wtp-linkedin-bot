@@ -1,68 +1,6 @@
 {
   "days": [
     {
-      "date": "2026-10-27",
-      "search": "brave",
-      "checked": 10,
-      "photos": 1,
-      "candidates": [
-        {
-          "rank": 1,
-          "project": "Masdar Solar Project Acquisition",
-          "result": "no official page found"
-        },
-        {
-          "rank": 2,
-          "project": "VLCC Trio Order",
-          "result": "search: 10 results, none on a project party's own website"
-        },
-        {
-          "rank": 3,
-          "project": "Dangote Refinery Financing",
-          "result": "no official page found"
-        },
-        {
-          "rank": 4,
-          "project": "1GW Data Centre with Battery Storage",
-          "result": "no official page found"
-        },
-        {
-          "rank": 5,
-          "project": "Mubbadrah AI Data Center Project",
-          "result": "search: 10 results, none on a project party's own website"
-        },
-        {
-          "rank": 6,
-          "project": "Johor Solar Energy Expansion",
-          "result": "search: 10 results, none on a project party's own website"
-        },
-        {
-          "rank": 7,
-          "project": "Tamil Nadu Solar Power Procurement",
-          "result": "official page now.solar: no share picture"
-        },
-        {
-          "rank": 8,
-          "project": "470-MW Parron Maam Marang Wind Farm",
-          "result": "photo: official photo (owner: Atmos Renewables, atmosrenewables.com.au)"
-        },
-        {
-          "rank": 9,
-          "project": "Ras Markaz Storage Expansion",
-          "result": "no official page found"
-        },
-        {
-          "rank": 10,
-          "project": "ADNOC LNG Export Plant",
-          "result": "no official page found"
-        }
-      ],
-      "kept": [
-        "infra-1: Masdar Solar Project Acquisition (fact card)",
-        "infra-2: 470-MW Parron Maam Marang Wind Farm (photo)"
-      ]
-    },
-    {
       "date": "2026-10-28",
       "search": "brave",
       "checked": 10,
@@ -3273,6 +3211,172 @@
         "infra-2: Maharashtra 2,000 MW Battery Storage Procurement (photo)",
         "infra-3: NTT–B.Grimm 400 MW Data Center, Thailand (deep card + photo)",
         "infra-4: Mombasa LPG storage terminal (photo)"
+      ]
+    },
+    {
+      "date": "2026-11-26",
+      "deepKind": "orderBook",
+      "search": "brave",
+      "checked": 7,
+      "photos": 3,
+      "deep": 1,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Shaanxi Yuneng epoxy resin integrated project (phase I) utilities and auxiliary works",
+          "result": "no PEXELS_API_KEY: Pexels skipped"
+        },
+        {
+          "rank": 2,
+          "project": "Aramco Offshore Manifold and Pipeline EPCI",
+          "result": "deep card (value found in source; owner found)"
+        },
+        {
+          "rank": 3,
+          "project": "Uttar Pradesh Rooftop Solar Proposal (PM Surya Ghar)",
+          "result": "photo: news photo (mercomindia, mercomindia.com)"
+        },
+        {
+          "rank": 4,
+          "project": "Himachal Pradesh FDRE Procurement from SJVN",
+          "result": "not checked"
+        },
+        {
+          "rank": 5,
+          "project": "UPPCL 125 MW / 500 MWh BESS Tariff",
+          "result": "not checked"
+        },
+        {
+          "rank": 6,
+          "project": "Transformers – Shunt Reactors",
+          "result": "no PEXELS_API_KEY: Pexels skipped"
+        },
+        {
+          "rank": 7,
+          "project": "Xiehua relocation and upgrade 500kt synthetic ammonia and downstream project, air separation and boiler unit",
+          "result": "no PEXELS_API_KEY: Pexels skipped"
+        },
+        {
+          "rank": 8,
+          "project": "Dangote refinery and polypropylene unit phase II storage tank project, Nigeria",
+          "result": "photo: stock photo (oil refinery)"
+        },
+        {
+          "rank": 9,
+          "project": "Demirköprü Dam Floating Solar Plant",
+          "result": "photo: news photo (Construction Review, constructionreviewonline.com)"
+        },
+        {
+          "rank": 10,
+          "project": "Shenzhen Energy Kamsarmax Newbuild",
+          "result": "not checked"
+        },
+        {
+          "rank": 11,
+          "project": "Design, Supply, Erection, Installation, Testing & commissioning of grain silo system of total capacity 10,000 MT (4 X 2500 MT) on EPC basis at Latur MIDC, Latur, Taluka Latur, District Latur, Maharashtra State",
+          "result": "not checked"
+        },
+        {
+          "rank": 12,
+          "project": "Works on Farive irrigated perimeter, Imahasoa Est Rural Commune, Betroka District, Anosy Region",
+          "result": "not checked"
+        },
+        {
+          "rank": 13,
+          "project": "Namibia LNG Import Terminal and CCGT Power Plant",
+          "result": "not checked"
+        },
+        {
+          "rank": 14,
+          "project": "Project Sunflower Fridley Data Center Campus",
+          "result": "not checked"
+        },
+        {
+          "rank": 15,
+          "project": "EdgeConneX Pickaway County Gas-Fired Power Plant",
+          "result": "not checked"
+        },
+        {
+          "rank": 16,
+          "project": "Marine patrol vessels – technical consultation on tender for vessel for Faroe Islands",
+          "result": "not checked"
+        },
+        {
+          "rank": 17,
+          "project": "Geliga Gas Field Development (Eni-Petronas)",
+          "result": "not checked"
+        },
+        {
+          "rank": 18,
+          "project": "GNL Med Vado Ligure Small-Scale LNG Terminal",
+          "result": "not checked"
+        },
+        {
+          "rank": 19,
+          "project": "MOL FSRU Conversion at Mukran",
+          "result": "not checked"
+        },
+        {
+          "rank": 20,
+          "project": "Khavda Battery Storage Auction (NGEL)",
+          "result": "not checked"
+        },
+        {
+          "rank": 21,
+          "project": "Bonny Gas Transport LNG Carrier Newbuilds",
+          "result": "not checked"
+        },
+        {
+          "rank": 22,
+          "project": "Neda VLCC Newbuild",
+          "result": "not checked"
+        },
+        {
+          "rank": 23,
+          "project": "Royal Wagenborg EasyMax 2.0 Fleet Renewal",
+          "result": "not checked"
+        },
+        {
+          "rank": 24,
+          "project": "Lach Huyen Container Terminal",
+          "result": "not checked"
+        },
+        {
+          "rank": 25,
+          "project": "Los Verdes Copper-Molybdenum Acquisition",
+          "result": "not checked"
+        },
+        {
+          "rank": 26,
+          "project": "Finniss Lithium Restart - First Spodumene Shipment",
+          "result": "not checked"
+        },
+        {
+          "rank": 27,
+          "project": "South Africa BESIPPPP Bid Window 4 Battery Storage Tender",
+          "result": "not checked"
+        },
+        {
+          "rank": 28,
+          "project": "Adani Kutch Copper Smelter Anode Supply",
+          "result": "not checked"
+        },
+        {
+          "rank": 29,
+          "project": "Development works on irrigated perimeter sites for training young farmers in Diffa and Tahoua regions",
+          "result": "not checked"
+        },
+        {
+          "rank": 30,
+          "project": "Construction work – Steinwerder Süd – cable conduit crossing VE15, HDD drilling",
+          "result": "not checked"
+        }
+      ],
+      "kept": [
+        "infra-1: Aramco Offshore Manifold and Pipeline EPCI (deep card + photo)",
+        "infra-2: Uttar Pradesh Rooftop Solar Proposal (PM Surya Ghar) (photo)",
+        "infra-3: Dangote refinery and polypropylene unit phase II storage tank project, Nigeria (photo)",
+        "infra-4: Demirköprü Dam Floating Solar Plant (photo)"
       ]
     }
   ]
