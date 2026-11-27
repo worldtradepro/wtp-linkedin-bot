@@ -1,5 +1,21 @@
 # v3 extraction on Actions (write)
 
+## 2026-11-27 18:14 UTC - write, model claude-haiku-5-5, rows 20
+{'page unreadable': 8, 'full': 11, 'differ': 12, 'project_only': 1}
+
+- SpaceX Starbase Data Center and Gas Plant (10027) | server None / haiku full | differs: value [USD 24 billion | 24 billion]
+- Western Downs Digital Park (10026) | server None / haiku full | differs: 
+- RESS-6 Solar and Onshore Wind Auction Awards (10023) | server None / haiku full | differs: 
+- Lukoil International Upstream and Downstream Assets (10012) | server None / haiku full | differs: owner [Eldridge consortium | Lukoil PJSC], capacity [ | about 350,000 boe/d]
+- PRGT gas pipeline for Ksi Lisims LNG (10011) | server None / haiku full | differs: 
+- Sloanea gas field and FLNG development (10006) | server None / haiku full | differs: value [USD 1.6 billion | 1.6 billion]
+- Jeanne Baret Plug-in Hybrid Dredger (9998) | server None / haiku full | differs: 
+- Roofsol Battery Energy Storage Development (9995) | server None / haiku full | differs: 
+- Xeldom-Narendra 400 kV Transmission Line (9994) | server None / haiku project_only | differs: capacity [400 kV | 400 kV double-circuit]
+- Helios Gua Musang Solar Supply MoU (9987) | server None / haiku full | differs: owner [Helios Solar | Helios Solar AG], capacity [up to 1GW | 1 GW solar]
+- Capacity Investment Scheme Tender 12 (9984) | server None / haiku full | differs: 
+- Noko Solar Project (9981) | server None / haiku full | differs: contractors [[] | ['Scatec']]
+
 ## 2026-11-26 18:26 UTC - write, model claude-haiku-5-5, rows 0
 {}
 
