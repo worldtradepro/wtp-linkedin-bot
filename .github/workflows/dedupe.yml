@@ -25,3 +25,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python3 dedupe_projects.py
+
+  # 2026-11-27 (owner): the site sometimes refuses GitHub runners for a while (HTTP 403 for 10-30 minutes), and the run gives up.
+  # One more try an hour later from a new runner. The second try is started by workflow_dispatch, which never retries: no loop.
+  retry:
+    needs: run
+    if: ${{ failure() && github.event_name != 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    permissions:
+      actions: write
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sleep 3600
+          gh workflow run dedupe.yml --repo "${{ github.repository }}" --ref "${{ github.ref_name }}"

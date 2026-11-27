@@ -76,3 +76,19 @@ jobs:
           git config user.email "wtp-bot@users.noreply.github.com"
           git add state/radar_tried.json state/radar_brave.json state/radar_report.md || true
           git diff --cached --quiet || (git commit -m "radar state $(date -u +%F)" && git pull --rebase origin ${{ github.ref_name }} && git push origin HEAD:${{ github.ref_name }})
+
+  # 2026-11-27 (owner): the site sometimes refuses GitHub runners for a while (HTTP 403 for 10-30 minutes), and the run gives up.
+  # One more try an hour later from a new runner. The second try is started by workflow_dispatch, which never retries: no loop.
+  retry:
+    needs: run
+    if: ${{ failure() && github.event_name == 'schedule' && vars.RADAR_WRITE_OFF != 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    permissions:
+      actions: write
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sleep 3600
+          gh workflow run radar-enrich.yml --repo "${{ github.repository }}" --ref "${{ github.ref_name }}" -f write=true -f max_rows=${{ vars.RADAR_MAX || '40' }}
