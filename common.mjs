@@ -27,7 +27,9 @@ export const dayShift = (iso, n) => new Date(new Date(iso + 'T00:00:00Z').getTim
 export async function fetchJson(url, tries = 5) {
   for (let i = 0; i < tries; i++) {
     try {
-      const r = await fetch(url, { headers: { 'user-agent': 'wtp-linkedin-bot/1.0', accept: 'application/json' } });
+      // the bypass header lets Cloudflare pass GitHub runners (siteFetch sends it too; 2026-11-27 the daily run failed here without it)
+      const r = await fetch(url, { headers: { 'user-agent': 'wtp-linkedin-bot/1.0', accept: 'application/json', ...(process.env.WTP_CF_BYPASS ? { 'x-wtp-bot': process.env.WTP_CF_BYPASS } : {}) } });
+      if (!r.ok) { const t = (await r.clone().text().catch(() => '')).replace(/\s+/g, ' '); console.warn(`fetchJson ${new URL(url).pathname}: HTTP ${r.status}${r.headers.get('cf-mitigated') ? ' (cloudflare ' + r.headers.get('cf-mitigated') + ')' : /<title>/i.test(t) ? ' (' + ((t.match(/<title>([^<]*)/i) || [])[1] || 'html') + ')' : ''}`); }
       if (!r.ok) throw new Error('HTTP ' + r.status);
       const body = await r.text();
       try { return JSON.parse(body); } catch { throw new Error('not JSON (HTTP ' + r.status + '): ' + body.slice(0, 80).replace(/\s+/g, ' ')); }

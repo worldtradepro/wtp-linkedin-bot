@@ -25,6 +25,7 @@ jobs:
     timeout-minutes: 45
     env:
       WTP_BOT_SECRET: ${{ secrets.WTP_BOT_SECRET }}
+      WTP_CF_BYPASS: ${{ secrets.WTP_CF_BYPASS }}   # 2026-11-27: the run died after 5 failed site API calls from the runner; the other workflows already send this header
       BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
       UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}   # optional: stock photo when an article has no lead picture
       BRAVE_API_KEY: ${{ secrets.BRAVE_API_KEY }}   # pick_official.mjs: search for the project party's own press release (about 10 queries a day)
