@@ -1,1 +1,1 @@
-2026-11-19 re-run: 11-18 publish was refused by Imunify360
+2026-11-27 re-run: 11-26 run failed (site refused the runner)
