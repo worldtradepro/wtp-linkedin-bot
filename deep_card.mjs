@@ -7,6 +7,7 @@ import { readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { isoOf } from './common.mjs';
+import { whoTitle, isWin } from './deep_post.mjs';   // 2026-11-27: the contractor is the subject when it won the work
 import { valueTile, capacityTile, eventTitle, soWhat, stageName, artKey, artSvg, artLabel, locatorSvg } from './fact_card.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -155,17 +156,18 @@ ${timeline.length > 1 ? `<div class="tl">${timeline.slice(0, 5).map((t) => `<div
 // So what. This is the default deep card again; the chart can be the peer ranking or a deep_variants.mjs hero (order book, pipeline, cost per MW),
 // and key dates go into the table as one row. No photo -> country map + sector drawing in the strip.
 export const CTA_TEXT = 'projects like this that match your product, sent the same day on WhatsApp.';
-export function deepBriefHtml(f, { photo = '', photoCredit = '', chart, today, hero, tiles: tilesIn, so: soIn, head: headIn, timeline = [], footnote = '', cta = '' } = {}) {
+export function deepBriefHtml(f, { photo = '', photoCredit = '', chart, today, hero, tiles: tilesIn, so: soIn, head: headIn, timeline = [], footnote = '', cta = '', who = false } = {}) {
   // owner 2026-11-21 ("都加"): every deep card ends with the Project Alerts call to action, not a So what line
   cta = cta || CTA_TEXT;
   if (hero) chart = { title: hero.title, bars: hero.bars.map((b) => ({ ...b, m: b.v })), legend: hero.legend };
   const key = artKey(f.sector, f.subsector, f.name, f.capacity);
   const v = valueTile(f), cap = capacityTile(f), stage = stageName(f.stage);
-  const head = String(eventTitle(f)).replace(/ /g, ' ');
+  const head = String(who ? whoTitle(f) : eventTitle(f)).replace(/ /g, ' ');
   const kicker = [f.subsector || artLabel(key), f.country].filter(Boolean).join(' · ');
   const reported = f.reportDate ? new Date(f.reportDate + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }) : '';
   const dates = timeline.length > 1 ? timeline.slice(0, 3).map((t) => `${t.when} ${t.what}`).join(' · ') : '';
-  const table = [['Owner', f.owner], [f.contractorLabel || 'Contractors', f.contractors && f.contractors !== f.owner ? f.contractors : ''], ['Financing', f.financing],
+  const conRow = [f.contractorLabel || 'Contractors', f.contractors && f.contractors !== f.owner ? f.contractors : ''];
+  const table = [...(who && isWin(f) ? [conRow, ['Client', f.owner]] : [['Owner', f.owner], conRow]), ['Financing', f.financing],
     ['Capacity', f.capacity && f.capacity.length <= 60 ? f.capacity : ''], ['Stage', stage], ['Key dates', dates], ['Location', [f.city, f.country].filter(Boolean).join(', ')]].filter(([, x]) => x).slice(0, 5);
   const sector = (chart?.bySector ? f.sector : f.subsector || f.sector || 'projects');
   const bars = (chart?.bars || []).slice(0, 7), max = Math.max(1, ...bars.map((b) => b.m));

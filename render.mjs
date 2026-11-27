@@ -18,6 +18,8 @@ import { factCardHtml, eventTitle } from './fact_card.mjs';
 import { officialPhoto } from './official_photo.mjs';
 import { deepBriefHtml, trackerRows, chartFor } from './deep_card.mjs';
 import * as variants from './deep_variants.mjs';
+import { deepPostBlocks } from './deep_post.mjs';
+import { THEMES, renderWhoBuilds, whoBuildsPost } from './who_builds.mjs';
 let trackerCache90 = null;
 let trackerCache = null;   // our tracker's last 30 days, fetched once per run for the deep cards' charts
 
@@ -394,6 +396,19 @@ for (const f of files) {
   const out = join(IMG, p.id + '.png');
   const outPhoto = join(IMG, p.id + '.jpg');
   for (const f of [out, outPhoto]) rmSync(f, { force: true });   // a re-run may switch photo <-> card: never leave the old file behind
+  // 2026-11-27 owner: "Who builds X" market card (pick_official.mjs wrote the market and its rows); the post lists the rows the card shows
+  if (p.type === 'whobuilds' && p.market) {
+    const theme = THEMES.find((t) => t.key === p.market.themeKey);
+    const mpage = await ctx.newPage();
+    const shown = await renderWhoBuilds(mpage, { ...p.market, theme }, LOGO, out);
+    await mpage.close();
+    const text = whoBuildsPost(shown, cfg.accounts.infra.ctaLine || '');
+    Object.assign(p, { blocks: [text], text, imagePath: 'images/' + p.id + '.png', imageKind: 'card', excerptFromArticle: false, renderNote: `market card (${theme.key}, ${shown.deals.length} rows)` });
+    writeFileSync(path, JSON.stringify(p, null, 2));
+    report.push({ id: p.id, image: 'card', note: p.renderNote, excerptChars: 0 });
+    console.log(`${p.id}: card (${p.renderNote})`);
+    continue;
+  }
   if (p.card) {   // own-data card: no source article to open
     const cpage = await ctx.newPage();
     await cpage.setViewportSize({ width: 1080, height: 1350 });
@@ -528,10 +543,13 @@ for (const f of files) {
     const hero = k === 'ranking' ? null : k === 'pipeline' ? variants.pipeline(facts, trackerCache) : variants[k]?.(facts, trackerCache90);
     const opts = hero ? { ...hero } : { chart: chartFor(facts, trackerCache, DATE) };
     await page.setViewportSize({ width: 1080, height: 1350 });
-    await drawOwn(page, deepBriefHtml(facts, { ...opts, today: DATE, timeline: variants.timelineOf(facts.keyDates), photo: ph ? 'data:image/jpeg;base64,' + ph.toString('base64') : '', photoCredit: credit }), true);
+    await drawOwn(page, deepBriefHtml(facts, { ...opts, who: cfg.accounts.infra.deepWhoText === true, today: DATE, timeline: variants.timelineOf(facts.keyDates), photo: ph ? 'data:image/jpeg;base64,' + ph.toString('base64') : '', photoCredit: credit }), true);
     await page.evaluate(() => document.fonts.ready);
     await page.screenshot({ path: out, clip: { x: 0, y: 0, width: 1080, height: 1350 } });
     if (ph) { imageCredit = '📷 ' + credit; rmSync(join(IMG, p.officialPhoto.file), { force: true }); }
+    // 2026-11-27 owner ("改深度卡和帖子文字"): the post text is a short brief - hook naming the companies, dated Key facts, Why it matters
+    // switch: accounts.infra.deepWhoText (off until the owner approves; 2026-11-27 he moved on to the market card first)
+    if (cfg.accounts.infra.deepWhoText === true) p.blocks = deepPostBlocks(facts, { rows90: trackerCache90 || [], source: facts.source, flagPrefix: p.headPrefix || '' });
     kind = 'card'; deepDone = true; factCard = false; why = 'deep data card (' + (hero ? k : 'ranking') + (ph ? ', ' + p.officialPhoto.note : ', no photo') + ')' + (p.deepCheck ? '; ' + p.deepCheck : '');
   }
   if (factCard && kind === 'card' && cfg.accounts.infra.officialPhotos !== false) {
@@ -564,7 +582,7 @@ for (const f of files) {
     p.firstComment = (p.firstComment || '').split(old).join(realSource);
   }
   // Infrastructure project headline -> short news-style title (Claude subscription via llm.mjs; falls back to the original on any failure or guard rejection)
-  if (p.type === 'project' && cfg.accounts.infra.aiTitle !== false) {
+  if (p.type === 'project' && !(deepDone && cfg.accounts.infra.deepWhoText === true) && cfg.accounts.infra.aiTitle !== false) {   // deep posts keep their fact-built "who builds" headline
     const base = clean(articleHeadline || p.blocks[0].replace(p.headPrefix || '', '') || p.headline).replace(/^[\s🏗️]+/u, '');
     // a bare type ("Data Center") has nothing to reword: write the title from the post's description instead (2026-10-14)
     const ctx = (p.blocks || []).slice(1).filter((x) => !/^(Source|#)/.test(x)).join(' ');

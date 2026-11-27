@@ -5,6 +5,7 @@
 //   pipeline    - all projects in the same country by stage (last 30 days)                   -> how big the market behind this one is
 //   timeline    - the project's own key dates (FID, financial close, start, completion)      -> when buying happens
 import { usdOf, curCode } from './deep_card.mjs';
+import { sameDeal } from './deep_post.mjs';
 import { stageName } from './fact_card.mjs';
 import { CAPEX_REF, refFor } from './capex_ref.mjs';
 
@@ -22,8 +23,10 @@ const mwOf = (cap) => { const m = /([\d.,]+)\s*(GW|MW)\b/i.exec(cap || ''); if (
 export function orderBook(f, rows90) {
   const con = (f.contractors || '').split(', ')[0];
   if (!con) return null;
-  const wins = dedupe(rows90.filter((r) => parties(r.contractors).some((p) => sameName(p, con))));
-  if (!wins.some((r) => isMe(f, r))) wins.push({ project_name: f.name, country: f.country, value_amount: f.valueAmount, value_unit: f.valueUnit, value_currency: f.valueCurrency });
+  // one bar per deal: the same order often sits in the tracker twice under other names (2026-11-27, Hanwha VLCCs) - deep_post.mjs sameDeal
+  const wins = [{ project_name: f.name, country: f.country, owner: f.owner, value_amount: f.valueAmount, value_unit: f.valueUnit, value_currency: f.valueCurrency }];
+  for (const r of rows90.filter((r) => parties(r.contractors).some((p) => sameName(p, con))).sort((a, b) => String(b.report_date).localeCompare(String(a.report_date))))
+    if (!wins.some((w) => sameDeal(w, r))) wins.push(r);
   if (wins.length < 3) return null;
   const priced = wins.map((r) => ({ r, usd: usdOf(r) })).sort((a, b) => b.usd - a.usd);
   const total = priced.reduce((s, x) => s + x.usd, 0), countries = new Set(wins.map((r) => r.country).filter(Boolean)).size;

@@ -156,6 +156,8 @@ const parties = (v) => { let a = v; if (typeof a === 'string') { try { a = JSON.
   return (Array.isArray(a) ? a : []).map((x) => { const n = clean(typeof x === 'string' ? x : x?.name || ''), r = clean(x?.role || '');
     return { n, role: /\bepc/i.test(r) ? 'EPC' : /builder|shipyard/i.test(r) ? 'builder' : '' }; }).filter((x) => x.n).slice(0, 3); };
 const names = (v) => parties(v).map((x) => x.n).join(', ');
+// the first contractor's role as the source wrote it ("EPCI contractor", "offtaker"): deep posts name only a builder as the subject
+const firstRole = (v) => { let a = v; if (typeof a === 'string') { try { a = JSON.parse(a); } catch { return ''; } } return clean((Array.isArray(a) ? a[0] : null)?.role || ''); };
 function contractorLabel(v) {
   const p = parties(v), roles = [...new Set(p.map((x) => x.role))];
   if (roles.length !== 1 || !roles[0]) return p.length > 1 ? 'Contractors' : 'Contractor';
@@ -165,7 +167,7 @@ export function factsOf(it) {
   return { name: clean(it.project_name), owner: clean(it.owner || '').replace(/\s*\((developer|owner|sponsor|client|operator)\)$/i, ''),   // owner field only: company_name can be a supplier
     country: countryName(it.country), city: clean(it.city || ''), sector: it.sector || '', subsector: it.subsector && it.subsector !== '(unspecified)' ? it.subsector : '',
     stage: it.stage || '', eventType: it.event_type || '', capacity: clean(it.capacity || ''), valueAmount: it.value_amount || '', valueUnit: it.value_unit || '', valueCurrency: ({ '$': 'USD', 'US$': 'USD', '€': 'EUR', '£': 'GBP', '¥': 'CNY', 'RMB': 'CNY', '₹': 'INR' }[String(it.value_currency || '').trim()] || it.value_currency || ''), valueBasis: it.value_basis || '',
-    contractors: names(it.contractors), contractorLabel: contractorLabel(it.contractors), financing: names(it.financiers), reportDate: it.report_date || '', keyDates: it.key_dates || '', scale: clean(it.scale || ''),
+    contractors: names(it.contractors), contractorLabel: contractorLabel(it.contractors), contractorRole: firstRole(it.contractors), financing: names(it.financiers), reportDate: it.report_date || '', keyDates: it.key_dates || '', scale: clean(it.scale || ''),
     // for official_photo.mjs: who is behind the project, and the pages the pipeline linked to it (news source + official references)
     // "Aker BP and Höegh Evi" = two owners; "Phoenix Tailings, Inc." / "X Co., Ltd." = one
     parties: [...clean(it.owner || '').split(/\s*;\s*|\s+and\s+|,\s+(?!(?:inc|ltd|llc|plc|co|corp|s\.?a|ag|gmbh|limited|bhd|berhad)\b\.?)/i).map((n) => (n || '').replace(/[\s,]+$/, '')).filter(Boolean).map((n) => ({ name: n.replace(/\s*\((developer|owner|sponsor|client|operator)\)$/i, ''), role: 'owner' })),
@@ -182,12 +184,13 @@ export const stageName = (s) => STAGE[String(s || '').slice(0, 2)] || String(s |
 const NOUN = { datacenter: 'data centre', solar: 'solar plant', wind: 'wind farm', battery: 'battery storage project', hydrogen: 'hydrogen plant', lng: 'LNG project', oilgas: 'oil and gas project',
   refinery: 'refinery project', gaspower: 'gas-fired power plant', power: 'power project', water: 'water plant', port: 'port project', rail: 'rail project', ship: 'vessels', pipeline: 'pipeline project',
   mine: 'mine', smelter: 'processing plant', silos: 'food processing plant', irrigation: 'irrigation project', fertilizer: 'fertilizer plant', renewables: 'renewable energy project', default: 'project' };
-const shortCo = (n) => { const p = (/\(([A-Za-z0-9&.\- ]{2,10})\)/.exec(n || '') || [])[1]; return p || String(n || '').replace(/\([^)]*\)/g, '').replace(/\b(Co\.?,? )?(Ltd|Limited|LIMITED|PLC|plc|Inc|Corporation|Company|Group|Holdings?|S\.?A\.?|AG|SE|GmbH|LLC|Berhad|Bhd)\b\.?/g, '').replace(/[\s,]+$/, '').trim(); };
+export const shortCo = (n) => { const p = (/\(([A-Za-z0-9&.\- ]{2,10})\)/.exec(n || '') || [])[1]; return p || String(n || '').replace(/\([^)]*\)/g, '').replace(/\b(Co\.?,? )?(Ltd|Limited|LIMITED|PLC|plc|Inc|Corporation|Company|Group|Holdings?|S\.?A\.?|AG|SE|GmbH|LLC|Berhad|Bhd)\b\.?/g, '').replace(/[\s,]+$/, '').trim(); };
 // "Al Mourjan Two Electricity Company awards 2.3 GW gas-fired power plant to Elsewedy Electric PSP" - built from our fields only
 // 2026-11-19: the verb follows the event type (a 15-year data-centre lease was headlined "... data centre awarded"), and a capacity spread over
 // several projects ("934 MW across four new wind and solar projects") is a portfolio, not one plant.
 const fin = (f) => { const a = (f.financing || '').split(', ').filter(Boolean); if (!a.length) return ''; const n = shortCo(a[0]); if (String(f.name || '').toLowerCase().includes(n.toLowerCase())) return ''; return n + (a.length > 1 ? ' and others' : ''); };
-export function eventTitle(f) {
+// what the project is, in a few words: "2.3 GW gas-fired power plant", "Offshore Manifold and Pipeline EPCI" (owner's words removed)
+export function eventWhat(f) {
   const key = artKey(f.sector, f.subsector, f.name, f.capacity);
   const many = /\bacross\b|\bprojects\b|\bportfolio\b|\bplants\b|\bfarms\b|\bsites\b/i.test(f.capacity || '');
   // mining: name the mineral ("15,000 t/y lithium project"), a brine or processing project is not a "mine"
@@ -197,16 +200,20 @@ export function eventTitle(f) {
   const ownerWords = new Set(String(f.owner || '').toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 2));
   const named = String(f.name || '').split(/\s+/).filter((w) => !ownerWords.has(w.toLowerCase().replace(/[^a-z0-9]/g, ''))).join(' ').replace(/\bProject\b/, 'project');
   const namedClean = named.replace(/\b(financing|funding|loan|contract|award|tender|order)\b/gi, '').replace(/\s+/g, ' ').replace(/[\s-]+$/, '').trim();
-  const what = size ? [size, noun].join(' ') : namedClean.length >= 6 && namedClean.length <= 60 ? namedClean : noun, who = shortCo(f.owner?.split(/\s*[,;]\s*/)[0]), con = shortCo((f.contractors || '').split(', ')[0]);
+  return size ? [size, noun].join(' ') : namedClean.length >= 6 && namedClean.length <= 60 ? namedClean : noun;
+}
+export function eventTitle(f) {
+  const key = artKey(f.sector, f.subsector, f.name, f.capacity);
+  const what = eventWhat(f), who = shortCo(f.owner?.split(/\s*[,;]\s*/)[0]), con = shortCo((f.contractors || '').split(', ')[0]);
   const where = '', s = String(f.stage || '').slice(0, 2), ev = f.eventType || '';
   if (ev === 'FID') return `${who || 'Owner'} takes FID on ${what}`;
   if (ev === 'Financing') return who ? `${who} secures financing for ${what}${fin(f) ? ' from ' + fin(f) : ''}` : `Financing closed for ${what}${fin(f) ? ' from ' + fin(f) : ''}`;
-  if (ev === 'Construction start') return `Construction starts on ${who ? who + "'s " : ''}${what}`;
+  if (ev === 'Construction start') return `Construction starts on ${who ? (/s$/.test(who) ? who + "' " : who + "'s ") : ''}${what}`;
   if (ev === 'Permit/Approval') return `${who ? who + ' wins approval for' : 'Approval for'} ${what}`;
   if (ev === 'Offtake/Supply agreement') return `${who || 'Owner'} signs ${key === 'datacenter' ? 'long-term deal' : 'offtake deal'} for ${what}`;
   if (ev === 'Acquisition/Sale') return `${who || 'Buyer'} acquires ${what}`;
-  if (ev === 'Delivery/Commissioning') return `${who ? who + "'s " : ''}${what} enters service`;
-  if (ev === 'Study/FEED') return con ? `${who || 'Owner'} picks ${con} for FEED on ${what}` : `FEED under way on ${who ? who + "'s " : ''}${what}`;
+  if (ev === 'Delivery/Commissioning') return `${who ? (/s$/.test(who) ? who + "' " : who + "'s ") : ''}${what} enters service`;
+  if (ev === 'Study/FEED') return con ? `${who || 'Owner'} picks ${con} for FEED on ${what}` : `FEED under way on ${who ? (/s$/.test(who) ? who + "' " : who + "'s ") : ''}${what}`;
   if (ev === 'Renewal/Extension') return `${who || 'Owner'} extends contract on ${what}${con ? ' with ' + con : ''}`;
   if (ev === 'Equipment/vessel order' || key === 'ship') return s === 'S5' && con ? `${who || 'Owner'} orders ${what} from ${con}` : `${who ? who + ': ' : ''}${f.name}`;
   if (ev === 'Tender') return `${who ? who + ' tenders' : 'Tender out for'} ${what}`;

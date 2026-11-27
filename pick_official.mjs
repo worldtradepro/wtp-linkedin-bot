@@ -15,6 +15,7 @@ import { closeOcr, pictureWords, isLogoShot } from './image_search.mjs';
 import { stockPhoto } from './stock_photo.mjs';
 import { deepScore, checkAgainstSource, trackerRows, chartFor } from './deep_card.mjs';
 import { pickHero } from './deep_variants.mjs';
+import { pickTheme } from './who_builds.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -27,7 +28,7 @@ const BUDGET_MS = (A.photoSearchMinutes || 20) * 60000;   // the whole step; eac
 const files = existsSync(DIR) ? readdirSync(DIR).filter((f) => f.endsWith('.json')) : [];
 const cands = files.map((f) => JSON.parse(readFileSync(join(DIR, f), 'utf8'))).filter((p) => p.candidate).sort((a, b) => a.candidate - b.candidate);
 if (!cands.length) { console.log('No candidate project posts (photo first is off): nothing to do.'); process.exit(0); }
-const N = A.projectsPerDay;
+let N = A.projectsPerDay;
 
 // same 30-day "image already used" memory as render.mjs
 const IMG_STATE = join(HERE, 'state', 'images_used.json');
@@ -46,6 +47,20 @@ const DEEP = A.deepPerDay ?? 1;
 const sameSlot = (a, b) => a.meta.sector === b.meta.sector && a.meta.country === b.meta.country;
 const TRACKER = await trackerRows(cfg.site, process.env.WTP_BOT_SECRET, DATE);
 const TRACKER90 = await trackerRows(cfg.site, process.env.WTP_BOT_SECRET, DATE, 90);
+// 2026-11-27 owner ("每周 2–3 次", "其他时间还是发单个项目卡"): on marketCardDays (UTC weekdays, default Mon/Wed/Fri) the first slot is a
+// "Who builds X" market card (who_builds.mjs: one market, several builders, from our verified awards of the last 30 days); the other slots
+// stay single project cards. Not enough data for any market -> a normal day. The last two markets used are skipped.
+const SUM_PREV = (() => { try { return JSON.parse(readFileSync(join(HERE, 'state', 'photo_first.json'), 'utf8')).days || []; } catch { return []; } })();
+const MARKET_DAYS = A.marketCardDays ?? [1, 3, 5];
+const market = MARKET_DAYS.includes(new Date(DATE + 'T00:00:00Z').getUTCDay())
+  ? pickTheme(TRACKER90, DATE, { avoid: SUM_PREV.filter((d) => d.date < DATE && d.market).slice(-2).map((d) => d.market) }) : null;
+if (market) {
+  N = Math.max(1, N - 1);
+  const post = { account: 'infra', type: 'whobuilds', id: 'infra-market', scheduledAtUtc: `${DATE}T${A.slotsUtc[0]}:00Z`, headline: market.theme.title,
+    market: { themeKey: market.theme.key, deals: market.deals, all: market.all, from: market.from, today: market.today }, image: 'card', sourceUrl: null, sourceName: '', blocks: [], text: '', meta: {} };
+  writeFileSync(join(DIR, post.id + '.json'), JSON.stringify(post, null, 2));
+  console.log(`Market card today: "${market.theme.title}" (${market.all.length} contracts, ${new Set(market.all.flatMap((d) => d.builders)).size} builders); ${N} project posts`);
+} else if (MARKET_DAYS.includes(new Date(DATE + 'T00:00:00Z').getUTCDay())) console.log('Market card day, but no market has enough awards this month: project posts only');
 // yesterday's chart kind, so two days in a row do not show the same kind of chart
 const PREV_KIND = (() => { try { const d = JSON.parse(readFileSync(join(HERE, 'state', 'photo_first.json'), 'utf8')).days || []; return d.filter((x) => x.date < DATE).slice(-1)[0]?.deepKind || ''; } catch { return ''; } })();
 async function tryDeep(p) {
@@ -99,7 +114,7 @@ await browser.close();
 const kept = [...deep, ...hits].sort((a, b) => a.candidate - b.candidate);
 for (const f of files) { const p = JSON.parse(readFileSync(join(DIR, f), 'utf8')); if (p.candidate) rmSync(join(DIR, f)); }
 kept.forEach((p, k) => {
-  const slot = A.slotsUtc[k % A.slotsUtc.length];
+  const slot = A.slotsUtc[(k + (market ? 1 : 0)) % A.slotsUtc.length];   // the market card has the first slot
   Object.assign(p, { id: `infra-${k + 1}`, scheduledAtUtc: `${DATE}T${slot}:00Z` });
   p.rank = p.candidate; delete p.candidate;
   writeFileSync(join(DIR, p.id + '.json'), JSON.stringify(p, null, 2));
@@ -112,7 +127,7 @@ writeFileSync(STATE_FILE, JSON.stringify({ urls: [...new Set([...used, ...kept.m
 // one line per day in the repo (committed by the "Save state" step): CI step logs need a GitHub login, this file does not
 const SUM_FILE = join(HERE, 'state', 'photo_first.json');
 const days = (existsSync(SUM_FILE) ? JSON.parse(readFileSync(SUM_FILE, 'utf8')).days || [] : []).filter((d) => d.date !== DATE).slice(-29);
-days.push({ date: DATE, deepKind: deep[0]?.deepKind || '', search: process.env.BRAVE_API_KEY ? 'brave' : 'duckduckgo', checked: cands.filter((p) => p.officialChecked).length, photos: hits.length, deep: deep.length,
+days.push({ date: DATE, market: market?.theme.key || '', deepKind: deep[0]?.deepKind || '', search: process.env.BRAVE_API_KEY ? 'brave' : 'duckduckgo', checked: cands.filter((p) => p.officialChecked).length, photos: hits.length, deep: deep.length,
   candidates: cands.map((p) => ({ rank: p.candidate ?? p.rank, project: p.headline, result: p.deep ? 'deep card (' + p.deepCheck + ')' : p.officialPhoto ? 'photo: ' + p.officialPhoto.note : p.deepCheck && !p.officialChecked ? 'no deep card: ' + p.deepCheck : p.officialChecked ? (p.photoNote || 'no official page found') : 'not checked' })),
   kept: kept.map((p) => `${p.id}: ${p.headline} (${p.deep ? 'deep card' + (p.officialPhoto ? ' + photo' : '') : p.officialPhoto ? 'photo' : 'fact card'})`) });
 writeFileSync(SUM_FILE, JSON.stringify({ days }, null, 2));
