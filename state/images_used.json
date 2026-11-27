@@ -1,12 +1,6 @@
 {
   "items": [
     {
-      "date": "2026-10-27",
-      "id": "infra-2",
-      "url": "https://atmosrenewables.com.au/wp-content/uploads/2024/09/Parron-site-photo-website-pic-1200x900.jpg",
-      "hash": "880a8c7e6d747f93c44f9af2fda0c9f1236e7cdb"
-    },
-    {
       "date": "2026-10-31",
       "id": "infra-1",
       "url": "http://www.alliantenergy.com/-/media/alliant/images/alliantenergynews/wood-co-bess--web.jpg",
@@ -281,6 +275,24 @@
       "id": "infra-4",
       "url": "https://constructionreviewonline.com/wp-content/uploads/2026/11/Turkey-Floating-Solar-Plant-.jpg",
       "hash": "25c19988394033ffe7126ad109d2a6fcc7a9fd30"
+    },
+    {
+      "date": "2026-11-27",
+      "id": "infra-1",
+      "url": "https://d382rz2cea0pah.cloudfront.net/wp-content/uploads/2026/10/Gavel-2.jpg",
+      "hash": "960938e8b3044baf1ae1e0f0801f5fccbb166c07"
+    },
+    {
+      "date": "2026-11-27",
+      "id": "infra-2",
+      "url": "https://images.unsplash.com/photo-1635174815475-1c624f86808b",
+      "hash": "3f35c8fa2e5f8431efa3f4d26e12fe3b316fd155"
+    },
+    {
+      "date": "2026-11-27",
+      "id": "infra-3",
+      "url": "https://images.unsplash.com/photo-1789371755246-aa52c80574d5",
+      "hash": "c2b1ae6c5a27d039bde795e5153d7e591d4ee9b3"
     }
   ]
 }
