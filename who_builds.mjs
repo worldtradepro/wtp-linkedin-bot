@@ -7,7 +7,10 @@ import { isoOf } from './common.mjs';
 
 const clean = (s) => String(s || '').replace(/\s+/g, ' ').trim();
 const esc = (s) => clean(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const co = (s) => shortCo(s).replace(/(\s+(Co|S|S\.A)\.?)+$/, '').replace(/\s+(joint venture|consortium|JV)$/i, ' JV').replace(/\s+(Shipbuilding|Shipyard|Dockyard|Industries|Group|Holdings?)$/i, '').replace(/[\s,]+$/, '').trim();
+// keep the suffix when the rest would not name the company ("China State Shipbuilding" -> not "China State")
+const KEEP_SUFFIX = /^(China|Korea|Japan|India|National|State|China State|General|United|International)$/i;
+const co = (s) => { const base = shortCo(s).replace(/(\s+(Co|S|S\.A)\.?)+$/, '').replace(/\s+(joint venture|consortium|JV)$/i, ' JV').replace(/[\s,]+$/, '').trim();
+  const cut = base.replace(/\s+(Shipbuilding|Shipyard|Dockyard|Industries|Group|Holdings?)$/i, '').trim(); return KEEP_SUFFIX.test(cut) ? base : cut; };
 const unnamed = (s) => !s || /\b(unnamed|undisclosed|unknown|not named)\b/i.test(s);
 const place = (c) => (c && !/^(unknown|global|international|various|worldwide)$/i.test(c) ? c : '');
 const parties = (v) => { let a = v; if (typeof a === 'string') { try { a = JSON.parse(a); } catch { a = []; } } return Array.isArray(a) ? a : []; };
@@ -43,7 +46,7 @@ function deals(rows, theme, from) {
   const out = [];
   for (const r of rows) {
     if (String(r.report_date) < from || /\b(charter|CCS|carbon capture|drilling|rigs?)\b/i.test(r.project_name) || !String(r.stage || '').startsWith('S5') || NOT_BUILD_EVENT.test(r.event_type || '') || !theme.test(r)) continue;
-    const b = parties(r.contractors).filter((x) => x?.name && BUILDER.test(x.role || '') && !NOT_BUILDER.test(x.role || '')).map((x) => co(x.name)).filter((n) => n && !unnamed(n));
+    const b = parties(r.contractors).filter((x) => x?.name && BUILDER.test(x.role || '') && !NOT_BUILDER.test(x.role || '')).map((x) => co(x.name)).filter((n) => n && n.length > 2 && !/^[a-z]/.test(n) && !unnamed(n));
     if (!b.length) continue;
     const owner = co(String(r.owner || '').split(/\s*[,;]\s*/)[0]);
     const d = { builders: [...new Set(b)].slice(0, 2), project: clean(r.project_name), client: unnamed(owner) ? 'Unnamed owner' : owner, country: place(r.country), date: r.report_date, usd: usd(r), source: clean(r.source_name), key_dates: r.key_dates };
@@ -70,7 +73,7 @@ export function pickTheme(rows, today, { avoid = '', days = 30 } = {}) {
   return opts[0] ? { theme: opts[0].t, deals: opts[0].d.slice(0, 8), all: opts[0].d, from, today } : null;
 }
 
-export function whoBuildsHtml(pick, logo) {
+export function whoBuildsTableHtml(pick, logo) {
   const { theme, deals: rows, all, today } = pick;
   const total = all.reduce((s, d) => s + d.usd, 0), priced = all.filter((d) => d.usd).length;
   const builders = [...new Set(rows.flatMap((d) => d.builders))];
@@ -136,16 +139,148 @@ export function whoBuildsPost(pick, ctaLine = '') {
   return [lead, ['Key facts', ...facts].join('\n'), ['Why it matters', why].join('\n'), 'Details and sources on the card. Counts and sums: World Trade Pro project tracker.', ctaLine, tags].filter(Boolean).join('\n\n');
 }
 
-// render, dropping the oldest rows until the card fits 1350 px (keeps at least 4)
+// Card v2 (owner 2026-11-28 '学习一下他的设计感' -> '换新版'): layout learned from a "Mozambique: the global race for gas"
+// infographic - two-level headline with a yellow ribbon, series kicker, world MAP as the hero (client countries filled,
+// flag pills in two side columns with arcs to the pins), one highlight panel, icon KPI strip, red numbers. Pins = CLIENT
+// country (we do not hold builders' home countries). The old table card stays as whoBuildsTableHtml.
+const SHORT = { 'United Kingdom': 'UK', 'United States': 'USA', 'United States of America': 'USA', 'United Arab Emirates': 'UAE', 'Saudi Arabia': 'Saudi Arabia' };
+const TITLE = { floatlng: ['FLOATING LNG:', 'WHO WON THE HULLS'], tankers: ['NEW TANKERS:', 'WHO WON THE ORDERS'], ships: ['NEW SHIPS:', 'WHO WON THE ORDERS'],
+  offshoreog: ['OFFSHORE OIL & GAS:', 'WHO WON THE WORK'], lng: ['LNG:', 'WHO WON THE WORK'], offwind: ['OFFSHORE WIND:', 'WHO WON THE WORK'],
+  ports: ['PORTS & TERMINALS:', 'WHO WON THE WORK'], power: ['POWER & GRIDS:', 'WHO WON THE WORK'] };
+// accent per market (the reference takes its colours from the subject)
+const ACCENT = { floatlng: '#0e7490', tankers: '#1d4ed8', ships: '#1d4ed8', offshoreog: '#0f766e', lng: '#0e7490', offwind: '#15803d', ports: '#b45309', power: '#7c3aed' };
+const ICON = {
+  doc: '<svg viewBox="0 0 48 48" fill="none" stroke="#0b1626" stroke-width="3" stroke-linejoin="round"><path d="M12 4h17l9 9v31H12z"/><path d="M29 4v9h9M18 22h14M18 29h14M18 36h9"/></svg>',
+  coin: '<svg viewBox="0 0 48 48" fill="none" stroke="#0b1626" stroke-width="3"><ellipse cx="24" cy="12" rx="15" ry="6"/><path d="M9 12v8c0 3.3 6.7 6 15 6s15-2.7 15-6v-8M9 20v8c0 3.3 6.7 6 15 6s15-2.7 15-6v-8M9 28v8c0 3.3 6.7 6 15 6s15-2.7 15-6v-8"/></svg>',
+  globe: '<svg viewBox="0 0 48 48" fill="none" stroke="#0b1626" stroke-width="3"><circle cx="24" cy="24" r="19"/><path d="M5 24h38M24 5c6 6 6 32 0 38M24 5c-6 6-6 32 0 38"/></svg>',
+};
+
+export function whoBuildsHtml(pick, logo) {
+  const { theme, all } = pick;
+  const acc = ACCENT[theme.key] || '#0f766e';
+  const [t1, t2] = TITLE[theme.key] || [theme.title.toUpperCase(), ''];
+  // one pill per client country (several deals in one country share a pill)
+  const byC = new Map();
+  for (const d of all) { if (!d.country) continue; if (!byC.has(d.country)) byC.set(d.country, []); byC.get(d.country).push(d); }
+  const pills = [...byC.entries()].slice(0, 8).map(([c, ds]) => ({ c, iso: isoOf(c).toLowerCase(), lines: ds.slice(0, 2).map((d) => ({ b: d.builders[0], cl: d.client, v: d.usd ? money(d.usd) : '' })) }));
+  const total = all.reduce((s, d) => s + d.usd, 0), priced = all.filter((d) => d.usd).length;
+  const big = all.some((d) => d.usd) ? [...all].sort((a, b) => b.usd - a.usd)[0] : all[0];
+  const cnt = {}; all.forEach((d) => d.builders.forEach((b) => (cnt[b] = (cnt[b] || 0) + 1)));
+  const top = Object.entries(cnt).sort((a, b) => b[1] - a[1])[0];
+  const names = [...new Set(all.flatMap((d) => d.builders))].slice(0, 4);
+  const so = `${theme.buys} usually go through ${names.slice(0, -1).join(', ')} and ${names.at(-1)}. Get on their vendor lists.`;
+  const srcs = [...new Set(all.map((d) => d.source).filter(Boolean))].slice(0, 5).join(', ');
+  return `<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800;1,900&family=IBM+Plex+Sans:wght@500;600;700&display=block" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0b1626;--acc:${acc};--red:#d62828;--gold:#f5c518;--cream:#fdf8ec}
+body{width:1080px;height:1350px;background:#fff;font-family:'IBM Plex Sans',sans-serif;color:var(--ink);position:relative;overflow:hidden}
+.top{display:flex;align-items:center;gap:26px;padding:34px 44px 0}
+.lg{background:#0f2d5e;border-radius:10px;padding:8px 14px;flex:none}.lg img{height:46px;display:block}
+.bar{width:3px;height:120px;background:var(--ink);flex:none}
+h1{font:900 100px/.86 'Barlow Condensed';letter-spacing:-.01em}
+.rib{display:inline-block;margin-top:8px;background:var(--gold);padding:4px 26px 2px 18px;transform:skewX(-10deg);font:italic 900 52px/1 'Barlow Condensed';color:var(--ink)}
+.rib span{display:inline-block;transform:skewX(10deg)}
+.kick{display:flex;align-items:center;gap:16px;margin:20px 44px 0;font:italic 600 22px 'IBM Plex Sans';color:#33445e}
+.kick:before,.kick:after{content:'';flex:1;height:2px;background:var(--red)}
+.kick b{font-weight:700;color:var(--ink)}
+#map{position:absolute;left:0;top:262px;width:1080px;height:560px}
+.pill{position:absolute;width:212px;background:#fff;border-radius:12px;box-shadow:0 3px 10px rgba(11,22,38,.18);border:1.5px solid #d9e2ea;overflow:visible}
+.pill .tab{display:flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border-radius:999px;margin:-14px 10px 0 -8px;padding:3px 14px 3px 4px;font:800 21px/1 'Barlow Condensed';letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
+.pill .tab img{width:30px;height:30px;border-radius:50%;object-fit:cover;border:2px solid #fff}
+.pill .ln{padding:6px 12px 0;text-align:center}.pill .ln:last-child{padding-bottom:8px}
+.pill .ln b{display:block;font:800 23px/1.05 'Barlow Condensed'}
+.pill .ln small{display:block;font:500 15px/1.2 'IBM Plex Sans';color:#4a5a72}.pill .ln small i{font-style:normal;color:var(--red);font-weight:700}
+.key{position:absolute;left:44px;right:44px;top:836px;background:var(--cream);border:2px solid #ead9a8;border-radius:16px;display:grid;grid-template-columns:1fr 2px 1fr;padding:30px 0 20px}
+.key .lb{position:absolute;left:-2px;top:-22px;background:var(--acc);color:#fff;font:900 28px/1 'Barlow Condensed';padding:9px 26px 7px;border-radius:12px 12px 12px 0;letter-spacing:.03em}
+.key .sep{background:var(--ink)}
+.key div.c{padding:0 26px;font:600 22px/1.25 'IBM Plex Sans'}
+.key div.c em{display:inline-block;background:var(--red);color:#fff;font:italic 900 22px/1 'Barlow Condensed';padding:5px 14px;border-radius:8px;transform:skewX(-8deg);margin-bottom:8px;letter-spacing:.03em}
+.key b.n{font:900 50px/1 'Barlow Condensed';color:var(--red)}
+.kp{position:absolute;left:44px;right:44px;top:1066px;display:grid;grid-template-columns:repeat(3,1fr);border-top:2px dotted #9aa7b8;padding-top:20px}
+.kp div{display:flex;align-items:center;gap:14px;padding:0 18px;border-left:2px solid #c9d2dc}.kp div:first-child{border-left:0;padding-left:0}
+.kp svg{width:52px;height:52px;flex:none}
+.kp b{font:900 60px/.9 'Barlow Condensed';color:var(--red)}
+.kp span{font:600 18px/1.15 'IBM Plex Sans'}
+.so{position:absolute;left:0;right:0;top:1160px;background:var(--ink);color:#fff;padding:20px 44px 20px 60px;font:700 27px/1.18 'Barlow Condensed'}
+.so:before{content:'';position:absolute;left:0;top:0;bottom:0;width:16px;background:var(--gold)}
+.so b{color:var(--gold)}
+.ft{position:absolute;left:44px;right:44px;bottom:16px;display:flex;justify-content:space-between;gap:18px;font:500 13.5px/1.35 'IBM Plex Sans';color:#5a6a82}
+.ft div:last-child{text-align:right;min-width:260px}.ft b{color:#0f2d5e}
+</style></head><body>
+<div class="top"><div class="lg"><img src="${logo}"></div><div class="bar"></div><div><h1>${esc(t1)}</h1>${t2 ? `<div class="rib"><span>${esc(t2)}</span></div>` : ''}</div></div>
+<div class="kick"><span><b>Who Builds</b> | Market spotlight — contracts awarded ${esc(day(pick.from))} – ${esc(day(pick.today))}</span></div>
+<svg id="map"></svg>
+<div id="pills"></div>
+<div class="key"><div class="lb">BIGGEST AWARDS</div>
+<div class="c"><em>${big.usd ? 'LARGEST PUBLISHED' : 'LATEST AWARD'}</em><br><b>${esc(big.builders[0])}</b> for ${esc(big.client.length > 22 ? big.client.split(' ').slice(0, 2).join(' ') : big.client)}<br><b class="n">${big.usd ? money(big.usd) : esc(day(big.date))}</b><br><span style="font-size:18px;color:#4a5a72">${esc(big.project.length > 52 ? big.project.slice(0, 50).replace(/\s+\S*$/, '') + '…' : big.project)}</span></div>
+<div class="sep"></div>
+${top[1] > 1 ? `<div class="c"><em>MOST NAMED BUILDER</em><br><b>${esc(top[0])}</b><br><b class="n">${top[1]}</b> <span style="font-size:22px">contracts</span><br><span style="font-size:18px;color:#4a5a72">in this market, last 30 days</span></div>` : `<div class="c"><em>NO ONE BUILDER LEADS</em><br><b class="n">${Object.keys(cnt).length}</b> <span style="font-size:22px">different builders</span><br><span style="font-size:18px;color:#4a5a72">split the ${all.length} contracts</span></div>`}</div>
+<div class="kp"><div>${ICON.doc}<b>${all.length}</b><span>contracts in our tracker</span></div>
+<div>${ICON.coin}<b>${priced ? money(total) : Object.keys(cnt).length}</b><span>${priced ? `published value<br>of ${priced} deals` : 'builders named'}</span></div>
+<div>${ICON.globe}<b>${byC.size}</b><span>client<br>countries</span></div></div>
+<div class="so"${so.length > 150 ? ' style="font-size:23px"' : so.length > 125 ? ' style="font-size:25px"' : ''}><b>SO WHAT:</b> ${esc(so)}</div>
+<div class="ft"><div>Sources: ${esc(srcs)}; World Trade Pro project tracker (verified contract awards; values as published; our sums).</div><div><b>Own infographic © World Trade Pro Research</b><br>Share with credit · worldtradepro.com</div></div>
+<script>
+{
+const PILLS = ${JSON.stringify(pills.map((p) => ({ ...p, short: SHORT[p.c] || p.c })))};
+const FIX = { Qatar: [51.2, 25.3], Singapore: [103.8, 1.35], Bahrain: [50.55, 26.07], 'United States': [-98, 39], 'Hong Kong': [114.2, 22.3], Malta: [14.4, 35.9] };
+const ALIAS = { 'United States': 'United States of America', 'Czech Republic': 'Czechia', 'South Korea': 'South Korea', 'Ivory Coast': "Côte d'Ivoire" };
+(async () => {
+  const topo = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json').then((r) => r.json());
+  const land = topojson.feature(topo, topo.objects.countries);
+  const W = 1080, H = 560, svg = d3.select('#map').attr('viewBox', '0 0 ' + W + ' ' + H);
+  const proj = d3.geoNaturalEarth1().fitExtent([[120, 0], [960, 560]], { type: 'Sphere' });
+  const path = d3.geoPath(proj);
+  const hit = new Set(PILLS.map((p) => ALIAS[p.c] || p.c));
+  const defs = svg.append('defs');
+  const g = defs.append('linearGradient').attr('id', 'sea').attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', 1);
+  g.append('stop').attr('offset', 0).attr('stop-color', '#eef6f5'); g.append('stop').attr('offset', 1).attr('stop-color', '#ffffff');
+  svg.append('path').datum({ type: 'Sphere' }).attr('d', path).attr('fill', 'url(#sea)');
+  svg.append('g').selectAll('path').data(land.features).join('path').attr('d', path)
+    .attr('fill', (f) => (hit.has(f.properties.name) ? '${acc}' : '#a9cfc6')).attr('stroke', '#fff').attr('stroke-width', 0.6);
+  // pin per pill
+  const pts = PILLS.map((p) => { const f = land.features.find((x) => x.properties.name === (ALIAS[p.c] || p.c)); const ll = FIX[p.c] || (f ? d3.geoCentroid(f) : null); return ll ? { ...p, xy: proj(ll) } : null; }).filter(Boolean);
+  // pills in two side columns (west half left, east half right), each column ordered by latitude, like the reference
+  const L = pts.filter((p) => p.xy[0] < W / 2).sort((a, b) => a.xy[1] - b.xy[1]), R = pts.filter((p) => p.xy[0] >= W / 2).sort((a, b) => a.xy[1] - b.xy[1]);
+  const byX = (a, b) => a.xy[0] - b.xy[0];
+  while (L.length > 4) { L.sort(byX); R.push(L.pop()); } while (R.length > 4) { R.sort(byX); L.push(R.shift()); }
+  L.sort((a, b) => a.xy[1] - b.xy[1]); R.sort((a, b) => a.xy[1] - b.xy[1]);
+  const box = document.getElementById('pills'); const lines = svg.append('g');
+  const place = (col, x) => { let y = 262 + 34; const els = []; col.forEach((p, i) => {
+    const el = document.createElement('div'); el.className = 'pill';
+    el.innerHTML = '<div class="tab">' + (p.iso ? '<img src="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/1x1/' + p.iso + '.svg">' : '') + p.short + '</div>' +
+      p.lines.map((l) => '<div class="ln"><b>' + l.b + '</b><small>for ' + l.cl + (l.v ? ' · <i>' + l.v + '</i>' : '') + '</small></div>').join('');
+    box.appendChild(el);
+    el.style.left = x + 'px'; el.style.top = y + 'px'; y += el.getBoundingClientRect().height + 26; els.push([el, p]); });
+    if (y > 262 + 560 + 10) { y = 262 + 34; els.forEach(([el, p]) => { const ln = el.querySelectorAll('.ln'); if (ln.length > 1) { ln[1].innerHTML = '<small>+ ' + (p.lines.length - 1) + ' more</small>'; } el.style.top = y + 'px'; y += el.getBoundingClientRect().height + 26; }); }
+    const gap = Math.max(0, (262 + 560 - y) / (els.length + 1)); let k = 1;
+    els.forEach(([el, p]) => { el.style.top = (parseFloat(el.style.top) + gap * k++) + 'px';
+    const r = el.getBoundingClientRect(); const ax = x < W / 2 ? r.right : r.left, ay = r.top + r.height / 2 - 262;
+    const [px, py] = p.xy;
+    lines.append('path').attr('d', 'M' + ax + ',' + ay + ' Q' + (ax + px) / 2 + ',' + (Math.min(ay, py) - 40) + ' ' + px + ',' + py)
+      .attr('fill', 'none').attr('stroke', '#e0a800').attr('stroke-width', 3).attr('stroke-linecap', 'round');
+    lines.append('circle').attr('cx', px).attr('cy', py).attr('r', 9).attr('fill', '#fff').attr('stroke', '${acc}').attr('stroke-width', 4);
+    lines.append('circle').attr('cx', ax).attr('cy', ay).attr('r', 5).attr('fill', '#e0a800');
+  }); };
+  place(L, 30); place(R, 1080 - 30 - 212);
+  window.done = true;
+})();
+}
+</script>
+</body></html>`;
+}
+
+// render the map card (waits for the map script); returns the pick with the deals the card shows, for the post text
 export async function renderWhoBuilds(page, pick, logo, out) {
-  let p = { ...pick };
-  for (;;) {
-    await page.setViewportSize({ width: 1080, height: 1350 });
-    await page.setContent(whoBuildsHtml(p, logo), { waitUntil: 'networkidle' }); await page.evaluate(() => document.fonts.ready);
-    const h = await page.evaluate(() => document.body.scrollHeight);
-    if (h <= 1350 || p.deals.length <= 4) break;
-    p = { ...p, deals: p.deals.slice(0, -1) };
-  }
+  await page.setViewportSize({ width: 1080, height: 1350 });
+  await page.setContent(whoBuildsHtml(pick, logo), { waitUntil: 'networkidle' });
+  await page.waitForFunction(() => window.done === true, null, { timeout: 45000 });
+  await page.evaluate(() => document.fonts.ready);
   await page.screenshot({ path: out, clip: { x: 0, y: 0, width: 1080, height: 1350 } });
-  return p;   // the rows actually shown (the post text lists the same ones)
+  const shownC = [...new Set(pick.all.map((d) => d.country).filter(Boolean))].slice(0, 8);
+  return { ...pick, deals: pick.all.filter((d) => shownC.includes(d.country)).slice(0, 8) };
 }
