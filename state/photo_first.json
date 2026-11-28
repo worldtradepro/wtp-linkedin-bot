@@ -1,68 +1,6 @@
 {
   "days": [
     {
-      "date": "2026-10-29",
-      "search": "brave",
-      "checked": 10,
-      "photos": 0,
-      "candidates": [
-        {
-          "rank": 1,
-          "project": "Southern Railway Project",
-          "result": "no official page found"
-        },
-        {
-          "rank": 2,
-          "project": "PGE 400 MW Project",
-          "result": "search: 10 results, none on a project party's own website"
-        },
-        {
-          "rank": 3,
-          "project": "Bulker Order for Mineral Transport",
-          "result": "official page zijinmining.com: no share picture"
-        },
-        {
-          "rank": 4,
-          "project": "Gigawatt-scale Data Center Project",
-          "result": "search: 10 results, none on a project party's own website"
-        },
-        {
-          "rank": 5,
-          "project": "Bangladesh Underground Metro Rail Project",
-          "result": "no official page found"
-        },
-        {
-          "rank": 6,
-          "project": "Power Generation Order for AI Computing",
-          "result": "no official page found"
-        },
-        {
-          "rank": 7,
-          "project": "Battery Procurement",
-          "result": "search: 10 results, none on a project party's own website"
-        },
-        {
-          "rank": 8,
-          "project": "Renewable Energy and Storage Plant Tender",
-          "result": "no official page found"
-        },
-        {
-          "rank": 9,
-          "project": "580 MW Projects Equipment Order",
-          "result": "no official page found"
-        },
-        {
-          "rank": 10,
-          "project": "Jamnagar Desalination Plant",
-          "result": "search: 10 results, none on a project party's own website"
-        }
-      ],
-      "kept": [
-        "infra-1: Southern Railway Project (fact card)",
-        "infra-2: PGE 400 MW Project (fact card)"
-      ]
-    },
-    {
       "date": "2026-10-30",
       "search": "brave",
       "checked": 10,
@@ -3481,6 +3419,173 @@
         "infra-2: Design, Supply, Erection, Installation, Testing & commissioning of grain silo system of total capacity 10,000 MT (4 X 2500 MT) on EPC basis at Latur MIDC, Latur, Taluka Latur, District Latur, Maharashtra State (photo)",
         "infra-3: Namibia LNG Import Terminal and CCGT Power Plant (photo)",
         "infra-4: Adani Kutch Copper Smelter Anode Supply (deep card + photo)"
+      ]
+    },
+    {
+      "date": "2026-11-28",
+      "market": "",
+      "deepKind": "packages",
+      "search": "brave",
+      "checked": 7,
+      "photos": 3,
+      "deep": 1,
+      "candidates": [
+        {
+          "rank": 1,
+          "project": "Tashan Phase III 2x1000 MW coal-fired power project, Shanxi",
+          "result": "photo: stock photo (coal mine)"
+        },
+        {
+          "rank": 2,
+          "project": "Railway construction – Track superstructure of AV/AC line and interconnections – track lot",
+          "result": "photo: stock photo (freight train)"
+        },
+        {
+          "rank": 3,
+          "project": "Sloanea gas field and FLNG development",
+          "result": "picture is padded with blurred sides, cannot fill a card"
+        },
+        {
+          "rank": 4,
+          "project": "Electricity power line construction – Linear construction works",
+          "result": "no PEXELS_API_KEY: Pexels skipped"
+        },
+        {
+          "rank": 5,
+          "project": "Lagoon sediment placement along Malamocco-Marghera Canal – 1st stage works (concession contract)",
+          "result": "not checked"
+        },
+        {
+          "rank": 6,
+          "project": "Distribution transformers – Supply of 22 kV distribution transformers",
+          "result": "no PEXELS_API_KEY: Pexels skipped"
+        },
+        {
+          "rank": 7,
+          "project": "Helios Gua Musang Solar Supply MoU",
+          "result": "photo: stock photo (solar farm)"
+        },
+        {
+          "rank": 8,
+          "project": "Roofsol Battery Energy Storage Development",
+          "result": "deep card (value found in source; owner found)"
+        },
+        {
+          "rank": 9,
+          "project": "Western Downs Digital Park",
+          "result": "not checked"
+        },
+        {
+          "rank": 10,
+          "project": "Noko Solar Project",
+          "result": "not checked"
+        },
+        {
+          "rank": 11,
+          "project": "Capacity Investment Scheme Tender 12",
+          "result": "not checked"
+        },
+        {
+          "rank": 12,
+          "project": "Xeldom-Narendra 400 kV Transmission Line",
+          "result": "not checked"
+        },
+        {
+          "rank": 13,
+          "project": "Jeanne Baret Plug-in Hybrid Dredger",
+          "result": "not checked"
+        },
+        {
+          "rank": 14,
+          "project": "PRGT gas pipeline for Ksi Lisims LNG",
+          "result": "not checked"
+        },
+        {
+          "rank": 15,
+          "project": "RESS-6 Solar and Onshore Wind Auction Awards",
+          "result": "not checked"
+        },
+        {
+          "rank": 16,
+          "project": "SpaceX Starbase Data Center and Gas Plant",
+          "result": "not checked"
+        },
+        {
+          "rank": 17,
+          "project": "CONSTRUCTION OF SOLAR-POWERED POULTRY FARM ESTATE",
+          "result": "not checked"
+        },
+        {
+          "rank": 18,
+          "project": "Spare parts for hydraulic mine roof supports for PGG S.A. divisions – group 295-2",
+          "result": "not checked"
+        },
+        {
+          "rank": 19,
+          "project": "Gas pipeline diagnostics with instrumented pigs (divided into 12 parts) II",
+          "result": "not checked"
+        },
+        {
+          "rank": 20,
+          "project": "Pipeline-inspection services – Inspection of gas low-pressure pipeline",
+          "result": "not checked"
+        },
+        {
+          "rank": 21,
+          "project": "Libiąż B wastewater treatment plant: BIO-waste processing with biogas for high-efficiency cogeneration",
+          "result": "not checked"
+        },
+        {
+          "rank": 22,
+          "project": "Ships – Procurement of 1 survey vessel and transport trailer",
+          "result": "not checked"
+        },
+        {
+          "rank": 23,
+          "project": "Oil and gas industry services – Geophysical measurement services for 3 years – 2026",
+          "result": "not checked"
+        },
+        {
+          "rank": 24,
+          "project": "Two VLCC Tanker Newbuild Order",
+          "result": "not checked"
+        },
+        {
+          "rank": 25,
+          "project": "UPPCL 125 MW / 500 MWh BESS Tariff",
+          "result": "not checked"
+        },
+        {
+          "rank": 26,
+          "project": "Transformers – Shunt Reactors",
+          "result": "not checked"
+        },
+        {
+          "rank": 27,
+          "project": "Rajasthan 500 MW Standalone BESS Projects",
+          "result": "not checked"
+        },
+        {
+          "rank": 28,
+          "project": "Shenzhen Energy Kamsarmax Newbuild",
+          "result": "not checked"
+        },
+        {
+          "rank": 29,
+          "project": "Works on Farive irrigated perimeter, Imahasoa Est Rural Commune, Betroka District, Anosy Region",
+          "result": "not checked"
+        },
+        {
+          "rank": 30,
+          "project": "Natural gas distribution mains: rehabilitation, optimisation and new network construction works",
+          "result": "not checked"
+        }
+      ],
+      "kept": [
+        "infra-1: Tashan Phase III 2x1000 MW coal-fired power project, Shanxi (photo)",
+        "infra-2: Railway construction – Track superstructure of AV/AC line and interconnections – track lot (photo)",
+        "infra-3: Helios Gua Musang Solar Supply MoU (photo)",
+        "infra-4: Roofsol Battery Energy Storage Development (deep card + photo)"
       ]
     }
   ]
